@@ -1,3 +1,11 @@
+nvidia-graphics-drivers (1.0.8178-0bpo1) sarge-backports; urgency=low
+
+  * Rebuilt for sarge.
+  * Removed version from debhelper build-dependency.
+  * Reduced debian/compat.
+
+ -- Norbert Tretkowski <nobse@debian.org>  Wed,  4 Jan 2006 16:59:35 +0100
+
 nvidia-graphics-drivers (1.0.8178-1) unstable; urgency=low
 
   * Upload to archive.
