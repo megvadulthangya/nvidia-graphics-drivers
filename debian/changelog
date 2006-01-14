@@ -1,3 +1,16 @@
+nvidia-graphics-drivers-legacy (1.0.7174-2) unstable; urgency=low
+
+  * Correct diversions. 
+
+ -- Randall Donald <rdonald@debian.org>  Fri, 13 Jan 2006 20:20:30 -0800
+
+nvidia-graphics-drivers-legacy (1.0.7174-1) unstable; urgency=low
+
+  * New legacy packages (finally!!)
+  * Include patch regarding Unknown symbol register_ioctl32_conversion
+
+ -- Randall Donald <rdonald@debian.org>  Sat,  7 Jan 2006 16:27:16 -0800
+
 nvidia-graphics-drivers (1.0.8178-1) unstable; urgency=low
 
   * Upload to archive.

@@ -1,4 +1,4 @@
-nvidia-graphics-drivers for Debian
+nvidia-graphics-drivers-legacy for Debian
 ----------------------------------
 
 
@@ -12,7 +12,7 @@ kernel module interface for the NVIDIA driver offering.
 KERNEL MODULE INSTRUCTIONS:
 -----------------------------------------------------------------------
 
-There are TWO ways to build the nvidia-kernel package. Which one depends on
+There are TWO ways to build the nvidia-kernel-legacy package. Which one depends on
 your situation with your kernel.
 
  METHOD #1: You are running a Debian suppiled kernel or built a 
@@ -58,10 +58,10 @@ METHOD #1 Using a linux-headers or kernel-headers package
 
 As root (or using fakeroot)
 1. cd /usr/src 
-   tar xzvf nvidia-kernel-source.tar.gz -C <YOUR BUILD LOCATION>         
+   tar xzvf nvidia-kernel-legacy-source.tar.gz -C <YOUR BUILD LOCATION>         
    (It will install in <YOU BUILD LOCATION>/modules) 
    - or -
-   tar xzvf nvidia-kernel-source.tar.gz  (if building in /usr/src) 
+   tar xzvf nvidia-kernel-legacy-source.tar.gz  (if building in /usr/src) 
    
    The standard build location is /usr/src
    
@@ -98,7 +98,7 @@ deployed:
    
 7. Install the nvidia-kernel package:
 	    		     
-   dpkg -i ../nvidia-kernel-2.6.14-2-k7_1.0.8178-1+_.Custom_i386.deb
+   dpkg -i ../nvidia-kernel-legacy-2.6.14-2-k7_#VERSION#-1+_.Custom_i386.deb
    ( or similar filename )
 
 Now see GENERAL NOTES below method #2
@@ -111,10 +111,10 @@ kernel-package installed, then do the following:
 
 As root
 1. cd /usr/src
-   tar xzvf nvidia-kernel-source.tar.gz -C <YOUR BUILD LOCATION>         
+   tar xzvf nvidia-kernel-legacy-source.tar.gz -C <YOUR BUILD LOCATION>         
    (It will install in <YOU BUILD LOCATION>/modules) 
    - or -
-   tar xzvf nvidia-kernel-source.tar.gz  (if building in /usr/src) 
+   tar xzvf nvidia-kernel-legacy-source.tar.gz  (if building in /usr/src) 
 
 2. If you are NOT using the default modules location /usr/src/modules
    then you must set an environment variable that points to your modules
@@ -135,10 +135,10 @@ installed:
 
    apt-get install nvidia-kernel-common
 
-5. Install the nvidia-kernel package:
+5. Install the nvidia-kernel-legacy package:
      
      cd <YOUR BUILD LOCATION>    (e.g. /usr/src)
-     dpkg -i nvidia-kernel-KVER*.deb
+     dpkg -i nvidia-kernel-legacy-KVER*.deb
 
 Notes for method #2: 
 
@@ -165,7 +165,7 @@ do 'rmmod nvidia.o' to remove the module from memory.
 
 
 For any news on this package check http://people.debian.org/~rdonald and
-http://bugs.debian.org/nvidia-kernel-source
+http://bugs.debian.org/nvidia-kernel-legacy-source
 
 
  -- Randall Donald <rdonald@debian.org>, Fri, 30 Apr 2004 19:02:04 -0700
