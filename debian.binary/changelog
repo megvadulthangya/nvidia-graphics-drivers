@@ -1,3 +1,17 @@
+nvidia-kernel-legacy (1.0.7174-3) unstable; urgency=low
+
+  * Add Replaces: nvidia-kernel-#KVERS# (<< 1.0.7664-0) to
+  the kernel modules. (closes: #354756)
+  * THIS RELEASE IS STILL NOT 2.6.16 COMPATIBLE 
+  (Sorry I thought I should get out an xorg7 compatible version asap)
+  * Change to Xorg7 file layout. 
+  * Provide xserver-xorg-video (closes:#364935)
+  * depend on x11-common. (closes: #362235)
+  * current strip is failling on in nvidia libs, so temporarily take out
+  dh_strip
+
+ -- Randall Donald <rdonald@debian.org>  Sat, 20 May 2006 14:45:33 -0700
+
 nvidia-kernel-legacy (1.0.7174-2) unstable; urgency=low
 
   * Correct diversions. 
