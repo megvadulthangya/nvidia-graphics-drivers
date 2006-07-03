@@ -37,8 +37,10 @@ Description: NVIDIA binary XFree86 4.x driver (legacy version)
  
 Package: nvidia-glx-legacy-dev
 Architecture: i386 amd64
-Conflicts: nvidia-glx-dev
-Depends: nvidia-glx-legacy (>= #VERSION#), xlibmesa-gl-dev | libgl-dev
+Conflicts: nvidia-glx-dev, libgl-dev, libgl-dev, mesa-common-dev
+Replaces: libgl-dev
+Provides: libgl-dev
+Depends: nvidia-glx-legacy (>= #VERSION#)
 Description: NVIDIA binary XFree86 4.x driver development files
  This package contains the NVIDIA binary XFree86 4.x / Xorg driver
  development files.

@@ -53,15 +53,15 @@ configure-stamp: version-clean $(AUTOGEN)
 	dh_testdir
 
 	./${filename} --extract-only
-	if test -d $(CURDIR)/patches; \
-	then \
-		pwd; \
-		ls -al; \
-		cd $(dirname)/usr/src/nv; \
-		for i in $(CURDIR)/patches/*; \
-			do patch -p3 <$$i; \
-		done; \
-	fi
+#	if test -d $(CURDIR)/patches; \
+#	then \
+#		pwd; \
+#		ls -al; \
+#		cd $(dirname)/usr/src/nv; \
+#		for i in $(CURDIR)/patches/*; \
+#			do patch -p3 <$$i; \
+#		done; \
+#	fi
 
 	sed 's/^nvidia-graphics-drivers-legacy/nvidia-kernel-legacy/g'  debian/changelog > debian.binary/changelog
 
@@ -137,16 +137,16 @@ install: build-stamp build-kernel-stamp
 
 
 
-	# move gl headers into /usr/share so we can use the mesa headers
+	
 	install -m 0644 $(dirname)/usr/include/GL/gl.h \
-		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/share/nvidia/include/GL
+		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
 	install -m 0644 $(dirname)/usr/include/GL/glxtokens.h \
-		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/share/nvidia/include/GL
+		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
 
 	install -m 0644 $(dirname)/usr/include/GL/glx.h \
-		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/share/nvidia/include/GL
+		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
 	install -m 0644 $(dirname)/usr/include/GL/glxtokens.h \
-		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/share/nvidia/include/GL
+		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
 
 	install -m 0644 $(dirname)/usr/lib/libGL.so.${version} \
 			$(CURDIR)/debian/nvidia-glx-legacy/usr/lib
