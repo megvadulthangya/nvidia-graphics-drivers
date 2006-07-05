@@ -33,14 +33,14 @@ case "$1" in
 	
 
 
-	rm -f /usr/X11R6/lib/modules/extensions/libglx.so.1.0.7174 2> /dev/null || true
+	#rm -f /usr/X11R6/lib/modules/extensions/libglx.so.1.0.7174 2> /dev/null || true
 	if [ -d /usr/lib/nvidia ]; then
 		rmdir /usr/lib/nvidia/ || true;
 	fi
-	if [ -d /usr/X11R6/lib/nvidia ]; then	
-		rmdir /usr/X11R6/lib/nvidia || true;
+	#if [ -d /usr/X11R6/lib/nvidia ]; then	
+	#	rmdir /usr/X11R6/lib/nvidia || true;
 
-	fi
+	#fi
 	ldconfig
 		
     ;;

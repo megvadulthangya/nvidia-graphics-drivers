@@ -27,17 +27,20 @@ case "$1" in
 #	dpkg-divert --remove --rename --package nvidia-glx-legacy --divert /usr/X11R6/lib/nvidia/libGL.so.xlibmesa /usr/X11R6/lib/libGL.so > /dev/null
 	
 
+        dpkg-divert --remove --rename --package nvidia-glx-legacy --divert /usr/lib/nvidia/libGLcore.a.xlibmesa /usr/lib/xorg/modules/extensions/libGLcore.a > /dev/null
+	dpkg-divert --remove --rename --package nvidia-glx-legacy --divert /usr/lib/nvidia/libglx.a.xlibmesa /usr/lib/xorg/modules/extensions/libglx.a > /dev/null
+	dpkg-divert --remove --rename --package nvidia-glx-legacy --divert /usr/lib/nvidia/libglx.so.xlibmesa /usr/lib/xorg/modules/extensions/libglx.so > /dev/null
+			
 
 
-
-	rm -f /usr/X11R6/lib/modules/extensions/libglx.so.#VERSION# 2> /dev/null || true
+	#rm -f /usr/X11R6/lib/modules/extensions/libglx.so.#VERSION# 2> /dev/null || true
 	if [ -d /usr/lib/nvidia ]; then
 		rmdir /usr/lib/nvidia/ || true;
 	fi
-	if [ -d /usr/X11R6/lib/nvidia ]; then	
-		rmdir /usr/X11R6/lib/nvidia || true;
+	#if [ -d /usr/X11R6/lib/nvidia ]; then	
+	#	rmdir /usr/X11R6/lib/nvidia || true;
 
-	fi
+#	fi
 	ldconfig
 		
     ;;

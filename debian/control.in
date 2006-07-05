@@ -12,8 +12,8 @@ Depends: nvidia-kernel-legacy-#VERSION#, ia32-libs, ${shlibs:Depends}
 Suggests: nvidia-settings, nvidia-kernel-legacy-source (>= #VERSION#)
 Conflicts: nvidia-glx-src, nvidia-glx-ia32
 Replaces: nvidia-glx-src
-Description: NVIDIA binary XFree86 4.x / Xorg driver (legacy version)
- These XFree86 4.0 binary drivers provide optimized hardware acceleration of
+Description: NVIDIA binary Xorg driver (legacy version)
+ These Xorg binary drivers provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server. AGP, TV-out and
  flat panel displays are also supported.
  .
@@ -27,8 +27,8 @@ Suggests: nvidia-settings, nvidia-kernel-legacy-source (>= #VERSION#)
 Provides: xserver-xorg-video
 Conflicts: nvidia-glx-src, nvidia-glx
 Replaces: nvidia-glx-src
-Description: NVIDIA binary XFree86 4.x driver (legacy version)
- These XFree86 4.0 / Xorg  binary drivers provide optimized hardware 
+Description: NVIDIA binary Xorg driver (legacy version)
+ These Xorg  binary drivers provide optimized hardware 
  acceleration of  OpenGL applications via a direct-rendering X Server. 
  AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
  .
@@ -37,12 +37,12 @@ Description: NVIDIA binary XFree86 4.x driver (legacy version)
  
 Package: nvidia-glx-legacy-dev
 Architecture: i386 amd64
-Conflicts: nvidia-glx-dev, libgl-dev, libgl-dev, mesa-common-dev
+Conflicts: nvidia-glx-dev, libgl-dev, mesa-common-dev, x11proto-gl-dev
 Replaces: libgl-dev
 Provides: libgl-dev
 Depends: nvidia-glx-legacy (>= #VERSION#)
-Description: NVIDIA binary XFree86 4.x driver development files
- This package contains the NVIDIA binary XFree86 4.x / Xorg driver
+Description: NVIDIA binary Xorg driver development files
+ This package contains the NVIDIA binary Xorg driver
  development files.
  .
  For more information on this source package visit NVIDIA's homepage
@@ -55,7 +55,7 @@ Recommends: nvidia-glx-legacy (>= #VERSION#), kernel-package (>= 8.082), devscri
 Conflicts: nvidia-kernel-src
 Replaces: nvidia-kernel-src
 Description: NVIDIA binary kernel module source (legacy version)
- This package builds the NVIDIA XFree86 4.x / Xorg  binary kernel module 
+ This package builds the NVIDIA Xorg  binary kernel module 
  needed  by nvidia-glx. The drivers provide optimized hardware acceleration 
  of OpenGL applications via a direct-rendering X Server AGP,
  PCIe, SLI, TV-out, and flat panel displays are also supported.
