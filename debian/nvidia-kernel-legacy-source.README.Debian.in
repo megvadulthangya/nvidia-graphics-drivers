@@ -84,7 +84,7 @@ As root (or using fakeroot)
 			 		            
 5. Then build nvidia-kernel package:
 	      	           
-   cd <YOUR BUILD LOCATION>/modules/nvidia-kernel
+   cd <YOUR BUILD LOCATION>/modules/nvidia-kernel-legacy
    debian/rules binary_modules
    
 (You can also combine step 4 and 5 into one line:

@@ -56,7 +56,7 @@ Conflicts: nvidia-kernel-src
 Replaces: nvidia-kernel-src
 Description: NVIDIA binary kernel module source (legacy version)
  This package builds the NVIDIA Xorg  binary kernel module 
- needed  by nvidia-glx. The drivers provide optimized hardware acceleration 
+ needed  by nvidia-glx-legacy. The drivers provide optimized hardware acceleration 
  of OpenGL applications via a direct-rendering X Server AGP,
  PCIe, SLI, TV-out, and flat panel displays are also supported.
  .

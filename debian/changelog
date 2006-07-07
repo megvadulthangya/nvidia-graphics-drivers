@@ -3,9 +3,11 @@ nvidia-graphics-drivers-legacy (1.0.7182-1) unstable; urgency=low
   * New upstream release that works with recent kernels (closes: #375914, #360611, #373234, #373234)
   * Fix NEWS file (closes: #370815)
   * move GL header files into /usr/include and conflict with libgl-dev
-  * put correct package name in removal diversions (closes: #372252) 
-
- -- Randall Donald <rdonald@debian.org>  Mon,  3 Jul 2006 13:24:00 -0700
+  * put correct package name in removal diversions (closes: #372252)
+  * use dh_installmodules in kernel module
+  * apply cleanups from Andrew Vaughan <ajv-lists@netspace.net.au>
+  
+ -- Randall Donald <rdonald@debian.org>  Thu,  6 Jul 2006 18:10:50 -0700
 
 nvidia-graphics-drivers-legacy (1.0.7174-4) unstable; urgency=low
 
