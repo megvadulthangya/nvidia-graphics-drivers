@@ -140,6 +140,10 @@ install: build-stamp build-kernel-stamp
 	
 	install -m 0644 $(dirname)/usr/include/GL/gl.h \
 		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
+	
+	install -m 0644 $(dirname)/usr/include/GL/glext.h \
+		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
+	
 	install -m 0644 $(dirname)/usr/include/GL/glxtokens.h \
 		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
 
