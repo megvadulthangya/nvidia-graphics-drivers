@@ -24,7 +24,7 @@ Package: nvidia-glx-legacy
 Architecture: i386 amd64
 Depends: nvidia-kernel-legacy-#VERSION#, x11-common, ${shlibs:Depends}
 Suggests: nvidia-settings, nvidia-kernel-legacy-source (>= #VERSION#)
-Provides: xserver-xorg-video
+Provides: xserver-xorg-video-1.0
 Conflicts: nvidia-glx-src, nvidia-glx
 Replaces: nvidia-glx-src
 Description: NVIDIA binary Xorg driver (legacy version)
