@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy (1.0.7184-3) unstable; urgency=low
+
+  * remove init created libGL.so.
+
+ -- Randall Donald <rdonald@debian.org>  Sat,  2 Dec 2006 13:46:01 -0800
+
 nvidia-graphics-drivers-legacy (1.0.7184-2) unstable; urgency=low
 
   * Uploaded to unstable to support xorg 7.1
