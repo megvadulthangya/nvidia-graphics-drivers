@@ -1,4 +1,52 @@
-nvidia-kernel-legacy (1.0.7174-3) unstable; urgency=low
+nvidia-kernel-legacy-71xx (1.0.7185-1) unstable; urgency=low
+
+  * Rename to nvidia-graphics-drivers-legacy-71xx
+  * New upstream.
+  * Change description to refer to xorg and supported cards
+
+ -- Randall Donald <rdonald@debian.org>  Mon, 30 Apr 2007 19:01:06 -0700
+
+nvidia-graphics-drivers-legacy (1.0.7184-3) unstable; urgency=low
+
+  * remove init created libGL.so.
+
+ -- Randall Donald <rdonald@debian.org>  Sat,  2 Dec 2006 13:46:01 -0800
+
+nvidia-graphics-drivers-legacy (1.0.7184-2) unstable; urgency=low
+
+  * Uploaded to unstable to support xorg 7.1
+
+ -- Randall Donald <rdonald@debian.org>  Thu, 21 Sep 2006 10:58:37 -0700
+
+nvidia-graphics-drivers-legacy (1.0.7184-1) experimental; urgency=low
+
+  * New upstream.
+  * Uploaded to experimental to support xorg 7.1
+  * include glext.h (closes: #383855)
+  * use debhelper 5 all around (closes: #352903)
+  * upload packages from the correct source for both arches. (closes: #383860)
+  * provide xserver-xorg-video-1.0
+
+ -- Randall Donald <rdonald@debian.org>  Sat, 16 Sep 2006 14:53:49 -0700
+
+nvidia-graphics-drivers-legacy (1.0.7182-1) unstable; urgency=low
+
+  * New upstream release that works with recent kernels (closes: #375914, #360611, #373234, #373234)
+  * Fix NEWS file (closes: #370815)
+  * move GL header files into /usr/include and conflict with libgl-dev
+  * put correct package name in removal diversions (closes: #372252)
+  * use dh_installmodules in kernel module
+  * apply cleanups from Andrew Vaughan <ajv-lists@netspace.net.au>
+  
+ -- Randall Donald <rdonald@debian.org>  Thu,  6 Jul 2006 18:10:50 -0700
+
+nvidia-graphics-drivers-legacy (1.0.7174-4) unstable; urgency=low
+
+  * add correct libglx.so diversion 
+
+ -- Randall Donald <rdonald@debian.org>  Mon,  5 Jun 2006 07:31:34 -0700
+
+nvidia-graphics-drivers-legacy (1.0.7174-3) unstable; urgency=low
 
   * Add Replaces: nvidia-kernel-#KVERS# (<< 1.0.7664-0) to
   the kernel modules. (closes: #354756)
@@ -12,13 +60,13 @@ nvidia-kernel-legacy (1.0.7174-3) unstable; urgency=low
 
  -- Randall Donald <rdonald@debian.org>  Sat, 20 May 2006 14:45:33 -0700
 
-nvidia-kernel-legacy (1.0.7174-2) unstable; urgency=low
+nvidia-graphics-drivers-legacy (1.0.7174-2) unstable; urgency=low
 
   * Correct diversions. 
 
  -- Randall Donald <rdonald@debian.org>  Fri, 13 Jan 2006 20:20:30 -0800
 
-nvidia-kernel-legacy (1.0.7174-1) unstable; urgency=low
+nvidia-graphics-drivers-legacy (1.0.7174-1) unstable; urgency=low
 
   * New legacy packages (finally!!)
   * Include patch regarding Unknown symbol register_ioctl32_conversion
@@ -387,7 +435,7 @@ nvidia-graphics-drivers (1.0.5328-2) unstable; urgency=low
 
 nvidia-graphics-drivers (1.0.5328-1) unstable; urgency=low
 
-  * New upstream. (closes #227066)
+  * New upstream. (closes: #227066)
   * Apply 2.6 patch in nvidia-kernel building with env override.
     Manual patching no longer required!!! (closes: #193379)
   * Change text of TLS question to a positive tone. (closes: #221963)

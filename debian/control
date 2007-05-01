@@ -1,60 +1,68 @@
-Source: nvidia-graphics-drivers-legacy
+Source: nvidia-graphics-drivers-legacy-71xx
 Section: non-free/x11
 Priority: optional
 Maintainer: Randall Donald <rdonald@debian.org>
 Build-Depends: debhelper (>> 5.0.0), sed (>> 3.0)
-Standards-Version: 3.6.2
+Standards-Version: 3.7.2
 
 
-Package: nvidia-glx-legacy-ia32
+Package: nvidia-glx-legacy-71xx-ia32
 Architecture: amd64
-Depends: nvidia-kernel-legacy-1.0.7174, ia32-libs, ${shlibs:Depends}
-Suggests: nvidia-settings, nvidia-kernel-legacy-source (>= 1.0.7174)
+Depends: nvidia-kernel-legacy-71xx-1.0.7185, ia32-libs, ${shlibs:Depends}
+Suggests: nvidia-settings, nvidia-kernel-legacy-71xx-source (>= 1.0.7185)
 Conflicts: nvidia-glx-src, nvidia-glx-ia32
-Replaces: nvidia-glx-src
-Description: NVIDIA binary XFree86 4.x / Xorg driver (legacy version)
- These XFree86 4.0 binary drivers provide optimized hardware acceleration of
+Replaces: nvidia-glx-src, nvidia-glx-legacy-ia32, nvidia-glx-legacy-96xx-ia32
+Description: NVIDIA binary Xorg driver (71xx legacy version)
+ These Xorg binary drivers provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server. AGP, TV-out and
  flat panel displays are also supported.
  .
- Please see the nvidia-kernel-legacy-source package for building the kernel 
+ Please see the nvidia-kernel-legacy-71xx-source package for building the kernel 
  module required by this package.
 
-Package: nvidia-glx-legacy
+Package: nvidia-glx-legacy-71xx
 Architecture: i386 amd64
-Depends: nvidia-kernel-legacy-1.0.7174, x11-common, ${shlibs:Depends}
-Suggests: nvidia-settings, nvidia-kernel-legacy-source (>= 1.0.7174)
-Provides: xserver-xorg-video
-Conflicts: nvidia-glx-src, nvidia-glx
-Replaces: nvidia-glx-src
-Description: NVIDIA binary XFree86 4.x driver (legacy version)
- These XFree86 4.0 / Xorg  binary drivers provide optimized hardware 
+Depends: nvidia-kernel-legacy-71xx-1.0.7185, x11-common, ${shlibs:Depends}
+Suggests: nvidia-settings, nvidia-kernel-legacy-71xx-source (>= 1.0.7185)
+Provides: xserver-xorg-video-1.0
+Conflicts: nvidia-glx-src, nvidia-glx, nvidia-glx-legacy, nvidia-glx-legacy-96xx
+Replaces: nvidia-glx-src, nvidia-glx-legacy
+Description: NVIDIA binary Xorg driver (71xx legacy version)
+ These Xorg  binary drivers provide optimized hardware 
  acceleration of  OpenGL applications via a direct-rendering X Server. 
  AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
+ .
+ This legacy version supports:
+ RIVA TNT, RIVA TNT2/TNT2 Pro, RIVA TNT2 Ultra, Vanta/Vanta LT
+ RIVA TNT2 Model 64/Model 64 Pro, Aladdin TNT2,  GeForce 256
+ GeForce DDR, Quadro,  GeForce2 GTS/GeForce2 Pro, GeForce2 Ti
+ GeForce2 Ultra, Quadro2 Pro
  .
  Please see the nvidia-kernel-legacy-source package for building the kernel 
  module required by this package.
  
-Package: nvidia-glx-legacy-dev
+Package: nvidia-glx-legacy-71xx-dev
 Architecture: i386 amd64
-Conflicts: nvidia-glx-dev
-Depends: nvidia-glx-legacy (>= 1.0.7174), xlibmesa-gl-dev | libgl-dev
-Description: NVIDIA binary XFree86 4.x driver development files
- This package contains the NVIDIA binary XFree86 4.x / Xorg driver
+Conflicts: nvidia-glx-dev, nvidia-glx-legacy, nvidia-glx-legacy-96xx, libgl-dev, mesa-common-dev, x11proto-gl-dev
+Replaces: libgl-dev, nvidia-glx-legacy
+Provides: libgl-dev
+Depends: nvidia-glx-legacy-71xx (>= 1.0.7185)
+Description: NVIDIA binary Xorg driver development files
+ This package contains the NVIDIA binary Xorg driver
  development files.
  .
  For more information on this source package visit NVIDIA's homepage
  at http://www.nvidia.com/ .
 
-Package: nvidia-kernel-legacy-source
+Package: nvidia-kernel-legacy-71xx-source
 Architecture: i386 amd64
-Depends: debhelper (>> 5.0.0), make, sed (>> 3.0), dpatch (>= 2.0.0)
-Recommends: nvidia-glx-legacy (>= 1.0.7174), kernel-package (>= 8.082), devscripts
-Conflicts: nvidia-kernel-src
-Replaces: nvidia-kernel-src
-Description: NVIDIA binary kernel module source (legacy version)
- This package builds the NVIDIA XFree86 4.x / Xorg  binary kernel module 
- needed  by nvidia-glx. The drivers provide optimized hardware acceleration 
+Depends: debhelper (>> 4.0.0), make, sed (>> 3.0), dpatch (>= 2.0.0)
+Recommends: nvidia-glx-legacy-71xx (>= 1.0.7185), kernel-package (>= 8.082), devscripts
+Conflicts: nvidia-kernel-src, nvidia-kernel-legacy-source, nvidia-kernel-legacy-96xx-source
+Replaces: nvidia-kernel-src, nvidia-kernel-legacy-source
+Description: NVIDIA binary kernel module source (71xx legacy version)
+ This package builds the NVIDIA Xorg  binary kernel module 
+ needed  by nvidia-glx-legacy. The drivers provide optimized hardware acceleration 
  of OpenGL applications via a direct-rendering X Server AGP,
  PCIe, SLI, TV-out, and flat panel displays are also supported.
  .
