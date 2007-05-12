@@ -1,4 +1,4 @@
-Source: nvidia-kernel
+Source: nvidia-kernel-legacy-96xx
 Section: non-free/x11
 Priority: optional
 Maintainer: Randall Donald <rdonald@debian.org>

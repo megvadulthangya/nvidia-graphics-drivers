@@ -107,7 +107,7 @@ build-kernel-stamp:
 		chmod 0644 $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy-96xx/debian/$$f ; \
 	    done
 	    chmod 755 $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy-96xx/debian/patches	    
-	    cp $(CURDIR)/$(dirname)/usr/src/nv/* $(CURDIR)/debian/temp/modules/nvidia-kernel/nv || true
+	    cp $(CURDIR)/$(dirname)/usr/src/nv/* $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy-96xx/nv || true
 	    chmod 755 $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy-96xx/debian/rules
 	    chown -R root:src $(CURDIR)/debian/temp/modules
 	    tar -zcvf $(CURDIR)/nvidia-kernel-legacy-96xx-source.tar.gz -C $(CURDIR)/debian/temp modules

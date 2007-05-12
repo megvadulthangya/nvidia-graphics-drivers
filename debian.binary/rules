@@ -186,11 +186,11 @@ install: build
 	dh_installdirs
 
 
-	install -m 0644 $(CURDIR)/debian/override $(CURDIR)/debian/nvidia-kernel-$(KVERS)/usr/share/lintian/overrides/nvidia-kernel-$(KVERS)
+	install -m 0644 $(CURDIR)/debian/override $(CURDIR)/debian/nvidia-kernel-legacy-96xx-$(KVERS)/usr/share/lintian/overrides/nvidia-kernel-legacy-96xx-$(KVERS)
 	if [ "$(PATCHLEVEL)" = "6" ] ; then \
-	   install -m 0644 $(CURDIR)/$(dirname)/nvidia.ko $(CURDIR)/debian/nvidia-kernel-$(KVERS)/lib/modules/$(KVERS)/nvidia/nvidia.ko ; \
+	   install -m 0644 $(CURDIR)/$(dirname)/nvidia.ko $(CURDIR)/debian/nvidia-kernel-legacy-96xx-$(KVERS)/lib/modules/$(KVERS)/nvidia/nvidia.ko ; \
 	else \
-	   install -m 0644 $(CURDIR)/$(dirname)/nvidia.o $(CURDIR)/debian/nvidia-kernel-$(KVERS)/lib/modules/$(KVERS)/nvidia/nvidia.o ;\
+	   install -m 0644 $(CURDIR)/$(dirname)/nvidia.o $(CURDIR)/debian/nvidia-kernel-legacy-96xx-$(KVERS)/lib/modules/$(KVERS)/nvidia/nvidia.o ;\
 	fi
 
 
