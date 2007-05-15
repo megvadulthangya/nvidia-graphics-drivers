@@ -83,7 +83,7 @@ case "$1" in
     if [ -L /usr/lib/nvidia/libGL.so.xlibmesa ] && [ -d /usr/share/doc/libgl1-mesa-dev ] ; then
     	ln -s /usr/lib/nvidia/libGL.so.1.2.xlibmesa /usr/lib/libGL.so
     fi
-    if [ -d /usr/share/doc/nvidia-glx-dev ] ; then
+    if [ -d /usr/share/doc/nvidia-glx-legacy-96xx-dev ] ; then
         ln -s /usr/lib/libGL.so.#VERSION# /usr/lib/libGL.so
     fi
     ;;
