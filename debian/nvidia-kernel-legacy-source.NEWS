@@ -1,6 +1,13 @@
+nvidia-graphics-drivers (1.0.7185-1) unstable; urgency=low
+
+   * nvidia-graphics-drivers-legacy is now replaced by
+     nvidia-graphics-drivers-legacy-71xx. 
+      
+ -- Randall Donald <rdonald@debian.org>  Sat, 26 May 2006 00:01:32 -0700
+
 nvidia-graphics-drivers (1.0.7182-1) unstable; urgency=low
 
-  nvidia-glx-legacy-dev now installs GL headers into /usr/includes,
-  conflicting with other GL libgl-dev packages. Only install if needed.
-
- -- Randall Donald <rdonald@debian.org>  Thu,  6 Jul 2006 01:21:58 -0700
+   * nvidia-glx-legacy-dev now installs GL headers into /usr/includes,
+    conflicting with other GL libgl-dev packages. Only install if needed.
+      
+ -- Randall Donald <rdonald@debian.org>  Thu, 6 Jul 2006 00:01:32 -0700

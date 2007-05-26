@@ -23,11 +23,9 @@ dirname:=$(shell sh debian/upstream_info DIRNAME)
 filename:=$(shell sh debian/upstream_info FILENAME)
 
 AUTOGEN=debian/nvidia-kernel-legacy-source.README.Debian debian/control \
-debian/copyright debian/nvidia-glx-legacy.links debian/nvidia-glx-legacy-dev.links \
-debian/nvidia-glx-legacy.override debian/nvidia-glx-legacy.docs debian/nvidia-glx-legacy.examples \
-debian/nvidia-glx-legacy.postrm debian/nvidia-glx-legacy.init \
-debian/nvidia-glx-legacy-ia32.override debian/nvidia-glx-legacy-ia32.links \
-debian/nvidia-kernel-legacy-source.docs debian/nvidia-glx-legacy-dev.preinst
+debian/copyright \
+debian/nvidia-glx-legacy.postrm  \
+debian/nvidia-glx-legacy-dev.preinst
 
 
 
@@ -52,7 +50,7 @@ configure: configure-stamp
 configure-stamp: version-clean $(AUTOGEN)
 	dh_testdir
 
-	./${filename} --extract-only
+#	./${filename} --extract-only
 #	if test -d $(CURDIR)/patches; \
 #	then \
 #		pwd; \
@@ -63,7 +61,7 @@ configure-stamp: version-clean $(AUTOGEN)
 #		done; \
 #	fi
 
-	sed 's/^nvidia-graphics-drivers-legacy/nvidia-kernel-legacy/g'  debian/changelog > debian.binary/changelog
+#	sed 's/^nvidia-graphics-drivers-legacy/nvidia-kernel-legacy/g'  debian/changelog > debian.binary/changelog
 
 
 	touch configure-stamp
@@ -84,26 +82,26 @@ build-kernel-stamp:
 	    dh_testdir
 
 	    # build kernel module source tarball
-	    mkdir -p $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian
-	    mkdir -p $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/nv
-	    cp -r $(CURDIR)/debian.binary/* $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian
+#	    mkdir -p $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian
+#	    mkdir -p $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/nv
+#	    cp -r $(CURDIR)/debian.binary/* $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian
 	    
-	    for f in `ls $(CURDIR)/debian.binary` ; do \
-		perl -p \
-		-e 's{#BASE_VERSION#}{$(base_version)}g;' \
-		-e 's{#RELEASE#}{$(release)}g;' \
-		-e 's{#VERSION#}{$(version)}g;' \
-		-e 's{#UPSTREAMVERSION#}{$(upstreamversion)}g;' \
-		-e 's{#URL#}{$(url)}g' \
-		< $(CURDIR)/debian.binary/$$f > $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian/$$f ; \
-		chmod 0644 $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian/$$f ; \
-	    done
-	    chmod 755 $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian/patches	    
-	    cp $(CURDIR)/$(dirname)/usr/src/nv/* $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/nv || true
-	    chmod 755 $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian/rules
-	    chown -R root:src $(CURDIR)/debian/temp/modules
-	    tar -zcvf $(CURDIR)/nvidia-kernel-legacy-source.tar.gz -C $(CURDIR)/debian/temp modules
-	    rm -rf debian/temp 
+#	    for f in `ls $(CURDIR)/debian.binary` ; do \
+#		perl -p \
+#		-e 's{#BASE_VERSION#}{$(base_version)}g;' \
+#		-e 's{#RELEASE#}{$(release)}g;' \
+#		-e 's{#VERSION#}{$(version)}g;' \
+#		-e 's{#UPSTREAMVERSION#}{$(upstreamversion)}g;' \
+#		-e 's{#URL#}{$(url)}g' \
+#		< $(CURDIR)/debian.binary/$$f > $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian/$$f ; \
+#		chmod 0644 $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian/$$f ; \
+#	    done
+#	    chmod 755 $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian/patches	    
+#	    cp $(CURDIR)/$(dirname)/usr/src/nv/* $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/nv || true
+#	    chmod 755 $(CURDIR)/debian/temp/modules/nvidia-kernel-legacy/debian/rules
+#	    chown -R root:src $(CURDIR)/debian/temp/modules
+#	    tar -zcvf $(CURDIR)/nvidia-kernel-legacy-source.tar.gz -C $(CURDIR)/debian/temp modules
+#	    rm -rf debian/temp 
 	    touch build-kernel-stamp
 
 .PHONY: clean					
@@ -124,80 +122,80 @@ install: build-stamp build-kernel-stamp
 	dh_clean -k 
 	dh_installdirs 
 
-	install -m 644 $(CURDIR)/nvidia-kernel-legacy-source.tar.gz $(CURDIR)/debian/nvidia-kernel-legacy-source/usr/src
+#	install -m 644 $(CURDIR)/nvidia-kernel-legacy-source.tar.gz $(CURDIR)/debian/nvidia-kernel-legacy-source/usr/src
 
 
-	install -m 0644 $(dirname)/usr/X11R6/lib/modules/drivers/nvidia_drv.o \
-		$(CURDIR)/debian/nvidia-glx-legacy/usr/lib/xorg/modules/drivers
+#	install -m 0644 $(dirname)/usr/X11R6/lib/modules/drivers/nvidia_drv.o \
+#		$(CURDIR)/debian/nvidia-glx-legacy/usr/lib/xorg/modules/drivers
 
 
 
-	install $(dirname)/usr/X11R6/lib/libXvMCNVIDIA.a $(CURDIR)/debian/nvidia-glx-legacy-dev/usr/lib/libXvMCNVIDIA.a;
-	install $(dirname)/usr/X11R6/lib/libXvMCNVIDIA.so.${version} $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/libXvMCNVIDIA.so.${version};
+#	install $(dirname)/usr/X11R6/lib/libXvMCNVIDIA.a $(CURDIR)/debian/nvidia-glx-legacy-dev/usr/lib/libXvMCNVIDIA.a;
+#	install $(dirname)/usr/X11R6/lib/libXvMCNVIDIA.so.${version} $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/libXvMCNVIDIA.so.${version};
 
 
 
 	
-	install -m 0644 $(dirname)/usr/include/GL/gl.h \
-		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
+#	install -m 0644 $(dirname)/usr/include/GL/gl.h \
+#		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
 	
-	install -m 0644 $(dirname)/usr/include/GL/glext.h \
-		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
+#	install -m 0644 $(dirname)/usr/include/GL/glext.h \
+#		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
 	
-	install -m 0644 $(dirname)/usr/include/GL/glxtokens.h \
-		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
+#	install -m 0644 $(dirname)/usr/include/GL/glxtokens.h \
+#		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
 
-	install -m 0644 $(dirname)/usr/include/GL/glx.h \
-		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
-	install -m 0644 $(dirname)/usr/include/GL/glxtokens.h \
-		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
+#	install -m 0644 $(dirname)/usr/include/GL/glx.h \
+#		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
+#	install -m 0644 $(dirname)/usr/include/GL/glxtokens.h \
+#		$(CURDIR)/debian/nvidia-glx-legacy-dev/usr/include/GL
 
-	install -m 0644 $(dirname)/usr/lib/libGL.so.${version} \
-			$(CURDIR)/debian/nvidia-glx-legacy/usr/lib
-	install -m 0644 $(dirname)/usr/lib/libGLcore.so.${version} \
-		$(CURDIR)/debian/nvidia-glx-legacy/usr/lib
-	sed "s/__GENERATED_BY__/Debian nvidia-graphics-drivers/" $(dirname)/usr/lib/libGL.la | sed "s/__LIBGL_PATH__/\/usr\/lib/" > $(CURDIR)/debian/nvidia-glx-legacy-dev/usr/lib/libGL.la
+#	install -m 0644 $(dirname)/usr/lib/libGL.so.${version} \
+#			$(CURDIR)/debian/nvidia-glx-legacy/usr/lib
+#	install -m 0644 $(dirname)/usr/lib/libGLcore.so.${version} \
+#		$(CURDIR)/debian/nvidia-glx-legacy/usr/lib
+#	sed "s/__GENERATED_BY__/Debian nvidia-graphics-drivers/" $(dirname)/usr/lib/libGL.la | sed "s/__LIBGL_PATH__/\/usr\/lib/" > $(CURDIR)/debian/nvidia-glx-legacy-dev/usr/lib/libGL.la
 	# install -m 0644 $(dirname)/usr/lib/libGL.la $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/libGL.la
 
 	# TLS (nvidia-tls new for 6106)
-	install $(dirname)/usr/lib/libnvidia-tls.so.${version} $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/
+#	install $(dirname)/usr/lib/libnvidia-tls.so.${version} $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/
 
-	install $(dirname)/usr/lib/tls/libnvidia-tls.so.${version} $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/nvidia
+#	install $(dirname)/usr/lib/tls/libnvidia-tls.so.${version} $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/nvidia
 
 	#sed "s/__GENERATED_BY__/Debian nvidia-graphics-drivers/" $(dirname)/usr/lib/tls/libGL.la | sed "s/__LIBGL_PATH__/\/usr\/lib\/tls/" > $(CURDIR)/debian/nvidia-glx-legacy-dev/usr/lib/nvidia/libGL.la
 	# install -m 0644 $(dirname)/usr/lib/tls/libGL.la $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/nvidia/libGL.la
 
 
-	install $(dirname)/usr/X11R6/lib/modules/extensions/libglx.so.${version} $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/xorg/modules/extensions/
+#	install $(dirname)/usr/X11R6/lib/modules/extensions/libglx.so.${version} $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/xorg/modules/extensions/
 
-	install $(dirname)/usr/bin/tls_test $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/nvidia
-	install $(dirname)/usr/bin/tls_test_dso.so $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/nvidia
+#	install $(dirname)/usr/bin/tls_test $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/nvidia
+#	install $(dirname)/usr/bin/tls_test_dso.so $(CURDIR)/debian/nvidia-glx-legacy/usr/lib/nvidia
 
-	install -d $(CURDIR)/debian/nvidia-glx-legacy/usr/share/lintian/overrides
-	install -m 0644 debian/nvidia-glx-legacy.override \
-		$(CURDIR)/debian/nvidia-glx-legacy/usr/share/lintian/overrides/nvidia-glx
+#	install -d $(CURDIR)/debian/nvidia-glx-legacy/usr/share/lintian/overrides
+#	install -m 0644 debian/nvidia-glx-legacy.override \
+#		$(CURDIR)/debian/nvidia-glx-legacy/usr/share/lintian/overrides/nvidia-glx
 
-	if [ "$(DEB_BUILD_ARCH)" == "amd64" ] ; then \
-		install $(dirname)/usr/lib32/libGLcore.so.${version} \
-			$(CURDIR)/debian/nvidia-glx-legacy-ia32/emul/ia32-linux/usr/lib ; \
-		install $(dirname)/usr/lib32/libGL.so.${version} \
-			$(CURDIR)/debian/nvidia-glx-legacy-ia32/emul/ia32-linux/usr/lib ; \
-		install $(dirname)/usr/lib32/libnvidia-tls.so.${version} \
-			$(CURDIR)/debian/nvidia-glx-legacy-ia32/emul/ia32-linux/usr/lib ; \
-		install $(dirname)/usr/lib32/tls/libnvidia-tls.so.${version} \
-			$(CURDIR)/debian/nvidia-glx-legacy-ia32/emul/ia32-linux/usr/lib/tls ; \
-	fi
+#	if [ "$(DEB_BUILD_ARCH)" == "amd64" ] ; then \
+#		install $(dirname)/usr/lib32/libGLcore.so.${version} \
+#			$(CURDIR)/debian/nvidia-glx-legacy-ia32/emul/ia32-linux/usr/lib ; \
+#		install $(dirname)/usr/lib32/libGL.so.${version} \
+#			$(CURDIR)/debian/nvidia-glx-legacy-ia32/emul/ia32-linux/usr/lib ; \
+#		install $(dirname)/usr/lib32/libnvidia-tls.so.${version} \
+#			$(CURDIR)/debian/nvidia-glx-legacy-ia32/emul/ia32-linux/usr/lib ; \
+#		install $(dirname)/usr/lib32/tls/libnvidia-tls.so.${version} \
+#			$(CURDIR)/debian/nvidia-glx-legacy-ia32/emul/ia32-linux/usr/lib/tls ; \
+#	fi
 
-	install -m 755 $(dirname)/usr/bin/nvidia-bug-report.sh $(CURDIR)/debian/nvidia-glx-legacy/usr/bin/
-	# use separate package
-	#install -m 755 $(dirname)/usr/bin/nvidia-xconfig $(CURDIR)/debian/nvidia-glx/usr/bin/
+#	install -m 755 $(dirname)/usr/bin/nvidia-bug-report.sh $(CURDIR)/debian/nvidia-glx-legacy/usr/bin/
+#	# use separate package
+#	#install -m 755 $(dirname)/usr/bin/nvidia-xconfig $(CURDIR)/debian/nvidia-glx/usr/bin/
 
 	# use separate source package instead
 	#install -m 755 $(dirname)/usr/bin/nvidia-settings $(CURDIR)/debian/nvidia-settings/usr/bin/
 	#install -m 644 $(dirname)/usr/share/doc/nvidia-settings-user-guide.txt $(CURDIR)/debian/nvidia-settings/usr/share/doc/nvidia-settings
 
 
-	install $(CURDIR)/script $(CURDIR)/debian/nvidia-glx-legacy/usr/share/bug/nvidia-glx
+#	install $(CURDIR)/script $(CURDIR)/debian/nvidia-glx-legacy/usr/share/bug/nvidia-glx
 
 	dh_install 
 
@@ -231,9 +229,9 @@ binary-common:
 #	dh_python
 	dh_makeshlibs
 	dh_installdeb
-	dh_shlibdeps  -Xia32 -Xtls -l$(CURDIR)/debian/nvidia-glx-legacy/usr/lib
+#	dh_shlibdeps  -Xia32 -Xtls -l$(CURDIR)/debian/nvidia-glx-legacy/usr/lib
 	# quickhack! remove me :-/
-	perl -pi.bak -e 's/,\s+nvidia-glx-legacy-ia32//;' $(CURDIR)/debian/nvidia-glx-legacy.substvars
+#	perl -pi.bak -e 's/,\s+nvidia-glx-legacy-ia32//;' $(CURDIR)/debian/nvidia-glx-legacy.substvars
 	dh_gencontrol -s
 	dh_md5sums
 	dh_builddeb -s

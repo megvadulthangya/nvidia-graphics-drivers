@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy (1.0.7185-1) unstable; urgency=low
+
+  * use this as an upgrade path to -legacy-71xx
+
+ -- Randall Donald <rdonald@debian.org>  Sat, 26 May 2007 14:15:21 -0700
+
 nvidia-graphics-drivers-legacy (1.0.7184-3) unstable; urgency=low
 
   * remove init created libGL.so.
