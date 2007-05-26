@@ -22,7 +22,7 @@ url:=$(shell sh debian/upstream_info URL)
 dirname:=$(shell sh debian/upstream_info DIRNAME)
 filename:=$(shell sh debian/upstream_info FILENAME)
 
-AUTOGEN=debian/nvidia-kernel-legacy-source.README.Debian debian/control \
+AUTOGEN=debian/control \
 debian/copyright \
 debian/nvidia-glx-legacy.postrm  \
 debian/nvidia-glx-legacy-dev.preinst
