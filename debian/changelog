@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-71xx (1.0.7185-4) unstable; urgency=low
+
+  * add legacy dummy packages
+  * remove fellow legacy source conflict.
+
+ -- Randall Donald <rdonald@debian.org>  Sun, 17 Jun 2007 18:42:40 -0700
+
 nvidia-graphics-drivers-legacy-71xx (1.0.7185-3) unstable; urgency=low
 
   * fix postrm.in too (closes: #425277)

@@ -58,7 +58,7 @@ Package: nvidia-kernel-legacy-71xx-source
 Architecture: i386 amd64
 Depends: debhelper (>> 4.0.0), make, sed (>> 3.0), dpatch (>= 2.0.0)
 Recommends: nvidia-glx-legacy-71xx (>= #VERSION#), kernel-package (>= 8.082), devscripts
-Conflicts: nvidia-kernel-src, nvidia-kernel-legacy-source, nvidia-kernel-legacy-96xx-source
+Conflicts: nvidia-kernel-src, nvidia-kernel-legacy-source
 Replaces: nvidia-kernel-src, nvidia-kernel-legacy-source
 Description: NVIDIA binary kernel module source (71xx legacy version)
  This package builds the NVIDIA Xorg  binary kernel module 
@@ -69,3 +69,27 @@ Description: NVIDIA binary kernel module source (71xx legacy version)
  PLEASE read /usr/share/doc/nvidia-kernel-legacy-source/README.Debian for 
  building information.
  .
+
+Package: nvidia-glx-legacy-ia32
+Architecture: amd64
+Depends: nvidia-glx-legacy-71xx-ia32
+Description: NVIDIA binary Xorg driver (71xx legacy version)
+ Dummy package to upgrade to new versioning.
+
+Package: nvidia-glx-legacy
+Architecture: i386 amd64
+Depends: nvidia-glx-legacy-71xx
+Description: NVIDIA binary Xorg driver (71xx legacy version)
+ Dummy package to upgrade to new legacy versioning.
+ 
+Package: nvidia-glx-legacy-dev
+Architecture: i386 amd64
+Depends: nvidia-glx-legacy-71xx-dev
+Description: NVIDIA binary Xorg driver development files (legacy)
+ Dummy package for uprading to new legacy versioning.
+ 
+Package: nvidia-kernel-legacy-source
+Architecture: i386 amd64
+Depends: nvidia-kernel-legacy-71xx-source
+Description: NVIDIA binary kernel module source (71xx legacy version)
+ Dummy package for upgrading to new legacy versioning.
