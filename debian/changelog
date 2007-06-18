@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-96xx (1.0.9639-1) unstable; urgency=low
+
+  * new upstream.
+  * remove kernel-source conflict. (closes: #425693) 
+
+ -- Randall Donald <rdonald@debian.org>  Sun, 17 Jun 2007 17:52:08 -0700
+
 nvidia-graphics-drivers-legacy-96xx (1.0.9631-3) unstable; urgency=low
 
   * Argh. Fix typo in depends. I really need to get the packaging team

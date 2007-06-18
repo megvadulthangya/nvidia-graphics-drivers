@@ -1,3 +1,10 @@
+nvidia-kernel-legacy-96xx (1.0.9631-3) unstable; urgency=low
+
+  * Argh. Fix typo in depends. I really need to get the packaging team
+  together. (closes: #423604)
+
+ -- Randall Donald <rdonald@debian.org>  Wed, 16 May 2007 10:57:24 -0700
+
 nvidia-kernel-legacy-96xx (1.0.9631-2) unstable; urgency=low
 
   * put correct package name in diverts (closes: #423711)
