@@ -1,14 +1,24 @@
-nvidia-glx: library-not-linked-against-libc ./usr/lib/libGL.so.1.0.9631
+nvidia-glx-legacy-96xx: several-sonames-in-same-package libGL.so.1 libGLcore.so.1 libXvMCNVIDIA_dynamic.so.1 libnvidia-tls.so.1
+ 
+nvidia-glx-legacy-96xx: package-name-doesnt-match-sonames libGL1 libGLcore1 libXvMCNVIDIA-dynamic1 libnvidia-tls1
+ 
+nvidia-glx-legacy-96xx: shared-lib-without-dependency-information ./usr/lib/libGLcore.so.96.43.01
+nvidia-glx-legacy-96xx: shared-lib-without-dependency-information ./usr/lib/libnvidia-tls.so.96.43.01
+nvidia-glx-legacy-96xx: shared-lib-without-dependency-information ./usr/lib/nvidia/libnvidia-tls.so.96.43.01
+ 
+nvidia-glx-legacy-96xx: shlib-with-non-pic-code usr/lib/libGL.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-with-non-pic-code usr/lib/libGLcore.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-with-non-pic-code usr/lib/libXvMCNVIDIA.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-with-non-pic-code usr/lib/libnvidia-tls.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-with-non-pic-code usr/lib/nvidia/libnvidia-cfg.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-with-non-pic-code usr/lib/nvidia/libnvidia-tls.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-with-non-pic-code usr/lib/xorg/modules/extensions/libglx.so.96.43.01
+ 
 
-nvidia-glx: shared-lib-without-dependency-information ./usr/lib/libGLcore.so.1.0.9631
-
-nvidia-glx: library-not-linked-against-libc ./usr/lib/xorg/modules/extensions/libglx.so.1.0.9631
-
-nvidia-glx: shlib-with-non-pic-code usr/lib/libGL.so.1.0.9631
-nvidia-glx: shlib-with-non-pic-code usr/lib/libGLcore.so.1.0.9631
-nvidia-glx: shlib-with-non-pic-code usr/lib/xorg/modules/extensions/libglx.so.1.0.9631
-nvidia-glx: shlib-with-non-pic-code usr/lib/xorg/libXvMCNVIDIA.so.1.0.9631
-nvidia-glx: shlib-with-non-pic-code usr/lib/xorg/libXvMCNVIDIA.so.1.0.9631
-
-nvidia-glx: non-dev-pkg-with-shlib-symlink usr/lib/libGL.so.1.0.9631 usr/lib/libGL.so
-nvidia-glx: non-dev-pkg-with-shlib-symlink usr/lib/xorg/modules/extensions/libglx.so.1.0.9631 usr/lib/xorg/modules/extensions/libglx.so
+nvidia-glx-legacy-96xx: shlib-without-PT_GNU_STACK-section usr/lib/libGL.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-without-PT_GNU_STACK-section usr/lib/libGLcore.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-without-PT_GNU_STACK-section usr/lib/libXvMCNVIDIA.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-without-PT_GNU_STACK-section usr/lib/libnvidia-tls.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-without-PT_GNU_STACK-section usr/lib/nvidia/libnvidia-cfg.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-without-PT_GNU_STACK-section usr/lib/nvidia/libnvidia-tls.so.96.43.01
+nvidia-glx-legacy-96xx: shlib-without-PT_GNU_STACK-section usr/lib/xorg/modules/extensions/libglx.so.96.43.01
