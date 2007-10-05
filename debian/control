@@ -22,7 +22,7 @@ Description: NVIDIA binary Xorg driver (96xx legacy version)
 
 Package: nvidia-glx-legacy-96xx
 Architecture: i386 amd64
-Depends: nvidia-kernel-legacy-96xx-96.43.01, x11-common (>= 7.3+2), xserver-xorg-core (>= 2:1.4)${shlibs:Depends}
+Depends: nvidia-kernel-legacy-96xx-96.43.01, x11-common (>= 7.3+2), xserver-xorg-core (>= 2:1.4), ${shlibs:Depends}
 Suggests: nvidia-settings, nvidia-kernel-legacy-96xx-source (>= 96.43.01)
 Conflicts: nvidia-glx-src, nvidia-glx-legacy-dev, nvidia-glx-legacy-71xx, nvidia-glx
 Provides: xserver-xorg-video-2
