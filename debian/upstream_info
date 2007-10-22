@@ -1,15 +1,15 @@
 eval `dpkg-architecture`
 
-BASE_VERSION=1.0
-RELEASE=7185
+#BASE_VERSION=1.0
+RELEASE=71.86.01
 if [ "$DEB_BUILD_ARCH" = "amd64" ] ; then
-	BASE_URL=ftp://download.nvidia.com/XFree86/Linux-x86_64/${BASE_VERSION}-${RELEASE}
-	DIRNAME=NVIDIA-Linux-x86_64-${BASE_VERSION}-${RELEASE}-pkg2
+	BASE_URL=ftp://download.nvidia.com/XFree86/Linux-x86_64/${RELEASE}
+	DIRNAME=NVIDIA-Linux-x86_64-${RELEASE}-pkg2
 	# change this on next version release
 	FILENAME=$DIRNAME.run
 elif [ "$DEB_BUILD_ARCH" = "i386" ] ; then
-	BASE_URL=ftp://download.nvidia.com/XFree86/Linux-x86/${BASE_VERSION}-${RELEASE}
-	DIRNAME=NVIDIA-Linux-x86-${BASE_VERSION}-${RELEASE}-pkg0
+	BASE_URL=ftp://download.nvidia.com/XFree86/Linux-x86/${RELEASE}
+	DIRNAME=NVIDIA-Linux-x86-${RELEASE}-pkg0
 	FILENAME="$DIRNAME.run"	
 else
 	echo "huh? dont know about a version of this driver for your architecture."
@@ -17,9 +17,9 @@ else
 fi
 
 
-VERSION=${BASE_VERSION}.${RELEASE}
-UPSTREAMVERSION=${BASE_VERSION}-${RELEASE}
-URL=${BASE_URL}/${FILENAME}
+VERSION=${RELEASE}
+UPSTREAMVERSION=${RELEASE}
+URL=${RELEASE}/${FILENAME}
 
 case "$1" in
     BASE_VERSION)

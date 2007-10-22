@@ -1,7 +1,7 @@
 Source: nvidia-graphics-drivers-legacy-71xx
 Section: non-free/x11
 Priority: optional
-Maintainer: Randall Donald <rdonald@debian.org>
+Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Build-Depends: debhelper (>> 5.0.0), sed (>> 3.0)
 Standards-Version: 3.7.2
 
