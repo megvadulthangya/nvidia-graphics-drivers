@@ -2,8 +2,13 @@ nvidia-graphics-drivers-legacy-71xx (71.86.01-1) UNRELEASED; urgency=low
 
   * New upstream
   * Change maintainer to pkg-nvidia.
+  * provides xserver-xorg-video-2 and depends on xserver-xorg-core
+  (>=2:1.4) for Xorg 7.3 compatibility
+  * remove use of update-modules
+  * divert libGLcore.so
+  * divert libGL.so in ia32-libs (closes: #420699)
 
- -- Randall Donald <rdonald@debian.org>  Mon, 22 Oct 2007 11:02:44 -0700
+ -- Randall Donald <rdonald@debian.org>  Sat, 27 Oct 2007 16:16:58 -0700
 
 nvidia-graphics-drivers-legacy-71xx (1.0.7185-4) unstable; urgency=low
 
