@@ -76,20 +76,3 @@ Depends: nvidia-glx-legacy-71xx-ia32
 Description: NVIDIA binary Xorg driver (71xx legacy version)
  Dummy package to upgrade to new versioning.
 
-Package: nvidia-glx-legacy
-Architecture: i386 amd64
-Depends: nvidia-glx-legacy-71xx
-Description: NVIDIA binary Xorg driver (71xx legacy version)
- Dummy package to upgrade to new legacy versioning.
- 
-Package: nvidia-glx-legacy-dev
-Architecture: i386 amd64
-Depends: nvidia-glx-legacy-71xx-dev
-Description: NVIDIA binary Xorg driver development files (legacy)
- Dummy package for uprading to new legacy versioning.
- 
-Package: nvidia-kernel-legacy-source
-Architecture: i386 amd64
-Depends: nvidia-kernel-legacy-71xx-source
-Description: NVIDIA binary kernel module source (71xx legacy version)
- Dummy package for upgrading to new legacy versioning.

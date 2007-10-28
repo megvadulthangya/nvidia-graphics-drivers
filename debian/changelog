@@ -7,6 +7,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.01-1) unstable; urgency=low
   * remove use of update-modules
   * divert libGLcore.so
   * divert libGL.so in ia32-libs (closes: #420699)
+  * remove dummy packages
 
  -- Randall Donald <rdonald@debian.org>  Sat, 27 Oct 2007 18:38:44 -0700
 
