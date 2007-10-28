@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.01-1) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.01-1) unstable; urgency=low
 
   * New upstream
   * Change maintainer to pkg-nvidia.
@@ -8,7 +8,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.01-1) UNRELEASED; urgency=low
   * divert libGLcore.so
   * divert libGL.so in ia32-libs (closes: #420699)
 
- -- Randall Donald <rdonald@debian.org>  Sat, 27 Oct 2007 16:16:58 -0700
+ -- Randall Donald <rdonald@debian.org>  Sat, 27 Oct 2007 18:38:44 -0700
 
 nvidia-graphics-drivers-legacy-71xx (1.0.7185-4) unstable; urgency=low
 
