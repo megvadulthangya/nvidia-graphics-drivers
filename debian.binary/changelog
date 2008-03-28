@@ -1,9 +1,3 @@
-nvidia-kernel-legacy-96xx (96.43.01-2) unstable; urgency=low
-
-  * Fix typo in Depends in control.in
-
- -- Randall Donald <rdonald@debian.org>  Fri, 05 Oct 2007 11:52:34 -0700
-
 nvidia-kernel-legacy-96xx (96.43.01-1) unstable; urgency=low
 
   * New upstream

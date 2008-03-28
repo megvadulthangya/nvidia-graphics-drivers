@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.05-1) unstable; urgency=low
+
+  * New upstream (closes: #473114)
+
+ -- Randall Donald <rdonald@debian.org>  Fri, 28 Mar 2008 13:40:25 -0700
+
 nvidia-graphics-drivers-legacy-96xx (96.43.01-2) unstable; urgency=low
 
   * Fix typo in Depends in control.in
