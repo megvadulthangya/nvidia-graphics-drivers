@@ -1,3 +1,11 @@
+nvidia-graphics-drivers-legacy-71xx (71.86.04-1) unstable; urgency=low
+
+  * New upstream.
+  * remove xserver-xorg-core depends
+  * add uploaders. (closes: #472435)
+
+ -- Randall Donald <rdonald@debian.org>  Fri, 28 Mar 2008 15:01:59 -0700
+
 nvidia-graphics-drivers-legacy-71xx (71.86.01-1) unstable; urgency=low
 
   * New upstream

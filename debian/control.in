@@ -2,6 +2,7 @@ Source: nvidia-graphics-drivers-legacy-71xx
 Section: non-free/x11
 Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
+Uploaders: Randall Donald <rdonald@debian.org>
 Build-Depends: debhelper (>> 5.0.0), sed (>> 3.0)
 Standards-Version: 3.7.2
 
@@ -22,7 +23,7 @@ Description: NVIDIA binary Xorg driver (71xx legacy version)
 
 Package: nvidia-glx-legacy-71xx
 Architecture: i386 amd64
-Depends: nvidia-kernel-legacy-71xx-#VERSION#, x11-common, xserver-xorg-core (>= 2:1.4), libc6 (>= 2.6.1-1), ${shlibs:Depends}
+Depends: nvidia-kernel-legacy-71xx-#VERSION#, x11-common, libc6 (>= 2.6.1-1), ${shlibs:Depends}
 Suggests: nvidia-settings, nvidia-kernel-legacy-71xx-source (>= #VERSION#)
 Provides: xserver-xorg-video-2
 Conflicts: nvidia-glx-src, nvidia-glx, nvidia-glx-legacy, nvidia-glx-legacy-96xx

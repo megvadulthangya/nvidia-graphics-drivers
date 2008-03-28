@@ -36,7 +36,7 @@ case "$1" in
 			
 
 
-	#rm -f /usr/X11R6/lib/modules/extensions/libglx.so.71.86.01 2> /dev/null || true
+	#rm -f /usr/X11R6/lib/modules/extensions/libglx.so.71.86.04 2> /dev/null || true
 	if [ -d /usr/lib/nvidia ]; then
 		rmdir /usr/lib/nvidia/ || true;
 	fi
@@ -60,7 +60,7 @@ case "$1" in
 esac
 
 
-#rm -f /usr/X11R6/lib/modules/extensions/libglx.so.71.86.01 2> /dev/null || true
+#rm -f /usr/X11R6/lib/modules/extensions/libglx.so.71.86.04 2> /dev/null || true
 
     
 
