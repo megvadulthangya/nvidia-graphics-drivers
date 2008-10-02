@@ -1,3 +1,9 @@
+nvidia-kernel-legacy-96xx (96.43.07-1) unstable; urgency=medium
+
+  * New upstream. 2.6.26 compatible. (closes: #492309)
+
+ -- Randall Donald <rdonald@debian.org>  Fri, 25 Jul 2008 09:29:24 -0700
+
 nvidia-kernel-legacy-96xx (96.43.05+1-1) unstable; urgency=low
 
   * bump version. Nothing to see here.
