@@ -22,7 +22,7 @@ case "$1" in
 #        rm /usr/lib/libGL.so || true
 #	rm /usr/X11R6/lib/libGL.so || true
 	
-#	ln -s /usr/lib/libGL.so.71.86.04 /usr/lib/libGL.so || true
+#	ln -s /usr/lib/libGL.so.71.86.07 /usr/lib/libGL.so || true
 	
 	
 	dpkg-divert --add --rename --package nvidia-glx-legacy-71xx-dev --divert /usr/lib/nvidia/libGL.a.xlibmesa /usr/lib/libGL.a > /dev/null
