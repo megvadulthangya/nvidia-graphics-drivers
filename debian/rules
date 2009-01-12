@@ -65,7 +65,7 @@ configure-stamp: version-clean $(AUTOGEN)
 		ls -al; \
 		cd $(dirname)/usr/src/nv; \
 		for i in $(CURDIR)/patches/*; \
-			do patch -p3 <$$i; \
+			do patch -p3 <$$i || true; \
 		done; \
 	fi
 
