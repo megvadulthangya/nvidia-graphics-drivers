@@ -59,13 +59,13 @@ configure-stamp: version-clean $(AUTOGEN)
 	# extract both so we can fetch the kernel object code for both arches
 	./${filename_x86} --extract-only
 	./${filename_x86_64} --extract-only
-	if test -d $(CURDIR)/patches; \
+	if test -d $(CURDIR)/patchesREMOVEIFNEEDED; \
 	then \
 		pwd; \
 		ls -al; \
 		cd $(dirname)/usr/src/nv; \
 		for i in $(CURDIR)/patches/*; \
-			do patch -p3 <$$i || true; \
+			do patch -p3 <$$i ; \
 		done; \
 	fi
 
