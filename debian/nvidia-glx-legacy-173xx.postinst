@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+#make sure wfb diversion is removed
+dpkg-divert --rename --remove --package nvidia-glx --divert /usr/lib/nvidia/libwfb.so.xserver-xorg-core /usr/lib/xorg/modules/libwfb.so >/dev/null || true
+
+
+
+
+
+#DEBHELPER#
+
+
+
+ldconfig

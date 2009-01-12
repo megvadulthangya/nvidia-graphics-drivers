@@ -1,0 +1,14 @@
+nvidia-glx-legacy-173xx: library-not-linked-against-libc ./usr/lib/libGL.so.173.14.15
+
+nvidia-glx-legacy-173xx: shared-lib-without-dependency-information ./usr/lib/libGLcore.so.173.14.15
+
+nvidia-glx-legacy-173xx: library-not-linked-against-libc ./usr/lib/xorg/modules/extensions/libglx.so.173.14.15
+
+nvidia-glx-legacy-173xx: shlib-with-non-pic-code usr/lib/libGL.so.173.14.15
+nvidia-glx-legacy-173xx: shlib-with-non-pic-code usr/lib/libGLcore.so.173.14.15
+nvidia-glx-legacy-173xx: shlib-with-non-pic-code usr/lib/xorg/modules/extensions/libglx.so.173.14.15
+nvidia-glx-legacy-173xx: shlib-with-non-pic-code usr/lib/xorg/libXvMCNVIDIA.so.173.14.15
+nvidia-glx-legacy-173xx: shlib-with-non-pic-code usr/lib/xorg/libXvMCNVIDIA.so.173.14.15
+
+nvidia-glx-legacy-173xx: non-dev-pkg-with-shlib-symlink usr/lib/libGL.so.173.14.15 usr/lib/libGL.so
+nvidia-glx-legacy-173xx: non-dev-pkg-with-shlib-symlink usr/lib/xorg/modules/extensions/libglx.so.173.14.15 usr/lib/xorg/modules/extensions/libglx.so
