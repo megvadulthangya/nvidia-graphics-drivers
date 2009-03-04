@@ -70,7 +70,7 @@ install: build
 	dh_installdirs
 
 
-	install -m 0644 $(CURDIR)/debian/override $(CURDIR)/debian/nvidia-kernel-$(KVERS)/usr/share/lintian/overrides/nvidia-kernel-legacy-173xx-$(KVERS)
+#	install -m 0644 $(CURDIR)/debian/override $(CURDIR)/debian/nvidia-kernel-$(KVERS)/usr/share/lintian/overrides/nvidia-kernel-legacy-173xx-$(KVERS)
 	if [ "$(PATCHLEVEL)" = "6" ] ; then \
 	   install -m 0644 $(CURDIR)/$(dirname)/nvidia.ko $(CURDIR)/debian/nvidia-kernel-legacy-173xx-$(KVERS)/lib/modules/$(KVERS)/nvidia/nvidia.ko ; \
 	else \
