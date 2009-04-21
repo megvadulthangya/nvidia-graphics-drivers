@@ -12,7 +12,7 @@ Standards-Version: 3.6.2
 Package: nvidia-glx-legacy-173xx-ia32
 Architecture: amd64
 Depends: nvidia-kernel-legacy-173xx-#VERSION#, libc6, ia32-libs, ${shlibs:Depends}
-Suggests: nvidia-settings, nvidia-kernel-legacy-173xx-source (>= #VERSION#)
+Suggests: nvidia-kernel-legacy-173xx-source (>= #VERSION#)
 Conflicts: nvidia-glx-src
 Replaces: nvidia-glx-src
 Description: NVIDIA binary Xorg  driver (173xx legacy version)
@@ -66,9 +66,8 @@ Description: NVIDIA binary Xorg  driver (173xx legacy version)
 Package: nvidia-glx-legacy-173xx
 Architecture: i386 amd64
 Depends: nvidia-kernel-legacy-173xx-#VERSION#, x11-common (>= 1:7.0.0), ${shlibs:Depends}
-Suggests: nvidia-settings, nvidia-kernel-legacy-173xx-source (>= #VERSION#)
+Suggests: nvidia-kernel-legacy-173xx-source (>= #VERSION#)
 Conflicts: nvidia-glx, nvidia-glx-legacy-71xx, nvidia-glx-legacy-96xx, nvidia-glx-legacy-dev 
-Provides: xserver-xorg-video-2
 Replaces: nvidia-glx-src, nvidia-glx-legacy
 Description: NVIDIA binary Xorg driver
  These binary drivers provide optimized hardware 
