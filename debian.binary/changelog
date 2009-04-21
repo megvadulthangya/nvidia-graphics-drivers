@@ -1,3 +1,9 @@
+nvidia-kernel-legacy-173xx (173.14.15-2) unstable; urgency=low
+
+  * Remove kernel lintian overrides. 
+
+ -- Randall Donald <rdonald@debian.org>  Tue, 03 Mar 2009 22:24:14 -0800
+
 nvidia-kernel-legacy-173xx (173.14.15-1) unstable; urgency=low
 
   * New upstream.
