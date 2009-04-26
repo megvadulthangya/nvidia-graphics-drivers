@@ -135,7 +135,7 @@ Description: NVIDIA binary Xorg driver development files (173xx legacy version)
 
 Package: nvidia-kernel-legacy-173xx-source
 Architecture: i386 amd64
-Depends: debhelper (>> 4.0.0), make, sed (>> 3.0), dpatch (>= 2.0.0)
+Depends: debhelper (>> 5.0.0), make, sed (>> 3.0), dpatch (>= 2.0.0)
 Recommends: nvidia-glx-legacy-173xx (>= #VERSION#), kernel-package (>= 8.082), devscripts
 Description: NVIDIA binary kernel module source
  This package builds the NVIDIA Xorg  binary kernel module 
