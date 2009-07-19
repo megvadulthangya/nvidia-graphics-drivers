@@ -1,3 +1,14 @@
+nvidia-kernel-legacy-173xx (173.14.18-1) unstable; urgency=low
+
+  * New upstream.
+  * Patched for Debian 2.6.29 thanks to Lennart Sorensen 
+    (closes: #523024, #504626, #523024)
+  * Remove suggesting of nvidia-settings (closes: #524107)
+  * Divert proper package in ia32 package (closes: #521690) 
+  * Remove video-2 Provides.
+
+ -- Randall Donald <rdonald@debian.org>  Sun, 26 Apr 2009 13:10:22 -0700
+
 nvidia-kernel-legacy-173xx (173.14.15-2) unstable; urgency=low
 
   * Remove kernel lintian overrides. 

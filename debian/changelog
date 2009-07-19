@@ -1,3 +1,11 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.20-1) unstable; urgency=low
+
+  * New Upstream (pre-release for 2.6.30 support)
+  * Note ia32 support has not been transitioned in this release.
+  * conftest.sh patch from Lennart Sorensen <lsorense@csclub.uwaterloo.ca>
+
+ -- Randall Donald <rdonald@debian.org>  Sat, 18 Jul 2009 18:27:17 -0700
+
 nvidia-graphics-drivers-legacy-173xx (173.14.18-1) unstable; urgency=low
 
   * New upstream.
