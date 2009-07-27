@@ -122,7 +122,8 @@ build-kernel-stamp:
 
 		# We have new conftest files that work purely with kbuild and doesn't require root
 	    cp $(CURDIR)/Makefile $(CURDIR)/conftest.* $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/
-
+	    cp $(CURDIR)/patches.h $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/
+	    
 		# Fix permissions
 	    chmod 755 $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/debian/rules
 	    chown -R root:src $(CURDIR)/debian/temp/modules
