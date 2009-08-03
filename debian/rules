@@ -32,12 +32,17 @@ LEGACY=-legacy-173xx
 AUTOKEEP=debian/control debian/copyright
 AUTOCLEAN=debian/nvidia-kernel$(LEGACY)-source.README.Debian \
 debian/nvidia-glx$(LEGACY).links \
-debian/nvidia-glx$(LEGACY).override debian/nvidia-glx$(LEGACY).docs debian/nvidia-glx$(LEGACY).examples \
-debian/nvidia-glx$(LEGACY).postrm debian/nvidia-glx$(LEGACY).init \
-debian/nvidia-glx$(LEGACY)-ia32.override debian/nvidia-glx$(LEGACY)-ia32.links \
+debian/nvidia-glx$(LEGACY).docs debian/nvidia-glx$(LEGACY).examples \
+debian/nvidia-glx$(LEGACY).postrm \
+debian/nvidia-glx$(LEGACY).default \
+debian/nvidia-glx$(LEGACY).init \
+debian/nvidia-glx$(LEGACY).lintian-overrides.amd64 \
+debian/nvidia-glx$(LEGACY).lintian-overrides.i386 \
+debian/nvidia-glx$(LEGACY)-ia32.links \
 debian/nvidia-glx$(LEGACY)-ia32.preinst \
 debian/nvidia-glx$(LEGACY)-ia32.postinst \
 debian/nvidia-glx$(LEGACY)-ia32.postrm \
+debian/nvidia-glx$(LEGACY)-ia32.lintian-overrides \
 debian/nvidia-kernel$(LEGACY)-source.docs debian/nvidia-glx$(LEGACY)-dev.preinst \
 debian.binary/changelog
 
@@ -228,8 +233,7 @@ install: build-stamp build-kernel-stamp
 	#install -m 755 $(dirname)/usr/bin/nvidia-settings $(CURDIR)/debian/nvidia-settings/usr/bin/
 	#install -m 644 $(dirname)/usr/share/doc/nvidia-settings-user-guide.txt $(CURDIR)/debian/nvidia-settings/usr/share/doc/nvidia-settings
 
-
-	install $(CURDIR)/script $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/share/bug/nvidia-glx$(LEGACY)
+	install $(CURDIR)/script $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/share/bug/nvidia-glx$(LEGACY)/
 
 	dh_install -s
 	dh_lintian

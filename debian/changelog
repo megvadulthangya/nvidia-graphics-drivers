@@ -25,9 +25,13 @@ nvidia-graphics-drivers-legacy-173xx (173.14.20-1.0anbe0) unstable; urgency=low
   * debian/nvidia-kernel-legacy-173xx-source.README.Debian.in: fix typo
   * use Section: non-free/kernel for source and modules
   * debian/watch: new dummy file, website is not parsable
-  * ia32 transition: move from /emul/ia32-linux to /usr/lib32
+  * ia32 transition: move from /emul/ia32-linux/usr/lib to /usr/lib32
+  * cleanup /emul/ia32-linux/usr/lib/tls/libnvidia-tls.so.1
+  * fix bug script installation
+  * fix init script and default file
+  * add patches.h (from nvidia-graphics-drivers)
 
- -- Andreas Beckmann <debian@abeckmann.de>  Thu, 23 Jul 2009 22:32:47 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Fri, 24 Jul 2009 12:58:07 +0200
 
 nvidia-graphics-drivers-legacy-173xx (173.14.20-1) unstable; urgency=low
 
