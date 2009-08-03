@@ -1,8 +1,37 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.20-1.0anbe0) unstable; urgency=low
+
+  * Non-maintainer upload.
+
+  [ Andreas Beckmann ]
+  * do not ship generated files in the source package
+  * nvidia-kernel-legacy-173xx-source: recommend module-assistant
+  * drop vdpau support, not available in legacy-173xx
+  * shlibs cleanup
+    - update Build-Depends to include all needed libraries
+    - add Conflicts with the new library packages libcuda1 etc. from
+      nvidia-graphics-drivers
+    - let the shlibs system generate all dependencies
+    - debian/nvidia-glx-legacy-173xx-ia32.shlibs: new file
+  * switch to dh_lintian
+  * update lintian overrides
+  * debian/nvidia-glx-legacy-173xx-dev.links.in: removed, contained only
+    dangling symlinks
+  * really put 32 and 64 bit versions of nv-kernel.o in the source package
+  * nvidia-kernel-legacy-173xx-source: abort module compilation with helpful
+    error message if build directory was not cleaned after old package build
+  * debian/nvidia-glx.README.Debian:
+    - update references
+    - drop outdated section about header installation
+  * debian/nvidia-kernel-legacy-173xx-source.README.Debian.in: fix typo
+  * use Section: non-free/kernel for source and modules
+  * debian/watch: new dummy file, website is not parsable
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 23 Jul 2009 11:35:11 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.20-1) unstable; urgency=low
 
   * New Upstream (pre-release for 2.6.30 support)
-  * Note ia32 support has not been transitioned in this release.
-  * conftest.sh patch from Lennart Sorensen <lsorense@csclub.uwaterloo.ca>
+  * conftest.sh, patches.h patch from Lennart Sorensen <lsorense@csclub.uwaterloo.ca>
 
  -- Randall Donald <rdonald@debian.org>  Sat, 18 Jul 2009 18:27:17 -0700
 

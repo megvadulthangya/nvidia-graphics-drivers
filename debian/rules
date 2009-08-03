@@ -28,15 +28,17 @@ dirname_x86:=$(shell sh debian/upstream_info DIRNAME_X86)
 dirname_x86_64:=$(shell sh debian/upstream_info DIRNAME_X86_64)
 
 LEGACY=-legacy-173xx
-AUTOGEN=debian/nvidia-kernel$(LEGACY)-source.README.Debian debian/control \
-debian/copyright debian/nvidia-glx$(LEGACY).links debian/nvidia-glx$(LEGACY)-dev.links \
+
+AUTOKEEP=debian/control debian/copyright
+AUTOCLEAN=debian/nvidia-kernel$(LEGACY)-source.README.Debian \
+debian/nvidia-glx$(LEGACY).links \
 debian/nvidia-glx$(LEGACY).override debian/nvidia-glx$(LEGACY).docs debian/nvidia-glx$(LEGACY).examples \
 debian/nvidia-glx$(LEGACY).postrm debian/nvidia-glx$(LEGACY).init \
 debian/nvidia-glx$(LEGACY)-ia32.override debian/nvidia-glx$(LEGACY)-ia32.links \
-debian/nvidia-kernel$(LEGACY)-source.docs debian/nvidia-glx$(LEGACY)-dev.preinst
+debian/nvidia-kernel$(LEGACY)-source.docs debian/nvidia-glx$(LEGACY)-dev.preinst \
+debian.binary/changelog
 
-
-
+AUTOGEN=$(AUTOKEEP) $(AUTOCLEAN)
 
 
 CFLAGS = -Wall -g
@@ -70,9 +72,6 @@ configure-stamp: version-clean $(AUTOGEN)
 #		done; \
 	fi
 
-	sed 's/^nvidia-graphics-drivers$(LEGACY)/nvidia-kernel$(LEGACY)/g'  debian/changelog > debian.binary/changelog
-
-
 	touch configure-stamp
 
 .PHONY: build
@@ -86,7 +85,7 @@ build-stamp:
 build-kernel:
 
 .PHONY: build-kernel-stamp 
-build-kernel-stamp:
+build-kernel-stamp: debian.binary/changelog
 	    dh_testroot
 	    dh_testdir
 
@@ -114,8 +113,9 @@ build-kernel-stamp:
 		rm $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/makefile
 
 		# We want both 32 and 64 bit versions of nv-kernel.o
-	    cp $(CURDIR)/$(dirname_x86_64)/usr/src/nv/nv-kernel.o $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/nv-kernel.o.x86_64
-		mv $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/nv-kernel.o $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/nv-kernel.o.i386
+	cp $(CURDIR)/$(dirname_x86)/usr/src/nv/nv-kernel.o $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/nv-kernel.o.i386
+	cp $(CURDIR)/$(dirname_x86_64)/usr/src/nv/nv-kernel.o $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/nv-kernel.o.x86_64
+	rm -f $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/nv-kernel.o
 
 		# and then make Makefile.kbuild actually use our names
 		sed -i -e 's/nv-kernel.o$$/nv-kernel.o$$(NVARCH)/' $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/Makefile.kbuild
@@ -133,13 +133,15 @@ build-kernel-stamp:
 	    touch build-kernel-stamp
 
 .PHONY: clean					
-clean:
+clean: version-clean
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp build-kernel-stamp configure-stamp
 	dh_clean 
 
 	rm -fr $(dirname_x86) $(dirname_x86_64)  nvidia-kernel$(LEGACY).tar.bz2
+
+	$(MAKE) -f debian/rules $(AUTOKEEP)
 
 
 .PHONY: install
@@ -167,11 +169,6 @@ install: build-stamp build-kernel-stamp
 	install -m 0644 $(dirname)/usr/include/cuda/cudaGL.h \
 		$(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/include/cuda
 
-	-install -m 0644 $(dirname)/usr/include/vdpau/vdpau.h \
-		$(CURDIR)/debian/nvidia-glx-dev/usr/include/vdpau
-	-install -m 0644 $(dirname)/usr/include/vdpau/vdpau_x11.h \
-		$(CURDIR)/debian/nvidia-glx-dev/usr/include/vdpau
-
 	install -m 0644 $(dirname)/usr/include/GL/glx.h \
 		$(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/include/GL
 	install -m 0644 $(dirname)/usr/include/GL/glxext.h \
@@ -182,12 +179,6 @@ install: build-stamp build-kernel-stamp
 	install -m 0644 $(dirname)/usr/lib/libGLcore.so.${version} \
 		$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib
 	install -m 0644 $(dirname)/usr/lib/libcuda.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib
-	-install -m 0644 $(dirname)/usr/lib/libvdpau_nvidia.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib
-	-install -m 0644 $(dirname)/usr/lib/libvdpau.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib
-	-install -m 0644 $(dirname)/usr/lib/libvdpau_trace.so.${version} \
 			$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib
 
 	sed "s/__GENERATED_BY__/Debian nvidia-graphics-drivers$(LEGACY)/" $(dirname)/usr/lib/libGL.la | sed "s/__LIBGL_PATH__/\/usr\/lib/" > $(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/lib/libGL.la
@@ -213,22 +204,12 @@ install: build-stamp build-kernel-stamp
 	install $(dirname)/usr/bin/tls_test $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/nvidia
 	install $(dirname)/usr/bin/tls_test_dso.so $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/nvidia
 
-	install -d $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/share/lintian/overrides
-	install -m 0644 debian/nvidia-glx$(LEGACY).override \
-		$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/share/lintian/overrides/nvidia-glx$(LEGACY)
-
 	if [ "$(DEB_BUILD_ARCH)" = "amd64" ] ; then \
 		install $(dirname)/usr/lib32/libGLcore.so.${version} \
 			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
 		install $(dirname)/usr/lib32/libGL.so.${version} \
 			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
 		install $(dirname)/usr/lib32/libcuda.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
-		-install $(dirname)/usr/lib32/libvdpau.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
-		-install $(dirname)/usr/lib32/libvdpau_nvidia.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
-		-install $(dirname)/usr/lib32/libvdpau_trace.so.${version} \
 			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
 		install $(dirname)/usr/lib32/libnvidia-tls.so.${version} \
 			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
@@ -247,7 +228,8 @@ install: build-stamp build-kernel-stamp
 
 	install $(CURDIR)/script $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/share/bug/nvidia-glx$(LEGACY)
 
-	dh_install 
+	dh_install -s
+	dh_lintian
 
 
 # Must not depend on anything. This is to be called by
@@ -276,16 +258,15 @@ binary-common:
 	dh_fixperms
 #	dh_perl
 #	dh_python
-	dh_makeshlibs
+	dh_makeshlibs -s
 	dh_installdeb
-	dh_shlibdeps  -Xia32 -Xtls -l$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib
-	# quickhack! remove me :-/
-	perl -pi.bak -e 's/,\s+nvidia-glx$(LEGACY)-ia32//;' $(CURDIR)/debian/nvidia-glx$(LEGACY).substvars
+	dh_shlibdeps
 	dh_gencontrol -s
 	dh_md5sums
 	dh_builddeb -s
 
 
+# Generating control files
 %:	%.in debian/upstream_info
 	perl -p \
 	-e 's{#BASE_VERSION#}{$(base_version)}g;' \
@@ -297,6 +278,9 @@ binary-common:
 	-e 's{#FILENAME#}{$(filename)}g;' \
 	-e 's{#URL#}{$(url)}g' \
 	< $< > $@
+ 
+debian.binary/changelog: debian/changelog
+	sed 's/^nvidia-graphics-drivers$(LEGACY)/nvidia-kernel$(LEGACY)/g' $< > $@
 
 
 # Build architecture dependant packages using the common target.
@@ -309,5 +293,7 @@ binary: binary-arch
 
 .PHONY: version-clean
 version-clean: 
-	       rm -f ${AUTOGEN} || true
-	       
+	rm -f ${AUTOCLEAN} || true
+
+.PHONY: autogen
+autogen: ${AUTOGEN}
