@@ -13,7 +13,7 @@ Homepage: http://www.nvidia.com
 
 Package: nvidia-glx-legacy-173xx-ia32
 Architecture: amd64
-#Pre-Depends: libc6-i386 (>= 2.9-18)
+Pre-Depends: libc6-i386 (>= 2.9-18)
 Depends: nvidia-kernel-legacy-173xx-#VERSION#, ${shlibs:Depends}, ${misc:Depends}
 Suggests: nvidia-kernel-legacy-173xx-source (>= #VERSION#)
 Conflicts: nvidia-glx-src, libcuda1-ia32

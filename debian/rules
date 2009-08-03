@@ -35,6 +35,9 @@ debian/nvidia-glx$(LEGACY).links \
 debian/nvidia-glx$(LEGACY).override debian/nvidia-glx$(LEGACY).docs debian/nvidia-glx$(LEGACY).examples \
 debian/nvidia-glx$(LEGACY).postrm debian/nvidia-glx$(LEGACY).init \
 debian/nvidia-glx$(LEGACY)-ia32.override debian/nvidia-glx$(LEGACY)-ia32.links \
+debian/nvidia-glx$(LEGACY)-ia32.preinst \
+debian/nvidia-glx$(LEGACY)-ia32.postinst \
+debian/nvidia-glx$(LEGACY)-ia32.postrm \
 debian/nvidia-kernel$(LEGACY)-source.docs debian/nvidia-glx$(LEGACY)-dev.preinst \
 debian.binary/changelog
 
@@ -206,15 +209,15 @@ install: build-stamp build-kernel-stamp
 
 	if [ "$(DEB_BUILD_ARCH)" = "amd64" ] ; then \
 		install $(dirname)/usr/lib32/libGLcore.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
+			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/usr/lib32 ; \
 		install $(dirname)/usr/lib32/libGL.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
+			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/usr/lib32 ; \
 		install $(dirname)/usr/lib32/libcuda.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
+			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/usr/lib32 ; \
 		install $(dirname)/usr/lib32/libnvidia-tls.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib ; \
+			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/usr/lib32 ; \
 		install $(dirname)/usr/lib32/tls/libnvidia-tls.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/emul/ia32-linux/usr/lib/tls ; \
+			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/usr/lib32/tls ; \
 	fi
 
 	install -m 755 $(dirname)/usr/bin/nvidia-bug-report.sh $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/bin/
@@ -269,6 +272,7 @@ binary-common:
 # Generating control files
 %:	%.in debian/upstream_info
 	perl -p \
+	-e 's{#LEGACY#}{$(LEGACY)}g;' \
 	-e 's{#BASE_VERSION#}{$(base_version)}g;' \
 	-e 's{#RELEASE#}{$(release)}g;' \
 	-e 's{#VERSION#}{$(version)}g;' \
@@ -276,7 +280,7 @@ binary-common:
 	-e 's{#UPSTREAMVERSION#}{$(upstreamversion)}g;' \
 	-e 's{#DIRNAME#}{$(dirname)}g;' \
 	-e 's{#FILENAME#}{$(filename)}g;' \
-	-e 's{#URL#}{$(url)}g' \
+	-e 's{#URL#}{$(url)}g;' \
 	< $< > $@
  
 debian.binary/changelog: debian/changelog
