@@ -1,0 +1,2 @@
+# the diversions are placed there
+nvidia-glx-legacy-173xx-dev: package-contains-empty-directory usr/lib/nvidia/

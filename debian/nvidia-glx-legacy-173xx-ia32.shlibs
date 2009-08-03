@@ -1,0 +1,3 @@
+libGL     1 ia32-libs (<< 3) | ia32-libgl1-mesa-glx
+libGLcore 1 nvidia-glx-legacy-173xx-ia32
+libnvidia-tls 1 nvidia-glx-legacy-173xx-ia32
