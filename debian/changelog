@@ -1,6 +1,4 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.20-1.0anbe0) unstable; urgency=low
-
-  * Non-maintainer upload.
+nvidia-graphics-drivers-legacy-173xx (173.14.20-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
   * do not ship generated files in the source package
@@ -31,10 +29,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.20-1.0anbe0) unstable; urgency=low
   * fix init script and default file
   * add patches.h (from nvidia-graphics-drivers)
 
- -- Andreas Beckmann <debian@abeckmann.de>  Fri, 24 Jul 2009 12:58:07 +0200
-
-nvidia-graphics-drivers-legacy-173xx (173.14.20-1) unstable; urgency=low
-
+  [ Randall Donald ]
   * New Upstream (pre-release for 2.6.30 support)
   * conftest.sh, patches.h patch from Lennart Sorensen <lsorense@csclub.uwaterloo.ca>
 
