@@ -1,8 +1,9 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.11-1) unstable; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.13-1) UNRELEASED; urgency=low
 
-  * Include conftest.h for 2.6.31 from Lennart Sorensen 
+  [ Len Sorensen ]
+  * New upstream release supporting newer kernels.
 
- -- Randall Donald <rdonald@debian.org>  Sun, 04 Oct 2009 18:38:26 -0700
+ -- Randall Donald <rdonald@debian.org>  Thu, 15 Oct 2009 15:34:31 -0700
 
 nvidia-graphics-drivers-legacy-96xx (96.43.07-2) unstable; urgency=high
 

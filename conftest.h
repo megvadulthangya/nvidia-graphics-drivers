@@ -23,7 +23,7 @@
 
 /* Implement conftest.sh function change_page_attr */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,4,20) && \
-               LINUX_VERSION_CODE < KERNEL_VERSION(2,6,25)
+		LINUX_VERSION_CODE < KERNEL_VERSION(2,6,25)
  #ifndef NV_SET_PAGES_UC_PRESENT
   #define NV_CHANGE_PAGE_ATTR_PRESENT
  #endif
@@ -128,7 +128,7 @@
 
 /* Implement conftest.sh function acpi_device_ops */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,10) && \
-               LINUX_VERSION_CODE < KERNEL_VERSION(2,6,21)
+		LINUX_VERSION_CODE < KERNEL_VERSION(2,6,21)
  #define NV_ACPI_DEVICE_OPS_HAS_MATCH
 #else
  #undef NV_ACPI_DEVICE_OPS_HAS_MATCH
