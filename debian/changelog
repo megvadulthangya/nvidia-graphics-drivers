@@ -3,6 +3,10 @@ nvidia-graphics-drivers-legacy-96xx (96.43.13-1) UNRELEASED; urgency=low
   [ Len Sorensen ]
   * New upstream release supporting newer kernels.
 
+  [ Randall Donald ]
+  * Make sure both kernel modules are included
+  * transition to lib32
+
  -- Randall Donald <rdonald@debian.org>  Thu, 15 Oct 2009 15:34:31 -0700
 
 nvidia-graphics-drivers-legacy-96xx (96.43.07-2) unstable; urgency=high
