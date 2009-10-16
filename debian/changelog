@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.13-1) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.13-1) unstable; urgency=low
 
   [ Len Sorensen ]
   * New upstream release supporting newer kernels.
