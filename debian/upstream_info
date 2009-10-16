@@ -1,7 +1,7 @@
 eval `dpkg-architecture`
 
 #BASE_VERSION=1.0
-RELEASE=96.43.13
+RELEASE=96.43.13+1
 NEXTVER=96.43.14
 
 if [ "$DEB_BUILD_ARCH" = "amd64" ] ; then
