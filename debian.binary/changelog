@@ -1,4 +1,4 @@
-nvidia-kernel-legacy-96xx (96.43.13-1) unstable; urgency=low
+nvidia-kernel-legacy-96xx (96.43.13+1-1) unstable; urgency=low
 
   [ Len Sorensen ]
   * New upstream release supporting newer kernels.
