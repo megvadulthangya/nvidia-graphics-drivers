@@ -1,11 +1,11 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.14-1) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.14-1) unstable; urgency=low
 
   * New Upstream
   * Support latest xserver (closes: #523806, #523853, #547463, #560013)
   * add lsb headers (closes: #549991) 
   * remove libGL.so from -ia32 (closes: #559474)
   
- -- Randall Donald <rdonald@debian.org>  Sat, 12 Dec 2009 13:51:39 -0800
+ -- Randall Donald <rdonald@debian.org>  Sat, 12 Dec 2009 14:11:22 -0800
 
 nvidia-graphics-drivers-legacy-96xx (96.43.13+1-1) unstable; urgency=low
 
