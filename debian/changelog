@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.14-2) unstable; urgency=low
+
+  * divert ia32-libs (closes: #559474)
+
+ -- Randall Donald <rdonald@debian.org>  Sun, 13 Dec 2009 18:20:15 -0800
+
 nvidia-graphics-drivers-legacy-96xx (96.43.14-1) unstable; urgency=low
 
   * New Upstream
