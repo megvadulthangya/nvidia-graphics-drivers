@@ -1,3 +1,9 @@
+nvidia-kernel-legacy-96xx (96.43.14-3) unstable; urgency=low
+
+  * new upstream (closes:  #534131, #545228) 
+
+ -- Randall Donald <rdonald@debian.org>  Tue, 16 Mar 2010 20:21:46 -0700
+
 nvidia-kernel-legacy-96xx (96.43.14-2) unstable; urgency=low
 
   * divert ia32-libs (closes: #559474)
