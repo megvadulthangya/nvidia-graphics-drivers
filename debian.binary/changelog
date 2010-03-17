@@ -1,3 +1,9 @@
+nvidia-kernel-legacy-71xx (71.86.07-1) unstable; urgency=low
+
+  * New Upstream Beta Release (closes: 495098)
+
+ -- Randall Donald <rdonald@debian.org>  Fri, 07 Nov 2008 10:46:02 -0800
+
 nvidia-kernel-legacy-71xx (71.86.04-2) unstable; urgency=low
 
   * remove nvidia-glx from depends (closes: #474060) 
