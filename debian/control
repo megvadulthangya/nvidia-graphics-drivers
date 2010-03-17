@@ -13,8 +13,8 @@ Homepage: http://www.nvidia.com
 Package: nvidia-glx-legacy-173xx-ia32
 Architecture: amd64
 Pre-Depends: libc6-i386 (>= 2.9-18)
-Depends: nvidia-kernel-legacy-173xx-173.14.22, ${shlibs:Depends}, ${misc:Depends}
-Suggests: nvidia-kernel-legacy-173xx-source (>= 173.14.22)
+Depends: nvidia-kernel-legacy-173xx-173.14.25, ${shlibs:Depends}, ${misc:Depends}
+Suggests: nvidia-kernel-legacy-173xx-source (>= 173.14.25)
 Conflicts: nvidia-glx-src, libcuda1-ia32
 Replaces: nvidia-glx-src
 Description: NVIDIA binary Xorg driver (173xx legacy version)
@@ -67,8 +67,8 @@ Description: NVIDIA binary Xorg driver (173xx legacy version)
 
 Package: nvidia-glx-legacy-173xx
 Architecture: i386 amd64
-Depends: nvidia-kernel-legacy-173xx-173.14.22, x11-common (>= 1:7.0.0), ${shlibs:Depends}, ${misc:Depends}
-Suggests: nvidia-kernel-legacy-173xx-source (>= 173.14.22)
+Depends: nvidia-kernel-legacy-173xx-173.14.25, x11-common (>= 1:7.0.0), ${shlibs:Depends}, ${misc:Depends}
+Suggests: nvidia-kernel-legacy-173xx-source (>= 173.14.25)
 Conflicts: nvidia-glx, nvidia-glx-legacy-71xx, nvidia-glx-legacy-96xx, nvidia-glx-legacy-dev ,
  libcuda1
 Replaces: nvidia-glx-src, nvidia-glx-legacy
@@ -125,9 +125,9 @@ Description: NVIDIA binary Xorg driver
  
 Package: nvidia-glx-legacy-173xx-dev
 Architecture: i386 amd64
-Depends: nvidia-glx-legacy-173xx (>= 173.14.22), ${misc:Depends}
+Depends: nvidia-glx-legacy-173xx (>= 173.14.25), ${misc:Depends}
 Provides: libgl-dev
-Conflicts: nvidia-glx (>= 173.14.23), libgl-dev, mesa-common-dev, nvidia-glx-dev, nvidia-glx-legacy-71xx-dev, nvidia-glx-legacy-96xx-dev,
+Conflicts: nvidia-glx (>= 173.14.26), libgl-dev, mesa-common-dev, nvidia-glx-dev, nvidia-glx-legacy-71xx-dev, nvidia-glx-legacy-96xx-dev,
  libcuda1-dev
 Replaces: libgl-dev
 Description: NVIDIA binary Xorg driver development files (173xx legacy version)
@@ -141,7 +141,7 @@ Package: nvidia-kernel-legacy-173xx-source
 Section: non-free/kernel
 Architecture: i386 amd64
 Depends: debhelper (>> 5.0.0), make, sed (>> 3.0), dpatch (>= 2.0.0), ${misc:Depends}
-Recommends: nvidia-glx-legacy-173xx (>= 173.14.22), kernel-package (>= 8.082), module-assistant, devscripts
+Recommends: nvidia-glx-legacy-173xx (>= 173.14.25), kernel-package (>= 8.082), module-assistant, devscripts
 Description: NVIDIA binary kernel module source
  This package builds the NVIDIA Xorg  binary kernel module 
  needed  by nvidia-glx-legacy-173xx. The drivers provide optimized 
