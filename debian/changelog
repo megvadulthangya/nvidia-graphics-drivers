@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.14-3) unstable; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.16-1) unstable; urgency=low
 
   * new upstream (closes:  #534131, #545228) 
 
