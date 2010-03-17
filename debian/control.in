@@ -9,7 +9,7 @@ Standards-Version: 3.7.2
 
 Package: nvidia-glx-legacy-71xx-ia32
 Architecture: amd64
-Depends: nvidia-kernel-legacy-71xx-#VERSION#, ia32-libs, ${shlibs:Depends}
+Depends: libc6, nvidia-kernel-legacy-71xx-#VERSION#, ia32-libs, ${shlibs:Depends}
 Suggests: nvidia-settings, nvidia-kernel-legacy-71xx-source (>= #VERSION#)
 Conflicts: nvidia-glx-src, nvidia-glx-ia32
 Replaces: nvidia-glx-src, nvidia-glx-legacy-ia32, nvidia-glx-legacy-96xx-ia32

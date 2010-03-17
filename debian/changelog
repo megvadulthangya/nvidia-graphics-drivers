@@ -1,6 +1,8 @@
 nvidia-graphics-drivers-legacy-71xx (71.86.13-1) unstable; urgency=low
 
   * New upstream. (closes: #571017)
+  * Add libc dependency
+  * note that ia32 not compatible with latest unstable layout
 
  -- Randall Donald <rdonald@debian.org>  Tue, 16 Mar 2010 20:06:47 -0700
 
