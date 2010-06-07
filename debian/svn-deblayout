@@ -1,7 +1,0 @@
-buildArea=/home/randy/debian/build-area
-origDir=/home/randy/debian/tarballs
-tagsUrl=svn+ssh://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-173xx/tags
-trunkDir=/home/randy/debian/nvidia-graphics-drivers-legacy-173xx
-trunkUrl=svn+ssh://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-173xx/trunk
-upsCurrentUrl=svn+ssh://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-173xx/branches/upstream/current
-upsTagUrl=svn+ssh://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-173xx/branches/upstream
