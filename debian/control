@@ -1,19 +1,18 @@
-Source: nvidia-graphics-drivers
+Source: nvidia-graphics-drivers-legacy-173xx
 Section: non-free/x11
 Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders:
- Andres Mejia <mcitadel@gmail.com>,
  Russ Allbery <rra@debian.org>,
-Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers/trunk
-Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers
+Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-173xx/trunk
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-173xx
 Build-Depends: debhelper (>= 7.4.16~), bzip2, dkms (>= 2.1.1.1), libxext6,
  quilt, ia32-libs (>= 20090804) [amd64], lib32gcc1 [amd64], lib32z1 [amd64],
  libc6-dev-i386 [amd64]
 Standards-Version: 3.8.4
 Homepage: http://www.nvidia.com
 
-Package: nvidia-glx
+Package: nvidia-glx-legacy-173xx
 Architecture: i386 amd64
 Pre-Depends: dpkg (>= 1.15.7.2)
 Depends: nvidia-kernel${nvidia:Legacy}-${nvidia:Version},
@@ -45,7 +44,7 @@ Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  See /usr/share/doc/nvidia-glx${nvidia:Legacy}/README.txt.gz for a complete list
  of supported GPUs and PCIIDs.
 
-Package: nvidia-glx-ia32
+Package: nvidia-glx-legacy-173xx-ia32
 Architecture: amd64
 Pre-Depends: libc6-i386 (>= 2.9-18)
 Depends: nvidia-kernel${nvidia:Legacy}-${nvidia:Version},
@@ -70,7 +69,7 @@ Description: NVIDIA binary driver 32bit libs${nvidia:LegacyDesc}
  See /usr/share/doc/nvidia-glx${nvidia:Legacy}/README.txt.gz for a complete list
  of supported GPUs and PCIIDs.
 
-Package: nvidia-glx-dev
+Package: nvidia-glx-legacy-173xx-dev
 Architecture: i386 amd64
 Depends: ${misc:Depends}, nvidia-glx${nvidia:Legacy} (= ${binary:Version}),
  libx11-dev,
@@ -91,7 +90,7 @@ Description: NVIDIA binary Xorg driver development files${nvidia:LegacyDesc}
  For more information on this source package visit NVIDIA's homepage
  at http://www.nvidia.com/ .
 
-Package: nvidia-kernel-dkms
+Package: nvidia-kernel-legacy-173xx-dkms
 Section: non-free/kernel
 Architecture: i386 amd64
 Depends: ${misc:Depends}, dkms, nvidia-kernel-common (>= 20100522)
@@ -119,7 +118,7 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  plus complimentary Quadros and nforce.  Look at the legacy packages for
  older cards.
 
-Package: nvidia-kernel-source
+Package: nvidia-kernel-legacy-173xx-source
 Section: non-free/kernel
 Architecture: i386 amd64
 Depends: ${misc:Depends}, debhelper (>= 7.2.3~), make, quilt (>= 0.46-7~)
