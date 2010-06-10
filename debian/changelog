@@ -6,12 +6,17 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-1.1) UNRELEASED; urgency=low
     - source format 3.0 (quilt)
     - remove old cruft
     - clean up and simplify packaging
-    - clean up dependencies in debian/control
-    - overhaul the kernel module build system
-    - add dkms support
+    - clean up dependencies in debian/control (closes: #559454)
+    - no longer provide any xserver-xorg-video-* (closes: #521216)
+    - overhaul the kernel module build system (closes: #525923, #527736)
+    - update conftest.h and add patches for module build (supports up to
+      kernel 2.6.32) (closes: #534103, #574473, #574476, #523024)
+    - add dkms support (closes: #547535)
     - overhaul debian/rules: use dh(1) and many more changes
     - add functional watch file
-    - overhaul copyright, READMEs and other documentation
+    - overhaul copyright, READMEs and other documentation (closes: #573267)
+    - overhaul maintainer scripts
+    - drop init script and defaults file
   * no longer include the cuda libraries/headers in nvidia-glx*
   * update nvidia.ids
   * refresh patches
