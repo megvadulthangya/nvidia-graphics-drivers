@@ -1,307 +1,205 @@
 #!/usr/bin/make -f
-# Sample debian/rules that uses debhelper.
-# GNU copyright 1997 to 1999 by Joey Hess.
-#
-# Modified to make a template file for a multi-binary package with separated
-# build-arch and build-indep targets  by Bill Allombert 2001
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-# This has to be exported to make some magic below work.
-export DH_OPTIONS
+DEB_HOST_ARCH		?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 
-DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
-DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+include debian/rules.defs
+version			 = $(NVIDIA_RELEASE)
+legacy			 = $(if $(NVIDIA_LEGACY),-legacy-$(NVIDIA_LEGACY)xx)
+watch_pattern		 = $(or $(WATCH_PATTERN),$(if $(NVIDIA_LEGACY),$(NVIDIA_LEGACY)\.[\d\.\-]+),[\d\.\-]+)
+filename_x86		 = $(NVIDIA_FILENAME_X86)
+filename_x86_64		 = $(NVIDIA_FILENAME_X86_64)
+dirname_x86		 = $(NVIDIA_DIRNAME_X86)
+dirname_x86_64		 = $(NVIDIA_DIRNAME_X86_64)
 
-base_version:=$(shell sh debian/upstream_info BASE_VERSION)
-release:=$(shell sh debian/upstream_info RELEASE)
-version:=$(shell sh debian/upstream_info VERSION)
-nextver:=$(shell sh debian/upstream_info NEXTVER)
-upstreamversion:=$(shell sh debian/upstream_info UPSTREAMVERSION)
-url:=$(shell sh debian/upstream_info URL)
-dirname:=$(shell sh debian/upstream_info DIRNAME)
-filename:=$(shell sh debian/upstream_info FILENAME)
-filename_x86:=$(shell sh debian/upstream_info FILENAME_X86)
-filename_x86_64:=$(shell sh debian/upstream_info FILENAME_X86_64)
-dirname_x86:=$(shell sh debian/upstream_info DIRNAME_X86)
-dirname_x86_64:=$(shell sh debian/upstream_info DIRNAME_X86_64)
+ALL_CONTROL	:= $(wildcard debian/nvidia-glx* debian/nvidia-kernel*)
+LEGACY_CONTROL	:= $(wildcard debian/nvidia-glx$(legacy)* debian/nvidia-kernel$(legacy)*)
+RENAME_CONTROL	 = $(filter-out $(LEGACY_CONTROL),$(ALL_CONTROL))
+RENAMED_CONTROL	 = $(patsubst debian/nvidia-glx%,debian/nvidia-glx$(legacy)%,\
+			$(patsubst debian/nvidia-kernel%,debian/nvidia-kernel$(legacy)%,\
+				$(RENAME_CONTROL)))
+TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in)
+AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
+AUTOGEN		+= debian/module/debian/changelog
+AUTOGEN		+= $(patsubst %.in,%,$(RENAMED_CONTROL))
+AUTOKEEP	 = debian/watch
+AUTOCLEAN	 = $(filter-out $(AUTOKEEP),$(AUTOGEN))
 
-LEGACY=-legacy-173xx
+module_source	 = debian/nvidia-kernel$(legacy)-source/usr/src/modules/nvidia-kernel$(legacy)
+module_tbz	 = $(subst /modules/,/,$(module_source)).tar.bz2
+dkms_source	 = debian/nvidia-kernel$(legacy)-dkms/usr/src/nvidia-$(version)
 
-AUTOKEEP=debian/control debian/copyright
-AUTOCLEAN=debian/nvidia-kernel$(LEGACY)-source.README.Debian \
-debian/nvidia-glx$(LEGACY).links \
-debian/nvidia-glx$(LEGACY).docs debian/nvidia-glx$(LEGACY).examples \
-debian/nvidia-glx$(LEGACY).postrm \
-debian/nvidia-glx$(LEGACY).default \
-debian/nvidia-glx$(LEGACY).init \
-debian/nvidia-glx$(LEGACY).lintian-overrides.amd64 \
-debian/nvidia-glx$(LEGACY).lintian-overrides.i386 \
-debian/nvidia-glx$(LEGACY)-ia32.links \
-debian/nvidia-glx$(LEGACY)-ia32.preinst \
-debian/nvidia-glx$(LEGACY)-ia32.postinst \
-debian/nvidia-glx$(LEGACY)-ia32.postrm \
-debian/nvidia-glx$(LEGACY)-ia32.lintian-overrides \
-debian/nvidia-kernel$(LEGACY)-source.docs debian/nvidia-glx$(LEGACY)-dev.preinst \
-debian.binary/changelog
-
-AUTOGEN=$(AUTOKEEP) $(AUTOCLEAN)
+.PHONY: autogen prepare
+autogen: $(AUTOGEN)
+prepare: autogen unpack-stamp nvidia.ids
 
 
-CFLAGS = -Wall -g
-
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -O0
-else
-	CFLAGS += -O2
-endif
-ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
-	INSTALL_PROGRAM += -s
-endif
-
-version-change: version-clean $(AUTOGEN) clean
-
-configure: configure-stamp
-
-.PHONY: configure-stamp
-configure-stamp: version-clean $(AUTOGEN)
+unpack-stamp: ${filename_x86} ${filename_x86_64}
 	dh_testdir
 	# extract both so we can fetch the kernel object code for both arches
-	./${filename_x86} --extract-only
-	./${filename_x86_64} --extract-only
-	if test -d $(CURDIR)/patches; \
-	then \
-		pwd; \
-		ls -al; \
-		cd $(dirname)/usr/src/nv; \
-#		for i in $(CURDIR)/patches/*; \
-#			do patch -p3 <$$i; \
-#		done; \
+	sh ${filename_x86} --extract-only
+	sh ${filename_x86_64} --extract-only
+	ln -s ${dirname_x86} NVIDIA-Linux-i386
+	ln -s ${dirname_x86_64} NVIDIA-Linux-amd64
+	ls -al
+	touch $@
+
+nvidia.ids: unpack-stamp
+	sed -e '/^A1/,/^Below/{/ 0x/s/.* 0x\([0-9a-fA-F]\{4\}\).*/10DE\1/p};d' \
+		NVIDIA-Linux-$(DEB_HOST_ARCH)/usr/share/doc/README.txt \
+		> $@
+	if ! cmp -s debian/nvidia.ids nvidia.ids ; then \
+		diff -u debian/nvidia.ids nvidia.ids || true ; \
+		echo "*** Supported PCI IDs have changed. See diff above. Aborting. ***"; \
+		exit 1 ; \
 	fi
 
-	touch configure-stamp
 
-.PHONY: build
-build: configure-stamp build-stamp
+.PHONY: binary binary-arch binary-indep build clean install
+binary binary-arch binary-indep build clean install:
+	dh $@
 
-.PHONY: build-stamp
-build-stamp:
-	    touch build-stamp
+override_dh_auto_clean:
+	rm -f NVIDIA-Linux-i386 NVIDIA-Linux-amd64
+	rm -fr $(dirname_x86) $(dirname_x86_64)
+	rm -fr debian/temp
+	rm -f nvidia.ids
 
-.PHONY: build-kernel
-build-kernel:
-
-.PHONY: build-kernel-stamp 
-build-kernel-stamp: debian.binary/changelog
-	    dh_testroot
-	    dh_testdir
-
-	    # build kernel module source tarball
-	    mkdir -p $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/debian
-	    
-		# Prepare debian files for module package
-	    cp -a $(CURDIR)/debian.binary/* $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/debian
-	    cp -a $(CURDIR)/debian.binary/control.template $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/debian/control
-	    for f in `ls $(CURDIR)/debian.binary` ; do \
-		perl -p \
-		-e 's{#BASE_VERSION#}{$(base_version)}g;' \
-		-e 's{#RELEASE#}{$(release)}g;' \
-		-e 's{#VERSION#}{$(version)}g;' \
-		-e 's{#UPSTREAMVERSION#}{$(upstreamversion)}g;' \
-		-e 's{#URL#}{$(url)}g' \
-		< $(CURDIR)/debian.binary/$$f >		$(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/debian/$$f ; \
-		chmod 0644 $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/debian/$$f ; \
-	    done
-
-#	    chmod 775 $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/debian/patches
-	    cp $(CURDIR)/$(dirname)/usr/src/nv/* $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/
-
-		# We don't want these makefiles that don't work with kbuild
-		rm $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/makefile
-
-		# We want both 32 and 64 bit versions of nv-kernel.o
-	cp $(CURDIR)/$(dirname_x86)/usr/src/nv/nv-kernel.o $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/nv-kernel.o.i386
-	cp $(CURDIR)/$(dirname_x86_64)/usr/src/nv/nv-kernel.o $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/nv-kernel.o.x86_64
-	rm -f $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/nv-kernel.o
-
-		# and then make Makefile.kbuild actually use our names
-		sed -i -e 's/nv-kernel.o$$/nv-kernel.o$$(NVARCH)/' $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/Makefile.kbuild
-
-		# We have new conftest files that work purely with kbuild and doesn't require root
-	    cp $(CURDIR)/Makefile $(CURDIR)/conftest.* $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/
-	    cp $(CURDIR)/patches.h $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/
-	    
-		# Fix permissions
-	    chmod 755 $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/debian/rules
-	    chown -R root:src $(CURDIR)/debian/temp/modules
-	    
-	    tar -jcvf $(CURDIR)/nvidia-kernel$(LEGACY).tar.bz2 -C $(CURDIR)/debian/temp modules
-	    rm -rf debian/temp 
-	    touch build-kernel-stamp
-
-.PHONY: clean					
-clean: version-clean
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp build-kernel-stamp configure-stamp
-	dh_clean 
-
-	rm -fr $(dirname_x86) $(dirname_x86_64)  nvidia-kernel$(LEGACY).tar.bz2
-
+override_dh_clean:
+	dh_clean
+	rm -f $(AUTOCLEAN)
 	$(MAKE) -f debian/rules $(AUTOKEEP)
 
+override_dh_auto_configure: prepare
 
-.PHONY: install
-install: build-stamp build-kernel-stamp
-	dh_testdir
-	dh_testroot
-	dh_clean -k 
-	dh_installdirs 
+# Build two kernel module source tarballs for use with
+#  - module-assistant and make-kpkg
+#  - dkms
+override_dh_auto_install:
+	# "Install" into debian/tmp.
+	cp -al NVIDIA-Linux-$(DEB_HOST_ARCH)/ debian/tmp
 
-	install -m 644 $(CURDIR)/nvidia-kernel$(LEGACY).tar.bz2 $(CURDIR)/debian/nvidia-kernel$(LEGACY)-source/usr/src
+	# Create xorg.conf.sample
+	sed \
+	    -e 's/XF86Config(4\/5)/xorg.conf(5)/g' \
+	    -e 's/XF86Config/xorg.conf/g' \
+	    -e 's/XFree86/Xorg/g' \
+	    < debian/tmp/usr/share/doc/XF86Config.sample \
+	    > debian/tmp/usr/share/doc/xorg.conf.sample
 
-	install -m 0644 $(dirname)/usr/X11R6/lib/modules/drivers/nvidia_drv.so \
-		$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/xorg/modules/drivers
+	# Build the nvidia-kernel-source tree.
+	mkdir -p $(module_source)
+	mv debian/tmp/usr/src/nv/* $(module_source)/
+	cp -a debian/tmp/usr/share/doc/NVIDIA_Changelog $(module_source)/
 
-	install $(dirname)/usr/X11R6/lib/libXvMCNVIDIA.a $(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/lib/libXvMCNVIDIA.a;
-	install $(dirname)/usr/X11R6/lib/libXvMCNVIDIA.so.${version} $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/libXvMCNVIDIA.so.${version};
+	# We don't want these makefiles that don't work with kbuild.
+	rm $(module_source)/makefile
+	rm $(module_source)/Makefile.nvidia
 
-	install -m 0644 $(dirname)/usr/include/GL/gl.h \
-		$(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/include/GL
-	install -m 0644 $(dirname)/usr/include/GL/glext.h \
-		$(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/include/GL
+	# We want both 32 and 64 bit versions of nv-kernel.o.  Do not use a
+	# name matching *.o to prevent accidental deletion by some clean
+	# target.
+	cp -a NVIDIA-Linux-i386/usr/src/nv/nv-kernel.o \
+	    $(module_source)/nv-kernel.o.i386
+	cp -a NVIDIA-Linux-amd64/usr/src/nv/nv-kernel.o \
+	    $(module_source)/nv-kernel.o.x86_64
+	rm -f $(module_source)/nv-kernel.o
 
-	install -m 0644 $(dirname)/usr/include/cuda/cuda.h \
-		$(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/include/cuda
-	install -m 0644 $(dirname)/usr/include/cuda/cudaGL.h \
-		$(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/include/cuda
+	# Install a debian/ tree and new conftest files that work purely
+	# with kbuild and don't require root into the module package.
+	cp -a debian/module/* $(module_source)/
+	cp -a debian/copyright $(module_source)/debian/
+	cp -a debian/bug-script $(module_source)/debian/
+	cp -a debian/bug-control $(module_source)/debian/
 
-	install -m 0644 $(dirname)/usr/include/GL/glx.h \
-		$(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/include/GL
-	install -m 0644 $(dirname)/usr/include/GL/glxext.h \
-		$(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/include/GL
+	# Fix permissions.
+	chmod -R a-sx,u=rwX,go=rX $(module_source)/../..
+	chmod a+x $(module_source)/debian/rules
+	chmod a+x $(module_source)/conftest.sh
 
-	install -m 0644 $(dirname)/usr/lib/libGL.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib
-	install -m 0644 $(dirname)/usr/lib/libGLcore.so.${version} \
-		$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib
-	install -m 0644 $(dirname)/usr/lib/libcuda.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib
+	# Build the tarball.
+	tar cfj $(module_tbz) \
+	    --owner=root --group=src -C $(module_source)/../.. \
+	    --exclude '*.in' --exclude '.svn' modules
+	tar tfvj $(module_tbz)
 
-	sed "s/__GENERATED_BY__/Debian nvidia-graphics-drivers$(LEGACY)/" $(dirname)/usr/lib/libGL.la | sed "s/__LIBGL_PATH__/\/usr\/lib/" > $(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/lib/libGL.la
-	# install -m 0644 $(dirname)/usr/lib/libGL.la $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/libGL.la
+	# Use the nvidia-kernel-source source to create the DKMS tree.
+	mkdir -p $(dir $(dkms_source))
+	mv $(module_source) $(dkms_source)
+	rmdir $(dir $(module_source))
+	cd $(dkms_source) \
+	    && QUILT_PATCHES=debian/patches quilt --quiltrc /dev/null push -a \
+	    && rm -rf .pc debian
+	ls -la $(dkms_source)
+	dh_dkms -V $(version)
 
-	# TLS (nvidia-tls new for 6106)
-	#install $(dirname)/usr/lib/libnvidia-tls.so.${version} $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/
-	install $(dirname)/usr/lib/tls/libnvidia-tls.so.${version} $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/
+override_dh_install:
+	dh_install --list-missing
 
-	#install $(dirname)/usr/lib/tls/libnvidia-tls.so.${version} $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/nvidia
-	install $(dirname)/usr/lib/tls/libnvidia-tls.so.${version} $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/tls/
-		
+override_dh_installchangelogs:
+	dh_installchangelogs debian/tmp/usr/share/doc/NVIDIA_Changelog
 
-	#sed "s/__GENERATED_BY__/Debian nvidia-graphics-drivers$(LEGACY)/" $(dirname)/usr/lib/tls/libGL.la | sed "s/__LIBGL_PATH__/\/usr\/lib\/tls/" > $(CURDIR)/debian/nvidia-glx$(LEGACY)-dev/usr/lib/nvidia/libGL.la
-	# install -m 0644 $(dirname)/usr/lib/tls/libGL.la $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/nvidia/libGL.la
-	
-	install -m 0644 $(dirname)/usr/lib/libnvidia-cfg.so.${version} $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/nvidia/
+override_dh_bugfiles:
+	dh_bugfiles -A
 
+override_dh_gencontrol:
+	dh_gencontrol -- -V'nvidia:Version=$(version)' -V'nvidia:Legacy=$(legacy)' \
+		-V'nvidia:LegacyDesc=$(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))'
 
-	install $(dirname)/usr/X11R6/lib/modules/extensions/libglx.so.${version} $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/xorg/modules/extensions/
-#	install $(dirname)/usr/X11R6/lib/modules/libnvidia-wfb.so.${version} $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/xorg/modules/
-
-	install $(dirname)/usr/bin/tls_test $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/nvidia
-	install $(dirname)/usr/bin/tls_test_dso.so $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib/nvidia
-
-	if [ "$(DEB_BUILD_ARCH)" = "amd64" ] ; then \
-		install $(dirname)/usr/lib32/libGLcore.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/usr/lib32 ; \
-		install $(dirname)/usr/lib32/libGL.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/usr/lib32 ; \
-		install $(dirname)/usr/lib32/libcuda.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/usr/lib32 ; \
-		install $(dirname)/usr/lib32/libnvidia-tls.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/usr/lib32 ; \
-		install $(dirname)/usr/lib32/tls/libnvidia-tls.so.${version} \
-			$(CURDIR)/debian/nvidia-glx$(LEGACY)-ia32/usr/lib32/tls ; \
-	fi
-
-	install -m 755 $(dirname)/usr/bin/nvidia-bug-report.sh $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/bin/
-	# use separate package
-	#install -m 755 $(dirname)/usr/bin/nvidia-xconfig $(CURDIR)/debian/nvidia-glx/usr/bin/
-
-	# use separate source package instead
-	#install -m 755 $(dirname)/usr/bin/nvidia-settings $(CURDIR)/debian/nvidia-settings/usr/bin/
-	#install -m 644 $(dirname)/usr/share/doc/nvidia-settings-user-guide.txt $(CURDIR)/debian/nvidia-settings/usr/share/doc/nvidia-settings
-
-	install $(CURDIR)/script $(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/share/bug/nvidia-glx$(LEGACY)/
-
-	dh_install -s
-	dh_lintian
-
-
-# Must not depend on anything. This is to be called by
-# binary-arch/binary-multi
-# in another 'make' thread.
-.PHONY: binary-common
-binary-common:
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs 
-	dh_installdocs -s 
-	dh_installexamples
-#	dh_installmenu
-	dh_installdebconf
-#	dh_installlogrotate
-#	dh_installemacsen
-#	dh_installpam
-#	dh_installmime
-	dh_installinit
-#	dh_installcron
-#	dh_installinfo
-	dh_installman
-	dh_link
-#	dh_strip
-	dh_compress -X.h -X README.Debian 
-	dh_fixperms
-#	dh_perl
-#	dh_python
-	dh_makeshlibs -s
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol -s
-	dh_md5sums
-	dh_builddeb -s
+# Do not run dh_strip here.  The NVIDIA license says:
+#
+#     2.1.2 Linux/FreeBSD Exception.  Notwithstanding the foregoing terms of
+#     Section 2.1.1, SOFTWARE designed exclusively for use on the Linux or
+#     FreeBSD operating systems, or other operating systems derived from the
+#     source code to these operating systems, may be copied and
+#     redistributed, provided that the binary files thereof are not modified
+#     in any way (except for unzipping of compressed files).
+#
+# Stripping the binary modules would constitute modifying the binary files
+# in a way other than unzipping of compressed files.
+override_dh_strip:
+	# running dh_strip is not permitted by the NVIDIA license
 
 
 # Generating control files
-%:	%.in debian/upstream_info
+%:	%.in debian/rules.defs
 	perl -p \
-	-e 's{#LEGACY#}{$(LEGACY)}g;' \
-	-e 's{#BASE_VERSION#}{$(base_version)}g;' \
-	-e 's{#RELEASE#}{$(release)}g;' \
 	-e 's{#VERSION#}{$(version)}g;' \
-	-e 's{#NEXTVER#}{$(nextver)}g;' \
-	-e 's{#UPSTREAMVERSION#}{$(upstreamversion)}g;' \
-	-e 's{#DIRNAME#}{$(dirname)}g;' \
-	-e 's{#FILENAME#}{$(filename)}g;' \
-	-e 's{#URL#}{$(url)}g;' \
+	-e 's{#LEGACY#}{$(legacy)}g;' \
+	-e 's{#!i386#}{$(if $(filter i386,$(DEB_HOST_ARCH)),#)}g;' \
+	-e 's{#!amd64#}{$(if $(filter amd64,$(DEB_HOST_ARCH)),#)}g;' \
+	-e 's{#WATCH_PATTERN#}{$(subst \,\\,$(watch_pattern))}g;' \
 	< $< > $@
- 
-debian.binary/changelog: debian/changelog
-	sed 's/^nvidia-graphics-drivers$(LEGACY)/nvidia-kernel$(LEGACY)/g' $< > $@
+
+debian/module/debian/changelog: debian/changelog
+	sed '1s/^nvidia-graphics-drivers/nvidia-kernel/g' $< > $@
+
+# Renaming control files for legacy packaging
+ifneq (,$(legacy))
+nvidia-glx$(legacy)%: nvidia-glx%
+	cp -a $< $@
+
+nvidia-kernel$(legacy)%: nvidia-kernel%
+	cp -a $< $@
+endif
 
 
-# Build architecture dependant packages using the common target.
-.PHONY: binary-arch
-binary-arch: build-stamp build-kernel-stamp install
-	$(MAKE) -f debian/rules binary-common
-
-.PHONY: binary
-binary: binary-arch
-
-.PHONY: version-clean
-version-clean: 
-	rm -f ${AUTOCLEAN} || true
-
-.PHONY: autogen
-autogen: ${AUTOGEN}
+.PHONY: get-orig-source
+get-orig-source:
+	rm -rf get-orig-source || true
+	mkdir get-orig-source
+	uscan --no-symlink --download-current-version --pasv \
+	    --destdir get-orig-source
+	test `ls get-orig-source/* | wc -l` = 2  # we need exactly 2 downloaded files
+	@set -e -x ; \
+	    cd get-orig-source ; \
+	    newversion=$$(ls *-x86-*.run | sed -e 's/.*-\([0-9.]*\)\(-.*\)\?\.run/\1/') ; \
+	    mkdir nvidia-graphics-drivers-$${newversion}.orig ; \
+	    mv *.run nvidia-graphics-drivers-$${newversion}.orig/ ; \
+	    chmod 0755 nvidia-graphics-drivers-$${newversion}.orig/* ; \
+	    tar cfvz ../nvidia-graphics-drivers_$$newversion.orig.tar.gz \
+		--owner=root --group=src \
+		nvidia-graphics-drivers-$${newversion}.orig
+	rm -rf get-orig-source
