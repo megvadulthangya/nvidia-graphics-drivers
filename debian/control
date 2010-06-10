@@ -23,9 +23,9 @@ Suggests: nvidia-settings,
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Breaks: xserver-xorg-core (<< 2:1.6)
 Conflicts:
+ nvidia-glx,
  nvidia-glx-legacy-71xx,
  nvidia-glx-legacy-96xx,
- nvidia-glx-legacy-173xx,
  fglrx-glx,
 Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  These binary drivers provide optimized hardware acceleration of
@@ -54,9 +54,9 @@ Suggests: nvidia-settings,
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Conflicts:
+ nvidia-glx-ia32,
  nvidia-glx-legacy-71xx-ia32,
  nvidia-glx-legacy-96xx-ia32,
- nvidia-glx-legacy-173xx-ia32,
 Description: NVIDIA binary driver 32bit libs${nvidia:LegacyDesc}
  These binary drivers provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -75,9 +75,9 @@ Depends: ${misc:Depends}, nvidia-glx${nvidia:Legacy} (= ${binary:Version}),
  libx11-dev,
 Recommends: libgl1-mesa-dev | libgl-dev
 Conflicts:
+ nvidia-glx,
  nvidia-glx-legacy-71xx,
  nvidia-glx-legacy-96xx,
- nvidia-glx-legacy-173xx,
 Description: NVIDIA binary Xorg driver development files${nvidia:LegacyDesc}
  This package contains the development files for the NVIDIA OpenGL
  implementation. This package is only needed for applications that use some
@@ -97,9 +97,9 @@ Depends: ${misc:Depends}, dkms, nvidia-kernel-common (>= 20100522)
 Recommends: nvidia-glx${nvidia:Legacy} (>= ${nvidia:Version})
 Provides: nvidia-kernel${nvidia:Legacy}-${nvidia:Version}
 Conflicts:
+ nvidia-kernel-dkms,
  nvidia-kernel-legacy-71xx-dkms,
  nvidia-kernel-legacy-96xx-dkms,
- nvidia-kernel-legacy-173xx-dkms,
  binutils-gold (>> 2.20.51),
  ccache (<< 3.0~),
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
