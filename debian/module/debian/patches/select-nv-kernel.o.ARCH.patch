@@ -7,16 +7,16 @@ Description: Select the correct nv-kernel.o for the target architecture
  This was previously done by a 'sed' command when building the module source
  tarball.
 
-Index: b/Makefile.kbuild
+Index: nvidia-173.14.25/Makefile.kbuild
 ===================================================================
---- a/Makefile.kbuild	2010-04-24 01:54:44.284537241 +0200
-+++ b/Makefile.kbuild	2010-04-24 02:31:36.799037816 +0200
+--- nvidia-173.14.25.orig/Makefile.kbuild	2010-01-28 11:35:36.000000000 +0100
++++ nvidia-173.14.25/Makefile.kbuild	2010-06-10 13:22:08.219537677 +0200
 @@ -44,7 +44,7 @@
  # understands that we want a module.
  #
  
 -CORE_OBJS := nv-kernel.o
 +CORE_OBJS := nv-kernel.o$(NVARCH)
- RESMAN_GLUE_OBJS := nv.o nv_gvi.o nv-vm.o os-agp.o os-interface.o os-registry.o nv-i2c.o nvacpi.o
+ RESMAN_GLUE_OBJS := nv.o nv-vm.o os-agp.o os-interface.o os-registry.o nv-i2c.o nvacpi.o
  
  $(MODULE_NAME)-objs := $(CORE_OBJS) $(RESMAN_GLUE_OBJS)
