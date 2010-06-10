@@ -19,7 +19,6 @@ set -e
 case "$1" in
     remove|purge)
         # remove file created by init script
-    	rm /usr/lib/libGL.so || true
 	dpkg-divert --remove --rename --package nvidia-glx-legacy-173xx --divert /usr/lib/nvidia/libGL.so.1.xlibmesa /usr/lib/libGL.so.1 > /dev/null
 	dpkg-divert --remove --rename --package nvidia-glx-legacy-173xx --divert /usr/lib/nvidia/libGL.so.1.2.xlibmesa /usr/lib/libGL.so.1.2 > /dev/null
 	
@@ -33,7 +32,6 @@ case "$1" in
 	if [ -d /usr/lib/nvidia ]; then
 		rmdir /usr/lib/nvidia/ || true;
 	fi
-	ldconfig
 		
     ;;
     
@@ -49,7 +47,6 @@ case "$1" in
 esac
 
 
-#rm -f /usr/lib/xorg/modules/extensions/libglx.so.#VERSION# 2> /dev/null || true
 
     
 

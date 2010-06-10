@@ -7,9 +7,6 @@ set -e
 
 case "$1" in
     remove|purge)
-        rm /usr/lib/libGL.so || true
-	/etc/init.d/nvidia-glx start || true		
-	
 
     ;;
     
