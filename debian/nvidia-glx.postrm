@@ -3,8 +3,8 @@ set -e
 
 
 # <target: squeeze>
-dpkg-maintscript-helper rm_conffile /etc/default/nvidia-glx 195.36.24-1~ -- "$@"
-dpkg-maintscript-helper rm_conffile /etc/init.d/nvidia-glx 195.36.24-2 -- "$@"
+dpkg-maintscript-helper rm_conffile /etc/default/nvidia-glx 173.14.25-2~ -- "$@"
+dpkg-maintscript-helper rm_conffile /etc/init.d/nvidia-glx 173.14.25-2~ -- "$@"
 # </target: squeeze>
 
 

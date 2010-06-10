@@ -16,6 +16,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-1.1) UNRELEASED; urgency=low
   * update nvidia.ids
   * refresh patches
   * update symbols files
+  * adjust version numbers in maintainer scripts
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 07 Jun 2010 13:19:30 +0200
 
