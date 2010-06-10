@@ -7,10 +7,10 @@ Description: Select the correct nv-kernel.o for the target architecture
  This was previously done by a 'sed' command when building the module source
  tarball.
 
-Index: nvidia-173.14.25/Makefile.kbuild
+Index: b/Makefile.kbuild
 ===================================================================
---- nvidia-173.14.25.orig/Makefile.kbuild	2010-01-28 11:35:36.000000000 +0100
-+++ nvidia-173.14.25/Makefile.kbuild	2010-06-10 13:22:08.219537677 +0200
+--- a/Makefile.kbuild	2010-01-28 11:35:36.000000000 +0100
++++ b/Makefile.kbuild	2010-06-10 13:22:08.219537677 +0200
 @@ -44,7 +44,7 @@
  # understands that we want a module.
  #
