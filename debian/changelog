@@ -2,6 +2,17 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-1.1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
   * synchronize packaging with nvidia-graphics-drivers 195.36.24-3
+    - new uploaders
+    - source format 3.0 (quilt)
+    - remove old cruft
+    - clean up and simplify packaging
+    - clean up dependencies in debian/control
+    - overhaul the kernel module build system
+    - add dkms support
+    - overhaul debian/rules: use dh(1) and many more changes
+    - add functional watch file
+    - overhaul copyright, READMEs and other documentation
+  * no longer include the cuda libraries/headers in nvidia-glx*
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 07 Jun 2010 13:19:30 +0200
 
