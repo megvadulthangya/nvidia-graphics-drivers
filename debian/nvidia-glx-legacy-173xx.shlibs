@@ -1,5 +1,0 @@
-libGL     1 libgl1-mesa-glx | libgl1
-libGLcore 1 nvidia-glx-legacy-173xx
-libXvMCNVIDIA_dynamic 1 nvidia-glx-legacy-173xx
-libnvidia-tls 1 nvidia-glx-legacy-173xx
-libcuda 1 nvidia-glx-legacy-173xx
