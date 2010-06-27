@@ -54,7 +54,7 @@ binary-modules: configure
 	dh_builddeb  --destdir=$(KPKG_DEST_DIR)
 	dh_prep
 
-clean:   unpatch
+clean:
 	if [ -f $(CURDIR)/debian/control.template ]; then \
 		cp  $(CURDIR)/debian/control.template $(CURDIR)/debian/control; \
 	fi
@@ -75,14 +75,6 @@ clean:   unpatch
 	-rm $(CURDIR)/debian/override
 
 
-unpatch: 
-	if [ -e patch-stamp ]; then \
-	   dpatch deapply-all ; \
-	   rm -rf patch-stamp debian/patched ; \
-	fi
-
-	
-	   
 
 # The kdist_configure target is called by make-kpkg modules_config. It
 # should configure the module so it is ready for compilation (mostly

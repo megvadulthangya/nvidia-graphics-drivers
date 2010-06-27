@@ -66,7 +66,7 @@ Description: NVIDIA Xorg driver development files (96xx legacy version)
 
 Package: nvidia-kernel-legacy-96xx-source
 Architecture: i386 amd64
-Depends: debhelper (>> 4.0.0), make, sed (>> 3.0), dpatch (>= 2.0.0)
+Depends: debhelper (>> 4.0.0), make, sed (>> 3.0)
 Recommends: nvidia-glx-legacy-96xx (>= #VERSION#), kernel-package (>= 8.082), devscripts
 Conflicts: nvidia-kernel-src, nvidia-kernel-legacy-source
 Replaces: nvidia-kernel-src, nvidia-kernel-legacy-source

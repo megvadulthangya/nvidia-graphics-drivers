@@ -60,15 +60,6 @@ configure-stamp: version-clean $(AUTOGEN)
 	# extract both so we can fetch the kernel object code for both arches
 	./${filename_x86} --extract-only
 	./${filename_x86_64} --extract-only
-	if test -d $(CURDIR)/patches; \
-	then \
-		pwd; \
-		ls -al; \
-		cd $(dirname)/usr/src/nv; \
-#		for i in $(CURDIR)/patches/*; \
-#			do patch -p3 <$$i; \
-#		done; \
-	fi
 
 	sed 's/^nvidia-graphics-drivers$(LEGACY)/nvidia-kernel$(LEGACY)/g'  debian/changelog > debian.binary/changelog
 
@@ -107,7 +98,6 @@ build-kernel-stamp:
 		chmod 0644 $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/debian/$$f ; \
 	    done
 
-#	    chmod 775 $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/debian/patches
 	    cp $(CURDIR)/$(dirname)/usr/src/nv/* $(CURDIR)/debian/temp/modules/nvidia-kernel$(LEGACY)/
 
 		# We don't want these makefiles that don't work with kbuild
