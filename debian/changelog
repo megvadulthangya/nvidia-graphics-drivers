@@ -3,6 +3,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.16-1.1) UNRELEASED; urgency=low
   [ Andreas Beckmann ]
   * synchronize packaging with nvidia-graphics-drivers 195.36.24-? and
     nvidia-graphics-drivers-legacy-173xx 173.14.25-?
+    - remove old cruft
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 28 Jun 2010 01:29:49 +0200
 
