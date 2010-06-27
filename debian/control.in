@@ -3,7 +3,7 @@ Section: non-free/x11
 Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders: Randall Donald <rdonald@debian.org>
-Build-Depends: debhelper (>> 4.0.0), sed (>> 3.0)
+Build-Depends: debhelper (>> 4.0.0), sed (>> 3.0), libxext6,
 Standards-Version: 3.6.2
 
 
