@@ -270,7 +270,7 @@ binary-common:
 	dh_shlibdeps  -Xia32 -Xtls -l$(CURDIR)/debian/nvidia-glx$(LEGACY)/usr/lib
 	# quickhack! remove me :-/
 	perl -pi.bak -e 's/,\s+nvidia-glx$(LEGACY)-ia32//;' $(CURDIR)/debian/nvidia-glx$(LEGACY).substvars
-	dh_gencontrol -s
+	dh_gencontrol -s -- -V'nvidia:Version=$(version)'
 	dh_md5sums
 	dh_builddeb -s
 
