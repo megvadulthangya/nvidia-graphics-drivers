@@ -3,14 +3,15 @@ Section: non-free/x11
 Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders: Randall Donald <rdonald@debian.org>
-Build-Depends: debhelper (>> 4.0.0), sed (>> 3.0)
+Build-Depends: debhelper (>> 4.0.0), sed (>> 3.0), libxext6,
 Standards-Version: 3.6.2
 
 
 Package: nvidia-glx-legacy-96xx-ia32
 Architecture: amd64
-Depends: nvidia-kernel-legacy-96xx-96.43.14, ia32-libs, ${shlibs:Depends}
-Suggests: nvidia-settings, nvidia-kernel-legacy-96xx-source (>= 96.43.14)
+Depends: nvidia-kernel-legacy-96xx-${nvidia:Version}, ia32-libs, ${shlibs:Depends}
+Pre-Depends: libc6-i386
+Suggests: nvidia-settings, nvidia-kernel-legacy-96xx-source (>= ${nvidia:Version})
 Conflicts: nvidia-glx-src, nvidia-glx-ia32
 Replaces: nvidia-glx-src, nvidia-glx-legacy-ia32, nvidia-glx-legacy-71xx-ia32
 Description: NVIDIA binary Xorg driver (96xx legacy version)
@@ -23,8 +24,8 @@ Description: NVIDIA binary Xorg driver (96xx legacy version)
 
 Package: nvidia-glx-legacy-96xx
 Architecture: i386 amd64
-Depends: nvidia-kernel-legacy-96xx-96.43.14, x11-common (>= 7.3+2), ${shlibs:Depends}
-Suggests: nvidia-settings, nvidia-kernel-legacy-96xx-source (>= 96.43.14)
+Depends: nvidia-kernel-legacy-96xx-${nvidia:Version}, x11-common (>= 7.3+2), ${shlibs:Depends}
+Suggests: nvidia-settings, nvidia-kernel-legacy-96xx-source (>= ${nvidia:Version})
 Conflicts: nvidia-glx-src, nvidia-glx-legacy-dev, nvidia-glx-legacy-71xx, nvidia-glx
 Replaces: nvidia-glx-src, nvidia-glx-legacy
 Description: NVIDIA binary Xorg driver (96xx legacy version)
@@ -52,9 +53,9 @@ Description: NVIDIA binary Xorg driver (96xx legacy version)
  
 Package: nvidia-glx-legacy-96xx-dev
 Architecture: i386 amd64
-Depends: nvidia-glx-legacy-96xx (>= 96.43.14)
+Depends: nvidia-glx-legacy-96xx (>= ${nvidia:Version})
 Provides: libgl-dev
-Conflicts: nvidia-glx-legacy-96xx (>= 96.43.15), libgl-dev, mesa-common-dev, nvidia-glx-legacy-71xx-dev, nvidia-glx-dev
+Conflicts: nvidia-glx-legacy-96xx (>= ${nvidia:Version}.0), libgl-dev, mesa-common-dev, nvidia-glx-legacy-71xx-dev, nvidia-glx-dev
 Replaces: libgl-dev, nvidia-glx-legacy
 Description: NVIDIA Xorg driver development files (96xx legacy version)
  This package contains the NVIDIA binary Xorg driver
@@ -65,8 +66,8 @@ Description: NVIDIA Xorg driver development files (96xx legacy version)
 
 Package: nvidia-kernel-legacy-96xx-source
 Architecture: i386 amd64
-Depends: debhelper (>> 4.0.0), make, sed (>> 3.0), dpatch (>= 2.0.0)
-Recommends: nvidia-glx-legacy-96xx (>= 96.43.14), kernel-package (>= 8.082), devscripts
+Depends: debhelper (>> 4.0.0), make, sed (>> 3.0)
+Recommends: nvidia-glx-legacy-96xx (>= ${nvidia:Version}), kernel-package (>= 8.082), devscripts
 Conflicts: nvidia-kernel-src, nvidia-kernel-legacy-source
 Replaces: nvidia-kernel-src, nvidia-kernel-legacy-source
 Description: NVIDIA binary kernel module source (96xx legacy version)

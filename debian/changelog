@@ -5,6 +5,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.16-1.1) UNRELEASED; urgency=low
     nvidia-graphics-drivers-legacy-173xx 173.14.25-?
     - remove old cruft
     - drop ancient patches and unused patch systems
+    - use substvars instead of generating debian/control
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 28 Jun 2010 01:29:49 +0200
 

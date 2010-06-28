@@ -28,7 +28,7 @@ dirname_x86:=$(shell sh debian/upstream_info DIRNAME_X86)
 dirname_x86_64:=$(shell sh debian/upstream_info DIRNAME_X86_64)
 
 LEGACY=-legacy-96xx
-AUTOGEN=debian/nvidia-kernel$(LEGACY)-source.README.Debian debian/control \
+AUTOGEN=debian/nvidia-kernel$(LEGACY)-source.README.Debian \
 debian/copyright debian/nvidia-glx$(LEGACY).links debian/nvidia-glx$(LEGACY)-dev.links \
 debian/nvidia-glx$(LEGACY).override debian/nvidia-glx$(LEGACY).docs debian/nvidia-glx$(LEGACY).examples \
 debian/nvidia-glx$(LEGACY).postrm debian/nvidia-glx$(LEGACY).init \
