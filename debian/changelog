@@ -7,6 +7,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.16-1.1) UNRELEASED; urgency=low
     - drop ancient patches and unused patch systems
     - use substvars instead of generating debian/control
     - do not ship generated files in the source package
+    - add functional watch file
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 28 Jun 2010 01:29:49 +0200
 
