@@ -1,3 +1,13 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.25-2.1) UNRELEASED; urgency=low
+
+  [ Andreas Beckmann ]
+  * synchronize packaging with nvidia-graphics-drivers 195.36.24-4
+    - nvidia-glx now provides xserver-xorg-video-6
+    - add Conflicts: nvidia-glx-legacy that was never really taken care of
+    - drop Conflicts: ccache, set CCACHE_DISABLE instead
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 29 Jun 2010 13:51:58 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.25-2) unstable; urgency=low
 
   [ Andreas Beckmann ]

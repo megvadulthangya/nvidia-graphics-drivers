@@ -22,8 +22,10 @@ Suggests: nvidia-settings,
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Breaks: xserver-xorg-core (<< 2:1.6)
+Provides: xserver-xorg-video-6
 Conflicts:
  nvidia-glx,
+ nvidia-glx-legacy,
  nvidia-glx-legacy-71xx,
  nvidia-glx-legacy-96xx,
  fglrx-glx,
@@ -90,6 +92,7 @@ Suggests: nvidia-settings,
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Conflicts:
  nvidia-glx-ia32,
+ nvidia-glx-legacy-ia32,
  nvidia-glx-legacy-71xx-ia32,
  nvidia-glx-legacy-96xx-ia32,
 Description: NVIDIA binary driver 32bit libs${nvidia:LegacyDesc}
@@ -146,6 +149,7 @@ Depends: ${misc:Depends}, nvidia-glx${nvidia:Legacy} (= ${binary:Version}),
 Recommends: libgl1-mesa-dev | libgl-dev
 Conflicts:
  nvidia-glx,
+ nvidia-glx-legacy,
  nvidia-glx-legacy-71xx,
  nvidia-glx-legacy-96xx,
 Description: NVIDIA binary Xorg driver development files${nvidia:LegacyDesc}
@@ -170,8 +174,7 @@ Conflicts:
  nvidia-kernel-dkms,
  nvidia-kernel-legacy-71xx-dkms,
  nvidia-kernel-legacy-96xx-dkms,
- binutils-gold (>> 2.20.51),
- ccache (<< 3.0~),
+ binutils-gold (>> 2.20.51)
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
  nvidia-glx${nvidia:Legacy}, using DKMS.
@@ -229,9 +232,7 @@ Architecture: i386 amd64
 Depends: ${misc:Depends}, debhelper (>= 7.2.3~), make, quilt (>= 0.46-7~)
 Recommends: module-assistant | kernel-package,
  nvidia-glx${nvidia:Legacy} (>= ${nvidia:Version}), nvidia-kernel-common
-Conflicts:
- binutils-gold (>> 2.20.51),
- ccache (<< 3.0~),
+Conflicts: binutils-gold (>> 2.20.51)
 Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  This package provides the source for the NVIDIA Xorg binary kernel module
  needed by nvidia-glx${nvidia:Legacy} in a form suitable
