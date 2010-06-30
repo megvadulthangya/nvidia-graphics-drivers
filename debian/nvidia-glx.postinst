@@ -37,7 +37,7 @@ case "$1" in
         # <target: squeeze>
 	# remove libGL.so created before the trigger was moved to nvidia-libgl1
 	# will be recreated by the trigger
-	if dpkg --compare-versions "$2" lt-nl 173.14.25-2 ; then
+	if dpkg --compare-versions "$2" lt-nl 173.14.25-3 ; then
 		rm -f /usr/lib/libGL.so
 	fi
 

@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.25-2.1) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-173xx (173.14.25-3) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
   * synchronize packaging with nvidia-graphics-drivers 195.36.24-4
