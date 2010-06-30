@@ -161,7 +161,7 @@ Description: NVIDIA OpenGL development files (transitional package)${nvidia:Lega
  For building portable OpenGL applications, please install libgl1-mesa-dev
  instead.
 
-Package: libgl1-nvidia-glx
+Package: libgl1-nvidia-legacy-173xx-glx
 Section: non-free/libs
 Architecture: i386 amd64
 Depends:
@@ -189,7 +189,7 @@ Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  See /usr/share/doc/libgl1-nvidia${nvidia:Legacy}-glx/README.txt.gz for a complete list
  of supported GPUs and PCIIDs.
 
-Package: libgl1-nvidia-glx-ia32
+Package: libgl1-nvidia-legacy-173xx-glx-ia32
 Section: non-free/libs
 Architecture: amd64
 Pre-Depends: libc6-i386 (>= 2.9-18)
@@ -218,7 +218,7 @@ Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  See /usr/share/doc/libgl1-nvidia${nvidia:Legacy}-glx/README.txt.gz for a complete list
  of supported GPUs and PCIIDs.
 
-Package: libgl1-nvidia-dev
+Package: libgl1-nvidia-legacy-173xx-dev
 Section: non-free/libdevel
 Architecture: i386 amd64
 Depends:
