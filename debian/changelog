@@ -5,6 +5,16 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-2.1) UNRELEASED; urgency=low
     - nvidia-glx now provides xserver-xorg-video-6
     - add Conflicts: nvidia-glx-legacy that was never really taken care of
     - drop Conflicts: ccache, set CCACHE_DISABLE instead
+  * synchronize packaging with nvidia-graphics-drivers 195.36.31-1
+    - fix the shlibs and symbols files
+    - split the nvidia-glx-legacy-173xx{,-ia32} packages, moving the shared
+      libraries to libgl1-nvidia-legacy-173xx-glx{,-ia32}
+    - rename nvidia-glx-legacy-173xx-dev to libgl1-nvidia-legacy-173xx-dev
+    - add Provides/Conflicts for the new virtual packages nvidia-glx{,-ia32},
+      libgl1-nvidia-glx{,-ia32}, libgl1-nvidia-dev
+    - add Conflicts: fglrx-driver, fglrx-glx, fglrx-glx-ia32
+    - nvidia-glx-legacy-173xx: install HTML variant of the README
+    - update to Standards-Version: 3.9.0
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 29 Jun 2010 13:51:58 +0200
 
