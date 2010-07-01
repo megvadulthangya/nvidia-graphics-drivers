@@ -8,6 +8,7 @@ DEB_HOST_ARCH		?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 include debian/rules.defs
 version			 = $(NVIDIA_RELEASE)
 legacy			 = $(if $(NVIDIA_LEGACY),-legacy-$(NVIDIA_LEGACY)xx)
+legacy_description	 = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))
 watch_pattern		 = $(or $(WATCH_PATTERN),$(if $(NVIDIA_LEGACY),$(NVIDIA_LEGACY)\.[\d\.\-]+),[\d\.\-]+)
 filename_x86		 = $(NVIDIA_FILENAME_X86)
 filename_x86_64		 = $(NVIDIA_FILENAME_X86_64)
@@ -44,16 +45,22 @@ unpack-stamp: ${filename_x86} ${filename_x86_64}
 	sh ${filename_x86_64} --extract-only
 	ln -s ${dirname_x86} NVIDIA-Linux-i386
 	ln -s ${dirname_x86_64} NVIDIA-Linux-amd64
+	ln -s NVIDIA-Linux-$(DEB_HOST_ARCH) NVIDIA-Linux
+	test -f NVIDIA-Linux/usr/share/doc/README.txt || \
+		mv NVIDIA-Linux/usr/share/doc/README NVIDIA-Linux/usr/share/doc/README.txt
 	ls -al
 	touch $@
 
 nvidia.ids: unpack-stamp
-	sed -e '/^A1/,/^Below/{/ 0x/s/.* 0x\([0-9a-fA-F]\{4\}\).*/10DE\1/p};d' \
-		NVIDIA-Linux-$(DEB_HOST_ARCH)/usr/share/doc/README.txt \
-		> $@
+	sed -e '0,/A. Supported\|APPENDIX A: SUPPORTED/d' \
+	    -e '0,/Appendix A. Supported\|APPENDIX A: SUPPORTED/d' \
+	    -e '0,/^Below\|APPENDIX B/{/ 0x/s/.* 0x\([0-9a-fA-F]\{4\}\).*/10DE\1/p};d' \
+		NVIDIA-Linux/usr/share/doc/README.txt \
+		| tr a-f A-F | sort -u > $@
+	@set -e -x ; \
 	if ! cmp -s debian/nvidia.ids nvidia.ids ; then \
 		diff -u debian/nvidia.ids nvidia.ids || true ; \
-		echo "*** Supported PCI IDs have changed. See diff above. Aborting. ***"; \
+		: "*** Supported PCI IDs have changed. See diff above. Aborting. ***"; \
 		exit 1 ; \
 	fi
 
@@ -63,9 +70,10 @@ binary binary-arch binary-indep build clean install:
 	dh $@
 
 override_dh_auto_clean:
-	rm -f NVIDIA-Linux-i386 NVIDIA-Linux-amd64
+	rm -f NVIDIA-Linux-i386 NVIDIA-Linux-amd64 NVIDIA-Linux
 	rm -fr $(dirname_x86) $(dirname_x86_64)
 	rm -fr debian/temp
+	rm -fr kernel-source-tree
 	rm -f nvidia.ids
 
 override_dh_clean:
@@ -78,11 +86,15 @@ override_dh_auto_configure: prepare
 # Build two kernel module source tarballs for use with
 #  - module-assistant and make-kpkg
 #  - dkms
-override_dh_auto_install:
+.PHONY: install-into-tmp build-kernel-source-tree build-kernel-dkms-tree kernel-source-tree
+override_dh_auto_install: install-into-tmp build-kernel-source-tree build-kernel-dkms-tree
+
+install-into-tmp:
 	# "Install" into debian/tmp.
-	cp -al NVIDIA-Linux-$(DEB_HOST_ARCH)/ debian/tmp
+	cp -al NVIDIA-Linux/ debian/tmp
 
 	# Create xorg.conf.sample
+	test ! -f debian/tmp/usr/share/doc/XF86Config.sample || \
 	sed \
 	    -e 's/XF86Config(4\/5)/xorg.conf(5)/g' \
 	    -e 's/XF86Config/xorg.conf/g' \
@@ -90,10 +102,10 @@ override_dh_auto_install:
 	    < debian/tmp/usr/share/doc/XF86Config.sample \
 	    > debian/tmp/usr/share/doc/xorg.conf.sample
 
+build-kernel-source-tree: install-into-tmp
 	# Build the nvidia-kernel-source tree.
 	mkdir -p $(module_source)
 	mv debian/tmp/usr/src/nv/* $(module_source)/
-	cp -a debian/tmp/usr/share/doc/NVIDIA_Changelog $(module_source)/
 
 	# We don't want these makefiles that don't work with kbuild.
 	rm $(module_source)/makefile
@@ -126,15 +138,23 @@ override_dh_auto_install:
 	    --exclude '*.in' --exclude '.svn' modules
 	tar tfvj $(module_tbz)
 
+build-kernel-dkms-tree: build-kernel-source-tree
 	# Use the nvidia-kernel-source source to create the DKMS tree.
 	mkdir -p $(dir $(dkms_source))
 	mv $(module_source) $(dkms_source)
 	rmdir $(dir $(module_source))
 	cd $(dkms_source) \
-	    && QUILT_PATCHES=debian/patches quilt --quiltrc /dev/null push -a \
+	    && QUILT_PATCHES=debian/patches quilt --quiltrc /dev/null push -a || test $$? = 2 \
 	    && rm -rf .pc debian
 	ls -la $(dkms_source)
 	dh_dkms -V $(version)
+
+# This target is not used by the package build process.  You can use it if
+# you want to work with the patches that get applied to the module source.
+kernel-source-tree: prepare build-kernel-source-tree
+	rm -rf $@
+	cp -a $(module_source) $@
+	cd $@ && QUILT_PATCHES=debian/patches quilt --quiltrc /dev/null push -a || test $$? = 2
 
 override_dh_install:
 	dh_install --list-missing
@@ -158,7 +178,7 @@ override_dh_makeshlibs:
 
 override_dh_gencontrol:
 	dh_gencontrol -- -V'nvidia:Version=$(version)' -V'nvidia:Legacy=$(legacy)' \
-		-V'nvidia:LegacyDesc=$(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))'
+		-V'nvidia:LegacyDesc=$(legacy_description)'
 
 # Do not run dh_strip here.  The NVIDIA license says:
 #
