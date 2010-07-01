@@ -33,9 +33,6 @@ case "$1" in
 		rmdir /emul/ia32-linux/usr/lib/nvidia || true;
         test -d /usr/lib32/nvidia && \
 	                rmdir /usr/lib32/nvidia || true;
-			
-			
-	ldconfig
 		
     ;;
     
