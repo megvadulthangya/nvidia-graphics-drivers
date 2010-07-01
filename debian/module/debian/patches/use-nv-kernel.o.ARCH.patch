@@ -15,6 +15,6 @@ Index: b/Makefile.kbuild
  
 -CORE_OBJS := nv-kernel.o
 +CORE_OBJS := nv-kernel.o$(NVARCH)
- RESMAN_GLUE_OBJS := nv.o nv_gvi.o nv-vm.o os-agp.o os-interface.o os-registry.o nv-i2c.o nvacpi.o
+ RESMAN_GLUE_OBJS := nv.o nv-vm.o os-agp.o os-interface.o os-registry.o nv-i2c.o nvacpi.o
  
  $(MODULE_NAME)-objs := $(CORE_OBJS) $(RESMAN_GLUE_OBJS)
