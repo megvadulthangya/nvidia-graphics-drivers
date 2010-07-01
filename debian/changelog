@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.17-0) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.17-0.1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
   * new upstream release
@@ -33,6 +33,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.17-0) UNRELEASED; urgency=low
     - update to Standards-Version: 3.9.0
     - lots of small fixes and cleanup
   * adjust version numbers in maintainer scripts
+  * update nvidia.ids
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 28 Jun 2010 01:29:49 +0200
 
