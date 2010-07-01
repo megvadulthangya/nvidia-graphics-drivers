@@ -1,0 +1,82 @@
+Source: nvidia-graphics-drivers-legacy-96xx
+Section: non-free/x11
+Priority: optional
+Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
+Uploaders: Randall Donald <rdonald@debian.org>
+Build-Depends: debhelper (>> 4.0.0), sed (>> 3.0), libxext6,
+Standards-Version: 3.6.2
+
+
+Package: nvidia-glx-legacy-96xx-ia32
+Architecture: amd64
+Depends: nvidia-kernel-legacy-96xx-${nvidia:Version}, ia32-libs, ${shlibs:Depends}
+Pre-Depends: libc6-i386
+Suggests: nvidia-settings, nvidia-kernel-legacy-96xx-source (>= ${nvidia:Version})
+Conflicts: nvidia-glx-src, nvidia-glx-ia32
+Replaces: nvidia-glx-src, nvidia-glx-legacy-ia32, nvidia-glx-legacy-71xx-ia32
+Description: NVIDIA binary Xorg driver (96xx legacy version)
+ These Xorg binary drivers provide optimized hardware acceleration of
+ OpenGL applications via a direct-rendering X Server. AGP, TV-out and
+ flat panel displays are also supported.
+ .
+ Please see the nvidia-kernel-legacy-96xx-source package for building the kernel module
+ required by this package.
+
+Package: nvidia-glx-legacy-96xx
+Architecture: i386 amd64
+Depends: nvidia-kernel-legacy-96xx-${nvidia:Version}, x11-common (>= 7.3+2), ${shlibs:Depends}
+Suggests: nvidia-settings, nvidia-kernel-legacy-96xx-source (>= ${nvidia:Version})
+Conflicts: nvidia-glx-src, nvidia-glx-legacy-dev, nvidia-glx-legacy-71xx, nvidia-glx
+Replaces: nvidia-glx-src, nvidia-glx-legacy
+Description: NVIDIA binary Xorg driver (96xx legacy version)
+ These XFree86 4.0 / Xorg binary drivers provide optimized hardware 
+ acceleration of  OpenGL applications via a direct-rendering X Server. 
+ AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
+ .
+ This legacy version supports:
+ GeForce2 MX/MX 400, GeForce2 MX 100/200, GeForce2 Go, Quadro2 MXR/EX/Go
+ GeForce4 MX 460, GeForce4 MX 440, GeForce4 MX 420,  GeForce4 MX 440-SE
+ GeForce4 440 Go, GeForce4 420 Go, GeForce4 420 Go 32M,  GeForce4 460 Go
+ Quadro4 550 XGL, GeForce4 440 Go 64M, Quadro NVS, Quadro4 500 GoGL, 
+ GeForce4 410 Go 16M, GeForce4 MX 440 with AGP8X, GeForce4 MX 440SE with AGP8X
+ GeForce4 MX 420 with AGP8, GeForce4 MX 4000, Quadro4 580 XGL, 
+ Quadro NVS 280 SD, Quadro4 380 XGL, Quadro NVS 50 PCI,
+ GeForce2 Integrated GPU, GeForce4 MX Integrated GPU, GeForce3, 
+ GeForce3 Ti 200, GeForce3 Ti 500, Quadro DCC, GeForce4 Ti 4600
+ GeForce4 Ti 4400, GeForce4 Ti 4200, Quadro4 900 XGL, Quadro4 750 XGL,
+ Quadro4 700 XGL, GeForce4 Ti 4800, GeForce4 Ti 4200 with AGP8X, 
+ GeForce4 Ti 4800 SE, GeForce4 4200 Go, Quadro4 980 XGL, Quadro4 780 XGL,
+ Quadro4 700 GoGL, 
+ .
+ Please see the nvidia-kernel-legacy-96xx-source package for building the kernel module
+ required by this package.
+ 
+Package: nvidia-glx-legacy-96xx-dev
+Architecture: i386 amd64
+Depends: nvidia-glx-legacy-96xx (>= ${nvidia:Version})
+Provides: libgl-dev
+Conflicts: nvidia-glx-legacy-96xx (>= ${nvidia:Version}.0), libgl-dev, mesa-common-dev, nvidia-glx-legacy-71xx-dev, nvidia-glx-dev
+Replaces: libgl-dev, nvidia-glx-legacy
+Description: NVIDIA Xorg driver development files (96xx legacy version)
+ This package contains the NVIDIA binary Xorg driver
+ development files.
+ .
+ For more information on this source package visit NVIDIA's homepage
+ at http://www.nvidia.com/ .
+
+Package: nvidia-kernel-legacy-96xx-source
+Architecture: i386 amd64
+Depends: debhelper (>> 4.0.0), make, sed (>> 3.0)
+Recommends: nvidia-glx-legacy-96xx (>= ${nvidia:Version}), kernel-package (>= 8.082), devscripts
+Conflicts: nvidia-kernel-src, nvidia-kernel-legacy-source
+Replaces: nvidia-kernel-src, nvidia-kernel-legacy-source
+Description: NVIDIA binary kernel module source (96xx legacy version)
+ This package builds the NVIDIA Xorg  binary kernel module 
+ needed  by nvidia-glx-legacy-96xx. 
+ The drivers provide optimized hardware acceleration 
+ of OpenGL applications via a direct-rendering X Server AGP,
+ PCIe, SLI, TV-out, and flat panel displays are also supported.
+ .
+ PLEASE read /usr/share/doc/nvidia-kernel-legacy-96xx-source/README.Debian 
+ for building  information.
+ .
