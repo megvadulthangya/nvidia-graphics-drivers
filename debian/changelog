@@ -2,13 +2,37 @@ nvidia-graphics-drivers-legacy-96xx (96.43.17-0) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
   * new upstream release
-  * synchronize packaging with nvidia-graphics-drivers 195.36.24-? and
-    nvidia-graphics-drivers-legacy-173xx 173.14.25-?
+  * synchronize packaging with nvidia-graphics-drivers 195.36.31-1 and
+    nvidia-graphics-drivers-legacy-173xx 173.14.25-3
+    - new uploaders
+    - source format 3.0 (quilt)
     - remove old cruft
-    - drop ancient patches and unused patch systems
+    - clean up and simplify packaging
     - use substvars instead of generating debian/control
     - do not ship generated files in the source package
+    - clean up dependencies in debian/control
+    - drop ancient patches and unused patch systems
+    - overhaul the kernel module build system
+    - update conftest.h and add patches for module build
+    - add dkms support
+    - overhaul debian/rules: use dh(1) and many more changes
     - add functional watch file
+    - overhaul copyright, READMEs and other documentation
+    - overhaul maintainer scripts
+    - drop init script and defaults file
+    - nvidia-glx now provides xserver-xorg-video-6
+    - add Conflicts: nvidia-glx-legacy that was never really taken care of
+    - fix the shlibs and symbols files
+    - split the nvidia-glx-legacy-96xx{,-ia32} packages, moving the shared
+      libraries to libgl1-nvidia-legacy-96xx-glx{,-ia32}
+    - rename nvidia-glx-legacy-96xx-dev to libgl1-nvidia-legacy-96xx-dev
+    - add Provides/Conflicts for the new virtual packages nvidia-glx{,-ia32},
+      libgl1-nvidia-glx{,-ia32}, libgl1-nvidia-dev
+    - add Conflicts: fglrx-driver, fglrx-glx, fglrx-glx-ia32
+    - nvidia-glx-legacy-96xx: install HTML variant of the README
+    - update to Standards-Version: 3.9.0
+    - lots of small fixes and cleanup
+  * adjust version numbers in maintainer scripts
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 28 Jun 2010 01:29:49 +0200
 
