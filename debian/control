@@ -35,7 +35,7 @@ Conflicts:
  nvidia-glx,
  nvidia-glx-legacy,
  nvidia-glx-legacy-71xx,
- nvidia-glx-legacy-96xx,
+ nvidia-glx-legacy-173xx,
  fglrx-driver,
 Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  These binary drivers provide optimized hardware acceleration of
@@ -106,7 +106,7 @@ Conflicts:
  nvidia-glx-ia32,
  nvidia-glx-legacy-ia32,
  nvidia-glx-legacy-71xx-ia32,
- nvidia-glx-legacy-96xx-ia32,
+ nvidia-glx-legacy-173xx-ia32,
 Description: NVIDIA binary driver 32-bit libs${nvidia:LegacyDesc}
  These binary drivers provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -327,7 +327,7 @@ Provides: nvidia-kernel${nvidia:Legacy}-${nvidia:Version}
 Conflicts:
  nvidia-kernel-dkms,
  nvidia-kernel-legacy-71xx-dkms,
- nvidia-kernel-legacy-96xx-dkms,
+ nvidia-kernel-legacy-173xx-dkms,
  binutils-gold (>> 2.20.51)
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
