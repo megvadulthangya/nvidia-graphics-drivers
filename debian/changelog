@@ -36,6 +36,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.17-0.1) UNRELEASED; urgency=low
   * update nvidia.ids
   * refresh patches
   * update symbols files
+  * update lintian overrides
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 28 Jun 2010 01:29:49 +0200
 
