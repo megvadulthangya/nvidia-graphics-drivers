@@ -83,7 +83,6 @@ GeForce4 440 Go
 GeForce4 440 Go 64M
 GeForce4 460 Go
 GeForce4 4200 Go
-GeForce4 MX 4000
 GeForce4 MX 420
 GeForce4 MX 420 with AGP8X
 GeForce4 MX 440
@@ -91,6 +90,7 @@ GeForce4 MX 440 with AGP8X
 GeForce4 MX 440-SE
 GeForce4 MX 440SE with AGP8X
 GeForce4 MX 460
+GeForce4 MX 4000
 GeForce4 MX Integrated GPU
 GeForce4 Ti 4200
 GeForce4 Ti 4200 with AGP8X
@@ -101,6 +101,7 @@ GeForce4 Ti 4800 SE
 Quadro DCC
 Quadro FX 330/GeForce PCX 5300
 Quadro FX 350
+Quadro FX 350M
 Quadro FX 500/600 PCI
 Quadro FX 540
 Quadro FX 550
@@ -118,7 +119,6 @@ Quadro FX 3000
 Quadro FX 3400/4400
 Quadro FX 3450/4000 SDI
 Quadro FX 3500
-Quadro FX 350M
 Quadro FX 4000
 Quadro FX 4500
 Quadro FX 4500 X2
@@ -137,7 +137,7 @@ Quadro NVS 285
 Quadro NVS 440
 Quadro2 MXR/EX/Go
 Quadro4 380 XGL
-Quadro4 500 GoG
+Quadro4 500 GoGL
 Quadro4 550 XGL
 Quadro4 580 XGL
 Quadro4 700 GoGL
