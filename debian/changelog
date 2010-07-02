@@ -1,7 +1,7 @@
 nvidia-graphics-drivers-legacy-96xx (96.43.17-0.1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
-  * new upstream release
+  * new upstream release (closes: #523941)
   * synchronize packaging with nvidia-graphics-drivers 195.36.31-1 and
     nvidia-graphics-drivers-legacy-173xx 173.14.25-3
     - new uploaders
@@ -10,16 +10,19 @@ nvidia-graphics-drivers-legacy-96xx (96.43.17-0.1) UNRELEASED; urgency=low
     - clean up and simplify packaging
     - use substvars instead of generating debian/control
     - do not ship generated files in the source package
-    - clean up dependencies in debian/control
+    - clean up dependencies in debian/control (closes: #449112)
     - drop ancient patches and unused patch systems
-    - overhaul the kernel module build system
-    - update conftest.h and add patches for module build
+    - overhaul the kernel module build system (closes: #396384, #499636)
+      (closes: #510960, #541798, #476643)
+    - update conftest.h and add patches for module build (closes: #574420)
+      (closes: #534867, #542827, #540838)
     - add dkms support
     - overhaul debian/rules: use dh(1) and many more changes
     - add functional watch file
     - overhaul copyright, READMEs and other documentation
-    - overhaul maintainer scripts
-    - drop init script and defaults file
+    - overhaul maintainer scripts (closes: #425353)
+    - drop init script and defaults file (closes: #426250, #490847)
+    - use a dpkg trigger to create the libGL.so symlink (closes: #504661)
     - nvidia-glx now provides xserver-xorg-video-6
     - add Conflicts: nvidia-glx-legacy that was never really taken care of
     - fix the shlibs and symbols files
