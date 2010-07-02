@@ -16,6 +16,8 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-3) UNRELEASED; urgency=low
     - nvidia-glx-legacy-173xx: install HTML variant of the README
     - update to Standards-Version: 3.9.0
     - lots of small fixes and cleanup
+  * only list the GPUs supported in this legacy series for the last time in
+    the long description, do not list models in the libgl1-nvidia* packages
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 29 Jun 2010 13:51:58 +0200
 
@@ -38,6 +40,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-2) unstable; urgency=low
     - overhaul copyright, READMEs and other documentation (closes: #573267)
     - overhaul maintainer scripts
     - drop init script and defaults file
+    - use a dpkg trigger to create the libGL.so symlink
   * no longer include the cuda libraries/headers in nvidia-glx*
   * update nvidia.ids
   * refresh patches
