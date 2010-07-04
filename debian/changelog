@@ -18,6 +18,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-3) UNRELEASED; urgency=low
     - lots of small fixes and cleanup
   * only list the GPUs supported in this legacy series for the last time in
     the long description, do not list models in the libgl1-nvidia* packages
+  * really remove the init script and defaults file
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 29 Jun 2010 13:51:58 +0200
 
