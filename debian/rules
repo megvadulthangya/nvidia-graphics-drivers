@@ -22,15 +22,11 @@ url:=$(shell sh debian/upstream_info URL)
 dirname:=$(shell sh debian/upstream_info DIRNAME)
 filename:=$(shell sh debian/upstream_info FILENAME)
 
-AUTOGEN=debian/nvidia-kernel-legacy-71xx-source.README.Debian debian/control \
-debian/copyright debian/nvidia-glx-legacy-71xx.links debian/nvidia-glx-legacy-71xx-dev.links \
-debian/nvidia-glx-legacy-71xx.override debian/nvidia-glx-legacy-71xx.docs debian/nvidia-glx-legacy-71xx.examples \
-debian/nvidia-glx-legacy-71xx.postrm debian/nvidia-glx-legacy-71xx.init \
-debian/nvidia-glx-legacy-71xx-ia32.override debian/nvidia-glx-legacy-71xx-ia32.links \
-debian/nvidia-kernel-legacy-71xx-source.docs debian/nvidia-glx-legacy-71xx-dev.preinst
-
-
-
+TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in)
+AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
+AUTOGEN		+= debian.binary/changelog
+AUTOKEEP	 = debian/control
+AUTOCLEAN	 = $(filter-out $(AUTOKEEP),$(AUTOGEN))
 
 
 CFLAGS = -Wall -g
@@ -62,10 +58,6 @@ configure-stamp: version-clean $(AUTOGEN)
 #			do patch -p3 <$$i; \
 #		done; \
 #	fi
-
-	sed 's/^nvidia-graphics-drivers-legacy-71xx/nvidia-kernel-legacy-71xx/g'  debian/changelog > debian.binary/changelog
-
-
 	touch configure-stamp
 
 .PHONY: build
@@ -114,7 +106,8 @@ clean:
 	dh_clean 
 
 	rm -fr $(dirname)  nvidia-kernel-legacy-71xx-source.tar.gz
-
+	rm -f $(AUTOCLEAN)
+	$(MAKE) -f debian/rules $(AUTOKEEP)
 
 
 .PHONY: install
@@ -249,6 +242,9 @@ binary-common:
 	-e 's{#FILENAME#}{$(filename)}g;' \
 	-e 's{#URL#}{$(url)}g' \
 	< $< > $@
+
+debian.binary/changelog: debian/changelog
+	sed '1s/^nvidia-graphics-drivers/nvidia-kernel/g' $< > $@
 
 
 # Build architecture dependant packages using the common target.
