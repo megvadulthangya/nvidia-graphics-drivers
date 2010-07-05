@@ -34,6 +34,8 @@ nvidia-graphics-drivers-legacy-96xx (96.43.17-0.1) UNRELEASED; urgency=low
     - add Conflicts: fglrx-driver, fglrx-glx, fglrx-glx-ia32
     - nvidia-glx-legacy-96xx: install HTML variant of the README
     - update to Standards-Version: 3.9.0
+    - move diversions to /usr/lib{,32}/nvidia/diversions
+    - drop LEGACY part from virtual package name nvidia-kernel-NVIDIAVERSION
     - lots of small fixes and cleanup
   * adjust version numbers in maintainer scripts
   * update nvidia.ids
