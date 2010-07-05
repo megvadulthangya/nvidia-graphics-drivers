@@ -21,15 +21,15 @@ Architecture: i386 amd64
 Pre-Depends: dpkg (>= 1.15.7.2)
 Depends:
  libgl1-nvidia${nvidia:Legacy}-glx (= ${binary:Version}),
- nvidia-kernel${nvidia:Legacy}-${nvidia:Version},
+ nvidia-kernel-${nvidia:Version},
  ${shlibs:Depends}, ${misc:Depends}
 Suggests: nvidia-settings,
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Breaks: xserver-xorg-core (<< 2:1.6)
 Provides:
- xserver-xorg-video-6,
  nvidia-glx,
+ xserver-xorg-video-6,
 Conflicts:
  nvidia-glx,
  nvidia-glx-legacy,
@@ -44,7 +44,7 @@ Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  Please see the nvidia-kernel${nvidia:Legacy}-dkms or
  nvidia-kernel${nvidia:Legacy}-source packages
  for building the kernel module required by this package.
- This will provide nvidia-kernel${nvidia:Legacy}-${nvidia:Version}.
+ This will provide nvidia-kernel-${nvidia:Version}.
  .
  This legacy version is the last release that supports the following GPUs:
  GeForce 6800, GeForce 6800 GT, GeForce 6800 LE, GeForce 6800 XT,
@@ -74,7 +74,7 @@ Architecture: amd64
 Pre-Depends: libc6-i386 (>= 2.9-18)
 Depends:
  libgl1-nvidia${nvidia:Legacy}-glx-ia32 (= ${binary:Version}),
- nvidia-kernel${nvidia:Legacy}-${nvidia:Version},
+ nvidia-kernel-${nvidia:Version},
  ${shlibs:Depends}, ${misc:Depends}
 Suggests: nvidia-settings,
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
@@ -131,7 +131,7 @@ Architecture: i386 amd64
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
- nvidia-kernel${nvidia:Legacy}-${nvidia:Version},
+ nvidia-kernel-${nvidia:Version},
 Suggests:
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
@@ -140,7 +140,11 @@ Provides:
 Conflicts:
  libgl1-nvidia-glx,
  fglrx-glx,
- nvidia-glx${nvidia:Legacy} (<< 173.14.25-3),
+ nvidia-glx-legacy,
+ nvidia-glx (<< 195.36.31),
+ nvidia-glx-legacy-71xx,
+ nvidia-glx-legacy-96xx,
+ nvidia-glx-legacy-173xx (<< 173.14.25-3),
 Replaces: nvidia-glx${nvidia:Legacy} (<< 173.14.25-3)
 Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
@@ -157,7 +161,7 @@ Pre-Depends: libc6-i386 (>= 2.9-18)
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
- nvidia-kernel${nvidia:Legacy}-${nvidia:Version},
+ nvidia-kernel-${nvidia:Version},
 Suggests:
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
@@ -166,7 +170,11 @@ Provides:
 Conflicts:
  libgl1-nvidia-glx-ia32,
  fglrx-glx-ia32,
- nvidia-glx${nvidia:Legacy}-ia32 (<< 173.14.25-3),
+ nvidia-glx-ia32 (<< 195.36.31),
+ nvidia-glx-legacy-ia32,
+ nvidia-glx-legacy-71xx-ia32,
+ nvidia-glx-legacy-96xx-ia32,
+ nvidia-glx-legacy-173xx-ia32 (<< 173.14.25-3),
 Replaces: nvidia-glx${nvidia:Legacy}-ia32 (<< 173.14.25-3)
 Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  These binary 32-bit libraries provide optimized hardware acceleration of
@@ -188,7 +196,11 @@ Provides:
  libgl1-nvidia-dev,
 Conflicts:
  libgl1-nvidia-dev,
- nvidia-glx${nvidia:Legacy}-dev (<< 173.14.25-3),
+ nvidia-glx-dev (<< 195.36.31),
+ nvidia-glx-legacy-dev,
+ nvidia-glx-legacy-71xx-dev,
+ nvidia-glx-legacy-96xx-dev,
+ nvidia-glx-legacy-173xx-dev (<< 173.14.25-3),
 Replaces: nvidia-glx${nvidia:Legacy}-dev (<< 173.14.25-3)
 Description: NVIDIA OpenGL development files${nvidia:LegacyDesc}
  This package contains the development files for the NVIDIA OpenGL
@@ -207,11 +219,11 @@ Section: non-free/kernel
 Architecture: i386 amd64
 Depends: ${misc:Depends}, dkms, nvidia-kernel-common (>= 20100522)
 Recommends: nvidia-glx${nvidia:Legacy} (>= ${nvidia:Version})
-Provides: nvidia-kernel${nvidia:Legacy}-${nvidia:Version}
+Provides:
+ nvidia-kernel-dkms,
+ nvidia-kernel-${nvidia:Version},
 Conflicts:
  nvidia-kernel-dkms,
- nvidia-kernel-legacy-71xx-dkms,
- nvidia-kernel-legacy-96xx-dkms,
  binutils-gold (>> 2.20.51)
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
