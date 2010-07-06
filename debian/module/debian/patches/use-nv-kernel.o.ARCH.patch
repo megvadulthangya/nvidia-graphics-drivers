@@ -13,8 +13,8 @@ Index: b/Makefile.kbuild
  # understands that we want a module.
  #
  
--CORE_OBJS := nv-kernel.o
-+CORE_OBJS := nv-kernel.o$(NVARCH)
- RESMAN_GLUE_OBJS := nv.o nv-vm.o os-agp.o os-interface.o os-registry.o nv-i2c.o
+-RESMAN_CORE_OBJS := nv-kernel.o
++RESMAN_CORE_OBJS := nv-kernel.o$(NVARCH)
+ RESMAN_GLUE_OBJS := nv.o nv-vm.o os-agp.o os-interface.o os-registry.o
  
- $(MODULE_NAME)-objs := $(CORE_OBJS) $(RESMAN_GLUE_OBJS)
+ $(MODULE_NAME)-objs := $(RESMAN_CORE_OBJS) $(RESMAN_GLUE_OBJS)
