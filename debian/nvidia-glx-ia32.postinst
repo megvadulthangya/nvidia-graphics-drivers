@@ -31,11 +31,11 @@ case "$1" in
 		/emul/ia32-linux/usr/lib/X11R6/nvidia/libGL.so.1.ia32-libs \
 		/emul/ia32-linux/usr/lib/X11R6/libGL.so.1 > /dev/null
 	dpkg-divert --remove --rename --package $DPKG_MAINTSCRIPT_PACKAGE --divert \
-		/emul/ia32-linux/usr/lib/X11R6/nvidia/libGL.so.1.2.ia32-libs \
-		/emul/ia32-linux/usr/lib/X11R6/libGL.so.1.2 > /dev/null
+		/emul/ia32-linux/usr/X11R6/lib/nvidia/libGL.so.1.2.ia32-libs \
+		/emul/ia32-linux/usr/X11R6/lib/libGL.so.1.2 > /dev/null
 
-	test -d /emul/ia32-linux/usr/lib/X11R6/nvidia && \
-		rmdir /emul/ia32-linux/usr/lib/X11R6/nvidia || true;
+	rmdir /emul/ia32-linux/usr/lib/X11R6/nvidia /emul/ia32-linux/usr/lib/X11R6 2>/dev/null || true
+	rmdir /emul/ia32-linux/usr/X11R6/lib/nvidia /emul/ia32-linux/usr/X11R6/lib /emul/ia32-linux/usr/X11R6 2>/dev/null || true
 	# </target: squeeze>
 
     ;;

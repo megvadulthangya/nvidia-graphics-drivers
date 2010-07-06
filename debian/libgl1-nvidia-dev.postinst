@@ -1,7 +1,7 @@
 #! /bin/sh
 set -e
 
-if [ "$1" = "configure" ]
+if [ "$1" = "configure" ] && [ "$2" = "" ]
 then
 
         # <target: squeeze>
@@ -9,7 +9,7 @@ then
 	dpkg-divert --remove --rename --package nvidia-glx-legacy-71xx-dev --divert /usr/lib/nvidia/libGL.a.xlibmesa  /usr/lib/libGL.a > /dev/null
 	dpkg-divert --remove --rename --package nvidia-glx-legacy-71xx-dev --divert /usr/X11R6/lib/nvidia/libGL.a.xlibmesa /usr/X11R6/lib/libGL.a > /dev/null
 
-	rmdir /usr/lib/nvidia /usr/X11R6/lib/nvidia 2>/dev/null || true
+	rmdir /usr/lib/nvidia /usr/X11R6/lib/nvidia /usr/X11R6/lib /usr/X11R6 2>/dev/null || true
         # </target: squeeze>
 
 fi
