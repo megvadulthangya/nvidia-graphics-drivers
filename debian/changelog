@@ -29,7 +29,6 @@ nvidia-graphics-drivers-legacy-71xx (71.86.13-2) UNRELEASED; urgency=low
     - add Provides/Conflicts for the new virtual packages nvidia-glx{,-ia32},
       libgl1-nvidia-glx{,-ia32}, libgl1-nvidia-dev
     - add Conflicts: fglrx-driver, fglrx-glx, fglrx-glx-ia32
-    - nvidia-glx-legacy-71xx: install HTML variant of the README
     - update to Standards-Version: 3.9.0
     - move diversions to /usr/lib{,32}/nvidia/diversions
     - drop LEGACY part from virtual package name nvidia-kernel-NVIDIAVERSION
@@ -41,6 +40,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.13-2) UNRELEASED; urgency=low
   * readd transitional packages to get rid of the remaining
     nvidia-glx-legacy{,-ia32,-dev} and nvidia-kernel-legacy-source packages
   * refresh patches
+  * update install lists for files not available or named differently in 71xx
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 06 Jul 2010 01:30:44 +0200
 

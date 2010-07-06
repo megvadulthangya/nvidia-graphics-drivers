@@ -28,12 +28,3 @@ libXvMCNVIDIA_dynamic.so.1 #PACKAGE# #MINVER#
  XvMCSetSubpicturePalette@Base 1.0.4349
  XvMCSyncSubpicture@Base 1.0.4349
  XvMCSyncSurface@Base 1.0.4349
-libnvidia-cfg.so.1 #PACKAGE# #MINVER#
- nvCfgCloseDevice@Base 1.0.8174
- nvCfgGetDevices@Base 1.0.8174
- nvCfgGetDisplayDevices@Base 1.0.8174
- nvCfgGetEDID@Base 1.0.8174
- nvCfgGetEDIDData@Base 1.0.8174
- nvCfgGetNumCRTCs@Base 1.0.8174
- nvCfgGetProductName@Base 1.0.8174
- nvCfgOpenDevice@Base 1.0.8174
