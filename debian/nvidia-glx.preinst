@@ -24,7 +24,7 @@ case "$1" in
 
 	# <target: squeeze>
 	# update the diversion
-        if dpkg --compare-versions "$2" lt-nl 195.36.31
+        if dpkg --compare-versions "$2" lt-nl 173.14.25-3
 	then
 		file_orig="/usr/lib/xorg/modules/extensions/libglx.so"
 		file_old_divert="/usr/lib/nvidia/libglx.so.xlibmesa"
