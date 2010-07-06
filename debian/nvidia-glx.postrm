@@ -5,8 +5,8 @@ set -e
 #DIVERT_QUIET="--quiet"
 
 # <target: squeeze>
-dpkg-maintscript-helper rm_conffile /etc/default/$DPKG_MAINTSCRIPT_PACKAGE 96.43.17~ -- "$@"
-dpkg-maintscript-helper rm_conffile /etc/init.d/$DPKG_MAINTSCRIPT_PACKAGE 96.43.17~ -- "$@"
+dpkg-maintscript-helper rm_conffile /etc/default/$DPKG_MAINTSCRIPT_PACKAGE 71.86.13-2~ -- "$@"
+dpkg-maintscript-helper rm_conffile /etc/init.d/$DPKG_MAINTSCRIPT_PACKAGE 71.86.13-2~ -- "$@"
 # </target: squeeze>
 
 
