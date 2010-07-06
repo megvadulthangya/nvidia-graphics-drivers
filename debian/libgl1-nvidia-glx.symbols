@@ -28,3 +28,5 @@ libXvMCNVIDIA_dynamic.so.1 #PACKAGE# #MINVER#
  XvMCSetSubpicturePalette@Base 1.0.4349
  XvMCSyncSubpicture@Base 1.0.4349
  XvMCSyncSurface@Base 1.0.4349
+ (arch=i386)mknod@Base 0
+ (arch=i386)stat64@Base 0
