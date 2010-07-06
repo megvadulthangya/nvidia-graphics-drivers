@@ -1,6 +1,0 @@
-nvidia-graphics-drivers (1.0.7182-1) unstable; urgency=low
-
-  nvidia-glx-legacy-dev now installs GL headers into /usr/includes,
-  conflicting with other GL libgl-dev packages. Only install if needed.
-
- -- Randall Donald <rdonald@debian.org>  Thu,  6 Jul 2006 01:21:58 -0700
