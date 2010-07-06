@@ -1,10 +1,11 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.13-1.0) unstable; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.13-2) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
   * add missing Build-Depends: libxext6, fixes FTBFS
   * do not keep generated control files in the repository
   * debian/control: use substvars instead of placeholder substitution
   * no longer generate debian/control
+  * synchronize packaging with nvidia-graphics-drivers-legacy-96xx 96.43.17-1
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 06 Jul 2010 01:30:44 +0200
 
