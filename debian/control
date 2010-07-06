@@ -32,7 +32,7 @@ Provides:
  xserver-xorg-video-6,
 Conflicts:
  nvidia-glx,
- nvidia-glx-legacy,
+ nvidia-glx-legacy (<< 71.86.13-2),
  nvidia-glx-legacy-96xx,
  nvidia-glx-legacy-173xx,
  fglrx-driver,
@@ -74,7 +74,7 @@ Provides:
  nvidia-glx-ia32,
 Conflicts:
  nvidia-glx-ia32,
- nvidia-glx-legacy-ia32,
+ nvidia-glx-legacy-ia32 (<< 71.86.13-2),
  nvidia-glx-legacy-96xx-ia32,
  nvidia-glx-legacy-173xx-ia32,
 Description: NVIDIA binary driver 32-bit libs${nvidia:LegacyDesc}
@@ -123,7 +123,7 @@ Conflicts:
  libgl1-nvidia-glx,
  fglrx-glx,
  nvidia-glx (<< 195.36.31),
- nvidia-glx-legacy,
+ nvidia-glx-legacy (<< 71.86.13-2),
  nvidia-glx-legacy-71xx (<< 71.86.13-2),
  nvidia-glx-legacy-96xx,
  nvidia-glx-legacy-173xx,
@@ -153,7 +153,7 @@ Conflicts:
  libgl1-nvidia-glx-ia32,
  fglrx-glx-ia32,
  nvidia-glx-ia32 (<< 195.36.31),
- nvidia-glx-legacy-ia32,
+ nvidia-glx-legacy-ia32 (<< 71.86.13-2),
  nvidia-glx-legacy-71xx-ia32 (<< 71.86.13-2),
  nvidia-glx-legacy-96xx-ia32,
  nvidia-glx-legacy-173xx-ia32,
@@ -179,7 +179,7 @@ Provides:
 Conflicts:
  libgl1-nvidia-dev,
  nvidia-glx-dev,
- nvidia-glx-legacy-dev,
+ nvidia-glx-legacy-dev (<< 71.86.13-2),
  nvidia-glx-legacy-71xx-dev (<< 71.86.13-2),
  nvidia-glx-legacy-96xx-dev,
  nvidia-glx-legacy-173xx-dev,
@@ -267,4 +267,32 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  .
  See /usr/share/doc/nvidia-kernel${nvidia:Legacy}-source/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
+
+Package: nvidia-glx-legacy
+Section: non-free/oldlibs
+Architecture: i386 amd64
+Depends: nvidia-glx${nvidia:Legacy}, ${misc:Depends}
+Description: NVIDIA binary Xorg driver (transitional, 71xx legacy)
+ Dummy package to upgrade to new naming scheme.
+
+Package: nvidia-glx-legacy-ia32
+Section: non-free/oldlibs
+Architecture: amd64
+Depends: nvidia-glx${nvidia:Legacy}-ia32, ${misc:Depends}
+Description: NVIDIA binary Xorg driver (32-bit, transitional, 71xx legacy)
+ Dummy package to upgrade to new naming scheme.
+
+Package: nvidia-glx-legacy-dev
+Section: non-free/oldlibs
+Architecture: i386 amd64
+Depends: nvidia-glx${nvidia:Legacy}-dev, ${misc:Depends}
+Description: NVIDIA binary Xorg devel (transitional, 71xx legacy)
+ Dummy package to upgrade to new naming scheme.
+
+Package: nvidia-kernel-legacy-source
+Section: non-free/oldlibs
+Architecture: i386 amd64
+Depends: nvidia-kernel${nvidia:Legacy}-source, ${misc:Depends}
+Description: NVIDIA binary kernel module source (transitional, 71xx legacy)
+ Dummy package to upgrade to new naming scheme.
 
