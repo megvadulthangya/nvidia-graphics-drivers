@@ -2,6 +2,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.17-0.1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
   * new upstream release (closes: #523941)
+  * add missing Build-Depends: libxext6, fixes FTBFS
   * synchronize packaging with nvidia-graphics-drivers 195.36.31-1 and
     nvidia-graphics-drivers-legacy-173xx 173.14.25-3
     - new uploaders
