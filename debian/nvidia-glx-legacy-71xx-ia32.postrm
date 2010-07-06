@@ -41,12 +41,9 @@ case "$1" in
 	test -d /emul/ia32-linux/usr/lib/X11R6/nvidia && \
 		rmdir /emul/ia32-linux/usr/lib/X11R6/nvidia || true;
 
-	ldconfig
-		
     ;;
     
     upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
-
 
         ;;
 
