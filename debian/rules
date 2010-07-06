@@ -25,7 +25,7 @@ filename:=$(shell sh debian/upstream_info FILENAME)
 TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in)
 AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
 AUTOGEN		+= debian.binary/changelog
-AUTOKEEP	 =
+AUTOKEEP	 = debian/watch
 AUTOCLEAN	 = $(filter-out $(AUTOKEEP),$(AUTOGEN))
 
 
