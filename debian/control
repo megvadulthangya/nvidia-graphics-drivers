@@ -1,11 +1,11 @@
-Source: nvidia-graphics-drivers-legacy-96xx
+Source: nvidia-graphics-drivers-legacy-71xx
 Section: non-free/x11
 Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders:
  Russ Allbery <rra@debian.org>,
-Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-96xx/trunk
-Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-96xx/
+Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-71xx/trunk
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-71xx/
 Build-Depends:
  debhelper (>= 7.4.16~),
  bzip2,
@@ -16,7 +16,7 @@ Build-Depends:
 Standards-Version: 3.9.0
 Homepage: http://www.nvidia.com
 
-Package: nvidia-glx-legacy-96xx
+Package: nvidia-glx-legacy-71xx
 Architecture: i386 amd64
 Pre-Depends: dpkg (>= 1.15.7.2)
 Depends:
@@ -69,7 +69,7 @@ Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  See /usr/share/doc/nvidia-glx${nvidia:Legacy}/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-Package: nvidia-glx-legacy-96xx-ia32
+Package: nvidia-glx-legacy-71xx-ia32
 Architecture: amd64
 Pre-Depends: libc6-i386 (>= 2.9-18)
 Depends:
@@ -114,7 +114,7 @@ Description: NVIDIA binary driver 32-bit libs${nvidia:LegacyDesc}
  See /usr/share/doc/nvidia-glx${nvidia:Legacy}/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-Package: nvidia-glx-legacy-96xx-dev
+Package: nvidia-glx-legacy-71xx-dev
 Section: non-free/oldlibs
 Architecture: i386 amd64
 Depends: libgl1-nvidia${nvidia:Legacy}-dev, ${misc:Depends}
@@ -125,7 +125,7 @@ Description: NVIDIA OpenGL development files (transitional package)${nvidia:Lega
  For building portable OpenGL applications, please install libgl1-mesa-dev
  instead.
 
-Package: libgl1-nvidia-legacy-96xx-glx
+Package: libgl1-nvidia-legacy-71xx-glx
 Section: non-free/libs
 Architecture: i386 amd64
 Depends:
@@ -154,7 +154,7 @@ Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  or /usr/share/doc/libgl1-nvidia${nvidia:Legacy}-glx/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-Package: libgl1-nvidia-legacy-96xx-glx-ia32
+Package: libgl1-nvidia-legacy-71xx-glx-ia32
 Section: non-free/libs
 Architecture: amd64
 Pre-Depends: libc6-i386 (>= 2.9-18)
@@ -184,7 +184,7 @@ Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  or /usr/share/doc/libgl1-nvidia${nvidia:Legacy}-glx/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-Package: libgl1-nvidia-legacy-96xx-dev
+Package: libgl1-nvidia-legacy-71xx-dev
 Section: non-free/libdevel
 Architecture: i386 amd64
 Depends:
@@ -214,7 +214,7 @@ Description: NVIDIA OpenGL development files${nvidia:LegacyDesc}
  For more information on this source package visit NVIDIA's homepage
  at http://www.nvidia.com/ .
 
-Package: nvidia-kernel-legacy-96xx-dkms
+Package: nvidia-kernel-legacy-71xx-dkms
 Section: non-free/kernel
 Architecture: i386 amd64
 Depends: ${misc:Depends}, dkms, nvidia-kernel-common (>= 20100522)
@@ -260,7 +260,7 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  See /usr/share/doc/nvidia-kernel${nvidia:Legacy}-dkms/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-Package: nvidia-kernel-legacy-96xx-source
+Package: nvidia-kernel-legacy-71xx-source
 Section: non-free/kernel
 Architecture: i386 amd64
 Depends: ${misc:Depends}, debhelper (>= 7.2.3~), make, quilt (>= 0.46-7~)
