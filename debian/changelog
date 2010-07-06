@@ -36,6 +36,8 @@ nvidia-graphics-drivers-legacy-71xx (71.86.13-2) UNRELEASED; urgency=low
     - lots of small fixes and cleanup
   * update nvidia.ids
   * adjust version numbers in maintainer scripts
+  * only list the GPUs supported in this legacy series for the last time in
+    the long description, do not list models in the libgl1-nvidia* packages
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 06 Jul 2010 01:30:44 +0200
 

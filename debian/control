@@ -47,19 +47,10 @@ Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  This will provide nvidia-kernel-${nvidia:Version}${nvidia:Perfkit}.
  .
  This legacy version is the last release that supports the following GPUs:
- GeForce PCX 4300, GeForce2 Go, GeForce2 Integrated GPU, GeForce2 MX 100/200,
- GeForce2 MX/MX 400, GeForce3, GeForce3 Ti 200, GeForce3 Ti 500,
- GeForce4 410 Go 16M, GeForce4 420 Go, GeForce4 420 Go 32M, GeForce4 440 Go,
- GeForce4 440 Go 64M, GeForce4 460 Go, GeForce4 4200 Go, GeForce4 MX 420,
- GeForce4 MX 420 with AGP8X, GeForce4 MX 440, GeForce4 MX 440 with AGP8X,
- GeForce4 MX 440-SE, GeForce4 MX 440SE with AGP8X, GeForce4 MX 460,
- GeForce4 MX 4000, GeForce4 MX Integrated GPU, GeForce4 Ti 4200,
- GeForce4 Ti 4200 with AGP8X, GeForce4 Ti 4400, GeForce4 Ti 4600,
- GeForce4 Ti 4800, GeForce4 Ti 4800 SE, Quadro DCC, Quadro NVS,
- Quadro NVS with AGP8X, Quadro NVS 50 PCI, Quadro2 MXR/EX/Go, Quadro4 380 XGL,
- Quadro4 500 GoGL, Quadro4 550 XGL, Quadro4 580 XGL, Quadro4 700 GoGL,
- Quadro4 700 XGL, Quadro4 750 XGL, Quadro4 780 XGL, Quadro4 900 XGL,
- Quadro4 980 XGL.
+ Aladdin TNT2, GeForce 256, GeForce 6200SE TurboCache(TM), GeForce DDR,
+ GeForce2 GTS/GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra, Quadro, Quadro2 Pro,
+ RIVA TNT, RIVA TNT2 Model 64/Model 64 Pro, RIVA TNT2 Ultra,
+ RIVA TNT2/TNT2 Pro, Vanta/Vanta LT.
  .
  There are several "more modern" GPUs supported by this package, too, but the
  updated drivers in the newer legacy packages or the current nvidia-glx
@@ -92,19 +83,10 @@ Description: NVIDIA binary driver 32-bit libs${nvidia:LegacyDesc}
  AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
  .
  This legacy version is the last release that supports the following GPUs:
- GeForce PCX 4300, GeForce2 Go, GeForce2 Integrated GPU, GeForce2 MX 100/200,
- GeForce2 MX/MX 400, GeForce3, GeForce3 Ti 200, GeForce3 Ti 500,
- GeForce4 410 Go 16M, GeForce4 420 Go, GeForce4 420 Go 32M, GeForce4 440 Go,
- GeForce4 440 Go 64M, GeForce4 460 Go, GeForce4 4200 Go, GeForce4 MX 420,
- GeForce4 MX 420 with AGP8X, GeForce4 MX 440, GeForce4 MX 440 with AGP8X,
- GeForce4 MX 440-SE, GeForce4 MX 440SE with AGP8X, GeForce4 MX 460,
- GeForce4 MX 4000, GeForce4 MX Integrated GPU, GeForce4 Ti 4200,
- GeForce4 Ti 4200 with AGP8X, GeForce4 Ti 4400, GeForce4 Ti 4600,
- GeForce4 Ti 4800, GeForce4 Ti 4800 SE, Quadro DCC, Quadro NVS,
- Quadro NVS with AGP8X, Quadro NVS 50 PCI, Quadro2 MXR/EX/Go, Quadro4 380 XGL,
- Quadro4 500 GoGL, Quadro4 550 XGL, Quadro4 580 XGL, Quadro4 700 GoGL,
- Quadro4 700 XGL, Quadro4 750 XGL, Quadro4 780 XGL, Quadro4 900 XGL,
- Quadro4 980 XGL.
+ Aladdin TNT2, GeForce 256, GeForce 6200SE TurboCache(TM), GeForce DDR,
+ GeForce2 GTS/GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra, Quadro, Quadro2 Pro,
+ RIVA TNT, RIVA TNT2 Model 64/Model 64 Pro, RIVA TNT2 Ultra,
+ RIVA TNT2/TNT2 Pro, Vanta/Vanta LT.
  .
  There are several "more modern" GPUs supported by this package, too, but the
  updated drivers in the newer legacy packages or the current nvidia-glx
@@ -238,19 +220,10 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  are also supported.
  .
  This legacy version is the last release that supports the following GPUs:
- GeForce PCX 4300, GeForce2 Go, GeForce2 Integrated GPU, GeForce2 MX 100/200,
- GeForce2 MX/MX 400, GeForce3, GeForce3 Ti 200, GeForce3 Ti 500,
- GeForce4 410 Go 16M, GeForce4 420 Go, GeForce4 420 Go 32M, GeForce4 440 Go,
- GeForce4 440 Go 64M, GeForce4 460 Go, GeForce4 4200 Go, GeForce4 MX 420,
- GeForce4 MX 420 with AGP8X, GeForce4 MX 440, GeForce4 MX 440 with AGP8X,
- GeForce4 MX 440-SE, GeForce4 MX 440SE with AGP8X, GeForce4 MX 460,
- GeForce4 MX 4000, GeForce4 MX Integrated GPU, GeForce4 Ti 4200,
- GeForce4 Ti 4200 with AGP8X, GeForce4 Ti 4400, GeForce4 Ti 4600,
- GeForce4 Ti 4800, GeForce4 Ti 4800 SE, Quadro DCC, Quadro NVS,
- Quadro NVS with AGP8X, Quadro NVS 50 PCI, Quadro2 MXR/EX/Go, Quadro4 380 XGL,
- Quadro4 500 GoGL, Quadro4 550 XGL, Quadro4 580 XGL, Quadro4 700 GoGL,
- Quadro4 700 XGL, Quadro4 750 XGL, Quadro4 780 XGL, Quadro4 900 XGL,
- Quadro4 980 XGL.
+ Aladdin TNT2, GeForce 256, GeForce 6200SE TurboCache(TM), GeForce DDR,
+ GeForce2 GTS/GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra, Quadro, Quadro2 Pro,
+ RIVA TNT, RIVA TNT2 Model 64/Model 64 Pro, RIVA TNT2 Ultra,
+ RIVA TNT2/TNT2 Pro, Vanta/Vanta LT.
  .
  There are several "more modern" GPUs supported by this package, too, but the
  updated drivers in the newer legacy packages or the current nvidia-glx
@@ -282,19 +255,10 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  installed via DKMS, install nvidia-kernel${nvidia:Legacy}-dkms instead.
  .
  This legacy version is the last release that supports the following GPUs:
- GeForce PCX 4300, GeForce2 Go, GeForce2 Integrated GPU, GeForce2 MX 100/200,
- GeForce2 MX/MX 400, GeForce3, GeForce3 Ti 200, GeForce3 Ti 500,
- GeForce4 410 Go 16M, GeForce4 420 Go, GeForce4 420 Go 32M, GeForce4 440 Go,
- GeForce4 440 Go 64M, GeForce4 460 Go, GeForce4 4200 Go, GeForce4 MX 420,
- GeForce4 MX 420 with AGP8X, GeForce4 MX 440, GeForce4 MX 440 with AGP8X,
- GeForce4 MX 440-SE, GeForce4 MX 440SE with AGP8X, GeForce4 MX 460,
- GeForce4 MX 4000, GeForce4 MX Integrated GPU, GeForce4 Ti 4200,
- GeForce4 Ti 4200 with AGP8X, GeForce4 Ti 4400, GeForce4 Ti 4600,
- GeForce4 Ti 4800, GeForce4 Ti 4800 SE, Quadro DCC, Quadro NVS,
- Quadro NVS with AGP8X, Quadro NVS 50 PCI, Quadro2 MXR/EX/Go, Quadro4 380 XGL,
- Quadro4 500 GoGL, Quadro4 550 XGL, Quadro4 580 XGL, Quadro4 700 GoGL,
- Quadro4 700 XGL, Quadro4 750 XGL, Quadro4 780 XGL, Quadro4 900 XGL,
- Quadro4 980 XGL.
+ Aladdin TNT2, GeForce 256, GeForce 6200SE TurboCache(TM), GeForce DDR,
+ GeForce2 GTS/GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra, Quadro, Quadro2 Pro,
+ RIVA TNT, RIVA TNT2 Model 64/Model 64 Pro, RIVA TNT2 Ultra,
+ RIVA TNT2/TNT2 Pro, Vanta/Vanta LT.
  .
  There are several "more modern" GPUs supported by this package, too, but the
  updated drivers in the newer legacy packages or the current nvidia-glx
