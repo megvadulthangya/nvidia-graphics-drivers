@@ -7,7 +7,6 @@ set -e
 
 case "$1" in
     remove)
-	dpkg-divert --remove --rename --package nvidia-glx-legacy-71xx-dev --divert /usr/lib/nvidia/libGL.so.xlibmesa /usr/lib/libGL.so > /dev/null
 
 	dpkg-divert --remove --rename --package nvidia-glx-legacy-71xx-dev --divert /usr/lib/nvidia/libGL.a.xlibmesa  /usr/lib/libGL.a > /dev/null
 	dpkg-divert --remove --rename --package nvidia-glx-legacy-71xx-dev --divert /usr/X11R6/lib/nvidia/libGL.a.xlibmesa /usr/X11R6/lib/libGL.a > /dev/null
