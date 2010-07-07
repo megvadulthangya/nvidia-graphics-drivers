@@ -45,6 +45,12 @@ case "$1" in
 		undivert /usr/lib/xorg/modules/extensions/libGLcore.so	/usr/lib/nvidia/libGLcore.so.xlibmesa
 		undivert /usr/lib/xorg/modules/extensions/libGLcore.a	/usr/lib/nvidia/libGLcore.a.xlibmesa
 		undivert /usr/lib/xorg/modules/extensions/libglx.a	/usr/lib/nvidia/libglx.a.xlibmesa
+
+		# remove obsolete diversions from nvidia-glx-legacy{,-71xx}-dev
+		undivert /usr/lib/libGL.a				/usr/lib/nvidia/libGL.a.xlibmesa
+		undivert /usr/X11R6/lib/libGL.a				/usr/X11R6/lib/nvidia/libGL.a.xlibmesa
+
+		rmdir /usr/lib/nvidia /usr/X11R6/lib/nvidia /usr/X11R6/lib /usr/X11R6 2>/dev/null || true
         fi
         # </target: squeeze>
 
