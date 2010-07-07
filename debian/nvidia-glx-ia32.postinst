@@ -2,21 +2,24 @@
 set -e
 
 
+# $1=original $2=diverted
+undivert()
+{
+	old_diverter="$(dpkg-divert --listpackage "$1")"
+	test -z "$old_diverter" || \
+		dpkg-divert --remove --rename --package ${old_diverter} \
+			--divert "$2" "$1"
+}
+
 case "$1" in
     configure)
 
 	# <target: squeeze>
 	# remove diversion created before the
 	# /emul/ia32-linux/usr/lib => /usr/lib32 transition
-	dpkg-divert --remove --rename --package $DPKG_MAINTSCRIPT_PACKAGE --divert \
-		/emul/ia32-linux/usr/lib/nvidia/libGL.so.ia32-libs \
-		/emul/ia32-linux/usr/lib/libGL.so > /dev/null
-	dpkg-divert --remove --rename --package $DPKG_MAINTSCRIPT_PACKAGE --divert \
-		/emul/ia32-linux/usr/lib/nvidia/libGL.so.1.ia32-libs \
-		/emul/ia32-linux/usr/lib/libGL.so.1 > /dev/null
-	dpkg-divert --remove --rename --package $DPKG_MAINTSCRIPT_PACKAGE --divert \
-		/emul/ia32-linux/usr/lib/nvidia/libGL.so.1.2.ia32-libs \
-		/emul/ia32-linux/usr/lib/libGL.so.1.2 > /dev/null
+	undivert /emul/ia32-linux/usr/lib/libGL.so.1.2	/emul/ia32-linux/usr/lib/nvidia/libGL.so.1.2.ia32-libs
+	undivert /emul/ia32-linux/usr/lib/libGL.so.1	/emul/ia32-linux/usr/lib/nvidia/libGL.so.1.ia32-libs
+	undivert /emul/ia32-linux/usr/lib/libGL.so	/emul/ia32-linux/usr/lib/nvidia/libGL.so.ia32-libs
 
 	test -d /emul/ia32-linux/usr/lib/nvidia && \
 		rmdir /emul/ia32-linux/usr/lib/nvidia || true;
@@ -24,15 +27,9 @@ case "$1" in
 
 	# <target: squeeze>
 	# remove ancient diversions
-	dpkg-divert --remove --rename --package $DPKG_MAINTSCRIPT_PACKAGE --divert \
-		/emul/ia32-linux/usr/lib/X11R6/nvidia/libGL.so.ia32-libs \
-		/emul/ia32-linux/usr/lib/X11R6/libGL.so > /dev/null
-	dpkg-divert --remove --rename --package $DPKG_MAINTSCRIPT_PACKAGE --divert \
-		/emul/ia32-linux/usr/lib/X11R6/nvidia/libGL.so.1.ia32-libs \
-		/emul/ia32-linux/usr/lib/X11R6/libGL.so.1 > /dev/null
-	dpkg-divert --remove --rename --package $DPKG_MAINTSCRIPT_PACKAGE --divert \
-		/emul/ia32-linux/usr/X11R6/lib/nvidia/libGL.so.1.2.ia32-libs \
-		/emul/ia32-linux/usr/X11R6/lib/libGL.so.1.2 > /dev/null
+	undivert /emul/ia32-linux/usr/X11R6/lib/libGL.so.1.2	 /emul/ia32-linux/usr/X11R6/lib/nvidia/libGL.so.1.2.ia32-libs
+	undivert /emul/ia32-linux/usr/lib/X11R6/libGL.so.1	 /emul/ia32-linux/usr/lib/X11R6/nvidia/libGL.so.1.ia32-libs
+	undivert /emul/ia32-linux/usr/lib/X11R6/libGL.so	 /emul/ia32-linux/usr/lib/X11R6/nvidia/libGL.so.ia32-libs
 
 	rmdir /emul/ia32-linux/usr/lib/X11R6/nvidia /emul/ia32-linux/usr/lib/X11R6 2>/dev/null || true
 	rmdir /emul/ia32-linux/usr/X11R6/lib/nvidia /emul/ia32-linux/usr/X11R6/lib /emul/ia32-linux/usr/X11R6 2>/dev/null || true

@@ -26,7 +26,8 @@ case "$1" in
 
 	# <target: squeeze>
 	# update the diversion
-        if dpkg --compare-versions "$2" lt-nl 71.86.13-2
+	# also do this on new installations, we might take over nvidia-glx-legacy
+ 	if dpkg --compare-versions "$2" lt 71.86.13-2
 	then
 		file_orig="/usr/lib/xorg/modules/extensions/libglx.so"
 		file_old_divert="/usr/lib/nvidia/libglx.so.xlibmesa"

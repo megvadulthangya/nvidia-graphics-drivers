@@ -38,14 +38,15 @@ nvidia-graphics-drivers-legacy-71xx (71.86.13-2) UNRELEASED; urgency=low
   * adjust version numbers in maintainer scripts
   * only list the GPUs supported in this legacy series for the last time in
     the long description, do not list models in the libgl1-nvidia* packages
-  * readd transitional packages to get rid of the remaining (closes: #426157)
-    nvidia-glx-legacy{,-ia32,-dev} and nvidia-kernel-legacy-source packages
-  * remove init script and defaults file from nvidia-glx-legacy
   * refresh patches
   * update install lists for files not available or named differently in 71xx
   * update copyright
   * update symbols files
   * update lintian overrides
+  * readd transitional packages to get rid of the remaining (closes: #426157)
+    nvidia-glx-legacy{,-ia32,-dev} and nvidia-kernel-legacy-source packages
+  * remove init script and defaults file from nvidia-glx-legacy
+  * cleanup diversions from nvidia-glx-legacy
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 06 Jul 2010 01:30:44 +0200
 

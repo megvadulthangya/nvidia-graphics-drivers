@@ -10,6 +10,15 @@ dpkg-maintscript-helper rm_conffile /etc/init.d/$DPKG_MAINTSCRIPT_PACKAGE 71.86.
 # </target: squeeze>
 
 
+# $1=original $2=diverted
+undivert()
+{
+	old_diverter="$(dpkg-divert --listpackage "$1")"
+	test -z "$old_diverter" || \
+		dpkg-divert --remove --rename --package ${old_diverter} \
+			--divert "$2" "$1"
+}
+
 case "$1" in
     configure)
 
@@ -30,11 +39,12 @@ case "$1" in
 	# </target: squeeze>
 
         # <target: squeeze>
-        if dpkg --compare-versions "$2" lt-nl 71.86.13-2 ; then
-            # remove obsolete diversions
-            dpkg-divert --remove --rename --package $DPKG_MAINTSCRIPT_PACKAGE --divert /usr/lib/nvidia/libGLcore.so.xlibmesa /usr/lib/xorg/modules/extensions/libGLcore.so > /dev/null	
-            dpkg-divert --remove --rename --package $DPKG_MAINTSCRIPT_PACKAGE --divert /usr/lib/nvidia/libGLcore.a.xlibmesa /usr/lib/xorg/modules/extensions/libGLcore.a > /dev/null
-            dpkg-divert --remove --rename --package $DPKG_MAINTSCRIPT_PACKAGE --divert /usr/lib/nvidia/libglx.a.xlibmesa /usr/lib/xorg/modules/extensions/libglx.a > /dev/null
+	# also do this on new installations, we might take over nvidia-glx-legacy
+	if dpkg --compare-versions "$2" lt 71.86.13-2 ; then
+		# remove obsolete diversions
+		undivert /usr/lib/xorg/modules/extensions/libGLcore.so	/usr/lib/nvidia/libGLcore.so.xlibmesa
+		undivert /usr/lib/xorg/modules/extensions/libGLcore.a	/usr/lib/nvidia/libGLcore.a.xlibmesa
+		undivert /usr/lib/xorg/modules/extensions/libglx.a	/usr/lib/nvidia/libglx.a.xlibmesa
         fi
         # </target: squeeze>
 
