@@ -1,14 +1,14 @@
-Aladdin TNT2
-GeForce 256
-GeForce 6200SE TurboCache(TM)
-GeForce DDR
-GeForce2 GTS/GeForce2 Pro
-GeForce2 Ti
-GeForce2 Ultra
-Quadro
-Quadro2 Pro
-RIVA TNT
-RIVA TNT2 Model 64/Model 64 Pro
-RIVA TNT2 Ultra
-RIVA TNT2/TNT2 Pro
-Vanta/Vanta LT
+10DE0020  RIVA TNT [NV4]
+10DE002D  RIVA TNT2 Model 64/Model 64 Pro [NV5M64]
+10DE0028  RIVA TNT2/TNT2 Pro [NV5]
+10DE0029  RIVA TNT2 Ultra [NV5]
+10DE00A0  Aladdin TNT2 [NV5]
+10DE002C  Vanta/Vanta LT [NV6]
+10DE0100  GeForce 256 [NV10]
+10DE0101  GeForce 256 DDR [NV10DDR]
+10DE0162  GeForce 6200SE TurboCache(TM) [NV44]
+10DE0150  GeForce2 GTS/Pro [NV15]
+10DE0151  GeForce2 Ti [NV15DDR]
+10DE0152  GeForce2 Ultra (Bladerunner) [NV15BR]
+10DE0103  Quadro [NV10GL]
+10DE0153  Quadro2 Pro [NV15GL]
