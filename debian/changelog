@@ -12,7 +12,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-3) UNRELEASED; urgency=low
     - rename nvidia-glx-legacy-173xx-dev to libgl1-nvidia-legacy-173xx-dev
     - add Provides/Conflicts for the new virtual packages nvidia-glx{,-ia32},
       libgl1-nvidia-glx{,-ia32}, libgl1-nvidia-dev
-    - add Conflicts: fglrx-driver, fglrx-glx, fglrx-glx-ia32
+    - add Conflicts: fglrx-driver, fglrx-glx, fglrx-glx-ia32 (closes: #588590)
     - nvidia-glx-legacy-173xx: install HTML variant of the README
     - update to Standards-Version: 3.9.0
     - move diversions to /usr/lib{,32}/nvidia/diversions
