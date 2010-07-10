@@ -1,0 +1,19 @@
+This legacy version is the last release that supports the following GPUs:
+GeForce 6800, GeForce 6800 GT, GeForce 6800 LE, GeForce 6800 XT,
+GeForce FX 5100, GeForce FX 5200, GeForce FX 5200 Ultra, GeForce FX 5200LE,
+GeForce FX 5500, GeForce FX 5600, GeForce FX 5600 Ultra, GeForce FX 5600XT,
+GeForce FX 5700, GeForce FX 5700 Ultra, GeForce FX 5700LE, GeForce FX 5700VE,
+GeForce FX 5800, GeForce FX 5800 Ultra, GeForce FX 5900,
+GeForce FX 5900 Ultra, GeForce FX 5900XT, GeForce FX 5900ZT,
+GeForce FX 5950 Ultra, GeForce FX Go5100, GeForce FX Go5200,
+GeForce FX Go5200 32M/64M, GeForce FX Go5250, GeForce FX Go53xx,
+GeForce FX Go5600, GeForce FX Go5650, GeForce FX Go5700, GeForce PCX 5300,
+GeForce PCX 5750, GeForce PCX 5900, Quadro FX 330, Quadro FX 500/FX 600,
+Quadro FX 700, Quadro FX 1000, Quadro FX 1100, Quadro FX 1300,
+Quadro FX 2000, Quadro FX 3000, Quadro FX Go700, Quadro FX Go1000,
+Quadro NVS 55/280 PCI, Quadro NVS 280 PCI-E/Quadro FX 330.
+
+There are several "more modern" GPUs supported by this package, too, but the
+updated drivers in the newer legacy packages or the current nvidia-glx
+package usually provide more features and better support.
+Look at the other legacy packages for older cards.
