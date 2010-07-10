@@ -1,0 +1,10 @@
+This legacy version is the last release that supports the following GPUs:
+Aladdin TNT2, GeForce 256, GeForce 6200SE TurboCache(TM), GeForce DDR,
+GeForce2 GTS/GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra, Quadro, Quadro2 Pro,
+RIVA TNT, RIVA TNT2 Model 64/Model 64 Pro, RIVA TNT2 Ultra,
+RIVA TNT2/TNT2 Pro, Vanta/Vanta LT.
+
+There are several "more modern" GPUs supported by this package, too, but the
+updated drivers in the newer legacy packages or the current nvidia-glx
+package usually provide more features and better support.
+Look at the other legacy packages for older cards.
