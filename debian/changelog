@@ -38,6 +38,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.17-0.1) UNRELEASED; urgency=low
     - move diversions to /usr/lib{,32}/nvidia/diversions
     - drop LEGACY part from virtual package name nvidia-kernel-NVIDIAVERSION
     - lots of small fixes and cleanup
+    - extract nvidia.ids from nv-kernel.o
   * adjust version numbers in maintainer scripts
   * update nvidia.ids
   * refresh patches
