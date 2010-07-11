@@ -18,6 +18,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-3) UNRELEASED; urgency=low
     - move diversions to /usr/lib{,32}/nvidia/diversions
     - drop LEGACY part from virtual package name nvidia-kernel-NVIDIAVERSION
     - lots of small fixes and cleanup
+    - extract nvidia.ids from nv-kernel.o
   * only list the GPUs supported in this legacy series for the last time in
     the long description, do not list models in the libgl1-nvidia* packages
   * really remove the init script and defaults file
