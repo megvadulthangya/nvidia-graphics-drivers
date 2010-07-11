@@ -46,16 +46,7 @@ Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  for building the kernel module required by this package.
  This will provide nvidia-kernel-${nvidia:Version}${nvidia:Perfkit}.
  .
- This legacy version is the last release that supports the following GPUs:
- Aladdin TNT2, GeForce 256, GeForce 6200SE TurboCache(TM), GeForce DDR,
- GeForce2 GTS/GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra, Quadro, Quadro2 Pro,
- RIVA TNT, RIVA TNT2 Model 64/Model 64 Pro, RIVA TNT2 Ultra,
- RIVA TNT2/TNT2 Pro, Vanta/Vanta LT.
- .
- There are several "more modern" GPUs supported by this package, too, but the
- updated drivers in the newer legacy packages or the current nvidia-glx
- package usually provide more features and better support.
- Look at the other legacy packages for older cards.
+ ${nvidia:Models}
  .
  See /usr/share/doc/nvidia-glx${nvidia:Legacy}/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
@@ -82,16 +73,7 @@ Description: NVIDIA binary driver 32-bit libs${nvidia:LegacyDesc}
  OpenGL applications via a direct-rendering X Server.
  AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
  .
- This legacy version is the last release that supports the following GPUs:
- Aladdin TNT2, GeForce 256, GeForce 6200SE TurboCache(TM), GeForce DDR,
- GeForce2 GTS/GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra, Quadro, Quadro2 Pro,
- RIVA TNT, RIVA TNT2 Model 64/Model 64 Pro, RIVA TNT2 Ultra,
- RIVA TNT2/TNT2 Pro, Vanta/Vanta LT.
- .
- There are several "more modern" GPUs supported by this package, too, but the
- updated drivers in the newer legacy packages or the current nvidia-glx
- package usually provide more features and better support.
- Look at the other legacy packages for older cards.
+ ${nvidia:Models}
  .
  See /usr/share/doc/nvidia-glx${nvidia:Legacy}/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
@@ -219,16 +201,7 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  using NVIDIA chip sets.  AGP, PCIe, SLI, TV-out and flat panel displays
  are also supported.
  .
- This legacy version is the last release that supports the following GPUs:
- Aladdin TNT2, GeForce 256, GeForce 6200SE TurboCache(TM), GeForce DDR,
- GeForce2 GTS/GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra, Quadro, Quadro2 Pro,
- RIVA TNT, RIVA TNT2 Model 64/Model 64 Pro, RIVA TNT2 Ultra,
- RIVA TNT2/TNT2 Pro, Vanta/Vanta LT.
- .
- There are several "more modern" GPUs supported by this package, too, but the
- updated drivers in the newer legacy packages or the current nvidia-glx
- package usually provide more features and better support.
- Look at the other legacy packages for older cards.
+ ${nvidia:Models}
  .
  See /usr/share/doc/nvidia-kernel${nvidia:Legacy}-dkms/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
@@ -254,16 +227,7 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  for building information.  If you want the kernel module to be automatically
  installed via DKMS, install nvidia-kernel${nvidia:Legacy}-dkms instead.
  .
- This legacy version is the last release that supports the following GPUs:
- Aladdin TNT2, GeForce 256, GeForce 6200SE TurboCache(TM), GeForce DDR,
- GeForce2 GTS/GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra, Quadro, Quadro2 Pro,
- RIVA TNT, RIVA TNT2 Model 64/Model 64 Pro, RIVA TNT2 Ultra,
- RIVA TNT2/TNT2 Pro, Vanta/Vanta LT.
- .
- There are several "more modern" GPUs supported by this package, too, but the
- updated drivers in the newer legacy packages or the current nvidia-glx
- package usually provide more features and better support.
- Look at the other legacy packages for older cards.
+ ${nvidia:Models}
  .
  See /usr/share/doc/nvidia-kernel${nvidia:Legacy}-source/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.

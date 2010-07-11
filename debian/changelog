@@ -34,6 +34,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.13-2) UNRELEASED; urgency=low
     - move diversions to /usr/lib{,32}/nvidia/diversions
     - drop LEGACY part from virtual package name nvidia-kernel-NVIDIAVERSION
     - lots of small fixes and cleanup
+    - extract nvidia.ids from nv-kernel.o
   * update nvidia.ids
   * adjust version numbers in maintainer scripts
   * only list the GPUs supported in this legacy series for the last time in
