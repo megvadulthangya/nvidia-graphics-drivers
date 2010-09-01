@@ -10,8 +10,8 @@ exists()
 }
 
 # <target: squeeze>
-dpkg-maintscript-helper rm_conffile /etc/default/$DPKG_MAINTSCRIPT_PACKAGE 96.43.17~ -- "$@"
-dpkg-maintscript-helper rm_conffile /etc/init.d/$DPKG_MAINTSCRIPT_PACKAGE 96.43.17~ -- "$@"
+dpkg-maintscript-helper rm_conffile /etc/default/$DPKG_MAINTSCRIPT_PACKAGE 96.43.18~ -- "$@"
+dpkg-maintscript-helper rm_conffile /etc/init.d/$DPKG_MAINTSCRIPT_PACKAGE 96.43.18~ -- "$@"
 # </target: squeeze>
 
 
@@ -24,7 +24,7 @@ case "$1" in
 
 	# <target: squeeze>
 	# update the diversion
-        if dpkg --compare-versions "$2" lt-nl 96.43.17
+        if dpkg --compare-versions "$2" lt-nl 96.43.18
 	then
 		file_orig="/usr/lib/xorg/modules/extensions/libglx.so"
 		file_old_divert="/usr/lib/nvidia/libglx.so.xlibmesa"
