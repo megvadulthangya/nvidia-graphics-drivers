@@ -10,10 +10,10 @@ exists()
 }
 
 # <target: squeeze>
-dpkg-maintscript-helper rm_conffile /etc/default/nvidia-glx-legacy 71.86.13-2~ nvidia-glx-legacy -- "$@"
-dpkg-maintscript-helper rm_conffile /etc/init.d/nvidia-glx-legacy 71.86.13-2~ nvidia-glx-legacy -- "$@"
-dpkg-maintscript-helper rm_conffile /etc/default/$DPKG_MAINTSCRIPT_PACKAGE 71.86.13-2~ -- "$@"
-dpkg-maintscript-helper rm_conffile /etc/init.d/$DPKG_MAINTSCRIPT_PACKAGE 71.86.13-2~ -- "$@"
+dpkg-maintscript-helper rm_conffile /etc/default/nvidia-glx-legacy 71.86.14~ nvidia-glx-legacy -- "$@"
+dpkg-maintscript-helper rm_conffile /etc/init.d/nvidia-glx-legacy 71.86.14~ nvidia-glx-legacy -- "$@"
+dpkg-maintscript-helper rm_conffile /etc/default/$DPKG_MAINTSCRIPT_PACKAGE 71.86.14~ -- "$@"
+dpkg-maintscript-helper rm_conffile /etc/init.d/$DPKG_MAINTSCRIPT_PACKAGE 71.86.14~ -- "$@"
 # </target: squeeze>
 
 
@@ -27,7 +27,7 @@ case "$1" in
 	# <target: squeeze>
 	# update the diversion
 	# also do this on new installations, we might take over nvidia-glx-legacy
- 	if dpkg --compare-versions "$2" lt 71.86.13-2
+ 	if dpkg --compare-versions "$2" lt 71.86.14
 	then
 		file_orig="/usr/lib/xorg/modules/extensions/libglx.so"
 		file_old_divert="/usr/lib/nvidia/libglx.so.xlibmesa"

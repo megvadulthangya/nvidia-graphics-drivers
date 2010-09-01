@@ -1,6 +1,7 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.13-2) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.14-0.1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
+  * new upstream release
   * add missing Build-Depends: libxext6, fixes FTBFS
   * synchronize packaging with nvidia-graphics-drivers-legacy-96xx 96.43.17-1
     - new uploaders
@@ -49,7 +50,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.13-2) UNRELEASED; urgency=low
   * remove init script and defaults file from nvidia-glx-legacy
   * cleanup diversions from nvidia-glx-legacy
 
- -- Andreas Beckmann <debian@abeckmann.de>  Tue, 06 Jul 2010 01:30:44 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 01 Sep 2010 11:55:31 +0200
 
 nvidia-graphics-drivers-legacy-71xx (71.86.13-1) unstable; urgency=low
 
