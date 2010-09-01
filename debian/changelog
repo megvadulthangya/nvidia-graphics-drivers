@@ -27,7 +27,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.27-0.1) UNRELEASED; urgency=low
     - extract nvidia.ids from nv-kernel.o
   * only list the GPUs supported in this legacy series for the last time in
     the long description, do not list models in the libgl1-nvidia* packages
-  * really remove the init script and defaults file
+  * really remove the init script and defaults file (closes: #593781)
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 01 Sep 2010 11:16:40 +0200
 
