@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.27-1) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-173xx (173.14.27-0.1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
   * new upstream release
