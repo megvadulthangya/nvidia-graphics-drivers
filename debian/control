@@ -110,8 +110,8 @@ Conflicts:
  nvidia-glx-legacy,
  nvidia-glx-legacy-71xx,
  nvidia-glx-legacy-96xx,
- nvidia-glx-legacy-173xx (<< 173.14.25-3),
-Replaces: nvidia-glx${nvidia:Legacy} (<< 173.14.25-3)
+ nvidia-glx-legacy-173xx (<< 173.14.27),
+Replaces: nvidia-glx${nvidia:Legacy} (<< 173.14.27)
 Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -141,8 +141,8 @@ Conflicts:
  nvidia-glx-legacy-ia32,
  nvidia-glx-legacy-71xx-ia32,
  nvidia-glx-legacy-96xx-ia32,
- nvidia-glx-legacy-173xx-ia32 (<< 173.14.25-3),
-Replaces: nvidia-glx${nvidia:Legacy}-ia32 (<< 173.14.25-3)
+ nvidia-glx-legacy-173xx-ia32 (<< 173.14.27),
+Replaces: nvidia-glx${nvidia:Legacy}-ia32 (<< 173.14.27)
 Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  These binary 32-bit libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -167,8 +167,8 @@ Conflicts:
  nvidia-glx-legacy-dev,
  nvidia-glx-legacy-71xx-dev,
  nvidia-glx-legacy-96xx-dev,
- nvidia-glx-legacy-173xx-dev (<< 173.14.25-3),
-Replaces: nvidia-glx${nvidia:Legacy}-dev (<< 173.14.25-3)
+ nvidia-glx-legacy-173xx-dev (<< 173.14.27),
+Replaces: nvidia-glx${nvidia:Legacy}-dev (<< 173.14.27)
 Description: NVIDIA OpenGL development files${nvidia:LegacyDesc}
  This package contains the development files for the NVIDIA OpenGL
  implementation. This package is only needed for applications that use some
