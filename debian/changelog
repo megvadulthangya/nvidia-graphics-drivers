@@ -5,17 +5,22 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-3) UNRELEASED; urgency=low
     - nvidia-glx now provides xserver-xorg-video-6
     - add Conflicts: nvidia-glx-legacy that was never really taken care of
     - drop Conflicts: ccache, set CCACHE_DISABLE instead
-  * synchronize packaging with nvidia-graphics-drivers 195.36.31-1
+  * synchronize packaging with nvidia-graphics-drivers 195.36.31-3
     - fix the shlibs and symbols files
     - split the nvidia-glx-legacy-173xx{,-ia32} packages, moving the shared
       libraries to libgl1-nvidia-legacy-173xx-glx{,-ia32}
     - rename nvidia-glx-legacy-173xx-dev to libgl1-nvidia-legacy-173xx-dev
     - add Provides/Conflicts for the new virtual packages nvidia-glx{,-ia32},
       libgl1-nvidia-glx{,-ia32}, libgl1-nvidia-dev
+    - use alternatives for libGL.so.1, libGL.so, libglx.so and let the
+      lib{gl1,glx}-nvidia-alternatives{,-ia32} packages (not built from this
+      source package) handle the diversions
     - add Conflicts: fglrx-driver, fglrx-glx, fglrx-glx-ia32 (closes: #588590)
+    - add Conflicts: with badly sorting obsolete packages
+      linux-{image,headers}-2.6.32-trunk-*
     - nvidia-glx-legacy-173xx: install HTML variant of the README
-    - update to Standards-Version: 3.9.0
-    - move diversions to /usr/lib{,32}/nvidia/diversions
+    - update to Standards-Version: 3.9.1
+    - update to debhelper compat level 8
     - drop LEGACY part from virtual package name nvidia-kernel-NVIDIAVERSION
     - lots of small fixes and cleanup
     - extract nvidia.ids from nv-kernel.o
