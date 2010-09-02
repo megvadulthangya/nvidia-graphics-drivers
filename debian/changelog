@@ -24,10 +24,11 @@ nvidia-graphics-drivers-legacy-173xx (173.14.27-0.1) UNRELEASED; urgency=low
     - update to debhelper compat level 8
     - drop LEGACY part from virtual package name nvidia-kernel-NVIDIAVERSION
     - lots of small fixes and cleanup
-    - extract nvidia.ids from nv-kernel.o
+    - extract nv-kernel.ids from nv-kernel.o
   * only list the GPUs supported in this legacy series for the last time in
     the long description, do not list models in the libgl1-nvidia* packages
   * really remove the init script and defaults file (closes: #593781)
+  * update nv-kernel.ids
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 01 Sep 2010 11:16:40 +0200
 
