@@ -30,7 +30,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.27-1) unstable; urgency=low
   * really remove the init script and defaults file (closes: #593781)
   * update nv-kernel.ids
 
- -- Andreas Beckmann <debian@abeckmann.de>  Wed, 01 Sep 2010 11:16:40 +0200
+ -- Russ Allbery <rra@debian.org>  Fri, 03 Sep 2010 16:42:42 -0700
 
 nvidia-graphics-drivers-legacy-173xx (173.14.25-2) unstable; urgency=low
 
