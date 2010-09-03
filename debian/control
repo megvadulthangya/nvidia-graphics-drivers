@@ -7,13 +7,13 @@ Uploaders:
 Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-96xx/trunk
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-96xx/
 Build-Depends:
- debhelper (>= 7.4.16~),
+ debhelper (>= 8),
  bzip2,
  dkms (>= 2.1.1.1),
  libxext6,
  quilt,
  ia32-libs (>= 20090804) [amd64],
-Standards-Version: 3.9.0
+Standards-Version: 3.9.1
 Homepage: http://www.nvidia.com
 
 Package: nvidia-glx-legacy-96xx
@@ -21,6 +21,7 @@ Architecture: i386 amd64
 Pre-Depends: dpkg (>= 1.15.7.2)
 Depends:
  libgl1-nvidia${nvidia:Legacy}-glx (= ${binary:Version}),
+ libglx-nvidia-alternatives,
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
  ${shlibs:Depends}, ${misc:Depends}
 Suggests: nvidia-settings,
@@ -93,6 +94,7 @@ Package: libgl1-nvidia-legacy-96xx-glx
 Section: non-free/libs
 Architecture: i386 amd64
 Depends:
+ libgl1-nvidia-alternatives,
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
@@ -123,6 +125,7 @@ Section: non-free/libs
 Architecture: amd64
 Pre-Depends: libc6-i386 (>= 2.9-18)
 Depends:
+ libgl1-nvidia-alternatives-ia32,
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
@@ -188,7 +191,14 @@ Provides:
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
 Conflicts:
  nvidia-kernel-dkms,
- binutils-gold (>> 2.20.51)
+ linux-headers-2.6.32-trunk-486 [i386], linux-image-2.6.32-trunk-486 [i386],
+ linux-headers-2.6.32-trunk-686 [i386], linux-image-2.6.32-trunk-686 [i386],
+ linux-headers-2.6.32-trunk-686-bigmem [i386], linux-image-2.6.32-trunk-686-bigmem [i386],
+ linux-headers-2.6.32-trunk-amd64, linux-image-2.6.32-trunk-amd64,
+ linux-headers-2.6.32-trunk-vserver-686 [i386], linux-image-2.6.32-trunk-vserver-686 [i386],
+ linux-headers-2.6.32-trunk-vserver-686-bigmem [i386], linux-image-2.6.32-trunk-vserver-686-bigmem [i386],
+ linux-headers-2.6.32-trunk-vserver-amd64 [amd64], linux-image-2.6.32-trunk-vserver-amd64 [amd64],
+ binutils-gold (>> 2.20.51),
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
  nvidia-glx${nvidia:Legacy}, using DKMS.
@@ -209,10 +219,18 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
 Package: nvidia-kernel-legacy-96xx-source
 Section: non-free/kernel
 Architecture: i386 amd64
-Depends: ${misc:Depends}, debhelper (>= 7.2.3~), make, quilt (>= 0.46-7~)
+Depends: ${misc:Depends}, debhelper (>= 8), make, quilt (>= 0.46-7~)
 Recommends: module-assistant | kernel-package,
  nvidia-glx${nvidia:Legacy} (>= ${nvidia:Version}), nvidia-kernel-common
-Conflicts: binutils-gold (>> 2.20.51)
+Conflicts:
+ linux-headers-2.6.32-trunk-486 [i386], linux-image-2.6.32-trunk-486 [i386],
+ linux-headers-2.6.32-trunk-686 [i386], linux-image-2.6.32-trunk-686 [i386],
+ linux-headers-2.6.32-trunk-686-bigmem [i386], linux-image-2.6.32-trunk-686-bigmem [i386],
+ linux-headers-2.6.32-trunk-amd64, linux-image-2.6.32-trunk-amd64,
+ linux-headers-2.6.32-trunk-vserver-686 [i386], linux-image-2.6.32-trunk-vserver-686 [i386],
+ linux-headers-2.6.32-trunk-vserver-686-bigmem [i386], linux-image-2.6.32-trunk-vserver-686-bigmem [i386],
+ linux-headers-2.6.32-trunk-vserver-amd64 [amd64], linux-image-2.6.32-trunk-vserver-amd64 [amd64],
+ binutils-gold (>> 2.20.51),
 Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  This package provides the source for the NVIDIA Xorg binary kernel module
  needed by nvidia-glx${nvidia:Legacy} in a form suitable

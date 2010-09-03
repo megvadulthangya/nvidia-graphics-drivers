@@ -8,8 +8,8 @@ dpkg-maintscript-helper rm_conffile /etc/init.d/$DPKG_MAINTSCRIPT_PACKAGE 96.43.
 # </target: squeeze>
 
 
-case "$1" in
-    configure)
+if [ "$1" = "configure" ]
+then
 
 	# <target: squeeze>
 	if dpkg --compare-versions "$2" lt-nl 96.43.18 ; then
@@ -45,8 +45,9 @@ case "$1" in
 	dpkg-trigger /usr/lib/libGL.so
         # </target: squeeze>
 
-    ;;
-esac
+	update-alternatives --install /usr/lib/xorg/modules/extensions/libglx.so libglx.so /usr/lib/nvidia/libglx.so 42
+
+fi
 
 
 #DEBHELPER#
