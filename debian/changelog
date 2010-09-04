@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.18-0.1) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.18-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
   * new upstream release (closes: #523941)
@@ -52,7 +52,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.18-0.1) UNRELEASED; urgency=low
   * only list the GPUs supported in this legacy series for the last time in
     the long description, do not list models in the libgl1-nvidia* packages
 
- -- Andreas Beckmann <debian@abeckmann.de>  Wed, 01 Sep 2010 11:41:50 +0200
+ -- Russ Allbery <rra@debian.org>  Fri, 03 Sep 2010 17:16:48 -0700
 
 nvidia-graphics-drivers-legacy-96xx (96.43.16-1) unstable; urgency=low
 
