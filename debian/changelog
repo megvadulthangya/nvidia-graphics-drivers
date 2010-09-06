@@ -54,6 +54,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.14-0.1) UNRELEASED; urgency=low
     nvidia-glx-legacy{,-ia32,-dev} and nvidia-kernel-legacy-source packages
   * remove init script and defaults file from nvidia-glx-legacy
   * cleanup diversions from nvidia-glx-legacy
+  * Add myself to Uploaders.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 01 Sep 2010 11:55:31 +0200
 
