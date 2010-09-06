@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.14-0.1) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.14-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
   * new upstream release
@@ -56,7 +56,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.14-0.1) UNRELEASED; urgency=low
   * cleanup diversions from nvidia-glx-legacy
   * Add myself to Uploaders.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Wed, 01 Sep 2010 11:55:31 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Mon, 06 Sep 2010 08:55:05 +0200
 
 nvidia-graphics-drivers-legacy-71xx (71.86.13-1) unstable; urgency=low
 
