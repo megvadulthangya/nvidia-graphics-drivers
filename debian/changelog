@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.18-2) UNRELEASED; urgency=low
+
+  [ Andreas Beckmann ]
+  * Add myself to Uploaders.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Mon, 06 Sep 2010 02:02:11 +0200
+
 nvidia-graphics-drivers-legacy-96xx (96.43.18-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
