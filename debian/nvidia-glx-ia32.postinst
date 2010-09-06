@@ -21,8 +21,11 @@ case "$1" in
 	undivert /emul/ia32-linux/usr/lib/libGL.so.1	/emul/ia32-linux/usr/lib/nvidia/libGL.so.1.ia32-libs
 	undivert /emul/ia32-linux/usr/lib/libGL.so	/emul/ia32-linux/usr/lib/nvidia/libGL.so.ia32-libs
 
-	test -d /emul/ia32-linux/usr/lib/nvidia && \
+	if [ -d /emul/ia32-linux/usr/lib/nvidia ]
+	then
 		rmdir /emul/ia32-linux/usr/lib/nvidia || true;
+		rmdir /emul/ia32-linux/usr/lib /emul/ia32-linux/usr /emul/ia32-linux /emul 2>/dev/null || true
+	fi
 	# </target: squeeze>
 
 	# <target: squeeze>
@@ -33,6 +36,7 @@ case "$1" in
 
 	rmdir /emul/ia32-linux/usr/lib/X11R6/nvidia /emul/ia32-linux/usr/lib/X11R6 2>/dev/null || true
 	rmdir /emul/ia32-linux/usr/X11R6/lib/nvidia /emul/ia32-linux/usr/X11R6/lib /emul/ia32-linux/usr/X11R6 2>/dev/null || true
+	rmdir /emul/ia32-linux/usr/lib /emul/ia32-linux/usr /emul/ia32-linux /emul 2>/dev/null || true
 	# </target: squeeze>
 
     ;;
