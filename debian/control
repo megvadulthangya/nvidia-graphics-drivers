@@ -31,7 +31,7 @@ Suggests: nvidia-settings,
 Breaks: xserver-xorg-core (<< 2:1.6)
 Provides:
  nvidia-glx,
- xserver-xorg-video-6,
+ xserver-xorg-video-2,
 Conflicts:
  nvidia-glx,
  nvidia-glx-legacy (<< 71.86.14),
