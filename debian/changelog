@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-71xx (71.86.14-2) UNRELEAED; urgency=low
+
+  * mark some more bugs fixed in 71.86.14-1
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Sat, 11 Sep 2010 01:58:59 +0200
+
 nvidia-graphics-drivers-legacy-71xx (71.86.14-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
@@ -8,7 +14,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.14-1) unstable; urgency=low
     - source format 3.0 (quilt)
     - remove old cruft
     - /emul/ia32-linux => /usr/lib32 transition
-    - clean up and simplify packaging
+    - clean up and simplify packaging (closes: #404793)
     - use substvars instead of generating debian/control
     - do not ship generated files in the source package
     - clean up dependencies in debian/control
@@ -18,8 +24,8 @@ nvidia-graphics-drivers-legacy-71xx (71.86.14-1) unstable; urgency=low
     - add dkms support
     - overhaul debian/rules: use dh(1) and many more changes
     - add functional watch file
-    - overhaul copyright, READMEs and other documentation
-    - overhaul maintainer scripts (closes: #490370, #426997)
+    - overhaul copyright, READMEs and other documentation (closes: #388869)
+    - overhaul maintainer scripts (closes: #490370, #426997, #391285)
     - drop init script and defaults file (closes: #582550, #423592)
     - use a dpkg trigger to create the libGL.so symlink
     - nvidia-glx now provides xserver-xorg-video-6 (closes: #432137, #543248)
@@ -32,7 +38,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.14-1) unstable; urgency=low
       libgl1-nvidia-glx{,-ia32}, libgl1-nvidia-dev
     - use alternatives for libGL.so.1, libGL.so, libglx.so and let the
       lib{gl1,glx}-nvidia-alternatives{,-ia32} packages (not built from this
-      source package) handle the diversions
+      source package) handle the diversions (closes: #372104)
     - add Conflicts: fglrx-driver, fglrx-glx, fglrx-glx-ia32
     - add Conflicts: with badly sorting obsolete packages
       linux-{image,headers}-2.6.32-trunk-*
