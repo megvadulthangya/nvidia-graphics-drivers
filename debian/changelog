@@ -1,10 +1,12 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.14-2) UNRELEAED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.14-2) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
   * mark some more bugs fixed in 71.86.14-1
   * only provide xserver-xorg-video-2, the driver requires the symbol
     AllocateScreenPrivateIndex which was removed between xserver 1.4 and 1.5,
     so it does no longer work with current X.org (closes: #596471)
+  * add a NEWS item about this
+  * add info about (un-)supported xservers to the long descriptions
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sat, 11 Sep 2010 01:58:59 +0200
 

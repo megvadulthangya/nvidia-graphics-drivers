@@ -1,0 +1,18 @@
+nvidia-graphics-drivers-legacy-71xx (71.86.14-2) UNRELEAED; urgency=low
+
+  The 71xx legacy drivers don't support the current Xorg xserver 1.7 in
+  squeeze.  We don't expect that NVIDIA will fix this.  The last xserver
+  version working with these drivers was 1.4 as included in Debian 5.0 (lenny).
+
+  In case you have a TNT (any model), TNT2 (any model), Vanta, GeForce 256,
+  GeForce 256 DDR, GeForce2 GTS, GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra,
+  Quadro, Quadro2 Pro, i.e., any GPU based on the NV4/NV5/NV6/NV10/NV15 chips
+  or a variant thereof, your GPU is not supported by a newer driver from
+  NVIDIA.  You have two choices to continue using it:
+   * switch to a free driver (nouveau or nv) or
+   * keep the xserver from lenny.
+
+  All other GPUs are still supported by newer driver series.  Look at the
+  nvidia-glx-legacy-96xx package as a starting point.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 23 Sep 2010 08:22:25 +0200

@@ -1,3 +1,8 @@
+WARNING: This driver only works with xserver 1.4 that was included in
+Debian 5.0 (lenny).  Newer xserver versions are not supported by NVIDIA.
+Use a free driver (nouveau or nv) instead or upgrade to nvidia-glx-legacy-96xx
+(if that still supports your GPU).
+
 This legacy version is the last release that supports the following GPUs:
 RIVA TNT [NV4], RIVA TNT2 Model 64/Model 64 Pro [NV5M64],
 RIVA TNT2/TNT2 Pro [NV5], RIVA TNT2 Ultra [NV5], Aladdin TNT2 [NV5],
