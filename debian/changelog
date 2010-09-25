@@ -1,6 +1,7 @@
 nvidia-graphics-drivers-legacy-173xx (173.14.27-2) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
+  * synchronize packaging with nvidia-graphics-drivers 195.36.31-4
   * Add myself to Uploaders.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sun, 05 Sep 2010 17:34:50 +0200
@@ -323,6 +324,25 @@ nvidia-graphics-drivers (1.0.9629-1) unstable; urgency=low
 
  -- Randall Donald <rdonald@debian.org>  Sat, 11 Nov 2006 13:35:39 -0800
 
+nvidia-graphics-drivers (1.0.9625-2) experimental; urgency=low
+
+  * Include NOSMBUS patch. (closes: #390767)
+  * Include all changes made to the 1.0.8774 branch:
+      add diversion of libGL.so to nvidia-glx-ia32 (closes: #393056)
+      make init script create libGL.so for nvidia-glx-dev
+      make sure nvidia-glx-dev diversions are removed and conflict with older
+      versions of -dev
+      make init script detect libgl1-mesa-dev and create libGL.so link
+
+ -- Randall Donald <rdonald@debian.org>  Thu, 19 Oct 2006 20:32:25 -0700
+
+nvidia-graphics-drivers (1.0.9625-1) experimental; urgency=low
+
+  * Beta Drivers supporting GLX_EXT_texture_from_pixmap.
+  * install nvidia_drv.so
+
+ -- Randall Donald <rdonald@debian.org>  Sat, 23 Sep 2006 11:29:28 -0700
+
 nvidia-graphics-drivers (1.0.8776-1) unstable; urgency=medium
 
   * New upstream.
@@ -580,11 +600,18 @@ nvidia-graphics-drivers (1.0.7664-1) experimental; urgency=low
 
  -- Randall Donald <rdonald@debian.org>  Sat, 18 Jun 2005 16:46:48 -0700
 
-nvidia-graphics-drivers (1.0.7664-0) unstable; urgency=low
+nvidia-graphics-drivers (1.0.7664-0) experimental; urgency=low
 
   * New upstream.
 
  -- Harald Dunkel <harald.dunkel@t-online.de>  Sat, 11 Jun 2005 22:42:26 +0200
+
+nvidia-graphics-drivers (1.0.7174-4) unstable; urgency=low
+
+  * Remove glu depends.
+  * other fixes are being applied to a 1.0.7667 version coming soon.
+
+ -- Randall Donald <rdonald@debian.org>  Mon, 18 Jul 2005 14:30:46 -0700
 
 nvidia-graphics-drivers (1.0.7174-3) unstable; urgency=low
 
