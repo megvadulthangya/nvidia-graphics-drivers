@@ -6,11 +6,11 @@ nvidia-graphics-drivers-legacy-173xx (173.14.27-2) unstable; urgency=low
       the nvidia-glx-legacy-173xx-ia32 postinst.
     - debian/*.postinst(configure): abort early if DPKG_MAINTSCRIPT_PACKAGE is
       not set (usually if called from dpkg-reconfigure, see #560317).
-    - nvidia-glx{,-ia32}: print warning in postinst if unknown
+    - nvidia-glx-legacy-173xx{,-ia32}: print warning in postinst if unknown
       /usr/lib{,32}/libGL.so.*.* exist.
-    - nvidia-glx: depend on xorg-video-abi-6.0 as suggested by Xorg
-      maintainers.
-    - nvidia-kerneli-legacy-173xx-source: lower Recommends:
+    - nvidia-glx-legacy-173xx: depend on xorg-video-abi-6.0 as suggested by
+      Xorg maintainers.
+    - nvidia-kernel-legacy-173xx-source: lower Recommends:
       nvidia-glx-legacy-173xx to Suggests to avoid pulling
       nvidia-kernel-legacy-173xx-dkms into the system before the user had a
       chance to build a module.  (Closes: #590221)
