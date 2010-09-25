@@ -5,6 +5,13 @@ set -e
 case "$1" in
     configure)
 
+	# dpkg-reconfigure does not set DPKG_MAINTSCRIPT_PACKAGE (#560317)
+	if [ -z "$DPKG_MAINTSCRIPT_PACKAGE" ]
+	then
+		echo "ERROR: DPKG_MAINTSCRIPT_PACKAGE is not set, usually a bug in dpkg-reconfigure"
+		exit 1
+	fi
+
 	# <target: squeeze>
 	# remove diversion created before the
 	# /emul/ia32-linux/usr/lib => /usr/lib32 transition
@@ -23,6 +30,16 @@ case "$1" in
 		rmdir /emul/ia32-linux/usr/lib/nvidia || true;
 		rmdir /emul/ia32-linux/usr/lib /emul/ia32-linux/usr /emul/ia32-linux /emul 2>/dev/null || true
 	fi
+	# </target: squeeze>
+
+	# <target: squeeze>
+	for f in /usr/lib32/libGL.so.*.*
+	do
+		if [ -e "$f" ] || [ -L "$f" ]
+	       	then
+			echo "WARNING: The file '$f' found on your system may interfere with accelerated OpenGL."
+		fi
+	done
 	# </target: squeeze>
 
     ;;
