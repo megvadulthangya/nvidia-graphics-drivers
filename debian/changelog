@@ -1,8 +1,32 @@
 nvidia-graphics-drivers-legacy-173xx (173.14.27-2) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
-  * synchronize packaging with nvidia-graphics-drivers 195.36.31-4
-  * Add myself to Uploaders.
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-4:
+    - Remove /emul directories if empty after removing old NVIDIA files in
+      the nvidia-glx-legacy-173xx-ia32 postinst.
+    - debian/*.postinst(configure): abort early if DPKG_MAINTSCRIPT_PACKAGE is
+      not set (usually if called from dpkg-reconfigure, see #560317).
+    - nvidia-glx{,-ia32}: print warning in postinst if unknown
+      /usr/lib{,32}/libGL.so.*.* exist.
+    - nvidia-glx: depend on xorg-video-abi-6.0 as suggested by Xorg
+      maintainers.
+    - nvidia-kerneli-legacy-173xx-source: lower Recommends:
+      nvidia-glx-legacy-173xx to Suggests to avoid pulling
+      nvidia-kernel-legacy-173xx-dkms into the system before the user had a
+      chance to build a module.  (Closes: #590221)
+    - Add new patch 2.6.36-ioctl.patch to fix module build for kernel 2.6.36.
+    - Add changelog entries missing due to concurrent development: 1.0.9625-2
+      (experimental), 1.0.9625-1 (experimental) and 1.0.7174-4 (unstable).
+    - Stop shipping libGL.so symlinks and handling alternatives involving
+      them.
+    - Stop shipping NVIDIA's copy of the OpenGL headers, depend on
+      libgl1-mesa-dev instead.  NVIDIA will stop distributing the headers
+      starting with the 260.xx release and recommends to use the official
+      ones.
+    - Transition from nvidia-glx-legacy-173xx-dev directly to libgl1-mesa-dev.
+    - Drop the libgl1-nvidia-dev-legacy-173xx-dev package (and stop shipping
+      libXvMCNVIDIA.a).
+    - Add myself to Uploaders.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sun, 05 Sep 2010 17:34:50 +0200
 
