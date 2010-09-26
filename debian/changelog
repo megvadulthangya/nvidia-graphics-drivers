@@ -32,6 +32,8 @@ nvidia-graphics-drivers-legacy-71xx (71.86.14-2) UNRELEASED; urgency=low
     driver.  Prevents migration to squeeze.  (Closes: #596471)
   * Add a NEWS item about xserver support.
   * Add info about (un-)supported xservers to the long descriptions.
+  * Refresh 2.6.36-ioctl.patch, but module may not work on 2.6.36 and beyond
+    due to lack of upstream (NVIDIA) support for unlocked_ioctl.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sat, 11 Sep 2010 01:58:59 +0200
 

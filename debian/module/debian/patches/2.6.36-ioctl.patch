@@ -8,15 +8,15 @@ Description: Module build fix for 2.6.36
 
 Index: b/nv.c
 ===================================================================
---- a/nv.c	2010-09-22 20:05:01.568537180 +0200
-+++ b/nv.c	2010-09-22 20:06:30.068537833 +0200
-@@ -414,7 +414,9 @@
+--- a/nv.c	2010-07-15 16:45:30.000000000 +0000
++++ b/nv.c	2010-09-26 07:28:38.580536890 +0000
+@@ -322,7 +322,9 @@
  static struct file_operations nv_fops = {
      .owner     = THIS_MODULE,
      .poll      = nv_kern_poll,
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,36)
      .ioctl     = nv_kern_ioctl,
 +#endif
- #if defined(HAVE_UNLOCKED_IOCTL)
-     .unlocked_ioctl = nv_kern_unlocked_ioctl,
+ #if defined(NVCPU_X86_64) && defined(HAVE_COMPAT_IOCTL)
+     .compat_ioctl = nv_kern_compat_ioctl,
  #endif
