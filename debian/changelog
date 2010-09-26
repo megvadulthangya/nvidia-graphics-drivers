@@ -1,13 +1,37 @@
 nvidia-graphics-drivers-legacy-71xx (71.86.14-2) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
-  * mark some more bugs fixed in 71.86.14-1
-  * only provide xserver-xorg-video-2, the driver requires the symbol
+  * Synchronize packaging with nvidia-graphics-drivers 96.43.18-2:
+    - Remove /emul directories if empty after removing old NVIDIA files in
+      the nvidia-glx-legacy-71xx-ia32 postinst.
+    - debian/*.postinst(configure): abort early if DPKG_MAINTSCRIPT_PACKAGE is
+      not set (usually if called from dpkg-reconfigure, see #560317).
+    - nvidia-glx-legacy-71xx{,-ia32}: print warning in postinst if unknown
+      /usr/lib{,32}/libGL.so.*.* exist.
+    - nvidia-kernel-legacy-71xx-source: lower Recommends:
+      nvidia-glx-legacy-71xx to Suggests to avoid pulling
+      nvidia-kernel-legacy-71xx-dkms into the system before the user had a
+      chance to build a module.
+    - Add new patch 2.6.36-ioctl.patch to fix module build for kernel 2.6.36.
+    - Add changelog entry missing due to concurrent development: 1.0.7174-4
+      (unstable).
+    - Stop shipping libGL.so symlinks and handling alternatives involving
+      them.
+    - Stop shipping NVIDIA's copy of the OpenGL headers, depend on
+      libgl1-mesa-dev instead.  NVIDIA will stop distributing the headers
+      starting with the 260.xx release and recommends to use the official
+      ones.
+    - Transition from nvidia-glx-legacy-71xx-dev directly to libgl1-mesa-dev.
+    - Drop the libgl1-nvidia-legacy-71xx-dev package (and stop shipping
+      libXvMCNVIDIA.a).
+  * Mark some more bugs fixed in 71.86.14-1.
+  * Only provide xserver-xorg-video-2, the driver requires the symbol
     AllocateScreenPrivateIndex which was removed between xserver 1.4 and 1.5,
-    so it does no longer work with current X.org (closes: #596471)
-  * depend on xserver-xorg-core (<< 2:1.4.99) to block migration to squeeze
-  * add a NEWS item about this
-  * add info about (un-)supported xservers to the long descriptions
+    so it does no longer work with current X.org.
+  * Depend on xserver-xorg-core (<< 2:1.4.99) which is still working with this
+    driver.  Prevents migration to squeeze.  (Closes: #596471)
+  * Add a NEWS item about xserver support.
+  * Add info about (un-)supported xservers to the long descriptions.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sat, 11 Sep 2010 01:58:59 +0200
 
