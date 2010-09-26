@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.14-2) UNRELEAED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.14-2) unstable; urgency=low
 
   The 71xx legacy drivers don't support the current Xorg xserver 1.7 in
   squeeze.  We don't expect that NVIDIA will fix this.  The last xserver

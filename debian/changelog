@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.14-2) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.14-2) unstable; urgency=low
 
   [ Andreas Beckmann ]
   * Synchronize packaging with nvidia-graphics-drivers 96.43.18-2:
@@ -35,7 +35,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.14-2) UNRELEASED; urgency=low
   * Refresh 2.6.36-ioctl.patch, but module may not work on 2.6.36 and beyond
     due to lack of upstream (NVIDIA) support for unlocked_ioctl.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Sat, 11 Sep 2010 01:58:59 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Sun, 26 Sep 2010 16:46:56 +0200
 
 nvidia-graphics-drivers-legacy-71xx (71.86.14-1) unstable; urgency=low
 
