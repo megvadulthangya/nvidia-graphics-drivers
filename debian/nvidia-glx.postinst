@@ -2,6 +2,18 @@
 set -e
 
 
+if [ "$1" = "configure" ]
+then
+
+	# dpkg-reconfigure does not set DPKG_MAINTSCRIPT_PACKAGE (#560317)
+	if [ -z "$DPKG_MAINTSCRIPT_PACKAGE" ]
+	then
+		echo "ERROR: DPKG_MAINTSCRIPT_PACKAGE is not set, usually a bug in dpkg-reconfigure"
+		exit 1
+	fi
+
+fi
+
 # <target: squeeze>
 dpkg-maintscript-helper rm_conffile /etc/default/nvidia-glx-legacy 71.86.14~ nvidia-glx-legacy -- "$@"
 dpkg-maintscript-helper rm_conffile /etc/init.d/nvidia-glx-legacy 71.86.14~ nvidia-glx-legacy -- "$@"
@@ -69,6 +81,16 @@ then
         # </target: squeeze>
 
 	update-alternatives --install /usr/lib/xorg/modules/extensions/libglx.so libglx.so /usr/lib/nvidia/libglx.so 42
+
+	# <target: squeeze>
+	for f in /usr/lib/libGL.so.*.*
+	do
+		if [ -e "$f" ] || [ -L "$f" ]
+	       	then
+			echo "WARNING: The file '$f' found on your system may interfere with accelerated OpenGL."
+		fi
+	done
+	# </target: squeeze>
 
 fi
 
