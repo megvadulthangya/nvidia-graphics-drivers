@@ -1,3 +1,18 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.27-3) UNRELEASED; urgency=low
+
+  [ Andreas Beckmann ]
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-5:
+    - Drop Breaks: xserver-xorg-core (<< 2:1.6).
+      There is no file name conflict between /usr/lib/libGLcore.so.1 (from
+      NVIDIA) and /usr/lib/xorg/modules/extensions/libGLcore.so (only in
+      xserver-xorg-core << 2:1.6) that could cause the wrong library to be
+      loaded by NVIDIA's libgl.so.
+    - Change xserver dependency to 'xorg-video-abi-6.0 | xserver-xorg-core
+      (<< 2:1.7.7)' as the driver is supposed to work with older abi versions,
+      too.  This is not needed for squeeze, but helps backports to lenny.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Sun, 10 Oct 2010 20:53:35 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.27-2) unstable; urgency=low
 
   [ Andreas Beckmann ]
