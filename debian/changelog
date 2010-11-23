@@ -10,6 +10,18 @@ nvidia-graphics-drivers-legacy-173xx (173.14.27-3) UNRELEASED; urgency=low
     - Change xserver dependency to 'xorg-video-abi-6.0 | xserver-xorg-core
       (<< 2:1.7.7)' as the driver is supposed to work with older abi versions,
       too.  This is not needed for squeeze, but helps backports to lenny.
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-6:
+    - If both original and diverted file exist when removing obsolete
+      diversions, move the original file (which is not owned by any package)
+      out of the way.  This problem may originate from incorrect diversion
+      creation before lenny (and was not noticed or fixed in lenny) or having
+      used the nvidia installer to install the driver in the past.
+    - Document the warnings emitted by the maintainer scripts in
+      README.Debian.
+    - Install the upstream README.txt in the dkms package.  It is referenced
+      by the package description.  Add a README.Debian, too.
+    - Add a note about the driver not working under the Xen hypervisor to
+      README.Debian.  (See: #570365, although not verified for legacy-*)
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sun, 10 Oct 2010 20:53:35 +0200
 
