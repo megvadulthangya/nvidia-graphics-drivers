@@ -1,6 +1,7 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.27-3) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-173xx (173.14.28-1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
+  * New upstream release.
   * Synchronize packaging with nvidia-graphics-drivers 195.36.31-5:
     - Drop Breaks: xserver-xorg-core (<< 2:1.6).
       There is no file name conflict between /usr/lib/libGLcore.so.1 (from
@@ -30,7 +31,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.27-3) UNRELEASED; urgency=low
       found on the system.  Also list files remaining from using the
       nvidia-installer.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Sun, 10 Oct 2010 20:53:35 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Mon, 14 Feb 2011 04:18:21 +0100
 
 nvidia-graphics-drivers-legacy-173xx (173.14.27-2) unstable; urgency=low
 
