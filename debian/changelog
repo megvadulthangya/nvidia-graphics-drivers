@@ -1,7 +1,8 @@
 nvidia-graphics-drivers-legacy-173xx (173.14.28-1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
-  * New upstream release.
+  * New upstream release 173.14.28 (2010-10-18).
+    - Added support for X.Org xserver 1.9.
   * Synchronize packaging with nvidia-graphics-drivers 195.36.31-5:
     - Drop Breaks: xserver-xorg-core (<< 2:1.6).
       There is no file name conflict between /usr/lib/libGLcore.so.1 (from
@@ -68,7 +69,12 @@ nvidia-graphics-drivers-legacy-173xx (173.14.27-2) unstable; urgency=low
 nvidia-graphics-drivers-legacy-173xx (173.14.27-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
-  * new upstream release
+  * New upstream release 173.14.27 (2010-07-15).
+    - Fixed a bug in the XvMC driver that prevented it from working on
+      systems with AGP graphics cards.
+    - Added support for X.Org xserver 1.8.
+    - Fixed a bug that could cause X.Org xserver >= 1.7 to hang when
+      restarted.
   * synchronize packaging with nvidia-graphics-drivers 195.36.24-4
     - nvidia-glx now provides xserver-xorg-video-6
     - add Conflicts: nvidia-glx-legacy that was never really taken care of
@@ -131,13 +137,16 @@ nvidia-graphics-drivers-legacy-173xx (173.14.25-2) unstable; urgency=low
 
 nvidia-graphics-drivers-legacy-173xx (173.14.25-1) unstable; urgency=low
 
-  *  New upstream.
+  * New upstream release 173.14.25 (2010-01-29).
+    - Improved compatibility with recent Linux kernels.
 
  -- Randall Donald <rdonald@debian.org>  Wed, 17 Mar 2010 11:43:35 -0700
 
 nvidia-graphics-drivers-legacy-173xx (173.14.22-1) unstable; urgency=low
 
-  * New upstream (closes: #565314, #558658, #565314)
+  * New upstream release 173.14.22 (2009-11-12)
+    - Added support for X.Org xserver 1.7.
+    (Closes: #565314, #558658, #565314)
 
  -- Randall Donald <rdonald@debian.org>  Wed, 20 Jan 2010 17:11:28 -0800
 
@@ -173,14 +182,32 @@ nvidia-graphics-drivers-legacy-173xx (173.14.20-1) unstable; urgency=low
   * add patches.h (from nvidia-graphics-drivers)
 
   [ Randall Donald ]
-  * New Upstream (pre-release for 2.6.30 support)
+  * New upstream release 173.14.20 (2009-07-01).
+    - Updated nvidia-bug-report.sh to automatically compress its log
+      file; running `nvidia-bug-report.sh` now produces
+      "nvidia-bug-report.log.gz".
+    - Improved compatibility with recent Linux kernels.
   * conftest.sh, patches.h patch from Lennart Sorensen <lsorense@csclub.uwaterloo.ca>
 
  -- Randall Donald <rdonald@debian.org>  Sat, 18 Jul 2009 18:27:17 -0700
 
 nvidia-graphics-drivers-legacy-173xx (173.14.18-1) unstable; urgency=low
 
-  * New upstream.
+  * New upstream release 173.14.18 (2009-03-09).
+    - Re-enabled support for non-SSE CPUs.
+    - Fixed a server crash triggered by Kopete's 'new message' popup
+      dialog when a composite manager is enabled.
+    - Fixed a bug that caused window decorations to be corrupted
+      in Compiz.
+    - Fixed corruption in KDE 4 when OpenOffice is launched.
+    - Fixed a problem that prevented the console from being restored
+      on some notebooks.
+    - Improved compatibility with recent Linux kernels.
+    - Fixed a bug that resulted in AGP FW/SBA settings and overrides
+      being applied incorrectly when using the Linux kernel's
+      AGP GART driver.
+    - Fixed a bug that could trigger kernel BUG() failures when
+      stress testing setup/teardown paths.
   * Patched for Debian 2.6.29 thanks to Lennart Sorensen
     (closes: #523024, #504626, #523024)
   * Remove suggesting of nvidia-settings (closes: #524107)
