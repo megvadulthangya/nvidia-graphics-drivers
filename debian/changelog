@@ -31,6 +31,10 @@ nvidia-graphics-drivers-legacy-173xx (173.14.28-1) UNRELEASED; urgency=low
       libraries and their symlinks, diversions and alternatives currently
       found on the system.  Also list files remaining from using the
       nvidia-installer.
+  * Synchronize packaging with nvidia-graphics-drivers 260.19.21-1:
+    - conftest.h: implement new (after 195.xx) conftest.sh functions
+      pci_dma_mapping_error, scatterlist, pci_domain_nr, file_operations,
+      sg_init_table.  Kernel versions of symbol (dis-)appearance from lxr.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 14 Feb 2011 04:18:21 +0100
 
