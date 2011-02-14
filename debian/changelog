@@ -22,6 +22,13 @@ nvidia-graphics-drivers-legacy-173xx (173.14.27-3) UNRELEASED; urgency=low
       by the package description.  Add a README.Debian, too.
     - Add a note about the driver not working under the Xen hypervisor to
       README.Debian.  (See: #570365, although not verified for legacy-*)
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-7 UNRELEASED:
+    - Add instructions how to switch driver installation from the NVIDIA way
+      (running the *.run file) to the Debian way (using packages).
+    - Let the bug-script collect detailed information about OpenGL and NVIDIA
+      libraries and their symlinks, diversions and alternatives currently
+      found on the system.  Also list files remaining from using the
+      nvidia-installer.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sun, 10 Oct 2010 20:53:35 +0200
 
