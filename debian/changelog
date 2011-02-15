@@ -1,6 +1,8 @@
 nvidia-graphics-drivers-legacy-96xx (96.43.19-1) unstable; urgency=low
 
-  * New upstream release.
+  * New upstream release 96.43.19 (2010-11-16).
+    - Added support for X.Org xserver 1.9.
+    - Added support for X.Org xserver 1.8.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 15 Feb 2011 12:11:38 +0100
 
@@ -40,7 +42,12 @@ nvidia-graphics-drivers-legacy-96xx (96.43.18-2) unstable; urgency=low
 nvidia-graphics-drivers-legacy-96xx (96.43.18-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
-  * new upstream release (closes: #523941)
+  * New upstream release 96.43.18 (2010-08-04).  (Closes: #523941)
+    - Fixed a bug that caused X server crashes when certain rendering
+      occurred.  This was triggered by the Ubuntu 10.04 GDM login
+      theme.  Fixes Launchpad bug #553200.
+    - Fixed a bug that could cause X.Org xserver >= 1.7 to hang when
+      restarted.
   * add missing Build-Depends: libxext6, fixes FTBFS
   * synchronize packaging with nvidia-graphics-drivers 195.36.31-3 and
     nvidia-graphics-drivers-legacy-173xx 173.14.27-1
@@ -95,7 +102,8 @@ nvidia-graphics-drivers-legacy-96xx (96.43.18-1) unstable; urgency=low
 
 nvidia-graphics-drivers-legacy-96xx (96.43.16-1) unstable; urgency=low
 
-  * new upstream (closes:  #534131, #545228)
+  * New upstream release 96.43.16 (2010-01-29).  (Closes: #534131, #545228)
+    - Improved compatibility with recent Linux kernels.
 
  -- Randall Donald <rdonald@debian.org>  Tue, 16 Mar 2010 20:21:46 -0700
 
@@ -107,7 +115,8 @@ nvidia-graphics-drivers-legacy-96xx (96.43.14-2) unstable; urgency=low
 
 nvidia-graphics-drivers-legacy-96xx (96.43.14-1) unstable; urgency=low
 
-  * New Upstream
+  * New upstream release 96.43.14 (2009-11-12).
+    - Added support for X.Org xserver 1.7.
   * Support latest xserver (closes: #523806, #523853, #547463, #560013)
   * add lsb headers (closes: #549991)
   * remove libGL.so from -ia32 (closes: #559474)
@@ -128,16 +137,41 @@ nvidia-graphics-drivers-legacy-96xx (96.43.13+1-1) unstable; urgency=low
 nvidia-graphics-drivers-legacy-96xx (96.43.13-0.1) unstable; urgency=low
 
   * Non-maintainer upload.
-  * New upstream release:
-    - Compatibility with recent (>=2.6.28) linux kernels
-      (closes: #510961)
+  * New upstream release 96.43.13 (2009-07-01).  (Closes: #510961)
+    - Updated nvidia-bug-report.sh to automatically compress its log
+      file; running `nvidia-bug-report.sh` now produces
+      "nvidia-bug-report.log.gz".
+    - Improved compatibility with recent Linux kernels. [2.6.28]
   * Updated x86 pkg0 to pkg1.
 
  -- Yaroslav Halchenko <debian@onerussian.com>  Thu, 23 Jul 2009 13:19:49 -0400
 
 nvidia-graphics-drivers-legacy-96xx (96.43.11-0.1) UNRELEASED; urgency=low
 
-  * New upstream release (personal packaging):
+  * personal packaging
+  * New upstream release 96.43.11 (2009-03-09).
+    - Added support for X.Org server 1.5 and 1.6.
+    - Fixed the subpicture component order reported by the NVIDIA
+      X driver's XvMC implementation.
+    - Fixed a text corruption problem on X.Org 1.5 and newer
+      X.Org servers.
+    - Worked around an X server bug that caused text to disappear
+      when a composite manager is enabled on X.Org 1.5 and
+      newer X.Org servers.
+    - Fixed a texture corruption problem seen when running
+      GoogleEarth on some GeForce 4 MX GPUs.
+    - Fixed a server crash triggered by Kopete's 'new message' popup
+      dialog when a composite manager is enabled.
+    - Fixed an X server crash with multiple server generations
+      when GLX is disabled.
+    - Fixed a bug that caused window decorations to be corrupted
+      in Compiz.
+    - Improved compatibility with recent Linux 2.6 kernels.
+    - Fixed a bug that resulted in AGP FW/SBA settings and overrides
+      being applied incorrectly when using the Linux kernel's
+      AGP GART driver.
+    - Fixed a bug that could trigger kernel BUG() failures when
+      stress testing setup/teardown paths.
   * Changed the Provides: xserver-xorg-2 into 5 for xserver-xorg-core new version
 
  -- Samuel Colin <scolin@hivernal.org>  Thu, 09 Apr 2009 09:29:43 +0200
@@ -150,7 +184,10 @@ nvidia-graphics-drivers-legacy-96xx (96.43.07-2) unstable; urgency=high
 
 nvidia-graphics-drivers-legacy-96xx (96.43.07-1) unstable; urgency=medium
 
-  * New upstream. 2.6.26 compatible. (closes: #492309)
+  * New upstream release 96.43.07 (2008-07-16).  (Closes: #492309)
+    - Fixed a problem that caused TV output on secondary TVs to be
+      black and white on some GPUs.
+    - Restored compatibility with recent Linux 2.6 kernels. [2.6.26]
 
  -- Randall Donald <rdonald@debian.org>  Fri, 25 Jul 2008 09:29:24 -0700
 
@@ -168,7 +205,13 @@ nvidia-graphics-drivers-legacy-96xx (96.43.05-2) unstable; urgency=low
 
 nvidia-graphics-drivers-legacy-96xx (96.43.05-1) unstable; urgency=low
 
-  * New upstream (closes: #473114)
+  * New upstream release 96.43.05 (2008-01-29).  (Closes: #473114)
+    - Improved compatibility with recent versions of X.Org X servers.
+    - Improved GLX_EXT_texture_from_pixmap out-of-memory handling.
+    - Improved compatibility with recent Linux 2.6 kernels.
+    - Improved compatibility with SELinux systems.
+    - Fixed a problem that prevented 32-bit OpenGL applications from
+      running on 64-bit systems.
   * added uploaders (closes: #472443)
   * removed xserver-xorg-core depend.
 
@@ -182,7 +225,14 @@ nvidia-graphics-drivers-legacy-96xx (96.43.01-2) unstable; urgency=low
 
 nvidia-graphics-drivers-legacy-96xx (96.43.01-1) unstable; urgency=low
 
-  * New upstream
+  * New upstream release 96.43.05 (2007-09-18).
+    - Improved compatibility with recent versions of X.Org X servers.
+    - Fixed a TV-OUT corruption problem on some GeForce 4 GPUs.
+    - Fixed a bug that resulted in the generation of incorrect EDIDs
+      on some notebooks.
+    - Improved power management support with some GeForce 4 based
+      notebooks.
+    - Improved compatibility with recent Linux 2.6 kernels.
   * Xorg 7.3 compatible (closes: #443112)
   * change maintainership to pkg-nvidia
   * provide xserver-xorg-video-2 and depend on xserver-xorg-core (>= 2:1.4)
