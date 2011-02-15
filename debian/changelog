@@ -1,8 +1,37 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.19-1) unstable; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.19-1) UNRELEASED; urgency=low
 
+  [ Andreas Beckmann ]
   * New upstream release 96.43.19 (2010-11-16).
     - Added support for X.Org xserver 1.9.
     - Added support for X.Org xserver 1.8.
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-5:
+    - Drop Breaks: xserver-xorg-core (<< 2:1.6).
+      There is no file name conflict between /usr/lib/libGLcore.so.1 (from
+      NVIDIA) and /usr/lib/xorg/modules/extensions/libGLcore.so (only in
+      xserver-xorg-core << 2:1.6) that could cause the wrong library to be
+      loaded by NVIDIA's libgl.so.
+    - Change xserver dependency to 'xorg-video-abi-6.0 | xserver-xorg-core
+      (<< 2:1.7.7)' as the driver is supposed to work with older abi versions,
+      too.  This is not needed for squeeze, but helps backports to lenny.
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-6:
+    - If both original and diverted file exist when removing obsolete
+      diversions, move the original file (which is not owned by any package)
+      out of the way.  This problem may originate from incorrect diversion
+      creation before lenny (and was not noticed or fixed in lenny) or having
+      used the nvidia installer to install the driver in the past.
+    - Document the warnings emitted by the maintainer scripts in
+      README.Debian.
+    - Install the upstream README.txt in the dkms package.  It is referenced
+      by the package description.  Add a README.Debian, too.
+    - Add a note about the driver not working under the Xen hypervisor to
+      README.Debian.  (See: #570365, although not verified for legacy-*)
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-7 UNRELEASED:
+    - Add instructions how to switch driver installation from the NVIDIA way
+      (running the *.run file) to the Debian way (using packages).
+    - Let the bug-script collect detailed information about OpenGL and NVIDIA
+      libraries and their symlinks, diversions and alternatives currently
+      found on the system.  Also list files remaining from using the
+      nvidia-installer.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 15 Feb 2011 12:11:38 +0100
 
