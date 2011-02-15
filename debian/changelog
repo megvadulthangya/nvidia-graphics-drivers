@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.19-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 15 Feb 2011 12:11:38 +0100
+
 nvidia-graphics-drivers-legacy-96xx (96.43.18-2) unstable; urgency=low
 
   [ Andreas Beckmann ]
