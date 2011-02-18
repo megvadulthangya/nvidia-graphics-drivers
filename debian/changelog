@@ -36,8 +36,10 @@ nvidia-graphics-drivers-legacy-173xx (173.14.28-1) UNRELEASED; urgency=low
       pci_dma_mapping_error, scatterlist, pci_domain_nr, file_operations,
       sg_init_table.  Kernel versions of symbol (dis-)appearance from lxr.
     - Drop 2.6.36-ioctl.patch, fixed upstream.
-  - Upstream now supports Xorg 1.9: add xorg-video-abi-8 as alternative
-    dependency and stop providing xserver-xorg-video-6.  (Closes: #613176)
+  * Synchronize packaging with nvidia-graphics-drivers 260.19.36-1 UNRELEASED:
+    - Upstream now supports Xorg 1.9: add xorg-video-abi-8 as alternative
+      dependency and provide xorg-driver-video instead of xserver-xorg-video-6
+      to match Xorg 1.9.  (Closes: #613176)
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 14 Feb 2011 14:02:29 +0100
 
