@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.28-1) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-173xx (173.14.28-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
   * New upstream release 173.14.28 (2010-10-18).
@@ -99,7 +99,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.28-1) UNRELEASED; urgency=low
       dependency and provide xorg-driver-video instead of xserver-xorg-video-6
       to match Xorg 1.9.  (Closes: #613176)
 
- -- Andreas Beckmann <debian@abeckmann.de>  Mon, 14 Feb 2011 14:02:29 +0100
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 23 Mar 2011 16:17:51 +0100
 
 nvidia-graphics-drivers-legacy-173xx (173.14.27-2) unstable; urgency=low
 
