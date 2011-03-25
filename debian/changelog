@@ -90,8 +90,6 @@ nvidia-graphics-drivers-legacy-96xx (96.43.19-1) UNRELEASED; urgency=low
     - Prevent concurrent installation of mismatching upstream versions of
       libgl1-nvidia-legacy-173xx-glx and libgl1-nvidia-glx-legacy-173xx-ia32.
     - Provide xorg-driver-video.
-    - Add patch nvidia-kernel-compat-2.6.38.patch to fix build with 2.6.38
-      kernels.
     - Add patch fix-typos.patch to fix a typo in the module (found by lintian).
     - Update lintian-overrides to work with lintian 2.5.0.  Keep error overrides
       compatible with older lintian releases until ftp-master is updated.
