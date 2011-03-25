@@ -28,8 +28,8 @@ Importing a New Upstream Release
         tarball with:
             tar czvf nvidia-graphics-drivers_<version>.orig.tar.gz
 
-    * Edit debian/rules.defs in the Debian package and change
-      NVIDIA_RELEASE to the appropriate value.
+    * For generating tarballs of older versions first set WATCH_VERSION in
+      debian/rules.defs appropriately and regenerate debian/watch.
 
     * Edit debian/module/conftest.h if necessary for kernel compatibility
       and test.
@@ -70,7 +70,10 @@ Forking a new legacy package
 
     * in debian/rules.defs set   NVIDIA_LEGACY = 42
 
-    * in debian/changelog and debian/control (Source: and Package: lines)
+    * in
+        - debian/changelog
+        - debian/control (Source: and Package: lines)
+        - debian/source/lintian-overrides
       change the package name by inserting '-legacy-42xx' into the package
       name after
         - nvidia-glx
