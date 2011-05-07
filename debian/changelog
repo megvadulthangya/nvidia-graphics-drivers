@@ -14,6 +14,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.30-1) UNRELEASED; urgency=low
       Add compatibility settings for old Xorg versions for backports only.
     - Add #LIBDIR# and #PRIVATE# substitution variables for generated control
       files.
+   * Add xorg-video-abi-10 as alternative dependency.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sat, 07 May 2011 15:49:27 +0200
 
