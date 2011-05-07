@@ -1,6 +1,7 @@
 # The NVIDIA license does not allow any form of modification.
 libgl1-nvidia#LEGACY#-glx: binary-has-unneeded-section
 libgl1-nvidia#LEGACY#-glx: shared-lib-without-dependency-information
+libgl1-nvidia#LEGACY#-glx: shlib-calls-exit
 #!i386#libgl1-nvidia#LEGACY#-glx: shlib-with-executable-stack
 #!amd64#libgl1-nvidia#LEGACY#-glx: shlib-with-non-pic-code
 #!amd64#libgl1-nvidia#LEGACY#-glx: shlib-without-PT_GNU_STACK-section
@@ -18,5 +19,5 @@ libgl1-nvidia#LEGACY#-glx: shlibs-declares-dependency-on-other-package libgl1-me
 libgl1-nvidia#LEGACY#-glx: package-name-doesnt-match-sonames
 
 # Due to complex maintainer script operations (migration of diversions) a
-# simple Breaks+Recommends is not sufficient to ensure clean up-/downgrades.
+# simple Breaks+Replaces is not sufficient to ensure clean up-/downgrades.
 libgl1-nvidia#LEGACY#-glx: conflicts-with-version nvidia-glx#LEGACY# *

@@ -14,7 +14,7 @@ Build-Depends:
  libxext6,
  quilt,
  ia32-libs (>= 20090804) [amd64],
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Homepage: http://www.nvidia.com
 
 Package: nvidia-glx-legacy-173xx
@@ -27,7 +27,7 @@ Depends:
  libgl1-nvidia${nvidia:Legacy}-glx (= ${binary:Version}),
  libglx-nvidia-alternatives,
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
- xorg-video-abi-8 | xorg-video-abi-6.0 | xserver-xorg-core (<< 2:1.7.7),
+ ${nvidia:xorgDepends},
  ${shlibs:Depends}, ${misc:Depends}
 Suggests:
  nvidia-settings,
@@ -35,8 +35,7 @@ Suggests:
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Provides:
  nvidia-glx,
- xorg-driver-video,
-# for squeeze-backports add xserver-xorg-video-6
+ ${nvidia:xorgProvides},
 Conflicts:
  nvidia-glx,
  nvidia-glx-legacy,
@@ -96,6 +95,7 @@ Package: libgl1-nvidia-legacy-173xx-glx
 Architecture: i386 amd64
 Pre-Depends:
  nvidia-common,
+ ${misc:Pre-Depends}
 Depends:
  libgl1-nvidia-alternatives,
  ${shlibs:Depends}, ${misc:Depends}
@@ -136,6 +136,7 @@ Architecture: amd64
 Pre-Depends:
  libc6-i386 (>= 2.9-18),
  nvidia-common,
+ ${misc:Pre-Depends}
 Depends:
  libgl1-nvidia-alternatives-ia32,
  ${shlibs:Depends}, ${misc:Depends}
