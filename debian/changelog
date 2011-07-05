@@ -1,3 +1,37 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.30-2) UNRELEASED; urgency=low
+
+  [ Andreas Beckmann ]
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-91:
+    - Add avoid-ld.gold.patch to explicitly link with ld.bfd.  The kernel
+      module built with ld.gold does not work properly.
+    - Add linux3.patch to make the module build on linux-3.0.
+    - Drop dependency on nvidia-common in favor of nvidia-installer-cleanup.
+    - Add Pre-Depends: nvidia-installer-cleanup to
+      nvidia-kernel-legacy-173xx-dkms.
+    - Turn nvidia-glx-legacy-173xx-ia32 into a transitional package, the
+      libraries have been shipped in libgl1-nvidia-legacy-173xx-glx-ia32 for
+      quite some time.
+    - Add Depends: nvidia-support to nvidia-glx-legacy-173xx.  The new support
+      package ships the nvidia-bug-report.sh manpage.
+    - Override the binary-without-manpage lintian warning now that we provide
+      a manpage (in nvidia-support).
+    - conftest.h:
+      - Implement conftest.sh function ioremap_cache (270.41.19).
+      - Implement checks for generated/compile.h and generated/utsrelease.h
+        (275.09).
+    - Drop lintian 2.4.3 compatibility overrides.
+    - Convert lintian-overrides to use [arch lists] introduced in lintian
+      2.5.1.
+    - Fall back to the old version of nvidia.ids if extract-pci-ids.sh failed.
+    - Add Conflicts: lib{*}-ia32 [i386] to lib{*} to prevent mixing multiarch
+      and biarch packages, e.g. lib{*}:i386 and lib{*}-ia32:amd64 on amd64.
+    - Add XS-Autobuild: yes to debian/control.  See instructions in #602838.
+
+  [ Russ Allbery ]
+  * Add DM-Upload-Allowed: yes to debian/control.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 05 Jul 2011 12:44:50 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.30-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
