@@ -46,16 +46,6 @@ case "$1" in
 	rmdir /emul/ia32-linux/usr/lib /emul/ia32-linux/usr /emul/ia32-linux /emul 2>/dev/null || true
 	# </target: squeeze>
 
-	# <target: squeeze>
-	for f in /usr/lib32/libGL.so.*.*
-	do
-		if [ -e "$f" ] || [ -L "$f" ]
-	       	then
-			echo "WARNING: The file '$f' found on your system may interfere with accelerated OpenGL."
-		fi
-	done
-	# </target: squeeze>
-
     ;;
 esac
 

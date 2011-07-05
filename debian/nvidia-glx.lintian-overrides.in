@@ -1,11 +1,14 @@
 # The NVIDIA license does not allow any form of modification.
-nvidia-glx#LEGACY#: binary-has-unneeded-section
-#!i386#nvidia-glx#LEGACY#: shlib-with-executable-stack
-#!amd64#nvidia-glx#LEGACY#: shlib-with-non-pic-code
-#!amd64#nvidia-glx#LEGACY#: shlib-without-PT_GNU_STACK-section
+binary-has-unneeded-section
+[amd64]: shlib-with-executable-stack
+[i386]: shlib-with-non-pic-code
+[i386]: shlib-without-PT_GNU_STACK-section
 
 # The alternatives are placed here.
-nvidia-glx#LEGACY#: package-contains-empty-directory usr/lib/xorg/modules/extensions/
+package-contains-empty-directory usr/lib/xorg/modules/extensions/
 
 # Referenced by upstream documentation.
-nvidia-glx#LEGACY#: script-with-language-extension usr/bin/nvidia-bug-report.sh
+script-with-language-extension usr/bin/nvidia-bug-report.sh
+
+# Manpage is shipped in the nvidia-support package which is a dependency.
+binary-without-manpage usr/bin/nvidia-bug-report.sh

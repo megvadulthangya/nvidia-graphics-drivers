@@ -21,18 +21,30 @@ dpkg-maintscript-helper rm_conffile /etc/default/$DPKG_MAINTSCRIPT_PACKAGE 71.86
 dpkg-maintscript-helper rm_conffile /etc/init.d/$DPKG_MAINTSCRIPT_PACKAGE 71.86.14~ -- "$@"
 # </target: squeeze>
 
-
 # <target: squeeze>
-# $1=original $2=diverted
+exists()
+{
+	test -e "$1" || test -L "$1"
+}
+
 undivert()
 {
-	old_diverter="$(dpkg-divert --listpackage "$1")"
-	test -z "$old_diverter" || \
-		dpkg-divert --remove --rename --package ${old_diverter} \
-			--divert "$2" "$1"
+	div="$1"
+	ori="$2"
+	if exists "$ori" && exists "$div"
+	then
+		# If both the original and the diverted file exist, something went wrong long ago.
+		# Either a pre-lenny nvidia-glx package created the diversions incorrectly or
+		# the nvidia installer was used to install the driver and messed up things.
+		# Let's move the original file (which is not owned by any package) out of the way.
+		echo "WARNING: Renaming conflicting file '$ori'"
+		echo "         to '$ori.dpkg-old'".
+		mv "$ori" "$ori.dpkg-old"
+	fi
+	old_diverter="$(dpkg-divert --listpackage "$ori")"
+	dpkg-divert --remove --rename --package ${old_diverter} --divert "$div" "$ori"
 }
 # </target: squeeze>
-
 
 if [ "$1" = "configure" ]
 then
@@ -55,15 +67,15 @@ then
 
         # <target: squeeze>
 	# also do this on new installations, we might take over nvidia-glx-legacy
-	if dpkg --compare-versions "$2" lt 71.86.14 ; then
+	if true || dpkg --compare-versions "$2" lt 71.86.14 ; then
 		# remove obsolete diversions
-		undivert /usr/lib/xorg/modules/extensions/libGLcore.so	/usr/lib/nvidia/libGLcore.so.xlibmesa
-		undivert /usr/lib/xorg/modules/extensions/libGLcore.a	/usr/lib/nvidia/libGLcore.a.xlibmesa
-		undivert /usr/lib/xorg/modules/extensions/libglx.a	/usr/lib/nvidia/libglx.a.xlibmesa
+		undivert /usr/lib/nvidia/libGLcore.so.xlibmesa	/usr/lib/xorg/modules/extensions/libGLcore.so
+		undivert /usr/lib/nvidia/libGLcore.a.xlibmesa	/usr/lib/xorg/modules/extensions/libGLcore.a
+		undivert /usr/lib/nvidia/libglx.a.xlibmesa	/usr/lib/xorg/modules/extensions/libglx.a
 
 		# remove obsolete diversions from nvidia-glx-legacy{,-71xx}-dev
-		undivert /usr/lib/libGL.a				/usr/lib/nvidia/libGL.a.xlibmesa
-		undivert /usr/X11R6/lib/libGL.a				/usr/X11R6/lib/nvidia/libGL.a.xlibmesa
+		undivert /usr/lib/nvidia/libGL.a.xlibmesa	/usr/lib/libGL.a
+		undivert /usr/X11R6/lib/nvidia/libGL.a.xlibmesa	/usr/X11R6/lib/libGL.a
 
 		rmdir /usr/lib/nvidia /usr/X11R6/lib/nvidia /usr/X11R6/lib /usr/X11R6 2>/dev/null || true
         fi
@@ -82,15 +94,10 @@ then
 
 	update-alternatives --install /usr/lib/xorg/modules/extensions/libglx.so libglx.so /usr/lib/nvidia/libglx.so 42
 
-	# <target: squeeze>
-	for f in /usr/lib/libGL.so.*.*
-	do
-		if [ -e "$f" ] || [ -L "$f" ]
-	       	then
-			echo "WARNING: The file '$f' found on your system may interfere with accelerated OpenGL."
-		fi
-	done
-	# </target: squeeze>
+	if [ -x /usr/lib/nvidia/check-for-conflicting-opengl-libraries ]
+	then
+		/usr/lib/nvidia/check-for-conflicting-opengl-libraries
+	fi
 
 fi
 

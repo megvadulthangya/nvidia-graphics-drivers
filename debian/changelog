@@ -1,3 +1,121 @@
+nvidia-graphics-drivers-legacy-71xx (71.86.14-3) UNRELEASED; urgency=low
+
+  [ Andreas Beckmann ]
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-96xx 96.43.19-2
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-6:
+    - If both original and diverted file exist when removing obsolete
+      diversions, move the original file (which is not owned by any package)
+      out of the way.  This problem may originate from incorrect diversion
+      creation before lenny (and was not noticed or fixed in lenny) or having
+      used the nvidia installer to install the driver in the past.
+    - Document the warnings emitted by the maintainer scripts in
+      README.Debian.
+    - Install the upstream README.txt in the dkms package.  It is referenced
+      by the package description.  Add a README.Debian, too.
+    - Add a note about the driver not working under the Xen hypervisor to
+      README.Debian.  (See: #570365, although not verified for legacy-*)
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-7:
+    - Add instructions how to switch driver installation from the NVIDIA way
+      (running the *.run file) to the Debian way (using packages).
+    - Let the bug-script collect detailed information about OpenGL and NVIDIA
+      libraries and their symlinks, diversions and alternatives currently
+      found on the system.  Also list files remaining from using the
+      nvidia-installer.
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-90:
+    - Merge general changes from 256xx/260xx releases:
+    - Use dpkg-parsechangelog to extract the upstream version number from
+      debian/changelog, simplifying debian/rules.defs even more.
+    - Drop Conflicts: binutils-gold, driver or gold was fixed.
+    - Detect license changes by comparing debian/copyright with the shipped
+      LICENSE during build.
+    - Catch module-assistant failures after nvidia-kernel-source updates
+      without running 'module-assistant clean nvidia'.  Only works if the old
+      version already contained this change and a module was built.
+    - Add script build-module-packages.sh to the documentation of the
+      nvidia-kernel-legacy-71xx-source package, uses module-assistant to do a
+      quick build of the modules for all installed linux-headers.
+    - conftest.h: implement new (after 195.xx) conftest.sh functions
+      pci_dma_mapping_error, scatterlist, pci_domain_nr, file_operations,
+      sg_init_table.  Kernel versions of symbol (dis-)appearance from lxr.
+    - Pre-Depend on nvidia-installer-cleanup for interactive (using debconf)
+      nvidia-installer cleanup.  There is a mutual exclusion between using the
+      nvidia-installer and the driver packages.
+      + Checks for /usr/bin/nvidia-installer and asks the user whether to run
+        'nvidia-installer --uninstall'.  If that fails, offers to just delete
+        the remaining files.  If the user chooses to do the cleanup himself,
+        installation is blocked as long as nvidia-installer is still found on
+        the system.
+      + Adds a pre-install hook for the nvidia-installer, giving a warning to
+        users running a NVIDIA-Linux-*.run file directly while Debian packages
+        providing the driver are installed.  This hook fails intentionally,
+        but unfortunately the default choice if the hook failed is to continue
+        anyway.  Therefore the hook tries to kill the nvidia-installer
+        process.
+      + Provides a script that checks for conflicting libraries (libGL.so.*.*
+        remaining from previous usage of the nvidia-installer) and offers to
+        delete them.  The script is intended to be run from postinst.  If the
+        user chooses not to delete them, postinst configure fails as long as
+        the user has not cleaned up or lets the postinst delete the files.
+    - nvidia-glx-legacy-71xx{,-ia32}.postinst: run the cleanup of conflicting
+      libGL.so.*.*  (Currently the conflicting libraries are moved to
+      /var/lib/nvidia-backup.XXXXXX instead of deleting them.)
+    - Use /lib/modules/`uname -r`/build as the default kernel build location
+      for nvidia-kernel-legacy-71xx-source instead of /usr/src/linux, since
+      this is set up automatically by the current linux-headers-* packages.
+    - In the nvidia-kernel-legacy-71xx-source documentation, remove mention
+      of setting KVERS, which should no longer be needed, and mention that
+      setting KSRC is optional if the build link exists and you're building
+      for the currently running kernel.
+    - Lower Priority of *-ia32 packages to extra (debcheck).
+    - Switch default Section to non-free/libs with a few exceptions:
+      x11 (nvidia-legacy-71xx-glx),
+      kernel (nvidia-kernel-legacy-71xx-{source,dkms}),
+      oldlibs (nvidia-glx-legacy-71xx-ia32).
+    - Drop transitional packages:
+      + nvidia-glx-legacy-71xx-dev (now Conflicts/Replaces by
+        libgl1-nvidia-legacy-71xx-glx)
+    - Prevent concurrent installation of mismatching upstream versions of
+      libgl1-nvidia-legacy-71xx-glx and libgl1-nvidia-glx-legacy-71xx-ia32.
+    - Provide xorg-driver-video.
+    - Add patch fix-typos.patch to fix a typo in the module (found by lintian).
+    - Update lintian-overrides to work with lintian 2.5.0.
+  * Synchronize packaging with nvidia-graphics-drivers 195.36.31-91:
+    - Update to Standards-Version: 3.9.2.
+    - Add avoid-ld.gold.patch to explicitly link with ld.bfd.  The kernel
+      module built with ld.gold does not work properly.
+    - Add linux3.patch to make the module build on linux-3.0.
+    - Support backport specific operations in debian/rules by setting the
+      BACKPORT variable in debian/rules.defs.
+    - Set the supported Xorg ABIs in debian/rules.defs, use substvars for Xorg
+      related Depends/Provides, compute the values in debian/rules.
+      Add compatibility settings for old Xorg versions for backports only.
+    - Add #LIBDIR# and #PRIVATE# substitution variables for generated control
+      files.
+    - Turn nvidia-glx-legacy-71xx-ia32 into a transitional package, the
+      libraries have been shipped in libgl1-nvidia-legacy-71xx-glx-ia32 for
+      quite some time.
+    - Add Depends: nvidia-support to nvidia-glx-legacy-71xx.  The new support
+      package ships the nvidia-bug-report.sh manpage.
+    - Override the binary-without-manpage lintian warning now that we provide
+      a manpage (in nvidia-support).
+    - conftest.h:
+      - Mark aquire_console_sem as no longer available in 2.6.38 and newer
+        kernels.
+      - Implement conftest.sh function ioremap_cache (270.41.19).
+      - Implement checks for generated/compile.h and generated/utsrelease.h
+        (275.09).
+    - Convert lintian-overrides to use [arch lists] introduced in lintian
+      2.5.1.
+    - Fall back to the old version of nvidia.ids if extract-pci-ids.sh failed.
+    - Add Conflicts: lib{*}-ia32 [i386] to lib{*} to prevent mixing multiarch
+      and biarch packages, e.g. lib{*}:i386 and lib{*}-ia32:amd64 on amd64.
+    - Add XS-Autobuild: yes to debian/control.  See instructions in #602838.
+
+  [ Russ Allbery ]
+  * Add DM-Upload-Allowed: yes to debian/control.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 05 Jul 2011 14:29:00 +0200
+
 nvidia-graphics-drivers-legacy-71xx (71.86.14-2) unstable; urgency=low
 
   [ Andreas Beckmann ]

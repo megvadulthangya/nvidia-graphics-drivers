@@ -1,10 +1,11 @@
 Source: nvidia-graphics-drivers-legacy-71xx
-Section: non-free/x11
+Section: non-free/libs
 Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders:
  Russ Allbery <rra@debian.org>,
  Andreas Beckmann <debian@abeckmann.de>,
+DM-Upload-Allowed: yes
 Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-71xx/trunk
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-71xx/
 Build-Depends:
@@ -14,23 +15,31 @@ Build-Depends:
  libxext6,
  quilt,
  ia32-libs (>= 20090804) [amd64],
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Homepage: http://www.nvidia.com
+XS-Autobuild: yes
 
 Package: nvidia-glx-legacy-71xx
+Section: non-free/x11
 Architecture: i386 amd64
-Pre-Depends: dpkg (>= 1.15.7.2)
+Pre-Depends:
+ dpkg (>= 1.15.7.2),
+ nvidia-installer-cleanup,
 Depends:
  libgl1-nvidia${nvidia:Legacy}-glx (= ${binary:Version}),
  libglx-nvidia-alternatives,
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
+ nvidia-support,
+ ${nvidia:xorgDepends},
  xserver-xorg-core (<< 2:1.4.99),
  ${shlibs:Depends}, ${misc:Depends}
-Suggests: nvidia-settings,
+Suggests:
+ nvidia-settings,
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Provides:
  nvidia-glx,
+ ${nvidia:xorgProvides},
  xserver-xorg-video-2,
 Conflicts:
  nvidia-glx,
@@ -38,6 +47,8 @@ Conflicts:
  nvidia-glx-legacy-96xx,
  nvidia-glx-legacy-173xx,
  fglrx-driver,
+Breaks:
+ libgl1-nvidia${nvidia:Legacy}-glx-ia32 (<< ${nvidia:Version}) [amd64],
 Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  These binary drivers provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -54,46 +65,21 @@ Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  for a complete list of supported GPUs and PCI IDs.
 
 Package: nvidia-glx-legacy-71xx-ia32
-Architecture: amd64
-Pre-Depends: libc6-i386 (>= 2.9-18)
-Depends:
- libgl1-nvidia${nvidia:Legacy}-glx-ia32 (= ${binary:Version}),
- nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
- ${shlibs:Depends}, ${misc:Depends}
-Suggests: nvidia-settings,
- nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
- | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
-Provides:
- nvidia-glx-ia32,
-Conflicts:
- nvidia-glx-ia32,
- nvidia-glx-legacy-ia32 (<< 71.86.14),
- nvidia-glx-legacy-96xx-ia32,
- nvidia-glx-legacy-173xx-ia32,
-Description: NVIDIA binary driver 32-bit libs${nvidia:LegacyDesc}
- These binary drivers provide optimized hardware acceleration of
- OpenGL applications via a direct-rendering X Server.
- AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
- .
- ${nvidia:Models}
- .
- See /usr/share/doc/nvidia-glx${nvidia:Legacy}/README.txt.gz
- for a complete list of supported GPUs and PCI IDs.
-
-Package: nvidia-glx-legacy-71xx-dev
 Section: non-free/oldlibs
-Architecture: i386 amd64
-Depends: libgl1-mesa-dev | libgl-dev, ${misc:Depends}
-Conflicts: libgl1-nvidia${nvidia:Legacy}-dev
-Replaces: libgl1-nvidia${nvidia:Legacy}-dev
-Description: NVIDIA OpenGL development files (transitional package)${nvidia:LegacyDesc}
- This is a transitional dummy package to aid migration to libgl1-mesa-dev.
- NVIDIA recommends to use the official headers for developing OpenGL
- applications.
+Priority: extra
+Architecture: amd64
+Depends:
+ libgl1-nvidia${nvidia:Legacy}-glx-ia32,
+ ${misc:Depends}
+Description: NVIDIA 32-bit libraries${nvidia:LegacyDesc} (transitional package)
+ This is a dummy package to aid switching to
+ libgl1-nvidia${nvidia:Legacy}-glx-ia32.
 
 Package: libgl1-nvidia-legacy-71xx-glx
-Section: non-free/libs
 Architecture: i386 amd64
+Pre-Depends:
+ nvidia-installer-cleanup,
+ ${misc:Pre-Depends}
 Depends:
  libgl1-nvidia-alternatives,
  ${shlibs:Depends}, ${misc:Depends}
@@ -112,7 +98,15 @@ Conflicts:
  nvidia-glx-legacy-71xx (<< 71.86.14),
  nvidia-glx-legacy-96xx,
  nvidia-glx-legacy-173xx,
-Replaces: nvidia-glx${nvidia:Legacy} (<< 71.86.14)
+ libgl1-nvidia${nvidia:Legacy}-dev,
+ nvidia-glx${nvidia:Legacy}-dev,
+ libgl1-nvidia-glx-ia32 [i386],
+Breaks:
+ libgl1-nvidia${nvidia:Legacy}-glx-ia32 (<< ${nvidia:Version}) [amd64],
+Replaces:
+ nvidia-glx${nvidia:Legacy} (<< 71.86.14),
+ libgl1-nvidia${nvidia:Legacy}-dev,
+ nvidia-glx${nvidia:Legacy}-dev,
 Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -122,9 +116,12 @@ Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  for a complete list of supported GPUs and PCI IDs.
 
 Package: libgl1-nvidia-legacy-71xx-glx-ia32
-Section: non-free/libs
+Priority: extra
 Architecture: amd64
-Pre-Depends: libc6-i386 (>= 2.9-18)
+Pre-Depends:
+ libc6-i386 (>= 2.9-18),
+ nvidia-installer-cleanup,
+ ${misc:Pre-Depends}
 Depends:
  libgl1-nvidia-alternatives-ia32,
  ${shlibs:Depends}, ${misc:Depends}
@@ -143,7 +140,10 @@ Conflicts:
  nvidia-glx-legacy-71xx-ia32 (<< 71.86.14),
  nvidia-glx-legacy-96xx-ia32,
  nvidia-glx-legacy-173xx-ia32,
-Replaces: nvidia-glx${nvidia:Legacy}-ia32 (<< 71.86.14)
+Breaks:
+ libgl1-nvidia${nvidia:Legacy}-glx (<< ${nvidia:Version}),
+Replaces:
+ nvidia-glx${nvidia:Legacy}-ia32 (<< 71.86.14),
 Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  These binary 32-bit libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -155,8 +155,14 @@ Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
 Package: nvidia-kernel-legacy-71xx-dkms
 Section: non-free/kernel
 Architecture: i386 amd64
-Depends: ${misc:Depends}, dkms, nvidia-kernel-common (>= 20100522)
-Recommends: nvidia-glx${nvidia:Legacy} (>= ${nvidia:Version})
+Pre-Depends:
+ nvidia-installer-cleanup,
+Depends:
+ dkms,
+ nvidia-kernel-common (>= 20100522),
+ ${misc:Depends}
+Recommends:
+ nvidia-glx${nvidia:Legacy} (>= ${nvidia:Version}),
 Provides:
  nvidia-kernel-dkms,
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
@@ -169,7 +175,6 @@ Conflicts:
  linux-headers-2.6.32-trunk-vserver-686 [i386], linux-image-2.6.32-trunk-vserver-686 [i386],
  linux-headers-2.6.32-trunk-vserver-686-bigmem [i386], linux-image-2.6.32-trunk-vserver-686-bigmem [i386],
  linux-headers-2.6.32-trunk-vserver-amd64 [amd64], linux-image-2.6.32-trunk-vserver-amd64 [amd64],
- binutils-gold (>> 2.20.51),
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
  nvidia-glx${nvidia:Legacy}, using DKMS.
@@ -190,9 +195,14 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
 Package: nvidia-kernel-legacy-71xx-source
 Section: non-free/kernel
 Architecture: i386 amd64
-Depends: ${misc:Depends}, debhelper (>= 8), make, quilt (>= 0.46-7~)
-Recommends: module-assistant | kernel-package,
- nvidia-kernel-common
+Depends:
+ debhelper (>= 8),
+ make,
+ quilt (>= 0.46-7~),
+ ${misc:Depends}
+Recommends:
+ module-assistant | kernel-package,
+ nvidia-kernel-common,
 Suggests:
  nvidia-glx${nvidia:Legacy} (>= ${nvidia:Version}),
 Conflicts:
@@ -203,7 +213,6 @@ Conflicts:
  linux-headers-2.6.32-trunk-vserver-686 [i386], linux-image-2.6.32-trunk-vserver-686 [i386],
  linux-headers-2.6.32-trunk-vserver-686-bigmem [i386], linux-image-2.6.32-trunk-vserver-686-bigmem [i386],
  linux-headers-2.6.32-trunk-vserver-amd64 [amd64], linux-image-2.6.32-trunk-vserver-amd64 [amd64],
- binutils-gold (>> 2.20.51),
 Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  This package provides the source for the NVIDIA Xorg binary kernel module
  needed by nvidia-glx${nvidia:Legacy} in a form suitable
