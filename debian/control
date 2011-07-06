@@ -27,26 +27,62 @@ Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
  libgl1-nvidia${nvidia:Legacy}-glx (= ${binary:Version}),
- libglx-nvidia-alternatives,
+ xserver-xorg-video-nvidia${nvidia:Legacy} (= ${binary:Version}),
+ nvidia-alternative${nvidia:Legacy} (= ${binary:Version}),
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
  nvidia-support,
- ${nvidia:xorgDepends},
  ${shlibs:Depends}, ${misc:Depends}
 Suggests:
  nvidia-settings,
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Provides:
- nvidia-glx,
+ nvidia-glx-any,
+Description: NVIDIA metapackage${nvidia:LegacyDesc}
+ This metapackage depends on the NVIDIA binary driver and libraries
+ that provide optimized hardware acceleration of
+ OpenGL applications via a direct-rendering X Server.
+ AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
+ .
+ Please see the nvidia-kernel${nvidia:Legacy}-dkms or
+ nvidia-kernel${nvidia:Legacy}-source packages
+ for building the kernel module required by this package.
+ This will provide nvidia-kernel-${nvidia:Version}${nvidia:Perfkit}.
+ .
+ ${nvidia:Models}
+ .
+ See /usr/share/doc/nvidia-glx${nvidia:Legacy}/README.txt.gz
+ for a complete list of supported GPUs and PCI IDs.
+
+Package: xserver-xorg-video-nvidia-legacy-173xx
+Section: non-free/x11
+Architecture: i386 amd64
+Pre-Depends:
+ nvidia-installer-cleanup,
+Depends:
+ libgl1-nvidia${nvidia:Legacy}-glx (= ${binary:Version}),
+ nvidia-alternative${nvidia:Legacy} (= ${binary:Version}),
+ nvidia-support,
+ ${nvidia:xorgDepends},
+ ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+ nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
+Suggests:
+ nvidia-settings,
+ nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
+ | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
+Provides:
+ xserver-xorg-video-nvidia-any,
  ${nvidia:xorgProvides},
-Conflicts:
- nvidia-glx,
- nvidia-glx-legacy,
- nvidia-glx-legacy-71xx,
- nvidia-glx-legacy-96xx,
- fglrx-driver,
 Breaks:
- libgl1-nvidia${nvidia:Legacy}-glx-ia32 (<< ${nvidia:Version}) [amd64],
+ nvidia-glx (<< 275.09.07-2),
+ nvidia-glx-legacy (<< 71.86.14-3),
+ nvidia-glx-legacy-71xx (<< 71.86.14-3),
+ nvidia-glx-legacy-96xx (<< 96.43.19-2),
+ nvidia-glx-legacy-173xx (<< 173.14.30-2),
+ fglrx-driver (<< 11-6-~),
+Replaces:
+ nvidia-glx${nvidia:Legacy} (<< 173.14.30-2),
 Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  These binary drivers provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -75,11 +111,13 @@ Description: NVIDIA 32-bit libraries${nvidia:LegacyDesc} (transitional package)
 
 Package: libgl1-nvidia-legacy-173xx-glx
 Architecture: i386 amd64
+Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
  ${misc:Pre-Depends}
 Depends:
- libgl1-nvidia-alternatives,
+ nvidia-alternative${nvidia:Legacy},
+ nvidia-support,
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
@@ -87,20 +125,19 @@ Suggests:
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Provides:
- libgl1-nvidia-glx,
+ libgl1-nvidia-glx-any,
 Conflicts:
- libgl1-nvidia-glx,
- fglrx-glx,
- nvidia-glx (<< 195.36.31),
- nvidia-glx-legacy,
- nvidia-glx-legacy-71xx,
- nvidia-glx-legacy-96xx,
- nvidia-glx-legacy-173xx (<< 173.14.27),
  libgl1-nvidia${nvidia:Legacy}-dev,
  nvidia-glx${nvidia:Legacy}-dev,
  libgl1-nvidia-glx-ia32 [i386],
 Breaks:
  libgl1-nvidia${nvidia:Legacy}-glx-ia32 (<< ${nvidia:Version}) [amd64],
+ nvidia-glx (<< 275.09.07-3),
+ nvidia-glx-legacy (<< 71.86.14-3),
+ nvidia-glx-legacy-71xx (<< 71.86.14-3),
+ nvidia-glx-legacy-96xx (<< 96.43.19-2),
+ nvidia-glx-legacy-173xx (<< 173.14.30-2),
+ fglrx-glx (<< 11-6-~),
 Replaces:
  nvidia-glx${nvidia:Legacy} (<< 173.14.27),
  libgl1-nvidia${nvidia:Legacy}-dev,
@@ -122,6 +159,7 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  libgl1-nvidia-alternatives-ia32,
+ nvidia-support,
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
@@ -129,11 +167,11 @@ Suggests:
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Provides:
- libgl1-nvidia-glx-ia32,
+ libgl1-nvidia-glx-ia32-any,
 Conflicts:
- libgl1-nvidia-glx-ia32,
+ libgl1-nvidia-glx-ia32-any,
  fglrx-glx-ia32,
- nvidia-glx-ia32 (<< 195.36.31),
+ nvidia-glx-ia32,
  nvidia-glx-legacy-ia32,
  nvidia-glx-legacy-71xx-ia32,
  nvidia-glx-legacy-96xx-ia32,
@@ -150,9 +188,30 @@ Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  or /usr/share/doc/libgl1-nvidia${nvidia:Legacy}-glx/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
+Package: nvidia-alternative-legacy-173xx
+Architecture: i386 amd64
+Multi-Arch: foreign
+Depends:
+ glx-alternative-nvidia (>= 0.1.90),
+ ${misc:Depends}
+Breaks:
+ nvidia-glx${nvidia:Legacy} (<< 173.14.30-2),
+ libgl1-nvidia${nvidia:Legacy}-glx (<< 173.14.30-2),
+Description: allows the selection of NVIDIA as GLX provider
+ In setups with several NVIDIA driver versions installed (e.g. current and
+ legacy) this metapackage registers an alternative to allow easy switching
+ between the different versions.
+ .
+ Use 'update-alternatives --config nvidia' to select a version.
+ .
+ This package does not depend on the corresponding NVIDIA libraries.
+ In order to install the NVIDIA driver and libraries, install the
+ nvidia-glx${nvidia:Legacy} package instead.
+
 Package: nvidia-kernel-legacy-173xx-dkms
 Section: non-free/kernel
 Architecture: i386 amd64
+Multi-Arch: allowed
 Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
