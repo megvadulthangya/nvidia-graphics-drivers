@@ -3,4 +3,5 @@ conditionally-include-linux_version.h.patch
 AUTOCONF_INCLUDED.patch
 avoid-ld.gold.patch
 fix-typos.patch
+no-smp_lock.patch
 linux3.patch
