@@ -19,6 +19,30 @@ Standards-Version: 3.9.2
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
+Package: nvidia-glx-legacy-71xx-unsupported
+Section: non-free/oldlibs
+Architecture: i386 amd64
+Depends:
+ ${misc:Depends}
+Description: NVIDIA unsupported legacy 71xx driver cleanup
+ The 71xx legacy drivers don't support the current Xorg xserver 1.7 in
+ squeeze.  It is not expected that NVIDIA will fix this.  The last xserver
+ version working with these drivers was 1.4 as included in Debian 5.0 (lenny).
+ .
+ In case you have a TNT (any model), TNT2 (any model), Vanta, GeForce 256,
+ GeForce 256 DDR, GeForce2 GTS, GeForce2 Pro, GeForce2 Ti, GeForce2 Ultra,
+ Quadro, Quadro2 Pro, i.e., any GPU based on the NV4/NV5/NV6/NV10/NV15 chips
+ or a variant thereof, your GPU is not supported by a newer driver from
+ NVIDIA.  You have two choices to continue using it:
+  * switch to a free driver (nouveau or nv) or
+  * keep the xserver from lenny.
+ .
+ All other GPUs are still supported by newer driver series.  Look at the
+ nvidia-glx-legacy-96xx package as a starting point.
+ .
+ This metapackage takes care for proper cleanup of previous installations of
+ the nvidia-glx-legacy-71xx driver.
+ 
 Package: nvidia-glx-legacy-71xx
 Section: non-free/x11
 Architecture: i386 amd64
@@ -26,6 +50,7 @@ Pre-Depends:
  dpkg (>= 1.15.7.2),
  nvidia-installer-cleanup,
 Depends:
+ nvidia-glx-legacy-71xx-unsupported,
  libgl1-nvidia${nvidia:Legacy}-glx (= ${binary:Version}),
  xserver-xorg-video-nvidia${nvidia:Legacy} (= ${binary:Version}),
  nvidia-alternative${nvidia:Legacy} (= ${binary:Version}),
@@ -60,6 +85,7 @@ Architecture: i386 amd64
 Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
+ nvidia-glx-legacy-71xx-unsupported,
  libgl1-nvidia${nvidia:Legacy}-glx (= ${binary:Version}),
  nvidia-alternative${nvidia:Legacy} (= ${binary:Version}),
  nvidia-support,
@@ -130,6 +156,7 @@ Pre-Depends:
  nvidia-installer-cleanup,
  ${misc:Pre-Depends}
 Depends:
+ nvidia-glx-legacy-71xx-unsupported,
  nvidia-alternative${nvidia:Legacy},
  nvidia-support,
  ${shlibs:Depends}, ${misc:Depends}
@@ -176,6 +203,7 @@ Pre-Depends:
  nvidia-installer-cleanup,
  ${misc:Pre-Depends}
 Depends:
+ nvidia-glx-legacy-71xx-unsupported,
  libgl1-nvidia-alternatives-ia32,
  nvidia-support,
  ${shlibs:Depends}, ${misc:Depends}

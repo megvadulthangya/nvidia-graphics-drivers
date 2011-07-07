@@ -168,6 +168,9 @@ nvidia-graphics-drivers-legacy-71xx (71.86.14-3) unstable; urgency=low
     - Remove the nvidia alternative before removing the libraries.
     - Only add slave links if the destination directory exists.
   * Add -legacy-71xx suffix to newly added packages.
+  * Add new package nvidia-glx-legacy-71xx-unsupported which should do the
+    cleanup of the now unsupported 71xx driver.  Right now it's an empty dummy
+    package, migration and cleanup is yet to be implemented.
 
   [ Russ Allbery ]
   * Add DM-Upload-Allowed: yes to debian/control.
