@@ -111,6 +111,18 @@ Description: NVIDIA 32-bit libraries${nvidia:LegacyDesc} (transitional package)
  This is a dummy package to aid switching to
  libgl1-nvidia${nvidia:Legacy}-glx-ia32.
 
+Package: nvidia-glx-legacy-71xx-dev
+Section: non-free/oldlibs
+Architecture: i386 amd64
+Depends:
+ libgl1-mesa-dev | libgl-dev,
+ libgl1-nvidia${nvidia:Legacy}-glx,
+ ${misc:Depends}
+Description: NVIDIA OpenGL development files (transitional package)${nvidia:LegacyDesc}
+ This is a transitional dummy package to aid migration to libgl1-mesa-dev.
+ NVIDIA recommends to use the official headers for developing OpenGL
+ applications.
+
 Package: libgl1-nvidia-legacy-71xx-glx
 Architecture: i386 amd64
 Multi-Arch: same
@@ -130,7 +142,7 @@ Provides:
  libgl1-nvidia-glx-any,
 Conflicts:
  libgl1-nvidia${nvidia:Legacy}-dev,
- nvidia-glx${nvidia:Legacy}-dev,
+# nvidia-glx${nvidia:Legacy}-dev,
  libgl1-nvidia-glx-ia32 [i386],
 Breaks:
  libgl1-nvidia${nvidia:Legacy}-glx-ia32 (<< ${nvidia:Version}) [amd64],
@@ -147,7 +159,7 @@ Breaks:
 Replaces:
  nvidia-glx${nvidia:Legacy} (<< 71.86.14),
  libgl1-nvidia${nvidia:Legacy}-dev,
- nvidia-glx${nvidia:Legacy}-dev,
+# nvidia-glx${nvidia:Legacy}-dev,
 Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -315,9 +327,9 @@ Description: NVIDIA binary Xorg driver (32-bit, transitional, 71xx legacy)
 Package: nvidia-glx-legacy-dev
 Section: non-free/oldlibs
 Architecture: i386 amd64
-Depends: libgl1-nvidia${nvidia:Legacy}-glx, ${misc:Depends}
+Depends: nvidia-glx${nvidia:Legacy}-dev, ${misc:Depends}
 Description: NVIDIA binary Xorg devel (transitional, 71xx legacy)
- Dummy package to upgrade to new name libgl1-nvidia${nvidia:Legacy}-glx.
+ Dummy package to upgrade to new name nvidia-glx${nvidia:Legacy}-dev.
 
 Package: nvidia-kernel-legacy-source
 Section: non-free/oldlibs
