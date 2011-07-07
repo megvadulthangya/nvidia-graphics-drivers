@@ -315,9 +315,9 @@ Description: NVIDIA binary Xorg driver (32-bit, transitional, 71xx legacy)
 Package: nvidia-glx-legacy-dev
 Section: non-free/oldlibs
 Architecture: i386 amd64
-Depends: nvidia-glx${nvidia:Legacy}-dev, ${misc:Depends}
+Depends: libgl1-nvidia${nvidia:Legacy}-glx, ${misc:Depends}
 Description: NVIDIA binary Xorg devel (transitional, 71xx legacy)
- Dummy package to upgrade to new name nvidia-glx${nvidia:Legacy}-dev.
+ Dummy package to upgrade to new name libgl1-nvidia${nvidia:Legacy}-glx.
 
 Package: nvidia-kernel-legacy-source
 Section: non-free/oldlibs
