@@ -4,4 +4,5 @@ AUTOCONF_INCLUDED.patch
 2.6.36-ioctl.patch
 avoid-ld.gold.patch
 fix-typos.patch
+no-smp_lock.patch
 linux3.patch
