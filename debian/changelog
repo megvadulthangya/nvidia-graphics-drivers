@@ -3,6 +3,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.30-2) experimental; urgency=low
   [ Andreas Beckmann ]
   * Upload to experimental.
   * Synchronize packaging with nvidia-graphics-drivers 195.36.31-91:
+    - Merge general changes from 270xx/275xx releases:
     - Add avoid-ld.gold.patch to explicitly link with ld.bfd.  The kernel
       module built with ld.gold does not work properly.
     - Add linux3.patch to make the module build on linux-3.0.
@@ -29,7 +30,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.30-2) experimental; urgency=low
       kernel module source path.
     - Add #MAJOR# substitution variable.
   * Synchronize packaging with nvidia-graphics-drivers 195.36.31-92:
-    - Merge multiarch and other changes from 275xx releases:
+    - Merge diversions, alternatives and multiarch changes from 275xx releases:
     - Switch to multiarch-aware diversion and alternatives handling provided
       by the glx-diversions/glx-alternative-nvidia packages.
     - Move handling of alternatives from nvidia-glx and libgl1-nvidia-glx to
