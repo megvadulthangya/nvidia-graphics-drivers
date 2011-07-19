@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.30-3) unstable; urgency=low
+
+  [ Andreas Beckmann ]
+  * Upload to unstable.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 19 Jul 2011 23:06:26 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.30-2) experimental; urgency=low
 
   [ Andreas Beckmann ]
