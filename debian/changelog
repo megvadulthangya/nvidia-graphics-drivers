@@ -1,3 +1,13 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.19-3) unstable; urgency=low
+
+  [ Andreas Beckmann ]
+  * Upload to unstable.
+  * Synchronize packaging with nvidia-graphics-drivers 275.21-1:
+    - Use a versioned dependency on the transitional
+      libgl{1,x}-nvidia-alternatives packages.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 27 Jul 2011 10:53:24 +0200
+
 nvidia-graphics-drivers-legacy-96xx (96.43.19-2) experimental; urgency=low
 
   [ Andreas Beckmann ]
