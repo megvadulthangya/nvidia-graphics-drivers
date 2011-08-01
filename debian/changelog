@@ -1,3 +1,14 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.20-1) UNRELEASED; urgency=low
+
+  [ Andreas Beckmann ]
+  * New upstream beta?/release? 96.43.20 (2011-07-??).
+    - Fixed a bug that caused freezes and crashes when resizing windows in
+      KDE 4 with desktop effects enabled using X.Org X server version 1.10
+      or later.
+    - Added support for X.Org xserver 1.10.  (Closes: #626667)
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Mon, 01 Aug 2011 18:47:03 +0200
+
 nvidia-graphics-drivers-legacy-96xx (96.43.19-3) unstable; urgency=low
 
   [ Andreas Beckmann ]
