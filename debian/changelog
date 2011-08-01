@@ -6,6 +6,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.20-1) UNRELEASED; urgency=low
       KDE 4 with desktop effects enabled using X.Org X server version 1.10
       or later.
     - Added support for X.Org xserver 1.10.  (Closes: #626667)
+  * Drop no-smp_lock.patch, fixed upstream.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 01 Aug 2011 18:47:03 +0200
 
