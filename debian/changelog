@@ -8,6 +8,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.31-1) UNRELEASED; urgency=low
   * Synchronize packaging with nvidia-graphics-drivers 275.21-1:
     - Use a versioned dependency on the transitional
       libgl{1,x}-nvidia-alternatives packages.
+  * Refresh linux3.patch, upstream partially added Linux 3 support.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 02 Aug 2011 01:26:44 +0200
 
