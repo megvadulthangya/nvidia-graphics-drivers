@@ -1,11 +1,14 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.14-4) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.15-1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
+  * New upstream beta 71.86.15 (2011-07-25).
+    - Updated nvidia-installer to detect the nouveau kernel module and
+      fail with an appropriate error message.
   * Synchronize packaging with nvidia-graphics-drivers 275.21-1:
     - Use a versioned dependency on the transitional
       libgl{1,x}-nvidia-alternatives packages.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Wed, 27 Jul 2011 11:23:22 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 02 Aug 2011 13:24:19 +0200
 
 nvidia-graphics-drivers-legacy-71xx (71.86.14-3) unstable; urgency=low
 
