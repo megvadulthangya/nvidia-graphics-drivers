@@ -7,6 +7,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.20-1) unstable; urgency=low
       or later.
     - Added support for X.Org xserver 1.10.  (Closes: #626667)
   * Drop no-smp_lock.patch, fixed upstream.
+  * Provide xorg-video-abi-10 for use with X.Org 1.10.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 01 Aug 2011 21:00:17 +0200
 
