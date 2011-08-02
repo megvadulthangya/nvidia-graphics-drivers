@@ -4,9 +4,12 @@ nvidia-graphics-drivers-legacy-71xx (71.86.15-1) UNRELEASED; urgency=low
   * New upstream beta 71.86.15 (2011-07-25).
     - Updated nvidia-installer to detect the nouveau kernel module and
       fail with an appropriate error message.
+    * Nvidia now provides an unlocked_ioctl() callback function, therefore the
+      kernel module should work on 2.6.36 and newer kernels, too.
   * Synchronize packaging with nvidia-graphics-drivers 275.21-1:
     - Use a versioned dependency on the transitional
       libgl{1,x}-nvidia-alternatives packages.
+  * Drop 2.6.36-ioctl.patch, fixed upstream.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 02 Aug 2011 13:24:19 +0200
 
