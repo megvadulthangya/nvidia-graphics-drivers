@@ -1,6 +1,5 @@
 use-nv-kernel.o.ARCH.patch
 conditionally-include-linux_version.h.patch
-AUTOCONF_INCLUDED.patch
 avoid-ld.gold.patch
 fix-typos.patch
 linux3.patch

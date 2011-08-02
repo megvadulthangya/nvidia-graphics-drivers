@@ -9,6 +9,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.31-1) UNRELEASED; urgency=low
     - Use a versioned dependency on the transitional
       libgl{1,x}-nvidia-alternatives packages.
   * Refresh linux3.patch, upstream partially added Linux 3 support.
+  * Drop AUTOCONF_INCLUDED.patch, fixed upstream.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 02 Aug 2011 01:26:44 +0200
 
