@@ -5,10 +5,11 @@ nvidia-graphics-drivers-legacy-173xx (173.14.31-1) UNRELEASED; urgency=low
     - Fixed a bug that caused freezes and crashes when resizing windows in
       KDE 4 with desktop effects enabled using X.Org X server version 1.10
       or later.
+  * Synchronize packaging with nvidia-graphics-drivers 275.09.07-1:
+    - Refresh linux3.patch, upstream partially added Linux 3 support.
   * Synchronize packaging with nvidia-graphics-drivers 275.21-1:
     - Use a versioned dependency on the transitional
       libgl{1,x}-nvidia-alternatives packages.
-  * Refresh linux3.patch, upstream partially added Linux 3 support.
   * Drop AUTOCONF_INCLUDED.patch, fixed upstream.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 02 Aug 2011 01:26:44 +0200
@@ -55,11 +56,11 @@ nvidia-graphics-drivers-legacy-173xx (173.14.30-2) experimental; urgency=low
     - Merge diversions, alternatives and multiarch changes from 275xx releases:
     - Switch to multiarch-aware diversion and alternatives handling provided
       by the glx-diversions/glx-alternative-nvidia packages.
-    - Move handling of alternatives from nvidia-glx and libgl1-nvidia-glx to
-      nvidia-alternative (new package) and glx-alternative-nvidia (from
-      glx-alternatives).  libGL.so.1 and libglx.so (the Xorg module) no longer
-      can be configured independently, avoiding possible mixed NVIDIA/MESA
-      setups.
+    - Move handling of alternatives from nvidia-glx-legacy-173xx and
+      libgl1-nvidia-legacy-173xx-glx to nvidia-alternative-legacy-173xx (new
+      package) and glx-alternative-nvidia (from glx-alternatives).  libGL.so.1
+      and libglx.so (the Xorg module) no longer can be configured
+      independently, avoiding possible mixed NVIDIA/MESA setups.
     - Note: The diversion and alternative handling of
       libgl1-nvidia-legacy-173xx-glx-ia32 is not being changed.
       This package will become obsolete by adding multiarch support.
