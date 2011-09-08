@@ -9,7 +9,7 @@ DM-Upload-Allowed: yes
 Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-96xx/trunk
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-96xx/
 Build-Depends:
- debhelper (>= 8),
+ debhelper (>= 8.1.3),
  bzip2,
  dkms (>= 2.1.1.1),
  libxext6,
@@ -232,13 +232,8 @@ Provides:
  nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
 Conflicts:
  nvidia-kernel-dkms,
- linux-headers-2.6.32-trunk-486 [i386], linux-image-2.6.32-trunk-486 [i386],
- linux-headers-2.6.32-trunk-686 [i386], linux-image-2.6.32-trunk-686 [i386],
- linux-headers-2.6.32-trunk-686-bigmem [i386], linux-image-2.6.32-trunk-686-bigmem [i386],
- linux-headers-2.6.32-trunk-amd64, linux-image-2.6.32-trunk-amd64,
- linux-headers-2.6.32-trunk-vserver-686 [i386], linux-image-2.6.32-trunk-vserver-686 [i386],
- linux-headers-2.6.32-trunk-vserver-686-bigmem [i386], linux-image-2.6.32-trunk-vserver-686-bigmem [i386],
- linux-headers-2.6.32-trunk-vserver-amd64 [amd64], linux-image-2.6.32-trunk-vserver-amd64 [amd64],
+Breaks:
+ make (= 3.82-1),
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
  nvidia-glx${nvidia:Legacy}, using DKMS.
@@ -269,14 +264,8 @@ Recommends:
  nvidia-kernel-common,
 Suggests:
  nvidia-glx${nvidia:Legacy} (>= ${nvidia:Version}),
-Conflicts:
- linux-headers-2.6.32-trunk-486 [i386], linux-image-2.6.32-trunk-486 [i386],
- linux-headers-2.6.32-trunk-686 [i386], linux-image-2.6.32-trunk-686 [i386],
- linux-headers-2.6.32-trunk-686-bigmem [i386], linux-image-2.6.32-trunk-686-bigmem [i386],
- linux-headers-2.6.32-trunk-amd64, linux-image-2.6.32-trunk-amd64,
- linux-headers-2.6.32-trunk-vserver-686 [i386], linux-image-2.6.32-trunk-vserver-686 [i386],
- linux-headers-2.6.32-trunk-vserver-686-bigmem [i386], linux-image-2.6.32-trunk-vserver-686-bigmem [i386],
- linux-headers-2.6.32-trunk-vserver-amd64 [amd64], linux-image-2.6.32-trunk-vserver-amd64 [amd64],
+Breaks:
+ make (= 3.82-1),
 Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  This package provides the source for the NVIDIA Xorg binary kernel module
  needed by nvidia-glx${nvidia:Legacy} in a form suitable

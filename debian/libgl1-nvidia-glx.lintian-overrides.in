@@ -13,8 +13,8 @@ spelling-error-in-binary
 shlibs-declares-dependency-on-other-package libgl1-mesa-glx | libgl1
 
 # Some slave alternatives are placed there.
-package-contains-empty-directory #LIBDIR#/nvidia/tls/
-package-contains-empty-directory #LIBDIR#/tls/
+package-contains-empty-directory usr/lib*/nvidia/tls/
+package-contains-empty-directory usr/lib*/tls/
 
 # Debhelper generates them anyway.
 postinst-has-useless-call-to-ldconfig
