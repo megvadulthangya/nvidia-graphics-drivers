@@ -32,6 +32,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.31-1) UNRELEASED; urgency=low
   * Synchronize packaging with nvidia-graphics-drivers 280.13-5:
     - Drop Conflicts with pre-squeeze kernel *-2.6.32-trunk-*.
     - xserver-xorg-video-nvidia: add (versioned) Depends: xserver-xorg-core.
+    - Use PCI IDs extracted from the README, not the kernel module.
   * Drop AUTOCONF_INCLUDED.patch, fixed upstream.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 02 Aug 2011 01:26:44 +0200
