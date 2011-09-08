@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.15-1) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.15-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
   * New upstream release 71.86.15 (2011-08-17).
@@ -36,7 +36,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.15-1) UNRELEASED; urgency=low
   * Drop no-smp_lock.patch, fixed upstream.
   * Drop AUTOCONF_INCLUDED.patch, fixed upstream.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Tue, 02 Aug 2011 13:24:19 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 08 Sep 2011 20:16:36 +0200
 
 nvidia-graphics-drivers-legacy-71xx (71.86.14-3) unstable; urgency=low
 
