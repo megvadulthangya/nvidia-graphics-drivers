@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.31-1) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-173xx (173.14.31-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
   * New upstream release 173.14.31 (2011-08-17).
@@ -35,7 +35,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.31-1) UNRELEASED; urgency=low
     - Use PCI IDs extracted from the README, not the kernel module.
   * Drop AUTOCONF_INCLUDED.patch, fixed upstream.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Tue, 02 Aug 2011 01:26:44 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 08 Sep 2011 14:01:52 +0200
 
 nvidia-graphics-drivers-legacy-173xx (173.14.30-3) unstable; urgency=low
 
