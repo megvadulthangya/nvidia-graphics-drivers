@@ -1,11 +1,8 @@
 nvidia-graphics-drivers-legacy-71xx (71.86.15-1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
-  * New upstream beta 71.86.15 (2011-07-25).
-    - Updated nvidia-installer to detect the nouveau kernel module and
-      fail with an appropriate error message.
-    * Nvidia now provides an unlocked_ioctl() callback function, therefore the
-      kernel module should work on 2.6.36 and newer kernels, too.
+  * New upstream release 71.86.15 (2011-08-17).
+    - Improved compatibility with recent Linux kernels.
   * Synchronize packaging with nvidia-graphics-drivers-legacy-96xx 96.43.20-2
   * Synchronize packaging with nvidia-graphics-drivers 275.09.07-1:
     - Refresh linux3.patch, upstream partially added Linux 3 support.
