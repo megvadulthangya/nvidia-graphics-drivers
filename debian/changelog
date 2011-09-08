@@ -1,7 +1,7 @@
 nvidia-graphics-drivers-legacy-173xx (173.14.31-1) UNRELEASED; urgency=low
 
   [ Andreas Beckmann ]
-  * New upstream beta 173.14.31 (2011-07-25).
+  * New upstream release 173.14.31 (2011-08-17).
     - Fixed a bug that caused freezes and crashes when resizing windows in
       KDE 4 with desktop effects enabled using X.Org X server version 1.10
       or later.
