@@ -6,10 +6,38 @@ nvidia-graphics-drivers-legacy-71xx (71.86.15-1) UNRELEASED; urgency=low
       fail with an appropriate error message.
     * Nvidia now provides an unlocked_ioctl() callback function, therefore the
       kernel module should work on 2.6.36 and newer kernels, too.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-96xx 96.43.20-2
+  * Synchronize packaging with nvidia-graphics-drivers 275.09.07-1:
+    - Refresh linux3.patch, upstream partially added Linux 3 support.
   * Synchronize packaging with nvidia-graphics-drivers 275.21-1:
     - Use a versioned dependency on the transitional
       libgl{1,x}-nvidia-alternatives packages.
+  * Synchronize packaging with nvidia-graphics-drivers 280.13-1:
+    - conftest.h: remove obsolete conftest.sh function signal_struct, no
+      longer used by the legacy drivers.
+    - Track PCI IDs extracted from the README in debian/nv-readme.ids.
+  * Synchronize packaging with nvidia-graphics-drivers 280.13-2:
+    - Call check-for-mismatching-nvidia-module properly by passing the new
+      upstream version as first argument.
+    - Bump debhelper dependency to >= 8.1.3 for experimental debhelper compat
+      level 9, which is used for multiarch build.
+    - Add instructions for squeeze-backports to README.source and a
+      prepare-squeeze-backport target to debian/rules that performs the
+      necessary changes.
+    - Add empty /usr/lib/tls directory to ensure smoother upgrades.
+  * Synchronize packaging with nvidia-graphics-drivers 280.13-4:
+    - Avoid multiarch file conflicts:
+      - Install the x86 README.txt in libgl1-nvidia-glx and nvidia-vdpau-driver.
+      - Use wildcards instead of multiarch paths in *.lintian-overrides.
+    - Add Breaks: make (= 3.82-1) to work around kernel module build failure
+      with make 3.82 (in experimental), see #640539.
+  * Synchronize packaging with nvidia-graphics-drivers 280.13-5:
+    - Drop Conflicts with pre-squeeze kernel *-2.6.32-trunk-*.
+    - xserver-xorg-video-nvidia: add (versioned) Depends: xserver-xorg-core.
+    - Use PCI IDs extracted from the README, not the kernel module.
   * Drop 2.6.36-ioctl.patch, fixed upstream.
+  * Drop no-smp_lock.patch, fixed upstream.
+  * Drop AUTOCONF_INCLUDED.patch, fixed upstream.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 02 Aug 2011 13:24:19 +0200
 
@@ -134,11 +162,11 @@ nvidia-graphics-drivers-legacy-71xx (71.86.14-3) unstable; urgency=low
     - Merge diversions, alternatives and multiarch changes from 275xx releases:
     - Switch to multiarch-aware diversion and alternatives handling provided
       by the glx-diversions/glx-alternative-nvidia packages.
-    - Move handling of alternatives from nvidia-glx and libgl1-nvidia-glx to
-      nvidia-alternative (new package) and glx-alternative-nvidia (from
-      glx-alternatives).  libGL.so.1 and libglx.so (the Xorg module) no longer
-      can be configured independently, avoiding possible mixed NVIDIA/MESA
-      setups.
+    - Move handling of alternatives from nvidia-glx-legacy-71xx and
+      libgl1-nvidia-legacy-71xx-glx to nvidia-alternative-legacy-71xx (new
+      package) and glx-alternative-nvidia (from glx-alternatives).  libGL.so.1
+      and libglx.so (the Xorg module) no longer can be configured
+      independently, avoiding possible mixed NVIDIA/MESA setups.
     - Note: The diversion and alternative handling of
       libgl1-nvidia-legacy-71xx-glx-ia32 is not being changed.
       This package will become obsolete by adding multiarch support.
