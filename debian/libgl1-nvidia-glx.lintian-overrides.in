@@ -18,4 +18,4 @@ package-name-doesnt-match-sonames
 # packages.  dpkg might want to remove this directory too early, fails to
 # do so and forgets about it, leaving it unowned on the system.
 # Targets squeeze-backports and wheezy, can be removed after wheezy release.
-package-contains-empty-directory usr/lib/tls/
+#package-contains-empty-directory usr/lib/tls/

@@ -9,7 +9,7 @@ DM-Upload-Allowed: yes
 Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers/trunk
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers/
 Build-Depends:
- debhelper (>= 8.1.3),
+ debhelper (>= 8),
  bzip2,
  dkms (>= 2.1.1.1),
  libxext6,
@@ -114,7 +114,6 @@ Description: NVIDIA 32-bit libraries${nvidia:LegacyDesc} (transitional package)
 
 Package: libgl1-nvidia-glx
 Architecture: i386 amd64
-Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
  ${misc:Pre-Depends}
@@ -198,7 +197,6 @@ Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
 
 Package: nvidia-alternative
 Architecture: i386 amd64
-Multi-Arch: foreign
 Depends:
  glx-alternative-nvidia (>= 0.2),
  libgl1-nvidia-alternatives (>= 275.09.07-4),
@@ -221,7 +219,6 @@ Description: allows the selection of NVIDIA as GLX provider
 Package: nvidia-kernel-dkms
 Section: non-free/kernel
 Architecture: i386 amd64
-Multi-Arch: allowed
 Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
@@ -290,7 +287,6 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
 
 Package: nvidia-vdpau-driver
 Architecture: i386 amd64
-Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
  ${misc:Pre-Depends}
@@ -400,7 +396,6 @@ Description: NVIDIA System Management Interface
 
 Package: libcuda1
 Architecture: i386 amd64
-Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
@@ -467,7 +462,6 @@ Description: NVIDIA CUDA runtime library (32-bit)
 
 Package: libnvidia-compiler
 Architecture: i386 amd64
-Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
@@ -507,7 +501,6 @@ Description: NVIDIA runtime compiler library (32-bit)
 
 Package: libnvcuvid1
 Architecture: i386 amd64
-Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
@@ -526,7 +519,6 @@ Description: NVIDIA CUDA nvcuvid runtime library
 
 Package: libnvidia-ml1
 Architecture: i386 amd64
-Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
@@ -542,7 +534,6 @@ Description: NVIDIA management library (NVML) runtime library
 
 Package: nvidia-opencl-common
 Architecture: i386 amd64
-Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Recommends:
@@ -557,7 +548,6 @@ Description: NVIDIA OpenCL driver
 
 Package: nvidia-opencl-icd
 Architecture: i386 amd64
-Multi-Arch: same
 Depends:
  nvidia-opencl-common,
  libopencl1,
@@ -601,7 +591,6 @@ Description: NVIDIA OpenCL ICD (32-bit)
 
 Package: nvidia-libopencl1
 Architecture: i386 amd64
-Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
