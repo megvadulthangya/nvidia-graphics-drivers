@@ -1,11 +1,10 @@
-nvidia-graphics-drivers (275.36-0~bpo60+1) squeeze-backports; urgency=low
+nvidia-graphics-drivers (280.13.really.275.36-1~bpo60+1) squeeze-backports; urgency=low
 
   * Rebuild for squeeze-backports.  (Closes: #627743)
   * Disable multiarch build.
   * Reduce Build-Depends: debhelper and compat level to 8.
-  * Remove version number hacks and use a sane version number of 275.36.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Tue, 22 Nov 2011 00:56:44 -0800
+ -- Andreas Beckmann <debian@abeckmann.de>  Fri, 25 Nov 2011 18:09:21 +0100
 
 nvidia-graphics-drivers (280.13.really.275.36-1) unstable; urgency=low
 
