@@ -1,3 +1,21 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.31-2) UNRELEASED; urgency=low
+
+  * Synchronize packaging with nvidia-graphics-drivers 280.13.really.275.36-1:
+    - Bump nvidia-kernel-common versioned dependency to 20110213 (updates
+      initrd to enable/disable the nouveau blacklist).
+    - Bump glx-alternative-nvidia versioned dependency to 0.2.
+  * Synchronize packaging with nvidia-graphics-drivers 290.03-1:
+    - bug-control: collect information about installed nouveau packages.
+  * Synchronize packaging with nvidia-graphics-drivers 290.10-1:
+    - debian/copyright: Update to dep5.mdwn?revision=202.
+  * Synchronize packaging with nvidia-graphics-drivers 290.10-2:
+    - Fix debian/module/debian/kernel-version to report the correct version
+      for using in the package name.  Try $KSRC/include/generated/utsrelease.h
+      before $KSRC/include/config/kernel.release (which has changed in 3.1).
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Fri, 02 Dec 2011 03:31:17 +0100
+
 nvidia-graphics-drivers-legacy-173xx (173.14.31-1) unstable; urgency=low
 
   [ Andreas Beckmann ]

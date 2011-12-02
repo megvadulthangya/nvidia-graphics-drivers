@@ -197,7 +197,7 @@ Package: nvidia-alternative-legacy-173xx
 Architecture: i386 amd64
 Multi-Arch: foreign
 Depends:
- glx-alternative-nvidia (>= 0.1.90),
+ glx-alternative-nvidia (>= 0.2),
  libgl1-nvidia-alternatives (>= 275.09.07-4),
  libglx-nvidia-alternatives (>= 275.09.07-4),
  ${misc:Depends}
@@ -223,7 +223,7 @@ Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
  dkms,
- nvidia-kernel-common (>= 20100522),
+ nvidia-kernel-common (>= 20110213),
  ${misc:Depends}
 Recommends:
  nvidia-glx${nvidia:Legacy} (>= ${nvidia:Version}),

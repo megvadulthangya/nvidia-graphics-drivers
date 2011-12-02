@@ -6,8 +6,8 @@
 DEB_HOST_ARCH		?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 DEB_HOST_MULTIARCH	?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
-include debian/rules.defs
 NVIDIA_RELEASE		:= $(shell dpkg-parsechangelog | sed -nr '/^Version:/s/Version: (.*:)?(.*)-(.*)/\2/p')
+include debian/rules.defs
 NVIDIA_LEGACY		?=
 WATCH_VERSION		?= $(NVIDIA_LEGACY)
 WATCH_PATTERN		?=
@@ -40,9 +40,9 @@ RENAMED_CONTROL	 = $(patsubst debian/nvidia-glx%,debian/nvidia-glx$(legacy)%,\
 			$(patsubst debian/nvidia-alternative%,debian/nvidia-alternative$(legacy)%,\
 			$(patsubst debian/xserver-xorg-video-nvidia%,debian/xserver-xorg-video-nvidia$(legacy)%,\
 				$(RENAME_CONTROL))))))
-IA32_OVERRIDES	 = nvidia-vdpau-driver libcuda1 nvidia-libopencl1
+IA32_OVERRIDES	 = nvidia-vdpau-driver libcuda1
 GEN_IA32_OVERRIDES := $(foreach p,$(IA32_OVERRIDES),$(if $(wildcard debian/$p.lintian-overrides*),$p))
-TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in)
+TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/detect/*.in)
 AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
 AUTOGEN		+= $(foreach pkg,$(GEN_IA32_OVERRIDES), debian/$(pkg)-ia32.lintian-overrides)
 AUTOGEN		+= debian/module/debian/changelog
@@ -335,7 +335,6 @@ prepare-squeeze-backport:
 		debian/rules.defs
 	sed -i -e 's/debhelper (>= .*)/debhelper (>= 8)/' \
 	       -e '/^Multi-Arch:/ d' \
-	       -e '/multiarch-support,/ d' \
 	       debian/control
 	sed -i -e '/^package-contains-empty-directory usr\/lib\/tls\// s/^/#/' \
 		debian/libgl1-nvidia-glx.lintian-overrides.in
