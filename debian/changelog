@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.15-2) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.15-2) unstable; urgency=low
 
   [ Andreas Beckmann ]
   * Synchronize packaging with nvidia-graphics-drivers-legacy-96xx 96.43.20-3
@@ -22,7 +22,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.15-2) UNRELEASED; urgency=low
     - Add some notes about the 'EQ overflowing...' error to the README.
   * Adjust Priority and Description of transitional packages.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Thu, 16 Feb 2012 04:58:33 +0100
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 16 Feb 2012 06:20:13 +0100
 
 nvidia-graphics-drivers-legacy-71xx (71.86.15-1) unstable; urgency=low
 
