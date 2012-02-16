@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.31-2) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-173xx (173.14.31-2) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 280.13.really.275.36-1:
     - Bump nvidia-kernel-common versioned dependency to 20110213 (updates
@@ -20,7 +20,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.31-2) UNRELEASED; urgency=low
     - Add some notes about the 'EQ overflowing...' error to the README.
   * Update lintian overrides.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Fri, 02 Dec 2011 03:31:17 +0100
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 16 Feb 2012 03:14:28 +0100
 
 nvidia-graphics-drivers-legacy-173xx (173.14.31-1) unstable; urgency=low
 
