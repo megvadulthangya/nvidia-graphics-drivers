@@ -8,10 +8,16 @@ nvidia-graphics-drivers-legacy-173xx (173.14.31-2) UNRELEASED; urgency=low
     - bug-control: collect information about installed nouveau packages.
   * Synchronize packaging with nvidia-graphics-drivers 290.10-1:
     - debian/copyright: Update to dep5.mdwn?revision=202.
-  * Synchronize packaging with nvidia-graphics-drivers 290.10-2:
+  * Synchronize packaging with nvidia-graphics-drivers 295.09-1:
     - Fix debian/module/debian/kernel-version to report the correct version
       for using in the package name.  Try $KSRC/include/generated/utsrelease.h
       before $KSRC/include/config/kernel.release (which has changed in 3.1).
+  * Synchronize packaging with nvidia-graphics-drivers 295.20-1:
+    - Bump debhelper dependency to 9.
+    - debian/rules: Switch to dh --with dkms.
+    - Redirect bug reports against module binary packages to
+      nvidia-kernel-legacy-173xx-source.
+    - Add some notes about the 'EQ overflowing...' error to the README.
   * Update lintian overrides.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Fri, 02 Dec 2011 03:31:17 +0100

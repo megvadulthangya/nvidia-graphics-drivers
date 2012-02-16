@@ -9,7 +9,7 @@ DM-Upload-Allowed: yes
 Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-173xx/trunk
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-173xx/
 Build-Depends:
- debhelper (>= 8.1.3),
+ debhelper (>= 9),
  bzip2,
  dkms (>= 2.1.1.1),
  libxext6,
@@ -222,7 +222,7 @@ Multi-Arch: allowed
 Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
- dkms,
+ dkms (>> 2.1),
  nvidia-kernel-common (>= 20110213),
  ${misc:Depends}
 Recommends:
