@@ -20,6 +20,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.15-2) UNRELEASED; urgency=low
     - Redirect bug reports against module binary packages to
       nvidia-kernel-legacy-71xx-source.
     - Add some notes about the 'EQ overflowing...' error to the README.
+  * Adjust Priority and Description of transitional packages.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Thu, 16 Feb 2012 04:58:33 +0100
 

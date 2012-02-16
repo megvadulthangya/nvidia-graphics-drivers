@@ -138,6 +138,7 @@ Description: NVIDIA 32-bit libraries${nvidia:LegacyDesc} (transitional package)
 
 Package: nvidia-glx-legacy-71xx-dev
 Section: non-free/oldlibs
+Priority: extra
 Architecture: i386 amd64
 Depends:
  libgl1-mesa-dev | libgl-dev,
@@ -328,29 +329,37 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
 
 Package: nvidia-glx-legacy
 Section: non-free/oldlibs
+Priority: extra
 Architecture: i386 amd64
 Depends: nvidia-glx${nvidia:Legacy}, ${misc:Depends}
 Description: NVIDIA binary Xorg driver (transitional, 71xx legacy)
- Dummy package to upgrade to new name nvidia-glx${nvidia:Legacy}.
+ Transitional dummy package to upgrade to new name
+ nvidia-glx${nvidia:Legacy}.
 
 Package: nvidia-glx-legacy-ia32
 Section: non-free/oldlibs
+Priority: extra
 Architecture: amd64
 Depends: nvidia-glx${nvidia:Legacy}-ia32, ${misc:Depends}
 Description: NVIDIA binary Xorg driver (32-bit, transitional, 71xx legacy)
- Dummy package to upgrade to new name nvidia-glx${nvidia:Legacy}-ia32.
+ Transitional dummy package to upgrade to new name
+ nvidia-glx${nvidia:Legacy}-ia32.
 
 Package: nvidia-glx-legacy-dev
 Section: non-free/oldlibs
+Priority: extra
 Architecture: i386 amd64
 Depends: nvidia-glx${nvidia:Legacy}-dev, ${misc:Depends}
 Description: NVIDIA binary Xorg devel (transitional, 71xx legacy)
- Dummy package to upgrade to new name nvidia-glx${nvidia:Legacy}-dev.
+ Transitional dummy package to upgrade to new name
+ nvidia-glx${nvidia:Legacy}-dev.
 
 Package: nvidia-kernel-legacy-source
 Section: non-free/oldlibs
+Priority: extra
 Architecture: i386 amd64
 Depends: nvidia-kernel${nvidia:Legacy}-source, ${misc:Depends}
 Description: NVIDIA binary kernel module source (transitional, 71xx legacy)
- Dummy package to upgrade to new name nvidia-kernel${nvidia:Legacy}-source.
+ Transitional dummy package to upgrade to new name
+ nvidia-kernel${nvidia:Legacy}-source.
 
