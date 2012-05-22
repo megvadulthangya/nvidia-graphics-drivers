@@ -4,6 +4,7 @@ shared-lib-without-dependency-information
 shlib-with-non-pic-code
 shlib-without-PT_GNU_STACK-section
 spelling-error-in-binary
+shlib-calls-exit
 hardening-no-fortify-functions
 hardening-no-relro
 hardening-no-stackprotector

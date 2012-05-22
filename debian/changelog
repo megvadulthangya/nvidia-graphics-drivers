@@ -28,6 +28,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.34-1) UNRELEASED; urgency=low
     - Add lintian overrides for hardening-*.
     - bug-script: report traces of Ubuntu ld.so.conf.d GL configuration.
     - conftest.h: implement check for asm/system.h (295.53).
+  * Update lintian overrides.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Mon, 21 May 2012 18:51:39 +0200
 

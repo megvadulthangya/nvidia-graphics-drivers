@@ -5,6 +5,7 @@ shared-lib-without-dependency-information
 [i386]: shlib-with-non-pic-code
 [i386]: shlib-without-PT_GNU_STACK-section
 spelling-error-in-binary
+shlib-calls-exit
 hardening-no-fortify-functions
 hardening-no-relro
 hardening-no-stackprotector
