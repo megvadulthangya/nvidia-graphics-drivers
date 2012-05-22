@@ -5,6 +5,9 @@ shared-lib-without-dependency-information
 [i386]: shlib-with-non-pic-code
 [i386]: shlib-without-PT_GNU_STACK-section
 spelling-error-in-binary
+hardening-no-fortify-functions
+hardening-no-relro
+hardening-no-stackprotector
 
 # Packages built against the NVIDIA libGL should declare dependencies on
 # the free version for Debian's purposes.  Therefore we use a special

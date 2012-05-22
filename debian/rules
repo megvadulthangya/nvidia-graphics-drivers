@@ -126,7 +126,7 @@ LICENSE.txt: unpack-stamp
 
 # Compare the license in debian/copyright with the LICENSE shipped in the archive.
 compare-copyright-license: LICENSE.txt
-	sed -e '1,/^License: NVIDIA-graphics-drivers$$/d; /^$$/,$$d; /^ .$$/d' debian/copyright > copyright.tmp
+	sed -e '1,/^License: NVIDIA-graphics-drivers$$/d; 1,/^License: NVIDIA-graphics-drivers$$/d; /^$$\|^Comment:$$/,$$d; /^ .$$/d' debian/copyright > copyright.tmp
 	sed -e '/^ .$$/d' LICENSE.txt > LICENSE.tmp
 	diff -w copyright.tmp LICENSE.tmp
 	rm -f copyright.tmp LICENSE.tmp
@@ -341,11 +341,13 @@ prepare-squeeze-backport:
 		debian/rules.defs
 	sed -i -e 's/debhelper (>= .*)/debhelper (>= 8)/' \
 	       -e '/^Multi-Arch:/ d' \
+	       -e 's/0.4.1-3/0.4/' \
 	       debian/control
 	sed -i -e '/^package-contains-empty-directory usr\/lib\/tls\// s/^/#/' \
 		debian/libgl1-nvidia-glx.lintian-overrides.in
 	debchange --bpo "Disable multiarch build."
 	debchange "Reduce Build-Depends: debhelper and compat level to 8."
+	debchange "Note: Please report bugs found in this backported package to the Debian BTS, not the backports mailing list."
 
 ############################################################################
 
