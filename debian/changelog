@@ -1,3 +1,29 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.20-4) UNRELEASED; urgency=low
+
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-173xx
+    173.14.34-1:
+    - Update lintian overrides.
+  * Synchronize packaging with nvidia-graphics-drivers 295.33-1:
+    - Update to Standards-Version: 3.9.3.
+    - Use the final copyright-format/1.0 URL.
+    - Reorder debian/copyright and use the Comment: field for extra
+      information.
+  * Synchronize packaging with nvidia-graphics-drivers 295.33-2:
+    - New patch patch-3.0-rt-nvidia.patch taken from Arch Linux: support
+      building the kernel module for RT kernels.
+  * Synchronize packaging with nvidia-graphics-drivers 295.40-1:
+    - conftest.h:
+      + Implement new conftest.sh function pci_get_domain_bus_and_slot
+        (290.06).
+      + Implement new conftest.sh function set_memory_uc and simplify
+        functions set_pages_uc, change_page_attr (295.09).
+  * Synchronize packaging with nvidia-graphics-drivers 295.53-1:
+    - Add lintian overrides for hardening-*.
+    - bug-script: report traces of Ubuntu ld.so.conf.d GL configuration.
+    - conftest.h: implement check for asm/system.h (295.53).
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 23 May 2012 12:55:30 +0200
+
 nvidia-graphics-drivers-legacy-96xx (96.43.20-3) unstable; urgency=low
 
   [ Andreas Beckmann ]
