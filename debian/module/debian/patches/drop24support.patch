@@ -1,0 +1,43 @@
+Index: b/Makefile.kbuild
+===================================================================
+--- a/Makefile.kbuild	2012-05-23 14:18:51.626083727 +0200
++++ b/Makefile.kbuild	2012-05-23 14:21:11.225207973 +0200
+@@ -139,11 +139,11 @@
+ # module extension. Handle these gracefully.
+ #
+ 
+-ifeq ($(PATCHLEVEL), 4)
++ifeq (xxx$(PATCHLEVEL), 4)
+  MODULE_OBJECT := $(MODULE_NAME).o
+ else
+  MODULE_OBJECT := $(MODULE_NAME).ko
+ endif
+ 
+ #
+ # NVIDIA specific CFLAGS and #define's. The remap_page_range check has become
+@@ -164,7 +164,7 @@
+  EXTRA_CFLAGS += -DDEBUG -g 
+ endif
+ 
+-ifneq ($(PATCHLEVEL), 4)
++ifneq (xxx$(PATCHLEVEL), 4)
+  COMPILE_TESTS = \
+ 	remap_page_range \
+ 	remap_pfn_range \
+@@ -228,7 +228,7 @@
+ # More quirks for Linux 2.4 KBUILD, which doesn't link automatically.
+ #
+ 
+-ifeq ($(PATCHLEVEL), 4)
++ifeq (xxx$(PATCHLEVEL), 4)
+ $(obj)/$(MODULE_NAME).o: $($(MODULE_NAME)-objs)
+ 	$(LD) $(EXTRA_LDFLAGS) -r -o $@ $($(MODULE_NAME)-objs)
+ endif
+@@ -328,6 +328,6 @@
+ # includes dependencies automatically.
+ #
+ 
+-ifeq ($(PATCHLEVEL), 4)
++ifeq (xxx$(PATCHLEVEL), 4)
+ include $(KERNEL_SOURCES)/Rules.make
+ endif
