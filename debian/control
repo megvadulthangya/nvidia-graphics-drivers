@@ -9,7 +9,7 @@ DM-Upload-Allowed: yes
 Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-173xx/trunk
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-173xx/
 Build-Depends:
- debhelper (>= 9),
+ debhelper (>= 8),
  bzip2,
  dkms (>= 2.1.1.1),
  libxext6,
@@ -111,7 +111,6 @@ Description: NVIDIA 32-bit libraries${nvidia:LegacyDesc} (transitional package)
 
 Package: libgl1-nvidia-legacy-173xx-glx
 Architecture: i386 amd64
-Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
  ${misc:Pre-Depends}
@@ -195,7 +194,6 @@ Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
 
 Package: nvidia-alternative-legacy-173xx
 Architecture: i386 amd64
-Multi-Arch: foreign
 Depends:
  glx-alternative-nvidia (>= 0.2),
  libgl1-nvidia-alternatives (>= 275.09.07-4),
@@ -218,7 +216,6 @@ Description: allows the selection of NVIDIA as GLX provider
 Package: nvidia-kernel-legacy-173xx-dkms
 Section: non-free/kernel
 Architecture: i386 amd64
-Multi-Arch: allowed
 Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
