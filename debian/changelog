@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.35-1) unstable; urgency=low
+
+  * New upstream prerelease 173.14.35 (2012-06-05).
+    - Fixed a bug that caused libglx.so to fail to load on 32-bit X servers.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Mon, 11 Jun 2012 15:12:00 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.34-1~bpo60+1) squeeze-backports; urgency=low
 
   * Rebuild for squeeze-backports.
@@ -10,7 +17,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.34-1~bpo60+1) squeeze-backports; ur
 
 nvidia-graphics-drivers-legacy-173xx (173.14.34-1) unstable; urgency=low
 
-  * New upstream prerelease 173.14.34 (2012-05-18).
+  * New upstream prerelease 173.14.34 (2012-05-19).
     - Added support for xserver 1.11.99.901 (also known as 1.12 RC1).
     - Added support for X.Org xserver 1.11.  (Closes: #641621)
     - Improved compatibility with recent Linux kernels.
