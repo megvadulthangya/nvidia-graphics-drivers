@@ -1,3 +1,13 @@
+nvidia-graphics-drivers (295.59-1~bpo60+1) squeeze-backports; urgency=low
+
+  * Rebuild for squeeze-backports.
+  * Disable multiarch build.
+  * Reduce Build-Depends: debhelper and compat level to 8.
+  * Note: Please report bugs found in this backported package to the
+    Debian BTS, not the backports mailing list.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 27 Jun 2012 11:48:37 +0200
+
 nvidia-graphics-drivers (295.59-1) unstable; urgency=low
 
   * New upstream long-lived branch release 295.59 (2012-06-11).
