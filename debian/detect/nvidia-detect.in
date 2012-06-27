@@ -1,11 +1,20 @@
 #!/bin/bash
 # Based on http://wiki.debian.org/NvidiaGraphicsDrivers?action=AttachFile&do=view&target=nvidia-versions.sh
 
+if [ "$1" = "--help" ]; then
+	echo "Usage: nvidia-detect [PCIID]"
+	echo "       Reports the Debian packages supporting the NVIDIA GPU that is"
+	echo "       installed on the local system (or given as a PCIID parameter)."
+	exit 0
+fi
+
 shopt -s compat31 nocasematch 2>/dev/null || { echo "Error: this script only works with bash." && exit; } # Avoid cryptic failure when running dash on this script
 
 # last time the PCI IDs were updated
 LATEST="#VERSION#"
 PACKAGE=
+
+if [ -z "$1" ]; then
 
 if ! (lspci --version) > /dev/null 2>&1; then
 	echo "ERROR: The 'lspci' command was not found. Please install the 'pciutils' package." >&2
@@ -30,6 +39,19 @@ fi
 
 NVGA=$(lspci -mn -s ${NV_DEVICES%% *} | awk '{ gsub("\"",""); print $3 $4 }')
 
+else
+
+	PCIID=$(echo "$1" | sed -rn 's/^(10de)?:?([0-9a-fA-F]{4})$/10de\2/ip')
+	if [ -z "$PCIID" ]; then
+		echo "Error parsing PCI ID '$1'."
+		exit 1
+	fi
+
+	echo "Checking driver support for PCI ID [$(echo $PCIID | sed -r 's/(....)(....)/\1:\2/')]"
+	NVGA="$PCIID"
+
+fi
+
 IDLISTDIR=/usr/share/nvidia
 
 if grep -q -i $NVGA $IDLISTDIR/nvidia-legacy-71xx.ids
@@ -50,6 +72,11 @@ fi
 if grep -q -i $NVGA $IDLISTDIR/nvidia-195.ids
 then
 	VERSIONS[195]=195.36.24
+fi
+
+if grep -q -i $NVGA $IDLISTDIR/nvidia-275.ids
+then
+	VERSIONS[275]=275.36
 fi
 
 if grep -q -i $NVGA $IDLISTDIR/nvidia.ids
@@ -96,6 +123,10 @@ fi
 				echo "Your card is supported by the default drivers.";
 			fi;
 			PACKAGE="nvidia-glx"
+		elif [[ -n ${VERSIONS[275]} ]]; then
+			echo "Your card is only supported by the updated drivers from squeeze-backports."
+			echo "See http://backports.debian.org for instructions how to use backports."
+			PACKAGE="nvidia-glx/squeeze-backports"
 		elif [[ -n ${VERSIONS[173]} ]]; then
 			echo "Your card is only supported up to the 173.14 legacy drivers series.";
 			PACKAGE="nvidia-glx-legacy-173xx"

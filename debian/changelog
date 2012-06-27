@@ -1,3 +1,339 @@
+nvidia-graphics-drivers (295.59-1) unstable; urgency=low
+
+  * New upstream long-lived branch release 295.59 (2012-06-11).
+    - Disabled the use of certain OpenGL optimizations with Autodesk Maya
+      and Mudbox, due to conflicts between these applications and the
+      optimizations. Some performance loss in Autodesk Maya and Mudbox is
+      possible, as a result.
+    - Added support for the following GPUs: GeForce GT 620M, GeForce GT 640M,
+      GeForce GT 640M LE, GeForce GT 650M, GeForce GTX 660M, GeForce GTX 670M,
+      GeForce GTX 675M, GeForce GTX 555, GeForce GTX 560 SE, GeForce GT 415,
+      GeForce GTX 460 v2, NVS 5400M, NVS 310, Quadro 410.
+    - Fixed a behavior issue where redundant DPMS state transitions were
+      leading to unexpected screen blanking on DisplayPort displays.
+  * Update nv-readme.ids.
+  * bug-script: report all /lib/modules/.../nvidia.ko and their version.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Fri, 15 Jun 2012 10:50:03 +0200
+
+nvidia-graphics-drivers (295.53-1) unstable; urgency=low
+
+  * New upstream long-lived branch release 295.53 (2012-05-16).
+    - Added support for the following GPUs: GeForce GTX 670, GeForce 605,
+      GeForce GT 610, GeForce GT 630, GeForce GT 640, GeForce GT 645.
+    - Fixed a bug affecting some G-Sync configurations which could cause
+      active stereo content to be inverted on some display devices.
+  * Update nv-readme.ids.
+  * conftest.h: implement check for asm/system.h (295.53).
+  * kernel-3.4.patch: remove, fixed upstream.
+  * Add lintian overrides for hardening-*.
+  * bug-script: report traces of Ubuntu ld.so.conf.d GL configuration.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Mon, 21 May 2012 21:44:34 +0200
+
+nvidia-graphics-drivers (295.49-1) unstable; urgency=low
+
+  * New upstream long-lived branch release 295.49 (2012-05-03).
+    - Added support for the following GPU: GeForce GTX 690.
+    - Fixed a problem where starting, stopping, and moving OpenGL application
+      windows was very slow on Quadro FX 4600, Quadro FX 5600, GeForce 8800
+      GTX, GeForce 8800 GTS, and GeForce 8800 Ultra.
+    - Fixed an OpenGL performance regression which affected Geforce 6 and
+      Geforce 7 series integrated GPUs.  (Closes: #668854)
+  * Update nv-readme.ids.
+  * Update lintian overrides.
+  * nvidia-vdpau-driver: Add Breaks against pre-multiarch libvdpau1.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 09 May 2012 10:02:50 +0200
+
+nvidia-graphics-drivers (295.40-1) unstable; urgency=medium
+
+  * New upstream long-lived branch release 295.40 (2012-04-11).
+    - Closed a security vulnerability which made it possible for attackers to
+      reconfigure GPUs to gain access to arbitrary system memory. For further
+      details, see: http://nvidia.custhelp.com/app/answers/detail/a_id/3109
+      CVE-2012-0946
+    - Fixed a bug that caused DisplayPort devices to occasionally fail to turn
+      back on after the system is resumed from suspend.
+    - Added a ModeValidation X configuration option token,
+      "AllowNon3DVisionModes", to allow modes that are not optimized for
+      NVIDIA 3D Vision to be validated on 3D Vision monitors.
+    - Added support for the following GPUs: GeForce GT 635M, GeForce 610M.
+  * Set urgency to medium for security bugfix.
+  * Update nv-readme.ids.
+  * Update lintian overrides.
+  * conftest.h:
+    - Implement new conftest.sh function pci_get_domain_bus_and_slot (290.06).
+    - Implement new conftest.sh function set_memory_uc and simplify functions
+      set_pages_uc, change_page_attr (295.09).
+    - Kernel versions of symbol (dis-)appearance from lxr.
+   * New patch kernel-3.4.patch to fix the module build with kernel 3.4 which
+     has split and removed asm/system.h.  Based on patch from Antonio Ospite.
+     (Closes: #667719)
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 12 Apr 2012 19:56:08 +0200
+
+nvidia-graphics-drivers (295.33-2) unstable; urgency=low
+
+  * New patch patch-3.0-rt-nvidia.patch taken from Arch Linux: support
+    building the kernel module for RT kernels.  (Closes: #641654)
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 04 Apr 2012 13:24:26 +0200
+
+nvidia-graphics-drivers (295.33-1) unstable; urgency=low
+
+  * New upstream long-lived branch release 295.33 (2012-03-22).
+    - Added support for the following GPUs: GeForce GTX 680, GeForce GT 630M,
+      GeForce GT 620.
+    - Fixed a VDPAU bug where decoding some H.264 streams would cause hardware
+      errors on lower-end products, resulting in corruption and poor
+      performance.
+    - Fixed a bug that caused DisplayPort audio to stop working after monitors
+      are hotplugged on GeForce GT 520.
+    - Improved compatibility with recent Linux kernels.
+    - Fixed a behavior change that prevented ConnectedMonitor from being usable
+      with DisplayPort connectors.
+    - Marked the GVO Clone mode NV-CONTROL attributes:
+        NV_CTRL_GVO_DISPLAY_X_SCREEN
+        NV_CTRL_GVO_X_SCREEN_PAN_X
+        NV_CTRL_GVO_X_SCREEN_PAN_Y
+      as deprecated.  They will be removed in a future release.  To display
+      an X screen over GVO, it is recommended to use GVO with MetaModes,
+      instead.
+    - Fixed a bug that caused DisplayPort devices to not be listed in
+      Xorg.*.log.  For example, if only DisplayPort devices are attached, the
+      log file would contain
+        (--) NVIDIA(0): Connected display device(s) on NVIDIA GPU at PCI:2:0:0
+        (--) NVIDIA(0):     none
+    - Added support for 3D Vision ready displays that have a NVIDIA 3D Vision
+      infrared emitter built inside the panel itself.
+    - Fixed a bug that caused OpenGL applications to crash with some libc
+      versions, such as eglibc 2.15.  (Closes: #660189)
+    - Fixed a bug that caused HDMI audio to stop working on AppleTV devices when
+      an X server was started.
+  * Add missing upstream changelog entries in 295.20 and earlier releases.
+  * Update nv-readme.ids.
+  * Update symbols control files.
+  * Add xorg-video-abi-12 as alternative dependency and bump xserver-xorg-core
+    dependency accordingly to be usable with Xorg Xserver 1.12 RC1.
+  * Update to Standards-Version: 3.9.3.
+  * Use the final copyright-format/1.0 URL.
+  * Reorder debian/copyright and use the Comment: field for extra information.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Fri, 23 Mar 2012 14:19:45 +0100
+
+nvidia-graphics-drivers (295.20-1) unstable; urgency=low
+
+  * New upstream long-lived branch release 295.20 (2012-02-13).
+    (Closes: #659855)
+    - Fixed a bug that caused black areas to appear on the back faces of
+      some models in Maya.
+    - Fixed a bug that resulted in the printing of spurious loader error
+      messages.
+    - Fixed a bug that could cause X to crash after hotplugging displays.
+    - Fixed a bug which caused face selections to be misrendered in
+      Maya when using the paint selection tool.
+    - Improved performance for interactive tools in Mudbox.
+  * New upstream beta 295.17 (2012-01-31).
+    - Fixed a bug that could cause some OpenGL applications (including
+      desktop environments like KDE and GNOME Shell) to hang.
+    - Fixed a bug that prevented the internal panel from working on some
+      laptops with GeForce 7 series GPUs.  (Closes: #652995)
+  * New upstream release 275 series.
+    - Added support for the following GPU: NVS 5200M
+    - Added support for deleting SDI audio ancillary data packets when a video
+      frame is dropped on a Quadro SDI Output device.  See the
+      NV_CTRL_GVO_ANC_BLANKING attribute in NVCtrl.h for details.  This option
+      can be set via the "GvoAudioBlanking" attribute in nvidia-settings.
+    - Added support for xserver 1.11.99.901 (also known as 1.12 RC1).
+  * Upload to unstable.
+  * Bump debhelper dependency to 9.
+  * debian/rules: Switch to dh --with dkms.
+  * Redirect bug reports against module binary packages to
+    nvidia-kernel-source.
+  * nvidia-đetect: Support querying a PCI ID given on the command line instead
+    of autodetecting an installed NVIDIA GPU.
+  * Add some notes about the 'EQ overflowing...' error to the README.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 15 Feb 2012 21:35:57 +0100
+
+nvidia-graphics-drivers (295.09-1) experimental; urgency=low
+
+  * New upstream beta 295.09 (2011-12-27).
+    - Fixed an OpenGL bug where using display lists on Fermi-based GPUs
+      could result in missing rendering in some cases.
+    - Fixed an OpenGL bug that caused incorrect rendering when using
+      framebuffer objects to render to 16-bit color textures with
+      alpha.
+    - Added support for the following GPU: Tesla X2090.
+    - Fixed two bugs that caused sporadic application crashes in some multi-
+      threaded OpenGL applications.
+    - Fixed a bug that caused creating OpenGL 4.2 contexts
+      with glXCreateContextAttribsARB to fail.
+    - Fixed a bug that caused OpenGL to print
+        Xlib:  extension "NV-GLX" missing on display ":0".
+      when used with a non-NVIDIA implementation of the GLX X extension.
+    - Implemented color depth 30 (10 bits per component) support for GeForce 8
+      series and higher GPUs.
+    - Implemented support for constraining cursors to the visible regions of
+      connected displays; see the "ConstrainCursor" X Option in the README for
+      details.
+  * New upstream long-lived branch release 275.43 (2011-12-14).
+    - Fixed a bug that would cause Firefox to abort on pages with Flash when
+      layers acceleration was force-enabled on Linux and Solaris.
+    - Fixed a bug that caused a crash when glDrawArrays was used with a non-VBO
+      vertex attribute array to draw on a Xinerama screen other than screen 0
+      using an indirect GLX context.
+  * Upload to experimental.
+  * Refresh use-nv-kernel.o.ARCH.patch.
+  * Update symbols control files.
+  * Update nv-readme.ids.
+  * Update lintian overrides.
+  * nvidia-detect: Add IDs for the 275.xx package in squeeze-backports and
+    suggest the backported package for newer GPUs that don't work in squeeze.
+  * Fix debian/module/debian/kernel-version to report the correct version for
+    using in the package name.  Try $KSRC/include/generated/utsrelease.h
+    before $KSRC/include/config/kernel.release (which has changed in 3.1).
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 03 Jan 2012 16:02:43 +0100
+
+nvidia-graphics-drivers (290.10-1) unstable; urgency=low
+
+  * New upstream release 290.10 (2011-11-22).
+    - Fixed a bug that would cause OpenGL applications to crash when run
+      with recent releases of glibc such as glibc 2.14.90.
+    - Improved the performance of FBO bind operations when using Xinerama by
+      ~30% in some cases.
+    - Fixed a bug that could cause stereo corruption when driving a stereo
+      display and a non-stereo display from the same GPU.
+    - Fixed a bug that could cause display devices on a secondary GPU to get
+      swapped between X screens when restarting the X server.
+    - Fixed a bug that could result in line flickering in full-scene anti-
+      aliasing contexts.
+    - Fixed a bug that caused the physical dimensions of rotated monitors to be
+      reported incorrectly.
+    - Add support for the pre-VBO DrawArrays command in the server-side GLX
+      driver module.  The NVIDIA client-side GLX implementation never sends
+      this command, but the server needs to support it for compatibility with
+      other GLX client implementations.
+    - Fixed a regression that caused blank/white windows when exhausting video
+      memory on GeForce 6 and 7 series GPUs while using composited
+      desktops.  (Closes: #646975)
+  * New upstream release 275 series.
+    - Fixed a bug that caused a crash when glDrawArrays was used with a non-VBO
+      vertex attribute array to draw on a Xinerama screen other than screen 0
+      using an indirect GLX context.
+  * Upload to unstable.
+  * Update lintian overrides.
+  * debian/copyright: Update to dep5.mdwn?revision=202.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 23 Nov 2011 05:02:23 +0100
+
+nvidia-graphics-drivers (290.06-1) experimental; urgency=low
+
+  * New upstream beta 290.06 (2011-11-04).
+    - Added support for the following GPU: GeForce GTX 460 SE v2.
+    - Fixed a bug that would cause applications which export custom allocation
+      functions to our driver (such as Adobe Flash in Firefox or Chrome) to
+      crash.
+  * Upload to experimental.
+  * Update nv-readme.ids.
+  * Update lintian overrides.
+  * Merge changes from 280.13.really.275.36-1.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Fri, 04 Nov 2011 22:11:36 +0100
+
+nvidia-graphics-drivers (290.03-1) experimental; urgency=low
+
+  * New upstream beta 290.03 (2011-10-21).
+    - Fixed a bug that prevented the driver from loading on some systems with 
+      integrated graphics.
+    - Fixed issues in VDPAU that prevented allocating and displaying extremely
+      large VdpOutputSurfaces.
+    - Added support for limiting heap allocations in the OpenGL driver through
+      the use of the __GL_HEAP_ALLOC_LIMIT environment variable.  See the README
+      for further details.
+    - Added an "Accel" option to the X driver to allow disabling its use of the
+      graphics processing hardware.  This is useful when other components, such
+      as CUDA, require exclusive use of the GPU's processing cores.
+    - Modified how the OpenGL driver allocates executable memory so it may
+      continue to function properly if /tmp is mounted noexec. As some fallback
+      allocation methods may be prohibited under SELinux policy, the driver now
+      supports detection of this policy as well as manual override of this
+      detection via the __GL_SELINUX_BOOLEANS environment variable.
+    - Fixed a bug that caused various GLSL built-in uniforms to not
+      be updated properly when calling glPopAttrib.
+    - Improved performance by caching compiled OpenGL shaders to disk. Added a
+      "GLShaderDiskCache" option to the X driver to enable/disable this
+      feature. Added the __GL_SHADER_DISK_CACHE and __GL_SHADER_DISK_CACHE_PATH
+      environment variables for further configuration. See the README for
+      further details.
+  * New upstream long-lived branch release 275.36 (2011-11-04).
+    - Added support for the following GPU: GeForce 510.
+    - Fixed a bug that caused trapezoid and triangle rendering to be very slow
+      on older GPUs with xorg-server 1.11.  (Closes: #642757 and 15 dupes)
+  * Upload to experimental.
+  * Update symbols control files.
+  * Update nv-readme.ids.
+  * Refresh use-nv-kernel.o.ARCH.patch.
+  * bug-control: collect information about installed nouveau packages.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Mon, 24 Oct 2011 02:30:46 +0200
+
+nvidia-graphics-drivers (285.05.09-1) experimental; urgency=low
+
+  * New upstream beta 285.05.09 (2011-10-03).
+    - Fixed a bug causing a Linux kernel BUG when retrieving CPU information on
+      some systems.
+    - Fixed a bug causing some applications to hang on exit.
+    - Fixed a bug causing flickering in some GPU/display combinations.
+    - Fixed a bug that could result in poor OpenGL performance after hotplugging
+      a monitor.
+    - Added support for the following GPU: GeForce GT 520MX.
+    - Fixed a bug causing possible text corruption when recovering from GPU
+      errors.
+  * New upstream long-lived branch release 275.28 (2011-09-09).
+    - Added support for xserver ABI 11 (xorg-server 1.11).  (Closes: #639737)
+    - Fixed a bug that caused the GLSL built-in uniforms gl_FrontMaterial
+      and gl_BackMaterial to not be updated properly when calling
+      glMaterial from a display list.
+    - Fixed an error handling bug that caused the OpenGL driver to
+      crash while running certain WebGL applications.
+    - Fixed a bug in VDPAU that caused a glibc assertion when a call to
+      VdpDeviceCreateX11 failed in certain ways.
+  * Upload to experimental.
+  * Update symbols control files.
+  * Update nv-readme.ids.
+  * Merge changes from 280.13.really.275.28-1.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 04 Oct 2011 14:37:00 +0200
+
+nvidia-graphics-drivers (285.03-2) experimental; urgency=low
+
+  [ Andreas Beckmann ]
+  * Merge changes from 280.13-2.
+  * Rebuild with alternative dependency on xorg-video-abi-11.
+    NVIDIA does not yet support this version officially, therefore the
+    "IgnoreABI" option needs to be enabled, see xorg.conf(5).
+  * Upload to experimental.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 30 Aug 2011 15:44:04 +0200
+
+nvidia-graphics-drivers (285.03-1) experimental; urgency=low
+
+  [ Andreas Beckmann ]
+  * New upstream beta 285.03 (2011-08-17).
+    - Fixed a bug causing corruption of images which are 2047 pixels wide.
+    - Improved performance of the RENDER extension on Fermi-based GPUs.
+    - Fixed a bug causing the X server to crash after a VT-switch while running
+      an OpenGL stereo application which is a member of a swap group.
+  * Upload to experimental.
+  * Refresh use-nv-kernel.o.ARCH.patch.
+  * Update symbols control files.
+  * Update nv-readme.ids.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Mon, 22 Aug 2011 11:51:51 +0200
+
 nvidia-graphics-drivers (280.13.really.275.36-1~bpo60+2) squeeze-backports; urgency=low
 
   * CVE-2012-0946:
@@ -36,6 +372,12 @@ nvidia-graphics-drivers (280.13.really.275.36-1) unstable; urgency=low
   * Bump glx-alternative-nvidia versioned dependency to 0.2.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Fri, 04 Nov 2011 21:10:22 +0100
+
+nvidia-graphics-drivers (280.13.really.275.28-2) UNRELEASED; urgency=low
+
+  * Dummy.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Fri, 04 Nov 2011 21:10:21 +0100
 
 nvidia-graphics-drivers (280.13.really.275.28-1) unstable; urgency=low
 
