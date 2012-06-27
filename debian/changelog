@@ -1,6 +1,7 @@
 nvidia-graphics-drivers (295.59-1~bpo60+1) squeeze-backports; urgency=low
 
   * Rebuild for squeeze-backports.
+  * Drop nvidia-blacklist-register-mapping-256-285.diff, fixed upstream.
   * Disable multiarch build.
   * Reduce Build-Depends: debhelper and compat level to 8.
   * Note: Please report bugs found in this backported package to the
