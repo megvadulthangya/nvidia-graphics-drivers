@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.35-2) UNRELEASED; urgency=low
+
+  * Synchronize packaging with nvidia-graphics-drivers 295.59-1:
+    - bug-script: report all /lib/modules/.../nvidia.ko and their version.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 27 Jun 2012 22:02:19 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.35-1) unstable; urgency=low
 
   * New upstream prerelease 173.14.35 (2012-06-05).
