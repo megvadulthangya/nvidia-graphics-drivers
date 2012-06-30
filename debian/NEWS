@@ -1,0 +1,13 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.20-5) unstable; urgency=low
+
+  The NVIDIA legacy 96xx driver has not been updated to support the current
+  Xserver and is therefore no longer usable.  For graphics adapters that are
+  not supproted by a newer nvidia driver generation the only possibility is to
+  use the nouveau driver.
+
+  In order to switch to the nouveau driver, please uninstall all nvidia
+  driver packages and *purge* (just removing is insufficient) the
+  nvidia-kernel-common package.  Also remove all nvidia specific configuration
+  from /etc/X11/xorg.conf (and xorg.conf.d/).
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 28 Jun 2012 16:36:17 +0200
