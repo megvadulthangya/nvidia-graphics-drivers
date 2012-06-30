@@ -53,7 +53,7 @@ if [ "$1" = "triggered" ]; then
 		$(add_slave /usr/lib/nvidia/nvidia_drv.so nvidia_drv.so /usr/lib/#PRIVATE#/nvidia_drv.so)
 		$(add_slave /usr/lib/nvidia/nvidia-bug-report.sh nvidia-bug-report.sh /usr/lib/#PRIVATE#/nvidia-bug-report.sh)
 "
-	if echo "$slaves" | grep -q "slave" ; then
+	if false && echo "$slaves" | grep -q "slave" ; then
 		update-alternatives --install /usr/lib/nvidia/nvidia nvidia /usr/lib/#PRIVATE# #MAJOR# $slaves
 	else
 		update-alternatives --remove nvidia /usr/lib/#PRIVATE#

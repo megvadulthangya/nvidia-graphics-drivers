@@ -5,6 +5,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.20-5) UNRELEASED; urgency=low
     supported by the 173xx legacy release, the only alternative is to use the
     nouveau driver.  (closes: #643584, #660158)
   * Update Descriptions to mark these packages as obsolete.
+  * Do not register the nvidia alternative.
   * Stop providing *-nvidia-*-any.
   * Do not provide xorg-video or depend on xserver-xorg.
   * Add a NEWS entry with instructions for switching to nouveau.
