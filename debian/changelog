@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.20-5) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.20-5) unstable; urgency=low
 
   * Turn into transitional packages.  The 96xx legacy driver has not been
     updated by NVIDIA to support the new Xserver 1.12.  For cards that are not
@@ -18,7 +18,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.20-5) UNRELEASED; urgency=low
     - bug-script: report all /lib/modules/.../nvidia.ko and their version.
   * Update lintian overrides.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Wed, 27 Jun 2012 22:11:05 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Sat, 30 Jun 2012 13:11:06 +0200
 
 nvidia-graphics-drivers-legacy-96xx (96.43.20-4) unstable; urgency=low
 
