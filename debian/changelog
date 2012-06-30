@@ -1,3 +1,33 @@
+nvidia-graphics-drivers-legacy-71xx (71.86.15-3) UNRELEASED; urgency=low
+
+  * Synchronize packaging with nvidia-graphics-drivers 295.33-1:
+    - Update to Standards-Version: 3.9.3.
+    - Use the final copyright-format/1.0 URL.
+    - Reorder debian/copyright and use the Comment: field for extra
+      information.
+  * Synchronize packaging with nvidia-graphics-drivers 295.33-2:
+    - New patch patch-3.0-rt-nvidia.patch taken from Arch Linux: support
+      building the kernel module for RT kernels.
+  * Synchronize packaging with nvidia-graphics-drivers 295.40-1:
+    - conftest.h:
+      + Implement new conftest.sh function pci_get_domain_bus_and_slot
+        (290.06).
+      + Implement new conftest.sh function set_memory_uc and simplify
+        functions set_pages_uc, change_page_attr (295.09).
+    - New patch kernel-3.4.patch to fix the module build with kernel 3.4 which
+      has split and removed asm/system.h.  Based on patch from Antonio Ospite.
+  * Synchronize packaging with nvidia-graphics-drivers 295.53-1:
+    - Add lintian overrides for hardening-*.
+    - bug-script: report traces of Ubuntu ld.so.conf.d GL configuration.
+    - conftest.h: implement check for asm/system.h (295.53).
+  * Synchronize packaging with nvidia-graphics-drivers 295.59-1:
+    - bug-script: report all /lib/modules/.../nvidia.ko and their version.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-96xx 96.43.20-4:
+    - drop24support.patch: New patch, disable kernel 2.4 support to avoid
+      mistakes when building for 3.4.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Sat, 30 Jun 2012 13:33:01 +0200
+
 nvidia-graphics-drivers-legacy-71xx (71.86.15-2) unstable; urgency=low
 
   [ Andreas Beckmann ]
