@@ -1,5 +1,9 @@
 nvidia-graphics-drivers-legacy-71xx (71.86.15-3) UNRELEASED; urgency=low
 
+  * Turn packages into empty dummy packages that properly clean up after
+    ancient installations. The Nvidia 71xx legacy driver has not been
+    supported for a long time since it lacks support for current Xservers.
+    (Closes: #620526)
   * Do not install any files.
   * Do not register alternatives.
   * Reduce Build-Depends, Provides, Suggests.
