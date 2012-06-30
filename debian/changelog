@@ -10,6 +10,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.20-5) UNRELEASED; urgency=low
   * Add a NEWS entry with instructions for switching to nouveau.
   * Add Depends: xserver-xorg-video-nouveau.
   * Stop shipping nvidia_drv.so and libGL.so.1.
+  * Do not ship anything in the -ia32 package to aid ia32-libs removal.
   * Synchronize packaging with nvidia-graphics-drivers 295.59-1:
     - bug-script: report all /lib/modules/.../nvidia.ko and their version.
 
