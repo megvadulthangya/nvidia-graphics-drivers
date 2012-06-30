@@ -2,6 +2,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.15-3) UNRELEASED; urgency=low
 
   * Do not install any files.
   * Reduce Build-Depends, Provides, Suggests.
+  * Move packages to Section: oldlibs, Priority: extra.
   * Synchronize packaging with nvidia-graphics-drivers 295.33-1:
     - Update to Standards-Version: 3.9.3.
     - Use the final copyright-format/1.0 URL.
