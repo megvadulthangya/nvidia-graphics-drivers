@@ -2,6 +2,11 @@ nvidia-graphics-drivers-legacy-173xx (173.14.35-2) UNRELEASED; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 295.59-1:
     - bug-script: report all /lib/modules/.../nvidia.ko and their version.
+  * Synchronize packaging with nvidia-graphics-drivers 302.17-3:
+    - xserver-xorg-video-nvidia.{config,postinst}: Present a debconf note
+    about needing manual Xorg configuration to enable the fglrx driver.
+    - xserver-xorg-video-nvidia.postrm: Present a debconf note if the driver
+    was removed, but it is still enabled in xorg.conf(.d/).
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 27 Jun 2012 22:02:19 +0200
 
