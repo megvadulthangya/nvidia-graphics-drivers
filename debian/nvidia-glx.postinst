@@ -42,7 +42,9 @@ undivert()
 		mv "$ori" "$ori.dpkg-old"
 	fi
 	old_diverter="$(dpkg-divert --listpackage "$ori")"
-	dpkg-divert --remove --rename --package ${old_diverter} --divert "$div" "$ori"
+	if [ -n "${old_diverter}" ]; then
+		dpkg-divert --remove --rename --package ${old_diverter} --divert "$div" "$ori"
+	fi
 }
 # </target: squeeze>
 
