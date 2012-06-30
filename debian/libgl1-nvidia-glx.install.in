@@ -1,5 +1,0 @@
-usr/lib/libGL.so.#VERSION#			#LIBDIR#/#PRIVATE#/
-usr/lib/libGLcore.so.#VERSION#			#LIBDIR#/#PRIVATE#/
-usr/lib/libnvidia-tls.so.#VERSION#		#LIBDIR#/#PRIVATE#/
-usr/lib/tls/libnvidia-tls.so.#VERSION#		#LIBDIR#/#PRIVATE#/tls/
-usr/X11R6/lib/libXvMCNVIDIA.so.#VERSION#	#LIBDIR#/#PRIVATE#/
