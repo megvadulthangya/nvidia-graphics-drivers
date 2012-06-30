@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.15-3) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.15-3) unstable; urgency=low
 
   * Turn packages into empty dummy packages that properly clean up after
     ancient installations. The Nvidia 71xx legacy driver has not been
@@ -34,7 +34,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.15-3) UNRELEASED; urgency=low
     - drop24support.patch: New patch, disable kernel 2.4 support to avoid
       mistakes when building for 3.4.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Sat, 30 Jun 2012 13:33:01 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Sat, 30 Jun 2012 14:46:34 +0200
 
 nvidia-graphics-drivers-legacy-71xx (71.86.15-2) unstable; urgency=low
 
