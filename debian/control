@@ -15,6 +15,7 @@ Build-Depends:
  libxext6,
  quilt,
 # ia32-libs (>= 20090804) [amd64],
+ po-debconf,
 Standards-Version: 3.9.3
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes

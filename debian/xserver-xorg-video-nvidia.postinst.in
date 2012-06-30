@@ -1,6 +1,14 @@
 #!/bin/sh
 set -e
 
+. /usr/share/debconf/confmodule
+
+if [ "$1" = "configure" ]
+then
+	db_input high nvidia/unsupported-legacy-96xx || true
+	db_go
+fi
+
 
 if [ "$1" = "configure" ]
 then
