@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.20-6) UNRELEASED; urgency=low
+
+  * Update long descriptions to mention the transitional state.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 11 Jul 2012 22:11:50 +0200
+
 nvidia-graphics-drivers-legacy-96xx (96.43.20-5) unstable; urgency=low
 
   * Turn into transitional packages.  The 96xx legacy driver has not been

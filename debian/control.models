@@ -1,4 +1,7 @@
-This legacy version is the last release that supports the following GPUs:
+The 96xx legacy driver does not support the current X servers. This package
+is now a transitional package to aid switching to the free Nouveau driver.
+
+This legacy version was the last release that supported the following GPUs:
 GeForce2 Go [NV11], GeForce2 MX Integrated Graphics [NVCrush11],
 GeForce2 MX/MX 400 [NV11], GeForce2 MX200 [NV11DDR], GeForce3 [NV20],
 GeForce3 Ti 200 [NV20], GeForce3 Ti 500 [NV20], GeForce4 410 Go 16M [NV17],
@@ -19,7 +22,6 @@ Quadro4 550 XGL [NV17GL], Quadro4 580 XGL [NV18GL], Quadro4 700 XGL [NV25GL],
 Quadro4 750 XGL [NV25GL], Quadro4 780 XGL [NV28GL], Quadro4 900 XGL [NV25GL],
 Quadro4 980 XGL [NV28GL], Quadro4 Go700 [NV28GLM], NV40GL.
 
-There are several "more modern" GPUs supported by this package, too, but the
+There were several "more modern" GPUs supported by this package, too, but the
 updated drivers in the newer legacy packages or the current nvidia-glx
 package usually provide more features and better support.
-Look at the other legacy packages for older cards.
