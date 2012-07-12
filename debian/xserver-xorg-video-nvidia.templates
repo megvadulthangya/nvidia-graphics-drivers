@@ -1,12 +1,12 @@
 Template: nvidia/unsupported-legacy-96xx
 Type: error
-Description: NVIDIA legacy 96xx driver is no longer supported.
- The NVIDIA legacy 96xx driver has not been updated to support the current
- Xserver and is therefore no longer usable.  For graphics adapters that are
- not supported by a newer nvidia driver generation the only possibility is to
- use the nouveau driver.
+_Description: Nvidia legacy 96xx driver is no longer supported.
+ Nvidia Corporation has not updated the legacy 96xx driver to support 
+ current X servers, so this driver is no longer usable. For graphics
+ adapters that are not supported by a newer Nvidia driver generation,
+ the best option is to use the free Nouveau driver.
  .
- In order to switch to the nouveau driver, please uninstall all nvidia
- driver packages and *purge* (just removing is insufficient) the
- nvidia-kernel-common package.  Also remove all nvidia specific configuration
- from /etc/X11/xorg.conf (and xorg.conf.d/).
+ To switch to the Nouveau driver, please uninstall all Nvidia driver
+ packages, remove all Nvidia-specific configuration from
+ /etc/X11/xorg.conf (and xorg.conf.d/), and *purge* the
+ nvidia-kernel-common package - just removing it is insufficient.
