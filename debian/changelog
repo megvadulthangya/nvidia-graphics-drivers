@@ -1,7 +1,7 @@
 nvidia-graphics-drivers-legacy-96xx (96.43.20-6) UNRELEASED; urgency=low
 
-  * Update long descriptions to mention the transitional state.
   * Debconf template reviewed by debian-l10n-english@.
+  * Update NEWS and long descriptions accordingly.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 11 Jul 2012 22:11:50 +0200
 

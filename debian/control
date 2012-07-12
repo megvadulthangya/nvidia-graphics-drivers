@@ -39,11 +39,11 @@ Suggests:
 Provides:
 # nvidia-glx-any,
 Description: OBSOLETE NVIDIA metapackage${nvidia:LegacyDesc}
- The 96xx legacy driver does not support the current Xorg Xserver 1.12 and is
- therefore no longer usable.
+ Nvidia Corporation has not updated the legacy 96xx driver to support 
+ current X servers, so this driver is no longer usable.
  .
- This is a transitional package to aid migrating to Nouveau.
- See the NEWS.Debian.gz for details.
+ This package is now a transitional package to aid switching to the free
+ Nouveau driver.  See NEWS.Debian.gz for further instructions.
  .
  .
  This metapackage depends on the NVIDIA binary driver and libraries
@@ -91,11 +91,11 @@ Breaks:
 Replaces:
  nvidia-glx${nvidia:Legacy} (<< 96.43.19-2),
 Description: OBSOLETE NVIDIA binary Xorg driver${nvidia:LegacyDesc}
- The 96xx legacy driver does not support the current Xorg Xserver 1.12 and is
- therefore no longer usable.
+ Nvidia Corporation has not updated the legacy 96xx driver to support 
+ current X servers, so this driver is no longer usable.
  .
- This is a transitional package to aid migrating to Nouveau.
- See the NEWS.Debian.gz for details.
+ This package is now a transitional package to aid switching to the free
+ Nouveau driver.  See NEWS.Debian.gz for further instructions.
  .
  .
  These binary drivers provide optimized hardware acceleration of
@@ -159,11 +159,11 @@ Replaces:
  libgl1-nvidia${nvidia:Legacy}-dev,
  nvidia-glx${nvidia:Legacy}-dev,
 Description: OBSOLETE NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
- The 96xx legacy driver does not support the current Xorg Xserver 1.12 and is
- therefore no longer usable.
+ Nvidia Corporation has not updated the legacy 96xx driver to support 
+ current X servers, so this driver is no longer usable.
  .
- This is a transitional package to aid migrating to Nouveau.
- See the NEWS.Debian.gz for details.
+ This package is now a transitional package to aid switching to the free
+ Nouveau driver.  See NEWS.Debian.gz for further instructions.
  .
  .
  These binary libraries provide optimized hardware acceleration of
@@ -204,11 +204,11 @@ Breaks:
 Replaces:
  nvidia-glx${nvidia:Legacy}-ia32 (<< 96.43.18),
 Description: OBSOLETE NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
- The 96xx legacy driver does not support the current Xorg Xserver 1.12 and is
- therefore no longer usable.
+ Nvidia Corporation has not updated the legacy 96xx driver to support 
+ current X servers, so this driver is no longer usable.
  .
- This is a transitional package to aid migrating to Nouveau.
- See the NEWS.Debian.gz for details.
+ This package is now a transitional package to aid switching to the free
+ Nouveau driver.  See NEWS.Debian.gz for further instructions.
  .
  .
  These binary 32-bit libraries provide optimized hardware acceleration of

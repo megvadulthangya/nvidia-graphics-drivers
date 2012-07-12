@@ -1,7 +1,4 @@
-The 96xx legacy driver does not support the current X servers. This package
-is now a transitional package to aid switching to the free Nouveau driver.
-
-This legacy version was the last release that supported the following GPUs:
+The 96xx legacy driver was the last release that supported the following GPUs:
 GeForce2 Go [NV11], GeForce2 MX Integrated Graphics [NVCrush11],
 GeForce2 MX/MX 400 [NV11], GeForce2 MX200 [NV11DDR], GeForce3 [NV20],
 GeForce3 Ti 200 [NV20], GeForce3 Ti 500 [NV20], GeForce4 410 Go 16M [NV17],
