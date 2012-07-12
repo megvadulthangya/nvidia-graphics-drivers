@@ -3,14 +3,13 @@ Debian 5.0 (lenny).  Newer xserver versions are not supported by NVIDIA.
 Use a free driver (nouveau or nv) instead or upgrade to nvidia-glx-legacy-96xx
 (if that still supports your GPU).
 
-This legacy version is the last release that supports the following GPUs:
+The 71xx legacy driver was the last release that supported the following GPUs:
 RIVA TNT [NV4], RIVA TNT2 Model 64/Model 64 Pro [NV5M64],
 RIVA TNT2/TNT2 Pro [NV5], RIVA TNT2 Ultra [NV5], Aladdin TNT2 [NV5],
 Vanta/Vanta LT [NV6], GeForce 256 [NV10], GeForce 256 DDR [NV10DDR],
 GeForce2 GTS/Pro [NV15], GeForce2 Ti [NV15DDR],
 GeForce2 Ultra (Bladerunner) [NV15BR], Quadro [NV10GL], Quadro2 Pro [NV15GL].
 
-There are several "more modern" GPUs supported by this package, too, but the
+There were several "more modern" GPUs supported by this package, too, but the
 updated drivers in the newer legacy packages or the current nvidia-glx
 package usually provide more features and better support.
-Look at the other legacy packages for older cards.

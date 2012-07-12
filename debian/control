@@ -223,6 +223,7 @@ Conflicts:
 Breaks:
  make (= 3.82-1),
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
+ .
  This package builds the NVIDIA Xorg binary kernel module needed by
  nvidia-glx${nvidia:Legacy}, using DKMS.
  Provided that you have the kernel header packages installed, the kernel
@@ -255,6 +256,7 @@ Suggests:
 Breaks:
  make (= 3.82-1),
 Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
+ .
  This package provides the source for the NVIDIA Xorg binary kernel module
  needed by nvidia-glx${nvidia:Legacy} in a form suitable
  for use by module-assistant or kernel-package.
