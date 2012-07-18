@@ -1,8 +1,8 @@
 Template: nvidia/unsupported-legacy-96xx
 Type: error
 _Description: Nvidia legacy 96xx driver is no longer supported.
- Nvidia Corporation has not updated the legacy 96xx driver to support 
- current X servers, so this driver is no longer usable.  For graphics
+ Nvidia Corporation has not updated the legacy 96xx driver to support
+ current X servers, so this driver is no longer usable. For graphics
  adapters that are not supported by a newer Nvidia driver generation,
  the best option is to use the free Nouveau driver.
  .
