@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nvidia-graphics-drivers-legacy-96xx\n"
-"Report-Msgid-Bugs-To: nvidia-graphics-drivers-legacy-96xx@packages.debian.org\n"
+"Report-Msgid-Bugs-To: nvidia-graphics-drivers-legacy-96xx@packages.debian."
+"org\n"
 "POT-Creation-Date: 2012-07-18 18:06+0200\n"
 "PO-Revision-Date: 2012-07-18 18:18+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
@@ -25,12 +26,27 @@ msgstr "Ovládač Nvidia legacy 96xx už viac nie je podporovaný."
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
-msgid "Nvidia Corporation has not updated the legacy 96xx driver to support current X servers, so this driver is no longer usable. For graphics adapters that are not supported by a newer Nvidia driver generation, the best option is to use the free Nouveau driver."
-msgstr "Nvidia Corporation neaktualizovala ovládač poskytujúci spätnú kompatibilitu 96xx, aby fungoval s aktuálnymi servermi X, takže tento ovládač už sa nedá používať. Najlepšou voľbou pre grafické adaptéry, ktoré nepodporuje novšia generácia ovládačov Nvidia je použiť slobodný ovládač Noveau."
+msgid ""
+"Nvidia Corporation has not updated the legacy 96xx driver to support current "
+"X servers, so this driver is no longer usable. For graphics adapters that "
+"are not supported by a newer Nvidia driver generation, the best option is to "
+"use the free Nouveau driver."
+msgstr ""
+"Nvidia Corporation neaktualizovala ovládač poskytujúci spätnú kompatibilitu "
+"96xx, aby fungoval s aktuálnymi servermi X, takže tento ovládač už sa nedá "
+"používať. Najlepšou voľbou pre grafické adaptéry, ktoré nepodporuje novšia "
+"generácia ovládačov Nvidia je použiť slobodný ovládač Noveau."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
-msgid "To switch to the Nouveau driver, please uninstall all Nvidia driver packages, remove all Nvidia-specific configuration from /etc/X11/xorg.conf (and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just removing it is insufficient."
-msgstr "Ak chcete zmeniť váš ovládač na Noveau, prosím, odinštalujte všetky balíky ovládačov Nvidia, odstráňte konfiguráciu špecifickú pre Nvidia z /etc/X11/xorg.conf (a xorg.conf.d/), a vyčistite (purge) balík nvidia-kernel-common - nestačí ho len odstrániť."
-
+msgid ""
+"To switch to the Nouveau driver, please uninstall all Nvidia driver "
+"packages, remove all Nvidia-specific configuration from /etc/X11/xorg.conf "
+"(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
+"removing it is insufficient."
+msgstr ""
+"Ak chcete zmeniť váš ovládač na Noveau, prosím, odinštalujte všetky balíky "
+"ovládačov Nvidia, odstráňte konfiguráciu špecifickú pre Nvidia z /etc/X11/"
+"xorg.conf (a xorg.conf.d/), a vyčistite (purge) balík nvidia-kernel-common - "
+"nestačí ho len odstrániť."
