@@ -35,7 +35,7 @@ msgstr ""
 "Nvidia Corporation neaktualizovala ovládač poskytujúci spätnú kompatibilitu "
 "96xx, aby fungoval s aktuálnymi servermi X, takže tento ovládač už sa nedá "
 "používať. Najlepšou voľbou pre grafické adaptéry, ktoré nepodporuje novšia "
-"generácia ovládačov Nvidia je použiť slobodný ovládač Noveau."
+"generácia ovládačov Nvidia je použiť slobodný ovládač Nouveau."
 
 #. Type: error
 #. Description
@@ -46,7 +46,7 @@ msgid ""
 "(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
 "removing it is insufficient."
 msgstr ""
-"Ak chcete zmeniť váš ovládač na Noveau, prosím, odinštalujte všetky balíky "
+"Ak chcete zmeniť váš ovládač na Nouveau, prosím, odinštalujte všetky balíky "
 "ovládačov Nvidia, odstráňte konfiguráciu špecifickú pre Nvidia z /etc/X11/"
 "xorg.conf (a xorg.conf.d/), a vyčistite (purge) balík nvidia-kernel-common - "
 "nestačí ho len odstrániť."
