@@ -5,6 +5,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.20-6) UNRELEASED; urgency=low
   * Update NEWS and long descriptions accordingly.
 
   [ Debconf translations ]
+  * Polish (pl): Michał Kułach              (Closes: #682325)
   * Russian (ru): Yuri Kozlov               (Closes: #682130)
   * Slovak (sk): Ivan Masár                 (Closes: #682009)
 
