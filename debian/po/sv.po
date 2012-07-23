@@ -37,7 +37,7 @@ msgstr ""
 "Nvidia Corporation har inte uppdaterat drivrutinen legacy 96xx så att den "
 "stöder den aktuella X-servern, denna drivrutin är därför inte längre "
 "användbar. För grafikkort som inte stöds av en nyare Nvidia-drivrutin är det "
-"bästa alternativet att använda den fria drivrutinen Noveau."
+"bästa alternativet att använda den fria drivrutinen Nouveau."
 
 #. Type: error
 #. Description
@@ -48,7 +48,7 @@ msgid ""
 "(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
 "removing it is insufficient."
 msgstr ""
-"För att byta till Noveau-drivrutinen måste alla Nvidia-paket för drivrutiner "
+"För att byta till Nouveau-drivrutinen måste alla Nvidia-paket för drivrutiner "
 "avinstalleras och alla Nvidia-specifika inställningar tas bort från /etc/X11/"
 "xorg.conf (och från xorg.conf.d/) och paketet nvidia-kernel-common måste tas "
 "bort helt (\"purge\"), bara avinstallation är inte tillräckligt."
