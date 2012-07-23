@@ -10,6 +10,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.20-6) UNRELEASED; urgency=low
   * Polish (pl): Michał Kułach              (Closes: #682325)
   * Russian (ru): Yuri Kozlov               (Closes: #682130)
   * Slovak (sk): Ivan Masár                 (Closes: #682009)
+  * Swedish (sv): Martin Bagge              (Closes: #682568)
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 11 Jul 2012 22:11:50 +0200
 
