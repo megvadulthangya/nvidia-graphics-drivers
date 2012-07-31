@@ -5,6 +5,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.20-6) UNRELEASED; urgency=low
   * Update NEWS and long descriptions accordingly.
 
   [ Debconf translations ]
+  * Czech (cs): Michal Simunek              (Closes: #683066)
   * Danish (da): Joe Hansen                 (Closes: #682382)
   * French (fr): Julien Patriarca           (Closes: #682499)
   * German (de): Martin Eberhard Schauer    (Closes: #682855)
