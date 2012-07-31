@@ -7,6 +7,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.20-6) UNRELEASED; urgency=low
   [ Debconf translations ]
   * Danish (da): Joe Hansen                 (Closes: #682382)
   * French (fr): Julien Patriarca           (Closes: #682499)
+  * German (de): Martin Eberhard Schauer    (Closes: #682855)
   * Polish (pl): Michał Kułach              (Closes: #682325)
   * Russian (ru): Yuri Kozlov               (Closes: #682130)
   * Slovak (sk): Ivan Masár                 (Closes: #682009)
