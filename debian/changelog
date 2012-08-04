@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.20-6+exp1) UNRELEASED; urgency=low
+
+  * Upload to experimental.
+  * Temporarily mark template unstranslatable and drop translations.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Sat, 04 Aug 2012 17:00:08 +0200
+
 nvidia-graphics-drivers-legacy-96xx (96.43.20-6) unstable; urgency=low
 
   [ Andreas Beckmann ]
