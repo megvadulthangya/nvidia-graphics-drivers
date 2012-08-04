@@ -7,6 +7,5 @@ Description: Nvidia legacy 96xx driver is no longer supported.
  the best option is to use the free Nouveau driver.
  .
  To switch to the Nouveau driver, please uninstall all Nvidia driver
- packages, remove all Nvidia-specific configuration from
- /etc/X11/xorg.conf (and xorg.conf.d/), and *purge* the
- nvidia-kernel-common package - just removing it is insufficient.
+ packages, and remove all Nvidia-specific configuration from
+ /etc/X11/xorg.conf (and xorg.conf.d/).

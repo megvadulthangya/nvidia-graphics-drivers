@@ -2,6 +2,12 @@ nvidia-graphics-drivers-legacy-96xx (96.43.20-6+exp1) UNRELEASED; urgency=low
 
   * Upload to experimental.
   * Temporarily mark template unstranslatable and drop translations.
+  * Bump nvidia-kernel-common dependency to the version that manages the
+    nouveau blacklist via the glx alternative.
+  * libgl1-nvidia*-glx: Add explicit dependency on a recent
+    nvidia-kernel-common to ensure the old blacklist is cleaned up.
+  * Remove the requirement to purge nvidia-kernel-common from NEWS and debconf
+    error message.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sat, 04 Aug 2012 17:00:08 +0200
 
