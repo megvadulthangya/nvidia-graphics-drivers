@@ -1,3 +1,12 @@
+nvidia-graphics-drivers (295.71-0~bpo60+1) UNRELEASED; urgency=low
+
+  * New upstream long-lived branch release 295.71 (2012-08-07).
+    - Implemented hotfix for a privilege escalation vulnerability reported on
+      August 1, 2012.  For more details, see:
+      http://nvidia.custhelp.com/app/answers/detail/a_id/3140
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 09 Aug 2012 18:59:07 +0200
+
 nvidia-graphics-drivers (295.59-1~bpo60+1) squeeze-backports; urgency=low
 
   * Rebuild for squeeze-backports.
