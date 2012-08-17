@@ -1,3 +1,12 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.35-3) UNRELEASED; urgency=low
+
+  * CVE-2012-4225.  (Closes: #685118)
+    Add upstream patch nvidia-blacklist-vga-pmu-registers-195.diff:
+    Fix exploitable local privilege escalation through VGA window manipulation
+    via the device nodes that allows access to arbitrary physical memory.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Fri, 17 Aug 2012 01:42:27 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.35-2) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 295.59-1:
