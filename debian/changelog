@@ -1,10 +1,10 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.20-7) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.20-7) unstable; urgency=low
 
   [ Debconf translations ]
   * French (fr): Christian PERRIER          (Closes: #683716)
   * Portuguese (pt): Miguel Figueiredo      (Closes: #685444)
 
- -- Russ Allbery <rra@debian.org>  Fri, 31 Aug 2012 10:14:34 -0700
+ -- Russ Allbery <rra@debian.org>  Fri, 31 Aug 2012 10:16:44 -0700
 
 nvidia-graphics-drivers-legacy-96xx (96.43.20-6) unstable; urgency=low
 
