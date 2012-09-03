@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.20-8) unstable; urgency=low
+
+  [ Debconf translations ]
+  * Spanish (es): Camaleón                  (Closes: #686437)
+
+ -- Russ Allbery <rra@debian.org>  Mon, 03 Sep 2012 13:20:51 -0700
+
 nvidia-graphics-drivers-legacy-96xx (96.43.20-7) unstable; urgency=low
 
   [ Debconf translations ]
