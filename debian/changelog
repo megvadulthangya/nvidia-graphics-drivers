@@ -6,15 +6,66 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-1) UNRELEASED; urgency=low
     - Improved compatibility with recent Linux kernels.
   * kernel-3.4.patch: remove, fixed upstream.
   * patch-3.0-rt-nvidia.patch: disable, no longer needed.
+  * Revert turning the 96xx legacy driver into empty transitional packages
+    (96.43.20-5, 96.43.20-6, 96.43.20-7, 96.43.20-8).
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 11 Sep 2012 12:57:35 +0200
 
-nvidia-graphics-drivers-legacy-96xx (96.43.20-5) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.20-8) unstable; urgency=low
 
+  [ Debconf translations ]
+  * Spanish (es): Camaleón                  (Closes: #686437)
+
+ -- Russ Allbery <rra@debian.org>  Mon, 03 Sep 2012 13:20:51 -0700
+
+nvidia-graphics-drivers-legacy-96xx (96.43.20-7) unstable; urgency=low
+
+  [ Debconf translations ]
+  * French (fr): Christian PERRIER          (Closes: #683716)
+  * Portuguese (pt): Miguel Figueiredo      (Closes: #685444)
+
+ -- Russ Allbery <rra@debian.org>  Fri, 31 Aug 2012 10:16:44 -0700
+
+nvidia-graphics-drivers-legacy-96xx (96.43.20-6) unstable; urgency=low
+
+  [ Andreas Beckmann ]
+  * Debconf template reviewed by debian-l10n-english@.
+  * Update NEWS and long descriptions accordingly.
+
+  [ Debconf translations ]
+  * Czech (cs): Michal Simunek              (Closes: #683066)
+  * Danish (da): Joe Hansen                 (Closes: #682382)
+  * French (fr): Julien Patriarca           (Closes: #682499)
+  * German (de): Martin Eberhard Schauer    (Closes: #682855)
+  * Italian (it): Dario Santamaria          (Closes: #683118)
+  * Polish (pl): Michał Kułach              (Closes: #682325)
+  * Russian (ru): Yuri Kozlov               (Closes: #682130)
+  * Slovak (sk): Ivan Masár                 (Closes: #682009)
+  * Swedish (sv): Martin Bagge              (Closes: #682568)
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 31 Jul 2012 13:15:41 +0200
+
+nvidia-graphics-drivers-legacy-96xx (96.43.20-5) unstable; urgency=low
+
+  * Turn into transitional packages.  Nvidia Corporation has not updated the
+    96xx legacy driver to support the new Xorg Xserver 1.12.  For cards that
+    are not supported by the 173xx legacy release, the best alternative is to
+    use the Nouveau driver.  (Closes: #643584, #660158)
+  * Update Descriptions to mark these packages as obsolete.
+  * Do not register the nvidia alternative.
+  * Stop providing *-nvidia-*-any.
+  * Do not provide xorg-video or depend on xserver-xorg.
+  * Add a NEWS entry with instructions for switching to Nouveau.
+  * Add Depends: xserver-xorg-video-nouveau.
+  * Stop shipping nvidia_drv.so and libGL.so.1.
+  * Add debconf error message to notify the 96xx legacy users.
+  * Move packages to oldlibs/extra.
+  * Do not ship anything in the -ia32 package to aid ia32-libs removal.
   * Synchronize packaging with nvidia-graphics-drivers 295.59-1:
     - bug-script: report all /lib/modules/.../nvidia.ko and their version.
+  * Update lintian overrides.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Wed, 27 Jun 2012 22:11:05 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Sat, 30 Jun 2012 13:11:06 +0200
 
 nvidia-graphics-drivers-legacy-96xx (96.43.20-4) unstable; urgency=low
 
