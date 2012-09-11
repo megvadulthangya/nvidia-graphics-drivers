@@ -4,6 +4,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-1) UNRELEASED; urgency=low
     - Added support for X.Org xserver versions 1.11 and 1.12.
       (Closes: #643584)
     - Improved compatibility with recent Linux kernels.
+  * Enable xorg-video-abi-11 and xorg-video-abi-12.
   * kernel-3.4.patch: remove, fixed upstream.
   * patch-3.0-rt-nvidia.patch: disable, no longer needed.
   * Revert turning the 96xx legacy driver into empty transitional packages
