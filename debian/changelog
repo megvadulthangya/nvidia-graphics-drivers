@@ -4,6 +4,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-1) UNRELEASED; urgency=low
     - Added support for X.Org xserver versions 1.11 and 1.12.
       (Closes: #643584)
     - Improved compatibility with recent Linux kernels.
+  * kernel-3.4.patch: remove, fixed upstream.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Tue, 11 Sep 2012 12:57:35 +0200
 
