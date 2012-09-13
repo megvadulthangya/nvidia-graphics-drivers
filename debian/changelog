@@ -1,9 +1,53 @@
 nvidia-graphics-drivers-legacy-173xx (173.14.35-3) UNRELEASED; urgency=low
 
+  * 173.14.35 was promoted to release status without further changes.
   * CVE-2012-4225.  (Closes: #685118)
     Add upstream patch nvidia-blacklist-vga-pmu-registers-195.diff:
-    Fix exploitable local privilege escalation through VGA window manipulation
-    via the device nodes that allows access to arbitrary physical memory.
+    - Implemented hotfix for a privilege escalation vulnerability reported on
+      August 1, 2012.  For more details, see:
+      http://nvidia.custhelp.com/app/answers/detail/a_id/3140
+  * Synchronize packaging with nvidia-graphics-drivers 304.22-1:
+    - Work around dpkg-gencontrol bug #659814. 
+    - Convert *-ia32 into transitional packages due to ia32-libs transition:
+      - $pkg:i386 Provides: $pkg-i386
+      - $pkg-ia32 Recommends: $pkg-i386
+      - Add multiarch instructions to long descriptions.
+  * Synchronize packaging with nvidia-graphics-drivers 304.30-1:
+    - xserver-xorg-video-nvidia.postrm: Do not fail if the debconf templates
+      from nvidia-support are not available.
+  * Synchronize packaging with nvidia-graphics-drivers 304.30-2:
+    - Disable patch-3.0-rt-nvidia.patch, no longer needed.
+    - Add legacy qualification to nvidia-settings suggestion.
+  * Synchronize packaging with nvidia-graphics-drivers 304.32-1:
+    - debian/rules: get-orig-source: Make --pasv overridable.
+  * Synchronize packaging with nvidia-graphics-drivers 304.37-1:
+    - nvidia-kernel-source: Add Built-Using attribute to the generated module
+      packages to record the exact versions of linux and
+      nvidia-graphics-drivers that were used during the build.
+    - libgl1-nvidia-glx:i386: Add Breaks: ia32-libs (<< 20120701) because that
+      is shipping /usr/lib32/libGL.so.1 which gets no longer diverted away.
+    - 3.6_kernel.patch: New patch to fix compilation with Linux 3.6, taken
+      from rpmfusion.
+    - nvidia-kernel-dkms: Set Multi-Arch: foreign (instead of allowed).
+    - Add nvidia-kernel-dkms (= ${binary:Version}) as preferred alternative to
+      (virtual) nvidia-kernel-${nvidia:Version}.
+  * Synchronize packaging with nvidia-graphics-drivers 304.43-1:
+    - conftest.h:
+      - Implement check for linux/screen_info.h (302.17).
+      - Implement check for linux/kconfig.h (304.30).
+      - Implement new conftest.sh function acpi_os_wait_events_complete
+        (304.43).
+    - bug-control: Report installed versions of
+      libgl1-nvidia-alternatives-ia32, libgl1-nvidia{,-legacy-173xx}-glx-ia32,
+      and ia32-libs.
+    - libgl1-nvidia-legacy-173xx-glx-ia32: Add NEWS file describing the steps
+      needed to install the multiarch :i386 nvidia packages on amd64.
+  * Synchronize packaging with nvidia-graphics-drivers 304.48-1:
+    - get-orig-source: Skip downloading if cached files are in ../.cache/
+    - Switch .deb compression to xz.
+  * libgl1-nvidia-glx: The 302+ drivers add many features not supported by
+    older releases of nvidia-settings, therefore add
+    Breaks: nvidia-settings (<< 304), nvidia-settings-legacy-173
 
  -- Andreas Beckmann <debian@abeckmann.de>  Fri, 17 Aug 2012 01:42:27 +0200
 
@@ -13,9 +57,9 @@ nvidia-graphics-drivers-legacy-173xx (173.14.35-2) unstable; urgency=low
     - bug-script: report all /lib/modules/.../nvidia.ko and their version.
   * Synchronize packaging with nvidia-graphics-drivers 302.17-3:
     - xserver-xorg-video-nvidia.{config,postinst}: Present a debconf note
-    about needing manual Xorg configuration to enable the fglrx driver.
+      about needing manual Xorg configuration to enable the fglrx driver.
     - xserver-xorg-video-nvidia.postrm: Present a debconf note if the driver
-    was removed, but it is still enabled in xorg.conf(.d/).
+      was removed, but it is still enabled in xorg.conf(.d/).
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sat, 30 Jun 2012 18:49:44 +0200
 
