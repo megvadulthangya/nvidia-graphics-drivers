@@ -17,7 +17,6 @@ nvidia-graphics-drivers-legacy-173xx (173.14.35-3) UNRELEASED; urgency=low
       from nvidia-support are not available.
   * Synchronize packaging with nvidia-graphics-drivers 304.30-2:
     - Disable patch-3.0-rt-nvidia.patch, no longer needed.
-    - Add legacy qualification to nvidia-settings suggestion.
   * Synchronize packaging with nvidia-graphics-drivers 304.32-1:
     - debian/rules: get-orig-source: Make --pasv overridable.
   * Synchronize packaging with nvidia-graphics-drivers 304.37-1:
@@ -45,9 +44,10 @@ nvidia-graphics-drivers-legacy-173xx (173.14.35-3) UNRELEASED; urgency=low
   * Synchronize packaging with nvidia-graphics-drivers 304.48-1:
     - get-orig-source: Skip downloading if cached files are in ../.cache/
     - Switch .deb compression to xz.
-  * libgl1-nvidia-glx: The 302+ drivers add many features not supported by
-    older releases of nvidia-settings, therefore add
-    Breaks: nvidia-settings (<< 304), nvidia-settings-legacy-173
+    - Add legacy qualification to nvidia-settings suggestion.
+  * libgl1-nvidia-legacy-173xx-glx: add Breaks: nvidia-settings (>= 302) which
+    is no longer backwards compatible.
+  * Suggests: nvidia-settings-legacy-173xx instead.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Fri, 17 Aug 2012 01:42:27 +0200
 
