@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.35-3) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-173xx (173.14.35-3) unstable; urgency=low
 
   * 173.14.35 was promoted to release status without further changes.
   * CVE-2012-4225.  (Closes: #685118)
@@ -48,7 +48,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.35-3) UNRELEASED; urgency=low
     is no longer backwards compatible.
   * Suggests: nvidia-settings-legacy-173xx instead.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Fri, 17 Aug 2012 01:42:27 +0200
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 13 Sep 2012 12:30:00 +0200
 
 nvidia-graphics-drivers-legacy-173xx (173.14.35-2) unstable; urgency=low
 
