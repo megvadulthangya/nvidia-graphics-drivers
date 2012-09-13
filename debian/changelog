@@ -25,8 +25,6 @@ nvidia-graphics-drivers-legacy-173xx (173.14.35-3) UNRELEASED; urgency=low
       nvidia-graphics-drivers that were used during the build.
     - libgl1-nvidia-glx:i386: Add Breaks: ia32-libs (<< 20120701) because that
       is shipping /usr/lib32/libGL.so.1 which gets no longer diverted away.
-    - 3.6_kernel.patch: New patch to fix compilation with Linux 3.6, taken
-      from rpmfusion.
     - nvidia-kernel-dkms: Set Multi-Arch: foreign (instead of allowed).
     - Add nvidia-kernel-dkms (= ${binary:Version}) as preferred alternative to
       (virtual) nvidia-kernel-${nvidia:Version}.
