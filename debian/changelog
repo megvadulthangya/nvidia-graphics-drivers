@@ -1,3 +1,56 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.23-2) UNRELEASED; urgency=low
+
+  * Synchronize packaging with nvidia-graphics-drivers 302.17-3:
+    - xserver-xorg-video-nvidia.{config,postinst}: Present a debconf note
+      about needing manual Xorg configuration to enable the fglrx driver.
+    - xserver-xorg-video-nvidia.postrm: Present a debconf note if the driver
+      was removed, but it is still enabled in xorg.conf(.d/).
+  * Synchronize packaging with nvidia-graphics-drivers 304.22-1:
+    - Work around dpkg-gencontrol bug #659814. 
+    - Convert *-ia32 into transitional packages due to ia32-libs transition:
+      - $pkg:i386 Provides: $pkg-i386
+      - $pkg-ia32 Recommends: $pkg-i386
+      - Add multiarch instructions to long descriptions.
+  * Synchronize packaging with nvidia-graphics-drivers 304.30-1:
+    - xserver-xorg-video-nvidia-legacy-173xx.postrm: Do not fail if the
+      debconf templates from nvidia-support are not available.
+  * Synchronize packaging with nvidia-graphics-drivers 304.30-2:
+    - Disable patch-3.0-rt-nvidia.patch, no longer needed.
+  * Synchronize packaging with nvidia-graphics-drivers 304.32-1:
+    - debian/rules: get-orig-source: Make --pasv overridable.
+  * Synchronize packaging with nvidia-graphics-drivers 304.37-1:
+    - nvidia-kernel-legacy-173xx-source: Add Built-Using attribute to the
+      generated module packages to record the exact versions of linux and
+      nvidia-graphics-drivers-legacy-173xx that were used during the build.
+    - libgl1-nvidia-legacy-173xx-glx:i386: Add Breaks: ia32-libs (<< 20120701)
+      because that is shipping /usr/lib32/libGL.so.1 which gets no longer
+      diverted away.
+    - nvidia-kernel-legacy-173xx-dkms: Set Multi-Arch: foreign (instead of
+      allowed).
+    - Add nvidia-kernel-legacy-173xx-dkms (= ${binary:Version}) as preferred
+      alternative to (virtual) nvidia-kernel-${nvidia:Version}.
+  * Synchronize packaging with nvidia-graphics-drivers 304.43-1:
+    - conftest.h:
+      - Implement check for linux/screen_info.h (302.17).
+      - Implement check for linux/kconfig.h (304.30).
+      - Implement new conftest.sh function acpi_os_wait_events_complete
+        (304.43).
+    - bug-control: Report installed versions of
+      libgl1-nvidia-alternatives-ia32, libgl1-nvidia{,-legacy-173xx}-glx-ia32,
+      and ia32-libs.
+    - libgl1-nvidia-legacy-173xx-glx-ia32: Add NEWS file describing the steps
+      needed to install the multiarch :i386 nvidia packages on amd64.
+  * Synchronize packaging with nvidia-graphics-drivers 304.48-1:
+    - get-orig-source: Skip downloading if cached files are in ../.cache/
+    - Switch .deb compression to xz.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-173xx
+    173.14.35-3:
+    - libgl1-nvidia-legacy-173xx-glx: add Breaks: nvidia-settings (>= 302)
+      which is no longer backwards compatible.
+    - Suggests: nvidia-settings-legacy-173xx instead.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 13 Sep 2012 12:30:00 +0200
+
 nvidia-graphics-drivers-legacy-96xx (96.43.23-1) experimental; urgency=low
 
   * New upstream beta 96.43.23 (2012-09-04).
@@ -6,7 +59,6 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-1) experimental; urgency=low
     - Improved compatibility with recent Linux kernels.
   * Enable xorg-video-abi-11 and xorg-video-abi-12.
   * kernel-3.4.patch: remove, fixed upstream.
-  * patch-3.0-rt-nvidia.patch: disable, no longer needed.
   * Revert turning the 96xx legacy driver into empty transitional packages
     (96.43.20-5, 96.43.20-6, 96.43.20-7, 96.43.20-8).
   * Upload to experimental (but build in wheezy due to ia32-libs).

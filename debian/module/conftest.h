@@ -1,4 +1,4 @@
-/* synchronized with conftest.sh from 302.11, 295.53, 173.14.34, 96.43.20, 71.86.15 */
+/* synchronized with conftest.sh from 304.48, 295.75, 173.14.35, 96.43.23, 71.86.15 */
 
 #ifndef LINUX_VERSION_CODE
 #include <linux/version.h>
@@ -212,6 +212,18 @@
  #define NV_ACPI_WALK_NAMESPACE_ARGUMENT_COUNT 6
 #endif
 
+/* Implement conftest.sh function acpi_os_wait_events_complete */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,7)
+ #define NV_ACPI_OS_WAIT_EVENTS_COMPLETE_PRESENT
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,6,0)
+  #define NV_ACPI_OS_WAIT_EVENTS_COMPLETE_ARGUMENT_COUNT 0
+ #else
+  #define NV_ACPI_OS_WAIT_EVENTS_COMPLETE_ARGUMENT_COUNT 1
+ #endif
+#else
+ #undef NV_ACPI_OS_WAIT_EVENTS_COMPLETE_PRESENT
+#endif
+
 /* Implement conftest.sh function ioremap_cache */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,25)
  #define NV_IOREMAP_CACHE_PRESENT
@@ -339,4 +351,18 @@
  #define NV_ASM_SYSTEM_H_PRESENT
 #else
  #undef NV_ASM_SYSTEM_H_PRESENT
+#endif
+
+/* Check for linux/kconfig.h */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,1,0)
+ #define NV_LINUX_KCONFIG_H_PRESENT
+#else
+ #undef NV_LINUX_SCREEN_INFO_H_PRESENT
+#endif
+
+/* Check for linux/screen_info.h */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,16)
+ #define NV_LINUX_SCREEN_INFO_H_PRESENT
+#else
+ #undef NV_LINUX_SCREEN_INFO_H_PRESENT
 #endif
