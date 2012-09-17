@@ -1,5 +1,8 @@
 nvidia-graphics-drivers-legacy-96xx (96.43.23-2) UNRELEASED; urgency=low
 
+  * http://nvidia.custhelp.com/app/answers/detail/a_id/3142
+    96.43.23 is the final 96xx legacy release.
+    No further releases from the 96.43.* series are planned.
   * Synchronize packaging with nvidia-graphics-drivers 302.17-3:
     - xserver-xorg-video-nvidia.{config,postinst}: Present a debconf note
       about needing manual Xorg configuration to enable the nvidia driver.
