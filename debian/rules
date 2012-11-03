@@ -15,6 +15,7 @@ XORG_ABI_LIST		?=
 XORG_BOUND		?=
 MULTIARCH		?=
 BACKPORT		?=
+NVIDIA_SETTINGS		?= nvidia-settings
 version			 = $(NVIDIA_RELEASE)
 legacy			 = $(if $(NVIDIA_LEGACY),-legacy-$(NVIDIA_LEGACY)xx)
 legacy_description	 = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))
@@ -255,6 +256,7 @@ override_dh_gencontrol:
 		-V'nvidia:Legacy=$(legacy)' \
 		-V'nvidia:LegacyDesc=$(legacy_description)' \
 		-V'nvidia:Perfkit=$(perfkit)' \
+		-V'nvidia-settings=$(NVIDIA_SETTINGS)' \
 		-Vnvidia:Models="`cat debian/control.models`"
 
 # Do not run dh_strip here.  The NVIDIA license says:
@@ -270,10 +272,8 @@ override_dh_gencontrol:
 # in a way other than unzipping of compressed files.
 override_dh_strip:
 
-ifneq (squeeze,$(BACKPORT))
 override_dh_builddeb:
 	dh_builddeb -- -Zxz
-endif
 
 ############################################################################
 
@@ -352,7 +352,8 @@ PASV	?= --pasv
 get-orig-source:
 	rm -rf get-orig-source || true
 	mkdir get-orig-source
-	ln -v ../.cache/*-$(version).run get-orig-source/ || true
+	ln -v ../.cache/*-$(version).run get-orig-source/ 2>/dev/null || true
+	ln -v ../.cache/*-$(version)-*.run get-orig-source/ 2>/dev/null || true
 	uscan --no-symlink --download-current-version $(PASV) \
 	    --watchfile debian/watch --destdir get-orig-source
 	test $$(ls get-orig-source/* | wc -l) = 2  # we need exactly 2 downloaded files

@@ -4,6 +4,31 @@ nvidia-graphics-drivers-legacy-173xx (173.14.35-4) UNRELEASED; urgency=low
     - 3.6_kernel.patch: New patch to fix compilation with Linux 3.6, taken
       from rpmfusion.
   * Adjust 3.6_kernel.patch for a different filename in legacy-173xx.
+  * Synchronize packaging with nvidia-graphics-drivers 304.48-2:
+    - libgl1-nvidia-legacy-173xx-glx-ia32: readd
+      Depends: libgl1-nvidia-alternatives-ia32 to prevent apt from removing
+      libgl1-nvidia-alternatives-ia32 (which would remove the diversions)
+      while the old (pre-transitional) libgl1-nvidia-legacy-173xx-glx-ia32 is
+      still installed.
+    - get-orig-source: Fix caching for legacy drivers.
+    - bug-control: Report version info about revived
+      libgl1-nvidia-legacy-96xx-glx-ia32.
+    - Upgrade nvidia-settings relationship from Suggests to Recommends and use
+      a substvar for the name of the compatible nvidia-settings package.
+    - There is no need to exclude squeeze-backports from using xz compression.
+  * Use nvidia-settings-legacy-173xx as the name of the compatible
+    nvidia-settings package.
+  * Synchronize packaging with nvidia-graphics-drivers 304.60-1:
+    - libgl1-nvidia-legacy-173xx-glx:i386: Breaks: ia32-libs (<< 1:0),
+      versioning was fixed.
+    - Fix missing legacy substitution.
+    - conftest.h:
+      - Implement checks for linux/efi.h and linux/nvmap.h (310.14).
+      - Implement new conftest.sh functions outer_flush_all, nvmap_support,
+        and efi_enabled (310.14).
+  * Synchronize packaging with nvidia-graphics-drivers 304.60-2:
+    - build-module-packages.sh: Build modules only for the variant (current or
+      legacy-abcxx) that shipped the script.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sat, 03 Nov 2012 22:16:48 +0100
 

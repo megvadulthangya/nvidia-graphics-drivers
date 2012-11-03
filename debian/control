@@ -33,9 +33,9 @@ Depends:
  nvidia-support,
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
+ ${nvidia-settings},
  libgl1-nvidia${nvidia:Legacy}-glx-i386 [amd64],
 Suggests:
- nvidia-settings-legacy-173xx,
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Provides:
@@ -71,8 +71,8 @@ Depends:
 Recommends:
  nvidia-kernel${nvidia:Legacy}-dkms (= ${binary:Version})
  | nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
+ ${nvidia-settings},
 Suggests:
- nvidia-settings-legacy-173xx,
  nvidia-kernel${nvidia:Legacy}-dkms (>= ${nvidia:Version})
  | nvidia-kernel${nvidia:Legacy}-source (>= ${nvidia:Version})
 Provides:
@@ -136,7 +136,7 @@ Provides:
 Conflicts:
  libgl1-nvidia${nvidia:Legacy}-dev,
  nvidia-glx${nvidia:Legacy}-dev,
- libgl1-nvidia-glx-ia32 [i386],
+ libgl1-nvidia${nvidia:Legacy}-glx-ia32 [i386],
 Breaks:
  libgl1-nvidia${nvidia:Legacy}-glx-ia32 (<< ${nvidia:Version}) [amd64],
  nvidia-glx (<< 275.09.07-3),
@@ -149,7 +149,7 @@ Breaks:
  libgl1-nvidia-legacy-96xx-glx (<< 96.43.19-2),
 # libgl1-nvidia-legacy-173xx-glx (<< 173.14.30-2),
  fglrx-glx (<< 1:11-6-~),
- ia32-libs (<< 20120701) [i386],
+ ia32-libs (<< 1:0) [i386],
  nvidia-settings (>= 302),
 Replaces:
  nvidia-glx${nvidia:Legacy} (<< 173.14.27),
@@ -172,6 +172,7 @@ Pre-Depends:
  libc6-i386 (>= 2.9-18),
  nvidia-installer-cleanup,
 Depends:
+ libgl1-nvidia-alternatives-ia32,
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  libgl1-nvidia${nvidia:Legacy}-glx-i386,
