@@ -29,6 +29,13 @@ nvidia-graphics-drivers-legacy-173xx (173.14.35-4) UNRELEASED; urgency=low
   * Synchronize packaging with nvidia-graphics-drivers 304.60-2:
     - build-module-packages.sh: Build modules only for the variant (current or
       legacy-abcxx) that shipped the script.
+  * Synchronize packaging with nvidia-graphics-drivers 304.64-1:
+    - conftest.h: Implement new conftest.sh function set_memory_array_uc.
+    - build-module-packages.sh: Build modules only for the variant (current or
+      legacy-abcxx) that shipped the script.
+  * Synchronize packaging with nvidia-graphics-drivers 304.64-2:
+    - Always use the upstream changelog from the x86_64 release to avoid minor
+      differences causing multiarch conflicts.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sat, 03 Nov 2012 22:16:48 +0100
 
