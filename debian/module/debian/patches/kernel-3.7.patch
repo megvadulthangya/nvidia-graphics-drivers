@@ -4,9 +4,9 @@ Description: fix building against kernel 3.7
  http://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=commit;h=314e51b9851b4f4e8ab302243ff5a6fc6147f379
 Bug-Debian: http://bugs.debian.org/697061
 
---- nvidia-304.64.orig/nv-mmap.c	2012-10-30 17:58:25.000000000 +0000
-+++ nvidia-304.64/nv-mmap.c	2013-01-08 10:13:20.152603291 +0000
-@@ -463,6 +463,13 @@
+--- a/nv.c
++++ b/nv.c
+@@ -2607,6 +2607,13 @@
          NV_PRINT_AT(NV_DBG_MEMINFO, at);
          nv_vm_list_page_count(&at->page_table[i], pages);
  
@@ -17,6 +17,6 @@ Bug-Debian: http://bugs.debian.org/697061
 +# endif
 +#endif
 +
+         /* prevent the swapper from swapping it out */
+         /* mark the memory i/o so the buffers aren't dumped on core dumps */
          vma->vm_flags |= (VM_IO | VM_LOCKED | VM_RESERVED);
- 
- #if defined(VM_DRIVER_PAGES)
