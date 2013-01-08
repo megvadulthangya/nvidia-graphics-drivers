@@ -36,6 +36,9 @@ nvidia-graphics-drivers-legacy-173xx (173.14.35-4) UNRELEASED; urgency=low
   * Synchronize packaging with nvidia-graphics-drivers 304.64-2:
     - Always use the upstream changelog from the x86_64 release to avoid minor
       differences causing multiarch conflicts.
+  * Synchronize packaging with nvidia-graphics-drivers 304.64-4:
+    - kernel-3.7.patch: New patch to fix compilation with Linux 3.7 (which
+      replaced VM_RESERVED by VM_DONTEXPAND | VM_DONTDUMP).
 
  -- Andreas Beckmann <debian@abeckmann.de>  Sat, 03 Nov 2012 22:16:48 +0100
 
