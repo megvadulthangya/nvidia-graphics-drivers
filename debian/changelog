@@ -1,10 +1,10 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.23-3) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.23-3) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.48-2:
-    - libgl1-nvidia-legacy-173xx-glx-ia32: readd
+    - libgl1-nvidia-legacy-96xx-glx-ia32: readd
       Depends: libgl1-nvidia-alternatives-ia32 to prevent apt from removing
       libgl1-nvidia-alternatives-ia32 (which would remove the diversions)
-      while the old (pre-transitional) libgl1-nvidia-legacy-173xx-glx-ia32 is
+      while the old (pre-transitional) libgl1-nvidia-legacy-96xx-glx-ia32 is
       still installed.
     - get-orig-source: Fix caching for legacy drivers.
     - bug-control: Report version info about revived
@@ -13,7 +13,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-3) UNRELEASED; urgency=low
       a substvar for the name of the compatible nvidia-settings package.
     - There is no need to exclude squeeze-backports from using xz compression.
   * Synchronize packaging with nvidia-graphics-drivers 304.60-1:
-    - libgl1-nvidia-legacy-173xx-glx:i386: Breaks: ia32-libs (<< 1:0),
+    - libgl1-nvidia-legacy-96xx-glx:i386: Breaks: ia32-libs (<< 1:0),
       versioning was fixed.
     - Fix missing legacy substitution.
     - conftest.h:
@@ -43,7 +43,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-3) UNRELEASED; urgency=low
       nvidia-settings package.
     - Adjust kernel-3.7.patch for a different filename in legacy-96xx.
 
- -- Andreas Beckmann <debian@abeckmann.de>  Tue, 15 Jan 2013 16:20:43 +0100
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 15 Jan 2013 22:18:13 +0100
 
 nvidia-graphics-drivers-legacy-96xx (96.43.23-2) unstable; urgency=low
 
