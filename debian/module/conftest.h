@@ -1,4 +1,4 @@
-/* synchronized with conftest.sh from 304.48, 295.75, 173.14.35, 96.43.23, 71.86.15 */
+/* synchronized with conftest.sh from 310.14, 304.64, 295.75, 173.14.36, 96.43.23, 71.86.15 */
 
 #ifndef LINUX_VERSION_CODE
 #include <linux/version.h>
@@ -24,12 +24,23 @@
  #undef NV_SET_MEMORY_UC_PRESENT
 #endif
 
+/* Implement conftest.sh function set_memory_array_uc */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,28)
+ #define NV_SET_MEMORY_ARRAY_UC_PRESENT
+#else
+ #undef NV_SET_MEMORY_ARRAY_UC_PRESENT
+#endif
+
 /* Implement conftest.sh function set_pages_uc */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,25)
  #define NV_SET_PAGES_UC_PRESENT
 #else
  #undef NV_SET_PAGES_UC_PRESENT
 #endif
+
+/* Implement conftest.sh function outer_flush_all */
+// ARM only
+ #undef NV_OUTER_FLUSH_ALL_PRESENT
 
 /* Implement conftest.sh function change_page_attr */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,4,20) && \
@@ -189,6 +200,10 @@
 /* nv-xen.h does not exist */
 #undef HAVE_NV_XEN
 
+/* Implement conftest.sh function nvmap_support */
+/* nv-android.h does not exist */
+#undef HAVE_NV_ANDROID
+
 /* Implement conftest.sh function acpi_evaluate_integer */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,4,19)
  #define NV_ACPI_EVALUATE_INTEGER_PRESENT
@@ -304,6 +319,13 @@
  #undef NV_FILE_OPERATIONS_HAS_COMPAT_IOCTL
 #endif
 
+/* Implement conftest.sh function efi_enabled */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,1)
+ #define NV_EFI_ENABLED_PRESENT
+#else
+ #undef NV_EFI_ENABLED_PRESENT
+#endif
+
 /* Implement conftest.sh function sg_init_table */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,24)
  #define NV_SG_INIT_TABLE_PRESENT
@@ -353,11 +375,18 @@
  #undef NV_ASM_SYSTEM_H_PRESENT
 #endif
 
+/* Check for linux/efi.h */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,33)
+ #define NV_LINUX_EFI_H_PRESENT
+#else
+ #undef NV_LINUX_EFI_H_PRESENT
+#endif
+
 /* Check for linux/kconfig.h */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,1,0)
  #define NV_LINUX_KCONFIG_H_PRESENT
 #else
- #undef NV_LINUX_SCREEN_INFO_H_PRESENT
+ #undef NV_LINUX_KCONFIG_H_PRESENT
 #endif
 
 /* Check for linux/screen_info.h */
@@ -366,3 +395,7 @@
 #else
  #undef NV_LINUX_SCREEN_INFO_H_PRESENT
 #endif
+
+/* Check for linux/nvmap.h */
+// does not (yet) exist in kernel source
+ #undef NV_LINUX_NVMAP_H_PRESENT

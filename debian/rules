@@ -15,6 +15,7 @@ XORG_ABI_LIST		?=
 XORG_BOUND		?=
 MULTIARCH		?=
 BACKPORT		?=
+NVIDIA_SETTINGS		?= nvidia-settings
 version			 = $(NVIDIA_RELEASE)
 legacy			 = $(if $(NVIDIA_LEGACY),-legacy-$(NVIDIA_LEGACY)xx)
 legacy_description	 = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))
@@ -81,8 +82,8 @@ unpack-stamp: ${filename_x86} ${filename_x86_64}
 	test -f NVIDIA-Linux-amd64/README.txt || \
 		mv NVIDIA-Linux-amd64/usr/share/doc/README.txt NVIDIA-Linux-amd64/README.txt 2>/dev/null || \
 		mv NVIDIA-Linux-amd64/usr/share/doc/README NVIDIA-Linux-amd64/README.txt
-	test -f NVIDIA-Linux/NVIDIA_Changelog || \
-		mv NVIDIA-Linux/usr/share/doc/NVIDIA_Changelog NVIDIA-Linux/
+	test -f NVIDIA-Linux-amd64/NVIDIA_Changelog || \
+		mv NVIDIA-Linux-amd64/usr/share/doc/NVIDIA_Changelog NVIDIA-Linux-amd64/
 	test -d NVIDIA-Linux-i386/kernel || \
 		mv NVIDIA-Linux-i386/usr/src/nv NVIDIA-Linux-i386/kernel
 	test -d NVIDIA-Linux-amd64/kernel || \
@@ -157,6 +158,8 @@ override_dh_auto_install: install-into-tmp build-kernel-source-tree build-kernel
 install-into-tmp:
 	# "Install" into debian/tmp.
 	cp -al NVIDIA-Linux/ debian/tmp
+	rm -f debian/tmp/NVIDIA_Changelog
+	cp -al NVIDIA-Linux-amd64/NVIDIA_Changelog debian/tmp/
 
 	# Create xorg.conf.sample
 	test ! -f debian/tmp/usr/share/doc/XF86Config.sample || \
@@ -255,6 +258,7 @@ override_dh_gencontrol:
 		-V'nvidia:Legacy=$(legacy)' \
 		-V'nvidia:LegacyDesc=$(legacy_description)' \
 		-V'nvidia:Perfkit=$(perfkit)' \
+		-V'nvidia-settings=$(NVIDIA_SETTINGS)' \
 		-Vnvidia:Models="`cat debian/control.models`"
 
 # Do not run dh_strip here.  The NVIDIA license says:
@@ -270,10 +274,8 @@ override_dh_gencontrol:
 # in a way other than unzipping of compressed files.
 override_dh_strip:
 
-ifneq (squeeze,$(BACKPORT))
 override_dh_builddeb:
 	dh_builddeb -- -Zxz
-endif
 
 ############################################################################
 
@@ -352,7 +354,8 @@ PASV	?= --pasv
 get-orig-source:
 	rm -rf get-orig-source || true
 	mkdir get-orig-source
-	ln -v ../.cache/*-$(version).run get-orig-source/ || true
+	ln -v ../.cache/*-$(version).run get-orig-source/ 2>/dev/null || true
+	ln -v ../.cache/*-$(version)-*.run get-orig-source/ 2>/dev/null || true
 	uscan --no-symlink --download-current-version $(PASV) \
 	    --watchfile debian/watch --destdir get-orig-source
 	test $$(ls get-orig-source/* | wc -l) = 2  # we need exactly 2 downloaded files

@@ -1,3 +1,54 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.23-3) UNRELEASED; urgency=low
+
+  * Synchronize packaging with nvidia-graphics-drivers 304.37-1:
+    - 3.6_kernel.patch: New patch to fix compilation with Linux 3.6, taken
+      from rpmfusion.
+  * Synchronize packaging with nvidia-graphics-drivers 304.48-2:
+    - libgl1-nvidia-legacy-173xx-glx-ia32: readd
+      Depends: libgl1-nvidia-alternatives-ia32 to prevent apt from removing
+      libgl1-nvidia-alternatives-ia32 (which would remove the diversions)
+      while the old (pre-transitional) libgl1-nvidia-legacy-173xx-glx-ia32 is
+      still installed.
+    - get-orig-source: Fix caching for legacy drivers.
+    - bug-control: Report version info about revived
+      libgl1-nvidia-legacy-96xx-glx-ia32.
+    - Upgrade nvidia-settings relationship from Suggests to Recommends and use
+      a substvar for the name of the compatible nvidia-settings package.
+    - There is no need to exclude squeeze-backports from using xz compression.
+  * Synchronize packaging with nvidia-graphics-drivers 304.60-1:
+    - libgl1-nvidia-legacy-173xx-glx:i386: Breaks: ia32-libs (<< 1:0),
+      versioning was fixed.
+    - Fix missing legacy substitution.
+    - conftest.h:
+      - Implement checks for linux/efi.h and linux/nvmap.h (310.14).
+      - Implement new conftest.sh functions outer_flush_all, nvmap_support,
+        and efi_enabled (310.14).
+  * Synchronize packaging with nvidia-graphics-drivers 304.60-2:
+    - build-module-packages.sh: Build modules only for the variant (current or
+      legacy-abcxx) that shipped the script.
+  * Synchronize packaging with nvidia-graphics-drivers 304.64-1:
+    - conftest.h: Implement new conftest.sh function set_memory_array_uc.
+    - build-module-packages.sh: Build modules only for the variant (current or
+      legacy-abcxx) that shipped the script.
+  * Synchronize packaging with nvidia-graphics-drivers 304.64-2:
+    - Always use the upstream changelog from the x86_64 release to avoid minor
+      differences causing multiarch conflicts.
+  * Synchronize packaging with nvidia-graphics-drivers 304.64-4:
+    - kernel-3.7.patch: New patch to fix compilation with Linux 3.7 (which
+      replaced VM_RESERVED by VM_DONTEXPAND | VM_DONTDUMP).
+  * Synchronize packaging with nvidia-graphics-drivers 304.64-5:
+    - Fix debian/module/debian/kernel-version to cope with
+      $KSRC/linux/version.h being moved to
+      $KSRC/include/generated/uapi/linux/version.h in Linux 3.7.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-173xx
+    173.14.35-4:
+    - Use nvidia-settings-legacy-173xx as the name of the compatible
+      nvidia-settings package.
+    - Adjust 3.6_kernel.patch for a different filename in legacy-96xx.
+    - Adjust kernel-3.7.patch for a different filename in legacy-96xx.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Tue, 15 Jan 2013 16:20:43 +0100
+
 nvidia-graphics-drivers-legacy-96xx (96.43.23-2) unstable; urgency=low
 
   * http://nvidia.custhelp.com/app/answers/detail/a_id/3142
