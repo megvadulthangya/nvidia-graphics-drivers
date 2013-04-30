@@ -1,3 +1,17 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.35-5) UNRELEASED; urgency=low
+
+  * Synchronize packaging with nvidia-graphics-drivers 304.84-1:
+    - README.alternatives: Document to run
+      'dpkg-reconfigure glx-alternative-nvidia'
+      after running 'update-alternatives --config nvidia'.  (See #702782)
+    - README.Debian: Add information about reporting upstream bugs to NVIDIA.
+    - patch-3.0-rt-nvidia.patch: Remove, disabled since 173.14.35-3.
+    - Put my patches into the public domain, they get applied to the kernel
+      module source that is under a non-free license from NVIDIA.
+    - Update my email address and remove DMUA.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 30 Apr 2013 16:22:31 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.35-4) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.37-1:
@@ -40,7 +54,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.35-4) unstable; urgency=low
     - kernel-3.7.patch: New patch to fix compilation with Linux 3.7 (which
       replaced VM_RESERVED by VM_DONTEXPAND | VM_DONTDUMP).
   * Adjust kernel-3.7.patch for a different filename in legacy-173xx.
-  * Synchronize packaging with nvidia-graphics-drivers 304.64-5:
+  * Synchronize packaging with nvidia-graphics-drivers 304.84-1:
     - Fix debian/module/debian/kernel-version to cope with
       $KSRC/linux/version.h being moved to
       $KSRC/include/generated/uapi/linux/version.h in Linux 3.7.
