@@ -29,6 +29,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.37-1) UNRELEASED; urgency=low
     - Drop transitional packages.
     - Drop Conflicts/Breaks/Replaces against packages predating wheezy.
     - Drop cleanup code targeting squeeze and wheezy from maintainer scripts.
+  * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 30 Apr 2013 16:22:31 +0200
 
