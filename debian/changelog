@@ -9,6 +9,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.37-1) UNRELEASED; urgency=low
     - Added support for xserver ABI 13 (xorg-server 1.13).
   * Add xorg-video-abi-13 as alternative dependency.
   * Add xorg-video-abi-14 as alternative dependency.
+  * 3.6_kernel.patch, kernel-3.7.patch: Removed, fixed upstream.
   * Synchronize packaging with nvidia-graphics-drivers 304.84-1:
     - README.alternatives: Document to run
       'dpkg-reconfigure glx-alternative-nvidia'
