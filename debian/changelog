@@ -13,12 +13,22 @@ nvidia-graphics-drivers-legacy-173xx (173.14.37-1) UNRELEASED; urgency=low
   * Synchronize packaging with nvidia-graphics-drivers 304.84-1:
     - README.alternatives: Document to run
       'dpkg-reconfigure glx-alternative-nvidia'
-      after running 'update-alternatives --config nvidia'.  (See #702782)
+      after running 'update-alternatives --config nvidia'.  (Closes: #702782)
     - README.Debian: Add information about reporting upstream bugs to NVIDIA.
     - patch-3.0-rt-nvidia.patch: Remove, disabled since 173.14.35-3.
     - Put my patches into the public domain, they get applied to the kernel
       module source that is under a non-free license from NVIDIA.
     - Update my email address and remove DMUA.
+  * Synchronize packaging with nvidia-graphics-drivers 304.88-3:
+    - nvidia-kernel-legacy-173xx-source: rules: Use placeholder substitution
+      for the source package name to ensure Built-Using is set correctly.
+    - nvidia-alternative-legacy-173xx: Add slave alternatives for
+      nvidia-settings-legacy-173xx.  (Closes: #688754)
+    - Use canonical Vcs-* URLs.
+    - Bump Standards-Version to 3.9.4. No changes needed. 
+    - Drop transitional packages.
+    - Drop Conflicts/Breaks/Replaces against packages predating wheezy.
+    - Drop cleanup code targeting squeeze and wheezy from maintainer scripts.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 30 Apr 2013 16:22:31 +0200
 
