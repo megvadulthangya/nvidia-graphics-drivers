@@ -4,5 +4,5 @@ conditionally-include-linux_version.h.patch
 avoid-ld.gold.patch
 fix-typos.patch
 linux3.patch
-3.6_kernel.patch
+#3.6_kernel.patch
 kernel-3.7.patch

@@ -1,5 +1,8 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.35-5) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-173xx (173.14.36-1) UNRELEASED; urgency=low
 
+  * New upstream release 173.14.36 (2012-09-13).
+    - Added support for xserver ABI 13 (xorg-server 1.13).
+  * Add xorg-video-abi-13 as alternative dependency.
   * Synchronize packaging with nvidia-graphics-drivers 304.84-1:
     - README.alternatives: Document to run
       'dpkg-reconfigure glx-alternative-nvidia'
