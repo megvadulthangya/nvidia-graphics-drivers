@@ -5,4 +5,4 @@ avoid-ld.gold.patch
 fix-typos.patch
 linux3.patch
 #3.6_kernel.patch
-kernel-3.7.patch
+#kernel-3.7.patch
