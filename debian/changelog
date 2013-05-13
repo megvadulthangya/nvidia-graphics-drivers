@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-71xx (71.86.15-4) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-71xx (71.86.15-4) unstable; urgency=low
 
   * Revert the following changes from 71.86.15-3:
     - Turn packages into empty dummy packages that properly clean up after
@@ -99,7 +99,7 @@ nvidia-graphics-drivers-legacy-71xx (71.86.15-4) UNRELEASED; urgency=low
   * nvidia-glx-legacy-71xx-unsupported: Mark as Multi-Arch: foreign.
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 13 May 2013 20:52:19 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 13 May 2013 22:16:04 +0200
 
 nvidia-graphics-drivers-legacy-71xx (71.86.15-3) unstable; urgency=low
 
