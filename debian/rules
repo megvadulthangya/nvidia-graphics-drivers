@@ -15,7 +15,9 @@ XORG_ABI_LIST		?=
 XORG_BOUND		?=
 MULTIARCH		?=
 BACKPORT		?=
+NVIDIA_SETTINGS		?= nvidia-settings$(legacy)
 version			 = $(NVIDIA_RELEASE)
+version_major		 = $(firstword $(subst ., ,$(version)))
 legacy			 = $(if $(NVIDIA_LEGACY),-legacy-$(NVIDIA_LEGACY)xx)
 legacy_description	 = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))
 perfkit			 =
@@ -40,11 +42,8 @@ RENAMED_CONTROL	 = $(patsubst debian/nvidia-glx%,debian/nvidia-glx$(legacy)%,\
 			$(patsubst debian/nvidia-alternative%,debian/nvidia-alternative$(legacy)%,\
 			$(patsubst debian/xserver-xorg-video-nvidia%,debian/xserver-xorg-video-nvidia$(legacy)%,\
 				$(RENAME_CONTROL))))))
-IA32_OVERRIDES	 = nvidia-vdpau-driver libcuda1
-GEN_IA32_OVERRIDES := $(foreach p,$(IA32_OVERRIDES),$(if $(wildcard debian/$p.lintian-overrides*),$p))
 TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/detect/*.in)
 AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
-AUTOGEN		+= $(foreach pkg,$(GEN_IA32_OVERRIDES), debian/$(pkg)-ia32.lintian-overrides)
 AUTOGEN		+= debian/module/debian/changelog
 AUTOGEN		+= $(patsubst %.in,%,$(RENAMED_CONTROL))
 AUTOKEEP	 = debian/watch
@@ -84,8 +83,8 @@ unpack-stamp: ${filename_x86} ${filename_x86_64}
 	test -f NVIDIA-Linux-amd64/README.txt || \
 		mv NVIDIA-Linux-amd64/usr/share/doc/README.txt NVIDIA-Linux-amd64/README.txt 2>/dev/null || \
 		mv NVIDIA-Linux-amd64/usr/share/doc/README NVIDIA-Linux-amd64/README.txt
-	test -f NVIDIA-Linux/NVIDIA_Changelog || \
-		mv NVIDIA-Linux/usr/share/doc/NVIDIA_Changelog NVIDIA-Linux/
+	test -f NVIDIA-Linux-amd64/NVIDIA_Changelog || \
+		mv NVIDIA-Linux-amd64/usr/share/doc/NVIDIA_Changelog NVIDIA-Linux-amd64/
 	test -d NVIDIA-Linux-i386/kernel || \
 		mv NVIDIA-Linux-i386/usr/src/nv NVIDIA-Linux-i386/kernel
 	test -d NVIDIA-Linux-amd64/kernel || \
@@ -160,6 +159,8 @@ override_dh_auto_install: install-into-tmp build-kernel-source-tree build-kernel
 install-into-tmp:
 	# "Install" into debian/tmp.
 	cp -al NVIDIA-Linux/ debian/tmp
+	rm -f debian/tmp/NVIDIA_Changelog
+	cp -al NVIDIA-Linux-amd64/NVIDIA_Changelog debian/tmp/
 
 	# Create xorg.conf.sample
 	test ! -f debian/tmp/usr/share/doc/XF86Config.sample || \
@@ -242,15 +243,11 @@ override_dh_bugfiles:
 override_dh_makeshlibs:
 	dh_makeshlibs -Xvdpau/libvdpau_nvidia.so -Xtls/libnvidia-tls.so
 	# Redirect shlibs for libGL.so.1 to libgl1-mesa-glx | libgl1.
-	test ! -d debian/libgl1-nvidia$(legacy)-glx || \
+	test ! -f debian/libgl1-nvidia$(legacy)-glx/DEBIAN/shlibs || \
 		sed -i -e '/^libGL 1 /s/.*/libGL 1 libgl1-mesa-glx | libgl1/' debian/libgl1-nvidia$(legacy)-glx/DEBIAN/shlibs
-	test ! -d debian/libgl1-nvidia$(legacy)-glx-ia32 || \
-		sed -i -e '/^libGL 1 /s/.*/libGL 1 ia32-libs (>= 20090804)/' debian/libgl1-nvidia$(legacy)-glx-ia32/DEBIAN/shlibs
 	# Remove libGL.so from symbols files in order not to override our special shlibs files.
-	test ! -d debian/libgl1-nvidia$(legacy)-glx || \
+	test ! -f debian/libgl1-nvidia$(legacy)-glx/DEBIAN/symbols || \
 		sed -i -e '/^libGL\.so/,/^lib/{/^libGL\.so\|^ /d}' debian/libgl1-nvidia$(legacy)-glx/DEBIAN/symbols
-	test ! -d debian/libgl1-nvidia$(legacy)-glx-ia32 || \
-		sed -i -e '/^libGL\.so/,/^lib/{/^libGL\.so\|^ /d}' debian/libgl1-nvidia$(legacy)-glx-ia32/DEBIAN/symbols
 
 override_dh_shlibdeps:
 	LD_LIBRARY_PATH=/$(libdir)/$(nvidia_private):$(LD_LIBRARY_PATH) dh_shlibdeps
@@ -262,6 +259,7 @@ override_dh_gencontrol:
 		-V'nvidia:Legacy=$(legacy)' \
 		-V'nvidia:LegacyDesc=$(legacy_description)' \
 		-V'nvidia:Perfkit=$(perfkit)' \
+		-V'nvidia-settings=$(NVIDIA_SETTINGS)' \
 		-Vnvidia:Models="`cat debian/control.models`"
 
 # Do not run dh_strip here.  The NVIDIA license says:
@@ -277,21 +275,21 @@ override_dh_gencontrol:
 # in a way other than unzipping of compressed files.
 override_dh_strip:
 
+override_dh_builddeb:
+	dh_builddeb -- -Zxz
+
 ############################################################################
 
 # Generating control files
 %:: %.in debian/rules debian/rules.defs
 	perl -p \
 	-e 's{#VERSION#}{$(version)}g;' \
-	-e 's{#MAJOR#}{$(firstword $(subst ., ,$(version)))}g;' \
+	-e 's{#MAJOR#}{$(version_major)}g;' \
 	-e 's{#LEGACY#}{$(legacy)}g;' \
 	-e 's{#WATCH_PATTERN#}{$(subst \,\\,$(watch_pattern))}g;' \
 	-e 's{#LIBDIR#}{$(libdir)}g;' \
 	-e 's{#PRIVATE#}{$(nvidia_private)}g;' \
 	< $< > $@
-
-%-ia32.lintian-overrides: %.lintian-overrides
-	sed -r -e '/^\[amd64\]: /d; s/^\[i386\]: //; s%$(libdir)%usr/lib32%g' $< > $@
 
 debian/module/debian/changelog: debian/changelog
 	sed '1s/^nvidia-graphics-drivers/nvidia-kernel/g' $< > $@
@@ -351,13 +349,17 @@ prepare-squeeze-backport:
 
 ############################################################################
 
+PASV	?= --pasv
+
 .PHONY: get-orig-source
 get-orig-source:
 	rm -rf get-orig-source || true
 	mkdir get-orig-source
-	uscan --no-symlink --download-current-version --pasv \
+	ln -v ../.cache/*-$(version).run get-orig-source/ 2>/dev/null || true
+	ln -v ../.cache/*-$(version)-*.run get-orig-source/ 2>/dev/null || true
+	uscan --no-symlink --download-current-version $(PASV) \
 	    --watchfile debian/watch --destdir get-orig-source
-	test `ls get-orig-source/* | wc -l` = 2  # we need exactly 2 downloaded files
+	test $$(ls get-orig-source/* | wc -l) = 2  # we need exactly 2 downloaded files
 	@set -e -x ; \
 	    cd get-orig-source ; \
 	    newversion=$$(ls *-x86-*.run | sed -e 's/.*-\([0-9.]*\)\(-.*\)\?\.run/\1/') ; \

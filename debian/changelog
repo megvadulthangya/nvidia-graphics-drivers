@@ -7,6 +7,94 @@ nvidia-graphics-drivers-legacy-71xx (71.86.15-4) UNRELEASED; urgency=low
     - Do not register alternatives.
     - Reduce Build-Depends, Provides, Suggests.
     - Move packages to Section: oldlibs, Priority: extra.
+  * Synchronize packaging with nvidia-graphics-drivers 295.59-1:
+    - bug-script: report all /lib/modules/.../nvidia.ko and their version.
+  * Synchronize packaging with nvidia-graphics-drivers 302.17-3:
+    - xserver-xorg-video-nvidia.{config,postinst}: Present a debconf note
+      about needing manual Xorg configuration to enable the nvidia driver.
+    - xserver-xorg-video-nvidia.postrm: Present a debconf note if the driver
+      was removed, but it is still enabled in xorg.conf(.d/).
+  * Synchronize packaging with nvidia-graphics-drivers 304.22-1:
+    - Work around dpkg-gencontrol bug #659814. 
+  * Synchronize packaging with nvidia-graphics-drivers 304.30-1:
+    - xserver-xorg-video-nvidia-legacy-71xx.postrm: Do not fail if the
+      debconf templates from nvidia-support are not available.
+  * Synchronize packaging with nvidia-graphics-drivers 304.30-2:
+    - Disable patch-3.0-rt-nvidia.patch, no longer needed.
+  * Synchronize packaging with nvidia-graphics-drivers 304.32-1:
+    - debian/rules: get-orig-source: Make --pasv overridable.
+  * Synchronize packaging with nvidia-graphics-drivers 304.37-1:
+    - nvidia-kernel-legacy-71xx-source: Add Built-Using attribute to the
+      generated module packages to record the exact versions of linux and
+      nvidia-graphics-drivers-legacy-71xx that were used during the build.
+    - nvidia-kernel-legacy-71xx-dkms: Set Multi-Arch: foreign (instead of
+      allowed).
+    - Add nvidia-kernel-legacy-71xx-dkms (= ${binary:Version}) as preferred
+      alternative to (virtual) nvidia-kernel-${nvidia:Version}.
+  * Synchronize packaging with nvidia-graphics-drivers 304.43-1:
+    - conftest.h:
+      - Implement check for linux/screen_info.h (302.17).
+      - Implement check for linux/kconfig.h (304.30).
+      - Implement new conftest.sh function acpi_os_wait_events_complete
+        (304.43).
+    - bug-control: Report installed versions of
+      libgl1-nvidia-alternatives-ia32, libgl1-nvidia{,-legacy-173xx}-glx-ia32,
+      and ia32-libs.
+  * Synchronize packaging with nvidia-graphics-drivers 304.48-1:
+    - get-orig-source: Skip downloading if cached files are in ../.cache/
+    - Switch .deb compression to xz.
+  * Synchronize packaging with nvidia-graphics-drivers 304.48-2:
+    - get-orig-source: Fix caching for legacy drivers.
+    - bug-control: Report version info about revived
+      libgl1-nvidia-legacy-96xx-glx-ia32.
+    - Upgrade nvidia-settings relationship from Suggests to Recommends and use
+      a substvar for the name of the compatible nvidia-settings package.
+    - There is no need to exclude squeeze-backports from using xz compression.
+  * Synchronize packaging with nvidia-graphics-drivers 304.60-1:
+    - libgl1-nvidia-legacy-71xx-glx: Breaks: ia32-libs (<< 1:0).
+    - Fix missing legacy substitution.
+    - conftest.h:
+      - Implement checks for linux/efi.h and linux/nvmap.h (310.14).
+      - Implement new conftest.sh functions outer_flush_all, nvmap_support,
+        and efi_enabled (310.14).
+  * Synchronize packaging with nvidia-graphics-drivers 304.64-1:
+    - conftest.h: Implement new conftest.sh function set_memory_array_uc.
+    - build-module-packages.sh: Build modules only for the variant (current or
+      legacy-abcxx) that shipped the script.
+  * Synchronize packaging with nvidia-graphics-drivers 304.64-2:
+    - Always use the upstream changelog from the x86_64 release to avoid minor
+      differences causing multiarch conflicts.
+  * Synchronize packaging with nvidia-graphics-drivers 304.64-4:
+    - kernel-3.7.patch: New patch to fix compilation with Linux 3.7 (which
+      replaced VM_RESERVED by VM_DONTEXPAND | VM_DONTDUMP).
+  * Synchronize packaging with nvidia-graphics-drivers 304.84-1:
+    - Fix debian/module/debian/kernel-version to cope with
+      $KSRC/linux/version.h being moved to
+      $KSRC/include/generated/uapi/linux/version.h in Linux 3.7.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-173xx
+    173.14.35-4:
+    - Adjust kernel-3.7.patch for a different filename in legacy-71xx.
+  * Synchronize packaging with nvidia-graphics-drivers 304.84-1:
+    - README.alternatives: Document to run
+      'dpkg-reconfigure glx-alternative-nvidia'
+      after running 'update-alternatives --config nvidia'.  (See #702782)
+    - README.Debian: Add information about reporting upstream bugs to NVIDIA.
+    - patch-3.0-rt-nvidia.patch: Remove.
+    - Put my patches into the public domain, they get applied to the kernel
+      module source that is under a non-free license from NVIDIA.
+    - Update my email address and remove DMUA.
+  * Synchronize packaging with nvidia-graphics-drivers 304.88-3:
+    - nvidia-kernel-legacy-71xx-source: rules: Use placeholder substitution
+      for the source package name to ensure Built-Using is set correctly.
+    - nvidia-alternative-legacy-71xx: Add slave alternatives for
+      nvidia-settings-legacy-71xx.
+    - Use canonical Vcs-* URLs.
+    - Bump Standards-Version to 3.9.4. No changes needed. 
+    - Drop transitional packages.
+    - Drop Conflicts/Breaks/Replaces against packages predating wheezy.
+    - Drop cleanup code targeting squeeze and wheezy from maintainer scripts.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-173xx
+  173.14.37-1 and nvidia-graphics-drivers-legacy-96xx 96.43.23-4.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 13 May 2013 20:52:19 +0200
 

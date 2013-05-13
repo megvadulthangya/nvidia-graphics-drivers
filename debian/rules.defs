@@ -1,6 +1,7 @@
 # If needed, set to the major part of the upstream version number.
 NVIDIA_LEGACY		 = 71
 #WATCH_VERSION		 =
+
 XORG_ABI_LIST		 =
 XORG_BOUND		 = (<< 2:1.4.99)
 

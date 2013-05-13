@@ -1,4 +1,4 @@
-/* synchronized with conftest.sh from 302.11, 295.53, 173.14.34, 96.43.20, 71.86.15 */
+/* synchronized with conftest.sh from 313.26, 310.40, 304.84, 295.75, 173.14.37, 96.43.23, 71.86.15 */
 
 #ifndef LINUX_VERSION_CODE
 #include <linux/version.h>
@@ -24,12 +24,23 @@
  #undef NV_SET_MEMORY_UC_PRESENT
 #endif
 
+/* Implement conftest.sh function set_memory_array_uc */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,28)
+ #define NV_SET_MEMORY_ARRAY_UC_PRESENT
+#else
+ #undef NV_SET_MEMORY_ARRAY_UC_PRESENT
+#endif
+
 /* Implement conftest.sh function set_pages_uc */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,25)
  #define NV_SET_PAGES_UC_PRESENT
 #else
  #undef NV_SET_PAGES_UC_PRESENT
 #endif
+
+/* Implement conftest.sh function outer_flush_all */
+// ARM only
+ #undef NV_OUTER_FLUSH_ALL_PRESENT
 
 /* Implement conftest.sh function change_page_attr */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,4,20) && \
@@ -189,6 +200,10 @@
 /* nv-xen.h does not exist */
 #undef HAVE_NV_XEN
 
+/* Implement conftest.sh function nvmap_support */
+/* nv-android.h does not exist */
+#undef HAVE_NV_ANDROID
+
 /* Implement conftest.sh function acpi_evaluate_integer */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,4,19)
  #define NV_ACPI_EVALUATE_INTEGER_PRESENT
@@ -210,6 +225,18 @@
  #define NV_ACPI_WALK_NAMESPACE_ARGUMENT_COUNT 7
 #else
  #define NV_ACPI_WALK_NAMESPACE_ARGUMENT_COUNT 6
+#endif
+
+/* Implement conftest.sh function acpi_os_wait_events_complete */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,7)
+ #define NV_ACPI_OS_WAIT_EVENTS_COMPLETE_PRESENT
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,6,0)
+  #define NV_ACPI_OS_WAIT_EVENTS_COMPLETE_ARGUMENT_COUNT 0
+ #else
+  #define NV_ACPI_OS_WAIT_EVENTS_COMPLETE_ARGUMENT_COUNT 1
+ #endif
+#else
+ #undef NV_ACPI_OS_WAIT_EVENTS_COMPLETE_PRESENT
 #endif
 
 /* Implement conftest.sh function ioremap_cache */
@@ -292,6 +319,13 @@
  #undef NV_FILE_OPERATIONS_HAS_COMPAT_IOCTL
 #endif
 
+/* Implement conftest.sh function efi_enabled */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,1)
+ #define NV_EFI_ENABLED_PRESENT
+#else
+ #undef NV_EFI_ENABLED_PRESENT
+#endif
+
 /* Implement conftest.sh function sg_init_table */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,24)
  #define NV_SG_INIT_TABLE_PRESENT
@@ -340,3 +374,28 @@
 #else
  #undef NV_ASM_SYSTEM_H_PRESENT
 #endif
+
+/* Check for linux/efi.h */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,33)
+ #define NV_LINUX_EFI_H_PRESENT
+#else
+ #undef NV_LINUX_EFI_H_PRESENT
+#endif
+
+/* Check for linux/kconfig.h */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,1,0)
+ #define NV_LINUX_KCONFIG_H_PRESENT
+#else
+ #undef NV_LINUX_KCONFIG_H_PRESENT
+#endif
+
+/* Check for linux/screen_info.h */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,16)
+ #define NV_LINUX_SCREEN_INFO_H_PRESENT
+#else
+ #undef NV_LINUX_SCREEN_INFO_H_PRESENT
+#endif
+
+/* Check for linux/nvmap.h */
+// does not (yet) exist in kernel source
+ #undef NV_LINUX_NVMAP_H_PRESENT
