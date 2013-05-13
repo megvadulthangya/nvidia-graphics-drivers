@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.23-4) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.23-4) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.84-1:
     - README.alternatives: Document to run
@@ -13,7 +13,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-4) UNRELEASED; urgency=low
     - nvidia-kernel-legacy-96xx-source: rules: Use placeholder substitution
       for the source package name to ensure Built-Using is set correctly.
     - nvidia-alternative-legacy-96xx: Add slave alternatives for
-      nvidia-settings-legacy-96xx.  (Closes: #688754)
+      nvidia-settings-legacy-96xx.
     - Use canonical Vcs-* URLs.
     - Bump Standards-Version to 3.9.4. No changes needed. 
     - Drop transitional packages.
@@ -23,7 +23,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-4) UNRELEASED; urgency=low
     173.14.37-1:
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 12 May 2013 21:17:06 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 13 May 2013 20:39:30 +0200
 
 nvidia-graphics-drivers-legacy-96xx (96.43.23-3) unstable; urgency=low
 
