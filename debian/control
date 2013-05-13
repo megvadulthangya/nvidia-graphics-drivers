@@ -5,15 +5,15 @@ Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders:
  Russ Allbery <rra@debian.org>,
  Andreas Beckmann <anbe@debian.org>,
-Vcs-Svn: svn://svn.debian.org/svn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-96xx/trunk
-Vcs-Browser: http://svn.debian.org/wsvn/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-96xx/
+Vcs-Svn: svn://anonscm.debian.org/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-96xx/trunk
+Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-96xx/
 Build-Depends:
  debhelper (>= 9),
  bzip2,
  dkms (>= 2.1.1.1),
  libxext6,
  quilt,
-Standards-Version: 3.9.3
+Standards-Version: 3.9.4
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
@@ -77,15 +77,6 @@ Suggests:
 Provides:
  xserver-xorg-video-nvidia-any,
  ${nvidia:xorgProvides},
-Breaks:
- nvidia-glx (<< 275.09.07-2),
- nvidia-glx-legacy (<< 71.86.14-3),
- nvidia-glx-legacy-71xx (<< 71.86.14-3),
- nvidia-glx-legacy-96xx (<< 96.43.19-2),
- nvidia-glx-legacy-173xx (<< 173.14.30-2),
- fglrx-driver (<< 1:11-6-~),
-Replaces:
- nvidia-glx${nvidia:Legacy} (<< 96.43.19-2),
 Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  .
  These binary drivers provide optimized hardware acceleration of
@@ -101,17 +92,6 @@ Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  .
  See /usr/share/doc/nvidia-glx${nvidia:Legacy}/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
-
-Package: nvidia-glx-legacy-96xx-ia32
-Section: non-free/oldlibs
-Priority: extra
-Architecture: amd64
-Depends:
- libgl1-nvidia${nvidia:Legacy}-glx-ia32,
- ${misc:Depends}
-Description: NVIDIA 32-bit libraries${nvidia:LegacyDesc} (transitional package)
- This is a dummy package to aid switching to
- libgl1-nvidia${nvidia:Legacy}-glx-ia32.
 
 Package: libgl1-nvidia-legacy-96xx-glx
 Architecture: i386 amd64
@@ -133,27 +113,14 @@ Provides:
  libgl1-nvidia${nvidia:Legacy}-glx-i386 [i386],
  libgl1-nvidia-glx-any,
 Conflicts:
- libgl1-nvidia${nvidia:Legacy}-dev,
- nvidia-glx${nvidia:Legacy}-dev,
- libgl1-nvidia${nvidia:Legacy}-glx-ia32 [i386],
+ libgl1-nvidia${nvidia:Legacy}-glx-ia32,
+ nvidia-glx${nvidia:Legacy}-ia32,
+ libgl1-nvidia-glx-ia32-any,
 Breaks:
- libgl1-nvidia${nvidia:Legacy}-glx-ia32 (<< ${nvidia:Version}) [amd64],
- nvidia-glx (<< 275.09.07-3),
- nvidia-glx-legacy (<< 71.86.14-3),
- nvidia-glx-legacy-71xx (<< 71.86.14-3),
- nvidia-glx-legacy-96xx (<< 96.43.19-2),
- nvidia-glx-legacy-173xx (<< 173.14.30-2),
- libgl1-nvidia-glx (<< 275.09.07-3),
- libgl1-nvidia-legacy-71xx-glx (<< 71.86.14-3),
-# libgl1-nvidia-legacy-96xx-glx (<< 96.43.19-2),
- libgl1-nvidia-legacy-173xx-glx (<< 173.14.30-2),
- fglrx-glx (<< 1:11-6-~),
- ia32-libs (<< 1:0) [i386],
- nvidia-settings (>= 302),
+ ia32-libs (<< 1:0),
 Replaces:
- nvidia-glx${nvidia:Legacy} (<< 96.43.18),
- libgl1-nvidia${nvidia:Legacy}-dev,
- nvidia-glx${nvidia:Legacy}-dev,
+ libgl1-nvidia${nvidia:Legacy}-glx-ia32,
+ nvidia-glx${nvidia:Legacy}-ia32,
 Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  .
  These binary libraries provide optimized hardware acceleration of
@@ -163,50 +130,19 @@ Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  or /usr/share/doc/libgl1-nvidia${nvidia:Legacy}-glx/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-Package: libgl1-nvidia-legacy-96xx-glx-ia32
-Section: non-free/oldlibs
-Priority: extra
-Architecture: amd64
-Pre-Depends:
- libc6-i386 (>= 2.9-18),
- nvidia-installer-cleanup,
-Depends:
- libgl1-nvidia-alternatives-ia32,
- ${shlibs:Depends}, ${misc:Depends}
-Recommends:
- libgl1-nvidia${nvidia:Legacy}-glx-i386,
-Conflicts:
- libgl1-nvidia-glx-ia32,
- libgl1-nvidia-glx-ia32-any,
- fglrx-glx-ia32,
- nvidia-glx-ia32,
- nvidia-glx-legacy-ia32,
- nvidia-glx-legacy-71xx-ia32,
- nvidia-glx-legacy-96xx-ia32 (<< 96.43.18),
- nvidia-glx-legacy-173xx-ia32,
-Breaks:
- libgl1-nvidia${nvidia:Legacy}-glx (<< ${nvidia:Version}),
-Replaces:
- nvidia-glx${nvidia:Legacy}-ia32 (<< 96.43.18),
-Description: please switch to multiarch libgl1-nvidia${nvidia:Legacy}-glx:i386
- .
- This is an empty transitional package to aid switching to multiarch.
- .
- Run the following commands to install the multiarch library:
- * dpkg --add-architecture i386 ; apt-get update
- * apt-get install libgl1-nvidia${nvidia:Legacy}-glx:i386
-
 Package: nvidia-alternative-legacy-96xx
 Architecture: i386 amd64
 Multi-Arch: foreign
 Depends:
  glx-alternative-nvidia (>= 0.2),
- libgl1-nvidia-alternatives (>= 275.09.07-4),
- libglx-nvidia-alternatives (>= 275.09.07-4),
  ${misc:Depends}
+Conflicts:
+ libgl1-nvidia-alternatives,
+ libglx-nvidia-alternatives,
+ libgl1-nvidia-alternatives-ia32,
 Breaks:
- nvidia-glx${nvidia:Legacy} (<< 96.43.19-2),
- libgl1-nvidia${nvidia:Legacy}-glx (<< 96.43.19-2),
+ nvidia-settings (<< 304.88-2),
+ nvidia-settings-legacy-173xx (<< 173.14.37),
 Description: allows the selection of NVIDIA as GLX provider
  .
  In setups with several NVIDIA driver versions installed (e.g. current and

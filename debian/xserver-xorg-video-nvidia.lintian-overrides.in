@@ -1,9 +1,11 @@
 # The NVIDIA license does not allow any form of modification.
+[i386]: binary-file-built-without-LFS-support
 binary-has-unneeded-section
 embedded-library usr/lib/#PRIVATE#/nvidia_drv.so: libpng
 [amd64]: shlib-with-executable-stack
 [i386]: shlib-with-non-pic-code
 [i386]: shlib-without-PT_GNU_STACK-section
+[amd64]: spelling-error-in-binary
 hardening-no-fortify-functions
 hardening-no-relro
 hardening-no-stackprotector

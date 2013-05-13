@@ -1,11 +1,12 @@
 # The NVIDIA license does not allow any form of modification.
+[i386]: binary-file-built-without-LFS-support
 binary-has-unneeded-section
 shared-lib-without-dependency-information
 [amd64]: shlib-with-executable-stack
+shlib-calls-exit
 [i386]: shlib-with-non-pic-code
 shlib-without-PT_GNU_STACK-section
 spelling-error-in-binary
-shlib-calls-exit
 hardening-no-fortify-functions
 hardening-no-relro
 hardening-no-stackprotector
