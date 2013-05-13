@@ -94,7 +94,8 @@ nvidia-graphics-drivers-legacy-71xx (71.86.15-4) UNRELEASED; urgency=low
     - Drop Conflicts/Breaks/Replaces against packages predating wheezy.
     - Drop cleanup code targeting squeeze and wheezy from maintainer scripts.
   * Synchronize packaging with nvidia-graphics-drivers-legacy-173xx
-  173.14.37-1 and nvidia-graphics-drivers-legacy-96xx 96.43.23-4.
+    173.14.37-1 and nvidia-graphics-drivers-legacy-96xx 96.43.23-4.
+  * Drop more transitional packages.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 13 May 2013 20:52:19 +0200
 
