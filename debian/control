@@ -20,6 +20,7 @@ XS-Autobuild: yes
 Package: nvidia-glx-legacy-71xx-unsupported
 Section: non-free/oldlibs
 Architecture: i386 amd64
+Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Description: NVIDIA unsupported legacy 71xx driver cleanup
