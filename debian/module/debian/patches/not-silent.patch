@@ -1,17 +1,17 @@
 --- a/Kbuild
 +++ b/Kbuild
-@@ -183,16 +183,16 @@
+@@ -207,16 +207,16 @@
  #
  
  $(obj)/$(CORE_OBJS):
--	@cp $(src)/$(CORE_OBJS) $(obj)/$(CORE_OBJS)
+-	cp $(src)/$(CORE_OBJS) $(obj)/$(CORE_OBJS)
 +	$(NVQ)cp $(src)/$(CORE_OBJS) $(obj)/$(CORE_OBJS)
  
  $(obj)/$(VERSION_HEADER):
--	@echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
+-	@ echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
 +	$(NVQ)echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
  
- $(obj)/conftest.h: $(src)/conftest.sh
+ $(obj)/conftest.h:
 -	@if ! $(CONFTEST) compile_tests $(COMPILE_TESTS); then exit 1; fi
 +	$(NVQ)$(CONFTEST) compile_tests $(COMPILE_TESTS)
  
@@ -21,7 +21,7 @@
  
  RESMAN_GLUE_TARGETS = $(addprefix $(obj)/,$(RESMAN_GLUE_OBJS))
  
-@@ -223,16 +223,16 @@
+@@ -246,16 +246,16 @@
  .PHONY: suser-sanity-check rmmod-sanity-check build-sanity-checks
  
  suser-sanity-check:
@@ -44,14 +44,21 @@
  
  #
  # Build the NVIDIA kernel module using Linux KBUILD. This target is used by
-@@ -240,10 +240,10 @@
+@@ -263,15 +263,14 @@
  #
  
  module: build-sanity-checks
--	@echo "NVIDIA: calling KBUILD..."; \
--	 $(MAKE) "CC=$(CC)" $(KBUILD_PARAMS) modules; \
+-	@if [ -z "$(PATCHLEVEL)" ]; then \
++	$(NVQ)if [ -z "$(PATCHLEVEL)" ]; then \
+ 	 echo "failed to determine PATCHLEVEL!"; \
+ 	 exit 1; \
+-	fi; \
+-	echo "NVIDIA: calling KBUILD..."; \
+-	echo "make CC=$(CC) $(KBUILD_PARAMS) modules"; \
+-	make "CC=$(CC)" $(KBUILD_PARAMS) modules; \
 -	echo "NVIDIA: left KBUILD."; \
 -	if ! [ -f $(MODULE_OBJECT) ]; then \
++	fi
 +	@echo "NVIDIA: calling KBUILD..."
 +	$(NVQ)$(MAKE) "CC=$(CC)" $(KBUILD_PARAMS) modules
 +	@echo "NVIDIA: left KBUILD."
@@ -59,7 +66,7 @@
  	 echo "$(MODULE_OBJECT) failed to build!"; \
  	 exit 1; \
  	fi
-@@ -254,7 +254,7 @@
+@@ -282,7 +281,7 @@
  #
  
  module-install: suser-sanity-check module
@@ -68,20 +75,20 @@
  	install -m 0664 -o root -g root $(MODULE_OBJECT) $(MODULE_ROOT)/video; \
  	PATH="$(PATH):/bin:/sbin" depmod -ae;
  
-@@ -264,7 +264,7 @@
+@@ -292,7 +291,7 @@
  #
  
  package-install: module-install rmmod-sanity-check
--	@PATH="$(PATH):/bin:/sbin" modprobe $(MODULE_NAME) && \
+-	PATH="$(PATH):/bin:/sbin" modprobe $(MODULE_NAME) && \
 +	$(NVQ)PATH="$(PATH):/bin:/sbin" modprobe $(MODULE_NAME) && \
  	echo "$(MODULE_OBJECT) installed successfully.";
  
  #
-@@ -276,19 +276,19 @@
+@@ -301,19 +300,19 @@
  #
  
  $(KERNEL_GLUE_NAME): module
--	@$(LD) $(EXTRA_LDFLAGS) -r -o $(KERNEL_GLUE_NAME) $(KERNEL_GLUE_OBJS)
+-	$(LD) $(EXTRA_LDFLAGS) -r -o $(KERNEL_GLUE_NAME) $(KERNEL_GLUE_OBJS)
 +	$(NVQ)$(LD) $(EXTRA_LDFLAGS) -r -o $(KERNEL_GLUE_NAME) $(KERNEL_GLUE_OBJS)
  
  #
@@ -89,12 +96,12 @@
  #
  
  clean:
--	@$(RM) -f $(RESMAN_GLUE_OBJS) $(KERNEL_GLUE_OBJS)
--	@$(RM) -f build-in.o nv-linux.o *.d .*.{cmd,flags}
--	@$(RM) -f $(MODULE_NAME).{o,ko,mod.{o,c}} $(VERSION_HEADER) *~
--	@$(RM) -f patches.h
--	@$(RM) -f conftest*.c conftest.h
--	@$(RM) -rf Modules.symvers .tmp_versions
+-	@ $(RM) -f $(RESMAN_GLUE_OBJS) $(KERNEL_GLUE_OBJS)
+-	@ $(RM) -f build-in.o nv-linux.o *.d .*.{cmd,flags}
+-	@ $(RM) -f $(MODULE_NAME).{o,ko,mod.{o,c}} $(VERSION_HEADER) *~
+-	@ $(RM) -f patches.h
+-	@ $(RM) -f conftest*.c conftest.h
+-	@ $(RM) -rf Modules.symvers .tmp_versions
 +	$(NVQ)$(RM) -f $(RESMAN_GLUE_OBJS) $(KERNEL_GLUE_OBJS)
 +	$(NVQ)$(RM) -f build-in.o nv-linux.o *.d .*.{cmd,flags}
 +	$(NVQ)$(RM) -f $(MODULE_NAME).{o,ko,mod.{o,c}} $(VERSION_HEADER) *~
