@@ -166,7 +166,7 @@ Description: allows the selection of NVIDIA as GLX provider
  ${nvidia}-driver package instead.
 
 #Package: ${nvidia}-kernel-dkms
-Package: nvidia-kernel-legacy-173xx-dkms
+Package: nvidia-legacy-173xx-kernel-dkms
 Section: non-free/kernel
 Architecture: i386 amd64
 Multi-Arch: foreign
@@ -184,7 +184,10 @@ Provides:
 Conflicts:
  nvidia-kernel-dkms,
 Breaks:
+ nvidia-kernel${nvidia:Legacy}-dkms (<< 173.14.37-2),
  make (= 3.82-1),
+Replaces:
+ nvidia-kernel${nvidia:Legacy}-dkms (<< 173.14.37-2),
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  .
  This package builds the NVIDIA Xorg binary kernel module needed by
@@ -203,8 +206,20 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  See /usr/share/doc/${nvidia}-kernel-dkms/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
+#Package: nvidia-kernel${nvidia:Legacy}-dkms
+Package: nvidia-kernel-legacy-173xx-dkms
+Section: non-free/oldlibs
+Priority: extra
+Architecture: i386 amd64
+Depends:
+ ${nvidia}-driver,
+ ${misc:Depends}
+Description: transition to ${nvidia}-kernel-dkms
+ This is a dummy transitional package to aid switching to
+ ${nvidia}-kernel-dkms.
+
 #Package: ${nvidia}-kernel-source
-Package: nvidia-kernel-legacy-173xx-source
+Package: nvidia-legacy-173xx-kernel-source
 Section: non-free/kernel
 Architecture: i386 amd64
 Depends:
@@ -219,8 +234,11 @@ Recommends:
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Breaks:
+ nvidia-kernel${nvidia:Legacy}-source (<< 173.14.37-2),
  module-assistant (<< 0.11.6~),
  make (= 3.82-1),
+Replaces:
+ nvidia-kernel${nvidia:Legacy}-source (<< 173.14.37-2),
 Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  .
  This package provides the source for the NVIDIA Xorg binary kernel module
@@ -240,4 +258,16 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  .
  See /usr/share/doc/${nvidia}-kernel-source/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
+
+#Package: nvidia-kernel${nvidia:Legacy}-source
+Package: nvidia-kernel-legacy-173xx-source
+Section: non-free/oldlibs
+Priority: extra
+Architecture: i386 amd64
+Depends:
+ ${nvidia}-driver,
+ ${misc:Depends}
+Description: transition to ${nvidia}-kernel-source
+ This is a dummy transitional package to aid switching to
+ ${nvidia}-kernel-source.
 
