@@ -35,6 +35,11 @@ nvidia-graphics-drivers-legacy-173xx (173.14.37-3) UNRELEASED; urgency=low
     - linux-3.10-{i2c,procfs}.patch: New patches to fix compilation with
       Linux 3.10, backported from 304.108.  (Closes: #717306)
     - linux-3.11.patch: New patch to fix compilation with Linux 3.11-rc.
+  * Synchronize packaging with nvidia-graphics-drivers 304.108-1:
+    - Rename patches.
+    - debian/module/debian/prep-modules: Sanitize the kernel version. Replace
+      underscores (may occur in custom kernels) with dashes to be eligible for
+      package names and versions.  (Closes: #710900)
   * Regenerate linux-3.10-procfs.patch for 173xx.
   * Refresh patches.
 
