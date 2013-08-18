@@ -1,3 +1,45 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.37-3) UNRELEASED; urgency=low
+
+  * Synchronize packaging with nvidia-graphics-drivers 304.88-6:
+    - Documentation updates.
+  * Synchronize packaging with nvidia-graphics-drivers 304.88-7:
+    - Add new substvars ${nvidia-alternative}, #NVIDIA_ALTERNATIVE#.
+    - Rename the kernel module to nvidia-legacy-173xx.ko but retain its
+      internal name as 'nvidia'.  (Closes: #719522)
+    - nvidia{,-legacy-*}-kernel-dkms are now co-installable.
+      (Closes: #685647)
+    - nvidia-alternative-legacy-173xx:
+      + Add /etc/nvidia/nvidia-legacy-173xx-modprobe.conf (with the nvidia
+        alias) and a slave alternative /etc/modprobe.d/nvidia.conf to the
+        nvidia alternative.
+      + Provides: ${nvidia-alternative}--kmod-alias.
+    - nvidia-legacy-173xx-kernel-dkms, nvidia-kernel-#KVERS#: Depend on
+      ${nvidia-alternative}--kmod-alias.
+    - libgl1-nvidia-legacy-173xx-glx.symbols: Change the dependency template
+      to always generate a Depends: libgl1-mesa-glx | libgl1 and stop
+      manipulating the .shlibs.
+    - libgl1-nvidia-legacy-173xx-glx:i386: Check for problematic stray
+      /usr/lib32/libGL.so* via
+      Depends: nvidia-installer-cleanup (>= 20130816).
+    - Don't explicitly request xz compression - dpkg 1.17 does this by
+      default.
+    - Drop empty Description paragraphs that worked around dpkg bug #680871.
+    - conftest.h:
+      + Implement check for drm/drmP.h (319.12).
+      + Implement new conftest.sh functions drm_available (319.12),
+        dom0_kernel_present (325.08),
+        proc_create_data, pde_data, proc_remove (304.108, 325.15).
+      + Implement conftest.sh sanity checks (only emit warning)
+        nvidiafb_sanity_check (1.0-8174), xen_sanity_check (1.0-9746, 177.76),
+        preempt_rt_sanity_check (325.08).
+    - linux-3.10-{i2c,procfs}.patch: New patches to fix compilation with
+      Linux 3.10, backported from 304.108.  (Closes: #717306)
+    - linux-3.11.patch: New patch to fix compilation with Linux 3.11-rc.
+  * Regenerate linux-3.10-procfs.patch for 173xx.
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Aug 2013 14:41:44 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.37-2) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.88-4:
