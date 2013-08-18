@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.37-3) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-173xx (173.14.37-3) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.88-6:
     - Documentation updates.
@@ -43,7 +43,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.37-3) UNRELEASED; urgency=low
   * Regenerate linux-3.10-procfs.patch for 173xx.
   * Refresh patches.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Aug 2013 14:41:44 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 18 Aug 2013 23:11:10 +0200
 
 nvidia-graphics-drivers-legacy-173xx (173.14.37-2) unstable; urgency=low
 
