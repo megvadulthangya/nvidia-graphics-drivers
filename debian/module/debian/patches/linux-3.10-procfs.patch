@@ -1,9 +1,10 @@
-From cfed26bf7fe6f8cc6787d987d63b470fc04d614f Mon Sep 17 00:00:00 2001
+From 2bb0a4a5f44305d6f2ece2dce123fab99c7994f4 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sun, 18 Aug 2013 17:12:13 +0200
 Subject: [PATCH] adjust for Linux 3.10 procfs interface changes
 
-backported from 304.108 and adjusted for 173xx
+backported from 304.108
+rebuilt for 173xx
 
 Bug-Debian: http://bugs.debian.org/717306
 ---
