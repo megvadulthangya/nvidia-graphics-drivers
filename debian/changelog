@@ -43,6 +43,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-6) UNRELEASED; urgency=low
     173.14.37-3:
     - Regenerate linux-3.10-procfs.patch for 173xx.
     - Refresh patches.
+  * Refresh patches.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 18 Aug 2013 23:11:10 +0200
 

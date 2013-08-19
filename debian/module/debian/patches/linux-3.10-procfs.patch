@@ -1,21 +1,23 @@
-From cfed26bf7fe6f8cc6787d987d63b470fc04d614f Mon Sep 17 00:00:00 2001
+From 38e631d08421afab007332017bc8fe1ba04e2f19 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
-Date: Sun, 18 Aug 2013 17:12:13 +0200
+Date: Mon, 19 Aug 2013 05:34:42 +0200
 Subject: [PATCH] adjust for Linux 3.10 procfs interface changes
 
-backported from 304.108 and adjusted for 173xx
+backported from 304.108
+rebuilt for 173xx
+adjusted for 96xx
 
 Bug-Debian: http://bugs.debian.org/717306
 ---
  nv-linux.h |    1 +
- nv.c       |  333 +++++++++++++++++++++++++++++++++---------------------------
- 2 files changed, 184 insertions(+), 150 deletions(-)
+ nv.c       |  329 +++++++++++++++++++++++++++++++++---------------------------
+ 2 files changed, 182 insertions(+), 148 deletions(-)
 
 diff --git a/nv-linux.h b/nv-linux.h
-index 963e059..9aac81a 100644
+index 1b9d437..30fe60f 100644
 --- a/nv-linux.h
 +++ b/nv-linux.h
-@@ -163,6 +163,7 @@
+@@ -128,6 +128,7 @@
  
  #ifdef CONFIG_PROC_FS
  #include <linux/proc_fs.h>
@@ -24,10 +26,10 @@ index 963e059..9aac81a 100644
  
  #ifdef CONFIG_MTRR
 diff --git a/nv.c b/nv.c
-index f82e46f..898f372 100644
+index f5902c4..78dc751 100644
 --- a/nv.c
 +++ b/nv.c
-@@ -333,12 +333,12 @@ void          nv_kern_rc_timer(unsigned long);
+@@ -190,12 +190,12 @@ void          nv_kern_rc_timer(unsigned long);
  static int    nv_kern_apm_event(struct pm_dev *, pm_request_t, void *);
  #endif
  
@@ -46,7 +48,7 @@ index f82e46f..898f372 100644
  
  int           nv_kern_ctl_open(struct inode *, struct file *);
  int           nv_kern_ctl_close(struct inode *, struct file *);
-@@ -604,6 +604,92 @@ static struct pci_dev* nv_get_pci_device(nv_state_t *nv)
+@@ -490,6 +490,92 @@ static struct pci_dev* nv_get_pci_device(nv_state_t *nv)
      return NULL;
  }
  
@@ -139,7 +141,7 @@ index f82e46f..898f372 100644
  static void nvos_proc_create(void)
  {
  #ifdef CONFIG_PROC_FS
-@@ -614,42 +700,25 @@ static void nvos_proc_create(void)
+@@ -500,42 +586,25 @@ static void nvos_proc_create(void)
      struct proc_dir_entry *entry;
      struct proc_dir_entry *proc_nvidia_agp, *proc_nvidia_cards;
  
@@ -186,7 +188,7 @@ index f82e46f..898f372 100644
      for (j = 0; j < num_nv_devices; j++)
      {
          nvl = &nv_linux_devices[j];
-@@ -660,92 +729,56 @@ static void nvos_proc_create(void)
+@@ -546,92 +615,56 @@ static void nvos_proc_create(void)
              break;
  
          sprintf(name, "%d", i++);
@@ -286,7 +288,7 @@ index f82e46f..898f372 100644
      return;
  
  failed:
-@@ -762,25 +795,16 @@ nvos_proc_add_text_file(
+@@ -648,25 +681,16 @@ nvos_proc_add_text_file(
  )
  {
  #ifdef CONFIG_PROC_FS
@@ -316,7 +318,7 @@ index f82e46f..898f372 100644
      while (entry) {
          struct proc_dir_entry *next = entry->next;
          if (entry->subdir)
-@@ -790,6 +814,7 @@ static void nvos_proc_remove_all(struct proc_dir_entry *entry)
+@@ -676,6 +700,7 @@ static void nvos_proc_remove_all(struct proc_dir_entry *entry)
              break;
          entry = next;
      }
@@ -324,7 +326,7 @@ index f82e46f..898f372 100644
  }
  #endif
  
-@@ -3065,19 +3090,18 @@ void   NV_API_CALL  nv_set_dma_address_size(
+@@ -2848,18 +2873,17 @@ void   NV_API_CALL  nv_set_dma_address_size(
  }
  
  static int
@@ -341,7 +343,6 @@ index f82e46f..898f372 100644
 -    int len = 0, status;
 +    int status;
      U032 vbios_rev1, vbios_rev2, vbios_rev3, vbios_rev4, vbios_rev5;
-     nv_stack_t *sp = NULL;
  
 -    nv_state_t *nv;
 -    nv = (nv_state_t *) data;
@@ -350,7 +351,7 @@ index f82e46f..898f372 100644
      dev = nv_get_pci_device(nv);
      if (!dev)
          return 0;
-@@ -3094,38 +3118,38 @@ nv_kern_read_cardinfo(char *page, char **start, off_t off,
+@@ -2869,61 +2893,62 @@ nv_kern_read_cardinfo(char *page, char **start, off_t off,
          strcpy (tmpstr, "Unknown");
      }
      
@@ -359,7 +360,7 @@ index f82e46f..898f372 100644
 +    seq_printf(s, "Model: \t\t %s\n", tmpstr);
 +    seq_printf(s, "IRQ:   \t\t %d\n", nv->interrupt_line);
  
-     status = rm_get_vbios_version(sp, nv, &vbios_rev1, &vbios_rev2,
+     status = rm_get_vbios_version(nv, &vbios_rev1, &vbios_rev2,
                                    &vbios_rev3, &vbios_rev4, &vbios_rev5);
  
      if (status < 0) {
@@ -384,23 +385,8 @@ index f82e46f..898f372 100644
 +    seq_printf(s, "DMA Size: \t %d bits\n",
       nv_count_bits(dev->dma_mask));
 -    len += sprintf(page+len, "DMA Mask: \t 0x%llx\n", dev->dma_mask);
--    len += sprintf(page+len, "Bus Location: \t %02x.%02x.%x\n",
 +    seq_printf(s, "DMA Mask: \t 0x%llx\n", dev->dma_mask);
-+    seq_printf(s, "Bus Location: \t %02x.%02x.%x\n",
-                    nv->bus, nv->slot, PCI_FUNC(dev->devfn));
- #ifdef DEBUG
-     do
-     {
-         int j;
-         for (j = 0; j < NV_GPU_NUM_BARS; j++)
--            len += sprintf(page+len, "BAR%i: \t\t 0x%08x (%iMB)\n",
-+            seq_printf(s, "BAR%i: \t\t 0x%08x (%iMB)\n",
-                            j, nv->bars[j].address, nv->bars[j].size >> 20);
-     } while(0);
- #endif
-@@ -3133,35 +3157,36 @@ nv_kern_read_cardinfo(char *page, char **start, off_t off,
-     NV_KMEM_CACHE_FREE_STACK(sp);
-  
+ 
      NV_PCI_DEV_PUT(dev);
 -    return len;
 +    return 0;
@@ -452,7 +438,7 @@ index f82e46f..898f372 100644
  
      if (nv) {
          dev = nv_get_pci_device(nv);
-@@ -3172,12 +3197,12 @@ nv_kern_read_agpinfo(char *page, char **start, off_t off,
+@@ -2934,12 +2959,12 @@ nv_kern_read_agpinfo(char *page, char **start, off_t off,
          if (!dev)
              return 0;
  
@@ -468,7 +454,7 @@ index f82e46f..898f372 100644
                  dev->vendor, dev->device);
  #endif
      }
-@@ -3191,41 +3216,41 @@ nv_kern_read_agpinfo(char *page, char **start, off_t off,
+@@ -2953,40 +2978,40 @@ nv_kern_read_agpinfo(char *page, char **start, off_t off,
      fw  = (status & 0x00000010) ? "Supported" : "Not Supported";
      sba = (status & 0x00000200) ? "Supported" : "Not Supported";
  
@@ -513,7 +499,6 @@ index f82e46f..898f372 100644
      u8     cap_ptr;
      u32    scratch;
      u32    status, command, agp_rate;
-     nv_stack_t *sp = NULL;
  
 -    nv_state_t *nv;
 -    nv = (nv_state_t *) data;
@@ -522,7 +507,7 @@ index f82e46f..898f372 100644
      dev = nvos_get_agp_device_by_class(PCI_CLASS_BRIDGE_HOST);
      if (!dev)
          return 0;
-@@ -3246,10 +3271,10 @@ nv_kern_read_status(char *page, char **start, off_t off,
+@@ -3007,10 +3032,10 @@ nv_kern_read_status(char *page, char **start, off_t off,
      command &= scratch;
  
      if (NV_AGP_ENABLED(nv) && (command & 0x100)) {
@@ -535,7 +520,7 @@ index f82e46f..898f372 100644
  
          // mask off agp rate. 
          // If this is agp 3.0, we need to shift the value
-@@ -3257,13 +3282,13 @@ nv_kern_read_status(char *page, char **start, off_t off,
+@@ -3018,17 +3043,17 @@ nv_kern_read_status(char *page, char **start, off_t off,
          if (status & 0x8) // agp 3.0
              agp_rate <<= 2;
  
@@ -552,17 +537,13 @@ index f82e46f..898f372 100644
      } else {
          int agp_config = 0;
  
-@@ -3274,7 +3299,7 @@ nv_kern_read_status(char *page, char **start, off_t off,
-             return 0;
-         }
- 
 -        len += sprintf(page+len, "Status: \t Disabled\n\n");
 +        seq_printf(s, "Status: \t Disabled\n\n");
  
          /*
           * If we find AGP is disabled, but the RM registry indicates it
-@@ -3288,7 +3313,7 @@ nv_kern_read_status(char *page, char **start, off_t off,
-         rm_read_registry_dword(sp, nv, "NVreg", "XNvAGP", &agp_config);
+@@ -3042,7 +3067,7 @@ nv_kern_read_status(char *page, char **start, off_t off,
+         rm_read_registry_dword(nv, "NVreg", "XNvAGP", &agp_config);
  
          if (agp_config != NVOS_AGP_CONFIG_DISABLE_AGP && NV_AGP_FAILED(nv)) {
 -            len += sprintf(page+len,
@@ -570,7 +551,7 @@ index f82e46f..898f372 100644
                    "AGP initialization failed, please check the ouput  \n"
                    "of the 'dmesg' command and/or your system log file \n"
                    "for additional information on this problem.        \n");
-@@ -3298,37 +3323,45 @@ nv_kern_read_status(char *page, char **start, off_t off,
+@@ -3050,37 +3075,45 @@ nv_kern_read_status(char *page, char **start, off_t off,
      }
  
      NV_PCI_DEV_PUT(dev);
