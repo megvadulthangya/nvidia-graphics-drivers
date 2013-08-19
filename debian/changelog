@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.23-6) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.23-6) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.88-6:
     - Documentation updates.
@@ -45,7 +45,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-6) UNRELEASED; urgency=low
     - Refresh patches.
   * Refresh patches.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 18 Aug 2013 23:11:10 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 19 Aug 2013 06:02:05 +0200
 
 nvidia-graphics-drivers-legacy-96xx (96.43.23-5) unstable; urgency=low
 
