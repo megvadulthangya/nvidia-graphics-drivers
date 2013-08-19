@@ -1,6 +1,6 @@
 Author: Andreas Beckmann <debian@abeckmann.de>
-Description: fix building against kernel 3.7
- The VM_RESERVED flag was removed in kernel 3.7:
+Description: fix building for Linux 3.7
+ The VM_RESERVED flag was removed in Linux 3.7:
  http://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=commit;h=314e51b9851b4f4e8ab302243ff5a6fc6147f379
 Bug-Debian: http://bugs.debian.org/697061
 
