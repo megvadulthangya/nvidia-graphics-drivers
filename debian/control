@@ -207,7 +207,7 @@ Section: non-free/oldlibs
 Priority: extra
 Architecture: i386 amd64
 Depends:
- ${nvidia}-driver,
+ ${nvidia}-kernel-dkms,
  ${misc:Depends}
 Description: transition to ${nvidia}-kernel-dkms
  This is a dummy transitional package to aid switching to
