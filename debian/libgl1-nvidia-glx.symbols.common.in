@@ -1,4 +1,4 @@
-libGL.so.1 #PACKAGE# #MINVER#
+libGL.so.1 libgl1-mesa-glx | libgl1
  (regex)"^_nv\d*gl@Base$" 0
  glAccum@Base 1.0.4349
  glActiveStencilFaceEXT@Base 1.0.4349

@@ -1,3 +1,6 @@
+Author: Andreas Beckmann <anbe@debian.org>
+Description: make silent commands in NVIDIA's Makefile.kbuild verbose
+
 --- a/Kbuild
 +++ b/Kbuild
 @@ -207,16 +207,16 @@
