@@ -1,3 +1,7 @@
-This version only supports GeForce 6xxx and higher of the Geforce GPUs
-plus corresponding Quadros and nforce.  Look at the legacy packages
-for older cards.
+This legacy version is the last release that supports the following GPUs:
+[TODO: generate list]
+
+There are several "more modern" GPUs supported by this package, too, but the
+updated drivers in the newer legacy packages or the current nvidia-glx
+package usually provide more features and better support.
+Look at the other legacy packages for older cards.
