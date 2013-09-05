@@ -40,10 +40,6 @@ Suggests:
  ${nvidia:kmod:source},
 Provides:
  nvidia-glx-any,
-Breaks:
- nvidia-glx${nvidia:Legacy} (<< 304.88-4),
-Replaces:
- nvidia-glx${nvidia:Legacy} (<< 304.88-4),
 Description: NVIDIA metapackage${nvidia:LegacyDesc}
  This metapackage depends on the NVIDIA binary driver and libraries
  that provide optimized hardware acceleration of
@@ -71,7 +67,6 @@ Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
- nvidia-vdpau-driver (>= ${nvidia:Version}),
  ${nvidia:kmod:binary},
  ${nvidia-settings},
 Suggests:
@@ -111,15 +106,8 @@ Suggests:
 Provides:
  libgl1-${nvidia}-glx-i386 [i386],
  libgl1-nvidia-glx-any,
-Conflicts:
- libgl1-nvidia${nvidia:Legacy}-glx-ia32,
- nvidia-glx${nvidia:Legacy}-ia32,
- libgl1-nvidia-glx-ia32-any,
 Breaks:
  ia32-libs (<< 1:0),
-Replaces:
- libgl1-nvidia${nvidia:Legacy}-glx-ia32,
- nvidia-glx${nvidia:Legacy}-ia32,
 Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
