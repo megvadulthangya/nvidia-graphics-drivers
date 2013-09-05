@@ -1,6 +1,7 @@
 nvidia-graphics-drivers-legacy-304xx (304.108-2) UNRELEASED; urgency=low
 
   * Fork as new legacy-304xx source package.
+  * Do not build CUDA, OpenCL, VDPAU, or transitional packages.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 05 Sep 2013 11:14:39 +0200
 
