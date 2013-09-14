@@ -202,7 +202,7 @@ build-kernel-source-tree: install-into-tmp
 	cp -a debian/copyright $(module_source)/debian/
 	cp -a debian/bug-script $(module_source)/debian/
 	cp -a debian/bug-control $(module_source)/debian/
-	echo "Submit-As: nvidia-kernel$(legacy)-source" >> $(module_source)/debian/bug-control
+	echo "Submit-As: $(nvidia)-kernel-source" >> $(module_source)/debian/bug-control
 
 	# Fix permissions.
 	chmod -R a-sx,u=rwX,go=rX $(module_source)/../..
@@ -261,7 +261,7 @@ override_dh_gencontrol:
 		-V'nvidia:Perfkit=$(perfkit)' \
 		-V'nvidia-alternative=$(NVIDIA_ALTERNATIVE)' \
 		-V'nvidia-settings=$(NVIDIA_SETTINGS)' \
-		-V'nvidia:kmod:binary=$${nvidia}-kernel-dkms (= $${binary:Version}) | nvidia-kernel-$${nvidia:Version}$${nvidia:Perfkit}' \
+		-V'nvidia:kmod:binary=$${nvidia}-kernel-dkms (= $${binary:Version}) | $${nvidia}-kernel-$${nvidia:Version}$${nvidia:Perfkit}' \
 		-V'nvidia:kmod:source=$${nvidia}-kernel-dkms (>= $${nvidia:Version}) | $${nvidia}-kernel-source (>= $${nvidia:Version})' \
 		-Vnvidia:kmod:Description="`cat debian/control.kmod`" \
 		-Vnvidia:Models="`cat debian/control.models`"

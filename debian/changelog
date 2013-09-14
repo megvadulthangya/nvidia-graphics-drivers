@@ -1,9 +1,18 @@
+nvidia-graphics-drivers-legacy-304xx (304.108-3) UNRELEASED; urgency=low
+
+  * Synchronize packaging with nvidia-graphics-drivers 304.108-2:
+    - Change the virtual package name providing the kernel module to follow
+      the renamed module.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 15 Sep 2013 01:33:03 +0200
+
 nvidia-graphics-drivers-legacy-304xx (304.108-2) unstable; urgency=low
 
   * Fork as new legacy-304xx source package.
   * Do not build CUDA, OpenCL, VDPAU, or transitional packages.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 05 Sep 2013 11:54:26 +0200
+
 
 nvidia-graphics-drivers (304.108-1) unstable; urgency=low
 
