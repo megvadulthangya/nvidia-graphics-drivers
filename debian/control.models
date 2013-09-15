@@ -22,6 +22,6 @@ Quadro NVS 280 PCI-E [NV37GL], NV31, NV31M, NV31M Pro, NV31GLM, NV31GLM Pro,
 NV34GL, NV36.5, NV36M Pro, NV36MAP, NV36GL.
 
 There are several "more modern" GPUs supported by this package, too, but the
-updated drivers in the newer legacy packages or the current nvidia-glx
+updated drivers in the newer legacy packages or the current nvidia-driver
 package usually provide more features and better support.
 Look at the other legacy packages for older cards.

@@ -141,7 +141,7 @@ Package: nvidia-alternative-legacy-173xx
 Architecture: i386 amd64
 Multi-Arch: foreign
 Depends:
- glx-alternative-nvidia (>= 0.2),
+ glx-alternative-nvidia (>= 0.4),
  ${misc:Depends}
 Conflicts:
  libgl1-nvidia-alternatives,
@@ -178,7 +178,7 @@ Depends:
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Provides:
- nvidia-kernel-${nvidia:Version}${nvidia:Perfkit},
+ ${nvidia}-kernel-${nvidia:Version}${nvidia:Perfkit},
 Breaks:
  nvidia-kernel${nvidia:Legacy}-dkms (<< 173.14.37-2),
  make (= 3.82-1),

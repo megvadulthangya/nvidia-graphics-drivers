@@ -4,6 +4,16 @@ nvidia-graphics-drivers-legacy-173xx (173.14.38-1) UNRELEASED; urgency=low
     - Improved compatibility with recent Linux kernels.
   * linux-3.10-{i2c,procfs}.patch: Remove, fixed upstream.
   * linux-3.11.patch: Remove, fixed upstream.
+  * Synchronize packaging with nvidia-graphics-drivers 304.108-2:
+    - Change the virtual package name providing the kernel module to follow
+      the renamed module.
+  * Synchronize packaging with nvidia-graphics-drivers 304.108-3:
+    - Rework patching after unpack: rename
+        debian/patches-manual => debian/patches, series => series-postunpack.
+    - conftest.h:
+      + Implement new conftest.sh function get_num_physpages (173.14.38).
+    - Bump glx-alternative-nvidia dependency to 0.4.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.108-3
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 11 Sep 2013 02:28:23 +0200
 
