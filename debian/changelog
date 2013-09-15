@@ -3,6 +3,7 @@ nvidia-graphics-drivers-legacy-304xx (304.108-3) UNRELEASED; urgency=low
   * Synchronize packaging with nvidia-graphics-drivers 304.108-2:
     - Change the virtual package name providing the kernel module to follow
       the renamed module.
+  * Add legacy model list to package descriptions.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 15 Sep 2013 01:33:03 +0200
 
