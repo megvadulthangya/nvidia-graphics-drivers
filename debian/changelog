@@ -11,6 +11,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-7) UNRELEASED; urgency=low
     - Bump glx-alternative-nvidia dependency to 0.4.
   * Synchronize packaging with nvidia-graphics-drivers-legacy-173xx
     173.14.38-1
+  * Regenerate linux-3.11.patch by backporting the 173.14.38 upstream fix.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 15 Sep 2013 19:34:17 +0200
 
