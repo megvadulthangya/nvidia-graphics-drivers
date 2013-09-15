@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.108-3) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-304xx (304.108-3) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.108-2:
     - Change the virtual package name providing the kernel module to follow
@@ -14,7 +14,7 @@ nvidia-graphics-drivers-legacy-304xx (304.108-3) UNRELEASED; urgency=low
     - Bump glx-alternative-nvidia dependency to 0.4.
   * Add legacy model list to package descriptions.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 15 Sep 2013 01:33:03 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 15 Sep 2013 17:09:46 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.108-2) unstable; urgency=low
 
