@@ -90,20 +90,9 @@ NVIDIA-Linux-%:
 unpack-stamp: $(patsubst %,NVIDIA-Linux-%,$(ARCH_LIST))
 	dh_testdir
 	ln -s NVIDIA-Linux-$(DEB_HOST_ARCH) NVIDIA-Linux
-	QUILT_PATCHES=debian/patches-manual quilt --quiltrc /dev/null push -a || test $$? = 2
+	QUILT_PATCHES=debian/patches QUILT_SERIES=series-postunpack quilt --quiltrc /dev/null push -a || test $$? = 2
 	ls -al
 	touch $@
-
-nv-kernel.ids: unpack-stamp
-	sh debian/extract-pci-ids.sh NVIDIA-Linux/kernel/nv-kernel.o \
-		| tr a-f A-F | sort -u > $@
-	test -s $@ || cp debian/$@ $@
-	@set -e -x ; \
-	if ! cmp -s debian/$@ $@ ; then \
-		diff -u debian/$@ $@ || true ; \
-		: "*** Supported PCI IDs have changed. See diff above. Aborting. ***"; \
-		exit 1 ; \
-	fi
 
 nv-readme.ids: unpack-stamp
 	sed	-e '0,/A. Supported\|APPENDIX A: SUPPORTED/d' \
