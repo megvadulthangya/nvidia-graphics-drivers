@@ -20,5 +20,5 @@ Quadro4 750 XGL [NV25GL], Quadro4 780 XGL [NV28GL], Quadro4 900 XGL [NV25GL],
 Quadro4 980 XGL [NV28GL], Quadro4 Go700 [NV28GLM], NV40GL.
 
 There are several "more modern" GPUs supported by this package, too, but the
-updated drivers in the newer legacy packages or the current nvidia-glx
+updated drivers in the newer legacy packages or the current nvidia-driver
 package usually provide more features and better support.
