@@ -3,6 +3,8 @@ nvidia-graphics-drivers-legacy-304xx (304.108-3) UNRELEASED; urgency=low
   * Synchronize packaging with nvidia-graphics-drivers 304.108-2:
     - Change the virtual package name providing the kernel module to follow
       the renamed module.
+    - libgl1-nvidia-glx (= 304.108-*) and libgl1-nvidia-legacy-304xx-glx are
+      not co-installable due to libnvidia-tls.so.304.108.  (Closes: #722288)
   * Synchronize packaging with nvidia-graphics-drivers 304.108-3:
     - Rework patching after unpack: rename
         debian/patches-manual => debian/patches, series => series-postunpack.

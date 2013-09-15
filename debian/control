@@ -106,6 +106,8 @@ Suggests:
 Provides:
  libgl1-${nvidia}-glx-i386 [i386],
  libgl1-nvidia-glx-any,
+Conflicts:
+ libgl1-nvidia-glx (<< ${nvidia:Version}.0),
 Breaks:
  ia32-libs (<< 1:0),
 Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
