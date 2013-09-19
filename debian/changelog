@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.108-4) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-304xx (304.108-4) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.108-3:
     - Make libgl1-nvidia-legacy-304xx-glx-i386:i386 a real package depending
@@ -7,7 +7,7 @@ nvidia-graphics-drivers-legacy-304xx (304.108-4) UNRELEASED; urgency=low
     - bug-script: List the renamed nvidia*.ko modules, too.
   * Recommend nvidia-settings-legacy-304xx.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 15 Sep 2013 19:07:29 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 19 Sep 2013 11:37:01 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.108-3) unstable; urgency=low
 
