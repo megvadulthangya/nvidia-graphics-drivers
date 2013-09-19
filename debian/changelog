@@ -1,6 +1,6 @@
 nvidia-graphics-drivers-legacy-304xx (304.108-4) unstable; urgency=low
 
-  * Synchronize packaging with nvidia-graphics-drivers 304.108-3:
+  * Synchronize packaging with nvidia-graphics-drivers 304.108-4:
     - Make libgl1-nvidia-legacy-304xx-glx-i386:i386 a real package depending
       on libgl1-nvidia-legacy-304xx-glx:i386 and set M-A: foreign, s.t. the
       Recommends in libgl1-nvidia-legacy-304xx-glx:amd64 actually works.
