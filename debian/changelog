@@ -1,5 +1,10 @@
 nvidia-graphics-drivers-legacy-304xx (304.108-4) UNRELEASED; urgency=low
 
+  * Synchronize packaging with nvidia-graphics-drivers 304.108-3:
+    - Make libgl1-nvidia-legacy-304xx-glx-i386:i386 a real package depending
+      on libgl1-nvidia-legacy-304xx-glx:i386 and set M-A: foreign, s.t. the
+      Recommends in libgl1-nvidia-legacy-304xx-glx:amd64 actually works.
+    - bug-script: List the renamed nvidia*.ko modules, too.
   * Recommend nvidia-settings-legacy-304xx.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 15 Sep 2013 19:07:29 +0200
