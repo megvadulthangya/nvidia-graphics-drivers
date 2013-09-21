@@ -24,7 +24,7 @@ Copyright: 2001-2010 Randall Donald <rdonald@debian.org>
            Based on packages by Christopher Cheney.
 License: GPL-2.0+
 
-Files: debian/modules/debian/patches/* debian/patches-manual/*
+Files: debian/modules/debian/patches/* debian/patches/*
 Copyright: no copyright notice, see License
 License: anbe-public-domain
  The authors hereby relinquish any claim to any copyright that they may
