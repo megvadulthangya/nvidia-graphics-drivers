@@ -1,11 +1,8 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.23-8) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.23-7~bpo70+1) wheezy-backports; urgency=low
 
-  * Synchronize packaging with nvidia-graphics-drivers 304.108-4:
-    - bug-script: List the renamed nvidia*.ko modules, too.
-  * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx
-    173.14.38-2
+  * Rebuild for wheezy-backports.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 24 Sep 2013 00:45:33 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 24 Sep 2013 00:55:01 +0200
 
 nvidia-graphics-drivers-legacy-96xx (96.43.23-7) unstable; urgency=low
 
