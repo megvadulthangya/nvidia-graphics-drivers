@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (304.108-4~bpo70+1) wheezy-backports; urgency=low
+
+  * Rebuild for wheezy-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Oct 2013 00:16:09 +0200
+
 nvidia-graphics-drivers (304.108-4) unstable; urgency=low
 
   * Make libgl1-nvidia-glx-i386:i386 a real package depending on
