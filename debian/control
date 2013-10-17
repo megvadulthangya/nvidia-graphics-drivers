@@ -84,6 +84,7 @@ Depends:
  ${nvidia-alternative} (= ${binary:Version}),
  nvidia-support (>= 20120630),
 # ${nvidia:xorgDepends},
+ nvidia-kernel-common (>= 20130816),
  xserver-xorg-video-nouveau,
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
