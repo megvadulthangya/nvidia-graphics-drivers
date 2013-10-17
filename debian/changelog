@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.38-3) UNRELEASED; urgency=low
+
+  * Promoted to upstream release 173.14.38 (2013-10-01).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Oct 2013 20:36:33 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.38-2) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.108-4:
