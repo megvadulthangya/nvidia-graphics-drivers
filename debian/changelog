@@ -8,6 +8,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-90) UNRELEASED; urgency=low
   * Do not register the nvidia alternative.
   * Stop providing *-nvidia-*-any.
   * Do not provide xorg-video or depend on xserver-xorg.
+  * Do not depend/recommend/suggest a kernel module or its source.
   * Add a NEWS entry with instructions for switching to Nouveau.
   * Add Depends: xserver-xorg-video-nouveau.
   * Stop shipping nvidia_drv.so.
