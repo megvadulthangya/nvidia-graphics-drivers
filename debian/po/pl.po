@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: nvidia-graphics-drivers-legacy-96xx\n"
 "Report-Msgid-Bugs-To: nvidia-graphics-drivers-legacy-96xx@packages.debian."
 "org\n"
-"POT-Creation-Date: 2012-07-18 18:06+0200\n"
+"POT-Creation-Date: 2013-10-17 11:39+0200\n"
 "PO-Revision-Date: 2012-07-18 18:27+0200\n"
 "Last-Translator: Michał Kułach <michal.kulach@gmail.com>\n"
 "Language-Team: Polish <debian-l10n-polish@lists.debian.org>\n"
@@ -44,15 +44,27 @@ msgstr ""
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
+#, fuzzy
+#| msgid ""
+#| "To switch to the Nouveau driver, please uninstall all NVIDIA driver "
+#| "packages, remove all NVIDIA-specific configuration from /etc/X11/xorg."
+#| "conf (and xorg.conf.d/), and *purge* the nvidia-kernel-common package - "
+#| "just removing it is insufficient."
 msgid ""
-"To switch to the Nouveau driver, please uninstall all NVIDIA driver "
-"packages, remove all NVIDIA-specific configuration from /etc/X11/xorg.conf "
-"(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
-"removing it is insufficient."
+"To switch to the Nouveau driver, uninstall all NVIDIA driver packages and "
+"remove all NVIDIA-specific configuration from /etc/X11/xorg.conf (and xorg."
+"conf.d/)."
 msgstr ""
 "Aby przejść na sterownik Nouveau, proszę usunąć wszystkie pakiety ze "
-"sterownikami NVIDIA, usunąć całą konfigurację dotyczącą Nvidii z "
-"/etc/X11/xorg.conf (i xorg.conf.d/) i *wyczyścić* (polecenie \"purge\") "
-"pakiet nvidia-kernel-common - zwykłe usunięcie (polecenie \"remove\") jest "
+"sterownikami NVIDIA, usunąć całą konfigurację dotyczącą Nvidii z /etc/X11/"
+"xorg.conf (i xorg.conf.d/) i *wyczyścić* (polecenie \"purge\") pakiet nvidia-"
+"kernel-common - zwykłe usunięcie (polecenie \"remove\") jest "
 "niewystarczające."
 
+#. Type: error
+#. Description
+#: ../xserver-xorg-video-nvidia.templates:1001
+msgid ""
+"The Nouveau driver (xserver-xorg-video-nouveau) should work without needing "
+"any specific xorg.conf settings."
+msgstr ""

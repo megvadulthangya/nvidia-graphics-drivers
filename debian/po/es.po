@@ -32,7 +32,7 @@ msgstr ""
 "Project-Id-Version: nvidia-graphics-drivers-legacy-96xx\n"
 "Report-Msgid-Bugs-To: nvidia-graphics-drivers-legacy-96xx@packages.debian."
 "org\n"
-"POT-Creation-Date: 2012-07-18 18:06+0200\n"
+"POT-Creation-Date: 2013-10-17 11:39+0200\n"
 "PO-Revision-Date: 2012-08-26 17:48+0200\n"
 "Last-Translator: Camaleón <noelamac@gmail.com>\n"
 "Language-Team: Debian Spanish <debian-l10n-spanish@lists.debian.org>\n"
@@ -65,14 +65,27 @@ msgstr ""
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
+#, fuzzy
+#| msgid ""
+#| "To switch to the Nouveau driver, please uninstall all NVIDIA driver "
+#| "packages, remove all NVIDIA-specific configuration from /etc/X11/xorg."
+#| "conf (and xorg.conf.d/), and *purge* the nvidia-kernel-common package - "
+#| "just removing it is insufficient."
 msgid ""
-"To switch to the Nouveau driver, please uninstall all NVIDIA driver "
-"packages, remove all NVIDIA-specific configuration from /etc/X11/xorg.conf "
-"(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
-"removing it is insufficient."
+"To switch to the Nouveau driver, uninstall all NVIDIA driver packages and "
+"remove all NVIDIA-specific configuration from /etc/X11/xorg.conf (and xorg."
+"conf.d/)."
 msgstr ""
 "Para cambiar al controlador Nouveau hay que desinstalar todos los paquetes "
 "de los controladores de NVIDIA, eliminar todas las configuraciones "
 "específicas relacionadas con NVIDIA que se encuentren en el archivo «/etc/"
 "X11/xorg.conf» (y «xorg.conf.d/») y purgar el paquete nvidia-kernel-common "
 "(con eliminarlo no es suficiente)."
+
+#. Type: error
+#. Description
+#: ../xserver-xorg-video-nvidia.templates:1001
+msgid ""
+"The Nouveau driver (xserver-xorg-video-nouveau) should work without needing "
+"any specific xorg.conf settings."
+msgstr ""

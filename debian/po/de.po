@@ -4,13 +4,12 @@
 # This file is distributed under the same license as the
 # nvidia-graphics-drivers-legacy-96xx package.
 # Martin Eberhard Schauer <Martin.E.Schauer@gmx.de>, 2012.
-
 msgid ""
 msgstr ""
 "Project-Id-Version: nvidia-graphics-drivers-legacy-96xx\n"
 "Report-Msgid-Bugs-To: nvidia-graphics-drivers-legacy-96xx@packages.debian."
 "org\n"
-"POT-Creation-Date: 2012-07-18 18:06+0200\n"
+"POT-Creation-Date: 2013-10-17 11:39+0200\n"
 "PO-Revision-Date: 2012-07-18 20:07+0200\n"
 "Last-Translator: Martin Eberhard Schauer <Martin.E.Schauer@gmx.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -39,22 +38,33 @@ msgstr ""
 "NVIDIA Corporation hat den alten 96xx-Treiber nicht für die Unterstützung "
 "aktueller X-Server angepasst und damit unbenutzbar gemacht. Für "
 "Grafikkarten, die nicht von einer neueren Generation der NVIDIA-Treiber "
-"unterstützt werden, ist die beste Option die Verwendung des freien "
-"Nouveau-Treibers."
+"unterstützt werden, ist die beste Option die Verwendung des freien Nouveau-"
+"Treibers."
+
+#. Type: error
+#. Description
+#: ../xserver-xorg-video-nvidia.templates:1001
+#, fuzzy
+#| msgid ""
+#| "To switch to the Nouveau driver, please uninstall all NVIDIA driver "
+#| "packages, remove all NVIDIA-specific configuration from /etc/X11/xorg."
+#| "conf (and xorg.conf.d/), and *purge* the nvidia-kernel-common package - "
+#| "just removing it is insufficient."
+msgid ""
+"To switch to the Nouveau driver, uninstall all NVIDIA driver packages and "
+"remove all NVIDIA-specific configuration from /etc/X11/xorg.conf (and xorg."
+"conf.d/)."
+msgstr ""
+"Um zum Nouveau-Treiber zu wechseln, deinstallieren Sie bitte alle NVIDIA-"
+"Treiberpakete, entfernen Sie sowohl die gesamte NVIDIA-"
+"spezifischeKonfiguration aus /etc/X11/xorg.conf (und xorg.conf.d/) als auch "
+"das Paket nvidia-kernel-common *vollständig* (purge). Es reicht nicht, das "
+"Paket nur zu entfernen (remove)."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"To switch to the Nouveau driver, please uninstall all NVIDIA driver "
-"packages, remove all NVIDIA-specific configuration from /etc/X11/xorg.conf "
-"(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
-"removing it is insufficient."
+"The Nouveau driver (xserver-xorg-video-nouveau) should work without needing "
+"any specific xorg.conf settings."
 msgstr ""
-"Um zum Nouveau-Treiber zu wechseln, deinstallieren Sie bitte alle "
-"NVIDIA-Treiberpakete, entfernen Sie sowohl die gesamte NVIDIA-spezifische"
-"Konfiguration aus /etc/X11/xorg.conf (und xorg.conf.d/) als auch "
-"das Paket nvidia-kernel-common *vollständig* (purge). Es reicht nicht, das "
-"Paket nur zu entfernen (remove)."
-
-

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: nvidia-graphics-drivers-legacy-97xx\n"
 "Report-Msgid-Bugs-To: nvidia-graphics-drivers-legacy-96xx@packages.debian."
 "org\n"
-"POT-Creation-Date: 2012-07-18 18:06+0200\n"
+"POT-Creation-Date: 2013-10-17 11:39+0200\n"
 "PO-Revision-Date: 2012-08-03 08:53+0200\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -44,13 +44,26 @@ msgstr ""
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
+#, fuzzy
+#| msgid ""
+#| "To switch to the Nouveau driver, please uninstall all NVIDIA driver "
+#| "packages, remove all NVIDIA-specific configuration from /etc/X11/xorg."
+#| "conf (and xorg.conf.d/), and *purge* the nvidia-kernel-common package - "
+#| "just removing it is insufficient."
 msgid ""
-"To switch to the Nouveau driver, please uninstall all NVIDIA driver "
-"packages, remove all NVIDIA-specific configuration from /etc/X11/xorg.conf "
-"(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
-"removing it is insufficient."
+"To switch to the Nouveau driver, uninstall all NVIDIA driver packages and "
+"remove all NVIDIA-specific configuration from /etc/X11/xorg.conf (and xorg."
+"conf.d/)."
 msgstr ""
 "Pour utiliser ce pilote, veuillez désinstaller tous les paquets de pilotes "
 "NVIDIA, supprimer toutes les configurations de /etc/X11/xorg.conf (et xorg."
 "conf.d/) ayant trait à NVIDIA, et *purger* le paquet nvidia-kernel-common, "
 "car le supprimer simplement ne suffit pas."
+
+#. Type: error
+#. Description
+#: ../xserver-xorg-video-nvidia.templates:1001
+msgid ""
+"The Nouveau driver (xserver-xorg-video-nouveau) should work without needing "
+"any specific xorg.conf settings."
+msgstr ""
