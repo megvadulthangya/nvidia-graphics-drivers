@@ -5,6 +5,13 @@ set -e
 
 if [ "$1" = "configure" ]
 then
+	db_input high nvidia/unsupported-legacy-96xx || true
+	db_go
+fi
+
+
+if [ "$1" = "configure" ]
+then
 
 	if [ -x /usr/lib/nvidia/check-for-conflicting-opengl-libraries ]
 	then

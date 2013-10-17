@@ -134,6 +134,7 @@ override_dh_auto_clean:
 	rm -fr kernel-source-tree
 	rm -f nvidia.ids nv-kernel.ids nv-readme.ids pci.ids.nvidia*
 	rm -f LICENSE.txt LICENSE.tmp copyright.tmp
+	debconf-updatepo
 
 override_dh_clean:
 	dh_clean
@@ -224,6 +225,9 @@ kernel-source-tree: prepare build-kernel-source-tree
 
 override_dh_install:
 	dh_install --list-missing
+
+override_dh_installdocs:
+	dh_installdocs -A
 
 override_dh_installchangelogs:
 	dh_installchangelogs debian/tmp/NVIDIA_Changelog

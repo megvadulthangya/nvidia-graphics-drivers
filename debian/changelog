@@ -1,3 +1,23 @@
+nvidia-graphics-drivers-legacy-96xx (96.43.23-90) UNRELEASED; urgency=low
+
+  * Turn into transitional packages. NVIDIA Corporation has not updated the
+    96xx legacy driver to support the new Xorg Xserver 1.14. For cards that
+    are not supported by the 173xx legacy release, the best alternative is to
+    use the Nouveau driver.
+  * Update Descriptions to mark these packages as obsolete.
+  * Do not register the nvidia alternative.
+  * Stop providing *-nvidia-*-any.
+  * Do not provide xorg-video or depend on xserver-xorg.
+  * Add a NEWS entry with instructions for switching to Nouveau.
+  * Add Depends: xserver-xorg-video-nouveau.
+  * Stop shipping nvidia_drv.so.
+  * Add debconf error message to notify the 96xx legacy users.
+  * Restore the debconf translations from 96.43.20-6, 96.43.20-7, 96.43.20-8.
+  * Move packages to oldlibs/extra.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Oct 2013 10:56:13 +0200
+
 nvidia-graphics-drivers-legacy-96xx (96.43.23-8) UNRELEASED; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.108-4:

@@ -1,7 +1,7 @@
 #Source: nvidia-graphics-drivers${nvidia:Legacy}
 Source: nvidia-graphics-drivers-legacy-96xx
-Section: non-free/libs
-Priority: optional
+Section: non-free/oldlibs
+Priority: extra
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders:
  Russ Allbery <rra@debian.org>,
@@ -14,13 +14,13 @@ Build-Depends:
  dkms,
  libxext6,
  quilt,
+ po-debconf,
 Standards-Version: 3.9.4
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
 #Package: ${nvidia}-driver
 Package: nvidia-legacy-96xx-driver
-Section: non-free/x11
 Architecture: i386 amd64
 Pre-Depends:
  nvidia-installer-cleanup,
@@ -37,12 +37,19 @@ Recommends:
 Suggests:
  ${nvidia:kmod:source},
 Provides:
- nvidia-glx-any,
+# nvidia-glx-any,
 Breaks:
  nvidia-glx${nvidia:Legacy} (<< 96.43.23-5),
 Replaces:
  nvidia-glx${nvidia:Legacy} (<< 96.43.23-5),
-Description: NVIDIA metapackage${nvidia:LegacyDesc}
+Description: OBSOLETE NVIDIA metapackage${nvidia:LegacyDesc}
+ NVIDIA Corporation has not updated the legacy 96xx driver to support 
+ current X servers, so this driver is no longer usable.
+ .
+ This package is now a transitional package to aid switching to the free
+ Nouveau driver.  See NEWS.Debian.gz for further instructions.
+ .
+ .
  This metapackage depends on the NVIDIA binary driver and libraries
  that provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -69,7 +76,6 @@ Description: transition to ${nvidia}-driver
 
 #Package: xserver-xorg-video-${nvidia}
 Package: xserver-xorg-video-nvidia-legacy-96xx
-Section: non-free/x11
 Architecture: i386 amd64
 Pre-Depends:
  nvidia-installer-cleanup,
@@ -77,7 +83,8 @@ Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
  ${nvidia-alternative} (= ${binary:Version}),
  nvidia-support (>= 20120630),
- ${nvidia:xorgDepends},
+# ${nvidia:xorgDepends},
+ xserver-xorg-video-nouveau,
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
@@ -86,9 +93,16 @@ Recommends:
 Suggests:
  ${nvidia:kmod:source},
 Provides:
- xserver-xorg-video-nvidia-any,
- ${nvidia:xorgProvides},
-Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
+# xserver-xorg-video-nvidia-any,
+# ${nvidia:xorgProvides},
+Description: OBSOLETE NVIDIA binary Xorg driver${nvidia:LegacyDesc}
+ NVIDIA Corporation has not updated the legacy 96xx driver to support 
+ current X servers, so this driver is no longer usable.
+ .
+ This package is now a transitional package to aid switching to the free
+ Nouveau driver.  See NEWS.Debian.gz for further instructions.
+ .
+ .
  These binary drivers provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
  AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
@@ -117,8 +131,8 @@ Recommends:
 Suggests:
  ${nvidia:kmod:source},
 Provides:
- libgl1-${nvidia}-glx-i386 [i386],
- libgl1-nvidia-glx-any,
+# libgl1-${nvidia}-glx-i386 [i386],
+# libgl1-nvidia-glx-any,
 Conflicts:
  libgl1-nvidia${nvidia:Legacy}-glx-ia32,
  nvidia-glx${nvidia:Legacy}-ia32,
@@ -128,7 +142,14 @@ Breaks:
 Replaces:
  libgl1-nvidia${nvidia:Legacy}-glx-ia32,
  nvidia-glx${nvidia:Legacy}-ia32,
-Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
+Description: OBSOLETE NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
+ NVIDIA Corporation has not updated the legacy 96xx driver to support 
+ current X servers, so this driver is no longer usable.
+ .
+ This package is now a transitional package to aid switching to the free
+ Nouveau driver.  See NEWS.Debian.gz for further instructions.
+ .
+ .
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
  .
