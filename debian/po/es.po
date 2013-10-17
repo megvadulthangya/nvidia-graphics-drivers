@@ -1,0 +1,78 @@
+# nvidia-graphics-drivers-legacy-96xx po-debconf translation to Spanish
+# Copyright (C) 2010 Software in the Public Interest
+# This file is distributed under the same license as the nvidia-graphics-drivers-legacy-96xx package.
+#
+# Changes:
+# - Initial translation
+# Camaleón <noelamac@gmail.com>, 2012
+#
+# - Updates
+#
+#
+# Traductores, si no conocen el formato PO, merece la pena leer la
+# documentación de gettext, especialmente las secciones dedicadas a este
+# formato, por ejemplo ejecutando:
+# info -n '(gettext)PO Files'
+# info -n '(gettext)Header Entry'
+#
+# Equipo de traducción al español, por favor lean antes de traducir
+# los siguientes documentos:
+#
+# - El proyecto de traducción de Debian al español
+# http://www.debian.org/intl/spanish/
+# especialmente las notas y normas de traducción en
+# http://www.debian.org/intl/spanish/notas
+#
+# - La guía de traducción de po's de debconf:
+# /usr/share/doc/po-debconf/README-trans
+# o http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: nvidia-graphics-drivers-legacy-96xx\n"
+"Report-Msgid-Bugs-To: nvidia-graphics-drivers-legacy-96xx@packages.debian."
+"org\n"
+"POT-Creation-Date: 2012-07-18 18:06+0200\n"
+"PO-Revision-Date: 2012-08-26 17:48+0200\n"
+"Last-Translator: Camaleón <noelamac@gmail.com>\n"
+"Language-Team: Debian Spanish <debian-l10n-spanish@lists.debian.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: error
+#. Description
+#: ../xserver-xorg-video-nvidia.templates:1001
+msgid "Nvidia legacy 96xx driver is no longer supported."
+msgstr "El controlador heredado Nvidia de la serie 96xx ya no se mantiene."
+
+#. Type: error
+#. Description
+#: ../xserver-xorg-video-nvidia.templates:1001
+msgid ""
+"Nvidia Corporation has not updated the legacy 96xx driver to support current "
+"X servers, so this driver is no longer usable. For graphics adapters that "
+"are not supported by a newer Nvidia driver generation, the best option is to "
+"use the free Nouveau driver."
+msgstr ""
+"Nvidia Corporation no ha actualizado el controlador heredado de la serie "
+"96xx para que admita las versiones actuales del servidor X por lo que ya no "
+"se puede usar este controlador. Para los adaptadores gráficos que no están "
+"mantenidos por la nueva generación de controladores de Nvidia la mejor "
+"opción es usar el controlador libre Nouveau."
+
+#. Type: error
+#. Description
+#: ../xserver-xorg-video-nvidia.templates:1001
+msgid ""
+"To switch to the Nouveau driver, please uninstall all Nvidia driver "
+"packages, remove all Nvidia-specific configuration from /etc/X11/xorg.conf "
+"(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
+"removing it is insufficient."
+msgstr ""
+"Para cambiar al controlador Nouveau hay que desinstalar todos los paquetes "
+"de los controladores de Nvidia, eliminar todas las configuraciones "
+"específicas relacionadas con Nvidia que se encuentren en el archivo «/etc/"
+"X11/xorg.conf» (y «xorg.conf.d/») y purgar el paquete nvidia-kernel-common "
+"(con eliminarlo no es suficiente)."

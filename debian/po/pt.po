@@ -1,0 +1,53 @@
+# Portuguese translation for debconf messages of nvidia-graphics-drivers-legacy-96xx
+# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the nvidia-graphics-drivers-legacy-96xx package.
+# Miguel Figueiredo <elmig@debianpt.org>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: nvidia-graphics-drivers-legacy-96xx\n"
+"Report-Msgid-Bugs-To: nvidia-graphics-drivers-legacy-96xx@packages.debian."
+"org\n"
+"POT-Creation-Date: 2012-07-18 18:06+0200\n"
+"PO-Revision-Date: 2012-08-19 19:07+0100\n"
+"Last-Translator: Miguel Figueiredo <elmig@debianpt.org>\n"
+"Language-Team: Portuguese <traduz@debianpt.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: error
+#. Description
+#: ../xserver-xorg-video-nvidia.templates:1001
+msgid "Nvidia legacy 96xx driver is no longer supported."
+msgstr "O controlador legacy 96xx da Nvidia já não é suportado."
+
+#. Type: error
+#. Description
+#: ../xserver-xorg-video-nvidia.templates:1001
+msgid ""
+"Nvidia Corporation has not updated the legacy 96xx driver to support current "
+"X servers, so this driver is no longer usable. For graphics adapters that "
+"are not supported by a newer Nvidia driver generation, the best option is to "
+"use the free Nouveau driver."
+msgstr ""
+"A Nvidia Corporation não actualizou o driver legacy 96xx para suportar os "
+"actuais servidores X, por isso este driver já não é utilizável. Para "
+"adaptadores gráficos que não sejam suportados pela nova geração de "
+"controladores Nvidia, a melhor opção é utilizar o driver livre Nouveau."
+
+#. Type: error
+#. Description
+#: ../xserver-xorg-video-nvidia.templates:1001
+msgid ""
+"To switch to the Nouveau driver, please uninstall all Nvidia driver "
+"packages, remove all Nvidia-specific configuration from /etc/X11/xorg.conf "
+"(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
+"removing it is insufficient."
+msgstr ""
+"Para mudar para o controlador Nouveau, por favor desinstale todos os pacotes "
+"de controladores Nvidia, remova todas as configurações de /etc/X11/xorg.conf "
+"(e xorg.conf.d/), e faça purge ao pacote nvidia-kernel-common - apenas "
+"remover não é suficiente."
+
