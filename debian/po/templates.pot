@@ -21,16 +21,16 @@ msgstr ""
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
-msgid "Nvidia legacy 96xx driver is no longer supported."
+msgid "NVIDIA legacy 96xx driver is no longer supported."
 msgstr ""
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"Nvidia Corporation has not updated the legacy 96xx driver to support current "
+"NVIDIA Corporation has not updated the legacy 96xx driver to support current "
 "X servers, so this driver is no longer usable. For graphics adapters that "
-"are not supported by a newer Nvidia driver generation, the best option is to "
+"are not supported by a newer NVIDIA driver generation, the best option is to "
 "use the free Nouveau driver."
 msgstr ""
 
@@ -38,8 +38,8 @@ msgstr ""
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"To switch to the Nouveau driver, please uninstall all Nvidia driver "
-"packages, remove all Nvidia-specific configuration from /etc/X11/xorg.conf "
+"To switch to the Nouveau driver, please uninstall all NVIDIA driver "
+"packages, remove all NVIDIA-specific configuration from /etc/X11/xorg.conf "
 "(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
 "removing it is insufficient."
 msgstr ""

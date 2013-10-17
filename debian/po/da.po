@@ -20,34 +20,34 @@ msgstr ""
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
-msgid "Nvidia legacy 96xx driver is no longer supported."
-msgstr "Nvidia legacy 96xx-driver er ikke længere understøttet."
+msgid "NVIDIA legacy 96xx driver is no longer supported."
+msgstr "NVIDIA legacy 96xx-driver er ikke længere understøttet."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"Nvidia Corporation has not updated the legacy 96xx driver to support current "
+"NVIDIA Corporation has not updated the legacy 96xx driver to support current "
 "X servers, so this driver is no longer usable. For graphics adapters that "
-"are not supported by a newer Nvidia driver generation, the best option is to "
+"are not supported by a newer NVIDIA driver generation, the best option is to "
 "use the free Nouveau driver."
 msgstr ""
-"Nvidia Corporation har ikke opdateret legacy 96xx-driveren til at "
+"NVIDIA Corporation har ikke opdateret legacy 96xx-driveren til at "
 "understøtte aktuelle X-servere, så denne driver er ikke længere brugbar. "
-"For grafikadaptere som ikke er understøttet af en nyere Nvidia-drivergeneration, "
+"For grafikadaptere som ikke er understøttet af en nyere NVIDIA-drivergeneration, "
 "er den bedste løsning at bruge den frie Nouveau-driver."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"To switch to the Nouveau driver, please uninstall all Nvidia driver "
-"packages, remove all Nvidia-specific configuration from /etc/X11/xorg.conf "
+"To switch to the Nouveau driver, please uninstall all NVIDIA driver "
+"packages, remove all NVIDIA-specific configuration from /etc/X11/xorg.conf "
 "(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
 "removing it is insufficient."
 msgstr ""
 "For at skifte til Nouveau-driveren, så afinstaller alle driverpakker for "
-"Nvidia, fjern al Nvidiaspecifik konfiguration fra /etc/X11/xorg.conf "
+"NVIDIA, fjern al NVIDIAspecifik konfiguration fra /etc/X11/xorg.conf "
 "(og xorg.conf.d/), og »afinstaller fuldstændig« (purge) pakken "
 "nvidia-kernel-common - en normal fjernelse er ikke tilstrækkelig."
 

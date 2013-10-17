@@ -22,33 +22,33 @@ msgstr ""
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
-msgid "Nvidia legacy 96xx driver is no longer supported."
-msgstr "Drivrutinen Nvidia legacy 96xx stöds inte längre."
+msgid "NVIDIA legacy 96xx driver is no longer supported."
+msgstr "Drivrutinen NVIDIA legacy 96xx stöds inte längre."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"Nvidia Corporation has not updated the legacy 96xx driver to support current "
+"NVIDIA Corporation has not updated the legacy 96xx driver to support current "
 "X servers, so this driver is no longer usable. For graphics adapters that "
-"are not supported by a newer Nvidia driver generation, the best option is to "
+"are not supported by a newer NVIDIA driver generation, the best option is to "
 "use the free Nouveau driver."
 msgstr ""
-"Nvidia Corporation har inte uppdaterat drivrutinen legacy 96xx så att den "
+"NVIDIA Corporation har inte uppdaterat drivrutinen legacy 96xx så att den "
 "stöder den aktuella X-servern, denna drivrutin är därför inte längre "
-"användbar. För grafikkort som inte stöds av en nyare Nvidia-drivrutin är det "
+"användbar. För grafikkort som inte stöds av en nyare NVIDIA-drivrutin är det "
 "bästa alternativet att använda den fria drivrutinen Nouveau."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"To switch to the Nouveau driver, please uninstall all Nvidia driver "
-"packages, remove all Nvidia-specific configuration from /etc/X11/xorg.conf "
+"To switch to the Nouveau driver, please uninstall all NVIDIA driver "
+"packages, remove all NVIDIA-specific configuration from /etc/X11/xorg.conf "
 "(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
 "removing it is insufficient."
 msgstr ""
-"För att byta till Nouveau-drivrutinen måste alla Nvidia-paket för drivrutiner "
-"avinstalleras och alla Nvidia-specifika inställningar tas bort från /etc/X11/"
+"För att byta till Nouveau-drivrutinen måste alla NVIDIA-paket för drivrutiner "
+"avinstalleras och alla NVIDIA-specifika inställningar tas bort från /etc/X11/"
 "xorg.conf (och från xorg.conf.d/) och paketet nvidia-kernel-common måste tas "
 "bort helt (\"purge\"), bara avinstallation är inte tillräckligt."

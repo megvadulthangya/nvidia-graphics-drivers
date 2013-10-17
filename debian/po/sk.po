@@ -20,33 +20,33 @@ msgstr ""
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
-msgid "Nvidia legacy 96xx driver is no longer supported."
-msgstr "Ovládač Nvidia legacy 96xx už viac nie je podporovaný."
+msgid "NVIDIA legacy 96xx driver is no longer supported."
+msgstr "Ovládač NVIDIA legacy 96xx už viac nie je podporovaný."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"Nvidia Corporation has not updated the legacy 96xx driver to support current "
+"NVIDIA Corporation has not updated the legacy 96xx driver to support current "
 "X servers, so this driver is no longer usable. For graphics adapters that "
-"are not supported by a newer Nvidia driver generation, the best option is to "
+"are not supported by a newer NVIDIA driver generation, the best option is to "
 "use the free Nouveau driver."
 msgstr ""
-"Nvidia Corporation neaktualizovala ovládač poskytujúci spätnú kompatibilitu "
+"NVIDIA Corporation neaktualizovala ovládač poskytujúci spätnú kompatibilitu "
 "96xx, aby fungoval s aktuálnymi servermi X, takže tento ovládač už sa nedá "
 "používať. Najlepšou voľbou pre grafické adaptéry, ktoré nepodporuje novšia "
-"generácia ovládačov Nvidia je použiť slobodný ovládač Nouveau."
+"generácia ovládačov NVIDIA je použiť slobodný ovládač Nouveau."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"To switch to the Nouveau driver, please uninstall all Nvidia driver "
-"packages, remove all Nvidia-specific configuration from /etc/X11/xorg.conf "
+"To switch to the Nouveau driver, please uninstall all NVIDIA driver "
+"packages, remove all NVIDIA-specific configuration from /etc/X11/xorg.conf "
 "(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
 "removing it is insufficient."
 msgstr ""
 "Ak chcete zmeniť váš ovládač na Nouveau, prosím, odinštalujte všetky balíky "
-"ovládačov Nvidia, odstráňte konfiguráciu špecifickú pre Nvidia z /etc/X11/"
+"ovládačov NVIDIA, odstráňte konfiguráciu špecifickú pre NVIDIA z /etc/X11/"
 "xorg.conf (a xorg.conf.d/), a vyčistite (purge) balík nvidia-kernel-common - "
 "nestačí ho len odstrániť."

@@ -44,35 +44,35 @@ msgstr ""
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
-msgid "Nvidia legacy 96xx driver is no longer supported."
-msgstr "El controlador heredado Nvidia de la serie 96xx ya no se mantiene."
+msgid "NVIDIA legacy 96xx driver is no longer supported."
+msgstr "El controlador heredado NVIDIA de la serie 96xx ya no se mantiene."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"Nvidia Corporation has not updated the legacy 96xx driver to support current "
+"NVIDIA Corporation has not updated the legacy 96xx driver to support current "
 "X servers, so this driver is no longer usable. For graphics adapters that "
-"are not supported by a newer Nvidia driver generation, the best option is to "
+"are not supported by a newer NVIDIA driver generation, the best option is to "
 "use the free Nouveau driver."
 msgstr ""
-"Nvidia Corporation no ha actualizado el controlador heredado de la serie "
+"NVIDIA Corporation no ha actualizado el controlador heredado de la serie "
 "96xx para que admita las versiones actuales del servidor X por lo que ya no "
 "se puede usar este controlador. Para los adaptadores gráficos que no están "
-"mantenidos por la nueva generación de controladores de Nvidia la mejor "
+"mantenidos por la nueva generación de controladores de NVIDIA la mejor "
 "opción es usar el controlador libre Nouveau."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"To switch to the Nouveau driver, please uninstall all Nvidia driver "
-"packages, remove all Nvidia-specific configuration from /etc/X11/xorg.conf "
+"To switch to the Nouveau driver, please uninstall all NVIDIA driver "
+"packages, remove all NVIDIA-specific configuration from /etc/X11/xorg.conf "
 "(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
 "removing it is insufficient."
 msgstr ""
 "Para cambiar al controlador Nouveau hay que desinstalar todos los paquetes "
-"de los controladores de Nvidia, eliminar todas las configuraciones "
-"específicas relacionadas con Nvidia que se encuentren en el archivo «/etc/"
+"de los controladores de NVIDIA, eliminar todas las configuraciones "
+"específicas relacionadas con NVIDIA que se encuentren en el archivo «/etc/"
 "X11/xorg.conf» (y «xorg.conf.d/») y purgar el paquete nvidia-kernel-common "
 "(con eliminarlo no es suficiente)."

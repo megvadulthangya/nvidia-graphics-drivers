@@ -19,34 +19,34 @@ msgstr ""
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
-msgid "Nvidia legacy 96xx driver is no longer supported."
-msgstr "Il vecchio driver 96xx di Nvidia non è più supportato."
+msgid "NVIDIA legacy 96xx driver is no longer supported."
+msgstr "Il vecchio driver 96xx di NVIDIA non è più supportato."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"Nvidia Corporation has not updated the legacy 96xx driver to support current "
+"NVIDIA Corporation has not updated the legacy 96xx driver to support current "
 "X servers, so this driver is no longer usable. For graphics adapters that "
-"are not supported by a newer Nvidia driver generation, the best option is to "
+"are not supported by a newer NVIDIA driver generation, the best option is to "
 "use the free Nouveau driver."
 msgstr ""
-"Nvidia Corporation non ha aggiornato il vecchio driver 96xx per supportare i "
+"NVIDIA Corporation non ha aggiornato il vecchio driver 96xx per supportare i "
 "server X correnti, quindi questo driver non è più utilizzabile. Per le "
 "schede grafiche che non sono supportate da una generazione più recente dei "
-"driver Nvidia, l'opzione migliore è quella di utilizzare il driver libero "
+"driver NVIDIA, l'opzione migliore è quella di utilizzare il driver libero "
 "Nouveau."
 
 #. Type: error
 #. Description
 #: ../xserver-xorg-video-nvidia.templates:1001
 msgid ""
-"To switch to the Nouveau driver, please uninstall all Nvidia driver "
-"packages, remove all Nvidia-specific configuration from /etc/X11/xorg.conf "
+"To switch to the Nouveau driver, please uninstall all NVIDIA driver "
+"packages, remove all NVIDIA-specific configuration from /etc/X11/xorg.conf "
 "(and xorg.conf.d/), and *purge* the nvidia-kernel-common package - just "
 "removing it is insufficient."
 msgstr ""
 "Per passare al driver Nouveau, disinstallare tutti i pacchetti dei driver "
-"Nvidia, rimuovere tutte le configurazioni specifiche per Nvidia da /etc/X11/"
+"NVIDIA, rimuovere tutte le configurazioni specifiche per NVIDIA da /etc/X11/"
 "xorg.conf (e xorg.conf.d/), ed *eliminare completamente* il pacchetto nvidia-"
 "kernel-common: la sola sua rimozione è insufficiente."
