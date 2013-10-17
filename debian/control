@@ -64,8 +64,6 @@ Description: OBSOLETE NVIDIA metapackage${nvidia:LegacyDesc}
 
 #Package: nvidia-glx${nvidia:Legacy}
 Package: nvidia-glx-legacy-96xx
-Section: non-free/oldlibs
-Priority: extra
 Architecture: i386 amd64
 Depends:
  ${nvidia}-driver,
@@ -225,8 +223,6 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
 
 #Package: nvidia-kernel${nvidia:Legacy}-dkms
 Package: nvidia-kernel-legacy-96xx-dkms
-Section: non-free/oldlibs
-Priority: extra
 Architecture: i386 amd64
 Depends:
  ${nvidia}-kernel-dkms,
@@ -278,8 +274,6 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
 
 #Package: nvidia-kernel${nvidia:Legacy}-source
 Package: nvidia-kernel-legacy-96xx-source
-Section: non-free/oldlibs
-Priority: extra
 Architecture: i386 amd64
 Depends:
  ${nvidia}-kernel-source,
