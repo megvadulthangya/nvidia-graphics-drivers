@@ -15,7 +15,7 @@ Build-Depends:
  libxext6,
  libxvmc1,
  quilt,
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
@@ -158,7 +158,7 @@ Conflicts:
  libglx-nvidia-alternatives,
  libgl1-nvidia-alternatives-ia32,
 Breaks:
- nvidia-settings (<< 304.88-2),
+ nvidia-settings (<< 319.49),
  nvidia-settings-legacy-173xx (<< 173.14.37),
 Provides:
  ${nvidia-alternative}--kmod-alias,
