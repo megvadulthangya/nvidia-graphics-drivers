@@ -13,7 +13,8 @@ nvidia-graphics-drivers-legacy-304xx (304.116-1) unstable; urgency=low
       used by /usr/lib/nvidia/check* scripts.
   * Synchronize packaging with nvidia-graphics-drivers 319.60-3:
     - Bump Standards-Version to 3.9.5. No changes needed.
-  * Synchronize packaging with nvidia-graphics-drivers 331.20-1:
+  * Synchronize packaging with nvidia-graphics-drivers 319.72-1:
+    - Update lintian overrides.
   * conftest.h:
     - Implement checks for linux/printk.h, linux/ratelimit.h,
       linux/prio_tree.h (331.13).
