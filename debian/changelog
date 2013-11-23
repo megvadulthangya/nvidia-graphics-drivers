@@ -1,3 +1,469 @@
+nvidia-graphics-drivers (319.72-1~bpo70+1) wheezy-backports; urgency=low
+
+  * Rebuild for wheezy-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 23 Nov 2013 18:39:19 +0100
+
+nvidia-graphics-drivers (319.72-1) unstable; urgency=low
+
+  * New upstream long lived branch release 319.72 (2013-11-06).
+    - Added support for the following GPUs: Quadro K510M, Quadro K610M,
+      Quadro K1100M, Quadro K2100M, Quadro K3100M, Quadro K4100M,
+      Quadro K5100M, GeForce 705A, GeForce GT 730A.
+    - Fixed a bug that prevented SDI output from working when two or more
+      non-SDI displays were being driven by the same GPU.
+  * New upstream legacy 304xx branch release 304.116 (2013-11-06).
+    - Improved compatibility with recent Linux kernels.
+    - Updated the NVIDIA OpenGL driver to write temporary files to $TMPDIR
+      if it is set, instead of unconditionally writing to /tmp.
+    - Updated a fallback of writing temporary files to $HOME/.nvidia to
+      use $HOME/.nv instead, as the latter path is already used for other
+      NVIDIA driver related files.
+  * Update nv-readme.ids.
+  * linux-3.11.patch: Remove, fixed upstream.
+  * conftest.h: Implement new conftest.sh functions address_space,
+    address_space_init_once (331.20).
+  * libcuda1: Add Provides: libcuda-5.5-1.
+  * Update package descriptions.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 09 Nov 2013 14:07:08 +0100
+
+nvidia-graphics-drivers (319.60-3) unstable; urgency=low
+
+  * linux-3.11.patch: Use patch from NVIDIA.
+  * conftest.h:
+    - Implement checks for linux/printk.h, linux/ratelimit.h,
+      linux/prio_tree.h (331.13).
+    - Implement new conftest.sh functions vm_operations_struct (331.13),
+      task_struct (331.17).
+  * nvidia-driver: Ship nvidia-debugdump.
+  * nvidia-driver: Ship /usr/share/nvidia/nvidia-application-profiles-$VER-rc.
+  * nvidia-driver.examples: Ship nvidia-persistenced init script templates.
+  * Bump Standards-Version to 3.9.5. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 03 Nov 2013 00:38:56 +0100
+
+nvidia-graphics-drivers (319.60-2) unstable; urgency=low
+
+  * {libgl1-nvidia-glx,libcuda1}.postinst: Load debconf/confmodule, may be
+    used by /usr/lib/nvidia/check* scripts.  (Closes: #722469)
+  * nvidia-cuda-mps: Symlink manpage as nvidia-cuda-mps-server.8.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 22 Oct 2013 16:34:20 +0200
+
+nvidia-graphics-drivers (319.60-1) unstable; urgency=low
+
+  * New upstream long lived branch release 319.60 (2013-10-01).
+    - Fixed a bug that could cause OpenGL applications to crash during the
+      initialization of new threads.
+    - Fixed a bug that caused the X server to fail to start on certain laptops
+      when the boot display was on an external DisplayPort monitor, for example
+      if the laptop was booted while the lid was closed.
+    - Added support for the following GPU: GeForce GTX 760 Ti OEM.
+  * New upstream long lived branch release 319.49 (2013-08-20).
+    - Fixed a bug that caused DisplayPort monitors connected to Quadro FX 3800,
+      4800, or 5800 to remain off after DPMS.
+    - Added the NVIDIA OpenGL-based Inband Frame Readback (NvIFROpenGL) library
+      to the Linux driver package. This library provides a high performance,
+      low latency interface to capture and optionally encode an individual
+      OpenGL framebuffer. NvIFROpenGL captures pixels rendered by OpenGL only
+      and is ideally suited to application capture and remoting.
+    - Fixed a bug that caused applications using CUDA-GL interop to crash
+      when run on X servers with Xinerama enabled.
+    - Fixed a bug that could prevent some double-bit ECC errors from being
+      properly reported.
+    - Fixed a bug which could cause a blank screen when changing house sync
+      settings on Quadro Kepler GPUs with Quadro Sync boards.
+    - Fixed a bug that prevented nested loops with identical loop conditions
+      in GLSL shaders from terminating correctly. This could cause hangs in
+      applications such as Exa PowerVIZ.
+    - Added support for the following GPUs: GeForce GT 740A, GeForce GT 745A,
+      GeForce GT 755M, GeForce GT 625, GeForce GTX 645, GRID K340, GRID K350,
+      NVS 315, Quadro K500M, Quadro K6000.
+    - Fixed a bug that resulted in corrupt texels when a previously empty
+      texture image was specified with glXBindTexImageEXT. In GNOME 3, this
+      caused gnome-screenshot to produce garbled window screenshots.
+    - Fixed a bug that caused the X server to crash when querying the current
+      mode of disabled displays.
+  * Update nv-readme.ids.
+  * Update symbols control files.
+  * linux-3.10-{i2c,procfs}.patch: Remove. Fixed upstream.
+  * man-fixes-nvidia-smi.patch: Updated for newly added hyphens.
+  * libnvidia-ifr1: New package for NvIFROpenGL (libnvidia-ifr.so.1).
+  * VDPAU is now available on armhf, too.
+  * nvidia-detect [armhf]: Don't ship PCI ID lists for legacy drivers.
+  * Restrict watch file to releases from the 319.xx long lived branch.
+  * Merge changes from 304.108-4 and 313.30-3.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 21 Oct 2013 10:55:26 +0200
+
+nvidia-graphics-drivers (319.32-2) experimental; urgency=low
+
+  * Fix armhf build.
+  * Update lintian overrides for armhf.
+  * nvidia-alternative: Add support for arm-linux-gnueabihf, bump required
+    glx-alternative-nvidia version.
+  * Merge changes from 304.88-5 and 304.88-6.
+    Fixes kernel module building for kernel 3.10.  (Closes: #717184)
+  * Merge changes from 304.88-7 (UNRELEASED).
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 01 Aug 2013 12:48:50 +0200
+
+nvidia-graphics-drivers (319.32-1) experimental; urgency=low
+
+  * New upstream long lived branch release 319.32 (2013-06-25).
+    - Fixed a bug that could cause the X server to crash after power-cycling
+      displays connected behind a DisplayPort 1.2 Multi-Stream Transport hub.
+    - Updated the application profile syntax to allow for multiple patterns
+      within a single rule. See the README for details.
+    - Fixed a bug that caused OpenGL programs to crash when the __GL_DOOM3
+      environment variable was set.
+    - Updated the NVIDIA driver to avoid calling fork(2) to execute the
+      nvidia-modprobe utility when not needed.
+    - Improved the error reporting of the nvidia-persistenced utility.
+    - Fixed a bug that could cause Altair HyperView to hang when rendering
+      animations with tensors.
+    - Fixed a performance regression in MEDINA 8.2.
+    - Fixed a bug that caused the OpenGL driver to hang sometimes when running
+      the SpeedTree Modeler application.
+    - Fixed a bug that could cause an OpenGL application to crash if it creates
+      and destroys multiple threads.
+    - Fixed a bug that caused corrupted window content in some cases when
+      moving GLX windows with antialiasing enabled.
+    - Fixed a bug that caused DisplayPort devices that failed link training to
+      be reported as connected rather than disconnected.
+    - Fixed a regression that could cause a DisplayPort device that was
+      connected to one connector to turn off when a DisplayPort device on a
+      different connector was connected or disconnected.
+    - Added support for the following GPUs: GeForce 710A, GeForce 720M.
+    - On Kepler-based GPUs, improved the appearance of the tearing that occurs
+      when using RandR 1.4's Source Output capability.  While tearing is still
+      expected, the tears should now appear as horizontal lines rather than more
+      noticeable checkerboard or triangular shapes.
+  * New upstream long lived branch release 319.23 (2013-05-23).
+    - Fixed a regression that could cause X to crash when querying GPU
+      information through NV-CONTROL on multi-GPU systems where some
+      GPUs failed to be initialized for X.
+    - Fixed a bug that could cause X to crash when using Vertex
+      Buffer Objects (VBOs) with indirect rendering.
+    - Fixed RandR panning reporting when the current MetaMode is smaller
+      than the X screen.
+    - Added support for the following GPUs: GeForce GTX 760, GeForce GTX 770,
+      GeForce GTX 780.
+    - Added the "ForceCompositionPipeline" and "ForceFullCompositionPipeline"
+      MetaMode options.  See the README for details.
+    - Added support for HDMI 4K resolutions. Using a 4K resolution with an
+      HDMI display requires a Kepler or later GPU.
+    - Added support in VDPAU for 4k resolution MPEG-1/2 and H.264 video
+      decoding, up to 4032x4048 for MPEG-1/2 and 4032x4080 for H.264,
+      and up to 65536 macroblocks for both.
+  * Update nv-readme.ids.
+  * Update lintian overrides.
+  * Update debian/copyright: Upstream license has changed §2.1.1.
+  * debian/{rules,watch}: Add armhf driver to generated .orig.tar.gz.
+  * debian/rules: Add support for armhf.
+  * debian/control: Enable building for armhf.
+  * Merge changes from 304.88-4.  (Closes: #710366)
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 04 Jul 2013 23:19:13 +0200
+
+nvidia-graphics-drivers (319.17-1) experimental; urgency=low
+
+  * New upstream long lived branch release 319.17 (2013-05-02).
+    - Fixed a regression that caused multiple BUG messages to be printed in
+      the kernel log on SMP systems.
+    - Fixed a bug that could cause the X server to crash when repeatedly
+      enabling and disabling displays.
+    - Added support for the following GPUs: GeForce GT 720M, GeForce GT 735M,
+      GeForce GT 740M, GeForce GT 745M, GeForce GT 750M, GeForce GTX 760M,
+      GeForce GTX 765M, GeForce GTX 770M, GeForce GTX 775M, GeForce GTX 780M.
+    - Added nvidia-persistenced, a daemon utility, to the driver package.
+      nvidia-persistenced can be installed to run on system startup or
+      manually run to allow the NVIDIA kernel module to keep persistent driver
+      state allocated when no other user-space NVIDIA driver components are
+      running.  This can improve startup time for other user-space NVIDIA
+      driver components.
+  * New upstream beta 319.12 (2013-04-09).
+    - Added initial support for restoration of efifb consoles on UEFI
+      systems where the primary display is driven over VGA or TMDS (e.g.
+      DVI, HDMI, or LVDS).
+    - Added support for the xorg.conf Monitor section options "Ignore",
+      "Enable", "Primary", and "Rotate".  For example, to rotate a monitor
+      identified by a specific EDID hash, one could add the following to
+      /etc/X11/xorg.conf or a file in /etc/X11/xorg.conf.d:
+        Section "Monitor"
+          Identifier "DPY-EDID-ee6cecc0-fa46-0c33-94e0-274313f9e7eb"
+          Option "Rotate" "left"
+        EndSection
+      See the README and the xorg.conf(5) man page for more information.
+    - Added support for the following GPU: GeForce GTX 650 Ti BOOST.
+    - Added support for application profiles to the NVIDIA client-side GLX
+      implementation. See the "Application Profiles" chapter of the README for
+      more information.
+    - Added the "PanningTrackingArea" and "PanningBorder" MetaMode attributes.
+    - Added support for RandR 1.3 panning.
+    - Improved performance when the Accel option is disabled.
+    - Added initial support for RandR 1.4 Provider objects with the Source
+      Output capability, which can be used to render the desktop on an NVIDIA
+      GPU and display it on an output connected to a provider with the Sink
+      Output capability, such as an Intel integrated graphics device or a
+      DisplayLink USB-to-VGA adapter.  See the README for details.
+    - Added nvidia-modprobe, a setuid root utility, to the driver package.
+      nvidia-modprobe can be used by user-space NVIDIA driver components
+      to make sure the NVIDIA kernel module is loaded and that the
+      NVIDIA character device files are present.  When possible,
+      it is recommended to use Linux distribution native mechanisms
+      for managing kernel module loading and device file creation.
+      This utility is provided as a fallback to work out-of-the-box in
+      a distribution-independent way.
+    - Fixed a memory leak that occurred when destroying a GLX window
+      but not its associated X window.
+    - Improved the performance of modesets in cases where the mode
+      timings remained the same, but other parameters of the mode
+      configuration, such as the ViewPort or panning domain, changed.
+    - Fixed an issue with RENDER convolution filters.  The driver will
+      no longer normalize filter kernels before accelerating them.
+    - Improved debuggability of the NVIDIA OpenGL libraries by
+      including proper stack unwinding information on all supported
+      architectures.
+    - Updated the dkms.conf file and the makefile for the NVIDIA Linux
+      kernel module to allow DKMS installations on systems with separate
+      source and output directories.
+    - Fixed a bug that caused RENDER Pictures to be sampled
+      incorrectly when using nearest filtering in some cases.
+    - Added support for the RandR "Border" and "BorderDimensions" Output
+      properties, which can be used to configure the ViewPortOut of an
+      RandR output.  This is functionally equivalent to the "ViewPortOut"
+      MetaMode token.
+    - Fixed a bug where RRGetCrtcInfo could report incorrect size
+      information when an RandR output has a custom ViewPortIn.
+    - Further improve performance of some versions of HyperMesh with
+      Quadro GPUs.
+    - Added support for dynamic mode management through RandR, e.g. via
+      the --newmode, --rmmode, and --delmode options in xrandr(1).
+    - Increased the number of pages that are shareable across multiple
+      processes in the x86 build of libnvidia-glcore.so, by reducing its
+      R_386_PC32 relocation count.
+    - Fixed a bug that caused XVideo applications to receive BadAlloc errors
+      after VT switches and mode switches that occurred while a composite
+      manager was running.
+    - Removed the X driver's support for "CursorShadow".
+    - Switched .run package compression from gzip to xz.  This provides a
+      higher level of compression.
+  * Update nv-readme.ids.
+  * Update symbols control files.
+  * Refresh use-nv-kernel.o.ARCH.patch. Remove frequently changing context.
+  * nvidia-glx: Ship nvidia-persistenced.
+  * nvidia-kernel-{source,dkms}: Provide dummy conftest/patches.h, too.
+  * Rename package nvidia-cuda-proxy to nvidia-cuda-mps: Upstream has renamed
+    the programs nvidia-cuda-proxy-* to nvidia-cuda-mps-*.
+  * Rename metapackage nvidia-glx to nvidia-driver. Add transitional package.
+  * conftest.h:
+    - Implement check for drm/drmP.h (319.12).
+    - Implement new conftest.sh function drm_available (319.12).
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 14 May 2013 01:12:20 +0200
+
+nvidia-graphics-drivers (313.30-3) unstable; urgency=low
+
+  * Restrict watch file to releases from the 313.xx short lived branch.
+  * Merge changes from 304.108-4 and 310.51-1.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 20 Oct 2013 00:16:22 +0200
+
+nvidia-graphics-drivers (313.30-2) experimental; urgency=low
+
+  * Merge changes from 304.88-3 and 310.51 (UNRELEASED).
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 13 May 2013 02:41:43 +0200
+
+nvidia-graphics-drivers (313.30-1) experimental; urgency=low
+
+  * New upstream short lived branch release 313.30 (2013-04-02).
+    * Fixed CVE-2013-0131: NVIDIA UNIX GPU Driver ARGB Cursor Buffer
+      Overflow in "NoScanout" Mode.  This buffer overflow, which occurred
+      when an X client installed a large ARGB cursor on an X server
+      running in NoScanout mode, could cause a denial of service (e.g.,
+      an X server segmentation fault), or could be exploited to achieve
+      arbitrary code execution.  (Closes: #704547)
+      For more details, see:
+      http://nvidia.custhelp.com/app/answers/detail/a_id/3290
+  * Merge changes from 304.88-1 and 310.44 (UNRELEASED).
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Apr 2013 03:57:30 +0200
+
+nvidia-graphics-drivers (313.26-1) experimental; urgency=low
+
+  * New upstream short lived branch release 313.26 (2013-03-05).
+    - Added support for the following GPU: GeForce GTX TITAN.
+  * Merge changes from 304.84-1 and 310.40 (UNRELEASED).
+  * Update nv-readme.ids.
+  * Update symbols control files.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Mar 2013 13:15:10 +0100
+
+nvidia-graphics-drivers (313.18-2) experimental; urgency=low
+
+  * Update my email address and remove DMUA.
+  * libnvidia-encode1: New package for libnvidia-encode.so*.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 25 Jan 2013 17:41:07 +0100
+
+nvidia-graphics-drivers (313.18-1) experimental; urgency=low
+
+  * New upstream release 313.18 (2013-01-15).
+    - Added support in NV-CONTROL and in nvidia-settings for changing the
+      Double Precision performance boost mode on supported GPUs.
+    - Fixed several OpenGL driver bugs related to stencil-only framebuffer
+      objects.
+  * New upstream beta 313.09 (2012-12-11).
+    - Updated the NVIDIA X driver to reprobe displays when VT-switching to
+      X, to allow reporting of hotplug events when displays are connected
+      or disconnected while VT-switched away from X.
+    - Added unofficial GLX protocol support (i.e for GLX indirect rendering)
+      for the following extension and core commands.
+      GL_ARB_vertex_array_object
+      OpenGL 3.0 commands ClearBufferfi, ClearBufferfv, ClearBufferiv,
+      ClearBufferuiv and GetStringi.
+    - Fixed a bug that caused the cursor shadow to be clipped to 32x32
+      pixels, even on Kepler GPUs that support a 256x256 cursor image.
+    - Fixed a bug that prevented some cursor image updates from taking
+      effect on displays with rotation or other transformations applied.
+    - Fixed cursor alpha blending artifacts on displays with rotation
+      or other transformations applied.
+    - Added support for the GLX_EXT_buffer_age extension.
+    - Improved the performance of glDrawPixels() by up to 450% when the pixel
+      data is of type GL_BYTE.
+  * Merge changes from 310.32 (UNRELEASED).
+  * Update nv-readme.ids.
+  * Update symbols control files.
+  * Update lintian overrides.
+  * Add xorg-video-abi-14 as alternative dependency.
+  * nvidia-detect: Add PCI ID list for the 304.64 driver in wheezy.
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 16 Jan 2013 21:07:03 +0100
+
+nvidia-graphics-drivers (310.51-1) unstable; urgency=low
+
+  * New upstream long lived branch release 310.51 (2013-05-08).
+    - Fixed a bug where RRGetCrtcInfo could report incorrect size
+      information when an RandR output has a custom ViewPortIn.
+    - Fixed a regression that could cause an X server crash when performing
+      a modeset (e.g. changing resolutions, transformation settings, or
+      display layout) when some connected display devices are disabled.
+  * New upstream long lived branch release 310.44 (2013-04-02).
+    * Fixed CVE-2013-0131: NVIDIA UNIX GPU Driver ARGB Cursor Buffer
+      Overflow in "NoScanout" Mode.  This buffer overflow, which occurred
+      when an X client installed a large ARGB cursor on an X server
+      running in NoScanout mode, could cause a denial of service (e.g.,
+      an X server segmentation fault), or could be exploited to achieve
+      arbitrary code execution.
+      For more details, see:
+      http://nvidia.custhelp.com/app/answers/detail/a_id/3290
+  * New upstream long lived branch release 310.40 (2013-03-08).
+    - Reduced the amount of time needed to establish framelock in some
+      stereo configurations with many monitors.
+    - Added support for the following GPUs: GeForce G205M, GeForce GT 240M LE,
+      GeForce 405M, GeForce 610, GeForce 615, GeForce 620M, GeForce GT 625M,
+      GeForce GT 625 (OEM), GeForce GT 635, GeForce 705M, GeForce 710M,
+      GeForce GT 710M, GeForce GT 720A, GeForce GT 730M, Tesla X2070,
+      Tesla S2050, Tesla K20s.
+    - Fixed a bug where glXSwapIntervalEXT failed to set a swap interval
+      value of zero in certain situations.
+  * New upstream long lived branch release 310.32 (2013-01-21).
+    - Fixed a bug when enabling framelock between displays connected to
+      the same GPU as other displays with different refresh rates, which
+      caused the latter to be incorrectly assigned to the framelock group.
+    - Updated the reporting of HDMI 3D framerates and pixel clocks to be
+      more consistent with how they are reported by HDMI 3D displays.
+    - Fixed a bug that could cause applications using GL_NV_vdpau_interop
+      to crash during modeswitches.
+    - Fixed a regression that could cause OpenGL applications to crash
+      while compiling shaders.
+    - Added a kernel module parameter, "NVreg_EnablePCIeGen3", which can be
+      used to enable PCIe gen 3 when possible. Note that on many systems
+      where the NVIDIA driver does not allow PCIe gen 3 by default,
+      stability problems can be expected when this option is enabled: users
+      should do so at their own risk.
+    - Fixed a VDPAU bug that could cause the X server to hang when decoding
+      some corrupted video streams.
+    - Added support for the following GPUs: Quadro K600, Quadro K2000,
+      Quadro K2000D, Quadro K4000, GeForce GTX 680MX, Tesla K20Xm.
+    - Renamed VGX products to GRID products in the "Supported NVIDIA GPU
+      Products" list.
+    - Added support for X.org xserver ABI 14 (xorg-server 1.14).
+    - Fixed libnvidia-encode.so library dependency by linking it with
+      libnvcuvid.so.1 instead of libnvcuvid.so while creating it.
+    - Improved performance of OpenGL framebuffer object binds with Xinerama
+      enabled by 2000-3000% when the application's windows do not span screen
+      boundaries.
+    - Fix performance issues when using some versions of HyperMesh with Quadro
+      GPUs.
+  * Merge changes from 304.108-4.
+  * Restrict watch file to releases from the 310.xx long lived branch.
+  * Update nv-readme.ids.
+  * Refresh patches.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Oct 2013 03:50:09 +0200
+
+nvidia-graphics-drivers (310.19-1) experimental; urgency=low
+
+  * New upstream release 310.19 (2012-11-13).
+  * Merge changes from 304.64-4.
+  * Drop kernel-3.7.patch, fixed upstream.
+  * Fix debian/module/debian/kernel-version to cope with $KSRC/linux/version.h
+    being moved to $KSRC/include/generated/uapi/linux/version.h in Linux 3.7.
+    (Closes: #696570)
+  * nvidia-cuda-proxy: New package for nvidia-cuda-proxy-{control,server}.
+  * libxvmcnvidia1: Drop package, the library was removed by upstream as it is
+    only for legacy GPUs supported by the legacy-304xx driver.
+  * nvidia-libopencl1: Prefer nvidia-opencl-icd over opencl-icd.
+    (Closes: #695883)
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Thu, 10 Jan 2013 13:25:30 +0100
+
+nvidia-graphics-drivers (310.14-1) experimental; urgency=low
+
+  * New upstream beta 310.14 (2012-10-15).
+    - Implemented workarounds for two Adobe Flash bugs by applying libvdpau
+      commit ca9e637c61e80145f0625a590c91429db67d0a40 to the version of libvdpau
+      shipped with the NVIDIA driver.
+    - Fixed an issue which affected the performance of moving windows of VDPAU
+      applications when run in some composite managers.
+    - Added unofficial GLX protocol support (i.e., for GLX indirect rendering)
+      for the GL_ARB_pixel_buffer_object OpenGL extension.
+    - Added support for HDMI 3D Stereo with Quadro Kepler and later GPUs. See
+      the documentation for the "Stereo" X configuration option in the README
+      for details.
+    - Added experimental support for OpenGL threaded optimizations, available
+      through the __GL_THREADED_OPTIMIZATIONS environment variable. For more
+      information, please refer to the "Threaded Optimizations" section in
+      chapter "Specifying OpenGL Environment Variable Settings" of the README.
+    - Improved performance and responsiveness of windowed OpenGL applications
+      running inside a Unity session.
+  * New upstream release 304.15.00.02 (2012-08-06).
+    - Added support for OpenGL 4.3.
+  * Upstream has dropped support for several old chips, e.g. GeForce 6xxx/7xxx
+    (they will be supported by the legacy-304xx driver until end of 2017).
+  * Add NEWS entry about models that were moved to legacy support.
+  * Update nv-readme.ids.
+  * Refresh use-nv-kernel.o.ARCH.patch.
+  * Drop fix-typos.patch, fixed upstream.
+  * libXvMCNVIDIA.so.1 is gone, was only supported on GeForce 6/7 series.
+  * Update symbols control files.
+  * conftest.h:
+    - Implement checks for linux/efi.h and linux/nvmap.h (310.14).
+    - Implement new conftest.sh functions outer_flush_all, nvmap_support, and
+      efi_enabled (310.14).
+
+ -- Andreas Beckmann <debian@abeckmann.de>  Wed, 17 Oct 2012 19:54:34 +0200
+
 nvidia-graphics-drivers (304.108-4~bpo70+1) wheezy-backports; urgency=low
 
   * Rebuild for wheezy-backports.
@@ -68,7 +534,7 @@ nvidia-graphics-drivers (304.88-7) unstable; urgency=low
   * nvidia-libopencl1.shlibs: Removed in favor of doing the same in .symbols.
   * nvidia-libopencl1.links: Stop shipping libOpenCL.so, will be moved to
     nvidia-opencl-dev.
-  * nvidia-opencl-icd: Depend on 
+  * nvidia-opencl-icd: Depend on
       ocl-icd-libopencl1 | nvidia-libopencl1 | libopencl1
     for more deterministic libopencl1 installation.  (Closes: #695883)
   * libgl1-nvidia-glx.symbols: Change the dependency template to always
@@ -155,9 +621,9 @@ nvidia-graphics-drivers (304.88-3) unstable; urgency=low
     cannot be parsed correctly for inserting into Built-Using.
   * nvidia-alternative: Add slave alternatives for nvidia-settings.
     (Closes: #688753)
-  * Recommend nvidia-settings (>= MAJOR). 
+  * Recommend nvidia-settings (>= MAJOR).
   * Use canonical Vcs-* URLs.
-  * Bump Standards-Version to 3.9.4. No changes needed. 
+  * Bump Standards-Version to 3.9.4. No changes needed.
   * Drop transitional packages.  (Closes: #687506)
   * Drop Conflicts/Breaks/Replaces against packages predating wheezy.
   * Drop cleanup code targeting squeeze and wheezy from maintainer scripts.
@@ -210,7 +676,7 @@ nvidia-graphics-drivers (304.84-1) unstable; urgency=low
     - Fixed font rendering performance and corruption problems on X servers with
       backported support for the new glyph cache functionality added to Pixman
       0.27.
-    - Fixed a potential X server crash during initialization, when a 
+    - Fixed a potential X server crash during initialization, when a
       graphics card with a TV connector has no TV connected.
     - Added a new X configuration option, "UseHotplugEvents", to allow the
       suppression of RandR events when adding or removing non-DisplayPort
@@ -596,11 +1062,6 @@ nvidia-graphics-drivers (304.22-1) experimental; urgency=low
     - Fixed a bug that prevented NVIDIA 3D Vision Pro from working
       properly when switching between X servers on different VTs.
     * Closes: #682618
-  * New upstream release 302 series.
-    - Added support for desktop panning when rotation, reflection,
-      or transformation is applied to a display device (either through
-      RandR or through the MetaMode syntax); panning would previously be
-      ignored in that case.
   * Upload to experimental.
   * Update nv-readme.ids.
   * Update symbols control files.
@@ -1250,14 +1711,6 @@ nvidia-graphics-drivers (280.13-1) unstable; urgency=low
       use X server grabs.
     - Fixed an X driver bug that caused 16x8 stipple patterns to
       be rendered incorrectly.
-  * New upstream release 275 series.
-    - Fixed a bug in VDPAU that caused a glibc assertion when a call to
-      VdpDeviceCreateX11 failed in certain ways.
-    - Fixed a bug that caused the GLSL built-in uniforms gl_FrontMaterial
-      and gl_BackMaterial to not be updated properly when calling
-      glMaterial from a display list.
-    - Fixed an error handling bug that caused the OpenGL driver to
-      crash while running certain WebGL applications.
   * Upload to unstable.
   * conftest.h: remove obsolete conftest.sh function signal_struct, no longer
     used by the legacy drivers.

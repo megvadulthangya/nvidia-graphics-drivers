@@ -3,7 +3,7 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
 
 --- a/Kbuild
 +++ b/Kbuild
-@@ -183,16 +183,16 @@
+@@ -195,10 +195,10 @@
  #
  
  $(obj)/$(CORE_OBJS):
@@ -14,18 +14,23 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
 -	@echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
 +	$(NVQ)echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
  
- $(obj)/conftest.h: $(src)/conftest.sh
+ CONFTEST_COMPILE_TEST_HEADERS := $(obj)/conftest/macros.h \
+ $(obj)/conftest/functions.h $(obj)/conftest/symbols.h $(obj)/conftest/types.h \
+@@ -212,10 +212,10 @@
+ $(obj)/conftest/headers.h: build-sanity-checks
+ 
+ conftest-compile-test: $(src)/conftest.sh
 -	@if ! $(CONFTEST) compile_tests $(COMPILE_TESTS); then exit 1; fi
 +	$(NVQ)$(CONFTEST) compile_tests $(COMPILE_TESTS)
  
- $(obj)/patches.h:
+ $(obj)/conftest/patches.h:
 -	@if ! $(CONFTEST) patch_check; then exit 1; fi
 +	$(NVQ)$(CONFTEST) patch_check
  
  RESMAN_GLUE_TARGETS = $(addprefix $(obj)/,$(RESMAN_GLUE_OBJS))
  
-@@ -223,16 +223,16 @@
- .PHONY: suser-sanity-check rmmod-sanity-check build-sanity-checks
+@@ -244,16 +244,16 @@
+ #
  
  suser-sanity-check:
 -	@if ! $(CONFTEST) suser_sanity_check; then exit 1; fi
@@ -47,7 +52,7 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
  
  #
  # Build the NVIDIA kernel module using Linux KBUILD. This target is used by
-@@ -240,10 +240,10 @@
+@@ -261,10 +261,10 @@
  #
  
  module: build-sanity-checks
@@ -61,17 +66,26 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
 +	$(NVQ)if ! [ -f $(MODULE_OBJECT) ]; then \
  	 echo "$(MODULE_OBJECT) failed to build!"; \
  	 exit 1; \
- 	fi
-@@ -254,7 +254,7 @@
+ 	elif [ -f split-object-file.sh ]; then \
+@@ -276,7 +276,7 @@
+ #
+ 
+ module-sign: module
+-	@if [ -z "$(MODSECKEY)" ] || [ -z "$(MODPUBKEY)" ]; then \
++	$(NVQ)if [ -z "$(MODSECKEY)" ] || [ -z "$(MODPUBKEY)" ]; then \
+ 	 echo "ERROR: MODSECKEY and MODPUBKEY must be set to sign modules!"; \
+ 	 exit 1; \
+ 	elif ! [ -f "$(MODSECKEY)" ]; then \
+@@ -308,7 +308,7 @@
  #
  
  module-install: suser-sanity-check module
 -	@mkdir -p $(MODULE_ROOT)/video; \
 +	$(NVQ)mkdir -p $(MODULE_ROOT)/video; \
  	install -m 0664 -o root -g root $(MODULE_OBJECT) $(MODULE_ROOT)/video; \
- 	PATH="$(PATH):/bin:/sbin" depmod -ae;
+ 	PATH="$(PATH):/bin:/sbin" depmod -a
  
-@@ -264,7 +264,7 @@
+@@ -318,7 +318,7 @@
  #
  
  package-install: module-install rmmod-sanity-check
@@ -80,7 +94,7 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
  	echo "$(MODULE_OBJECT) installed successfully.";
  
  #
-@@ -276,19 +276,19 @@
+@@ -330,19 +330,19 @@
  #
  
  $(KERNEL_GLUE_NAME): module
@@ -94,15 +108,15 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
  clean:
 -	@$(RM) -f $(RESMAN_GLUE_OBJS) $(KERNEL_GLUE_OBJS)
 -	@$(RM) -f build-in.o nv-linux.o *.d .*.{cmd,flags}
--	@$(RM) -f $(MODULE_NAME).{o,ko,mod.{o,c}} $(VERSION_HEADER) *~
--	@$(RM) -f patches.h
+-	@$(RM) -f $(MODULE_NAME).{o,ko{,.dbg},mod.{o,c}} $(VERSION_HEADER) *~
 -	@$(RM) -f conftest*.c conftest.h
+-	@$(RM) -rf conftest
 -	@$(RM) -rf Modules.symvers .tmp_versions
 +	$(NVQ)$(RM) -f $(RESMAN_GLUE_OBJS) $(KERNEL_GLUE_OBJS)
 +	$(NVQ)$(RM) -f build-in.o nv-linux.o *.d .*.{cmd,flags}
-+	$(NVQ)$(RM) -f $(MODULE_NAME).{o,ko,mod.{o,c}} $(VERSION_HEADER) *~
-+	$(NVQ)$(RM) -f patches.h
++	$(NVQ)$(RM) -f $(MODULE_NAME).{o,ko{,.dbg},mod.{o,c}} $(VERSION_HEADER) *~
 +	$(NVQ)$(RM) -f conftest*.c conftest.h
++	$(NVQ)$(RM) -rf conftest
 +	$(NVQ)$(RM) -rf Modules.symvers .tmp_versions
  
  #
