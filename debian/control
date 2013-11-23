@@ -27,7 +27,6 @@ Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
- libxvmcnvidia1 (= ${binary:Version}),
  xserver-xorg-video-${nvidia} (= ${binary:Version}),
  ${nvidia-alternative} (= ${binary:Version}),
  ${nvidia:kmod:binary},
@@ -100,7 +99,6 @@ Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia:kmod:binary},
- libxvmcnvidia1,
 Suggests:
  ${nvidia:kmod:source},
 Provides:
@@ -109,6 +107,9 @@ Conflicts:
  libgl1-nvidia-glx (<< ${nvidia:Version}.0),
 Breaks:
  ia32-libs (<< 1:0),
+ libxvmcnvidia1 (<< 304.116-2~),
+Replaces:
+ libxvmcnvidia1 (<< 304.116-2~),
 Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -128,23 +129,6 @@ Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  This metapackage helps the automatic installation of the 32-bit NVIDIA
  OpenGL libraries when installing libgl1-${nvidia}-glx
  on amd64 with foreign architecture i386 enabled.
-
-Package: libxvmcnvidia1
-Architecture: i386 amd64
-Multi-Arch: same
-Pre-Depends:
- nvidia-installer-cleanup,
- ${misc:Pre-Depends}
-Depends:
- ${nvidia-alternative},
- libgl1-${nvidia}-glx (= ${binary:Version}),
- ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA binary XvMC library${nvidia:LegacyDesc}
- These binary library provides the NVIDIA XvMC implementation which supports
- GeForce 6 series and GeForce 7 series graphics cards.
- .
- See /usr/share/doc/libgl1-${nvidia}-glx/README.txt.gz
- for instructions how to enable XvMC acceleration.
 
 #Package: ${nvidia-alternative}
 Package: nvidia-legacy-304xx-alternative
