@@ -1,11 +1,11 @@
-nvidia-graphics-drivers-legacy-304xx (304.116-2) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-304xx (304.116-2) unstable; urgency=low
 
   * Merge libxvmcnvidia1 back into libgl1-nvidia-legacy-304xx-glx to simplify
     the upgrade path from wheezy. This avoids automatic installation of the
     304xx legacy driver in parallel to the already installed current driver.
     (Closes: #729838)
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 23 Nov 2013 20:16:39 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 25 Nov 2013 14:57:30 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.116-1) unstable; urgency=low
 
