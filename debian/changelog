@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-96xx (96.43.23-8) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-96xx (96.43.23-8) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.108-4:
     - bug-script: List the renamed nvidia*.ko modules, too.
@@ -15,7 +15,7 @@ nvidia-graphics-drivers-legacy-96xx (96.43.23-8) UNRELEASED; urgency=low
     - Implement new conftest.sh functions vm_operations_struct (331.13),
       task_struct (331.17), address_space, address_space_init_once (331.20).
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 24 Sep 2013 00:45:33 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 01 Dec 2013 15:38:33 +0100
 
 nvidia-graphics-drivers-legacy-96xx (96.43.23-7) unstable; urgency=low
 
