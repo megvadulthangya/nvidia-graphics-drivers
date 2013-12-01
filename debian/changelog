@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-173xx (173.14.38-3) UNRELEASED; urgency=low
+nvidia-graphics-drivers-legacy-173xx (173.14.38-3) unstable; urgency=low
 
   * Promoted to upstream release 173.14.38 (2013-10-01).
   * Synchronize packaging with nvidia-graphics-drivers 319.60-2:
@@ -13,7 +13,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.38-3) UNRELEASED; urgency=low
     - Implement new conftest.sh functions vm_operations_struct (331.13),
       task_struct (331.17), address_space, address_space_init_once (331.20).
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Oct 2013 20:36:33 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 01 Dec 2013 15:09:06 +0100
 
 nvidia-graphics-drivers-legacy-173xx (173.14.38-2) unstable; urgency=low
 
