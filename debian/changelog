@@ -1,3 +1,37 @@
+nvidia-graphics-drivers-legacy-304xx (304.116-2) unstable; urgency=low
+
+  * Merge libxvmcnvidia1 back into libgl1-nvidia-legacy-304xx-glx to simplify
+    the upgrade path from wheezy. This avoids automatic installation of the
+    304xx legacy driver in parallel to the already installed current driver.
+    (Closes: #729838)
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 25 Nov 2013 14:57:30 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.116-1) unstable; urgency=low
+
+  * New upstream legacy 304xx branch release 304.116 (2013-11-06).
+    - Improved compatibility with recent Linux kernels.
+    - Updated the NVIDIA OpenGL driver to write temporary files to $TMPDIR
+      if it is set, instead of unconditionally writing to /tmp.
+    - Updated a fallback of writing temporary files to $HOME/.nvidia to
+      use $HOME/.nv instead, as the latter path is already used for other
+      NVIDIA driver related files.
+  * linux-3.11.patch: Remove, fixed upstream.
+  * Synchronize packaging with nvidia-graphics-drivers 319.60-2:
+    - libgl1-nvidia-legacy-304xx-glx.postinst: Load debconf/confmodule, may be
+      used by /usr/lib/nvidia/check* scripts.
+  * Synchronize packaging with nvidia-graphics-drivers 319.60-3:
+    - Bump Standards-Version to 3.9.5. No changes needed.
+  * Synchronize packaging with nvidia-graphics-drivers 319.72-1:
+    - Update lintian overrides.
+  * conftest.h:
+    - Implement checks for linux/printk.h, linux/ratelimit.h,
+      linux/prio_tree.h (331.13).
+    - Implement new conftest.sh functions vm_operations_struct (331.13),
+      task_struct (331.17), address_space, address_space_init_once (331.20).
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 09 Nov 2013 01:00:27 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.108-4~bpo70+1) wheezy-backports; urgency=low
 
   * Rebuild for wheezy-backports.
@@ -74,7 +108,7 @@ nvidia-graphics-drivers (304.88-7) unstable; urgency=low
   * nvidia-libopencl1.shlibs: Removed in favor of doing the same in .symbols.
   * nvidia-libopencl1.links: Stop shipping libOpenCL.so, will be moved to
     nvidia-opencl-dev.
-  * nvidia-opencl-icd: Depend on 
+  * nvidia-opencl-icd: Depend on
       ocl-icd-libopencl1 | nvidia-libopencl1 | libopencl1
     for more deterministic libopencl1 installation.  (Closes: #695883)
   * libgl1-nvidia-glx.symbols: Change the dependency template to always
@@ -161,9 +195,9 @@ nvidia-graphics-drivers (304.88-3) unstable; urgency=low
     cannot be parsed correctly for inserting into Built-Using.
   * nvidia-alternative: Add slave alternatives for nvidia-settings.
     (Closes: #688753)
-  * Recommend nvidia-settings (>= MAJOR). 
+  * Recommend nvidia-settings (>= MAJOR).
   * Use canonical Vcs-* URLs.
-  * Bump Standards-Version to 3.9.4. No changes needed. 
+  * Bump Standards-Version to 3.9.4. No changes needed.
   * Drop transitional packages.  (Closes: #687506)
   * Drop Conflicts/Breaks/Replaces against packages predating wheezy.
   * Drop cleanup code targeting squeeze and wheezy from maintainer scripts.
@@ -216,7 +250,7 @@ nvidia-graphics-drivers (304.84-1) unstable; urgency=low
     - Fixed font rendering performance and corruption problems on X servers with
       backported support for the new glyph cache functionality added to Pixman
       0.27.
-    - Fixed a potential X server crash during initialization, when a 
+    - Fixed a potential X server crash during initialization, when a
       graphics card with a TV connector has no TV connected.
     - Added a new X configuration option, "UseHotplugEvents", to allow the
       suppression of RandR events when adding or removing non-DisplayPort
@@ -602,11 +636,6 @@ nvidia-graphics-drivers (304.22-1) experimental; urgency=low
     - Fixed a bug that prevented NVIDIA 3D Vision Pro from working
       properly when switching between X servers on different VTs.
     * Closes: #682618
-  * New upstream release 302 series.
-    - Added support for desktop panning when rotation, reflection,
-      or transformation is applied to a display device (either through
-      RandR or through the MetaMode syntax); panning would previously be
-      ignored in that case.
   * Upload to experimental.
   * Update nv-readme.ids.
   * Update symbols control files.
@@ -1256,14 +1285,6 @@ nvidia-graphics-drivers (280.13-1) unstable; urgency=low
       use X server grabs.
     - Fixed an X driver bug that caused 16x8 stipple patterns to
       be rendered incorrectly.
-  * New upstream release 275 series.
-    - Fixed a bug in VDPAU that caused a glibc assertion when a call to
-      VdpDeviceCreateX11 failed in certain ways.
-    - Fixed a bug that caused the GLSL built-in uniforms gl_FrontMaterial
-      and gl_BackMaterial to not be updated properly when calling
-      glMaterial from a display list.
-    - Fixed an error handling bug that caused the OpenGL driver to
-      crash while running certain WebGL applications.
   * Upload to unstable.
   * conftest.h: remove obsolete conftest.sh function signal_struct, no longer
     used by the legacy drivers.
