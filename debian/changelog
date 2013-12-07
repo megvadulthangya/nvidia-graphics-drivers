@@ -104,7 +104,7 @@ nvidia-graphics-drivers-legacy-173xx (173.14.37-2) unstable; urgency=low
 
   * Synchronize packaging with nvidia-graphics-drivers 304.88-4:
     - Rename metapackage nvidia-glx-legacy-173xx to
-      nvidia-legacy-173xx-driver. Add transitional package.
+      nvidia-legacy-173xx-driver. Add transitional package.  (Closes: #692126)
     - Use new '${nvidia}' substvar instead of 'nvidia${nvidia:Legacy}'.
     - debian/rules: Generalize control file renaming for legacy builds.
     - Drop support for backporting to squeeze.
