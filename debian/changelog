@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-304xx (304.116-2~bpo70+1) wheezy-backports; urgency=low
+
+  * Rebuild for wheezy-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 07 Dec 2013 23:19:08 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.116-2) unstable; urgency=low
 
   * Merge libxvmcnvidia1 back into libgl1-nvidia-legacy-304xx-glx to simplify
