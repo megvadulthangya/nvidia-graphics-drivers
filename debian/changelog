@@ -1,10 +1,10 @@
-nvidia-graphics-drivers-legacy-304xx (304.117-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.117-1) unstable; urgency=medium
 
   * New upstream legacy 304xx branch release 304.117 (2013-12-11).
     - Added support for X.org xserver ABI 15 (xorg-server 1.15).
   * Add xorg-video-abi-15 as alternative dependency.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 14 Jan 2014 10:37:03 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 14 Jan 2014 11:26:41 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.116-2) unstable; urgency=low
 
