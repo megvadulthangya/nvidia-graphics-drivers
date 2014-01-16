@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.39-1~bpo70+1) wheezy-backports; urgency=medium
+
+  * Rebuild for wheezy-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 16 Jan 2014 10:41:04 +0100
+
 nvidia-graphics-drivers-legacy-173xx (173.14.39-1) unstable; urgency=low
 
   * New upstream release 173.14.39 (2013-12-06).
