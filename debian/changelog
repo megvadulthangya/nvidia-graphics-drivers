@@ -1,3 +1,11 @@
+nvidia-graphics-drivers-legacy-304xx (304.117-1) unstable; urgency=medium
+
+  * New upstream legacy 304xx branch release 304.117 (2013-12-11).
+    - Added support for X.org xserver ABI 15 (xorg-server 1.15).
+  * Add xorg-video-abi-15 as alternative dependency.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 14 Jan 2014 11:26:41 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.116-2~bpo70+1) wheezy-backports; urgency=low
 
   * Rebuild for wheezy-backports.
@@ -16,6 +24,10 @@ nvidia-graphics-drivers-legacy-304xx (304.116-2) unstable; urgency=low
 nvidia-graphics-drivers-legacy-304xx (304.116-1) unstable; urgency=low
 
   * New upstream legacy 304xx branch release 304.116 (2013-11-06).
+    - Fixed a security vulnerability in the microcode for microcontrollers
+      that are part of NVIDIA GPUs.  This vulnerability could be exploited
+      to take control of a system, and it is described in greater detail at:
+      http://cve.mitre.org/cgi-bin/cvename.cgi?name=2013-5987
     - Improved compatibility with recent Linux kernels.
     - Updated the NVIDIA OpenGL driver to write temporary files to $TMPDIR
       if it is set, instead of unconditionally writing to /tmp.
