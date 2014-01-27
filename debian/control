@@ -345,7 +345,9 @@ Replaces:
  libcuda1-ia32,
 Provides:
  libcuda-5.0-1,
+ libcuda-5.0-1-i386 [i386],
  libcuda-5.5-1,
+ libcuda-5.5-1-i386 [i386],
 Homepage: http://www.nvidia.com/CUDA
 Description: NVIDIA CUDA runtime library
  The Compute Unified Device Architecture (CUDA) enables NVIDIA
@@ -358,6 +360,17 @@ Description: NVIDIA CUDA runtime library
  series, as well as the Tesla computing processors.
  .
  ${nvidia:kmod:Description}
+
+Package: libcuda1-i386
+Architecture: i386
+Multi-Arch: foreign
+Depends:
+ libcuda1,
+ ${shlibs:Depends}, ${misc:Depends}
+Description: NVIDIA CUDA 32-bit runtime library${nvidia:LegacyDesc}
+ This metapackage helps the automatic installation of the 32-bit NVIDIA CUDA
+ library when installing libcuda1 on amd64 with foreign architecture i386
+ enabled.
 
 Package: libnvidia-compiler
 Architecture: i386 amd64
