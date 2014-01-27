@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (319.82-1~bpo70+1) wheezy-backports; urgency=medium
+
+  * Rebuild for wheezy-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 27 Jan 2014 14:04:16 +0100
+
 nvidia-graphics-drivers (319.82-1) unstable; urgency=low
 
   * New upstream long lived branch release 319.82 (2014-01-13).
