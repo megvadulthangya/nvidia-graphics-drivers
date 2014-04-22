@@ -1,11 +1,16 @@
-nvidia-graphics-drivers-legacy-304xx (304.119-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.121-1) UNRELEASED; urgency=medium
 
+  * New upstream legacy 304xx branch release 304.121 (2014-03-11).
+    - Improved compatibility with recent Linux kernels.
+      (Closes: #740097, #742404, #743907)
+    - Fixed a bug that prevented the NVIDIA implementation of the Xinerama
+      extension protocol requests from being used when RandR was enabled.
   * New upstream legacy 304xx branch release 304.119 (2014-01-23).
     - Fixed a crash when using WebGL in Firefox with a Geforce 6 GPU.
   * Synchronize packaging with nvidia-graphics-drivers 319.82-1:
     - Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 24 Jan 2014 02:47:04 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 22 Apr 2014 02:24:12 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.117-1) unstable; urgency=medium
 
