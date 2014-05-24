@@ -4,3 +4,5 @@ avoid-ld.gold.patch
 use-nv-kernel-ARCH.o_shipped.patch
 conditionally-include-linux_version.h.patch
 fix-typos.patch
+173xx-linux-3.13.patch
+nvidia_kernel_3.14.patch

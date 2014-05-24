@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-173xx (173.14.39-2) unstable; urgency=medium
+
+  * 173xx-linux-3.13.patch, nvidia_kernel_3.14.patch: New patches, taken from
+    siduction.  (Closes: #741283, #742570)
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 22 Apr 2014 20:13:37 +0200
+
 nvidia-graphics-drivers-legacy-173xx (173.14.39-1~bpo70+1) wheezy-backports; urgency=medium
 
   * Rebuild for wheezy-backports.
