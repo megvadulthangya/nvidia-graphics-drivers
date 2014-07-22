@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.123-2) unstable; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.123-2) unstable; urgency=high
 
   * Fix FTBFS when building kernel module. (Closes: #755462, #755467)
   * Urgency=high because nvidia is currently completely broken in testing due
