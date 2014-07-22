@@ -1,3 +1,11 @@
+nvidia-graphics-drivers-legacy-304xx (304.123-2) unstable; urgency=medium
+
+  * Fix FTBFS when building kernel module. (Closes: #755462, #755467)
+  * Urgency=high because nvidia is currently completely broken in testing due
+    to xserver 1.16 migration and ABI bump.
+
+ -- Vincent Cheng <vcheng@debian.org>  Mon, 21 Jul 2014 19:19:02 -0700
+
 nvidia-graphics-drivers-legacy-304xx (304.123-1) unstable; urgency=medium
 
   * New upstream legacy 304xx branch release 304.123 (2014-07-10).

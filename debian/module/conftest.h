@@ -191,6 +191,13 @@
  #undef NV_ACQUIRE_CONSOLE_SEM_PRESENT
 #endif
 
+/* Implement conftest.sh function console_lock */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,38)
+ #define NV_CONSOLE_LOCK_PRESENT
+#else
+ #undef NV_CONSOLE_LOCK_PRESENT
+#endif
+
 /* Implement conftest.sh function kmem_cache_create */
 /* Only kernels sometime before 2.4.0 don't have this function, and who */
 /* cares anymore */
