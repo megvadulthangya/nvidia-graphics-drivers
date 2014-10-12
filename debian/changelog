@@ -1,8 +1,7 @@
-nvidia-graphics-drivers-legacy-304xx (304.123-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.123-3) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 340.46-1:
     - Bump Standards-Version to 3.9.6. No changes needed.
-    - Update lintian overrides.
   * Synchronize packaging with nvidia-graphics-drivers 331.67-2:
     - Drop Breaks: make (= 3.82-1), fixed in make/experimental.
   * Synchronize packaging with nvidia-graphics-drivers 331.49-1:
@@ -18,7 +17,7 @@ nvidia-graphics-drivers-legacy-304xx (304.123-3) UNRELEASED; urgency=medium
     - Fix DRM support activation.
     - Tighten check for drm/drmP.h.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 22 Oct 2013 16:34:20 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 12 Oct 2014 16:43:08 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.123-2) unstable; urgency=high
 
