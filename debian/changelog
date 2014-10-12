@@ -1,6 +1,8 @@
 nvidia-graphics-drivers-legacy-304xx (304.123-3) UNRELEASED; urgency=medium
 
-  * Synchronize packaging with nvidia-graphics-drivers 340.32-2 (UNRELEASED):
+  * Synchronize packaging with nvidia-graphics-drivers 340.46-1:
+    - Bump Standards-Version to 3.9.6. No changes needed.
+    - Update lintian overrides.
   * Synchronize packaging with nvidia-graphics-drivers 331.67-2:
     - Drop Breaks: make (= 3.82-1), fixed in make/experimental.
   * Synchronize packaging with nvidia-graphics-drivers 331.49-1:
@@ -12,6 +14,7 @@ nvidia-graphics-drivers-legacy-304xx (304.123-3) UNRELEASED; urgency=medium
     - Implement new conftest.sh function kuid_t (331.49).
     - Implement new conftest.sh function pm_vt_switch_required (331.67).
     - Implement new conftest.sh function console_lock (331.79).
+    - Implement new conftest.sh functions sg_table, sg_alloc_table (340.46).
     - Fix DRM support activation.
     - Tighten check for drm/drmP.h.
 
