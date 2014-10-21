@@ -1,3 +1,16 @@
+nvidia-graphics-drivers-legacy-304xx (304.123-4) UNRELEASED; urgency=medium
+
+  * Synchronize packaging with nvidia-graphics-drivers 340.46-2:
+    - bug-script: Collect more information.
+    - d/rules{,.defs}: Drop MULTIARCH switch - this is always enabled nowadays.
+    - Update lintian overrides.
+  * conftest.h:
+    - Implement extensions to conftest.sh function vm_operations_struct
+      (343.13).
+    - DRM is only supported on Linux >= 3.9.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 21 Oct 2014 05:05:33 +0200
+
 nvidia-graphics-drivers-legacy-304xx (304.123-3) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 340.46-1:

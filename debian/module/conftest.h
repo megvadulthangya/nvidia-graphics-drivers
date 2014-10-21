@@ -1,4 +1,4 @@
-/* synchronized with conftest.sh from 340.46, 319.82, 304.123, 173.14.39, 96.43.23, 71.86.15 */
+/* synchronized with conftest.sh from 343.22, 340.46, 319.82, 304.123, 173.14.39, 96.43.23, 71.86.15 */
 
 #ifndef LINUX_VERSION_CODE
 #include <linux/version.h>
@@ -374,7 +374,7 @@
 #endif
 
 /* Implement conftest.sh function drm_available */
-#if IS_ENABLED(CONFIG_DRM) || IS_ENABLED(CONFIG_DRM_MODULE)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,9,0) && IS_ENABLED(CONFIG_DRM)
  #define NV_DRM_AVAILABLE
 #else
  #undef NV_DRM_AVAILABLE
@@ -413,6 +413,11 @@
  #define NV_VM_OPERATIONS_STRUCT_HAS_FAULT
 #else
  #undef NV_VM_OPERATIONS_STRUCT_HAS_FAULT
+#endif
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,27)
+ #define NV_VM_OPERATIONS_STRUCT_HAS_ACCESS
+#else
+ #undef NV_VM_OPERATIONS_STRUCT_HAS_ACCESS
 #endif
 
 /* Implement conftest.sh function task_struct */
@@ -475,13 +480,12 @@
 /* Implement conftest.sh function sg_alloc_table */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,25)
  #define NV_SG_ALLOC_TABLE_PRESENT
- #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,6,0)
-  #define NV_SG_ALLOC_TABLE_FROM_PAGES_PRESENT
- #else
-  #undef NV_SG_ALLOC_TABLE_FROM_PAGES_PRESENT
- #endif
 #else
  #undef NV_SG_ALLOC_TABLE_PRESENT
+#endif
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,6,0)
+ #define NV_SG_ALLOC_TABLE_FROM_PAGES_PRESENT
+#else
  #undef NV_SG_ALLOC_TABLE_FROM_PAGES_PRESENT
 #endif
 
