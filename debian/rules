@@ -150,6 +150,7 @@ override_dh_auto_clean:
 	rm -fr kernel-source-tree
 	rm -f nvidia.ids nv-kernel.ids nv-readme.ids pci.ids.nvidia*
 	rm -f LICENSE.txt LICENSE.tmp copyright.tmp
+	test ! -d debian/po || debconf-updatepo
 
 override_dh_clean:
 	dh_clean
@@ -196,6 +197,14 @@ build-kernel-source-tree: install-into-tmp
 	test ! -f $(module_source)/Makefile || \
 		mv $(module_source)/Makefile $(module_source)/Kbuild
 	mv $(module_source)/conftest.sh $(module_source)/conftest_nvidia.sh
+
+	# For the nvidia-uvm module.
+	test ! -f $(module_source)/uvm/Makefile || \
+		mv $(module_source)/uvm/Makefile $(module_source)/uvm/Kbuild
+	test ! -d $(module_source)/uvm || \
+		ln -sf ../Makefile $(module_source)/uvm
+	test ! -d $(module_source)/uvm || \
+		ln -sf ../conftest.sh $(module_source)/uvm
 
 	# We may need nv-kernel.o for several architectures to accomodate
 	# all kernel flavors. Use Kbuild-compatible names.
