@@ -1,5 +1,6 @@
 nvidia-graphics-drivers-legacy-304xx (304.123-4) UNRELEASED; urgency=medium
 
+  * Synchronize packaging with nvidia-graphics-drivers 340.46-3:
   * Synchronize packaging with nvidia-graphics-drivers 340.46-2:
     - bug-script: Collect more information.
     - d/rules{,.defs}: Drop MULTIARCH switch - this is always enabled nowadays.
