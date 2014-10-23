@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.123-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.123-4) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 340.46-3:
   * Synchronize packaging with nvidia-graphics-drivers 340.46-2:
@@ -10,7 +10,7 @@ nvidia-graphics-drivers-legacy-304xx (304.123-4) UNRELEASED; urgency=medium
       (343.13).
     - DRM is only supported on Linux >= 3.9.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 21 Oct 2014 05:05:33 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 23 Oct 2014 14:47:01 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.123-3) unstable; urgency=medium
 
