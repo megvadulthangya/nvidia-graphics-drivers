@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-304xx (304.123-5) UNRELEASED; urgency=medium
+
+  * Synchronize packaging with nvidia-graphics-drivers 340.46-4:
+    - d/rules: Add #!armhf# and #!legacy# substitutions.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 31 Oct 2014 08:17:06 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.123-4) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 340.46-3:

@@ -97,10 +97,6 @@ NVIDIA-Linux-%:
 	test -d $@/kernel || \
 		mv $@/usr/src/nv $@/kernel
 	-gunzip $@/*.1.gz
-	test ! -f $@/nvidia-persistenced-init.tar.bz2 || \
-		tar xfvj $@/nvidia-persistenced-init.tar.bz2 -C $@
-	test ! -d $@/nvidia-persistenced-init || \
-		chmod -R a-sx,u=rwX,go=rX $@/nvidia-persistenced-init
 
 # Unpack all architectures, we may need files from all of them.
 unpack-stamp: $(patsubst %,NVIDIA-Linux-%,$(ARCH_LIST))
@@ -309,6 +305,8 @@ override_dh_strip:
 	-e 's{#WATCH_PATTERN#}{$(subst \,\\,$(watch_pattern))}g;' \
 	-e 's{#LIBDIR#}{$(libdir)}g;' \
 	-e 's{#PRIVATE#}{$(nvidia_private)}g;' \
+	-e 's{#!armhf#}{$(if $(filter armhf,$(DEB_HOST_ARCH)),#)}g;' \
+	-e 's{#!legacy#}{$(if $(legacy),#)}g;' \
 	< $< > $@
 
 debian/module/debian/changelog: debian/changelog
