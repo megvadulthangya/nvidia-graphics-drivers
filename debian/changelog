@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-304xx (304.123-4~bpo70+1) wheezy-backports; urgency=medium
+
+  * Rebuild for wheezy-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 04 Nov 2014 12:41:08 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.123-4) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 340.46-3:
