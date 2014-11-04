@@ -6,6 +6,7 @@ Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders:
  Russ Allbery <rra@debian.org>,
  Andreas Beckmann <anbe@debian.org>,
+ Vincent Cheng <vcheng@debian.org>
 Vcs-Svn: svn://anonscm.debian.org/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-304xx/trunk
 Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-304xx/
 Build-Depends:
@@ -15,7 +16,8 @@ Build-Depends:
  libxext6,
  libxvmc1,
  quilt,
-Standards-Version: 3.9.5
+ po-debconf,
+Standards-Version: 3.9.6
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
@@ -173,8 +175,6 @@ Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Provides:
  ${nvidia}-kernel-${nvidia:Version}${nvidia:Perfkit},
-Breaks:
- make (= 3.82-1),
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
  ${nvidia}-driver, using DKMS.
@@ -210,7 +210,6 @@ Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Breaks:
  module-assistant (<< 0.11.6~),
- make (= 3.82-1),
 Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  This package provides the source for the NVIDIA Xorg binary kernel module
  needed by ${nvidia}-driver in a form suitable
