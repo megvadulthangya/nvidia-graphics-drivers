@@ -1,7 +1,30 @@
-nvidia-graphics-drivers-legacy-304xx (304.123-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.125-1) UNRELEASED; urgency=medium
 
+  * New upstream legacy 304xx branch release 304.125 (2014-12-05).
+    * Fixes CVE-2014-8298.  (Closes: #772974)
+    - Added support for X.Org xserver ABI 19 (xorg-server 1.17).
+    - Improved compatibility with recent Linux kernels.
+    - Implemented support for disabling indirect GLX context creation using
+      the -iglx option available on X.Org server release 1.16 and newer.  Note
+      that future X.Org server releases may make the -iglx option the default.
+      To re-enable support for indirect GLX on such servers, use the +iglx
+      option.
+    - Added the "AllowIndirectGLXProtocol" X config option.  This option can
+      be used to disallow use of GLX protocol.  See "Appendix B. X Config
+      Options" in the README for more details.
+  * Synchronize packaging with nvidia-graphics-drivers 340.65-1:
+  * Synchronize packaging with nvidia-graphics-drivers 340.46-5:
+    - nvidia-alternative: Ship /usr/share/nvidia (slave alternative location).
+    - README.source: Document the nks-history.git repository.
+    - bug-script: Collect more information.
   * Synchronize packaging with nvidia-graphics-drivers 340.46-4:
     - d/rules: Add #!armhf# and #!legacy# substitutions.
+  * Synchronize packaging with nvidia-graphics-drivers 304.125-1:
+    - Add xorg-video-abi-19 as alternative dependency.
+  * conftest.h:
+    - Implement check for drm/drm_gem.h (340.58).
+    - Implement new conftest.sh functions pci_save_state (340.58), follow_pfn,
+      fault_flags, atomic64_type (346.16).
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 31 Oct 2014 08:17:06 +0100
 
@@ -13,9 +36,9 @@ nvidia-graphics-drivers-legacy-304xx (304.123-4) unstable; urgency=medium
     - d/rules{,.defs}: Drop MULTIARCH switch - this is always enabled nowadays.
     - Update lintian overrides.
   * conftest.h:
+    - DRM is only supported on Linux >= 3.9.
     - Implement extensions to conftest.sh function vm_operations_struct
       (343.13).
-    - DRM is only supported on Linux >= 3.9.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 23 Oct 2014 14:47:01 +0200
 
