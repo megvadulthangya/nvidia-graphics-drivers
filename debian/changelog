@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.125-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.125-1) unstable; urgency=medium
 
   * New upstream legacy 304xx branch release 304.125 (2014-12-05).
     * Fixes CVE-2014-8298.  (Closes: #772974)
@@ -26,7 +26,7 @@ nvidia-graphics-drivers-legacy-304xx (304.125-1) UNRELEASED; urgency=medium
     - Implement new conftest.sh functions pci_save_state (340.58), follow_pfn,
       fault_flags, atomic64_type (346.16).
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 31 Oct 2014 08:17:06 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 17 Dec 2014 01:05:07 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.123-4) unstable; urgency=medium
 
