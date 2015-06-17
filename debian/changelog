@@ -1,3 +1,11 @@
+nvidia-graphics-drivers-legacy-304xx (304.125-2) UNRELEASED; urgency=medium
+
+  * Add f_path.dentry.patch and fixes-for-kernel-4.0.0.patch (cherrypicked
+    from svn branches/343 and trunk respectively) to fix FTBFS with linux
+    3.19 and 4.0.
+
+ -- Vincent Cheng <vcheng@debian.org>  Wed, 17 Jun 2015 02:33:37 -0700
+
 nvidia-graphics-drivers-legacy-304xx (304.125-1) unstable; urgency=medium
 
   * New upstream legacy 304xx branch release 304.125 (2014-12-05).
