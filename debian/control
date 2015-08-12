@@ -46,10 +46,6 @@ Suggests:
  ${nvidia:kmod:source},
 Provides:
  nvidia-glx-any,
-Breaks:
- nvidia-glx${nvidia:Legacy},
-Replaces:
- nvidia-glx${nvidia:Legacy},
 Description: NVIDIA metapackage${nvidia:LegacyDesc}
  This metapackage depends on the NVIDIA binary driver and libraries
  that provide optimized hardware acceleration of
@@ -74,12 +70,6 @@ Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia}-driver,
-Breaks:
- ${nvidia}-driver (<< 340.46-4~),
- nvidia-glx${nvidia:Legacy} (<< 319),
-Replaces:
- ${nvidia}-driver (<< 340.46-4~),
- nvidia-glx${nvidia:Legacy} (<< 319),
 Description: NVIDIA driver support binaries${nvidia:LegacyDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -141,15 +131,6 @@ Suggests:
  ${nvidia:kmod:source},
 Provides:
  libgl1-nvidia-glx-any,
-Conflicts:
- libgl1-nvidia${nvidia:Legacy}-glx-ia32,
- nvidia-glx${nvidia:Legacy}-ia32,
- libgl1-nvidia-glx-ia32-any,
-Breaks:
- ia32-libs (<< 1:0),
-Replaces:
- libgl1-nvidia${nvidia:Legacy}-glx-ia32,
- nvidia-glx${nvidia:Legacy}-ia32,
 Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -386,12 +367,8 @@ Enhances:
  libvdpau1,
 Provides:
  vdpau-driver,
-Conflicts:
- nvidia-vdpau-driver-ia32,
 Breaks:
  libvdpau1 (<< 0.4.1-3),
-Replaces:
- nvidia-vdpau-driver-ia32,
 Description: Video Decode and Presentation API for Unix - NVIDIA driver
  These libraries provide the Video Decode and Presentation API for Unix.
  They provide accelerated video playback (incl. H.264) for the supported
@@ -440,11 +417,6 @@ Recommends:
 Suggests:
  nvidia-cuda-mps,
  ${nvidia:kmod:source},
-Conflicts:
- libcuda1-ia32,
- nvidia-cuda-proxy,
-Replaces:
- libcuda1-ia32,
 Provides:
  libcuda-5.0-1,
  libcuda-5.0-1-i386 [i386],
@@ -488,10 +460,6 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
-Conflicts:
- libnvidia-compiler-ia32,
-Replaces:
- libnvidia-compiler-ia32,
 Description: NVIDIA runtime compiler library
  The Compute Unified Device Architecture (CUDA) enables NVIDIA
  graphics processing units (GPUs) to be used for massively parallel
@@ -601,10 +569,6 @@ Suggests:
  ${libcuda1} (= ${binary:Version}),
 Enhances:
  libopencl1,
-Conflicts:
- nvidia-opencl-icd-ia32,
-Replaces:
- nvidia-opencl-icd-ia32,
 Provides:
  opencl-icd,
 Description: NVIDIA OpenCL installable client driver (ICD)
