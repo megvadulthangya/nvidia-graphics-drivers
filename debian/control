@@ -1,5 +1,5 @@
 #Source: nvidia-graphics-drivers${nvidia:Legacy}
-Source: nvidia-graphics-drivers
+Source: nvidia-graphics-drivers-legacy-340xx
 Section: non-free/libs
 Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
@@ -22,7 +22,7 @@ Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
 #Package: ${nvidia}-driver
-Package: nvidia-driver
+Package: nvidia-legacy-340xx-driver
 Section: non-free/x11
 Architecture: i386 amd64 armhf
 Pre-Depends:
@@ -66,7 +66,7 @@ Description: NVIDIA metapackage${nvidia:LegacyDesc}
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
 #Package: ${nvidia}-driver-bin
-Package: nvidia-driver-bin
+Package: nvidia-legacy-340xx-driver-bin
 Section: non-free/x11
 Architecture: i386 amd64 armhf
 Depends:
@@ -88,7 +88,7 @@ Description: NVIDIA driver support binaries${nvidia:LegacyDesc}
  This package contains supporting binaries for the driver.
 
 #Package: xserver-xorg-video-${nvidia}
-Package: xserver-xorg-video-nvidia
+Package: xserver-xorg-video-nvidia-legacy-340xx
 Section: non-free/x11
 Architecture: i386 amd64 armhf
 Pre-Depends:
@@ -122,7 +122,7 @@ Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  for a complete list of supported GPUs and PCI IDs.
 
 #Package: libgl1-${nvidia}-glx
-Package: libgl1-nvidia-glx
+Package: libgl1-nvidia-legacy-340xx-glx
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
@@ -159,7 +159,7 @@ Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  for a complete list of supported GPUs and PCI IDs.
 
 #Package: libgl1-${nvidia}-glx-i386
-Package: libgl1-nvidia-glx-i386
+Package: libgl1-nvidia-legacy-340xx-glx-i386
 Architecture: i386
 Multi-Arch: foreign
 Depends:
@@ -171,7 +171,7 @@ Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  on amd64 with foreign architecture i386 enabled.
 
 #Package: libegl1-${nvidia}
-Package: libegl1-nvidia
+Package: libegl1-nvidia-legacy-340xx
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
@@ -190,7 +190,7 @@ Description: NVIDIA binary EGL libraries${nvidia:LegacyDesc}
  for a complete list of supported GPUs and PCI IDs.
 
 #Package: libgles1-${nvidia}
-Package: libgles1-nvidia
+Package: libgles1-nvidia-legacy-340xx
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
@@ -212,7 +212,7 @@ Description: NVIDIA binary OpenGL|ES 1.x libraries${nvidia:LegacyDesc}
  for a complete list of supported GPUs and PCI IDs.
 
 #Package: libgles2-${nvidia}
-Package: libgles2-nvidia
+Package: libgles2-nvidia-legacy-340xx
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
@@ -235,7 +235,7 @@ Description: NVIDIA binary OpenGL|ES 2.x libraries${nvidia:LegacyDesc}
  for a complete list of supported GPUs and PCI IDs.
 
 #Package: lib${nvidia}-eglcore
-Package: libnvidia-eglcore
+Package: libnvidia-legacy-340xx-eglcore
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
@@ -255,7 +255,7 @@ Description: NVIDIA binary EGL core libraries${nvidia:LegacyDesc}
  implementation of EGL and OpenGL|ES.
 
 #Package: ${nvidia-alternative}
-Package: nvidia-alternative
+Package: nvidia-legacy-340xx-alternative
 Architecture: i386 amd64 armhf
 Multi-Arch: foreign
 Depends:
@@ -293,7 +293,7 @@ Description: allows the selection of NVIDIA as GLX provider
  ${nvidia}-driver package instead.
 
 #Package: ${nvidia}-kernel-dkms
-Package: nvidia-kernel-dkms
+Package: nvidia-legacy-340xx-kernel-dkms
 Section: non-free/kernel
 Architecture: i386 amd64 armhf
 Multi-Arch: foreign
@@ -328,7 +328,7 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
 #Package: ${nvidia}-kernel-source
-Package: nvidia-kernel-source
+Package: nvidia-legacy-340xx-kernel-source
 Section: non-free/kernel
 Architecture: i386 amd64 armhf
 Depends:
@@ -367,7 +367,7 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
 #Package: ${nvidia}-vdpau-driver
-Package: nvidia-vdpau-driver
+Package: nvidia-legacy-340xx-vdpau-driver
 Section: non-free/video
 Architecture: i386 amd64 armhf
 Multi-Arch: same
@@ -405,7 +405,7 @@ Description: Video Decode and Presentation API for Unix - NVIDIA driver
  ${nvidia:kmod:Description}
 
 #Package: ${nvidia}-smi
-Package: nvidia-smi
+Package: nvidia-legacy-340xx-smi
 Section: non-free/utils
 Architecture: i386 amd64 armhf
 Depends:
@@ -445,7 +445,7 @@ Description: NVIDIA CUDA Multi Process Service (MPS)
  Pre-CUDA 4.0 APIs are not supported under CUDA MPS.
 
 #Package: ${libcuda1}
-Package: libcuda1
+Package: libnvidia-legacy-340xx-cuda1
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
@@ -490,7 +490,7 @@ Description: NVIDIA CUDA Driver Library
  ${nvidia:kmod:Description}
 
 #Package: ${libcuda1}-i386
-Package: libcuda1-i386
+Package: libnvidia-legacy-340xx-cuda1-i386
 Architecture: i386
 Multi-Arch: foreign
 Depends:
@@ -502,7 +502,7 @@ Description: NVIDIA CUDA 32-bit runtime library${nvidia:LegacyDesc}
  architecture i386 enabled.
 
 #Package: lib${nvidia}-compiler
-Package: libnvidia-compiler
+Package: libnvidia-legacy-340xx-compiler
 Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
@@ -521,7 +521,7 @@ Description: NVIDIA runtime compiler library
  This package contains the runtime compiler library.
 
 #Package: lib${nvidia}-nvcuvid1
-Package: libnvcuvid1
+Package: libnvidia-legacy-340xx-nvcuvid1
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
@@ -540,7 +540,7 @@ Description: NVIDIA CUDA Video Decoder runtime library
  This package contains the nvcuvid runtime library.
 
 #Package: lib${nvidia}-encode1
-Package: libnvidia-encode1
+Package: libnvidia-legacy-340xx-encode1
 Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
@@ -555,7 +555,7 @@ Description: NVENC Video Encoding runtime library
  This package contains the nvidia-encode runtime library.
 
 #Package: lib${nvidia}-ifr1
-Package: libnvidia-ifr1
+Package: libnvidia-legacy-340xx-ifr1
 Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
@@ -572,7 +572,7 @@ Description: NVIDIA OpenGL-based Inband Frame Readback runtime library
  This package contains the NvIFROpenGL runtime library.
 
 #Package: lib${nvidia}-fbc1
-Package: libnvidia-fbc1
+Package: libnvidia-legacy-340xx-fbc1
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
@@ -589,7 +589,7 @@ Description: NVIDIA OpenGL-based Framebuffer Capture runtime library
  This package contains the NvFBCOpenGL runtime library.
 
 #Package: lib${nvidia}-ml1
-Package: libnvidia-ml1
+Package: libnvidia-legacy-340xx-ml1
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
@@ -622,7 +622,7 @@ Description: NVIDIA OpenCL driver
  driver (ICD) for OpenCL.
 
 #Package: ${nvidia}-opencl-icd
-Package: nvidia-opencl-icd
+Package: nvidia-legacy-340xx-opencl-icd
 Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
