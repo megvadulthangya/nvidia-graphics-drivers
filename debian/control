@@ -606,21 +606,6 @@ Description: NVIDIA Management Library (NVML) runtime library
  .
  This package contains the nvidia-ml runtime library.
 
-Package: nvidia-opencl-common
-Architecture: i386 amd64
-Multi-Arch: foreign
-Depends:
- ${misc:Depends}
-Recommends:
- ${nvidia}-opencl-icd
-Description: NVIDIA OpenCL driver
- OpenCL (Open Computing Language) is a multivendor open standard for
- general-purpose parallel programming of heterogeneous systems that include
- CPUs, GPUs and other processors.
- .
- This package provides the common files for the NVIDIA installable client
- driver (ICD) for OpenCL.
-
 #Package: ${nvidia}-opencl-icd
 Package: nvidia-legacy-340xx-opencl-icd
 Architecture: i386 amd64
@@ -653,37 +638,4 @@ Description: NVIDIA OpenCL installable client driver (ICD)
  .
  The ${libcuda1} package may be required additionally to get a working OpenCL
  setup for NVIDIA GPUs.
-
-Package: nvidia-libopencl1
-Architecture: i386 amd64
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Recommends:
- ${nvidia}-opencl-icd | opencl-icd,
-Provides:
- libopencl1,
- libopencl-1.1-1,
-Conflicts:
- libopencl1,
- nvidia-libopencl1-ia32,
-Breaks:
- nvidia-opencl-dev (<= 5.0.35-6),
-Replaces:
- libopencl1,
- nvidia-libopencl1-ia32,
-Description: NVIDIA OpenCL ICD Loader library
- OpenCL (Open Computing Language) is a multivendor open standard for
- general-purpose parallel programming of heterogeneous systems that include
- CPUs, GPUs and other processors.
- .
- The OpenCL installable client driver loader (ICD Loader) acts as a dispatcher
- between an OpenCL application and one (or more) installable client drivers
- (ICD) that can be from any vendor. At least one ICD (and the corresponding
- hardware) is required to run OpenCL applications.
- .
- This package contains the ICD Loader library provided by NVIDIA. This library
- supports OpenCL 1.1 only.
 
