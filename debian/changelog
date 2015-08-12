@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-340xx (340.76-6) UNRELEASED; urgency=medium
+
+  * Fork as new legacy-340xx source package.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 11 Aug 2015 18:50:48 +0200
+
+
 nvidia-graphics-drivers (340.76-5) unstable; urgency=medium
 
   * Drop obsolete transitional package nvidia-glx.
