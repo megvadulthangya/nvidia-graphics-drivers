@@ -1,10 +1,10 @@
-nvidia-graphics-drivers-legacy-340xx (340.76-6) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.76-6) unstable; urgency=medium
 
   * Fork as new legacy-340xx source package.
   * Do not build nvidia-detect, nvidia-opencl-common, nvidia-libopencl1,
     nvidia-cuda-mps packages.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 11 Aug 2015 18:50:48 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 12 Aug 2015 06:20:39 +0200
 
 nvidia-graphics-drivers (340.76-5) unstable; urgency=medium
 
