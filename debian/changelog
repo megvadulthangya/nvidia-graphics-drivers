@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (340.76-5~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports. (Closes: #795610)
+
+ -- Vincent Cheng <vcheng@debian.org>  Fri, 21 Aug 2015 00:13:05 -0700
+
 nvidia-graphics-drivers (340.76-5) unstable; urgency=medium
 
   * Drop obsolete transitional package nvidia-glx.
