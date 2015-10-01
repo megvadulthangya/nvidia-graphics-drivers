@@ -123,8 +123,6 @@ Depends:
  nvidia-installer-cleanup (>= 20130816) [i386],
  nvidia-support,
  ${shlibs:Depends}, ${misc:Depends}
-Conflicts:
- libgl1-nvidia-glx (<< ${nvidia:Version}.0),
 Recommends:
  ${nvidia:kmod:binary},
 Suggests:
