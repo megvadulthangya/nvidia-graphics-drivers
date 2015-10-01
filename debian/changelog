@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.93-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.93-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.93 (2015-09-02).
     * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
@@ -42,7 +42,7 @@ nvidia-graphics-drivers-legacy-340xx (340.93-1) UNRELEASED; urgency=medium
   * conftest.h:
     - Implement new conftest.sh function nvidia_grid_build (352.41).
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 01 Oct 2015 04:59:23 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 01 Oct 2015 09:57:19 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.76-6) unstable; urgency=medium
 
