@@ -42,6 +42,7 @@ Recommends:
  libgl1-${nvidia}-glx-i386 [amd64],
  libgles1-${nvidia} (= ${binary:Version}),
  libgles2-${nvidia} (= ${binary:Version}),
+ nvidia-persistenced,
 Suggests:
  ${nvidia:kmod:source},
 Provides:
@@ -70,6 +71,10 @@ Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia}-driver,
+Provides:
+ nvidia-driver-bin-${nvidia:Version},
+Conflicts:
+ nvidia-driver-bin-${nvidia:Version},
 Description: NVIDIA driver support binaries${nvidia:LegacyDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -129,6 +134,9 @@ Suggests:
  ${nvidia:kmod:source},
 Provides:
  libgl1-nvidia-glx-any,
+ libgl1-nvidia-glx-${nvidia:Version},
+Conflicts:
+ libgl1-nvidia-glx-${nvidia:Version},
 Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -221,6 +229,10 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
+Provides:
+ libnvidia-eglcore-${nvidia:Version},
+Conflicts:
+ libnvidia-eglcore-${nvidia:Version},
 Description: NVIDIA binary EGL core libraries${nvidia:LegacyDesc}
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
  for use with other graphics libraries, such as OpenGL|ES and OpenVG.
@@ -458,6 +470,10 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
+Provides:
+ libnvidia-compiler-${nvidia:Version},
+Conflicts:
+ libnvidia-compiler-${nvidia:Version},
 Description: NVIDIA runtime compiler library
  The Compute Unified Device Architecture (CUDA) enables NVIDIA
  graphics processing units (GPUs) to be used for massively parallel
