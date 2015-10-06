@@ -1,3 +1,11 @@
+nvidia-graphics-drivers (340.93-3~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+  * nvidia-kernel-*: [i386] Restore support for building amd64 kernel modules,
+    jessie still has linux-image-amd64:i386.  (Closes: #800554)
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 06 Oct 2015 09:36:07 +0200
+
 nvidia-graphics-drivers (340.93-3) unstable; urgency=medium
 
   * Revert glx-alternative-nvidia dependency to (>= 0.5) because Xorg
