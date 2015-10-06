@@ -1,3 +1,68 @@
+nvidia-graphics-drivers (340.93-3) unstable; urgency=medium
+
+  * Revert glx-alternative-nvidia dependency to (>= 0.5) because Xorg
+    autoconfig causes some permission issues (see: #799948).
+  * Document the permission issues.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 01 Oct 2015 04:26:47 +0200
+
+nvidia-graphics-drivers (340.93-2) unstable; urgency=medium
+
+  * nvidia-modprobe.conf:  (Closes: #798207)
+    - Don't use aliases for the renamed modules, only use install and remove
+      commands.
+    - Remodel the nvidia-uvm -> nvidia dependency via an install command.
+    - Duplicate the module's built-in PCI-ID-match aliases to ensure they
+      cause the virtual "nvidia" module to be loaded instead of a random one.
+  * Drop instructions and debconf notes about manual xorg.conf creation. The
+    driver now integrates with Xorg s.t. it is automatically detected and
+    loaded if selected as the glx alternative.  (Closes: #586502, #612093)
+  * Add NEWS entry about no longer requiring manual xorg.conf creation.
+  * Bump glx-alternative-nvidia dependency to (>= 0.6) for Xorg autoconfig.
+  * libgl1-nvidia-glx: Add Provides+Conflicts:
+    libgl1-nvidia-glx-${nvidia:Version} to forbid co-installation of
+    libgl1-nvidia-legacy-304xx-glx from the same upstream version due to file
+    conflicts on versioned files that are not handled via alternatives.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2015 04:38:22 +0200
+
+nvidia-graphics-drivers (340.93-1) unstable; urgency=medium
+
+  * New upstream legacy 340xx branch release 340.93 (2015-09-02).
+    * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
+      (Closes: #800566)
+    - Fixed a bug that caused the X server to crash if an OpenGL application
+      tried to allocate a drawable when GPU-accessible memory is exhausted.
+    - Fixed a bug that could cause an Xid error when terminating a video
+      playback application using the overlay presentation queue in VDPAU.
+    - Fixed a rare deadlock condition when running applications that use
+      OpenGL in multiple threads on a Quadro GPU.
+    - Fixed a bug which caused truncation of the EGLAttribEXT value returned
+      by eglQueryDeviceAttribEXT() on 64-bit systems.
+    - Fixed a kernel memory leak that occurred when looping hardware-
+      accelerated video decoding with VDPAU on Maxwell-based GPUs.
+    - Fixed a bug that caused the X server to crash if a RandR 1.4 output
+      provided by a Sink Output provider was selected as the primary output on
+      X.Org xserver 1.17 and higher.
+    - Fixed a bug that caused waiting on X Sync Fence objects in OpenGL to
+      hang indefinitely in some cases.
+    - Fixed a bug that prevented OpenGL from properly recovering from
+      hardware errors or sync object waits that had timed out.
+    * Improved compatibility with recent Linux kernels.
+  * fixes-for-kernel-4.0.0.patch: Remove, fixed upstream.
+  * conftest.h:
+    - Implement new conftest.sh function nvidia_grid_build (352.41).
+  * Update lintian overrides.
+  * nvidia-driver-bin, libnvidia-compiler, libnvidia-eglcore: Add
+    Provides+Conflicts: $pkg-${nvidia:Version} to forbid co-installation with
+    the respective legacy packages from the same upstream version due to file
+    conflicts on versioned files are not handled via alternatives.
+  * bug-script: Report file information in arm-linux-gnueabihf directories.
+  * bug-script: Collect information from /etc/modules{,-load.d/}.
+  * nvidia-driver: Add Recommends: nvidia-persistenced.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Sep 2015 20:58:29 +0200
+
 nvidia-graphics-drivers (340.76-5~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports. (Closes: #795610)
@@ -1370,6 +1435,17 @@ nvidia-graphics-drivers (310.14-1) experimental; urgency=low
       efi_enabled (310.14).
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 17 Oct 2012 19:54:34 +0200
+
+nvidia-graphics-drivers (304.128-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy 304xx branch release 304.128 (2015-08-31).
+    * Improved compatibility with recent Linux kernels.
+  * libgl1-nvidia-glx: Add Provides+Conflicts:
+    libgl1-nvidia-glx-${nvidia:Version} to forbid co-installation of
+    libgl1-nvidia-legacy-304xx-glx from the same upstream version due to file
+    conflicts on versioned files that are not handled via alternatives.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 13 Sep 2015 23:34:49 +0200
 
 nvidia-graphics-drivers (304.125-1) wheezy; urgency=medium
 
