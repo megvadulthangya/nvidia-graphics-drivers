@@ -18,6 +18,8 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
       be drawn over the user interface of nvidia-installer.
   * Removed f_path.dentry.patch, fixed upstream
   * Removed fixes-for-kernel-4.0.0.patch, fixed upstream
+  * conftest.h:
+    - Sinchronize with nvidia-graphics-drivers/trunk
 
  -- Luca Boccassi <luca.boccassi@gmail.com>  Sun, 11 Oct 2015 13:12:51 +0100
 
