@@ -20,6 +20,7 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
   * Removed fixes-for-kernel-4.0.0.patch, fixed upstream
   * conftest.h:
     - Sinchronize with nvidia-graphics-drivers/trunk
+  * Add patch to fix kernel module build failure on 4.3
 
  -- Luca Boccassi <luca.boccassi@gmail.com>  Sun, 11 Oct 2015 13:12:51 +0100
 
