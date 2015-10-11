@@ -1,6 +1,10 @@
 nvidia-graphics-drivers-legacy-340xx (340.93-2) UNRELEASED; urgency=medium
 
+  [ Andreas Beckmann ]
   * Recommend nvidia-settings-legacy-340xx.
+
+  [ Luca Boccassi ]
+  * Add patch to fix kernel module build failure on 4.3
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Oct 2015 19:14:19 +0200
 
