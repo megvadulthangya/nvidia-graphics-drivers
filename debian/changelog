@@ -24,7 +24,6 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
     - Reorder conftest.h to match conftest.sh.
     - Implement new conftest.sh function nvidia_grid_build (352.41).
   * bug-script: Synchronize with unstable (340.93-4).
-  * Add patch to fix kernel module build failure on 4.3.
 
  -- Luca Boccassi <luca.boccassi@gmail.com>  Sun, 11 Oct 2015 13:12:51 +0100
 
