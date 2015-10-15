@@ -104,6 +104,10 @@ Suggests:
 Provides:
  xserver-xorg-video-nvidia-any,
  ${nvidia:xorgProvides},
+Breaks:
+ glx-alternative-nvidia (<< 0.6.91),
+Replaces:
+ glx-alternative-nvidia (<< 0.6.91),
 Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  These binary drivers provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
@@ -251,7 +255,6 @@ Architecture: i386 amd64 armhf
 Multi-Arch: foreign
 Depends:
  glx-alternative-nvidia (>= 0.5),
- nvidia-modprobe,
  ${misc:Depends}
 Conflicts:
  libgl1-nvidia-alternatives,
@@ -270,6 +273,7 @@ Breaks:
  libnvcuvid1 (<< 340.46-2~),
  libnvidia-ml1 (<< 340.46-2~),
  nvidia-smi (<< 340.46-2~),
+ ${not:Current}nvidia-alternative (<< 340.93-5~),
 Provides:
  ${nvidia-alternative}--kmod-alias,
 Description: allows the selection of NVIDIA as GLX provider
@@ -283,6 +287,32 @@ Description: allows the selection of NVIDIA as GLX provider
  In order to install the NVIDIA driver and libraries, install the
  ${nvidia}-driver package instead.
 
+#Package: ${nvidia}-kernel-support
+Package: nvidia-legacy-340xx-kernel-support
+Section: non-free/kernel
+Architecture: i386 amd64 armhf
+Multi-Arch: foreign
+Depends:
+ ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia-alternative}--kmod-alias,
+ nvidia-kernel-common (>= 20110213),
+ nvidia-modprobe,
+ ${misc:Depends}
+Provides:
+ nvidia-kernel-support-any,
+ ${nvidia}-kernel-support--v1,
+Breaks:
+ glx-alternative-nvidia (<< 0.6.91),
+Replaces:
+ glx-alternative-nvidia (<< 0.6.91),
+Description: NVIDIA binary kernel module support files${nvidia:LegacyDesc}
+ The NVIDIA binary drivers provide optimized hardware acceleration of
+ OpenGL applications via a direct-rendering X Server for graphics cards
+ using NVIDIA chip sets.  AGP, PCIe, SLI, TV-out and flat panel displays
+ are also supported.
+ .
+ This package provides supporting configuration for the kernel module.
+
 #Package: ${nvidia}-kernel-dkms
 Package: nvidia-legacy-340xx-kernel-dkms
 Section: non-free/kernel
@@ -292,8 +322,7 @@ Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
  dkms,
- nvidia-kernel-common (>= 20110213),
- ${nvidia-alternative}--kmod-alias,
+ ${nvidia}-kernel-support--v1,
  ${misc:Depends}
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}) | ${libcuda1} (>= ${nvidia:Version}),
@@ -330,8 +359,7 @@ Depends:
  ${misc:Depends}
 Recommends:
  module-assistant | kernel-package,
- nvidia-kernel-common,
- ${nvidia-alternative}--kmod-alias,
+ nvidia-kernel-support,
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Breaks:
@@ -428,6 +456,7 @@ Suggests:
  nvidia-cuda-mps,
  ${nvidia:kmod:source},
 Provides:
+ libcuda1-any,
  libcuda-5.0-1,
  libcuda-5.0-1-i386 [i386],
  libcuda-5.5-1,

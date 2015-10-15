@@ -1,11 +1,34 @@
 nvidia-graphics-drivers-legacy-340xx (340.93-2) UNRELEASED; urgency=medium
 
-  [ Andreas Beckmann ]
+  * Add nvidia-legacy-340xx-kernel-support package.
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-5:
+    - nvidia-legacy-340xx-kernel-support: Ship nvidia-modprobe.conf
+      (previously in nvidia-legacy-340xx-alternative), managed via
+      nvidia-legacy-340xx-alternative.
+    - nvidia-legacy-340xx-kernel-support: Ship nvidia-blacklists-nouveau.conf
+      and nvidia-load.conf, managed via nvidia-legacy-340xx-alternative.
+    - Reroute all kernel module dependencies through
+      nvidia-legacy-340xx-kernel-support.
+    - nvidia-modprobe.conf: Temporarily disable the PCI-ID-match aliases and go
+      back to insecure default permissions (root:root 0666).  (See: #801869)
+    - Add patch to fix armhf kernel module build failure on 4.3.
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-4:
+    - bug-script: Report device node permissions.
+    - bug-control, bug-script: Report information about CUDA libraries.
+    - libcuda1: Provides: libcuda1-any.
+    - xserver-xorg-video-nvidia-legacy-340xx: Ship
+      nvidia-drm-outputclass.conf, managed via
+      nvidia-legacy-340xx-alternative.
+    - Add patch to fix kernel module build failure on 4.3.
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-2:
+    - Drop instructions and debconf notes about manual xorg.conf creation. The
+      driver now integrates with Xorg s.t. it is automatically detected and
+      loaded if selected as the glx alternative.
+  * conftest.h:
+    - Implement new conftest.sh functions hlist_for_each_entry,
+      of_parse_phandle, for_each_online_node, node_end_pfn (358.09).
   * Recommend nvidia-settings-legacy-340xx.
-
-  [ Luca Boccassi ]
-  * Add patch to fix kernel module build failure on 4.3
-  * Add patch to fix armhf kernel module build failure on 4.3
+  * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Oct 2015 19:14:19 +0200
 
@@ -62,6 +85,7 @@ nvidia-graphics-drivers-legacy-340xx (340.76-6) unstable; urgency=medium
     nvidia-cuda-mps packages.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 12 Aug 2015 06:20:39 +0200
+
 
 
 nvidia-graphics-drivers (340.76-5) unstable; urgency=medium
@@ -1431,16 +1455,32 @@ nvidia-graphics-drivers (310.14-1) experimental; urgency=low
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 17 Oct 2012 19:54:34 +0200
 
-nvidia-graphics-drivers (304.128-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers (304.128-1) wheezy; urgency=medium
 
   * New upstream legacy 304xx branch release 304.128 (2015-08-31).
+    * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
+      (Closes: #800566)
     * Improved compatibility with recent Linux kernels.
   * libgl1-nvidia-glx: Add Provides+Conflicts:
     libgl1-nvidia-glx-${nvidia:Version} to forbid co-installation of
     libgl1-nvidia-legacy-304xx-glx from the same upstream version due to file
     conflicts on versioned files that are not handled via alternatives.
+  * conftest.h:
+    - Implement new conftest.sh functions file_inode, drm_pci_set_busid
+      (340.76).
+    - Implement check for linux/log2.h (346.16).
+    - Implement check for xen/ioemu.h (346.59).
+    - Implement new conftest.sh functions write_cr4, xen_ioemu_inject_msi
+      (346.59), list_cut_position (349.12).
+    - Implement new conftest.sh functions backing_dev_info (346.82),
+      phys_to_dma, dma_ops, get_dma_ops, noncoherent_swiotlb_dma_ops (352.09).
+    - Implement new conftest.sh function dma_map_ops (352.30).
+    - Reorder conftest.h to match conftest.sh.
+    - Implement new conftest.sh function nvidia_grid_build (352.41).
+  * bug-script: Synchronize with unstable (340.93-4).
+  * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 13 Sep 2015 23:34:49 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Oct 2015 12:39:53 +0200
 
 nvidia-graphics-drivers (304.125-1) wheezy; urgency=medium
 
