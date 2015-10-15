@@ -2,15 +2,32 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
 
   * New upstream legacy 304xx branch release 304.128 (2015-08-31).
     * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
-      (Closes: #800566)
+      (Closes: #800567)
     * Improved compatibility with recent Linux kernels.
   * Removed f_path.dentry.patch, fixed upstream.
   * Removed fixes-for-kernel-4.0.0.patch, fixed upstream.
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-0+deb8u1:
+  * Synchronize packaging with nvidia-graphics-drivers 340.76-4:
+    - Add ignore_xen_on_arm.patch needed for dkms build on armhf: armmp
+      kernel headers ship with CONFIG_XEN enabled, which breaks the build,
+      so since running this driver on XEN is currently not supported,
+      ignore the check for XEN in nv-linux.h as a workaround on arm, and
+      also disable CONFIG_XEN and CONFIG_XEN_DOM0 if building on <= 3.16.
+    - README.source: Document setup for testing module compilation.
+  * Synchronize packaging with nvidia-graphics-drivers 340.76-3:
+    - Add Luca Boccassi to Uploaders.
+    - nvidia-legacy-304xx-driver, nvidia-legacy-304xx-kernel-*: Report the
+      latest tested Linux version that can build the kernel module in the
+      package description.
+  * Synchronize packaging with nvidia-graphics-drivers 340.76-1:
+      nvidia-legacy-304xx-kernel-source: Use reproducible timestamps and file
+      order inside /usr/src/nvidia-legacy-304xx-kernel.tar.xz.
   * Synchronize packaging with nvidia-graphics-drivers 304.128-1:
     - libgl1-nvidia-legacy-304xx-glx: Add Provides+Conflicts:
       libgl1-nvidia-glx-${nvidia:Version} to forbid co-installation of
       libgl1-nvidia-glx from the same upstream version due to file
       conflicts on versioned files that are not handled via alternatives.
+    - bug-script: Synchronize with nvidia-graphics-drivers 340.93-4.
   * conftest.h:
     - Implement new conftest.sh functions file_inode, drm_pci_set_busid
       (340.76).
@@ -23,7 +40,6 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
     - Implement new conftest.sh function dma_map_ops (352.30).
     - Reorder conftest.h to match conftest.sh.
     - Implement new conftest.sh function nvidia_grid_build (352.41).
-  * bug-script: Synchronize with unstable (340.93-4).
 
  -- Luca Boccassi <luca.boccassi@gmail.com>  Sun, 11 Oct 2015 13:12:51 +0100
 
