@@ -40,8 +40,9 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
     - Implement new conftest.sh function dma_map_ops (352.30).
     - Reorder conftest.h to match conftest.sh.
     - Implement new conftest.sh function nvidia_grid_build (352.41).
+  * Update lintian overrides.
 
- -- Luca Boccassi <luca.boccassi@gmail.com>  Sun, 11 Oct 2015 13:12:51 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 11 Oct 2015 13:12:51 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.125-2) unstable; urgency=medium
 
