@@ -106,8 +106,9 @@ Suggests:
  ${nvidia:kmod:source},
 Provides:
  libgl1-nvidia-glx-any,
+ libgl1-nvidia-glx-${nvidia:Version},
 Conflicts:
- libgl1-nvidia-glx (<< ${nvidia:Version}.0),
+ libgl1-nvidia-glx-${nvidia:Version},
 Breaks:
  ia32-libs (<< 1:0),
  libxvmcnvidia1 (<< 305),

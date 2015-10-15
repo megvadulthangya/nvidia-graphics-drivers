@@ -1,27 +1,30 @@
 nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
 
   * New upstream legacy 304xx branch release 304.128 (2015-08-31).
-    * Fixes CVE-2015-5950. (Closes #800567)
-    - Removed libvdpau and libvdpau_trace from the NVIDIA driver package.
-      VDPAU is not supported on the legacy hardware supported on the
-      release 304 legacy driver branch. The libvdpau_nvidia vendor
-      library is still included, so users who wish to use VDPAU with
-      newer hardware that still works with release 304 drivers may
-      install libvdpau from packages provided by the OS vendor where
-      available, or from the source code available at:
-      http://people.freedesktop.org/~aplattner/vdpau/
-    - Updated nvidia-installer to use modprobe(8) when leaving the NVIDIA
-      kernel module loaded after installation, instead of insmod(8) or
-      libkmod. This allows the kernel module to honor any configuration
-      directives that apply to it in /etc/modprobe.d when it is loaded.
-    - Fixed a bug that allowed console messages from the Linux kernel to
-      be drawn over the user interface of nvidia-installer.
-  * Removed f_path.dentry.patch, fixed upstream
-  * Removed fixes-for-kernel-4.0.0.patch, fixed upstream
+    * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
+      (Closes: #800566)
+    * Improved compatibility with recent Linux kernels.
+  * Removed f_path.dentry.patch, fixed upstream.
+  * Removed fixes-for-kernel-4.0.0.patch, fixed upstream.
+  * Synchronize packaging with nvidia-graphics-drivers 304.128-1:
+    - libgl1-nvidia-legacy-304xx-glx: Add Provides+Conflicts:
+      libgl1-nvidia-glx-${nvidia:Version} to forbid co-installation of
+      libgl1-nvidia-glx from the same upstream version due to file
+      conflicts on versioned files that are not handled via alternatives.
   * conftest.h:
-    - Sinchronize with nvidia-graphics-drivers/trunk
-  * Add patch to fix kernel module build failure on 4.3
-  * Add myself to Uploaders
+    - Implement new conftest.sh functions file_inode, drm_pci_set_busid
+      (340.76).
+    - Implement check for linux/log2.h (346.16).
+    - Implement check for xen/ioemu.h (346.59).
+    - Implement new conftest.sh functions write_cr4, xen_ioemu_inject_msi
+      (346.59), list_cut_position (349.12).
+    - Implement new conftest.sh functions backing_dev_info (346.82),
+      phys_to_dma, dma_ops, get_dma_ops, noncoherent_swiotlb_dma_ops (352.09).
+    - Implement new conftest.sh function dma_map_ops (352.30).
+    - Reorder conftest.h to match conftest.sh.
+    - Implement new conftest.sh function nvidia_grid_build (352.41).
+  * bug-script: Synchronize with unstable (340.93-4).
+  * Add patch to fix kernel module build failure on 4.3.
 
  -- Luca Boccassi <luca.boccassi@gmail.com>  Sun, 11 Oct 2015 13:12:51 +0100
 
