@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-304xx (304.128-5) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Oct 2015 03:07:13 +0200
+
 nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
 
   * New upstream legacy 304xx branch release 304.128 (2015-08-31).
