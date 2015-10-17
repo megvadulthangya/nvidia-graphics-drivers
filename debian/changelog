@@ -98,6 +98,8 @@ nvidia-graphics-drivers-legacy-304xx (304.125-2) unstable; urgency=medium
 
  -- Vincent Cheng <vcheng@debian.org>  Wed, 17 Jun 2015 02:33:37 -0700
 
+nvidia-graphics-drivers-legacy-304xx (304.125-1) unstable; urgency=medium
+
   * New upstream legacy 304xx branch release 304.125 (2014-12-05).
     * Fixes CVE-2014-8298.  (Closes: #772974)
     - Added support for X.Org xserver ABI 19 (xorg-server 1.17).
