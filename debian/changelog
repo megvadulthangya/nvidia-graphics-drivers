@@ -8,11 +8,6 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
   * Removed fixes-for-kernel-4.0.0.patch, fixed upstream.
   * Synchronize packaging with nvidia-graphics-drivers 340.93-0+deb8u1:
   * Synchronize packaging with nvidia-graphics-drivers 340.76-4:
-    - Add ignore_xen_on_arm.patch needed for dkms build on armhf: armmp
-      kernel headers ship with CONFIG_XEN enabled, which breaks the build,
-      so since running this driver on XEN is currently not supported,
-      ignore the check for XEN in nv-linux.h as a workaround on arm, and
-      also disable CONFIG_XEN and CONFIG_XEN_DOM0 if building on <= 3.16.
     - README.source: Document setup for testing module compilation.
   * Synchronize packaging with nvidia-graphics-drivers 340.76-3:
     - Add Luca Boccassi to Uploaders.
