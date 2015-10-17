@@ -1,6 +1,7 @@
 nvidia-graphics-drivers-legacy-304xx (304.128-6) UNRELEASED; urgency=medium
 
   * Add nvidia-legacy-304xx-kernel-support package.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.93-2:
   * Synchronize packaging with nvidia-graphics-drivers 340.93-5:
     - nvidia-legacy-304xx-kernel-support: Ship nvidia-modprobe.conf
       (previously in nvidia-legacy-304xx-alternative), managed via
@@ -27,6 +28,9 @@ nvidia-graphics-drivers-legacy-304xx (304.128-6) UNRELEASED; urgency=medium
     - Drop instructions and debconf notes about manual xorg.conf creation. The
       driver now integrates with Xorg s.t. it is automatically detected and
       loaded if selected as the glx alternative.
+  * Synchronize packaging with nvidia-graphics-drivers 340.76-5:
+    - nvidia-kernel-*: [i386] Drop support for building amd64 kernel modules.
+    - Overhaul arch-specific UVM support.
   * conftest.h:
     - Implement new conftest.sh functions hlist_for_each_entry,
       of_parse_phandle, for_each_online_node, node_end_pfn (358.09).
@@ -93,8 +97,6 @@ nvidia-graphics-drivers-legacy-304xx (304.125-2) unstable; urgency=medium
     3.19 and 4.0. (Closes: #785442, #786383)
 
  -- Vincent Cheng <vcheng@debian.org>  Wed, 17 Jun 2015 02:33:37 -0700
-
-nvidia-graphics-drivers-legacy-304xx (304.125-1) unstable; urgency=medium
 
   * New upstream legacy 304xx branch release 304.125 (2014-12-05).
     * Fixes CVE-2014-8298.  (Closes: #772974)

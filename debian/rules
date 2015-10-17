@@ -17,12 +17,16 @@ XORG_BOUND		?=
 LINUX_KMOD_TESTED	?=
 NVIDIA_SETTINGS		?= nvidia-settings$(legacy)
 NVIDIA_ALTERNATIVE	?= nvidia$(legacy)-alternative
+ARCH_LIST		?= i386 amd64
+ARCH_DEPS_i386		?=
+UVM_ARCH_LIST		?= $(ARCH_LIST)
 version			 = $(NVIDIA_RELEASE)
 version_major		 = $(firstword $(subst ., ,$(version)))
 nvidia			 = nvidia$(legacy)
 libcuda1		 = lib$(if $(legacy),$(nvidia)-)cuda1
 module			 = nvidia-$(current)
 current			 = $(if $(legacy),$(patsubst -%,%,$(legacy)),current)
+has_uvm			 = $(filter $(DEB_HOST_ARCH),$(UVM_ARCH_LIST))
 legacy			 = $(if $(NVIDIA_LEGACY),-legacy-$(NVIDIA_LEGACY)xx)
 legacy_description	 = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))
 perfkit			 =
@@ -33,8 +37,6 @@ filename_armhf		 = $(NVIDIA_FILENAME_armhf)
 dirname_i386		 = $(NVIDIA_DIRNAME_X86)
 dirname_amd64		 = $(NVIDIA_DIRNAME_X86_64)
 dirname_armhf		 = $(NVIDIA_DIRNAME_armhf)
-ARCH_LIST		?= i386 amd64
-ARCH_DEPS_i386		?= amd64
 
 # system libdir
 libdir			?= usr/lib/$(DEB_HOST_MULTIARCH)
@@ -195,13 +197,13 @@ build-kernel-source-tree: install-into-tmp
 		mv $(module_source)/Makefile $(module_source)/Kbuild
 	mv $(module_source)/conftest.sh $(module_source)/conftest_nvidia.sh
 
+ifneq (,$(has_uvm))
 	# For the nvidia-uvm module.
-	test ! -f $(module_source)/uvm/Makefile || \
-		mv $(module_source)/uvm/Makefile $(module_source)/uvm/Kbuild
-	test ! -d $(module_source)/uvm || \
-		ln -sf ../Makefile $(module_source)/uvm
-	test ! -d $(module_source)/uvm || \
-		ln -sf ../conftest.sh $(module_source)/uvm
+	mv $(module_source)/uvm/Makefile $(module_source)/uvm/Kbuild
+	ln -sf ../Makefile $(module_source)/uvm
+	ln -sf ../conftest.sh $(module_source)/uvm
+	ln -sf ../conftest.h $(module_source)/uvm
+endif
 
 	# We may need nv-kernel.o for several architectures to accomodate
 	# all kernel flavors. Use Kbuild-compatible names.
