@@ -1,3 +1,39 @@
+nvidia-graphics-drivers-legacy-304xx (304.128-6) UNRELEASED; urgency=medium
+
+  * Add nvidia-legacy-304xx-kernel-support package.
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-5:
+    - nvidia-legacy-304xx-kernel-support: Ship nvidia-modprobe.conf
+      (previously in nvidia-legacy-304xx-alternative), managed via
+      nvidia-legacy-304xx-alternative.
+    - nvidia-legacy-304xx-kernel-support: Ship nvidia-blacklists-nouveau.conf
+      and nvidia-load.conf, managed via nvidia-legacy-304xx-alternative.
+    - Reroute all kernel module dependencies through
+      nvidia-legacy-304xx-kernel-support.
+    - nvidia-modprobe.conf: Temporarily disable the PCI-ID-match aliases and go
+      back to insecure default permissions (root:root 0666).  (See: #801869)
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-4:
+    - xserver-xorg-video-nvidia-legacy-304xx: Ship
+      nvidia-drm-outputclass.conf, managed via
+      nvidia-legacy-304xx-alternative.
+    - seq-printf.patch: New patch to fix kernel module build for Linux 4.3.
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-3:
+    - nvidia-legacy-304xx-modprobe.conf:
+      + Don't use aliases for the renamed modules, only use install and remove
+        commands.
+      + Duplicate the module's built-in PCI-ID-match aliases to ensure they
+        cause the virtual "nvidia" module to be loaded instead of a random
+        one.
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-2:
+    - Drop instructions and debconf notes about manual xorg.conf creation. The
+      driver now integrates with Xorg s.t. it is automatically detected and
+      loaded if selected as the glx alternative.
+  * conftest.h:
+    - Implement new conftest.sh functions hlist_for_each_entry,
+      of_parse_phandle, for_each_online_node, node_end_pfn (358.09).
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Oct 2015 03:07:13 +0200
+
 nvidia-graphics-drivers-legacy-304xx (304.128-5) unstable; urgency=medium
 
   * Upload to unstable.

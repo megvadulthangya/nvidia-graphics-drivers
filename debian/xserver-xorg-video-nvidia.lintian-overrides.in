@@ -5,6 +5,3 @@ embedded-library usr/lib/#PRIVATE#/nvidia_drv.so: libpng
 hardening-no-fortify-functions
 hardening-no-relro
 hardening-no-stackprotector
-
-# The templates come from nvidia-support.
-no-debconf-templates
