@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.128-6) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.128-6) unstable; urgency=medium
 
   * Add nvidia-legacy-304xx-kernel-support package.
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.93-2:
@@ -36,7 +36,7 @@ nvidia-graphics-drivers-legacy-304xx (304.128-6) UNRELEASED; urgency=medium
       of_parse_phandle, for_each_online_node, node_end_pfn (358.09).
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Oct 2015 03:07:13 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Oct 2015 06:09:00 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.128-5) unstable; urgency=medium
 
