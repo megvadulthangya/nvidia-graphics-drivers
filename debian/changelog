@@ -11,7 +11,8 @@ nvidia-graphics-drivers-legacy-340xx (340.93-2) unstable; urgency=medium
       nvidia-legacy-340xx-kernel-support.
     - nvidia-modprobe.conf: Temporarily disable the PCI-ID-match aliases and go
       back to insecure default permissions (root:root 0666).  (See: #801869)
-    - Add patch to fix armhf kernel module build failure on 4.3.
+    - arm-outer-sync.patch: New patch to fix armhf kernel module build for
+      Linux 4.3.
   * Synchronize packaging with nvidia-graphics-drivers 340.93-4:
     - bug-script: Report device node permissions.
     - bug-control, bug-script: Report information about CUDA libraries.
@@ -19,7 +20,7 @@ nvidia-graphics-drivers-legacy-340xx (340.93-2) unstable; urgency=medium
     - xserver-xorg-video-nvidia-legacy-340xx: Ship
       nvidia-drm-outputclass.conf, managed via
       nvidia-legacy-340xx-alternative.
-    - Add patch to fix kernel module build failure on 4.3.
+    - seq-printf.patch: New patch to fix kernel module build for Linux 4.3.
   * Synchronize packaging with nvidia-graphics-drivers 340.93-2:
     - Drop instructions and debconf notes about manual xorg.conf creation. The
       driver now integrates with Xorg s.t. it is automatically detected and
@@ -56,8 +57,7 @@ nvidia-graphics-drivers-legacy-340xx (340.93-1) unstable; urgency=medium
       hardware errors or sync object waits that had timed out.
     * Improved compatibility with recent Linux kernels.
   * Synchronize packaging with nvidia-graphics-drivers 340.93-3:
-    - fixes-for-kernel-4.0.0.patch: Remove, fixed upstream.
-    - Update lintian overrides.
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-2:
     - nvidia-legacy-340xx-driver-bin, libnvidia-legacy-340xx-compiler,
       libnvidia-legacy-340xx-eglcore, libgl1-nvidia-legacy-340xx-glx: Add
       Provides+Conflicts: $pkg-${nvidia:Version} to forbid co-installation
@@ -73,8 +73,11 @@ nvidia-graphics-drivers-legacy-340xx (340.93-1) unstable; urgency=medium
       + Duplicate the module's built-in PCI-ID-match aliases to ensure they
         cause the virtual "nvidia" module to be loaded instead of a random
         one.
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-1:
+    - fixes-for-kernel-4.0.0.patch: Remove, fixed upstream.
   * conftest.h:
     - Implement new conftest.sh function nvidia_grid_build (352.41).
+  * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 01 Oct 2015 09:57:19 +0200
 
