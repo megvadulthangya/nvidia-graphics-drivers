@@ -171,7 +171,7 @@ Description: allows the selection of NVIDIA as GLX provider
 #Package: ${nvidia}-kernel-support
 Package: nvidia-legacy-304xx-kernel-support
 Section: non-free/kernel
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: foreign
 Depends:
  ${nvidia-alternative} (= ${binary:Version}),
