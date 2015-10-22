@@ -15,7 +15,6 @@ WATCH_PATTERN		?=
 XORG_ABI_LIST		?=
 XORG_BOUND		?=
 LINUX_KMOD_TESTED	?=
-BACKPORT		?=
 NVIDIA_SETTINGS		?= nvidia-settings$(legacy)
 NVIDIA_ALTERNATIVE	?= nvidia$(legacy)-alternative
 ARCH_LIST		?= i386 amd64
@@ -38,11 +37,6 @@ filename_armhf		 = $(NVIDIA_FILENAME_armhf)
 dirname_i386		 = $(NVIDIA_DIRNAME_X86)
 dirname_amd64		 = $(NVIDIA_DIRNAME_X86_64)
 dirname_armhf		 = $(NVIDIA_DIRNAME_armhf)
-
-# this needs the internal names (i.e. upstream's names, not our renamed files)
-rmmod_modules		 =
-rmmod_modules		+= $(if $(has_uvm),nvidia-uvm)
-rmmod_modules		+= nvidia
 
 # system libdir
 libdir			?= usr/lib/$(DEB_HOST_MULTIARCH)
@@ -238,7 +232,7 @@ endif
 	  tar cfJ $(module_txz) \
 	    --owner=root --group=src -C $(module_source)/../.. \
 	    --exclude '*.in' --exclude '.svn' \
-	    --null -T - --no-recursion
+	    --no-recursion --null -T -
 	tar tfvJ $(module_txz)
 
 build-kernel-dkms-tree: build-kernel-source-tree
@@ -318,7 +312,6 @@ override_dh_strip:
 	-e 's{#WATCH_PATTERN#}{$(subst \,\\,$(watch_pattern))}g;' \
 	-e 's{#LIBDIR#}{$(libdir)}g;' \
 	-e 's{#PRIVATE#}{$(nvidia_private)}g;' \
-	-e 's{#RMMOD_MODULES#}{$(strip $(rmmod_modules))}g;' \
 	-e 's{#HAS_UVM#}{$(if $(has_uvm),,#)}g;' \
 	-e 's{#!armhf#}{$(if $(filter armhf,$(DEB_HOST_ARCH)),#)}g;' \
 	-e 's{#!legacy#}{$(if $(legacy),#)}g;' \
