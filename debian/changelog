@@ -6,6 +6,8 @@ nvidia-graphics-drivers-legacy-304xx (304.128-7) UNRELEASED; urgency=medium
     - Bump dependency to nvidia-kernel-common (>= 20151021) which no longer
       applies non-default permissions on the /dev/nvidia* device nodes.
     - nvidia-modprobe.conf: Re-enable the PCI ID matching aliases.
+  * Synchronize packaging with nvidia-graphics-drivers 340.93-2:
+    - Add NEWS entry about no longer requiring manual xorg.conf creation.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 01 Nov 2015 19:31:28 +0100
 

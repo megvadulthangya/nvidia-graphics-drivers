@@ -1,0 +1,8 @@
+nvidia-graphics-drivers-legacy-304xx (304.128-7) unstable; urgency=medium
+
+  The NVIDIA driver now automatically integrates with the Xorg configuration.
+  Therefore it is no longer necessary to manually create an xorg.conf to
+  enable it.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Oct 2015 16:00:30 +0200
+
