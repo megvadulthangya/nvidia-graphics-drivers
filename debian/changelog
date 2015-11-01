@@ -44,7 +44,7 @@ nvidia-graphics-drivers-legacy-304xx (304.128-5) unstable; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Oct 2015 03:07:13 +0200
 
-nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.128-1) jessie; urgency=medium
 
   * New upstream legacy 304xx branch release 304.128 (2015-08-31).
     * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
@@ -54,11 +54,6 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
   * Removed fixes-for-kernel-4.0.0.patch, fixed upstream.
   * Synchronize packaging with nvidia-graphics-drivers 340.93-0+deb8u1:
   * Synchronize packaging with nvidia-graphics-drivers 340.76-4:
-    - Add ignore_xen_on_arm.patch needed for dkms build on armhf: armmp
-      kernel headers ship with CONFIG_XEN enabled, which breaks the build,
-      so since running this driver on XEN is currently not supported,
-      ignore the check for XEN in nv-linux.h as a workaround on arm, and
-      also disable CONFIG_XEN and CONFIG_XEN_DOM0 if building on <= 3.16.
     - README.source: Document setup for testing module compilation.
   * Synchronize packaging with nvidia-graphics-drivers 340.76-3:
     - Add Luca Boccassi to Uploaders.
@@ -87,8 +82,9 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
     - Reorder conftest.h to match conftest.sh.
     - Implement new conftest.sh function nvidia_grid_build (352.41).
   * Update lintian overrides.
+  * Upload to jessie.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 11 Oct 2015 13:12:51 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 01 Nov 2015 19:04:36 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.125-2) unstable; urgency=medium
 
