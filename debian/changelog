@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.128-1) jessie; urgency=medium
 
   * New upstream legacy 304xx branch release 304.128 (2015-08-31).
     * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
@@ -36,8 +36,9 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) UNRELEASED; urgency=medium
     - Reorder conftest.h to match conftest.sh.
     - Implement new conftest.sh function nvidia_grid_build (352.41).
   * Update lintian overrides.
+  * Upload to jessie.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 11 Oct 2015 13:12:51 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 01 Nov 2015 19:04:36 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.125-2) unstable; urgency=medium
 
