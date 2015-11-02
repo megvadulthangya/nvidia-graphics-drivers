@@ -1,4 +1,4 @@
-/* synchronized with conftest.sh from 346.22, 343.36, 340.65, 319.82, 304.125, 173.14.39, 96.43.23, 71.86.15 */
+/* synchronized with conftest.sh from 319.16, 346.59, 343.36, 340.76, 304.125, 173.14.39, 96.43.23, 71.86.15 */
 
 #ifndef LINUX_VERSION_CODE
 #include <linux/version.h>
@@ -122,6 +122,7 @@
  #undef NV_FOLLOW_PFN_PRESENT
 #endif
 
+/* removed in 349.xx */
 /* Implement conftest.sh function vmap */
 /* I can not find any released kernel that uses the 2 argument variant */
 /* of vmap */
@@ -524,6 +525,42 @@
  #undef NV_SG_INIT_TABLE_PRESENT
 #endif
 
+/* Implement conftest.sh function file_inode */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,9,0)
+ #define NV_FILE_HAS_INODE
+#else
+ #undef NV_FILE_HAS_INODE
+#endif
+
+/* Implement conftest.sh function drm_pci_set_busid */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,18,0)
+ #define NV_DRM_PCI_SET_BUSID_PRESENT
+#else
+ #undef NV_DRM_PCI_SET_BUSID_PRESENT
+#endif
+
+/* Implement conftest.sh function write_cr4 */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,20)
+ #define NV_WRITE_CR4_PRESENT
+#else
+ #undef NV_WRITE_CR4_PRESENT
+#endif
+
+/* Implement conftest.sh function xen_ioemu_inject_msi */
+/* this seems to require some xen patch for the kernel */
+#if 0
+ #define NV_XEN_IOEMU_INJECT_MSI
+#else
+ #undef NV_XEN_IOEMU_INJECT_MSI
+#endif
+
+/* Implement conftest.sh function list_cut_position */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,27)
+ #define NV_LIST_CUT_POSITION_PRESENT
+#else
+ #undef NV_LIST_CUT_POSITION_PRESENT
+#endif
+
 /* Check for linux/semaphore.h */
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,26)
  #define NV_LINUX_SEMAPHORE_H_PRESENT
@@ -624,4 +661,19 @@
  #define NV_LINUX_PRIO_TREE_H_PRESENT
 #else
  #undef NV_LINUX_PRIO_TREE_H_PRESENT
+#endif
+
+/* Check for linux/log2.h */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,20)
+ #define NV_LINUX_LOG2_H_PRESENT
+#else
+ #undef NV_LINUX_LOG2_H_PRESENT
+#endif
+
+/* Check for xen/ioemu.h */
+/* this seems to require some xen patch for the kernel */
+#if 0
+ #define NV_XEN_IOEMU_H_PRESENT
+#else
+ #undef NV_XEN_IOEMU_H_PRESENT
 #endif
