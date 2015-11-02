@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.128-7) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.128-7) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.93-4:
   * Synchronize packaging with nvidia-graphics-drivers 340.93-7:
@@ -12,7 +12,7 @@ nvidia-graphics-drivers-legacy-304xx (304.128-7) UNRELEASED; urgency=medium
   * Synchronize packaging with nvidia-graphics-drivers 340.93-2:
     - Add NEWS entry about no longer requiring manual xorg.conf creation.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 01 Nov 2015 19:31:28 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 02 Nov 2015 12:44:11 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.128-6) unstable; urgency=medium
 
