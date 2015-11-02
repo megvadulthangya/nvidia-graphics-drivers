@@ -1,9 +1,9 @@
-nvidia-graphics-drivers-legacy-340xx (340.93-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.93-4) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 340.93-7:
     - Bump glx-alternative-nvidia dependency to (>= 0.7) for Xorg autoconfig.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 02 Nov 2015 12:23:09 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 02 Nov 2015 12:25:08 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.93-3) unstable; urgency=medium
 
