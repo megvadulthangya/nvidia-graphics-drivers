@@ -2,6 +2,7 @@ nvidia-graphics-drivers-legacy-304xx (304.128-7) UNRELEASED; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.93-4:
   * Synchronize packaging with nvidia-graphics-drivers 340.93-7:
+    - Ship the NEWS in xserver-xorg-video-nvidia and nvidia-kernel-dkms, too.
     - Bump glx-alternative-nvidia dependency to (>= 0.7) for Xorg autoconfig.
   * Synchronize packaging with nvidia-graphics-drivers 340.93-6:
     - d/rules: Move tar option --no-recursion before the list of files.
