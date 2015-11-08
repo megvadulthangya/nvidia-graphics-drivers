@@ -16,6 +16,3 @@ symbols-declares-dependency-on-other-package libgl1
 # implementation of libGL.so.1, so the package name won't ever be able to
 # match the library names it provides.
 package-name-doesnt-match-sonames
-
-# File conflict on libnvidia-tls.so.304.108.
-conflicts-with-version libgl1-nvidia-glx (<< #VERSION#.0)
