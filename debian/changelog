@@ -66,6 +66,7 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) jessie; urgency=medium
     * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
       (Closes: #800567)
     * Improved compatibility with recent Linux kernels.
+      (Closes: #801193, #802452)
   * Removed f_path.dentry.patch, fixed upstream.
   * Removed fixes-for-kernel-4.0.0.patch, fixed upstream.
   * Synchronize packaging with nvidia-graphics-drivers 340.93-0+deb8u1:
