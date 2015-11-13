@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.128-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.128-8) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.93-5:
   * Synchronize packaging with nvidia-graphics-drivers 340.93-8:
@@ -8,7 +8,7 @@ nvidia-graphics-drivers-legacy-304xx (304.128-8) UNRELEASED; urgency=medium
     - Update documentation to use update-glx to configure the 'nvidia' and
       'glx' alternatives.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 13 Nov 2015 14:17:06 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 13 Nov 2015 14:34:11 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.128-7) unstable; urgency=medium
 
