@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (340.93-8~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 19 Nov 2015 21:32:00 +0100
+
 nvidia-graphics-drivers (340.93-8) unstable; urgency=medium
 
   * nvidia-detect: Fix lspci call if there are multiple NVIDIA GPUs installed
