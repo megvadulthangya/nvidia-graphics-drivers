@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.96-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.96-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.96 (2015-11-16).
     * Fixed CVE-2015-7869: Unsanitized User Mode Input.  (Closes: #805919)
@@ -20,7 +20,7 @@ nvidia-graphics-drivers-legacy-340xx (340.96-1) UNRELEASED; urgency=medium
     - Update conftest.sh function scatterlist for logic reversal in
       304.131/340.96/352.63, support both ways.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Dec 2015 11:44:43 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Dec 2015 12:25:37 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.93-5) unstable; urgency=medium
 
