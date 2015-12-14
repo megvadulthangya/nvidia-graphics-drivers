@@ -1,3 +1,25 @@
+nvidia-graphics-drivers-legacy-304xx (304.131-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy 304xx branch release 304.131 (2015-11-16).
+    * Fixed CVE-2015-7869: Unsanitized User Mode Input.  (Closes: #805918)
+    - Fixed a bug that could cause texture corruption in some OpenGL
+      applications when video memory is exhausted by a combination of
+      simultaneously running graphical and compute workloads.
+    - Added support for X.Org xserver ABI 20 (xorg-server 1.18).
+    * Improved compatibility with recent Linux kernels.
+  * Synchronize packaging with nvidia-graphics-drivers 340.96-1:
+    - d/control: Make dependencies on nvidia-legacy-340xx-alternative strictly
+      versioned to prevent partial upgrades.
+  * Synchronize packaging with nvidia-graphics-drivers 304.131-1:
+    - Add xorg-video-abi-20 as alternative dependency.
+  * conftest.h:
+    - Implement new conftest.sh functions hlist_for_each_entry,
+      of_parse_phandle, for_each_online_node, node_end_pfn (358.09).
+    - Update conftest.sh function scatterlist for logic reversal in
+      304.131/340.96/352.63, support both ways.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Dec 2015 12:56:19 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.128-8) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.93-5:
