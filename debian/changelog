@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.131-2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.131-2) unstable; urgency=medium
 
   * Merge changes from 304.131-1 (UNRELEASED).
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.96-1:
@@ -8,7 +8,7 @@ nvidia-graphics-drivers-legacy-304xx (304.131-2) UNRELEASED; urgency=medium
     - seq-printf.patch: Remove, fixed upstream.
   * Upload to unstable.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Dec 2015 13:49:08 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Dec 2015 14:11:22 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.131-1) UNRELEASED; urgency=medium
 
