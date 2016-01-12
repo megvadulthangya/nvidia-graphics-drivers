@@ -1,6 +1,13 @@
 nvidia-graphics-drivers-legacy-304xx (304.131-3) UNRELEASED; urgency=medium
 
+  [Andreas Beckmann]
   * Merge changes from 304.131-1 (jessie).
+
+  [Luca Boccassi]
+  * Add disable-mtrr.patch to disable MTRR in the kernel module if
+    building on 4.3 or greater, where the deprecated APIs the kernel module
+    uses are no longer exported, causing a failure when the module is
+    loaded at runtime. (Closes: #809324)
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 15 Dec 2015 02:38:49 +0100
 
