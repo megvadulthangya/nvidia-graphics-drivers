@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-304xx (304.131-1~bpo70+1) wheezy-backports; urgency=medium
+
+  * Rebuild for wheezy-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 15 Jan 2016 16:34:04 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.131-1) jessie; urgency=medium
 
   * New upstream legacy 304xx branch release 304.131 (2015-11-16).
