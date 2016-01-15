@@ -1,6 +1,7 @@
 nvidia-graphics-drivers-legacy-304xx (304.131-1~bpo70+1) wheezy-backports; urgency=medium
 
   * Rebuild for wheezy-backports.
+  * Replace 'dpkg-parsechangelog --show-field=Date' with a sed expression.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 15 Jan 2016 16:34:04 +0100
 
