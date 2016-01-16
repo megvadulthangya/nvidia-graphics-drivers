@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.131-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.131-3) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Merge changes from 304.131-1 (jessie).
@@ -18,7 +18,7 @@ nvidia-graphics-drivers-legacy-304xx (304.131-3) UNRELEASED; urgency=medium
     uses are no longer exported, causing a failure when the module is
     loaded at runtime. (Closes: #809324)
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 15 Dec 2015 02:38:49 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Jan 2016 23:53:04 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.131-2) unstable; urgency=medium
 
