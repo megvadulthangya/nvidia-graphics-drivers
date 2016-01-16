@@ -10,6 +10,7 @@ nvidia-graphics-drivers-legacy-304xx (304.131-3) UNRELEASED; urgency=medium
       preserve timestamps.
     - get-orig-source: Generate tarball reproducibly.
     - bug-script: Collect Xorg log from journalctl if running under systemd.
+  * Update lintian overrides.
 
   [ Luca Boccassi ]
   * Add disable-mtrr.patch to disable MTRR in the kernel module if
