@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (340.96-4~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Jan 2016 21:42:31 +0100
+
 nvidia-graphics-drivers (340.96-4) unstable; urgency=medium
 
   [ Andreas Beckmann ]
