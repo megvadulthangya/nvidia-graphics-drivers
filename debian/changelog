@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.96-2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.96-2) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 340.96-4:
     - Do not run dh_strip_nondeterminism, it may perform modifications not
@@ -9,7 +9,7 @@ nvidia-graphics-drivers-legacy-340xx (340.96-2) UNRELEASED; urgency=medium
     - Update lintian overrides.
     - bug-script: Collect Xorg log from journalctl if running under systemd.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 15 Jan 2016 17:13:41 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Jan 2016 21:21:02 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.96-1) unstable; urgency=medium
 
