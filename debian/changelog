@@ -1,3 +1,60 @@
+nvidia-graphics-drivers-legacy-304xx (304.131-3) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Merge changes from 304.131-1 (jessie).
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.96-2:
+  * Synchronize packaging with nvidia-graphics-drivers 340.96-4:
+    - Do not run dh_strip_nondeterminism, it may perform modifications not
+      permitted by the NVIDIA license.
+    - get-orig-source: Download *.run with wget from http download server to
+      preserve timestamps.
+    - get-orig-source: Generate tarball reproducibly.
+    - bug-script: Collect Xorg log from journalctl if running under systemd.
+  * Update lintian overrides.
+
+  [ Luca Boccassi ]
+  * Add disable-mtrr.patch to disable MTRR in the kernel module if
+    building on 4.3 or greater, where the deprecated APIs the kernel module
+    uses are no longer exported, causing a failure when the module is
+    loaded at runtime. (Closes: #809324)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Jan 2016 23:53:04 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.131-2) unstable; urgency=medium
+
+  * Merge changes from 304.131-1 (UNRELEASED).
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.96-1:
+  * Synchronize packaging with nvidia-graphics-drivers 340.96-3:
+    - Use a more generic approach for unloading the modules.
+  * Synchronize packaging with nvidia-graphics-drivers 340.96-2:
+    - seq-printf.patch: Remove, fixed upstream.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Dec 2015 14:11:22 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.131-1) jessie; urgency=medium
+
+  * New upstream legacy 304xx branch release 304.131 (2015-11-16).
+    * Fixed CVE-2015-7869: Unsanitized User Mode Input.  (Closes: #805918)
+    - Fixed a bug that could cause texture corruption in some OpenGL
+      applications when video memory is exhausted by a combination of
+      simultaneously running graphical and compute workloads.
+    - Added support for X.Org xserver ABI 20 (xorg-server 1.18).
+    * Improved compatibility with recent Linux kernels.
+  * Synchronize packaging with nvidia-graphics-drivers 340.96-1:
+    - d/control: Make dependencies on nvidia-legacy-304xx-alternative strictly
+      versioned to prevent partial upgrades.
+  * Synchronize packaging with nvidia-graphics-drivers 304.131-1:
+    - Add xorg-video-abi-20 as alternative dependency.
+  * conftest.h:
+    - Implement new conftest.sh functions hlist_for_each_entry,
+      of_parse_phandle, for_each_online_node, node_end_pfn (358.09).
+    - Update conftest.sh function scatterlist for logic reversal in
+      304.131/340.96/352.63, support both ways.
+  * Upload to jessie.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 15 Dec 2015 02:30:11 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.128-8~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports.
@@ -20,6 +77,7 @@ nvidia-graphics-drivers-legacy-304xx (304.128-8) unstable; urgency=medium
 
 nvidia-graphics-drivers-legacy-304xx (304.128-7) unstable; urgency=medium
 
+  * Merge changes from 304.128-1 (jessie).
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.93-4:
   * Synchronize packaging with nvidia-graphics-drivers 340.93-7:
     - Ship the NEWS in xserver-xorg-video-nvidia and nvidia-kernel-dkms, too.
@@ -76,6 +134,7 @@ nvidia-graphics-drivers-legacy-304xx (304.128-6) unstable; urgency=medium
 
 nvidia-graphics-drivers-legacy-304xx (304.128-5) unstable; urgency=medium
 
+  * Merge changes from 304.128-1 (UNRELEASED).
   * Upload to unstable.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Oct 2015 03:07:13 +0200
