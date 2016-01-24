@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-304xx (304.131-3~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 24 Jan 2016 16:50:46 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.131-3) unstable; urgency=medium
 
   [ Andreas Beckmann ]
