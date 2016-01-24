@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-340xx (340.96-2~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 24 Jan 2016 14:08:14 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.96-2) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 340.96-4:
