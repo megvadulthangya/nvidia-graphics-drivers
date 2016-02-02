@@ -80,10 +80,10 @@ Provides:
 Conflicts:
  nvidia-driver-bin-${nvidia:Version},
 Breaks:
- ${nvidia}-driver (<< 340.46-4~),
+ ${nvidia}-driver (<< 343.22-2~),
  nvidia-glx${nvidia:Legacy} (<< 319),
 Replaces:
- ${nvidia}-driver (<< 340.46-4~),
+ ${nvidia}-driver (<< 343.22-2~),
  nvidia-glx${nvidia:Legacy} (<< 319),
 Description: NVIDIA driver support binaries${nvidia:LegacyDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
@@ -283,9 +283,9 @@ Conflicts:
 Breaks:
  nvidia-settings (<< 319.49),
  nvidia-settings-legacy-173xx (<< 173.14.37),
- nvidia-driver (<< 340.46-4~),
+ nvidia-driver (<< 343.22-2~),
  nvidia-vdpau-driver (<< 340.46-2~),
- libcuda1 (<< 340.96),
+ libcuda1 (<< 352.63),
  nvidia-opencl-icd (<< 340.46-2~),
  libnvidia-ifr1 (<< 340.46-2~),
  libnvidia-fbc1 (<< 340.46-2~),
@@ -413,7 +413,7 @@ Pre-Depends:
  nvidia-installer-cleanup,
  ${misc:Pre-Depends}
 Depends:
- libvdpau1,
+ libvdpau1 (>= 0.9),
  ${nvidia-alternative} (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
@@ -514,6 +514,10 @@ Provides:
  libcuda-6.0-1-i386 [i386],
  libcuda-6.5-1,
  libcuda-6.5-1-i386 [i386],
+ libcuda-7.0-1,
+ libcuda-7.0-1-i386 [i386],
+ libcuda-7.5-1,
+ libcuda-7.5-1-i386 [i386],
 Homepage: http://www.nvidia.com/CUDA
 Description: NVIDIA CUDA Driver Library
  The Compute Unified Device Architecture (CUDA) enables NVIDIA
@@ -704,6 +708,7 @@ Recommends:
 Provides:
  libopencl1,
  libopencl-1.1-1,
+ libopencl-1.2-1,
 Conflicts:
  libopencl1,
  nvidia-libopencl1-ia32,
