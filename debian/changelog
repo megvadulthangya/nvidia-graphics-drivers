@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-304xx (304.131-4) UNRELEASED; urgency=medium
+
+  * Depend on a setuid root Xserver.  (Closes: #805554)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 27 Feb 2016 12:53:21 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.131-3) unstable; urgency=medium
 
   [ Andreas Beckmann ]
