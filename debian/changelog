@@ -1,3 +1,12 @@
+nvidia-graphics-drivers-legacy-304xx (304.131-1+) UNRELEASED; urgency=medium
+
+  * nvidia-legacy-304xx-alternative: Restrict Depends: glx-alternative-nvidia
+    to (<< 0.7). Uploading a new upstream legacy release to stable will
+    invalidate package relationships in unstable, thus permitting some
+    (partial) upgrade paths that will fail.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 12 Mar 2016 18:01:09 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.131-1) jessie; urgency=medium
 
   * New upstream legacy 304xx branch release 304.131 (2015-11-16).

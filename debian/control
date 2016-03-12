@@ -142,6 +142,7 @@ Architecture: i386 amd64
 Multi-Arch: foreign
 Depends:
  glx-alternative-nvidia (>= 0.4),
+ glx-alternative-nvidia (<< 0.7),
  ${misc:Depends}
 Conflicts:
  libgl1-nvidia-alternatives,
