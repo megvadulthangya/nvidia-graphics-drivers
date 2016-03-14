@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.96-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.96-3) unstable; urgency=medium
 
   * Synchronize kernel module build with nvidia-graphics-drivers:
     - Simplify maintaining the module build process.
@@ -19,7 +19,7 @@ nvidia-graphics-drivers-legacy-340xx (340.96-3) UNRELEASED; urgency=medium
     - Bump Standards-Version to 3.9.7. No changes needed.
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Mar 2016 17:47:20 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Mar 2016 19:55:10 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.96-2) unstable; urgency=medium
 
