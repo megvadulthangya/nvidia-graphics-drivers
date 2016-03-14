@@ -28,6 +28,7 @@ Section: non-free/x11
 Architecture: i386 amd64
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
  xserver-xorg-video-${nvidia} (= ${binary:Version}),
@@ -63,6 +64,7 @@ Section: non-free/x11
 Architecture: i386 amd64
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
  ${nvidia-alternative} (= ${binary:Version}),
@@ -100,6 +102,7 @@ Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
  ${misc:Pre-Depends}
 Depends:
  ${nvidia-alternative} (= ${binary:Version}),
@@ -144,6 +147,8 @@ Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
 Package: nvidia-legacy-304xx-alternative
 Architecture: i386 amd64
 Multi-Arch: foreign
+Pre-Depends:
+ ${nvidia:legacy-check},
 Depends:
  glx-alternative-nvidia (>= 0.7),
  ${misc:Depends}
