@@ -18,7 +18,7 @@ Build-Depends:
  libxvmc1,
  quilt,
  po-debconf,
-Standards-Version: 3.9.6
+Standards-Version: 3.9.7
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
@@ -137,7 +137,7 @@ Architecture: i386
 Multi-Arch: foreign
 Depends:
  libgl1-${nvidia}-glx,
- ${shlibs:Depends}, ${misc:Depends}
+ ${misc:Depends}
 Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  This metapackage helps the automatic installation of the 32-bit NVIDIA
  OpenGL libraries when installing libgl1-${nvidia}-glx
@@ -152,10 +152,6 @@ Pre-Depends:
 Depends:
  glx-alternative-nvidia (>= 0.7),
  ${misc:Depends}
-Conflicts:
- libgl1-nvidia-alternatives,
- libglx-nvidia-alternatives,
- libgl1-nvidia-alternatives-ia32,
 Breaks:
  nvidia-settings (<< 319.49),
  nvidia-settings-legacy-173xx (<< 173.14.37),
@@ -212,7 +208,7 @@ Depends:
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Provides:
- ${nvidia}-kernel-${nvidia:Version}${nvidia:Perfkit},
+ ${nvidia}-kernel-${nvidia:Version},
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
  ${nvidia}-driver, using DKMS.
@@ -237,8 +233,8 @@ Package: nvidia-legacy-304xx-kernel-source
 Section: non-free/kernel
 Architecture: i386 amd64
 Depends:
- debhelper (>= 8),
- make,
+ debhelper (>= 9),
+ make:any,
  quilt,
  xz-utils,
  ${misc:Depends}
