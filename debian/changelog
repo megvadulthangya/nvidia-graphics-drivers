@@ -1,3 +1,26 @@
+nvidia-graphics-drivers-legacy-340xx (340.96-3) UNRELEASED; urgency=medium
+
+  * Synchronize kernel module build with nvidia-graphics-drivers:
+    - Simplify maintaining the module build process.
+    - Use NVIDIA's conftest.sh script to determine settings during module
+      build instead of our manually maintained conftest.h header.
+    - Hand over as much as possible to Kbuild.
+    - Support building a 64-bit kernel module with 32-bit userspace.
+  * Synchronize get-orig-source target with nvidia-graphics-drivers.
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-5:
+    - Drop incomplete Perfkit support.
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-4:
+    - nvidia-legacy-340xx-kernel-source: Switch to debhelper compat level 9.
+    - rules: Drop support for ancient .run layout.
+    - debian/bug-control.mk: New script to generate bug-control.
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-3:
+    - bug-script: Report bumblebee configuration.
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-2:
+    - Bump Standards-Version to 3.9.7. No changes needed.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Mar 2016 17:47:20 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.96-2) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 340.96-4:
