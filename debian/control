@@ -27,6 +27,7 @@ Section: non-free/x11
 Architecture: i386 amd64 armhf
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia-legacy-check},
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
  libegl1-${nvidia} (= ${binary:Version}),
@@ -88,6 +89,7 @@ Section: non-free/x11
 Architecture: i386 amd64 armhf
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia-legacy-check},
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
  ${nvidia-alternative} (= ${binary:Version}),
@@ -126,6 +128,7 @@ Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia-legacy-check},
  ${misc:Pre-Depends}
 Depends:
  ${nvidia-alternative} (= ${binary:Version}),
@@ -253,19 +256,17 @@ Description: NVIDIA binary EGL core libraries${nvidia:LegacyDesc}
 Package: nvidia-legacy-340xx-alternative
 Architecture: i386 amd64 armhf
 Multi-Arch: foreign
+Pre-Depends:
+ ${nvidia-legacy-check},
 Depends:
  glx-alternative-nvidia (>= 0.7),
  ${misc:Depends}
-Conflicts:
- libgl1-nvidia-alternatives,
- libglx-nvidia-alternatives,
- libgl1-nvidia-alternatives-ia32,
 Breaks:
  nvidia-settings (<< 319.49),
  nvidia-settings-legacy-173xx (<< 173.14.37),
- nvidia-driver (<< 340.46-4~),
+ nvidia-driver (<< 343.22-2~),
  nvidia-vdpau-driver (<< 340.46-2~),
- libcuda1 (<< 340.96),
+ libcuda1 (<< 352.63),
  nvidia-opencl-icd (<< 340.46-2~),
  libnvidia-ifr1 (<< 340.46-2~),
  libnvidia-fbc1 (<< 340.46-2~),
@@ -352,7 +353,7 @@ Section: non-free/kernel
 Architecture: i386 amd64 armhf
 Depends:
  debhelper (>= 9),
- make,
+ make:any,
  quilt,
  xz-utils,
  ${misc:Depends}
@@ -391,6 +392,7 @@ Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia-legacy-check},
  ${misc:Pre-Depends}
 Depends:
  libvdpau1,
@@ -404,8 +406,6 @@ Enhances:
  libvdpau1,
 Provides:
  vdpau-driver,
-Breaks:
- libvdpau1 (<< 0.4.1-3),
 Description: Video Decode and Presentation API for Unix - NVIDIA driver
  These libraries provide the Video Decode and Presentation API for Unix.
  They provide accelerated video playback (incl. H.264) for the supported
@@ -442,6 +442,7 @@ Package: libnvidia-legacy-340xx-cuda1
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
+ ${nvidia-legacy-check},
  ${misc:Pre-Depends}
 Depends:
  nvidia-support,
@@ -450,6 +451,7 @@ Depends:
 Recommends:
  ${nvidia:kmod:binary},
  ${nvidia}-smi,
+ nvidia-persistenced,
  ${libcuda1}-i386 [amd64],
 Suggests:
  nvidia-cuda-mps,
