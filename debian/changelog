@@ -15,6 +15,9 @@ nvidia-graphics-drivers-legacy-304xx (304.131-4) UNRELEASED; urgency=medium
     - Bump Standards-Version to 3.9.7. No changes needed.
   * Depend on a setuid root Xserver.  (Closes: #805554)
   * Update lintian overrides.
+  * KERNEL_UNAME.patch: New, allow usage of KERNEL_UNAME as in 340.xx onwards.
+  * Pass only the kernel version via KERNEL_UNAME and let the module build
+    system figure out the paths.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 27 Feb 2016 12:53:21 +0100
 
