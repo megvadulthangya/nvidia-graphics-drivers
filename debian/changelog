@@ -18,6 +18,8 @@ nvidia-graphics-drivers-legacy-304xx (304.131-4) UNRELEASED; urgency=medium
   * KERNEL_UNAME.patch: New, allow usage of KERNEL_UNAME as in 340.xx onwards.
   * Pass only the kernel version via KERNEL_UNAME and let the module build
     system figure out the paths.
+  * Use NVIDIA's conftest.sh script to determine settings during module build
+    instead of our manually maintained conftest.h header.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 27 Feb 2016 12:53:21 +0100
 

@@ -11,7 +11,7 @@ endif
 ifdef SYSSRC
  KERNEL_SOURCES	 = $(SYSSRC)
 else
- KERNEL_UNAME	:= $(shell uname -r)
+ KERNEL_UNAME	?= $(shell uname -r)
  KERNEL_SOURCES	 = /lib/modules/$(KERNEL_UNAME)/build
 endif
 
