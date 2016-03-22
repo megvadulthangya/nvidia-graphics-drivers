@@ -1,13 +1,12 @@
 Author: Andreas Beckmann <anbe@debian.org>
 Description: dump the generated conftest headers
 
---- a/Kbuild
-+++ b/Kbuild
-@@ -200,11 +200,26 @@ $(obj)/$(CORE_OBJS):
- $(obj)/$(VERSION_HEADER):
- 	@echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
+--- a/Makefile
++++ b/Makefile
+@@ -139,6 +139,15 @@ TOPDIR ?= $(KERNEL_SOURCES)
  
--$(obj)/conftest.h: $(src)/conftest.sh
+ MODULE_OBJECT := $(MODULE_NAME).ko
+ 
 +.PHONY: conftest-verbose
 +conftest-verbose:
 +	@echo 'CONFTEST=$(CONFTEST)'
@@ -17,6 +16,14 @@ Description: dump the generated conftest headers
 +	@echo 'LDFLAGS=$(LDFLAGS)'
 +	@echo 'ARCH=$(ARCH)'
 +
+ ifneq ($(KERNELRELEASE),)
+ # Begin of Kbuild section
+ 
+@@ -210,11 +219,17 @@ $(obj)/$(CORE_OBJS):
+ $(obj)/$(VERSION_HEADER):
+ 	@echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
+ 
+-$(obj)/conftest.h: $(src)/conftest.sh
 +$(obj)/conftest.h: $(src)/conftest.sh conftest-verbose
 +	@echo " CONFTEST: compile_tests"
  	@if ! $(CONFTEST) compile_tests $(COMPILE_TESTS); then exit 1; fi
@@ -32,22 +39,17 @@ Description: dump the generated conftest headers
  
  RESMAN_GLUE_TARGETS = $(addprefix $(obj)/,$(RESMAN_GLUE_OBJS))
  
-@@ -240,10 +255,14 @@ suser-sanity-check:
- rmmod-sanity-check:
- 	@if ! $(CONFTEST) rmmod_sanity_check; then exit 1; fi
+@@ -265,8 +280,9 @@ BUILD_SANITY_CHECKS = \
+ 
+ SKIP_SANITY_CHECKS	 =
  
 -build-sanity-checks:
 +build-sanity-checks: conftest-verbose
-+	@echo " CONFTEST: cc_version_check"
- 	@if ! $(CONFTEST) cc_version_check 		full_output; then exit 1; fi
-+	@echo " CONFTEST: rivafb_sanity_check"
- 	@if ! $(CONFTEST) rivafb_sanity_check 	full_output; then exit 1; fi
-+	@echo " CONFTEST: nvidiafb_sanity_check"
- 	@if ! $(CONFTEST) nvidiafb_sanity_check full_output; then exit 1; fi
-+	@echo " CONFTEST: xen_sanity_check"
- 	@if ! $(CONFTEST) xen_sanity_check 		full_output; then exit 1; fi
- 
- #
+ 	@for SANITY_CHECK in $(filter-out $(SKIP_SANITY_CHECKS),$(BUILD_SANITY_CHECKS)); do \
++	 echo " CONFTEST: $$SANITY_CHECK"; \
+ 	 if ! $(CONFTEST) $$SANITY_CHECK full_output; then \
+ 	 exit 1; \
+ 	 fi; \
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -2098,6 +2098,11 @@ case "$6" in

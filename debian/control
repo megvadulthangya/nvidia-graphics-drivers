@@ -32,7 +32,7 @@ Pre-Depends:
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
  xserver-xorg-video-${nvidia} (= ${binary:Version}),
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  ${nvidia:kmod:binary},
  nvidia-support,
  ${misc:Depends}
@@ -67,7 +67,7 @@ Pre-Depends:
  ${nvidia:legacy-check},
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  nvidia-support (>= 20120630),
  ${nvidia:xorgDepends},
  ${shlibs:Depends}, ${misc:Depends}
@@ -105,7 +105,7 @@ Pre-Depends:
  ${nvidia:legacy-check},
  ${misc:Pre-Depends}
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  nvidia-installer-cleanup (>= 20130816) [i386],
  nvidia-support,
  ${shlibs:Depends}, ${misc:Depends}
@@ -143,7 +143,7 @@ Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  OpenGL libraries when installing libgl1-${nvidia}-glx
  on amd64 with foreign architecture i386 enabled.
 
-#Package: ${nvidia-alternative}
+#Package: ${nvidia}-alternative
 Package: nvidia-legacy-304xx-alternative
 Architecture: i386 amd64
 Multi-Arch: foreign
@@ -156,7 +156,7 @@ Breaks:
  nvidia-settings (<< 319.49),
  nvidia-settings-legacy-173xx (<< 173.14.37),
 Provides:
- ${nvidia-alternative}--kmod-alias,
+ ${nvidia}-alternative--kmod-alias,
 Description: allows the selection of NVIDIA as GLX provider
  In setups with several NVIDIA driver versions installed (e.g. current and
  legacy) this metapackage registers an alternative to allow easy switching
@@ -174,8 +174,8 @@ Section: non-free/kernel
 Architecture: i386 amd64
 Multi-Arch: foreign
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
- ${nvidia-alternative}--kmod-alias,
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${nvidia}-alternative--kmod-alias,
  nvidia-kernel-common (>= 20151021),
  nvidia-modprobe,
  ${misc:Depends}
