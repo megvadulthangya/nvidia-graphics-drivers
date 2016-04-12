@@ -20,7 +20,6 @@ NVIDIA_LEGACY_CHECK	?=
 NVIDIA_SETTINGS		?= nvidia-settings$(legacy)
 ARCH_LIST		?= i386 amd64
 ARCH_DEPS_i386		?=
-UVM_ARCH_LIST		?= $(ARCH_LIST)
 
 version			 = $(NVIDIA_RELEASE)
 version_major		 = $(firstword $(subst ., ,$(version)))
@@ -28,14 +27,12 @@ nvidia			 = nvidia$(legacy)
 libcuda1		 = lib$(if $(legacy),$(nvidia)-)cuda1
 module			 = nvidia-$(current)
 current			 = $(if $(legacy),$(patsubst -%,%,$(legacy)),current)
-has_uvm			 = $(filter $(DEB_HOST_ARCH),$(UVM_ARCH_LIST))
 legacy			 = $(if $(NVIDIA_LEGACY),-legacy-$(NVIDIA_LEGACY)xx)
 legacy_description	 = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))
 watch_pattern		 = $(or $(WATCH_PATTERN),$(if $(WATCH_VERSION),$(WATCH_VERSION)(?:\.[\d\.\-]+)?),[\d\.\-]+)
 
 # this needs the internal names (i.e. upstream's names, not our renamed files)
 unload_modules		 =
-unload_modules		+= $(if $(has_uvm),nvidia-uvm)
 unload_modules		+= nvidia
 
 # system libdir
@@ -48,8 +45,7 @@ CONTROL_PREFIXES	+= nvidia-vdpau-driver
 CONTROL_PREFIXES	+= libcuda1
 CONTROL_PREFIXES	+= nvidia-opencl-icd libnvidia-compiler
 CONTROL_PREFIXES	+= libnvidia-ml1 nvidia-smi
-CONTROL_PREFIXES	+= libnvidia-ifr1 libnvidia-fbc1
-CONTROL_PREFIXES	+= libnvidia-encode1 libnvcuvid1
+CONTROL_PREFIXES	+= libnvcuvid1
 RENAME_libnvcuvid1		 = lib$(if $(legacy),${nvidia}-)nvcuvid1
 RENAME_libcuda1			 = $(libcuda1)
 renamed_prefix		 = $(or $(RENAME_$1),$(subst nvidia,$(nvidia),$1))
@@ -141,7 +137,6 @@ override_dh_auto_clean:
 	rm -fr kernel-source-tree
 	rm -f nvidia.ids nv-kernel.ids nv-readme.ids pci.ids.nvidia*
 	rm -f LICENSE.txt LICENSE.tmp copyright.tmp
-	test ! -d debian/po || debconf-updatepo
 
 override_dh_clean:
 	dh_clean
@@ -175,10 +170,6 @@ build-kernel-source-tree: install-into-tmp
 	rm -f $(module_source)/makefile
 	rm -f $(module_source)/Makefile.nvidia
 	mv $(module_source)/Makefile.kbuild $(module_source)/Makefile
-
-ifneq (,$(has_uvm))
-	ln -sf ../conftest.sh $(module_source)/uvm
-endif
 
 	# We may need nv-kernel.o for several architectures to accomodate
 	# all kernel flavors. Use Kbuild-compatible names.
@@ -285,9 +276,6 @@ override_dh_strip_nondeterminism:
 	-e 's{#PRIVATE#}{$(nvidia_private)}g;' \
 	-e 's{#UNLOAD_MODULES#}{$(strip $(unload_modules))}g;' \
 	-e 's{#ARCH_LIST#}{$(ARCH_LIST)}g;' \
-	-e 's{#HAS_UVM#}{$(if $(has_uvm),,#)}g;' \
-	-e 's{#!armhf#}{$(if $(filter armhf,$(DEB_HOST_ARCH)),#)}g;' \
-	-e 's{#!legacy#}{$(if $(legacy),#)}g;' \
 	< $< > $@
 
 debian/module/debian/changelog: debian/changelog

@@ -40,6 +40,7 @@ Depends:
 Recommends:
  ${nvidia-settings},
  libgl1-${nvidia}-glx-i386 [amd64],
+ nvidia-persistenced,
 Suggests:
  ${nvidia:kmod:source},
 Provides:
@@ -60,9 +61,9 @@ Description: NVIDIA metapackage${nvidia:LegacyDesc}
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
 #Package: ${nvidia}-driver-bin
-Package: nvidia-driver-bin
+Package: nvidia-legacy-304xx-driver-bin
 Section: non-free/x11
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
@@ -146,7 +147,6 @@ Provides:
 Conflicts:
  libgl1-nvidia-glx-${nvidia:Version},
 Breaks:
- ia32-libs (<< 1:0),
  libxvmcnvidia1 (<< 305),
 Replaces:
  libxvmcnvidia1 (<< 305),
@@ -231,7 +231,6 @@ Pre-Depends:
 Depends:
  dkms,
  ${nvidia}-kernel-support--v1,
- ${nvidia}-alternative--kmod-alias,
  ${misc:Depends}
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
@@ -269,7 +268,6 @@ Depends:
 Recommends:
  module-assistant | kernel-package,
  ${nvidia}-kernel-support,
- ${nvidia}-alternative--kmod-alias,
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Breaks:
