@@ -3,6 +3,15 @@ nvidia-graphics-drivers-legacy-304xx (304.131-5) UNRELEASED; urgency=medium
   * Synchronize packaging with nvidia-graphics-drivers 340.46-4:
     - Split nvidia-legacy-304xx-driver-bin from the metapackage
       nvidia-legacy-304xx-driver.
+  * Build legacy packages for more legacy driver specific components:
+    - nvidia-vdpau-driver => nvidia-legacy-304xx-vdpau-driver
+    - nvidia-smi => nvidia-legacy-304xx-smi
+    - libcuda1 => libnvidia-legacy-304xx-cuda1
+    - libcuda1-i386 => libnvidia-legacy-304xx-cuda1-i386
+    - libnvidia-compiler => libnvidia-legacy-304xx-compiler
+    - libnvcuvid1 => libnvidia-legacy-304xx-nvcuvid1
+    - libnvidia-ml1 => libnvidia-legacy-304xx-ml1
+    - nvidia-opencl-icd => nvidia-legacy-304xx-opencl-icd
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Apr 2016 17:44:34 +0200
 
