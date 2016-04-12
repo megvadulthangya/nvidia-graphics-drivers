@@ -1,5 +1,18 @@
 nvidia-graphics-drivers-legacy-304xx (304.131-4) UNRELEASED; urgency=medium
 
+  * Synchronize kernel module build with nvidia-graphics-drivers:
+    - Simplify maintaining the module build process.
+    - Use NVIDIA's conftest.sh script to determine settings during module
+      build instead of our manually maintained conftest.h header.
+    - Hand over as much as possible to Kbuild.
+    - Support building a 64-bit kernel module with 32-bit userspace.
+  * Synchronize get-orig-source target with nvidia-graphics-drivers.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.96-4:
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-6:
+    - Stop special-casing the nvidia-alternative substitution.
+    - bug-control, bug-script: Collect some information about OpenCL.
+    - Add B-D: dpkg-dev (>= 1.17.0) for dpkg-parsechangelog --show-field.
+    - Bump Standards-Version to 3.9.8. No changes needed.
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.96-3:
   * Synchronize get-orig-source target with nvidia-graphics-drivers.
   * Synchronize packaging with nvidia-graphics-drivers 352.79-5:
@@ -15,12 +28,6 @@ nvidia-graphics-drivers-legacy-304xx (304.131-4) UNRELEASED; urgency=medium
     - Bump Standards-Version to 3.9.7. No changes needed.
   * Depend on a setuid root Xserver.  (Closes: #805554)
   * Update lintian overrides.
-  * KERNEL_UNAME.patch: New, allow usage of KERNEL_UNAME as in 340.xx onwards.
-  * Pass only the kernel version via KERNEL_UNAME and let the module build
-    system figure out the paths.
-  * Use NVIDIA's conftest.sh script to determine settings during module build
-    instead of our manually maintained conftest.h header.
-  * Drop special-casing of the nvidia-alternative substitution.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 27 Feb 2016 12:53:21 +0100
 
