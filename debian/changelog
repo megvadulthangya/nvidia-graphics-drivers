@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.131-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.131-5) experimental; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 340.46-4:
     - Split nvidia-legacy-304xx-driver-bin from the metapackage
@@ -12,8 +12,9 @@ nvidia-graphics-drivers-legacy-304xx (304.131-5) UNRELEASED; urgency=medium
     - libnvcuvid1 => libnvidia-legacy-304xx-nvcuvid1
     - libnvidia-ml1 => libnvidia-legacy-304xx-ml1
     - nvidia-opencl-icd => nvidia-legacy-304xx-opencl-icd
+  * Upload to experimental.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Apr 2016 17:44:34 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Apr 2016 20:13:50 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.131-4) unstable; urgency=medium
 
