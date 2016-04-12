@@ -31,7 +31,6 @@ Pre-Depends:
  ${nvidia:legacy-check},
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
- ${nvidia}-driver-bin (= ${binary:Version}),
  xserver-xorg-video-${nvidia} (= ${binary:Version}),
  ${nvidia}-alternative (= ${binary:Version}),
  ${nvidia:kmod:binary},
@@ -59,32 +58,6 @@ Description: NVIDIA metapackage${nvidia:LegacyDesc}
  for a complete list of supported GPUs and PCI IDs.
  .
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
-
-#Package: ${nvidia}-driver-bin
-Package: nvidia-legacy-304xx-driver-bin
-Section: non-free/x11
-Architecture: i386 amd64
-Depends:
- ${nvidia}-alternative (= ${binary:Version}),
- ${shlibs:Depends}, ${misc:Depends}
-Recommends:
- ${nvidia}-driver,
-Provides:
- nvidia-driver-bin-${nvidia:Version},
-Conflicts:
- nvidia-driver-bin-${nvidia:Version},
-Breaks:
- ${nvidia}-driver (<< 340.46-4~),
- nvidia-glx${nvidia:Legacy} (<< 319),
-Replaces:
- ${nvidia}-driver (<< 340.46-4~),
- nvidia-glx${nvidia:Legacy} (<< 319),
-Description: NVIDIA driver support binaries${nvidia:LegacyDesc}
- The NVIDIA binary driver provides optimized hardware acceleration of
- OpenGL applications via a direct-rendering X Server.
- AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
- .
- This package contains supporting binaries for the driver.
 
 #Package: xserver-xorg-video-${nvidia}
 Package: xserver-xorg-video-nvidia-legacy-304xx
