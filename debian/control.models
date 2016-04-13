@@ -40,8 +40,8 @@ Quadro FX 4500 X2 [G71GL], Quadro FX 4500 [G70GL], Quadro FX 5500 [G71GL],
 Quadro NVS 110M [G72M], Quadro NVS 120M [G72M], Quadro NVS 210S [C51],
 Quadro NVS 285 [NV44], Quadro NVS 440 [NV43], nForce 400 [C61],
 nForce 405 [C61], nForce 420 [C61], nForce 430 [C61], nForce 610M [C67],
-nForce 610i [C73], nForce 620i [C73], nForce 630i [C73], nForce 630a [C61],
-nForce 630a [C68], nForce 630i [C73], nForce 630M [C67].
+nForce 610i [C73], nForce 620i [C73], nForce 630M [C67], nForce 630a [C61],
+nForce 630a [C68], nForce 630i [C73].
 
 There are several "more modern" GPUs supported by this package, too, but the
 updated drivers in the newer legacy packages or the current nvidia-driver
