@@ -32,7 +32,6 @@ nvidia-graphics-drivers-legacy-304xx (304.131-4) unstable; urgency=medium
     - Add B-D: dpkg-dev (>= 1.17.0) for dpkg-parsechangelog --show-field.
     - Bump Standards-Version to 3.9.8. No changes needed.
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.96-3:
-  * Synchronize get-orig-source target with nvidia-graphics-drivers.
   * Synchronize packaging with nvidia-graphics-drivers 352.79-5:
     - Drop incomplete Perfkit support.
     - Support building a 64-bit kernel module with 32-bit userspace.
@@ -42,8 +41,6 @@ nvidia-graphics-drivers-legacy-304xx (304.131-4) unstable; urgency=medium
     - debian/bug-control.mk: New script to generate bug-control.
   * Synchronize packaging with nvidia-graphics-drivers 352.79-3:
     - bug-script: Report bumblebee configuration.
-  * Synchronize packaging with nvidia-graphics-drivers 352.79-2:
-    - Bump Standards-Version to 3.9.7. No changes needed.
   * Depend on a setuid root Xserver.  (Closes: #805554)
   * Update lintian overrides.
 
