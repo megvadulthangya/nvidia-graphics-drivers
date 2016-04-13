@@ -12,6 +12,7 @@ Vcs-Svn: svn://anonscm.debian.org/pkg-nvidia/packages/nvidia-graphics-drivers-le
 Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-304xx/
 Build-Depends:
  debhelper (>= 9),
+ dpkg-dev (>= 1.17.0),
  xz-utils,
  dkms,
  libxext6,
@@ -35,7 +36,7 @@ Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${nvidia:kmod:binary},
  nvidia-support,
- ${shlibs:Depends}, ${misc:Depends}
+ ${misc:Depends}
 Recommends:
  ${nvidia-settings},
  libgl1-${nvidia}-glx-i386 [amd64],
@@ -115,7 +116,6 @@ Provides:
 Conflicts:
  libgl1-nvidia-glx-${nvidia:Version},
 Breaks:
- ia32-libs (<< 1:0),
  libxvmcnvidia1 (<< 305),
 Replaces:
  libxvmcnvidia1 (<< 305),
@@ -133,7 +133,7 @@ Architecture: i386
 Multi-Arch: foreign
 Depends:
  libgl1-${nvidia}-glx,
- ${shlibs:Depends}, ${misc:Depends}
+ ${misc:Depends}
 Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  This metapackage helps the automatic installation of the 32-bit NVIDIA
  OpenGL libraries when installing libgl1-${nvidia}-glx
@@ -209,7 +209,7 @@ Package: nvidia-legacy-304xx-kernel-source
 Section: non-free/kernel
 Architecture: i386 amd64
 Depends:
- debhelper (>= 8),
+ debhelper (>= 9),
  make,
  quilt,
  xz-utils,
