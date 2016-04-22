@@ -1,10 +1,11 @@
-nvidia-graphics-drivers-legacy-340xx (340.96-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.96-5) unstable; urgency=medium
 
   [ Luca Boccassi ]
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-7:
   * Add page-cache-release.patch and vm-fault-minor.patch (uvm only) to fix
-    kernel module build failure on Linux 4.6.
+    kernel module build for Linux 4.6.
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 21 Apr 2016 18:49:55 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 22 Apr 2016 12:51:46 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.96-4) unstable; urgency=medium
 
