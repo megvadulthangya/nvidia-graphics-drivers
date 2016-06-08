@@ -1,9 +1,17 @@
+nvidia-graphics-drivers-legacy-340xx (340.96-6) UNRELEASED; urgency=medium
+
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-8:
+    - Add get-user-pages.patch to fix kernel module build for Linux 4.6.  
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 08 Jun 2016 03:15:51 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.96-5) unstable; urgency=medium
 
   [ Luca Boccassi ]
   * Synchronize packaging with nvidia-graphics-drivers 352.79-7:
-  * Add page-cache-release.patch and vm-fault-minor.patch (uvm only) to fix
-    kernel module build for Linux 4.6.
+    - Add page-cache-release.patch and vm-fault-minor.patch (uvm only) to fix
+      kernel module build for Linux 4.6.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 22 Apr 2016 12:51:46 +0200
 
