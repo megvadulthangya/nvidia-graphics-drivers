@@ -3,6 +3,10 @@ nvidia-graphics-drivers-legacy-304xx (304.131-6) UNRELEASED; urgency=medium
   [ Luca Boccassi ]
   * Add page-cache-release.patch and get-user-pages.patch to fix kernel module
     build for Linux 4.6.  (Closes: #826712)
+  * nvidia-legacy-304xx-driver-libs: New metapackage for bundling the
+    Depends/Recommends on the GL/GLX packages.
+  * Replace libgl1-nvidia-legacy-304xx-glx-i386 with new
+    nvidia-legacy-304xx-driver-libs-i386 metapackage.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 20 Apr 2016 22:01:54 +0200
 
