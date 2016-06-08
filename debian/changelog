@@ -1,8 +1,8 @@
 nvidia-graphics-drivers-legacy-304xx (304.131-6) UNRELEASED; urgency=medium
 
   [ Luca Boccassi ]
-  * Add page-cache-release.patch to fix kernel module build failure on
-    Linux 4.6.
+  * Add page-cache-release.patch and get-user-pages.patch to fix kernel module
+    build for Linux 4.6.  (Closes: #826712)
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 20 Apr 2016 22:01:54 +0200
 
