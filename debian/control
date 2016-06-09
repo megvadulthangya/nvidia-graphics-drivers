@@ -12,12 +12,13 @@ Vcs-Svn: svn://anonscm.debian.org/pkg-nvidia/packages/nvidia-graphics-drivers-le
 Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-340xx/
 Build-Depends:
  debhelper (>= 9),
+ dpkg-dev (>= 1.17),
  xz-utils,
  dkms,
  libxext6,
  quilt,
  po-debconf,
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
@@ -27,13 +28,14 @@ Section: non-free/x11
 Architecture: i386 amd64 armhf
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
  libegl1-${nvidia} (= ${binary:Version}),
  ${nvidia}-driver-bin (= ${binary:Version}),
  xserver-xorg-video-${nvidia} (= ${binary:Version}),
  ${nvidia}-vdpau-driver (= ${binary:Version}),
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  ${nvidia:kmod:binary},
  nvidia-support,
  ${misc:Depends}
@@ -67,7 +69,7 @@ Package: nvidia-legacy-340xx-driver-bin
 Section: non-free/x11
 Architecture: i386 amd64 armhf
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia}-driver,
@@ -88,9 +90,10 @@ Section: non-free/x11
 Architecture: i386 amd64 armhf
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  nvidia-support (>= 20120630),
  ${nvidia:xorgDepends},
  ${shlibs:Depends}, ${misc:Depends}
@@ -126,9 +129,10 @@ Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
  ${misc:Pre-Depends}
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  nvidia-installer-cleanup (>= 20130816) [i386],
  nvidia-support,
  ${shlibs:Depends}, ${misc:Depends}
@@ -155,7 +159,7 @@ Architecture: i386
 Multi-Arch: foreign
 Depends:
  libgl1-${nvidia}-glx,
- ${shlibs:Depends}, ${misc:Depends}
+ ${misc:Depends}
 Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
  This metapackage helps the automatic installation of the 32-bit NVIDIA
  OpenGL libraries when installing libgl1-${nvidia}-glx
@@ -168,13 +172,13 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA binary EGL libraries${nvidia:LegacyDesc}
  This package contains the EGL native platform graphics interface library.
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
- for use with other graphics libraries, such as OpenGL|ES and OpenVG.
+ for use with other graphics libraries, such as OpenGL|ES.
  .
  See the description of the ${nvidia}-driver package
  or /usr/share/doc/libgl1-${nvidia}-glx/README.txt.gz
@@ -187,7 +191,7 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA binary OpenGL|ES 1.x libraries${nvidia:LegacyDesc}
@@ -209,7 +213,7 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA binary OpenGL|ES 2.x libraries${nvidia:LegacyDesc}
@@ -239,7 +243,7 @@ Conflicts:
  libnvidia-eglcore-${nvidia:Version},
 Description: NVIDIA binary EGL core libraries${nvidia:LegacyDesc}
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
- for use with other graphics libraries, such as OpenGL|ES and OpenVG.
+ for use with other graphics libraries, such as OpenGL|ES.
  .
  OpenGL|ES is a cross-platform API for full-function 2D and 3D graphics on
  embedded systems - including consoles, phones, appliances and vehicles.
@@ -249,32 +253,17 @@ Description: NVIDIA binary EGL core libraries${nvidia:LegacyDesc}
  This package contains the private core libraries used by the NVIDIA
  implementation of EGL and OpenGL|ES.
 
-#Package: ${nvidia-alternative}
+#Package: ${nvidia}-alternative
 Package: nvidia-legacy-340xx-alternative
 Architecture: i386 amd64 armhf
 Multi-Arch: foreign
+Pre-Depends:
+ ${nvidia:legacy-check},
 Depends:
  glx-alternative-nvidia (>= 0.7),
  ${misc:Depends}
-Conflicts:
- libgl1-nvidia-alternatives,
- libglx-nvidia-alternatives,
- libgl1-nvidia-alternatives-ia32,
-Breaks:
- nvidia-settings (<< 319.49),
- nvidia-settings-legacy-173xx (<< 173.14.37),
- nvidia-driver (<< 340.46-4~),
- nvidia-vdpau-driver (<< 340.46-2~),
- libcuda1 (<< 340.96),
- nvidia-opencl-icd (<< 340.46-2~),
- libnvidia-ifr1 (<< 340.46-2~),
- libnvidia-fbc1 (<< 340.46-2~),
- libnvidia-encode1 (<< 340.46-2~),
- libnvcuvid1 (<< 340.46-2~),
- libnvidia-ml1 (<< 340.46-2~),
- nvidia-smi (<< 340.46-2~),
 Provides:
- ${nvidia-alternative}--kmod-alias,
+ ${nvidia}-alternative--kmod-alias,
 Description: allows the selection of NVIDIA as GLX provider
  In setups with several NVIDIA driver versions installed (e.g. current and
  legacy) this metapackage registers an alternative to allow easy switching
@@ -292,8 +281,8 @@ Section: non-free/kernel
 Architecture: i386 amd64 armhf
 Multi-Arch: foreign
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
- ${nvidia-alternative}--kmod-alias,
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${nvidia}-alternative--kmod-alias,
  nvidia-kernel-common (>= 20151021),
  nvidia-modprobe,
  ${misc:Depends}
@@ -326,7 +315,7 @@ Depends:
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}) | ${libcuda1} (>= ${nvidia:Version}),
 Provides:
- ${nvidia}-kernel-${nvidia:Version}${nvidia:Perfkit},
+ ${nvidia}-kernel-${nvidia:Version},
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
  ${nvidia}-driver, using DKMS.
@@ -351,8 +340,8 @@ Package: nvidia-legacy-340xx-kernel-source
 Section: non-free/kernel
 Architecture: i386 amd64 armhf
 Depends:
- debhelper (>= 8),
- make,
+ debhelper (>= 9),
+ make:any,
  quilt,
  xz-utils,
  ${misc:Depends}
@@ -391,10 +380,11 @@ Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
  ${misc:Pre-Depends}
 Depends:
  libvdpau1,
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia:kmod:binary},
@@ -404,8 +394,6 @@ Enhances:
  libvdpau1,
 Provides:
  vdpau-driver,
-Breaks:
- libvdpau1 (<< 0.4.1-3),
 Description: Video Decode and Presentation API for Unix - NVIDIA driver
  These libraries provide the Video Decode and Presentation API for Unix.
  They provide accelerated video playback (incl. H.264) for the supported
@@ -413,7 +401,7 @@ Description: Video Decode and Presentation API for Unix - NVIDIA driver
  .
  This package contains the NVIDIA VDPAU driver.
  .
- See /usr/share/doc/nvidia-vdpau-driver/README.txt.gz
+ See /usr/share/doc/${nvidia}-vdpau-driver/README.txt.gz
  for more information.
  .
  ${nvidia:kmod:Description}
@@ -442,14 +430,16 @@ Package: libnvidia-legacy-340xx-cuda1
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
+ ${nvidia:legacy-check},
  ${misc:Pre-Depends}
 Depends:
  nvidia-support,
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia:kmod:binary},
  ${nvidia}-smi,
+ nvidia-persistenced,
  ${libcuda1}-i386 [amd64],
 Suggests:
  nvidia-cuda-mps,
@@ -484,7 +474,7 @@ Architecture: i386
 Multi-Arch: foreign
 Depends:
  ${libcuda1},
- ${shlibs:Depends}, ${misc:Depends}
+ ${misc:Depends}
 Description: NVIDIA CUDA 32-bit runtime library${nvidia:LegacyDesc}
  This metapackage helps the automatic installation of the 32-bit NVIDIA CUDA
  library when installing ${libcuda1} on amd64 with foreign
@@ -584,7 +574,7 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Breaks:
  ${nvidia}-smi (<< ${nvidia:Version}),
@@ -604,7 +594,7 @@ Pre-Depends:
 Depends:
  nvidia-opencl-common,
  ocl-icd-libopencl1 | nvidia-libopencl1 | libopencl1,
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  ${libcuda1} (= ${binary:Version}),
  lib${nvidia}-compiler (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
