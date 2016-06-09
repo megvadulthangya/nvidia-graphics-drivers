@@ -1,11 +1,11 @@
-nvidia-graphics-drivers-legacy-340xx (340.96-7) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.96-7) unstable; urgency=medium
 
   * nvidia-driver-libs: New metapackage for bundling the
     Depends/Recommends on the GL/GLX/EGL packages.
   * Replace libgl1-nvidia-legacy-340xx-glx-i386 with new
     nvidia-legacy-340xx-driver-libs-i386 metapackage.
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 09 Jun 2016 17:41:26 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 09 Jun 2016 18:41:44 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.96-6) unstable; urgency=medium
 
