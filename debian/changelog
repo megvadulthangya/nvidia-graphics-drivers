@@ -1,3 +1,122 @@
+nvidia-graphics-drivers (352.79-8) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * cc_version_check-gcc5.patch: New, ignore __GNUC_MINOR__ mismatch from
+    GCC 5 onwards.
+  * Update lintian overrides.
+
+  [ Luca Boccassi ]
+  * Add get-user-pages.patch to fix kernel module build for Linux 4.6.
+    (Closes: #826190)
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 07 Jun 2016 01:49:35 +0200
+
+nvidia-graphics-drivers (352.79-7) unstable; urgency=medium
+
+  [ Luca Boccassi ]
+  * Add page-cache-release.patch, vm-fault-minor.patch (uvm only),
+    uvmnext-isr-top-half.patch (uvm only) and rm_kernel_rmapi_op.patch
+    to fix kernel module build for Linux 4.6.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 22 Apr 2016 12:26:07 +0200
+
+nvidia-graphics-drivers (352.79-6) unstable; urgency=medium
+
+  * separate-makefile-kbuild.patch: New, don't make all Makefile targets
+    available to Kbuild.
+  * KERNEL_UNAME.patch: New, allow usage of KERNEL_UNAME as in 355.xx onwards.
+  * nvidia-kernel-source: Use KERNEL_UNAME=KVERS only if the kernel headers
+    are available via /lib/modules/KVERS/{build,source}.  (Closes: #820260)
+  * Stop special-casing the nvidia-alternative substitution.
+  * bug-control, bug-script: Collect some information about OpenCL.
+  * Updated Japanese (jp) debconf translations by Takuma Yamada.
+    (Closes: #817867)
+  * Add B-D: dpkg-dev (>= 1.17.0) for dpkg-parsechangelog --show-field.
+  * Bump Standards-Version to 3.9.8. No changes needed.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Apr 2016 03:07:52 +0200
+
+nvidia-graphics-drivers (352.79-5) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * nvidia-kernel-source: Use Depends: make:any to allow foreign arch
+    installation.
+  * use-kbuild-flags.patch: New, use KBUILD_CFLAGS from Kbuild to
+    support building a 64-bit kernel module with 32-bit userspace.
+    (Closes: #815986)
+  * Drop incomplete Perfkit support.
+  * nvidia-detect: Drop support for squeeze(-lts) (EoL).
+  * Update lintian overrides.
+
+  [ Luca Boccassi ]
+  * Update Portuguese debconf translation. Thanks Américo Monteiro!
+    (Closes: #816143)
+  * nvidia-kernel-source: Unconditionally unset ARCH (which may have been set
+    to the Debian architecture by unrelated tools) before building a module
+    since having this set to something different than a kernel architecture
+    will break the build. This was already done for the dkms module build.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 08 Mar 2016 14:07:17 +0100
+
+nvidia-graphics-drivers (352.79-4) unstable; urgency=medium
+
+  * nvidia-kernel-source: Switch to debhelper compat level 9.
+  * [ppc64el] Do not depend on nvidia-kernel-common.
+  * rules: Drop support for ancient .run layout.
+  * Drop Conflicts+Replaces against transitional packages in wheezy.
+  * nvidia-detect: Drop support for lenny (EoL).
+  * debian/bug-control.mk: New script to generate bug-control.
+  * Document in nvidia-legacy-check's description that the debconf questions
+    can be preseeded to allow for non-interactive installations.
+    (Closes: #815515)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 26 Feb 2016 04:40:49 +0100
+
+nvidia-graphics-drivers (352.79-3) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * get-orig-source: Generate an additional .orig-ppc64el tarball for ppc64el.
+  * Add preliminary support for ppc64el, only supports CUDA/OpenCL.
+  * Update lintian overrides.
+
+  [ Luca Boccassi ]
+  * Update reportbug template to include content of
+    /etc/bumblebee/bumblebee.conf and /etc/bumblebee/xorg.conf.nvidia if
+    they are present.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 16 Feb 2016 12:27:17 +0100
+
+nvidia-graphics-drivers (352.79-2) unstable; urgency=low
+
+  [ Andreas Beckmann ]
+  * Add nvidia-legacy-check package, taking over the check for legacy GPUs
+    from libgl1-nvidia-glx. Add the new package to the Pre-Depends of several
+    core packages.  (Closes: #813541)
+  * avoid-ld.gold.patch: Disable, hopefully this is no longer needed.
+  * use-kbuild-compiler.patch: New patch to build with Kbuild's version of the
+    compiler instead of system default, thanks to Luca.
+  * Use NVIDIA's conftest.sh script to determine settings during module build
+    instead of our manually maintained conftest.h header.
+  * conftest-verbose.patch: New patch to dump dynamically generated conftest
+    headers.
+  * conftest-via-kbuild.patch: New patch to call conftest.sh from within
+    kbuild (and therefore with kbuild's compiler and flags) as in 355.xx.
+  * disable-preempt_rt_sanity_check.patch: New patch to disable a check we
+    already skipped in our conftest.h.
+  * Pass only the kernel version via KERNEL_UNAME and let the module build
+    system figure out the paths.
+  * Clear ARCH variable from environment before dkms build, thanks to Luca.
+  * Bump Standards-Version to 3.9.7. No changes needed.
+  * Update lintian overrides.
+
+  [ Luca Boccassi ]
+  * ignore_xen_on_arm.patch: Update to add workaround for conftest.sh to fix
+    kernel module build failure on armhf by forcing XEN_PRESENT=0 when
+    building on armhf
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 12 Feb 2016 02:09:09 +0100
+
 nvidia-graphics-drivers (352.79-1~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports.
@@ -28,9 +147,9 @@ nvidia-graphics-drivers (352.63-1) experimental; urgency=medium
 
   * New upstream long lived branch release 352.63 (2015-11-16).
     * Fixed CVE-2015-7869: Unsanitized User Mode Input.  (Closes: #805917)
-    - Added support for the following GPUs: GeForce 945M, Quadro M5000M,
-      Quadro M4000M, Quadro M3000M, Quadro M2000M, Quadro M1000M,
-      Quadro M600M, NVS 810, Tesla M40.
+    - Added support for the following GPUs: GeForce 940MX, GeForce 945M,
+      Quadro M5000M, Quadro M4000M, Quadro M3000M, Quadro M2000M,
+      Quadro M1000M, Quadro M600M, NVS 810, Tesla M40.
     - Fixed a regression that prevented DPMS from working correctly on
       some DisplayPort displays.
     - Fixed a bug that could prevent X from starting when configured with
@@ -2059,7 +2178,7 @@ nvidia-graphics-drivers (304.131-1) wheezy; urgency=medium
     - Update conftest.sh function scatterlist for logic reversal in
       304.131/340.96/352.63, support both ways.
   * debian/control: Add Breaks between mismatching upstream versions of
-    libcuda1 and nvidia-alternative to prevent partial upgrades. 
+    libcuda1 and nvidia-alternative to prevent partial upgrades.
   * Upload to wheezy.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Dec 2015 09:53:49 +0100
@@ -2199,9 +2318,6 @@ nvidia-graphics-drivers (304.117-1) wheezy; urgency=medium
   * Use canonical Vcs-* URLs.
   * {libgl1-nvidia-glx,libcuda1}.postinst: Load debconf/confmodule, may be
     used by /usr/lib/nvidia/check* scripts.  (Closes: #722469)
-  * debian/module/debian/prep-modules: Sanitize the kernel version. Replace
-    underscores (may occur in custom kernels) with dashes to be eligible for
-    package names and versions.  (Closes: #710891)
   * Update lintian overrides.
   * Upload to wheezy.
 

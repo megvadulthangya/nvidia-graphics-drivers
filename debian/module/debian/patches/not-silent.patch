@@ -3,7 +3,7 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
 
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -139,10 +139,10 @@ MOD_SIGN_CMD ?= $(KERNEL_SOURCES)/script
+@@ -156,10 +156,10 @@ MOD_SIGN_CMD ?= $(KERNEL_SOURCES)/script
  #
  
  $(obj)/$(CORE_OBJS):
@@ -14,50 +14,9 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
 -	@echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
 +	$(NVQ)echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
  
- CONFTEST_COMPILE_TEST_HEADERS := $(obj)/conftest/macros.h \
- $(obj)/conftest/functions.h $(obj)/conftest/symbols.h $(obj)/conftest/types.h \
-@@ -158,8 +158,8 @@ $(CONFTEST_COMPILE_TEST_HEADERS)
- #
- 
- $(obj)/conftest/compile-tests/%.h: $(src)/conftest.sh $(obj)/conftest/headers.h
--	@mkdir -p $(obj)/conftest/compile-tests
--	@$(CONFTEST) compile_tests '$(CONFTEST_CFLAGS)' $(notdir $*) > $@
-+	$(NVQ)mkdir -p $(obj)/conftest/compile-tests
-+	$(NVQ)$(CONFTEST) compile_tests '$(CONFTEST_CFLAGS)' $(notdir $*) > $@
- 
- #
- # Concatenate a conftest/*.h header from its constituent compile test headers
-@@ -170,9 +170,9 @@ $(obj)/conftest/compile-tests/%.h: $(src
- 
- define GENERATE_COMPILE_TEST_HEADER
- $(obj)/conftest/$(1).h: $(addprefix $(obj)/conftest/compile-tests/,$(addsuffix .h,$(2)))
--	@mkdir -p $(obj)/conftest
--	@# concatenate /dev/null to prevent cat from hanging when $$^ is empty
--	@cat $$^ /dev/null > $$@
-+	$(NVQ)mkdir -p $(obj)/conftest
-+	$(NVQ)# concatenate /dev/null to prevent cat from hanging when $$^ is empty
-+	$(NVQ)cat $$^ /dev/null > $$@
- endef
- 
- #
-@@ -187,12 +187,12 @@ $(eval $(call GENERATE_COMPILE_TEST_HEAD
- $(eval $(call GENERATE_COMPILE_TEST_HEADER,types,$(TYPE_COMPILE_TESTS)))
- 
- $(obj)/conftest/patches.h: $(src)/conftest.sh
--	@mkdir -p $(obj)/conftest
--	@$(CONFTEST) patch_check > $@
-+	$(NVQ)mkdir -p $(obj)/conftest
-+	$(NVQ)$(CONFTEST) patch_check > $@
- 
- $(obj)/conftest/headers.h: $(src)/conftest.sh
--	@mkdir -p $(obj)/conftest
--	@$(CONFTEST) test_kernel_headers > $@
-+	$(NVQ)mkdir -p $(obj)/conftest
-+	$(NVQ)$(CONFTEST) test_kernel_headers > $@
- 
- $(obj)/nv.o: $(obj)/$(VERSION_HEADER)
- 
-@@ -217,10 +217,10 @@ KBUILD_PARAMS += ARCH=$(ARCH)
+ .PHONY: conftest-verbose
+ conftest-verbose:
+@@ -262,10 +262,10 @@ ifneq ($(KERNELRELEASE),)
  #
  
  suser-sanity-check:
@@ -70,25 +29,28 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
  
  BUILD_SANITY_CHECKS = \
  	cc_version_check \
-@@ -231,7 +231,7 @@ BUILD_SANITY_CHECKS = \
- 	preempt_rt_sanity_check
+@@ -279,7 +279,7 @@ SKIP_SANITY_CHECKS	 =
+ SKIP_SANITY_CHECKS	+= preempt_rt_sanity_check
  
- build-sanity-checks:
--	@for SANITY_CHECK in $(BUILD_SANITY_CHECKS); do \
-+	$(NVQ)for SANITY_CHECK in $(BUILD_SANITY_CHECKS); do \
+ build-sanity-checks: conftest-verbose
+-	@for SANITY_CHECK in $(filter-out $(SKIP_SANITY_CHECKS),$(BUILD_SANITY_CHECKS)); do \
++	$(NVQ)for SANITY_CHECK in $(filter-out $(SKIP_SANITY_CHECKS),$(BUILD_SANITY_CHECKS)); do \
+ 	 echo " CONFTEST: $$SANITY_CHECK"; \
  	 if ! $(CONFTEST) $$SANITY_CHECK full_output; then \
  	 exit 1; \
- 	 fi; \
-@@ -242,7 +242,7 @@ build-sanity-checks:
- #
+@@ -301,9 +301,9 @@ ifeq ($(KERNELRELEASE),)
  
- module: build-sanity-checks $(CONFTEST_HEADERS)
--	@echo "NVIDIA: calling KBUILD..."; \
-+	$(NVQ)echo "NVIDIA: calling KBUILD..."; \
- 	$(MAKE) "CC=$(CC)" $(KBUILD_PARAMS) modules; \
- 	echo "NVIDIA: left KBUILD."; \
- 	for module in $(MODULE_OBJECTS); do \
-@@ -260,7 +260,7 @@ module: build-sanity-checks $(CONFTEST_H
+ module:
+ 	@echo "NVIDIA: calling KBUILD..."
+-	@$(MAKE) $(KBUILD_PARAMS) modules
++	$(NVQ)$(MAKE) $(KBUILD_PARAMS) modules
+ 	@echo "NVIDIA: left KBUILD."
+-	@for module in $(MODULE_OBJECTS); do \
++	$(NVQ)for module in $(MODULE_OBJECTS); do \
+ 	if ! [ -f $$module ]; then \
+ 	 echo "$$module failed to build!"; \
+ 	 exit 1; \
+@@ -318,7 +318,7 @@ module:
  #
  
  module-sign: module
@@ -97,7 +59,7 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
  	 if [ -z "$(MODSECKEY)" ] || [ -z "$(MODPUBKEY)" ]; then \
  	 echo "ERROR: MODSECKEY and MODPUBKEY must be set to sign modules!"; \
  	 exit 1; \
-@@ -293,7 +293,7 @@ module-sign: module
+@@ -351,7 +351,7 @@ module-sign: module
  #
  
  module-install: suser-sanity-check module
@@ -106,7 +68,7 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
  	install -m 0664 -o root -g root $(MODULE_OBJECTS) $(MODULE_ROOT)/video; \
  	PATH="$(PATH):/bin:/sbin" depmod -a
  
-@@ -303,7 +303,7 @@ module-install: suser-sanity-check modul
+@@ -361,7 +361,7 @@ module-install: suser-sanity-check modul
  #
  
  package-install: module-install rmmod-sanity-check
@@ -115,7 +77,7 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
  	echo "$(MODULE_OBJECTS) installed successfully.";
  
  #
-@@ -326,17 +326,17 @@ MODULE_COMMON_SCRIPT := $(if $(wildcard
+@@ -384,20 +384,20 @@ MODULE_COMMON_SCRIPT := $(if $(wildcard
  #
  
  $(KERNEL_GLUE_NAME): module
@@ -141,3 +103,6 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
 +	$(NVQ)$(RM) -f conftest*.c
 +	$(NVQ)$(RM) -rf conftest
 +	$(NVQ)$(RM) -rf Module*.symvers .tmp_versions modules.order
+ 
+ # End of Makefile section
+ endif
