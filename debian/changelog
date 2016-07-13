@@ -1,7 +1,17 @@
+nvidia-graphics-drivers-legacy-340xx (340.96-8) UNRELEASED; urgency=medium
+
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-9:
+  * libnvidia-legacy-340xx-glcore: New package, split from
+    libgl1-nvidia-legacy-340xx-glx.
+  * libnvidia-legacy-340xx-cfg1: New package, split from
+    libgl1-nvidia-legacy-340xx-glx.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 13 Jul 2016 16:35:35 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.96-7) unstable; urgency=medium
 
-  * nvidia-driver-libs: New metapackage for bundling the
-    Depends/Recommends on the GL/GLX/EGL packages.
+  * nvidia-legacy-340xx-driver-libs: New metapackage for bundling the
+    Depends/Recommends on the OpenGL/GLX/EGL/GLES packages.
   * Replace libgl1-nvidia-legacy-340xx-glx-i386 with new
     nvidia-legacy-340xx-driver-libs-i386 metapackage.
 
