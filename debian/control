@@ -120,7 +120,7 @@ Pre-Depends:
  nvidia-installer-cleanup,
  ${nvidia:legacy-check},
 Depends:
- libgl1-${nvidia}-glx (= ${binary:Version}),
+ lib${nvidia}-glcore (= ${binary:Version}),
  ${nvidia}-alternative (= ${binary:Version}),
  nvidia-support (>= 20120630),
  ${nvidia:xorgDepends},
@@ -171,7 +171,7 @@ Suggests:
  ${nvidia:kmod:source},
 Provides:
  libgl1-nvidia-glx-any,
-Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
+Description: NVIDIA binary OpenGL/GLX libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
  .
@@ -196,7 +196,7 @@ Breaks:
  libgl1-${nvidia}-glx (<< 340.96-8~),
 Replaces:
  libgl1-${nvidia}-glx (<< 340.96-8~),
-Description: NVIDIA binary OpenGL core libraries${nvidia:LegacyDesc}
+Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
  .
@@ -213,7 +213,7 @@ Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA binary EGL libraries${nvidia:LegacyDesc}
+Description: NVIDIA binary EGL library${nvidia:LegacyDesc}
  This package contains the EGL native platform graphics interface library.
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
  for use with other graphics libraries, such as OpenGL|ES.
@@ -232,7 +232,7 @@ Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA binary OpenGL|ES 1.x libraries${nvidia:LegacyDesc}
+Description: NVIDIA binary OpenGL|ES 1.x library${nvidia:LegacyDesc}
  OpenGL|ES is a cross-platform API for full-function 2D and 3D graphics on
  embedded systems - including consoles, phones, appliances and vehicles.
  It contains a subset of OpenGL plus a number of extensions for the
@@ -254,7 +254,7 @@ Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA binary OpenGL|ES 2.x libraries${nvidia:LegacyDesc}
+Description: NVIDIA binary OpenGL|ES 2.x library${nvidia:LegacyDesc}
  OpenGL|ES is a cross-platform API for full-function 2D and 3D graphics on
  embedded systems - including consoles, phones, appliances and vehicles.
  It contains a subset of OpenGL plus a number of extensions for the
@@ -306,7 +306,7 @@ Replaces:
  libgl1-${nvidia}-glx (<< 340.96-8~),
 Provides:
  libnvidia-cfg1-any,
-Description: NVIDIA binary OpenGL configuration library${nvidia:LegacyDesc}
+Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
  .
@@ -470,6 +470,7 @@ Package: nvidia-legacy-340xx-smi
 Section: non-free/utils
 Architecture: i386 amd64 armhf
 Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-ml1 (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
@@ -579,7 +580,7 @@ Description: NVIDIA CUDA Video Decoder runtime library
 
 #Package: lib${nvidia}-encode1
 Package: libnvidia-legacy-340xx-encode1
-Architecture: i386 amd64
+Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -594,7 +595,7 @@ Description: NVENC Video Encoding runtime library
 
 #Package: lib${nvidia}-ifr1
 Package: libnvidia-legacy-340xx-ifr1
-Architecture: i386 amd64
+Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
