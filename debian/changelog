@@ -1,8 +1,8 @@
-nvidia-graphics-drivers-legacy-304xx (304.131-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.131-8) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.96-9:
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 20 Jul 2016 13:35:40 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 20 Jul 2016 16:14:56 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.131-7) unstable; urgency=medium
 
