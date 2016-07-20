@@ -121,7 +121,7 @@ Pre-Depends:
  nvidia-installer-cleanup,
  ${nvidia:legacy-check},
 Depends:
- libgl1-${nvidia}-glx (= ${binary:Version}),
+ lib${nvidia}-glcore (= ${binary:Version}),
  ${nvidia}-alternative (= ${binary:Version}),
  nvidia-support (>= 20120630),
  ${nvidia:xorgDepends},
@@ -176,7 +176,7 @@ Breaks:
  libxvmcnvidia1 (<< 305),
 Replaces:
  libxvmcnvidia1 (<< 305),
-Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
+Description: NVIDIA binary OpenGL/GLX libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
  .
@@ -201,7 +201,7 @@ Breaks:
  libgl1-${nvidia}-glx (<< 304.131-7~),
 Replaces:
  libgl1-${nvidia}-glx (<< 304.131-7~),
-Description: NVIDIA binary OpenGL core libraries${nvidia:LegacyDesc}
+Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
  .
@@ -223,7 +223,7 @@ Replaces:
  libgl1-${nvidia}-glx (<< 304.131-7~),
 Provides:
  libnvidia-cfg1-any,
-Description: NVIDIA binary OpenGL configuration library${nvidia:LegacyDesc}
+Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
  .
@@ -387,6 +387,7 @@ Package: nvidia-legacy-304xx-smi
 Section: non-free/utils
 Architecture: i386 amd64
 Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-ml1 (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
