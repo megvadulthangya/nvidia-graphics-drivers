@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (352.79-10~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 23 Jul 2016 14:28:54 +0200
+
 nvidia-graphics-drivers (352.79-10) unstable; urgency=medium
 
   * Build libnvidia-encode1 and libnvidia-ifr1 for armhf, too.
