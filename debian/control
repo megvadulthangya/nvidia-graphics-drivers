@@ -12,13 +12,13 @@ Vcs-Svn: svn://anonscm.debian.org/pkg-nvidia/packages/nvidia-graphics-drivers-le
 Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-304xx/
 Build-Depends:
  debhelper (>= 9),
+ dpkg-dev (>= 1.17),
  xz-utils,
  dkms,
  libxext6,
  libxvmc1,
  quilt,
- po-debconf,
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
@@ -28,16 +28,19 @@ Section: non-free/x11
 Architecture: i386 amd64
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
 Depends:
- libgl1-${nvidia}-glx (= ${binary:Version}),
+ ${nvidia}-driver-libs (= ${binary:Version}),
+ ${nvidia}-driver-bin (= ${binary:Version}),
  xserver-xorg-video-${nvidia} (= ${binary:Version}),
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-vdpau-driver (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  ${nvidia:kmod:binary},
  nvidia-support,
  ${misc:Depends}
 Recommends:
  ${nvidia-settings},
- libgl1-${nvidia}-glx-i386 [amd64],
+ nvidia-persistenced,
 Suggests:
  ${nvidia:kmod:source},
 Provides:
@@ -57,20 +60,75 @@ Description: NVIDIA metapackage${nvidia:LegacyDesc}
  .
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
+#Package: ${nvidia}-driver-bin
+Package: nvidia-legacy-304xx-driver-bin
+Section: non-free/x11
+Architecture: i386 amd64
+Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+ ${nvidia}-driver,
+Provides:
+ nvidia-driver-bin-${nvidia:Version},
+Conflicts:
+ nvidia-driver-bin-${nvidia:Version},
+Breaks:
+ ${nvidia}-driver (<< 304.131-5~),
+Replaces:
+ ${nvidia}-driver (<< 304.131-5~),
+Description: NVIDIA driver support binaries${nvidia:LegacyDesc}
+ The NVIDIA binary driver provides optimized hardware acceleration of
+ OpenGL applications via a direct-rendering X Server.
+ AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
+ .
+ This package contains supporting binaries for the driver.
+
+#Package: ${nvidia}-driver-libs
+Package: nvidia-legacy-304xx-driver-libs
+Architecture: i386 amd64
+Multi-Arch: same
+Depends:
+ libgl1-${nvidia}-glx (= ${binary:Version}),
+ ${misc:Depends}
+Recommends:
+ ${nvidia}-driver-libs-i386 [amd64],
+ lib${nvidia}-cfg1 (= ${binary:Version}),
+Description: NVIDIA metapackage (OpenGL/GLX libraries)${nvidia:LegacyDesc}
+ This metapackage depends on the NVIDIA binary libraries
+ that provide optimized hardware acceleration of
+ OpenGL/GLX applications via a direct-rendering X Server.
+
+#Package: ${nvidia}-driver-libs-i386
+Package: nvidia-legacy-304xx-driver-libs-i386
+Architecture: i386
+Multi-Arch: foreign
+Depends:
+ ${nvidia}-driver-libs,
+ ${misc:Depends}
+Conflicts:
+ libgl1-${nvidia}-glx-i386,
+Description: NVIDIA metapackage (OpenGL/GLX 32-bit libraries)${nvidia:LegacyDesc}
+ This metapackage helps the automatic installation of the 32-bit NVIDIA
+ OpenGL/GLX libraries when installing ${nvidia}-driver-libs
+ on amd64 with foreign architecture i386 enabled.
+
 #Package: xserver-xorg-video-${nvidia}
 Package: xserver-xorg-video-nvidia-legacy-304xx
 Section: non-free/x11
 Architecture: i386 amd64
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
 Depends:
- libgl1-${nvidia}-glx (= ${binary:Version}),
- ${nvidia-alternative} (= ${binary:Version}),
+ lib${nvidia}-glcore (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  nvidia-support (>= 20120630),
  ${nvidia:xorgDepends},
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
+ ${nvidia}-vdpau-driver (>= ${nvidia:Version}),
  ${nvidia:kmod:binary},
  ${nvidia-settings},
 Suggests:
@@ -100,9 +158,11 @@ Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
  ${misc:Pre-Depends}
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
+ lib${nvidia}-glcore (= ${binary:Version}),
  nvidia-installer-cleanup (>= 20130816) [i386],
  nvidia-support,
  ${shlibs:Depends}, ${misc:Depends}
@@ -112,15 +172,11 @@ Suggests:
  ${nvidia:kmod:source},
 Provides:
  libgl1-nvidia-glx-any,
- libgl1-nvidia-glx-${nvidia:Version},
-Conflicts:
- libgl1-nvidia-glx-${nvidia:Version},
 Breaks:
- ia32-libs (<< 1:0),
  libxvmcnvidia1 (<< 305),
 Replaces:
  libxvmcnvidia1 (<< 305),
-Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
+Description: NVIDIA binary OpenGL/GLX libraries${nvidia:LegacyDesc}
  These binary libraries provide optimized hardware acceleration of
  OpenGL applications via a direct-rendering X Server.
  .
@@ -128,34 +184,62 @@ Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
  or /usr/share/doc/libgl1-${nvidia}-glx/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-#Package: libgl1-${nvidia}-glx-i386
-Package: libgl1-nvidia-legacy-304xx-glx-i386
-Architecture: i386
-Multi-Arch: foreign
+#Package: lib${nvidia}-glcore
+Package: libnvidia-legacy-304xx-glcore
+Architecture: i386 amd64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
 Depends:
- libgl1-${nvidia}-glx,
  ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
- This metapackage helps the automatic installation of the 32-bit NVIDIA
- OpenGL libraries when installing libgl1-${nvidia}-glx
- on amd64 with foreign architecture i386 enabled.
+Provides:
+ libnvidia-glcore-${nvidia:Version},
+Conflicts:
+ libnvidia-glcore-${nvidia:Version},
+ libgl1-nvidia-glx-${nvidia:Version},
+Breaks:
+ libgl1-${nvidia}-glx (<< 304.131-7~),
+Replaces:
+ libgl1-${nvidia}-glx (<< 304.131-7~),
+Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:LegacyDesc}
+ These binary libraries provide optimized hardware acceleration of
+ OpenGL applications via a direct-rendering X Server.
+ .
+ This package contains the private core libraries used by the NVIDIA
+ implementation of OpenGL and GLX.
 
-#Package: ${nvidia-alternative}
+#Package: lib${nvidia}-cfg1
+Package: libnvidia-legacy-304xx-cfg1
+Architecture: i386 amd64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Breaks:
+ libgl1-${nvidia}-glx (<< 304.131-7~),
+Replaces:
+ libgl1-${nvidia}-glx (<< 304.131-7~),
+Provides:
+ libnvidia-cfg1-any,
+Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:LegacyDesc}
+ These binary libraries provide optimized hardware acceleration of
+ OpenGL applications via a direct-rendering X Server.
+ .
+ This package contains the libnvidia-cfg.so.1 runtime library.
+
+#Package: ${nvidia}-alternative
 Package: nvidia-legacy-304xx-alternative
 Architecture: i386 amd64
 Multi-Arch: foreign
+Pre-Depends:
+ ${nvidia:legacy-check},
 Depends:
  glx-alternative-nvidia (>= 0.7),
  ${misc:Depends}
-Conflicts:
- libgl1-nvidia-alternatives,
- libglx-nvidia-alternatives,
- libgl1-nvidia-alternatives-ia32,
-Breaks:
- nvidia-settings (<< 319.49),
- nvidia-settings-legacy-173xx (<< 173.14.37),
 Provides:
- ${nvidia-alternative}--kmod-alias,
+ ${nvidia}-alternative--kmod-alias,
 Description: allows the selection of NVIDIA as GLX provider
  In setups with several NVIDIA driver versions installed (e.g. current and
  legacy) this metapackage registers an alternative to allow easy switching
@@ -173,8 +257,8 @@ Section: non-free/kernel
 Architecture: i386 amd64
 Multi-Arch: foreign
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
- ${nvidia-alternative}--kmod-alias,
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${nvidia}-alternative--kmod-alias,
  nvidia-kernel-common (>= 20151021),
  nvidia-modprobe,
  ${misc:Depends}
@@ -205,9 +289,9 @@ Depends:
  ${nvidia}-kernel-support--v1,
  ${misc:Depends}
 Recommends:
- ${nvidia}-driver (>= ${nvidia:Version}),
+ ${nvidia}-driver (>= ${nvidia:Version}) | ${libcuda1} (>= ${nvidia:Version}),
 Provides:
- ${nvidia}-kernel-${nvidia:Version}${nvidia:Perfkit},
+ ${nvidia}-kernel-${nvidia:Version},
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
  ${nvidia}-driver, using DKMS.
@@ -232,8 +316,8 @@ Package: nvidia-legacy-304xx-kernel-source
 Section: non-free/kernel
 Architecture: i386 amd64
 Depends:
- debhelper (>= 8),
- make,
+ debhelper (>= 9),
+ make:any,
  quilt,
  xz-utils,
  ${misc:Depends}
@@ -264,4 +348,187 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  for a complete list of supported GPUs and PCI IDs.
  .
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
+
+#Package: ${nvidia}-vdpau-driver
+Package: nvidia-legacy-304xx-vdpau-driver
+Section: non-free/video
+Architecture: i386 amd64
+Multi-Arch: same
+Pre-Depends:
+ nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
+ ${misc:Pre-Depends}
+Depends:
+ libvdpau1,
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+ ${nvidia:kmod:binary},
+Suggests:
+ ${nvidia:kmod:source},
+Enhances:
+ libvdpau1,
+Provides:
+ vdpau-driver,
+Description: Video Decode and Presentation API for Unix - NVIDIA driver
+ These libraries provide the Video Decode and Presentation API for Unix.
+ They provide accelerated video playback (incl. H.264) for the supported
+ graphics cards.
+ .
+ This package contains the NVIDIA VDPAU driver.
+ .
+ See /usr/share/doc/${nvidia}-vdpau-driver/README.txt.gz
+ for more information.
+ .
+ ${nvidia:kmod:Description}
+
+#Package: ${nvidia}-smi
+Package: nvidia-legacy-304xx-smi
+Section: non-free/utils
+Architecture: i386 amd64
+Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
+ lib${nvidia}-ml1 (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+ ${nvidia:kmod:binary},
+Suggests:
+ ${nvidia:kmod:source},
+Description: NVIDIA System Management Interface
+ The NVIDIA Management Library (NVML) provides a monitoring and management API.
+ The application "nvidia-smi" is the NVIDIA System Management Interface (NVSMI)
+ and provides a command line interface to this functionality.
+ .
+ See the output from the --help command line option for supported models and
+ further information.
+
+#Package: ${libcuda1}
+Package: libnvidia-legacy-304xx-cuda1
+Architecture: i386 amd64
+Multi-Arch: same
+Pre-Depends:
+ ${nvidia:legacy-check},
+ ${misc:Pre-Depends}
+Depends:
+ nvidia-support,
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+ ${nvidia:kmod:binary},
+ ${nvidia}-smi,
+ nvidia-persistenced,
+ ${libcuda1}-i386 [amd64],
+Suggests:
+ nvidia-cuda-mps,
+ ${nvidia:kmod:source},
+Provides:
+ libcuda1-any,
+ libcuda-5.0-1,
+ libcuda-5.0-1-i386 [i386],
+Homepage: http://www.nvidia.com/CUDA
+Description: NVIDIA CUDA Driver Library
+ The Compute Unified Device Architecture (CUDA) enables NVIDIA
+ graphics processing units (GPUs) to be used for massively parallel
+ general purpose computation.
+ .
+ This package contains the CUDA Driver API library for low-level CUDA
+ programming.
+ .
+ Supported NVIDIA devices include GPUs starting from GeForce 8 and Quadro FX
+ series, as well as the Tesla computing processors.
+ .
+ ${nvidia:kmod:Description}
+
+#Package: ${libcuda1}-i386
+Package: libnvidia-legacy-304xx-cuda1-i386
+Architecture: i386
+Multi-Arch: foreign
+Depends:
+ ${libcuda1},
+ ${misc:Depends}
+Description: NVIDIA CUDA 32-bit runtime library${nvidia:LegacyDesc}
+ This metapackage helps the automatic installation of the 32-bit NVIDIA CUDA
+ library when installing ${libcuda1} on amd64 with foreign
+ architecture i386 enabled.
+
+#Package: lib${nvidia}-compiler
+Package: libnvidia-legacy-304xx-compiler
+Architecture: i386 amd64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends}, ${misc:Depends}
+Provides:
+ libnvidia-compiler-${nvidia:Version},
+Conflicts:
+ libnvidia-compiler-${nvidia:Version},
+Description: NVIDIA runtime compiler library
+ The Compute Unified Device Architecture (CUDA) enables NVIDIA
+ graphics processing units (GPUs) to be used for massively parallel
+ general purpose computation.
+ .
+ This package contains the runtime compiler library.
+
+#Package: lib${nvidia}-nvcuvid1
+Package: libnvidia-legacy-304xx-nvcuvid1
+Architecture: i386 amd64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${libcuda1} (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Description: NVIDIA CUDA Video Decoder runtime library
+ The Compute Unified Device Architecture (CUDA) enables NVIDIA
+ graphics processing units (GPUs) to be used for massively parallel
+ general purpose computation.
+ .
+ The NVIDIA CUDA Video Decoder (NVCUVID) library provides an interface to
+ hardware video decoding capabilities on NVIDIA GPUs with CUDA.
+ .
+ This package contains the nvcuvid runtime library.
+
+#Package: lib${nvidia}-ml1
+Package: libnvidia-legacy-304xx-ml1
+Architecture: i386 amd64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Breaks:
+ ${nvidia}-smi (<< ${nvidia:Version}),
+Homepage: http://developer.nvidia.com/nvidia-management-library-NVML
+Description: NVIDIA Management Library (NVML) runtime library
+ The NVIDIA Management Library (NVML) provides a monitoring and management API.
+ It provides a direct access to the queries and commands exposed via nvidia-smi.
+ .
+ This package contains the nvidia-ml runtime library.
+
+#Package: ${nvidia}-opencl-icd
+Package: nvidia-legacy-304xx-opencl-icd
+Architecture: i386 amd64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ nvidia-opencl-common,
+ ocl-icd-libopencl1 | nvidia-libopencl1 | libopencl1,
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${libcuda1} (= ${binary:Version}),
+ lib${nvidia}-compiler (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Enhances:
+ libopencl1,
+Provides:
+ opencl-icd,
+Description: NVIDIA OpenCL installable client driver (ICD)
+ OpenCL (Open Computing Language) is a multivendor open standard for
+ general-purpose parallel programming of heterogeneous systems that include
+ CPUs, GPUs and other processors.
+ .
+ This package provides the NVIDIA installable client driver (ICD) for OpenCL
+ which supports NVIDIA GPUs.
 

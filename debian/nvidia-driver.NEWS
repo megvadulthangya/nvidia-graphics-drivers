@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.128-7) unstable; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.131-2) unstable; urgency=medium
 
   The NVIDIA driver now automatically integrates with the Xorg configuration.
   Therefore it is no longer necessary to manually create an xorg.conf to
