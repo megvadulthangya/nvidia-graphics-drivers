@@ -1,3 +1,30 @@
+nvidia-graphics-drivers-legacy-340xx (340.96-9) unstable; urgency=medium
+
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-10:
+    - Build libnvidia-legacy-340xx-encode1 and libnvidia-legacy-340xx-ifr1 for
+      armhf, too.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 18 Jul 2016 19:47:31 +0200
+
+nvidia-graphics-drivers-legacy-340xx (340.96-8) unstable; urgency=medium
+
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-9:
+  * libnvidia-legacy-340xx-glcore: New package, split from
+    libgl1-nvidia-legacy-340xx-glx.
+  * libnvidia-legacy-340xx-cfg1: New package, split from
+    libgl1-nvidia-legacy-340xx-glx.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 13 Jul 2016 19:39:05 +0200
+
+nvidia-graphics-drivers-legacy-340xx (340.96-7) unstable; urgency=medium
+
+  * nvidia-legacy-340xx-driver-libs: New metapackage for bundling the
+    Depends/Recommends on the OpenGL/GLX/EGL/GLES packages.
+  * Replace libgl1-nvidia-legacy-340xx-glx-i386 with new
+    nvidia-legacy-340xx-driver-libs-i386 metapackage.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 09 Jun 2016 18:41:44 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.96-6~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports.
@@ -7,7 +34,8 @@ nvidia-graphics-drivers-legacy-340xx (340.96-6~bpo8+1) jessie-backports; urgency
 nvidia-graphics-drivers-legacy-340xx (340.96-6) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 352.79-8:
-    - Add get-user-pages.patch to fix kernel module build for Linux 4.6.  
+    - Add get-user-pages.patch to fix kernel module build for Linux 4.6.
+      (Closes: #822645)
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 08 Jun 2016 10:03:48 +0200
@@ -27,7 +55,7 @@ nvidia-graphics-drivers-legacy-340xx (340.96-4) unstable; urgency=medium
     - Further improvements to the module build process.
     - Stop special-casing the nvidia-alternative substitution.
     - bug-control, bug-script: Collect some information about OpenCL.
-    - Add B-D: dpkg-dev (>= 1.17.0) for dpkg-parsechangelog --show-field.
+    - Add B-D: dpkg-dev (>= 1.17) for dpkg-parsechangelog --show-field.
     - Bump Standards-Version to 3.9.8. No changes needed.
   * Update lintian overrides.
 
