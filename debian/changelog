@@ -28,7 +28,8 @@ nvidia-graphics-drivers-legacy-340xx (340.96-7) unstable; urgency=medium
 nvidia-graphics-drivers-legacy-340xx (340.96-6) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 352.79-8:
-    - Add get-user-pages.patch to fix kernel module build for Linux 4.6.  
+    - Add get-user-pages.patch to fix kernel module build for Linux 4.6.
+      (Closes: #822645)
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 08 Jun 2016 10:03:48 +0200
