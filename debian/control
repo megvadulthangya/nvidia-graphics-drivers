@@ -317,7 +317,7 @@ Section: non-free/kernel
 Architecture: i386 amd64
 Depends:
  debhelper (>= 9),
- make:any,
+ make,
  quilt,
  xz-utils,
  ${misc:Depends}
