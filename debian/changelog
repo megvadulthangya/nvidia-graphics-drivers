@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-340xx (340.96-9~bpo8+2) jessie-backports; urgency=medium
+
+  * nvidia-legacy-340xx-kernel-source: Remove :any qualification from
+    Depends: make, not supported in jessie.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 20 Sep 2016 14:06:05 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.96-9~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports.
