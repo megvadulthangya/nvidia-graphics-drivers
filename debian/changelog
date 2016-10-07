@@ -1,3 +1,17 @@
+nvidia-graphics-drivers-legacy-340xx (340.98-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy 340xx branch release 340.98 (2016-09-26).
+    - Added support for the screen_info.ext_lfb_base field, on kernels that
+      have it, in order to properly handle UEFI framebuffer consoles with
+      physical addresses above 4GB.
+    * Improved compatibility with recent Linux kernels.
+  * page-cache-release.patch, get-user-pages.patch, vm-fault-minor.patch:
+    Drop, fixed upstream.
+  * Synchronize packaging with nvidia-graphics-drivers 358.16-1:
+    - get-orig-source: Generate .orig-$ARCH.tar.gz for each architecture.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 07 Oct 2016 19:14:59 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.96-9) unstable; urgency=medium
 
   * Synchronize packaging with nvidia-graphics-drivers 352.79-10:
