@@ -5,20 +5,14 @@ Description: let Kbuild set the compiler version
  the kernel itself. Remove the CC parameter from upstream's Makefile's make
  invocation.
 
---- a/nvidia-modules-common.mk
-+++ b/nvidia-modules-common.mk
-@@ -276,10 +276,10 @@ ifeq ($(KERNELRELEASE),)
- #
+--- a/Makefile
++++ b/Makefile
+@@ -78,7 +78,7 @@ else
  
- module: build-sanity-checks $(CONFTEST_HEADERS)
--	@echo "NVIDIA: calling KBUILD..."; \
--	$(MAKE) "CC=$(CC)" $(KBUILD_PARAMS) modules; \
--	echo "NVIDIA: left KBUILD."; \
--	for module in $(MODULE_OBJECTS); do \
-+	@echo "NVIDIA: calling KBUILD..."
-+	@$(MAKE) $(KBUILD_PARAMS) modules
-+	@echo "NVIDIA: left KBUILD."
-+	@for module in $(MODULE_OBJECTS); do \
- 	if ! [ -f $$module ]; then \
- 	 echo "$$module failed to build!"; \
- 	 exit 1; \
+   .PHONY: modules module clean clean_conftest modules_install
+   modules clean modules_install:
+-	$(MAKE) "CC=$(CC)" $(KBUILD_PARAMS) $@
++	$(MAKE) $(KBUILD_PARAMS) $@
+ 	@if [ "$@" = "modules" ]; then \
+ 	  for module in $(NV_KERNEL_MODULES); do \
+ 	    if [ -x split-object-file.sh ]; then \

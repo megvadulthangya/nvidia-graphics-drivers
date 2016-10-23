@@ -42,6 +42,7 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuDeviceGetByPCIBusId@Base 285
  cuDeviceGetCount@Base 169
  cuDeviceGetName@Base 169
+ cuDeviceGetP2PAttribute@Base 361
  cuDeviceGetPCIBusId@Base 285
  cuDeviceGetProperties@Base 169
  cuDevicePrimaryCtxGetState@Base 346
@@ -55,6 +56,7 @@ libcuda.so.1 #PACKAGE# #MINVER#
  (arch=armhf)cuEGLInit@Base 346
  (arch=armhf)cuEGLStreamConsumerAcquireFrame@Base 346
  (arch=armhf)cuEGLStreamConsumerConnect@Base 346
+ (arch=armhf)cuEGLStreamConsumerConnectWithFlags@Base 367.44
  (arch=armhf)cuEGLStreamConsumerDisconnect@Base 346
  (arch=armhf)cuEGLStreamConsumerReleaseFrame@Base 346
  (arch=armhf)cuEGLStreamProducerConnect@Base 346
@@ -131,6 +133,7 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuLinkCreate@Base 319
  cuLinkCreate_v2@Base 340
  cuLinkDestroy@Base 319
+ cuMemAdvise@Base 361.28
  cuMemAlloc@Base 169
  cuMemAllocHost@Base 169
  cuMemAllocHost_v2@Base 260
@@ -154,6 +157,10 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuMemHostRegister@Base 270
  cuMemHostRegister_v2@Base 340
  cuMemHostUnregister@Base 270
+ cuMemPrefetchAsync@Base 367
+ cuMemPrefetchAsync_ptsz@Base 367
+ cuMemRangeGetAttribute@Base 367.44
+ cuMemRangeGetAttributes@Base 367.44
  cuMemcpy2D@Base 169
  cuMemcpy2DAsync@Base 169
  cuMemcpy2DAsync_v2@Base 260
@@ -282,6 +289,8 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuStreamAddCallback_ptsz@Base 346
  cuStreamAttachMemAsync@Base 331.38
  cuStreamAttachMemAsync_ptsz@Base 346
+ cuStreamBatchMemOp@Base 361.42
+ cuStreamBatchMemOp_ptsz@Base 361.42
  cuStreamCreate@Base 169
  cuStreamCreateWithPriority@Base 319
  cuStreamDestroy@Base 169
@@ -296,6 +305,10 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuStreamSynchronize_ptsz@Base 346
  cuStreamWaitEvent@Base 260
  cuStreamWaitEvent_ptsz@Base 346
+ cuStreamWaitValue32@Base 361.42
+ cuStreamWaitValue32_ptsz@Base 361.42
+ cuStreamWriteValue32@Base 361.42
+ cuStreamWriteValue32_ptsz@Base 361.42
  cuSurfObjectCreate@Base 304
  cuSurfObjectDestroy@Base 304
  cuSurfObjectGetResourceDesc@Base 304
@@ -312,6 +325,7 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuTexRefGetAddressMode@Base 169
  cuTexRefGetAddress_v2@Base 260
  cuTexRefGetArray@Base 169
+ cuTexRefGetBorderColor@Base 361.18
  cuTexRefGetFilterMode@Base 169
  cuTexRefGetFlags@Base 169
  cuTexRefGetFormat@Base 177
@@ -327,6 +341,7 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuTexRefSetAddressMode@Base 169
  cuTexRefSetAddress_v2@Base 260
  cuTexRefSetArray@Base 169
+ cuTexRefSetBorderColor@Base 361.18
  cuTexRefSetFilterMode@Base 169
  cuTexRefSetFlags@Base 169
  cuTexRefSetFormat@Base 169

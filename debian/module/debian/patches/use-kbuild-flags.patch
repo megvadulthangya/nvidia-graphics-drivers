@@ -1,15 +1,48 @@
 Author: Andreas Beckmann <anbe@debian.org>
-Description: use KBUILD_CFLAGS
+Description: use KBUILD_CFLAGS and LDFLAGS
  allows building a amd64 kernel module with i386 user space
  skip -Werror=* since that breaks how conftest.sh detects stuff
 
---- a/nvidia-modules-common.mk
-+++ b/nvidia-modules-common.mk
-@@ -111,6 +111,7 @@ endif
- CONFTEST := /bin/sh $(src)/conftest.sh "$(CC)" "$(HOST_CC)" $(ARCH) $(KERNEL_SOURCES) $(KERNEL_OUTPUT)
+--- a/Kbuild
++++ b/Kbuild
+@@ -94,6 +94,7 @@ NV_CONFTEST_CMD := /bin/sh $(NV_CONFTEST
+  "$(CC)" "$(HOST_CC)" $(ARCH) $(NV_KERNEL_SOURCES) $(NV_KERNEL_OUTPUT)
  
- CONFTEST_CFLAGS := $(shell $(CONFTEST) build_cflags)
-+CONFTEST_CFLAGS += $(filter-out -Werror%,$(KBUILD_CFLAGS))
+ NV_CONFTEST_CFLAGS := $(shell $(NV_CONFTEST_CMD) build_cflags)
++NV_CONFTEST_CFLAGS += $(filter-out -Werror%,$(KBUILD_CFLAGS))
  
- MODULE_ROOT := /lib/modules/$(KERNEL_UNAME)/kernel/drivers
+ NV_CONFTEST_COMPILE_TEST_HEADERS := $(obj)/conftest/macros.h
+ NV_CONFTEST_COMPILE_TEST_HEADERS += $(obj)/conftest/functions.h
+--- a/nvidia/nvidia.Kbuild
++++ b/nvidia/nvidia.Kbuild
+@@ -87,7 +87,7 @@ NVIDIA_INTERFACE := nvidia/nv-interface.
+ always += $(NVIDIA_INTERFACE)
  
+ $(obj)/$(NVIDIA_INTERFACE): $(addprefix $(obj)/,$(NVIDIA_OBJECTS))
+-	$(LD) -r -o $@ $^
++	$(LD) $(LDFLAGS) -r -o $@ $^
+ 
+ 
+ #
+--- a/Makefile
++++ b/Makefile
+@@ -111,7 +111,7 @@ else
+   # cannot be defined in the *Kbuild files, which are only used during stage 1.
+ 
+   %-linux.o: modules
+-	$(LD) $(NV_MODULE_COMMON_SCRIPT) -r -o $@ \
++	$(LD) $(LDFLAGS) $(NV_MODULE_COMMON_SCRIPT) -r -o $@ \
+ 	  $(subst nv,nvidia,$*).mod.o $(subst nv,nvidia,$*)/$*-interface.o
+ 
+   # Kbuild's "clean" rule won't clean up the conftest headers on its own, and
+--- a/nvidia-modeset/nvidia-modeset.Kbuild
++++ b/nvidia-modeset/nvidia-modeset.Kbuild
+@@ -70,7 +70,7 @@ NVIDIA_MODESET_INTERFACE := nvidia-modes
+ always += $(NVIDIA_MODESET_INTERFACE)
+ 
+ $(obj)/$(NVIDIA_MODESET_INTERFACE): $(addprefix $(obj)/,$(NVIDIA_MODESET_OBJECTS))
+-	$(LD) -r -o $@ $^
++	$(LD) $(LDFLAGS) -r -o $@ $^
+ 
+ #
+ # Register the conftests needed by nvidia-modeset.ko
