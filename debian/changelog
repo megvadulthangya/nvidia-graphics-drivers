@@ -1,6 +1,7 @@
 nvidia-graphics-drivers-legacy-304xx (304.132-1) unstable; urgency=medium
 
   * New upstream legacy 304xx branch release 304.132 (2016-09-26).
+    * Fixed CVE-2016-7382, CVE-2016-7389.  (Closes: #846333)
     - Added /var/log/dmesg to the list of paths which are searched by
       nvidia-bug-report.sh for kernel messages.
     - Fixed a bug that caused kernel panics when using the NVIDIA driver on
