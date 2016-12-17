@@ -1,17 +1,17 @@
-nvidia-graphics-drivers-legacy-304xx (304.134-0~svn4stretch) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.134-1) unstable; urgency=medium
 
   * New upstream legacy 304xx branch release 304.134 (2016-12-14).
     * Fixed CVE-2016-8826.  (Closes: #848197)
     - Added support for X.Org xserver ABI 23 (xorg-server 1.19)
+      (Closes: #845639)
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
   * Synchronize packaging with nvidia-graphics-drivers 370.28-2:
     - Overhaul package descriptions.
   * Add xorg-video-abi-23 as alternative dependency (375.20-1).
-    (Closes: #845639)
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Dec 2016 00:32:57 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Dec 2016 01:40:33 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.132-1) unstable; urgency=medium
 
