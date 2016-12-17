@@ -1,3 +1,6 @@
+# kernel support
+
+# build system updates
 separate-makefile-kbuild.patch
 KERNEL_UNAME.patch
 use-kbuild-compiler.patch
@@ -10,5 +13,7 @@ disable-preempt_rt_sanity_check.patch
 not-silent.patch
 use-nv-kernel-ARCH.o_shipped.patch
 avoid-ld.gold.patch
+
+# armhf support
 ignore_xen_on_arm.patch
 arm-outer-sync.patch
