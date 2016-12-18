@@ -1,3 +1,11 @@
+nvidia-graphics-drivers-legacy-340xx (340.101-2) UNRELEASED; urgency=medium
+
+  [ Luca Boccassi ]
+  * Add drm-driver-legacy.patch to fix nvidia kernel module load issue on
+    Linux 4.9 and newer.  (Closes: #848514)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 18 Dec 2016 01:55:03 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.101-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.101 (2016-12-14).
@@ -7,8 +15,7 @@ nvidia-graphics-drivers-legacy-340xx (340.101-1) unstable; urgency=medium
   [ Andreas Beckmann ]
   * Synchronize packaging with nvidia-graphics-drivers 370.28-2:
     - Overhaul package descriptions.
-  * Add xorg-video-abi-23 as alternative dependency.
-    (Closes: #845640)
+  * Add xorg-video-abi-23 as alternative dependency.  (Closes: #845640)
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Dec 2016 13:47:35 +0100
 
