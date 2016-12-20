@@ -29,6 +29,7 @@ module			 = nvidia-$(current)
 current			 = $(if $(legacy),$(patsubst -%,%,$(legacy)),current)
 legacy			 = $(if $(NVIDIA_LEGACY),-legacy-$(NVIDIA_LEGACY)xx)
 legacy_description	 = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))
+legacy_description_short = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy))
 watch_pattern		 = $(or $(WATCH_PATTERN),$(if $(WATCH_VERSION),$(WATCH_VERSION)(?:\.[\d\.\-]+)?),[\d\.\-]+)
 
 # system libdir
@@ -36,15 +37,17 @@ libdir			?= usr/lib/$(DEB_HOST_MULTIARCH)
 # nvidia version specific directory below $(libdir)
 nvidia_private		 = nvidia/$(current)
 
-CONTROL_PREFIXES	 = nvidia-driver libgl1-nvidia nvidia-kernel nvidia-alternative xserver-xorg-video-nvidia
+CONTROL_PREFIXES	 = nvidia-driver nvidia-kernel nvidia-alternative xserver-xorg-video-nvidia
 CONTROL_PREFIXES	+= nvidia-modprobe
+CONTROL_PREFIXES	+= libnvidia
+CONTROL_PREFIXES	+= libgl1-nvidia
 CONTROL_PREFIXES	+= nvidia-vdpau-driver
 CONTROL_PREFIXES	+= libcuda1
-CONTROL_PREFIXES	+= nvidia-opencl-icd libnvidia-compiler
-CONTROL_PREFIXES	+= libnvidia-ml1 nvidia-smi
 CONTROL_PREFIXES	+= libnvcuvid1
-RENAME_libnvcuvid1		 = lib$(if $(legacy),${nvidia}-)nvcuvid1
-RENAME_libcuda1			 = $(libcuda1)
+CONTROL_PREFIXES	+= nvidia-smi
+CONTROL_PREFIXES	+= nvidia-opencl-icd
+RENAME_libcuda1		 = $(libcuda1)
+RENAME_libnvcuvid1	 = lib$(if $(legacy),${nvidia}-)nvcuvid1
 renamed_prefix		 = $(or $(RENAME_$1),$(subst nvidia,$(nvidia),$1))
 CONTROL_PREFIXES_RENAMED = $(foreach p,$(CONTROL_PREFIXES),$(call renamed_prefix,$p))
 
@@ -81,7 +84,7 @@ prepare: autogen unpack-stamp nvidia.ids compare-copyright-license
 patch: prepare
 
 NVIDIA-Linux-%:
-	sh ${NVIDIA_FILENAME_$*} --extract-only
+	sh $*/${NVIDIA_FILENAME_$*} --extract-only
 	ln -s ${NVIDIA_DIRNAME_$*} $@
 	gunzip $@/*.1.gz
 
@@ -238,6 +241,7 @@ override_dh_gencontrol:
 		-V'libcuda1=$(libcuda1)' \
 		-V'nvidia:Legacy=$(legacy)' \
 		-V'nvidia:LegacyDesc=$(legacy_description)' \
+		-V'nvidia:LegacyDescShort=$(legacy_description_short)' \
 		-V'nvidia:legacy-check=$(NVIDIA_LEGACY_CHECK)' \
 		-V'nvidia-settings=$(NVIDIA_SETTINGS)' \
 		-V'nvidia:kmod:binary=$${nvidia}-kernel-dkms (= $${binary:Version}) | $${nvidia}-kernel-$${nvidia:Version}' \
@@ -322,6 +326,10 @@ file-lists: $(patsubst %,debian/files_$(NVIDIA_RELEASE)_%,$(ARCH_LIST))
 debian/files_$(NVIDIA_RELEASE)_%: NVIDIA-Linux-%
 	(cd $< && find .) | sed 's/$(NVIDIA_RELEASE)/VERSION/g' | sort > $@
 
+# only invoked manually
+check-whitespace:
+	grep -r --exclude-dir=.svn --exclude-dir=.git --exclude '*.patch' -E '\s$$' debian || true
+
 ############################################################################
 
 CACHE			?= ../.cache
@@ -329,10 +337,8 @@ ORIGDIR			?= nvidia-graphics-drivers-$(NVIDIA_RELEASE).orig
 TARBALL_BASE		?= nvidia-graphics-drivers$(legacy)_$(NVIDIA_RELEASE).orig
 TARBALL_SUFFIX		?= .tar.gz
 TARBALL			?= $(TARBALL_BASE)$(TARBALL_SUFFIX)
-ORIGDIR.main		?= $(ORIGDIR)
-TARBALL.main		?= $(TARBALL)
-ARCH_LIST.main		?= $(ARCH_LIST)
-NVIDIA_FILENAME_main	?= $(foreach a,$(ARCH_LIST.main),$(NVIDIA_FILENAME_$a))
+ORIGDIR.empty		?= $(ORIGDIR)
+TARBALL.empty		?= $(TARBALL)
 
 # $1 = arch
 get_download_url	 = $(or $(HTTPURL_PREFIX_$(strip $1)),$(HTTPURL_PREFIX))/$(HTTPURL_ARCHDIR_$(strip $1))/$(NVIDIA_RELEASE)/$(NVIDIA_FILENAME_$(strip $1))
@@ -353,8 +359,6 @@ get-orig-source-download/%: get-orig-source-prepare
 	if [ -d $(CACHE) ] && [ ! -f $(CACHE)/$(NVIDIA_FILENAME_$*) ]; then \
 		ln -v get-orig-source/$(NVIDIA_FILENAME_$*) $(CACHE) ; fi
 
-get-orig-source-download/main: $(foreach a,$(ARCH_LIST.main),get-orig-source-download/$a) ;
-
 get-orig-source-files/%: get-orig-source-prepare/% get-orig-source-download/%
 	@set -e -x ; \
 	    cd get-orig-source ; \
@@ -374,6 +378,9 @@ get-orig-source-pack/%: get-orig-source-files/%
 	    touch $(call get_tarball,$*) -r $(call get_origdir,$*).stamp
 	mv get-orig-source/$(call get_tarball,$*) .
 
+get-orig-source-files/empty: get-orig-source-prepare/empty $(foreach a,$(ARCH_LIST),get-orig-source-pack/$a)
+	touch get-orig-source/$(call get_origdir,empty).stamp -r $$(ls -tr $(foreach a,$(ARCH_LIST),$(call get_tarball,$a)) | tail -n 1)
+
 .PHONY: get-orig-source
-get-orig-source: get-orig-source-pack/main $(foreach a,$(filter-out $(ARCH_LIST.main),$(ARCH_LIST)),get-orig-source-pack/$a)
+get-orig-source: get-orig-source-pack/empty
 	rm -rf get-orig-source
