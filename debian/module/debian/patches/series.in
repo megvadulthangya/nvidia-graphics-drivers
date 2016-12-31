@@ -1,3 +1,7 @@
+# kernel support
+fix-typos.patch
+
+# build system updates
 separate-makefile-kbuild.patch
 KERNEL_UNAME.patch
 modernize-conftest.patch
@@ -10,8 +14,7 @@ disable-cc_version_check.patch
 disable-xen_sanity_check.patch
 not-silent.patch
 use-nv-kernel-ARCH.o_shipped.patch
-page-cache-release.patch
-get-user-pages.patch
 avoid-ld.gold.patch
-fix-typos.patch
+
+# 304xx specific
 disable-mtrr.patch
