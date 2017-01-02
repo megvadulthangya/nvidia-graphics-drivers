@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-304xx (304.134-1~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 02 Jan 2017 13:58:37 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.134-1) unstable; urgency=medium
 
   * New upstream legacy 304xx branch release 304.134 (2016-12-14).
