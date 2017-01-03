@@ -1,7 +1,7 @@
 nvidia-graphics-drivers-legacy-304xx (304.134-0~deb8u1) jessie; urgency=medium
 
   * New upstream legacy 304xx branch release 304.134 (2016-12-14).
-    * Fixed CVE-2016-8826.  (Closes: #848195)
+    * Fixed CVE-2016-8826.  (Closes: #848197)
     - Added support for X.Org xserver ABI 23 (xorg-server 1.19)
     * Improved compatibility with recent Linux kernels.
   * New upstream legacy 304xx branch release 304.132 (2016-09-26).
