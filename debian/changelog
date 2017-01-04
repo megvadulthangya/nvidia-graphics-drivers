@@ -63,7 +63,6 @@ nvidia-graphics-drivers-legacy-304xx (304.134-0~deb8u1) jessie; urgency=medium
       uses are no longer exported, causing a failure when the module is
       loaded at runtime.  (Closes: #809324)
   * Drop some packaging bits needed for 340.xx and newer drivers only.
-  * Depend on a setuid root Xserver.  (Closes: #805554)
   * Add xorg-video-abi-23 as alternative dependency.  (Closes: #845639)
   * nvidia-legacy-304xx-alternative: Restrict Depends: glx-alternative-nvidia
     to (<< 0.7). Uploading a new upstream legacy release to stable will
