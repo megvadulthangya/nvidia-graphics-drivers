@@ -12,13 +12,13 @@ Vcs-Svn: svn://anonscm.debian.org/pkg-nvidia/packages/nvidia-graphics-drivers-le
 Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-304xx/
 Build-Depends:
  debhelper (>= 9),
+ dpkg-dev (>= 1.17),
  xz-utils,
  dkms,
  libxext6,
  libxvmc1,
  quilt,
- po-debconf,
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
@@ -28,13 +28,14 @@ Section: non-free/x11
 Architecture: i386 amd64
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
  xserver-xorg-video-${nvidia} (= ${binary:Version}),
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  ${nvidia:kmod:binary},
  nvidia-support,
- ${shlibs:Depends}, ${misc:Depends}
+ ${misc:Depends}
 Recommends:
  ${nvidia-settings},
  libgl1-${nvidia}-glx-i386 [amd64],
@@ -45,8 +46,7 @@ Provides:
 Description: NVIDIA metapackage${nvidia:LegacyDesc}
  This metapackage depends on the NVIDIA binary driver and libraries
  that provide optimized hardware acceleration of
- OpenGL applications via a direct-rendering X Server.
- AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
+ OpenGL/GLX applications via a direct-rendering X Server.
  .
  ${nvidia:kmod:Description}
  .
@@ -63,9 +63,10 @@ Section: non-free/x11
 Architecture: i386 amd64
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  nvidia-support (>= 20120630),
  ${nvidia:xorgDepends},
  ${shlibs:Depends}, ${misc:Depends}
@@ -79,9 +80,9 @@ Provides:
  xserver-xorg-video-nvidia-any,
  ${nvidia:xorgProvides},
 Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
- These binary drivers provide optimized hardware acceleration of
- OpenGL applications via a direct-rendering X Server.
- AGP, PCIe, SLI, TV-out and flat panel displays are also supported.
+ The NVIDIA binary driver provides optimized hardware acceleration of
+ OpenGL/GLX applications via a direct-rendering X Server
+ for graphics cards using NVIDIA chip sets.
  .
  ${nvidia:kmod:Description}
  .
@@ -96,9 +97,10 @@ Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
+ ${nvidia:legacy-check},
  ${misc:Pre-Depends}
 Depends:
- ${nvidia-alternative} (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  nvidia-installer-cleanup (>= 20130816) [i386],
  nvidia-support,
  ${shlibs:Depends}, ${misc:Depends}
@@ -112,17 +114,20 @@ Provides:
 Conflicts:
  libgl1-nvidia-glx-${nvidia:Version},
 Breaks:
- ia32-libs (<< 1:0),
  libxvmcnvidia1 (<< 305),
 Replaces:
  libxvmcnvidia1 (<< 305),
-Description: NVIDIA binary OpenGL libraries${nvidia:LegacyDesc}
- These binary libraries provide optimized hardware acceleration of
- OpenGL applications via a direct-rendering X Server.
+Description: NVIDIA binary OpenGL/GLX libraries${nvidia:LegacyDesc}
+ The NVIDIA binary driver provides optimized hardware acceleration of
+ OpenGL/GLX applications via a direct-rendering X Server
+ for graphics cards using NVIDIA chip sets.
  .
  See the description of the ${nvidia}-driver package
  or /usr/share/doc/libgl1-${nvidia}-glx/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
+ .
+ This package contains the driver specific binary OpenGL/GLX implementation
+ provided by NVIDIA.
 
 #Package: libgl1-${nvidia}-glx-i386
 Package: libgl1-nvidia-legacy-304xx-glx-i386
@@ -130,29 +135,32 @@ Architecture: i386
 Multi-Arch: foreign
 Depends:
  libgl1-${nvidia}-glx,
- ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA binary OpenGL 32-bit libraries${nvidia:LegacyDesc}
+ ${misc:Depends}
+Description: NVIDIA binary OpenGL/GLX 32-bit libraries${nvidia:LegacyDesc}
  This metapackage helps the automatic installation of the 32-bit NVIDIA
  OpenGL libraries when installing libgl1-${nvidia}-glx
  on amd64 with foreign architecture i386 enabled.
 
-#Package: ${nvidia-alternative}
+#Package: ${nvidia}-alternative
 Package: nvidia-legacy-304xx-alternative
 Architecture: i386 amd64
 Multi-Arch: foreign
+Pre-Depends:
+ ${nvidia:legacy-check},
 Depends:
  glx-alternative-nvidia (>= 0.4),
+ glx-alternative-nvidia (<< 0.7),
  ${misc:Depends}
 Conflicts:
  libgl1-nvidia-alternatives,
  libglx-nvidia-alternatives,
  libgl1-nvidia-alternatives-ia32,
 Breaks:
- nvidia-settings (<< 319.49),
+ nvidia-settings (<< 304.88-2),
  nvidia-settings-legacy-173xx (<< 173.14.37),
 Provides:
- ${nvidia-alternative}--kmod-alias,
-Description: allows the selection of NVIDIA as GLX provider
+ ${nvidia}-alternative--kmod-alias,
+Description: allows the selection of NVIDIA as GLX provider${nvidia:LegacyDesc}
  In setups with several NVIDIA driver versions installed (e.g. current and
  legacy) this metapackage registers an alternative to allow easy switching
  between the different versions.
@@ -173,12 +181,12 @@ Pre-Depends:
 Depends:
  dkms,
  nvidia-kernel-common (>= 20110213),
- ${nvidia-alternative}--kmod-alias,
+ ${nvidia}-alternative--kmod-alias,
  ${misc:Depends}
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Provides:
- ${nvidia}-kernel-${nvidia:Version}${nvidia:Perfkit},
+ ${nvidia}-kernel-${nvidia:Version},
 Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  This package builds the NVIDIA Xorg binary kernel module needed by
  ${nvidia}-driver, using DKMS.
@@ -186,10 +194,9 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
  module will be built for your running kernel and automatically rebuilt for
  any new kernel headers that are installed.
  .
- The NVIDIA binary drivers provide optimized hardware acceleration of
- OpenGL applications via a direct-rendering X Server for graphics cards
- using NVIDIA chip sets.  AGP, PCIe, SLI, TV-out and flat panel displays
- are also supported.
+ The NVIDIA binary driver provides optimized hardware acceleration of
+ OpenGL/GLX applications via a direct-rendering X Server
+ for graphics cards using NVIDIA chip sets.
  .
  ${nvidia:Models}
  .
@@ -203,7 +210,7 @@ Package: nvidia-legacy-304xx-kernel-source
 Section: non-free/kernel
 Architecture: i386 amd64
 Depends:
- debhelper (>= 8),
+ debhelper (>= 9),
  make,
  quilt,
  xz-utils,
@@ -211,7 +218,7 @@ Depends:
 Recommends:
  module-assistant | kernel-package,
  nvidia-kernel-common,
- ${nvidia-alternative}--kmod-alias,
+ ${nvidia}-alternative--kmod-alias,
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Breaks:
@@ -221,10 +228,9 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  needed by ${nvidia}-driver in a form suitable
  for use by module-assistant or kernel-package.
  .
- The NVIDIA binary drivers provide optimized hardware acceleration of
- OpenGL applications via a direct-rendering X Server for graphics cards
- using NVIDIA chip sets.  AGP, PCIe, SLI, TV-out and flat panel displays
- are also supported.
+ The NVIDIA binary driver provides optimized hardware acceleration of
+ OpenGL/GLX applications via a direct-rendering X Server
+ for graphics cards using NVIDIA chip sets.
  .
  PLEASE read /usr/share/doc/${nvidia}-kernel-source/README.Debian.gz
  for building information.  If you want the kernel module to be automatically

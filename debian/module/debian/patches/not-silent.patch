@@ -1,9 +1,9 @@
 Author: Andreas Beckmann <anbe@debian.org>
 Description: make silent commands in NVIDIA's Makefile.kbuild verbose
 
---- a/Kbuild
-+++ b/Kbuild
-@@ -183,16 +183,16 @@
+--- a/Makefile
++++ b/Makefile
+@@ -221,20 +221,20 @@ COMPILE_TESTS = \
  #
  
  $(obj)/$(CORE_OBJS):
@@ -14,17 +14,21 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
 -	@echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
 +	$(NVQ)echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
  
- $(obj)/conftest.h: $(src)/conftest.sh
+ $(obj)/conftest.h: $(src)/conftest.sh conftest-verbose
+ 	@echo " CONFTEST: compile_tests"
 -	@if ! $(CONFTEST) compile_tests $(COMPILE_TESTS); then exit 1; fi
-+	$(NVQ)$(CONFTEST) compile_tests $(COMPILE_TESTS)
++	@$(CONFTEST) compile_tests $(COMPILE_TESTS)
+ 	@echo " CONFTEST $(notdir $@):"
+ 	@cat $@
  
- $(obj)/patches.h:
+ $(obj)/patches.h: $(src)/conftest.sh conftest-verbose
+ 	@echo " CONFTEST: patch_check"
 -	@if ! $(CONFTEST) patch_check; then exit 1; fi
-+	$(NVQ)$(CONFTEST) patch_check
++	@$(CONFTEST) patch_check
+ 	@echo " CONFTEST $(notdir $@):"
+ 	@cat $@
  
- RESMAN_GLUE_TARGETS = $(addprefix $(obj)/,$(RESMAN_GLUE_OBJS))
- 
-@@ -223,16 +223,16 @@
+@@ -277,10 +277,10 @@ endif
  .PHONY: suser-sanity-check rmmod-sanity-check build-sanity-checks
  
  suser-sanity-check:
@@ -35,34 +39,21 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
 -	@if ! $(CONFTEST) rmmod_sanity_check; then exit 1; fi
 +	$(NVQ)$(CONFTEST) rmmod_sanity_check
  
- build-sanity-checks:
--	@if ! $(CONFTEST) cc_version_check 		full_output; then exit 1; fi
--	@if ! $(CONFTEST) rivafb_sanity_check 	full_output; then exit 1; fi
--	@if ! $(CONFTEST) nvidiafb_sanity_check full_output; then exit 1; fi
--	@if ! $(CONFTEST) xen_sanity_check 		full_output; then exit 1; fi
-+	$(NVQ)$(CONFTEST) cc_version_check 		full_output
-+	$(NVQ)$(CONFTEST) rivafb_sanity_check 	full_output
-+	$(NVQ)$(CONFTEST) nvidiafb_sanity_check full_output
-+	$(NVQ)$(CONFTEST) xen_sanity_check 		full_output
+ ifneq ($(KERNELRELEASE),)
+ # Begin of Kbuild section
+@@ -316,9 +316,9 @@ ifeq ($(KERNELRELEASE),)
  
- #
- # Build the NVIDIA kernel module using Linux KBUILD. This target is used by
-@@ -240,10 +240,10 @@
- #
- 
- module: build-sanity-checks
--	@echo "NVIDIA: calling KBUILD..."; \
--	 $(MAKE) "CC=$(CC)" $(KBUILD_PARAMS) modules; \
--	echo "NVIDIA: left KBUILD."; \
--	if ! [ -f $(MODULE_OBJECT) ]; then \
-+	@echo "NVIDIA: calling KBUILD..."
-+	$(NVQ)$(MAKE) "CC=$(CC)" $(KBUILD_PARAMS) modules
-+	@echo "NVIDIA: left KBUILD."
+ module:
+ 	@echo "NVIDIA: calling KBUILD..."
+-	@$(MAKE) $(KBUILD_PARAMS) modules
++	$(NVQ)$(MAKE) $(KBUILD_PARAMS) modules
+ 	@echo "NVIDIA: left KBUILD."
+-	@if ! [ -f $(MODULE_OBJECT) ]; then \
 +	$(NVQ)if ! [ -f $(MODULE_OBJECT) ]; then \
  	 echo "$(MODULE_OBJECT) failed to build!"; \
  	 exit 1; \
  	fi
-@@ -254,7 +254,7 @@
+@@ -329,7 +329,7 @@ module:
  #
  
  module-install: suser-sanity-check module
@@ -71,7 +62,7 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
  	install -m 0664 -o root -g root $(MODULE_OBJECT) $(MODULE_ROOT)/video; \
  	PATH="$(PATH):/bin:/sbin" depmod -ae;
  
-@@ -264,7 +264,7 @@
+@@ -339,7 +339,7 @@ module-install: suser-sanity-check modul
  #
  
  package-install: module-install rmmod-sanity-check
@@ -80,7 +71,7 @@ Description: make silent commands in NVIDIA's Makefile.kbuild verbose
  	echo "$(MODULE_OBJECT) installed successfully.";
  
  #
-@@ -276,19 +276,19 @@
+@@ -351,19 +351,19 @@ package-install: module-install rmmod-sa
  #
  
  $(KERNEL_GLUE_NAME): module
