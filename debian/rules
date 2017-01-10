@@ -6,7 +6,7 @@
 DEB_HOST_ARCH		?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 DEB_HOST_MULTIARCH	?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
-NVIDIA_RELEASE		:= $(shell dpkg-parsechangelog --show-field=Version | sed -r 's/^[0-9]+://; s/-[^-]+$$//')
+NVIDIA_RELEASE		:= $(shell dpkg-parsechangelog | sed -nr '/^Version:/s/Version: (.*:)?(.*)-(.*)/\2/p')
 BUILD_DATE		:= $(shell dpkg-parsechangelog | sed -nr '/^Date:/s/Date: //p')
 
 include debian/rules.defs
