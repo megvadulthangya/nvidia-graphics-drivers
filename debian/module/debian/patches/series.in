@@ -1,0 +1,20 @@
+# kernel support
+drm-driver-legacy.patch
+
+# build system updates
+separate-makefile-kbuild.patch
+KERNEL_UNAME.patch
+use-kbuild-compiler.patch
+use-kbuild-flags.patch
+build-sanity-checks.patch
+conftest-verbose.patch
+conftest-via-kbuild.patch
+disable-cc_version_check.patch
+disable-preempt_rt_sanity_check.patch
+not-silent.patch
+use-nv-kernel-ARCH.o_shipped.patch
+avoid-ld.gold.patch
+
+# armhf support
+ignore_xen_on_arm.patch
+arm-outer-sync.patch

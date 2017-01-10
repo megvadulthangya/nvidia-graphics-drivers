@@ -1,7 +1,7 @@
 # The NVIDIA license does not allow any form of modification.
+hardening-no-bindnow
 hardening-no-fortify-functions
 hardening-no-relro
 
-# Lintian and debhelper disagree w.r.t a library in a private directory.
-postinst-has-useless-call-to-ldconfig
-postrm-has-useless-call-to-ldconfig
+# Lintian and debhelper disagree w.r.t. a library in a private directory.
+maintscript-calls-ldconfig
