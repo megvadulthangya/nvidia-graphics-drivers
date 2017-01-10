@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-304xx (304.134-0~deb8u1~bpo70+1) wheezy-backports; urgency=medium
+
+  * Rebuild for wheezy-backports.
+  * Replace 'dpkg-parsechangelog --show-field=Version' with a sed expression.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 10 Jan 2017 13:33:23 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.134-0~deb8u1) jessie; urgency=medium
 
   * New upstream legacy 304xx branch release 304.134 (2016-12-14).
