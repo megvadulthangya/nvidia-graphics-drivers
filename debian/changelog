@@ -4,6 +4,7 @@ nvidia-graphics-drivers-legacy-304xx (304.134-2) unstable; urgency=medium
   * Merge changes from 304.134-0~deb8u1 (jessie).
   * Add ${nvidia:Deb-Version-After:jessie} substvar to simplify adjusting
     Breaks/Replaces for new upstream releases in stable.
+  * Switch to debhelper compat level 10.
 
   [ Luca Boccassi ]
   * Add drm-driver-legacy.patch to fix nvidia kernel module load issue on
