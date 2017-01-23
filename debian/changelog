@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.134-2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.134-2) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Merge changes from 304.134-0~deb8u1 (jessie).
@@ -9,7 +9,7 @@ nvidia-graphics-drivers-legacy-304xx (304.134-2) UNRELEASED; urgency=medium
   * Add drm-driver-legacy.patch to fix nvidia kernel module load issue on
     Linux 4.9 and newer.  (Closes: #852152)
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 03 Jan 2017 11:58:06 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 23 Jan 2017 19:51:45 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.134-1) unstable; urgency=medium
 
