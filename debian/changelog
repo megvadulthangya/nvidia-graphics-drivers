@@ -1,10 +1,10 @@
-nvidia-graphics-drivers-legacy-340xx (340.101-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.101-3) unstable; urgency=medium
 
   * Switch to debhelper compat level 10.
   * Add ${nvidia:Deb-Version-After:jessie} substvar to simplify adjusting
     Breaks/Replaces for new upstream releases in stable.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 24 Jan 2017 00:55:59 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 24 Jan 2017 04:31:14 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.101-2) unstable; urgency=medium
 
