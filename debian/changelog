@@ -1,3 +1,15 @@
+nvidia-graphics-drivers-legacy-304xx (304.135-2) UNRELEASED; urgency=medium
+
+  * New upstream legacy 304xx branch release 304.135 (2017-02-14).
+    * Fixed CVE-2017-0309, CVE-2017-0310, CVE-2017-0311, CVE-2017-0318,
+      CVE-2017-0321.  (Closes: #855279)
+
+  [ Luca Boccassi ]
+  * Add deprecated-cpu-events.patch and update disable-mtrr.patch to fix
+    kernel module build on Linux 4.10 and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 25 Feb 2017 22:07:12 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.134-2) unstable; urgency=medium
 
   [ Andreas Beckmann ]
@@ -197,7 +209,7 @@ nvidia-graphics-drivers-legacy-304xx (304.131-3) unstable; urgency=medium
   * Add disable-mtrr.patch to disable MTRR in the kernel module if
     building on 4.3 or greater, where the deprecated APIs the kernel module
     uses are no longer exported, causing a failure when the module is
-    loaded at runtime. (Closes: #809324)
+    loaded at runtime.  (Closes: #809324)
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Jan 2016 23:53:04 +0100
 
