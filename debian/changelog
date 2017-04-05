@@ -2,7 +2,7 @@ nvidia-graphics-drivers-legacy-304xx (304.135-1) UNRELEASED; urgency=medium
 
   * New upstream legacy 304xx branch release 304.135 (2017-02-14).
     * Fixed CVE-2017-0309, CVE-2017-0310, CVE-2017-0311, CVE-2017-0318,
-      CVE-2017-0321.  (Closes: #855277)
+      CVE-2017-0321.  (Closes: #855279)
 
   [ Luca Boccassi ]
   * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.135-2:
