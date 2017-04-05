@@ -1,3 +1,46 @@
+nvidia-graphics-drivers-legacy-304xx (304.135-3) UNRELEASED; urgency=medium
+
+  * Merge changes from 304.135-1 (jessie).
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 05 Apr 2017 20:31:53 +0200
+
+nvidia-graphics-drivers-legacy-304xx (304.135-2) unstable; urgency=medium
+
+  * Upload to unstable.  (Closes: #855279)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 25 Feb 2017 22:30:24 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.135-1) jessie; urgency=medium
+
+  * New upstream legacy 304xx branch release 304.135 (2017-02-14).
+    * Fixed CVE-2017-0309, CVE-2017-0310, CVE-2017-0311, CVE-2017-0318,
+      CVE-2017-0321.  (Closes: #855279)
+
+  [ Luca Boccassi ]
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.135-2:
+    - Add deprecated-cpu-events.patch and update disable-mtrr.patch to fix
+      kernel module build on Linux 4.10 and newer.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.134-2:
+    - Add drm-driver-legacy.patch to fix nvidia kernel module load issue on
+      Linux 4.9 and newer.  (Closes: #852152)
+  * Upload to jessie.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 05 Apr 2017 20:16:50 +0200
+
+nvidia-graphics-drivers-legacy-304xx (304.134-2) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Merge changes from 304.134-0~deb8u1 (jessie).
+  * Add ${nvidia:Deb-Version-After:jessie} substvar to simplify adjusting
+    Breaks/Replaces for new upstream releases in stable.
+  * Switch to debhelper compat level 10.
+
+  [ Luca Boccassi ]
+  * Add drm-driver-legacy.patch to fix nvidia kernel module load issue on
+    Linux 4.9 and newer.  (Closes: #852152)
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 23 Jan 2017 19:51:45 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.134-1~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports.
@@ -6,18 +49,72 @@ nvidia-graphics-drivers-legacy-304xx (304.134-1~bpo8+1) jessie-backports; urgenc
 
 nvidia-graphics-drivers-legacy-304xx (304.134-1) unstable; urgency=medium
 
+  * Upload to unstable.  (Closes: #848197, #845639)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Dec 2016 01:40:33 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.134-0~deb8u1) jessie; urgency=medium
+
   * New upstream legacy 304xx branch release 304.134 (2016-12-14).
     * Fixed CVE-2016-8826.  (Closes: #848197)
     - Added support for X.Org xserver ABI 23 (xorg-server 1.19)
     * Improved compatibility with recent Linux kernels.
+  * New upstream legacy 304xx branch release 304.132 (2016-09-26).
+    * Fixed CVE-2016-7382, CVE-2016-7389.  (Closes: #846331)
+    - Added /var/log/dmesg to the list of paths which are searched by
+      nvidia-bug-report.sh for kernel messages.
+    - Fixed a bug that caused kernel panics when using the NVIDIA driver on
+      v4.5 and newer Linux kernels built with CONFIG_DEBUG_VM_PGFLAGS.
+    * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.134-1:
   * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.101-1:
   * Synchronize packaging with nvidia-graphics-drivers 370.28-2:
     - Overhaul package descriptions.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.132-1:
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.98-1:
+  * Synchronize packaging with nvidia-graphics-drivers 358.16-1:
+    - get-orig-source: Generate .orig-$ARCH.tar.gz for each architecture.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.131-4:
+  * Synchronize kernel module build with nvidia-graphics-drivers:
+    - Simplify maintaining the module build process.
+    - Use NVIDIA's conftest.sh script to determine settings during module
+      build instead of our manually maintained conftest.h header.
+    - Hand over as much as possible to Kbuild.
+    - Support building a 64-bit kernel module with 32-bit userspace.
+  * Synchronize get-orig-source target with nvidia-graphics-drivers.
+  * Synchronize bug-control, bug-script target with nvidia-graphics-drivers.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.96-4:
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-6:
+    - Stop special-casing the nvidia-alternative substitution.
+    - Add B-D: dpkg-dev (>= 1.17.0) for dpkg-parsechangelog --show-field.
+    - Bump Standards-Version to 3.9.8. No changes needed.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-340xx 340.96-3:
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-5:
+    - Drop incomplete Perfkit support.
+    - Support building a 64-bit kernel module with 32-bit userspace.
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-4:
+    - nvidia-legacy-304xx-kernel-source: Switch to debhelper compat level 9.
+    - rules: Drop support for ancient .run layout.
+    - debian/bug-control.mk: New script to generate bug-control.
+  * Synchronize packaging with nvidia-graphics-drivers 352.79-3:
+    - rules, rules.defs: Synchronize variable naming with unstable.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.131-3:
+    - Add disable-mtrr.patch to disable MTRR in the kernel module if
+      building on 4.3 or greater, where the deprecated APIs the kernel module
+      uses are no longer exported, causing a failure when the module is
+      loaded at runtime.  (Closes: #809324)
+  * Drop some packaging bits needed for 340.xx and newer drivers only.
   * Add xorg-video-abi-23 as alternative dependency.  (Closes: #845639)
+  * nvidia-legacy-304xx-alternative: Restrict Depends: glx-alternative-nvidia
+    to (<< 0.7). Uploading a new upstream legacy release to stable will
+    invalidate package relationships in unstable, thus permitting some
+    (partial) upgrade paths that will fail.
+  * Update lintian overrides.
+  * Upload to jessie.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 17 Dec 2016 01:40:33 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 03 Jan 2017 10:05:35 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.132-1) unstable; urgency=medium
 
@@ -155,7 +252,7 @@ nvidia-graphics-drivers-legacy-304xx (304.131-3) unstable; urgency=medium
   * Add disable-mtrr.patch to disable MTRR in the kernel module if
     building on 4.3 or greater, where the deprecated APIs the kernel module
     uses are no longer exported, causing a failure when the module is
-    loaded at runtime. (Closes: #809324)
+    loaded at runtime.  (Closes: #809324)
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Jan 2016 23:53:04 +0100
 
