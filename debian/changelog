@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (375.39-1~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 13 Apr 2017 03:32:50 +0200
+
 nvidia-graphics-drivers (375.39-1) unstable; urgency=medium
 
   * New upstream long lived branch release 375.39 (2017-02-14).
@@ -1418,14 +1424,6 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
-<<<<<<< .working
-nvidia-graphics-drivers (340.96-4~bpo8+1) jessie-backports; urgency=medium
-
-  * Rebuild for jessie-backports.
-
- -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Jan 2016 21:42:31 +0100
-
-=======
 nvidia-graphics-drivers (340.102-1) jessie; urgency=medium
 
   * New upstream legacy 340xx branch release 340.102 (2017-02-14).
@@ -1524,7 +1522,12 @@ nvidia-graphics-drivers (340.101-1) jessie; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 04 Jan 2017 13:31:29 +0100
 
->>>>>>> .merge-right.r7240
+nvidia-graphics-drivers (340.96-4~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Jan 2016 21:42:31 +0100
+
 nvidia-graphics-drivers (340.96-4) unstable; urgency=medium
 
   [ Andreas Beckmann ]
