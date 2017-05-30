@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (375.66-1~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 31 May 2017 01:50:49 +0200
+
 nvidia-graphics-drivers (375.66-1) unstable; urgency=medium
 
   * New upstream long lived branch release 375.66 (2017-05-04).
