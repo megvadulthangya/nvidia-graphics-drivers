@@ -1,16 +1,14 @@
-nvidia-graphics-drivers-legacy-340xx (340.102-2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.102-2) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * nvidia-kernel-dkms: Honor parallel setting from dkms.  (Closes: #864639)
   * Do not prevent ccache usage. The bug was fixed in ccache 3.0 (in squeeze).
 
   [ Luca Boccassi ]
-  * Add drm-unload.patch to fix kernel module build on Linux 4.11 and newer.
-    (Closes: #865964)
-  * Add fatal-signal.patch and vm-fault.patch to fix kernel module build on
-    Linux 4.11 and newer.
+  * Add drm-unload.patch, fatal-signal.patch, and vm-fault.patch to fix kernel
+    module build on Linux 4.11 and newer.  (Closes: #865964)
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 01 Jul 2017 17:59:59 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 02 Jul 2017 00:26:32 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.102-1) unstable; urgency=medium
 
