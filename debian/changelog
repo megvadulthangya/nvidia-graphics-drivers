@@ -1,3 +1,65 @@
+nvidia-graphics-drivers (375.82-1~deb9u1) stretch; urgency=medium
+
+  * Rebuild for stretch.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 09 Aug 2017 05:03:52 +0200
+
+nvidia-graphics-drivers (375.82-1) unstable; urgency=high
+
+  * New upstream long lived branch release 375.82 (2017-07-24).
+    * Fixed CVE-2017-6257, CVE-2017-6259.  (Closes: #869783)
+    - Fix a bug with GLX_EXT_buffer_age where incorrect buffer age values
+      would be reported for SLI AFR configurations. In such configurations
+      buffer age may now be greater than 3, the previous maximum buffer age.
+    - Fixed a bug that could cause hanging and Xids when performing RandR
+      transforms with Overlay and SLI enabled.
+    - Extended the information reported by the NVIDIA Xinerama X extension to
+      report PRIME displays in addition to directly-connected displays.
+    - Fixed a bug that caused HDMI audio devices to appear or disappear
+      inconsistently when HDMI devices were hotplugged or unplugged.
+    - Fixed a bug that could cause driver errors when setting modes on X
+      screens running at Depth 8 or Depth 15.
+    - Added support for the following GPUs: GeForce GTX 1080 with Max-Q
+      Design, GeForce GTX 1070 with Max-Q Design,
+      GeForce GTX 1060 with Max-Q Design.
+    - Fixed a bug that could cause intermittent kernel panics when running with
+      PRIME Sync.
+    - Fixed a bug that caused a kernel panic when hotplugging HDMI displays
+      on some Zotac mini PCs.
+
+  [ Andreas Beckmann ]
+  * nvidia-kernel-dkms: Honor parallel setting from dkms.  (Closes: #864639)
+  * Do not prevent ccache usage. The bug was fixed in ccache 3.0 (in squeeze).
+  * Switch watch URL from ftp:// to https://.  (Closes: #868815)
+
+  [ Luca Boccassi ]
+  * Add support for buster in nvidia-detect.  (Closes: #866126)
+  * Update symbols files.
+
+ -- Luca Boccassi <luca.boccassi@gmail.com>  Wed, 26 Jul 2017 21:42:00 +0100
+
+nvidia-graphics-drivers (375.66-2~deb9u1) stretch; urgency=medium
+
+  * Rebuild for stretch.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 16 Jul 2017 14:35:22 +0200
+
+nvidia-graphics-drivers (375.66-2) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * nvidia-vulkan-common: Add Conflicts: libgl1-nvidia-glx as a workaround for
+    #864477 (wrong library referenced in nvidia_icd.json in non-GLVND setups).
+  * nvidia-legacy-check.preinst: Verbose debug output can be enabled by
+    setting DEBUG_NVIDIA_LEGACY_CHECK=yes in the environment.
+  * nvidia-legacy-check: Bump Pre-Depends: nvidia-installer-cleanup to
+    (>= 20151021) for smoother upgrades from jessie.  (See: #864775)
+  * Clean up upstream changelog entries.
+
+  [ Luca Boccassi ]
+  * nvidia-driver.README.Debian: Add notes about GLVND vs non-GLVND flavours.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Jun 2017 02:01:53 +0200
+
 nvidia-graphics-drivers (375.66-1~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports.
@@ -92,7 +154,7 @@ nvidia-graphics-drivers (375.39-1) unstable; urgency=medium
 nvidia-graphics-drivers (375.26-2) unstable; urgency=medium
 
   * Merge changes from 340.101-1 (jessie).
-  * nvidia-alternative: Add alternative for 
+  * nvidia-alternative: Add alternative for
     /usr/share/nvidia/nvidia-application-profiles-key-documentation
     (Closes: #825637)
   * Switch to debhelper compat level 10.
@@ -130,10 +192,6 @@ nvidia-graphics-drivers (375.26-1) unstable; urgency=medium
                   (<process stack>) (8 bytes)
     * Fixed issues with OpenGL applications running simultaneously.
       (Closes: #847057)
-  * New upstream legacy 304xx branch release 304.134 (2016-12-14).
-    * Fixed CVE-2016-8826.
-    - Added support for X.Org xserver ABI 23 (xorg-server 1.19)
-    * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
   * Updated Dutch (nl) debconf translations by Frans Spiesschaert.
@@ -281,19 +339,6 @@ nvidia-graphics-drivers (367.57-1) unstable; urgency=medium
       Quadro P5000.
     - Added support for NVIDIA 3D Vision 2 Stereo on Linux. This IR emitter can
       be used with stereo mode "10" set in the X configuration file.
-  * New upstream legacy 340xx branch release 340.98 (2016-09-26).
-    * Fixed CVE-2016-7382, CVE-2016-7389.  (Closes: #846331)
-    - Added support for the screen_info.ext_lfb_base field, on kernels that
-      have it, in order to properly handle UEFI framebuffer consoles with
-      physical addresses above 4GB.
-    * Improved compatibility with recent Linux kernels.
-  * New upstream legacy 304xx branch release 304.132 (2016-09-26).
-    * Fixed CVE-2016-7382, CVE-2016-7389.  (Closes: #846331)
-    - Added /var/log/dmesg to the list of paths which are searched by
-      nvidia-bug-report.sh for kernel messages.
-    - Fixed a bug that caused kernel panics when using the NVIDIA driver on
-      v4.5 and newer Linux kernels built with CONFIG_DEBUG_VM_PGFLAGS.
-    * Improved compatibility with recent Linux kernels.
 
   [ Luca Boccassi ]
   * Update nv-readme.ids.
@@ -586,11 +631,6 @@ nvidia-graphics-drivers (361.45.18-1) experimental; urgency=medium
   * New upstream release 352 series.
     - Fixed a bug that prevented nvidia-bug-report.sh from finding
       relevant messages in kernel log files.
-  * New upstream legacy 304xx branch release 304.132 (2016-09-26).
-    - Added /var/log/dmesg to the list of paths which are searched by
-      nvidia-bug-report.sh for kernel messages.
-    - Fixed a bug that caused kernel panics when using the NVIDIA driver
-      on v4.5 and newer Linux kernels built with CONFIG_DEBUG_VM_PGFLAGS.
 
   [ Luca Boccassi ]
   * Refresh man-fixes-nvidia-smi.patch.
@@ -3199,6 +3239,25 @@ nvidia-graphics-drivers (310.14-1) experimental; urgency=low
       efi_enabled (310.14).
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 17 Oct 2012 19:54:34 +0200
+
+nvidia-graphics-drivers (304.135-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy 304xx branch release 304.135 (2017-02-14).
+    * Fixed CVE-2017-0309, CVE-2017-0310, CVE-2017-0311, CVE-2017-0318,
+      CVE-2017-0321.  (Closes: #855277)
+  * New upstream legacy 304xx branch release 304.134 (2016-12-14).
+    * Fixed CVE-2016-8826.  (Closes: #848195)
+    - Added support for X.Org xserver ABI 23 (xorg-server 1.19)
+    * Improved compatibility with recent Linux kernels.
+  * New upstream legacy 304xx branch release 304.132 (2016-09-26).
+    * Fixed CVE-2016-7382, CVE-2016-7389.  (Closes: #846331)
+    - Added /var/log/dmesg to the list of paths which are searched by
+      nvidia-bug-report.sh for kernel messages.
+    - Fixed a bug that caused kernel panics when using the NVIDIA driver on
+      v4.5 and newer Linux kernels built with CONFIG_DEBUG_VM_PGFLAGS.
+    * Improved compatibility with recent Linux kernels.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 14 Jun 2017 17:10:53 +0200
 
 nvidia-graphics-drivers (304.131-1) wheezy; urgency=medium
 
