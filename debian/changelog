@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.135-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.135-4) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Bump Standards-Version to 4.0.1. No changes needed.
@@ -12,7 +12,7 @@ nvidia-graphics-drivers-legacy-304xx (304.135-4) UNRELEASED; urgency=medium
   [ Luca Boccassi ]
   * Add pud-offset.patch to fix kernel module build on Linux 4.12 and newer.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Aug 2017 10:04:23 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Aug 2017 11:43:22 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.135-3) unstable; urgency=medium
 
