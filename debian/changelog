@@ -3,6 +3,7 @@ nvidia-graphics-drivers-legacy-304xx (304.135-4) UNRELEASED; urgency=medium
   [ Andreas Beckmann ]
   * Bump Standards-Version to 4.0.1. No changes needed.
   * nvidia-alternative: Explicitly use interest-await triggers.
+  * Switch from dh_install --list-missing to dh_missing.
   * Switch watch URL from ftp:// to https:// (375.82-1).
   * Update lintian overrides.
 
