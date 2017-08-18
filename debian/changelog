@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.102-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.102-3) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * disable-preempt_rt_sanity_check.patch: Remove, unsupported upstream.
@@ -14,7 +14,7 @@ nvidia-graphics-drivers-legacy-340xx (340.102-3) UNRELEASED; urgency=medium
   * Add set-memory.patch to fix kernel module build on Linux 4.12 and newer.
     (Closes: #872330)
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Aug 2017 12:18:32 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Aug 2017 16:37:03 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.102-2) unstable; urgency=medium
 
