@@ -1,8 +1,22 @@
+nvidia-graphics-drivers-legacy-304xx (304.135-4) UNRELEASED; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.0.1. No changes needed.
+  * nvidia-alternative: Explicitly use interest-await triggers.
+  * Switch watch URL from ftp:// to https:// (375.82-1).
+  * Update lintian overrides.
+
+  [ Luca Boccassi ]
+  * Add pud-offset.patch to fix kernel module build on Linux 4.12 and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Aug 2017 10:04:23 +0200
+
 nvidia-graphics-drivers-legacy-304xx (304.135-3) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Merge changes from 304.135-1 (jessie).
-  * Do not prevent ccache usage. The bug was fixed in ccache 3.0 (in squeeze).
+  * Do not prevent ccache usage. The bug was fixed in ccache 3.0 (in squeeze)
+    (375.82-1).
   * not-parallel.patch: New, prevent parallel module build.
 
   [ Luca Boccassi ]
