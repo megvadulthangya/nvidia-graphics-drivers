@@ -1,8 +1,27 @@
+nvidia-graphics-drivers-legacy-340xx (340.102-3) UNRELEASED; urgency=medium
+
+  [ Andreas Beckmann ]
+  * disable-preempt_rt_sanity_check.patch: Remove, unsupported upstream.
+  * Bump Standards-Version to 4.0.1. No changes needed.
+  * nvidia-alternative: Explicitly use interest-await triggers.
+  * Switch from dh_install --list-missing to dh_missing.
+  * Use dpkg makefile snippets instead of manual parsing.
+  * build-module-packages.sh: Order kernels by descending version.
+  * Switch watch URL from ftp:// to https:// (375.82-1).
+  * Update lintian overrides.
+
+  [ Luca Boccassi ]
+  * Add set-memory.patch to fix kernel module build on Linux 4.12 and newer.
+    (Closes: #872330)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Aug 2017 12:18:32 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.102-2) unstable; urgency=medium
 
   [ Andreas Beckmann ]
-  * nvidia-kernel-dkms: Honor parallel setting from dkms.  (Closes: #864639)
-  * Do not prevent ccache usage. The bug was fixed in ccache 3.0 (in squeeze).
+  * nvidia-kernel-dkms: Honor parallel setting from dkms (375.82-1).
+  * Do not prevent ccache usage. The bug was fixed in ccache 3.0 (in squeeze)
+    (375.82-1).
 
   [ Luca Boccassi ]
   * Add drm-unload.patch, fatal-signal.patch, and vm-fault.patch to fix kernel
