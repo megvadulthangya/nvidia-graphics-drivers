@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-340xx (340.102-4) UNRELEASED; urgency=medium
+
+  * Remove myself from Uploaders.
+
+ -- Russ Allbery <rra@debian.org>  Sun, 20 Aug 2017 20:43:40 -0700
+
 nvidia-graphics-drivers-legacy-340xx (340.102-3) unstable; urgency=medium
 
   [ Andreas Beckmann ]
