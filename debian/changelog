@@ -1,6 +1,6 @@
 nvidia-graphics-drivers-legacy-304xx (304.135-5) UNRELEASED; urgency=medium
 
-  * New upstream release.
+  * Remove myself from Uploaders.
 
  -- Russ Allbery <rra@debian.org>  Sun, 20 Aug 2017 20:42:32 -0700
 
