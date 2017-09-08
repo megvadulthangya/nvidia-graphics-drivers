@@ -66,7 +66,8 @@ Quadro Plex 2200 D2 [GT200GL], Quadro Plex 2200 S4 [GT200GL],
 Quadro VX 200 [G92GL], Tesla C870 [G80GL], Tesla C1060 [GT200GL],
 Tesla M1060 [GT200GL], nForce 720a [C77], nForce 730a [C77],
 nForce 730i [C79], nForce 750a SLI [C77], nForce 760i SLI [C79],
-nForce 780a SLI [C77], nForce 980a SLI [C77].
+nForce 780a SLI [C77], nForce 980a SLI [C77], GRID K1 [GK107GL],
+GRID K2 [GK104GL], GRID K340 [GK107GL].
 
 There are several "more modern" GPUs supported by this package, too, but the
 updated drivers in the newer legacy packages or the current nvidia-driver
