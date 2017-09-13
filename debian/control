@@ -6,7 +6,7 @@ Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders:
  Andreas Beckmann <anbe@debian.org>,
  Vincent Cheng <vcheng@debian.org>,
- Luca Boccassi <luca.boccassi@gmail.com>,
+ Luca Boccassi <bluca@debian.org>,
 Vcs-Svn: svn://anonscm.debian.org/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-304xx/trunk
 Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-304xx/
 Build-Depends:
@@ -17,7 +17,7 @@ Build-Depends:
  libxext6,
  libxvmc1,
  quilt,
-Standards-Version: 4.0.1
+Standards-Version: 4.1.0
 Homepage: http://www.nvidia.com
 XS-Autobuild: yes
 
@@ -220,12 +220,12 @@ Pre-Depends:
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
+Provides:
+ libnvidia-cfg1-any,
 Breaks:
  libgl1-${nvidia}-glx (<< ${nvidia:Deb-Version-After:jessie}),
 Replaces:
  libgl1-${nvidia}-glx (<< ${nvidia:Deb-Version-After:jessie}),
-Provides:
- libnvidia-cfg1-any,
 Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:LegacyDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX applications via a direct-rendering X Server for graphics cards
