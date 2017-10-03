@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (375.82-4~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 03 Oct 2017 04:09:06 +0200
+
 nvidia-graphics-drivers (375.82-4) unstable; urgency=medium
 
   * Prevent mixing libgl1-nvidia-glx with libgl1-nvidia-glvnd-glx.
