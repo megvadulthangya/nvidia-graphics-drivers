@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.137-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.137-1) unstable; urgency=medium
 
   * New upstream legacy 304xx branch release 304.137 (2017-09-19).
     - Improved compatibility with recent Linux kernels.
@@ -17,7 +17,7 @@ nvidia-graphics-drivers-legacy-304xx (304.137-1) UNRELEASED; urgency=medium
   * Add nvidia-drm-pci-init.patch to fix kernel module build on Linux 4.14
     and newer.
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 12 Oct 2017 18:32:29 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 12 Oct 2017 20:34:21 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.135-5) unstable; urgency=medium
 
