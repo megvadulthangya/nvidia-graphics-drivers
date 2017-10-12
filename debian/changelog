@@ -1,22 +1,40 @@
-nvidia-graphics-drivers-legacy-340xx (340.102-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.104-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy 340xx branch release 340.104 (2017-09-19).
+    * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
   * Add GRID K1/K2/K340 to EoL models, no longer supported from 375.xx on.
+  * Bump Standards-Version to 4.1.1. No changes needed.
+  * bug-control: Add arch qualification to M-A:same packages in report-with
+    list otherwise reportbug will ignore them if more than one is installed
+    (375.82-5).
+  * Simplify upstream changelog handling (375.82-5).
+
+  [ Luca Boccassi ]
+  * Switch to my debian.org email address in Uploaders.
+  * Drop drm-driver-legacy.patch, deprecated-cpu-events.patch,
+    vmf-address.patch, drm-unload.patch, fatal-signal.patch and
+    set-memory.patch, fixed upstream.
+  * Refresh vm-fault.patch to remove fuzz from upstream changes.
+  * Add nvidia-drm-pci-init.patch to fix kernel module build on Linux 4.14
+    and newer.
 
   [ Russ Allbery ]
   * Remove myself from Uploaders.
 
- -- Russ Allbery <rra@debian.org>  Sun, 20 Aug 2017 20:43:40 -0700
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 12 Oct 2017 23:55:50 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.102-3) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * disable-preempt_rt_sanity_check.patch: Remove, unsupported upstream.
   * Bump Standards-Version to 4.0.1. No changes needed.
-  * nvidia-alternative: Explicitly use interest-await triggers.
-  * Switch from dh_install --list-missing to dh_missing.
-  * Use dpkg makefile snippets instead of manual parsing.
+  * nvidia-alternative: Explicitly use interest-await triggers (375.82-2).
+  * Switch from dh_install --list-missing to dh_missing (375.82-2).
+  * Use dpkg makefile snippets instead of manual changelog parsing (375.82-2).
   * build-module-packages.sh: Order kernels by descending version.
+    Skip PREEMPT_RT (*-rt-*) kernels, unsupported upstream (375.82-2).
   * Switch watch URL from ftp:// to https:// (375.82-1).
   * Update lintian overrides.
 
