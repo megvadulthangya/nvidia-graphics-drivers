@@ -39,9 +39,9 @@ nvidia-graphics-drivers-legacy-304xx (304.135-4) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Bump Standards-Version to 4.0.1. No changes needed.
-  * nvidia-alternative: Explicitly use interest-await triggers.
-  * Switch from dh_install --list-missing to dh_missing.
-  * Use dpkg makefile snippets instead of manual changelog parsing.
+  * nvidia-alternative: Explicitly use interest-await triggers (375.82-2).
+  * Switch from dh_install --list-missing to dh_missing (375.82-2).
+  * Use dpkg makefile snippets instead of manual changelog parsing (375.82-2).
   * build-module-packages.sh: Order kernels by descending version (375.82-2).
   * Switch watch URL from ftp:// to https:// (375.82-1).
   * Update lintian overrides.
