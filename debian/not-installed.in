@@ -21,3 +21,9 @@ nvidia-xconfig.1
 pkg-history.txt
 tls_test
 tls_test_dso.so
+
+libOpenCL.so.1.0.0
+nvidia.icd
+nvidia-cuda-proxy-control
+nvidia-cuda-proxy-control.1
+nvidia-cuda-proxy-server
