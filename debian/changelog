@@ -1,3 +1,24 @@
+nvidia-graphics-drivers-legacy-304xx (304.137-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy 304xx branch release 304.137 (2017-09-19).
+    - Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.1.1. No changes needed.
+  * bug-control: Add arch qualification to M-A:same packages in report-with
+    list otherwise reportbug will ignore them if more than one is installed
+    (375.82-5).
+  * Simplify upstream changelog handling (375.82-5).
+
+  [ Luca Boccassi ]
+  * Drop drm-driver-legacy.patch, deprecated-cpu-events.patch and
+    drm-unload.patch, fixed upstream.
+  * Refresh disable-mtrr.patch to remove fuzz from upstream changes.
+  * Add nvidia-drm-pci-init.patch to fix kernel module build on Linux 4.14
+    and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 12 Oct 2017 18:32:29 +0200
+
 nvidia-graphics-drivers-legacy-304xx (304.135-5) unstable; urgency=medium
 
   [ Andreas Beckmann ]
@@ -20,7 +41,7 @@ nvidia-graphics-drivers-legacy-304xx (304.135-4) unstable; urgency=medium
   * Bump Standards-Version to 4.0.1. No changes needed.
   * nvidia-alternative: Explicitly use interest-await triggers.
   * Switch from dh_install --list-missing to dh_missing.
-  * Use dpkg makefile snippets instead of manual parsing.
+  * Use dpkg makefile snippets instead of manual changelog parsing.
   * build-module-packages.sh: Order kernels by descending version (375.82-2).
   * Switch watch URL from ftp:// to https:// (375.82-1).
   * Update lintian overrides.
