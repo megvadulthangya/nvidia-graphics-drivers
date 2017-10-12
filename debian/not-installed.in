@@ -28,3 +28,9 @@ pci.ids
 pkg-history.txt
 tls_test
 tls_test_dso.so
+
+libOpenCL.so.1.0.0
+nvidia.icd
+nvidia-cuda-mps-control
+nvidia-cuda-mps-control.1
+nvidia-cuda-mps-server
