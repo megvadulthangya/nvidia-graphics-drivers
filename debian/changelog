@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.104-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.104-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.104 (2017-09-19).
     * Improved compatibility with recent Linux kernels.
@@ -23,7 +23,7 @@ nvidia-graphics-drivers-legacy-340xx (340.104-1) UNRELEASED; urgency=medium
   [ Russ Allbery ]
   * Remove myself from Uploaders.
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 12 Oct 2017 23:55:50 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 13 Oct 2017 02:47:57 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.102-3) unstable; urgency=medium
 
