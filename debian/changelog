@@ -1,6 +1,7 @@
 nvidia-graphics-drivers (375.82-8~bpo9+1) UNRELEASED; urgency=medium
 
   * Rebuild for stretch-backports.
+  * Do not conflict with *-glvnd-nvidia, there is no libglvnd in stretch.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 05 Nov 2017 21:30:33 +0100
 
