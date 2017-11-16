@@ -1,3 +1,14 @@
+nvidia-graphics-drivers-legacy-340xx (340.104-2) UNRELEASED; urgency=medium
+
+  * Use debian/substvars for substitutions by dpkg-genchanges (dpkg 1.19)
+    (375.82-7).
+  * nvidia-detect: Detect devices in PCI classes 0301 (XGA compatible
+    controller) and 0302 (3D controller), too (375.82-7).
+  * bug-script: List these devices, too (375.82-7).
+  * Use https:// URLs where possible (375.82-8).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 16 Nov 2017 00:04:30 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.104-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.104 (2017-09-19).
@@ -62,6 +73,7 @@ nvidia-graphics-drivers-legacy-340xx (340.102-1) unstable; urgency=medium
   * New upstream legacy 340xx branch release 340.102 (2017-02-14).
     * Fixed CVE-2017-0309, CVE-2017-0310, CVE-2017-0311, CVE-2017-0318,
       CVE-2017-0321.  (Closes: #855278)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4398
 
   [ Andreas Beckmann ]
   * unregister_proc_on_failure.patch: New, unregister procfs entries during
@@ -93,6 +105,7 @@ nvidia-graphics-drivers-legacy-340xx (340.101-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.101 (2016-12-14).
     * Fixed CVE-2016-8826.  (Closes: #848196)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4278
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
@@ -106,6 +119,7 @@ nvidia-graphics-drivers-legacy-340xx (340.98-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.98 (2016-09-26).
     * Fixed CVE-2016-7382, CVE-2016-7389.  (Closes: #846332)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4246
     - Added support for the screen_info.ext_lfb_base field, on kernels that
       have it, in order to properly handle UEFI framebuffer consoles with
       physical addresses above 4GB.
@@ -216,6 +230,7 @@ nvidia-graphics-drivers-legacy-340xx (340.96-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.96 (2015-11-16).
     * Fixed CVE-2015-7869: Unsanitized User Mode Input.  (Closes: #805919)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3808
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
@@ -307,6 +322,7 @@ nvidia-graphics-drivers-legacy-340xx (340.93-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.93 (2015-09-02).
     * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3763
       (Closes: #800568)
     - Fixed a bug that caused the X server to crash if an OpenGL application
       tried to allocate a drawable when GPU-accessible memory is exhausted.
@@ -460,6 +476,7 @@ nvidia-graphics-drivers (340.65-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.65 (2014-12-08).
     * Fixes CVE-2014-8298.  (Closes: #772971)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3610
     - Fixed a bug that prevented internal 4K panels on some laptops from being
       driven at a sufficient bandwidth to support their native resolutions.
     - Fixed a regression that prevented the NVIDIA kernel module from loading
@@ -693,7 +710,7 @@ nvidia-graphics-drivers (340.24-1) unstable; urgency=medium
       system configurations that disallow writing to executable memory.
     - Added initial support for G-SYNC monitors.  Additional details and system
       requirements can be found at:
-        http://www.geforce.com/hardware/technology/g-sync
+        https://www.geforce.com/hardware/technology/g-sync
     - Improved support for running the NVIDIA driver in configurations where
       writing to executable memory is disallowed.  Driver optimizations that
       require writing to executable memory can be forcefully disabled using the
