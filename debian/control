@@ -11,12 +11,13 @@ Vcs-Svn: svn://anonscm.debian.org/pkg-nvidia/packages/nvidia-graphics-drivers-le
 Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-304xx/
 Build-Depends:
  debhelper (>= 10),
- dpkg-dev (>= 1.17),
+ dpkg-dev (>= 1.18.8),
  xz-utils,
  dkms,
  libxext6,
  libxvmc1,
  quilt,
+Rules-Requires-Root: no
 Standards-Version: 4.1.1
 Homepage: https://www.nvidia.com
 XS-Autobuild: yes
