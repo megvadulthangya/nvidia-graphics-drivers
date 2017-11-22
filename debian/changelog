@@ -1,9 +1,9 @@
-nvidia-graphics-drivers-legacy-304xx (304.137-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.137-3) unstable; urgency=medium
 
   * Set Rules-Requires-Root: no (375.82-9).
   * B-D: dpkg-dev (>= 1.18.8) for SOURCE_DATE_EPOCH in pkg-info.mk (375.82-9).
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Nov 2017 10:06:46 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Nov 2017 10:11:13 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.137-2) unstable; urgency=medium
 
