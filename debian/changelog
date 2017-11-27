@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-340xx (340.104-3~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 27 Nov 2017 05:11:09 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.104-3) unstable; urgency=medium
 
   * B-D: dpkg-dev (>= 1.18.8) for SOURCE_DATE_EPOCH in pkg-info.mk (375.82-9).
