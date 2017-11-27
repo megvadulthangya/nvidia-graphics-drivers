@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-304xx (304.137-3~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 27 Nov 2017 07:01:26 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.137-3) unstable; urgency=medium
 
   * Set Rules-Requires-Root: no (375.82-9).
