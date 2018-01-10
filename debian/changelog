@@ -1,3 +1,10 @@
+nvidia-graphics-drivers (384.111-1~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+  * Relax the libvulkan1 build-dependency.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 10 Jan 2018 23:07:47 +0100
+
 nvidia-graphics-drivers (384.111-1) unstable; urgency=medium
 
   * New upstream long lived branch release 384.111 (2018-01-04).
