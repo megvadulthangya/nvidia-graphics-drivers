@@ -106,7 +106,7 @@ Recommends:
  ${nvidia}-driver-libs-i386 [amd64],
  libopengl0 | libopengl0-glvnd-nvidia,
  libglx-${nvidia}0 (= ${binary:Version}),
-# libgles-${nvidia}1 (= ${binary:Version}),
+ libgles-${nvidia}1 (= ${binary:Version}),
  libgles-${nvidia}2 (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}),
  nvidia-egl-wayland-icd (= ${binary:Version}),
@@ -154,14 +154,14 @@ Recommends:
  lib${nvidia}-cfg1 (= ${binary:Version}),
  nvidia-egl-wayland-icd (= ${binary:Version}),
  ${nvidia}-nonglvnd-vulkan-icd (= ${binary:Version}) [amd64 i386],
-Conflicts:
- libglvnd0-nvidia,
- libopengl0-glvnd-nvidia,
- libglx0-glvnd-nvidia,
- libgl1-glvnd-nvidia-glx,
- libegl1-glvnd-nvidia,
+#Conflicts:
+# libglvnd0-nvidia,
+# libopengl0-glvnd-nvidia,
+# libglx0-glvnd-nvidia,
+# libgl1-glvnd-nvidia-glx,
+# libegl1-glvnd-nvidia,
 # libgles1-glvnd-nvidia,
- libgles2-glvnd-nvidia,
+# libgles2-glvnd-nvidia,
 Description: NVIDIA metapackage (non-GLVND OpenGL/GLX/EGL/GLES libraries)${nvidia:LegacyDesc}
  This metapackage depends on the (non-GLVND) NVIDIA binary libraries
  that provide optimized hardware acceleration of
