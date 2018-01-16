@@ -1,3 +1,23 @@
+nvidia-graphics-drivers-legacy-340xx (340.104-4) UNRELEASED; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.1.3. No changes needed.
+  * Stop shipping the classic libnvidia-tls.so.* and ship the modern one (for
+    Linux 2.6 onwards) in the regular libdir instead of the tls/ subdir
+    (384.111-1).  (Closes: #883615)
+  * Add #tls# substitution for the tls/ source directory (384.111-1).
+  * nvidia-legacy-340xx-alternative.prerm: Trigger register-glx-alternative-
+    nvidia upon removal (384.111-3).  (Closes: #883637)
+  * libgl1-nvidia-legacy-340xx-glx.prerm: Do not forcibly remove the nvidia
+    alternative, this would reset it from manual mode to auto mode while it
+    could still be needed by other packages, e.g. libcuda1. Let the
+    nvidia-legacy-340xx-alternative triggers handle it instead (384.111-3).
+
+  [ Luca Boccassi ]
+  * Add timer.patch to fix kernel module build on Linux 4.15 and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 16 Jan 2018 02:50:50 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.104-3) unstable; urgency=medium
 
   * B-D: dpkg-dev (>= 1.18.8) for SOURCE_DATE_EPOCH in pkg-info.mk (375.82-9).
