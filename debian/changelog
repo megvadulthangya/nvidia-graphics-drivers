@@ -1,3 +1,36 @@
+nvidia-graphics-drivers-legacy-340xx (340.106-1) unstable; urgency=medium
+
+  * New upstream legacy 340xx branch release 340.106 (2018-01-16).
+     * Fixed CVE-2017-5753, CVE-2017-5715 (spectre), CVE-2017-5754 (meltdown).
+       https://nvidia.custhelp.com/app/answers/detail/a_id/4611
+       (Closes: #886852)
+    * Improved compatibility with recent Linux kernels.
+
+  [ Luca Boccassi ]
+  * Drop nvidia-drm-pci-init.patch and timer.patch, fixed upstream.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 17 Jan 2018 20:50:05 +0100
+
+nvidia-graphics-drivers-legacy-340xx (340.104-4) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.1.3. No changes needed.
+  * Stop shipping the classic libnvidia-tls.so.* and ship the modern one (for
+    Linux 2.6 onwards) in the regular libdir instead of the tls/ subdir
+    (384.111-1).  (Closes: #883615)
+  * Add #tls# substitution for the tls/ source directory (384.111-1).
+  * nvidia-legacy-340xx-alternative.prerm: Trigger register-glx-alternative-
+    nvidia upon removal (384.111-3).  (Closes: #883637)
+  * libgl1-nvidia-legacy-340xx-glx.prerm: Do not forcibly remove the nvidia
+    alternative, this would reset it from manual mode to auto mode while it
+    could still be needed by other packages, e.g. libcuda1. Let the
+    nvidia-legacy-340xx-alternative triggers handle it instead (384.111-3).
+
+  [ Luca Boccassi ]
+  * Add timer.patch to fix kernel module build on Linux 4.15 and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 16 Jan 2018 03:08:52 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.104-3~bpo9+1) stretch-backports; urgency=medium
 
   * Rebuild for stretch-backports.
