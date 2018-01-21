@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (384.111-3~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 21 Jan 2018 15:34:38 +0100
+
 nvidia-graphics-drivers (384.111-3) unstable; urgency=medium
 
   * Add more Breaks to nvidia-driver-libs and nvidia-driver-libs-nonglvnd to
