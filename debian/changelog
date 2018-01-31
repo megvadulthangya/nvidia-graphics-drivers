@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.137-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.137-5) unstable; urgency=medium
 
   * The 304.xx legacy driver series has been declared as End-of-Life by
     NVIDIA. No further updates fixing security issues, critical bugs, or
@@ -14,7 +14,7 @@ nvidia-graphics-drivers-legacy-304xx (304.137-5) UNRELEASED; urgency=medium
   * Use dh_missing --fail-missing (384.111-4).
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jan 2018 05:55:55 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jan 2018 07:20:12 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.137-4) unstable; urgency=medium
 
