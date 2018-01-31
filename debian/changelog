@@ -1,10 +1,10 @@
-nvidia-graphics-drivers-legacy-340xx (340.106-2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.106-2) unstable; urgency=medium
 
   * nvidia-kernel-{dkms,source}: Mention the supported architecture(s) in the
     long Description (384.111-4).
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jan 2018 08:37:16 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jan 2018 10:44:05 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.106-1) unstable; urgency=medium
 
