@@ -1,3 +1,40 @@
+nvidia-graphics-drivers-legacy-304xx (304.137-5) unstable; urgency=medium
+
+  * The 304.xx legacy driver series has been declared as End-of-Life by
+    NVIDIA. No further updates fixing security issues, critical bugs, or
+    adding support for new Xorg or Linux releases will be issued.
+    https://nvidia.custhelp.com/app/answers/detail/a_id/3142
+
+  [ Andreas Beckmann ]
+  * Add NEWS entry for End-of-Life status.
+  * Include again the amd64 blob to build amd64 kernel modules on i386.
+    (Closes: #887651)
+  * nvidia-kernel-{dkms,source}: Mention the supported architecture(s) in the
+    long Description (384.111-4).
+  * Use dh_missing --fail-missing (384.111-4).
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jan 2018 07:20:12 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.137-4) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.1.3. No changes needed.
+  * Stop shipping the classic libnvidia-tls.so.* and ship the modern one (for
+    Linux 2.6 onwards) in the regular libdir instead of the tls/ subdir
+    (384.111-1).  (Closes: #883615)
+  * nvidia-legacy-304xx-alternative.prerm: Trigger register-glx-alternative-
+    nvidia upon removal (384.111-3).  (Closes: #883637)
+  * libgl1-nvidia-legacy-304xx-glx.prerm: Do not forcibly remove the nvidia
+    alternative, this would reset it from manual mode to auto mode while it
+    could still be needed by other packages, e.g. libcuda1. Let the
+    nvidia-legacy-304xx-alternative triggers handle it instead (384.111-3).
+
+  [ Luca Boccassi ]
+  * Add timer.patch to fix kernel module build on Linux 4.15 and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 16 Jan 2018 02:14:32 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.137-3~bpo9+1) stretch-backports; urgency=medium
 
   * Rebuild for stretch-backports.
@@ -6,8 +43,8 @@ nvidia-graphics-drivers-legacy-304xx (304.137-3~bpo9+1) stretch-backports; urgen
 
 nvidia-graphics-drivers-legacy-304xx (304.137-3) unstable; urgency=medium
 
-  * Set Rules-Requires-Root: no (375.82-9).
   * B-D: dpkg-dev (>= 1.18.8) for SOURCE_DATE_EPOCH in pkg-info.mk (375.82-9).
+  * Set Rules-Requires-Root: no (375.82-9).
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Nov 2017 10:11:13 +0100
 
