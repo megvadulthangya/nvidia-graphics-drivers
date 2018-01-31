@@ -1,3 +1,21 @@
+nvidia-graphics-drivers-legacy-304xx (304.137-5) UNRELEASED; urgency=medium
+
+  * The 304.xx legacy driver series has been declared as End-of-Life by
+    NVIDIA. No further updates fixing security issues, critical bugs, or
+    adding support for new Xorg or Linux releases will be issued.
+    https://nvidia.custhelp.com/app/answers/detail/a_id/3142
+
+  [ Andreas Beckmann ]
+  * Add NEWS entry for End-of-Life status.
+  * Include again the amd64 blob to build amd64 kernel modules on i386.
+    (Closes: #887651)
+  * nvidia-kernel-{dkms,source}: Mention the supported architecture(s) in the
+    long Description (384.111-4).
+  * Use dh_missing --fail-missing (384.111-4).
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jan 2018 05:55:55 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.137-4) unstable; urgency=medium
 
   [ Andreas Beckmann ]
