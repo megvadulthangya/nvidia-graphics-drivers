@@ -1,3 +1,12 @@
+nvidia-graphics-drivers-legacy-340xx (340.106-2) unstable; urgency=medium
+
+  * nvidia-kernel-{dkms,source}: Mention the supported architecture(s) in the
+    long Description (384.111-4).
+  * Use dh_missing --fail-missing (384.111-4).
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jan 2018 10:44:05 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.106-1~bpo9+1) stretch-backports; urgency=medium
 
   * Rebuild for stretch-backports.
@@ -7,9 +16,20 @@ nvidia-graphics-drivers-legacy-340xx (340.106-1~bpo9+1) stretch-backports; urgen
 nvidia-graphics-drivers-legacy-340xx (340.106-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.106 (2018-01-16).
-     * Fixed CVE-2017-5753, CVE-2017-5715 (spectre), CVE-2017-5754 (meltdown).
-       https://nvidia.custhelp.com/app/answers/detail/a_id/4611
-       (Closes: #886852)
+    * Fixed CVE-2017-5753, CVE-2017-5715 (spectre), CVE-2017-5754 (meltdown).
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4611
+      (Closes: #886852)
+    - Fixed a compatibility problem between the nvidia.ko's Page Attribute
+      Table (PAT) support and the kernel Page Table Isolation (PTI) patches.
+      To optimize stores to memory, nvidia.ko contains support for
+      configuring the CPU's PAT registers, as a fallback for Linux kernels
+      that predate kernel native PAT support.  On any recent kernel
+      with CONFIG_X86_PAT enabled, the driver will detect that setup has
+      already been done and skip its PAT setup.  However, a static inline
+      function called by nvidia.ko's PAT fallback support was updated in
+      the PTI patches to use the EXPORT_SYMBOL_GPL symbol 'cpu_tlbstate'.
+      nvidia.ko was updated to only contain its PAT fallback support,
+      at build time, on kernels without CONFIG_X86_PAT.
     * Improved compatibility with recent Linux kernels.
 
   [ Luca Boccassi ]
