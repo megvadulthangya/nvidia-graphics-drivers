@@ -1,8 +1,8 @@
-nvidia-graphics-drivers-legacy-304xx (304.137-5~deb9u1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.137-5~deb9u1) stretch; urgency=medium
 
   * Rebuild for stretch.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 26 Feb 2018 20:03:14 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 26 Feb 2018 22:25:18 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.137-5) unstable; urgency=medium
 
