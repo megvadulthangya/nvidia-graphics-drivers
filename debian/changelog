@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-304xx (304.137-5~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 26 Feb 2018 17:19:47 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.137-5) unstable; urgency=medium
 
   * The 304.xx legacy driver series has been declared as End-of-Life by
