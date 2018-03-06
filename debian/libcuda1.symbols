@@ -53,19 +53,20 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuDeviceTotalMem@Base 169
  cuDeviceTotalMem_v2@Base 260
  cuDriverGetVersion@Base 185
- (arch=armhf)cuEGLInit@Base 346
- (arch=armhf)cuEGLStreamConsumerAcquireFrame@Base 346
- (arch=armhf)cuEGLStreamConsumerConnect@Base 346
- (arch=armhf)cuEGLStreamConsumerConnectWithFlags@Base 367.44
- (arch=armhf)cuEGLStreamConsumerDisconnect@Base 346
- (arch=armhf)cuEGLStreamConsumerReleaseFrame@Base 346
- (arch=armhf)cuEGLStreamProducerConnect@Base 346
- (arch=armhf)cuEGLStreamProducerDisconnect@Base 346
+ (arch=!i386)cuEGLInit@Base 346
+ (arch=!i386)cuEGLStreamConsumerAcquireFrame@Base 346
+ (arch=!i386)cuEGLStreamConsumerConnect@Base 346
+ (arch=!i386)cuEGLStreamConsumerConnectWithFlags@Base 367.44
+ (arch=!i386)cuEGLStreamConsumerDisconnect@Base 346
+ (arch=!i386)cuEGLStreamConsumerReleaseFrame@Base 346
+ (arch=!i386)cuEGLStreamProducerConnect@Base 346
+ (arch=!i386)cuEGLStreamProducerDisconnect@Base 346
 #MISSING: 349# (arch=armhf)cuEGLStreamProducerPresentArray@Base 346
 #MISSING: 349# (arch=armhf)cuEGLStreamProducerPresentDevicePtr@Base 346
- (arch=armhf)cuEGLStreamProducerPresentFrame@Base 349
- (arch=armhf)cuEGLStreamProducerReturnFrame@Base 349
+ (arch=!i386)cuEGLStreamProducerPresentFrame@Base 349
+ (arch=!i386)cuEGLStreamProducerReturnFrame@Base 349
  cuEventCreate@Base 169
+ (arch=armhf)cuEventCreateFromEGLSync@Base 384
  cuEventDestroy@Base 169
  cuEventDestroy_v2@Base 270
  cuEventElapsedTime@Base 169
@@ -74,6 +75,7 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuEventRecord_ptsz@Base 346
  cuEventSynchronize@Base 169
  cuFuncGetAttribute@Base 185
+ cuFuncSetAttribute@Base 384
  cuFuncSetBlockShape@Base 169
  cuFuncSetCacheConfig@Base 195.30
  cuFuncSetSharedMemConfig@Base 295.33
@@ -97,12 +99,12 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuGetErrorName@Base 331
  cuGetErrorString@Base 331
  cuGetExportTable@Base 195.30
- (arch=armhf)cuGraphicsEGLRegisterImage@Base 346
+ (arch=!i386)cuGraphicsEGLRegisterImage@Base 346
  cuGraphicsGLRegisterBuffer@Base 195
  cuGraphicsGLRegisterImage@Base 195
  cuGraphicsMapResources@Base 195
  cuGraphicsMapResources_ptsz@Base 346
- (arch=armhf)cuGraphicsResourceGetMappedEglFrame@Base 349
+ (arch=!i386)cuGraphicsResourceGetMappedEglFrame@Base 349
  cuGraphicsResourceGetMappedMipmappedArray@Base 304
  cuGraphicsResourceGetMappedPointer@Base 195
  cuGraphicsResourceGetMappedPointer_v2@Base 260
@@ -121,6 +123,11 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuIpcOpenEventHandle@Base 285.05
  cuIpcOpenMemHandle@Base 285.05
  cuLaunch@Base 169
+#MISSING: 378.13# cuLaunchCooperativeGrid@Base 378
+#MISSING: 378.13# cuLaunchCooperativeGrid_ptsz@Base 378
+ cuLaunchCooperativeKernel@Base 384
+ cuLaunchCooperativeKernelMultiDevice@Base 384
+ cuLaunchCooperativeKernel_ptsz@Base 384
  cuLaunchGrid@Base 169
  cuLaunchGridAsync@Base 169
  cuLaunchKernel@Base 270
@@ -307,8 +314,12 @@ libcuda.so.1 #PACKAGE# #MINVER#
  cuStreamWaitEvent_ptsz@Base 346
  cuStreamWaitValue32@Base 361.42
  cuStreamWaitValue32_ptsz@Base 361.42
+ cuStreamWaitValue64@Base 384
+ cuStreamWaitValue64_ptsz@Base 384
  cuStreamWriteValue32@Base 361.42
  cuStreamWriteValue32_ptsz@Base 361.42
+ cuStreamWriteValue64@Base 384
+ cuStreamWriteValue64_ptsz@Base 384
  cuSurfObjectCreate@Base 304
  cuSurfObjectDestroy@Base 304
  cuSurfObjectGetResourceDesc@Base 304

@@ -5,7 +5,9 @@ hardening-no-fortify-functions
 hardening-no-relro
 hardening-no-stackprotector
 
-# These are expected to be built from source and packaged independently
-# from the NVIDIA drivers, soon.
+# This is also built from src:libglvnd.
 package-name-doesnt-match-sonames libGLdispatch0
-symbols-declares-dependency-on-other-package libgldispatch0
+
+# Packages built against the NVIDIA libglvnd should declare dependencies on
+# the free version for Debian's purposes.
+symbols-declares-dependency-on-other-package libglvnd0
