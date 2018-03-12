@@ -1,3 +1,131 @@
+nvidia-graphics-drivers-legacy-304xx (304.137-5~deb9u1) stretch; urgency=medium
+
+  * Rebuild for stretch.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 26 Feb 2018 22:25:18 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.137-5) unstable; urgency=medium
+
+  * The 304.xx legacy driver series has been declared as End-of-Life by
+    NVIDIA. No further updates fixing security issues, critical bugs, or
+    adding support for new Xorg or Linux releases will be issued.
+    https://nvidia.custhelp.com/app/answers/detail/a_id/3142
+
+  [ Andreas Beckmann ]
+  * Add NEWS entry for End-of-Life status.
+  * Include again the amd64 blob to build amd64 kernel modules on i386.
+    (Closes: #887651)
+  * nvidia-kernel-{dkms,source}: Mention the supported architecture(s) in the
+    long Description (384.111-4).
+  * Use dh_missing --fail-missing (384.111-4).
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jan 2018 07:20:12 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.137-4) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.1.3. No changes needed.
+  * Stop shipping the classic libnvidia-tls.so.* and ship the modern one (for
+    Linux 2.6 onwards) in the regular libdir instead of the tls/ subdir
+    (384.111-1).  (Closes: #883615)
+  * nvidia-legacy-304xx-alternative.prerm: Trigger register-glx-alternative-
+    nvidia upon removal (384.111-3).  (Closes: #883637)
+  * libgl1-nvidia-legacy-304xx-glx.prerm: Do not forcibly remove the nvidia
+    alternative, this would reset it from manual mode to auto mode while it
+    could still be needed by other packages, e.g. libcuda1. Let the
+    nvidia-legacy-304xx-alternative triggers handle it instead (384.111-3).
+
+  [ Luca Boccassi ]
+  * Add timer.patch to fix kernel module build on Linux 4.15 and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 16 Jan 2018 02:14:32 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.137-3) unstable; urgency=medium
+
+  * B-D: dpkg-dev (>= 1.18.8) for SOURCE_DATE_EPOCH in pkg-info.mk (375.82-9).
+  * Set Rules-Requires-Root: no (375.82-9).
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Nov 2017 10:11:13 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.137-2) unstable; urgency=medium
+
+  * Use debian/substvars for substitutions by dpkg-genchanges (dpkg 1.19)
+    (375.82-7).
+  * nvidia-detect: Detect devices in PCI classes 0301 (XGA compatible
+    controller) and 0302 (3D controller), too (375.82-7).
+  * bug-script: List these devices, too (375.82-7).
+  * Use https:// URLs where possible (375.82-8).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 16 Nov 2017 01:23:14 +0100
+
+nvidia-graphics-drivers-legacy-304xx (304.137-1) unstable; urgency=medium
+
+  * New upstream legacy 304xx branch release 304.137 (2017-09-19).
+    - Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.1.1. No changes needed.
+  * bug-control: Add arch qualification to M-A:same packages in report-with
+    list otherwise reportbug will ignore them if more than one is installed
+    (375.82-5).
+  * Simplify upstream changelog handling (375.82-5).
+
+  [ Luca Boccassi ]
+  * Drop drm-driver-legacy.patch, deprecated-cpu-events.patch and
+    drm-unload.patch, fixed upstream.
+  * Refresh disable-mtrr.patch to remove fuzz from upstream changes.
+  * Add nvidia-drm-pci-init.patch to fix kernel module build on Linux 4.14
+    and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 12 Oct 2017 20:34:21 +0200
+
+nvidia-graphics-drivers-legacy-304xx (304.135-5) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.1.0. No changes needed.
+
+  [ Luca Boccassi ]
+  * Switch to my debian.org email address in Uploaders.
+  * Update pud-offset.patch to fix runtime error on Linux 4.12 and newer.
+    Original patch: https://bugzilla.rpmfusion.org/show_bug.cgi?id=4629#c11
+    (Closes: #875425)
+
+  [ Russ Allbery ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 13 Sep 2017 20:54:58 +0200
+
+nvidia-graphics-drivers-legacy-304xx (304.135-4) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.0.1. No changes needed.
+  * nvidia-alternative: Explicitly use interest-await triggers (375.82-2).
+  * Switch from dh_install --list-missing to dh_missing (375.82-2).
+  * Use dpkg makefile snippets instead of manual changelog parsing (375.82-2).
+  * build-module-packages.sh: Order kernels by descending version (375.82-2).
+  * Switch watch URL from ftp:// to https:// (375.82-1).
+  * Update lintian overrides.
+
+  [ Luca Boccassi ]
+  * Add pud-offset.patch to fix kernel module build on Linux 4.12 and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Aug 2017 11:43:22 +0200
+
+nvidia-graphics-drivers-legacy-304xx (304.135-3) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Merge changes from 304.135-1 (jessie).
+  * Do not prevent ccache usage. The bug was fixed in ccache 3.0 (in squeeze)
+    (375.82-1).
+  * not-parallel.patch: New, prevent parallel module build.
+
+  [ Luca Boccassi ]
+  * Add drm-unload.patch to fix kernel module build on Linux 4.11 and newer.
+    (Closes: #865964)
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 29 Jun 2017 23:54:21 +0200
+
 nvidia-graphics-drivers-legacy-304xx (304.135-2~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports.
@@ -15,6 +143,7 @@ nvidia-graphics-drivers-legacy-304xx (304.135-1) jessie; urgency=medium
   * New upstream legacy 304xx branch release 304.135 (2017-02-14).
     * Fixed CVE-2017-0309, CVE-2017-0310, CVE-2017-0311, CVE-2017-0318,
       CVE-2017-0321.  (Closes: #855279)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4398
 
   [ Luca Boccassi ]
   * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.135-2:
@@ -57,10 +186,12 @@ nvidia-graphics-drivers-legacy-304xx (304.134-0~deb8u1) jessie; urgency=medium
 
   * New upstream legacy 304xx branch release 304.134 (2016-12-14).
     * Fixed CVE-2016-8826.  (Closes: #848197)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4278
     - Added support for X.Org xserver ABI 23 (xorg-server 1.19)
     * Improved compatibility with recent Linux kernels.
   * New upstream legacy 304xx branch release 304.132 (2016-09-26).
     * Fixed CVE-2016-7382, CVE-2016-7389.  (Closes: #846331)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4246
     - Added /var/log/dmesg to the list of paths which are searched by
       nvidia-bug-report.sh for kernel messages.
     - Fixed a bug that caused kernel panics when using the NVIDIA driver on
@@ -272,6 +403,7 @@ nvidia-graphics-drivers-legacy-304xx (304.131-1) jessie; urgency=medium
 
   * New upstream legacy 304xx branch release 304.131 (2015-11-16).
     * Fixed CVE-2015-7869: Unsanitized User Mode Input.  (Closes: #805918)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3808
     - Fixed a bug that could cause texture corruption in some OpenGL
       applications when video memory is exhausted by a combination of
       simultaneously running graphical and compute workloads.
@@ -381,6 +513,7 @@ nvidia-graphics-drivers-legacy-304xx (304.128-1) jessie; urgency=medium
 
   * New upstream legacy 304xx branch release 304.128 (2015-08-31).
     * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3763
       (Closes: #800567)
     * Improved compatibility with recent Linux kernels.
       (Closes: #801193, #802452)
@@ -440,6 +573,7 @@ nvidia-graphics-drivers-legacy-304xx (304.125-1) unstable; urgency=medium
 
   * New upstream legacy 304xx branch release 304.125 (2014-12-05).
     * Fixes CVE-2014-8298.  (Closes: #772974)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3610
     - Added support for X.Org xserver ABI 19 (xorg-server 1.17).
     - Improved compatibility with recent Linux kernels.
     - Implemented support for disabling indirect GLX context creation using
@@ -575,7 +709,7 @@ nvidia-graphics-drivers-legacy-304xx (304.116-1) unstable; urgency=low
     - Fixed a security vulnerability in the microcode for microcontrollers
       that are part of NVIDIA GPUs.  This vulnerability could be exploited
       to take control of a system, and it is described in greater detail at:
-      http://cve.mitre.org/cgi-bin/cvename.cgi?name=2013-5987
+      https://cve.mitre.org/cgi-bin/cvename.cgi?name=2013-5987
     - Improved compatibility with recent Linux kernels.
     - Updated the NVIDIA OpenGL driver to write temporary files to $TMPDIR
       if it is set, instead of unconditionally writing to /tmp.
@@ -795,7 +929,7 @@ nvidia-graphics-drivers (304.88-1) unstable; urgency=low
       an X server segmentation fault), or could be exploited to achieve
       arbitrary code execution.  (Closes: #704547)
       For more details, see:
-      http://nvidia.custhelp.com/app/answers/detail/a_id/3290
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3290
     * Fixes display turned off on VT text consoles.  (Closes: #703313)
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 02 Apr 2013 22:43:31 +0200
@@ -1059,7 +1193,7 @@ nvidia-graphics-drivers (304.37-1) unstable; urgency=low
     * CVE-2012-4225  (Closes: 684781)
     - Implemented hotfix for a privilege escalation vulnerability reported on
       August 1, 2012.  For more details, see:
-      http://nvidia.custhelp.com/app/answers/detail/a_id/3140
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3140
 
   [ Andreas Beckmann ]
   * nvidia-kernel-source: Add Built-Using attribute to the generated module
