@@ -1,6 +1,7 @@
 nvidia-graphics-drivers-legacy-340xx (340.106-2~deb9u1~bpo8+1) UNRELEASED; urgency=medium
 
   * Rebuild for jessie-backports.
+  * Revert changelog parsing changes that require dpkg 1.18.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 12 Mar 2018 22:52:31 +0100
 
