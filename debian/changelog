@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-304xx (304.137-5~deb9u1~bpo8+1) UNRELEASED; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Mar 2018 00:51:15 +0100
+
 nvidia-graphics-drivers-legacy-304xx (304.137-5~deb9u1) stretch; urgency=medium
 
   * Rebuild for stretch.
