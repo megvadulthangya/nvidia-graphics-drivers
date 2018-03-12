@@ -1,3 +1,139 @@
+nvidia-graphics-drivers-legacy-340xx (340.106-2~deb9u1) stretch; urgency=medium
+
+  * Rebuild for stretch.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 26 Feb 2018 01:10:49 +0100
+
+nvidia-graphics-drivers-legacy-340xx (340.106-2) unstable; urgency=medium
+
+  * nvidia-kernel-{dkms,source}: Mention the supported architecture(s) in the
+    long Description (384.111-4).
+  * Use dh_missing --fail-missing (384.111-4).
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jan 2018 10:44:05 +0100
+
+nvidia-graphics-drivers-legacy-340xx (340.106-1) unstable; urgency=medium
+
+  * New upstream legacy 340xx branch release 340.106 (2018-01-16).
+    * Fixed CVE-2017-5753, CVE-2017-5715 (spectre), CVE-2017-5754 (meltdown).
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4611
+      (Closes: #886852)
+    - Fixed a compatibility problem between the nvidia.ko's Page Attribute
+      Table (PAT) support and the kernel Page Table Isolation (PTI) patches.
+      To optimize stores to memory, nvidia.ko contains support for
+      configuring the CPU's PAT registers, as a fallback for Linux kernels
+      that predate kernel native PAT support.  On any recent kernel
+      with CONFIG_X86_PAT enabled, the driver will detect that setup has
+      already been done and skip its PAT setup.  However, a static inline
+      function called by nvidia.ko's PAT fallback support was updated in
+      the PTI patches to use the EXPORT_SYMBOL_GPL symbol 'cpu_tlbstate'.
+      nvidia.ko was updated to only contain its PAT fallback support,
+      at build time, on kernels without CONFIG_X86_PAT.
+    * Improved compatibility with recent Linux kernels.
+
+  [ Luca Boccassi ]
+  * Drop nvidia-drm-pci-init.patch and timer.patch, fixed upstream.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 17 Jan 2018 20:50:05 +0100
+
+nvidia-graphics-drivers-legacy-340xx (340.104-4) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.1.3. No changes needed.
+  * Stop shipping the classic libnvidia-tls.so.* and ship the modern one (for
+    Linux 2.6 onwards) in the regular libdir instead of the tls/ subdir
+    (384.111-1).  (Closes: #883615)
+  * Add #tls# substitution for the tls/ source directory (384.111-1).
+  * nvidia-legacy-340xx-alternative.prerm: Trigger register-glx-alternative-
+    nvidia upon removal (384.111-3).  (Closes: #883637)
+  * libgl1-nvidia-legacy-340xx-glx.prerm: Do not forcibly remove the nvidia
+    alternative, this would reset it from manual mode to auto mode while it
+    could still be needed by other packages, e.g. libcuda1. Let the
+    nvidia-legacy-340xx-alternative triggers handle it instead (384.111-3).
+
+  [ Luca Boccassi ]
+  * Add timer.patch to fix kernel module build on Linux 4.15 and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 16 Jan 2018 03:08:52 +0100
+
+nvidia-graphics-drivers-legacy-340xx (340.104-3) unstable; urgency=medium
+
+  * B-D: dpkg-dev (>= 1.18.8) for SOURCE_DATE_EPOCH in pkg-info.mk (375.82-9).
+  * Set Rules-Requires-Root: no (375.82-9).
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Nov 2017 10:29:33 +0100
+
+nvidia-graphics-drivers-legacy-340xx (340.104-2) unstable; urgency=medium
+
+  * Use debian/substvars for substitutions by dpkg-genchanges (dpkg 1.19)
+    (375.82-7).
+  * nvidia-detect: Detect devices in PCI classes 0301 (XGA compatible
+    controller) and 0302 (3D controller), too (375.82-7).
+  * bug-script: List these devices, too (375.82-7).
+  * Use https:// URLs where possible (375.82-8).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 16 Nov 2017 02:31:15 +0100
+
+nvidia-graphics-drivers-legacy-340xx (340.104-1) unstable; urgency=medium
+
+  * New upstream legacy 340xx branch release 340.104 (2017-09-19).
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Add GRID K1/K2/K340 to EoL models, no longer supported from 375.xx on.
+  * Bump Standards-Version to 4.1.1. No changes needed.
+  * bug-control: Add arch qualification to M-A:same packages in report-with
+    list otherwise reportbug will ignore them if more than one is installed
+    (375.82-5).
+  * Simplify upstream changelog handling (375.82-5).
+
+  [ Luca Boccassi ]
+  * Switch to my debian.org email address in Uploaders.
+  * Drop drm-driver-legacy.patch, deprecated-cpu-events.patch,
+    vmf-address.patch, drm-unload.patch, fatal-signal.patch and
+    set-memory.patch, fixed upstream.
+  * Refresh vm-fault.patch to remove fuzz from upstream changes.
+  * Add nvidia-drm-pci-init.patch to fix kernel module build on Linux 4.14
+    and newer.
+
+  [ Russ Allbery ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 13 Oct 2017 02:47:57 +0200
+
+nvidia-graphics-drivers-legacy-340xx (340.102-3) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * disable-preempt_rt_sanity_check.patch: Remove, unsupported upstream.
+  * Bump Standards-Version to 4.0.1. No changes needed.
+  * nvidia-alternative: Explicitly use interest-await triggers (375.82-2).
+  * Switch from dh_install --list-missing to dh_missing (375.82-2).
+  * Use dpkg makefile snippets instead of manual changelog parsing (375.82-2).
+  * build-module-packages.sh: Order kernels by descending version.
+    Skip PREEMPT_RT (*-rt-*) kernels, unsupported upstream (375.82-2).
+  * Switch watch URL from ftp:// to https:// (375.82-1).
+  * Update lintian overrides.
+
+  [ Luca Boccassi ]
+  * Add set-memory.patch to fix kernel module build on Linux 4.12 and newer.
+    (Closes: #872330)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Aug 2017 16:37:03 +0200
+
+nvidia-graphics-drivers-legacy-340xx (340.102-2) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * nvidia-kernel-dkms: Honor parallel setting from dkms (375.82-1).
+  * Do not prevent ccache usage. The bug was fixed in ccache 3.0 (in squeeze)
+    (375.82-1).
+
+  [ Luca Boccassi ]
+  * Add drm-unload.patch, fatal-signal.patch, and vm-fault.patch to fix kernel
+    module build on Linux 4.11 and newer.  (Closes: #865964)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 02 Jul 2017 00:26:32 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.102-1~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports.
@@ -9,6 +145,7 @@ nvidia-graphics-drivers-legacy-340xx (340.102-1) unstable; urgency=medium
   * New upstream legacy 340xx branch release 340.102 (2017-02-14).
     * Fixed CVE-2017-0309, CVE-2017-0310, CVE-2017-0311, CVE-2017-0318,
       CVE-2017-0321.  (Closes: #855278)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4398
 
   [ Andreas Beckmann ]
   * unregister_proc_on_failure.patch: New, unregister procfs entries during
@@ -46,6 +183,7 @@ nvidia-graphics-drivers-legacy-340xx (340.101-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.101 (2016-12-14).
     * Fixed CVE-2016-8826.  (Closes: #848196)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4278
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
@@ -65,6 +203,7 @@ nvidia-graphics-drivers-legacy-340xx (340.98-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.98 (2016-09-26).
     * Fixed CVE-2016-7382, CVE-2016-7389.  (Closes: #846332)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4246
     - Added support for the screen_info.ext_lfb_base field, on kernels that
       have it, in order to properly handle UEFI framebuffer consoles with
       physical addresses above 4GB.
@@ -200,6 +339,7 @@ nvidia-graphics-drivers-legacy-340xx (340.96-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.96 (2015-11-16).
     * Fixed CVE-2015-7869: Unsanitized User Mode Input.  (Closes: #805919)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3808
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
@@ -299,6 +439,7 @@ nvidia-graphics-drivers-legacy-340xx (340.93-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.93 (2015-09-02).
     * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3763
       (Closes: #800568)
     - Fixed a bug that caused the X server to crash if an OpenGL application
       tried to allocate a drawable when GPU-accessible memory is exhausted.
@@ -452,6 +593,7 @@ nvidia-graphics-drivers (340.65-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.65 (2014-12-08).
     * Fixes CVE-2014-8298.  (Closes: #772971)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/3610
     - Fixed a bug that prevented internal 4K panels on some laptops from being
       driven at a sufficient bandwidth to support their native resolutions.
     - Fixed a regression that prevented the NVIDIA kernel module from loading
@@ -685,7 +827,7 @@ nvidia-graphics-drivers (340.24-1) unstable; urgency=medium
       system configurations that disallow writing to executable memory.
     - Added initial support for G-SYNC monitors.  Additional details and system
       requirements can be found at:
-        http://www.geforce.com/hardware/technology/g-sync
+        https://www.geforce.com/hardware/technology/g-sync
     - Improved support for running the NVIDIA driver in configurations where
       writing to executable memory is disallowed.  Driver optimizations that
       require writing to executable memory can be forcefully disabled using the

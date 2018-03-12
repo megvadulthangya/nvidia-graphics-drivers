@@ -1,8 +1,6 @@
 # kernel support
-drm-driver-legacy.patch
 unregister_procfs_on_failure.patch
-deprecated-cpu-events.patch
-vmf-address.patch
+vm-fault.patch
 
 # build system updates
 separate-makefile-kbuild.patch
@@ -13,7 +11,6 @@ build-sanity-checks.patch
 conftest-verbose.patch
 conftest-via-kbuild.patch
 disable-cc_version_check.patch
-disable-preempt_rt_sanity_check.patch
 not-silent.patch
 use-nv-kernel-ARCH.o_shipped.patch
 avoid-ld.gold.patch
