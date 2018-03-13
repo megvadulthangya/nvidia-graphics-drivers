@@ -1,9 +1,9 @@
-nvidia-graphics-drivers-legacy-304xx (304.137-5~deb9u1~bpo8+1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.137-5~deb9u1~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports.
   * Revert changelog parsing changes that require dpkg 1.18.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Mar 2018 00:51:15 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Mar 2018 02:25:58 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.137-5~deb9u1) stretch; urgency=medium
 
