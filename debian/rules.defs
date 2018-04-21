@@ -1,6 +1,6 @@
 # If needed, set to the major part of the upstream version number.
 #NVIDIA_LEGACY		 =
-WATCH_VERSION		 = 384
+WATCH_VERSION		 = 390
 NVIDIA_SETTINGS		 = nvidia-settings (>= $(version_major))
 
 DEB_VERSION_AFTER_jessie = 341
@@ -10,17 +10,19 @@ XORG_BOUND		 = (<< 2:1.19.99)
 
 NVIDIA_LEGACY_CHECK	 = nvidia-legacy-check (>= 343) [!ppc64el]
 
-LINUX_KMOD_TESTED	 = 4.15
+LINUX_KMOD_TESTED	 = 4.16
 LINUX_KMOD_TESTED_amd64	 =
 LINUX_KMOD_TESTED_i386	 =
 LINUX_KMOD_TESTED_armhf	 =
 LINUX_KMOD_TESTED_ppc64el=
 
-ARCH_LIST		 = i386 amd64
+ARCH_LIST		 = amd64
+ARCH_LIST		+= i386
 ARCH_LIST		+= armhf
 #ARCH_LIST		+= ppc64el
 ARCH_DEPS_i386		 =
-UVM_ARCH_LIST		 = amd64 ppc64el
+NO_UVM_ARCH_LIST	 = i386 armhf
+NO_VULKAN_ARCH_LIST	 = armhf ppc64el
 
 NVIDIA_DIRNAME_i386	 = NVIDIA-Linux-x86-${NVIDIA_RELEASE}
 NVIDIA_DIRNAME_amd64	 = NVIDIA-Linux-x86_64-${NVIDIA_RELEASE}
