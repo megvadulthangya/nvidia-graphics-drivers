@@ -111,7 +111,7 @@ Recommends:
  lib${nvidia}-cfg1 (= ${binary:Version}),
  nvidia-egl-wayland-icd (= ${binary:Version}),
  ${nvidia}-vulkan-icd (= ${binary:Version}) [amd64 i386],
-#Conflicts:
+Conflicts:
 # libglvnd0-nvidia,
 # libopengl0-glvnd-nvidia,
 # libglx0-glvnd-nvidia,
@@ -119,6 +119,13 @@ Recommends:
 # libegl1-glvnd-nvidia,
 # libgles1-glvnd-nvidia,
 # libgles2-glvnd-nvidia,
+ libglvnd0 (>> 0),
+ libopengl0 (>> 0),
+ libglx0 (>> 0),
+ libgl1 (>> 0),
+ libegl1 (>> 0),
+ libgles1 (>> 0),
+ libgles2 (>> 0),
 Breaks:
  ${nvidia}-driver-libs-nonglvnd,
  libgl1-${nvidia}-glx,
@@ -167,6 +174,13 @@ Conflicts:
  libegl1-glvnd-nvidia,
 # libgles1-glvnd-nvidia,
 # libgles2-glvnd-nvidia,
+ libglvnd0 (>> 0),
+ libopengl0 (>> 0),
+ libglx0 (>> 0),
+ libgl1 (>> 0),
+ libegl1 (>> 0),
+ libgles1 (>> 0),
+ libgles2 (>> 0),
 Breaks:
  ${nvidia}-driver-libs,
  libgl1-${nvidia}-glvnd-glx,
@@ -357,7 +371,7 @@ Package: libgl1-nvidia-glvnd-glx
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Depends:
- libgl1 (>= 0.2.999) | libgl1-glvnd-nvidia-glx,
+ libgl1xxx (>= 0.2.999) | libgl1-glvnd-nvidia-glx,
  libglx-${nvidia}0 (= ${binary:Version}),
  ${misc:Depends}
 Provides:
@@ -552,7 +566,7 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
- libgles1 (>= 0.2.999) | libgles1-glvnd-nvidia,
+ libgles1xxx (>= 0.2.999) | libgles1-glvnd-nvidia,
  lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA binary OpenGL|ES 1.x library${nvidia:LegacyDesc}
@@ -632,7 +646,7 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
- libgles2 (>= 0.2.999) | libgles2-glvnd-nvidia,
+ libgles2xxx (>= 0.2.999) | libgles2-glvnd-nvidia,
  lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA binary OpenGL|ES 2.x library${nvidia:LegacyDesc}
@@ -695,7 +709,7 @@ Architecture: i386 amd64 armhf
 Multi-Arch: same
 Depends:
  nvidia-egl-common,
- libegl1 (>= 0.2.999) | libegl1-glvnd-nvidia,
+ libegl1xxx (>= 0.2.999) | libegl1-glvnd-nvidia,
  libegl-${nvidia}0 (= ${binary:Version}),
  ${misc:Depends}
 Enhances:
