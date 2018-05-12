@@ -126,6 +126,10 @@ Conflicts:
  libegl1 (>> 0),
  libgles1 (>> 0),
  libgles2 (>> 0),
+ libgl1-mesa-glx (>= 17),
+ libegl1-mesa (>= 17),
+ libgles1-mesa (>= 17),
+ libgles2-mesa (>= 17),
 Breaks:
  ${nvidia}-driver-libs-nonglvnd,
  libgl1-${nvidia}-glx,
