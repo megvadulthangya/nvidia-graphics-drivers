@@ -118,7 +118,7 @@ Conflicts:
  libglx0-glvnd-nvidia,
  libgl1-glvnd-nvidia-glx,
  libegl1-glvnd-nvidia,
- libgles1-glvnd-nvidia,
+# libgles1-glvnd-nvidia,
  libgles2-glvnd-nvidia,
 Breaks:
  ${nvidia}-driver-libs-nonglvnd,
@@ -172,7 +172,6 @@ Conflicts:
 Breaks:
  ${nvidia}-driver-libs,
  libgl1-${nvidia}-glvnd-glx,
- libegl1-glvnd-nvidia,
  ${nvidia}-vulkan-icd,
 Description: NVIDIA metapackage (non-GLVND OpenGL/GLX/EGL/GLES libraries)${nvidia:LegacyDescShort}
  This metapackage depends on the (non-GLVND) NVIDIA binary libraries
