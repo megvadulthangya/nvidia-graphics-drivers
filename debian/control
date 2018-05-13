@@ -101,6 +101,7 @@ Multi-Arch: same
 Depends:
  libgl1-${nvidia}-glvnd-glx (= ${binary:Version}),
  ${nvidia}-egl-icd (= ${binary:Version}),
+ libegl1-glvnd-nvidia,
  ${misc:Depends}
 Recommends:
  ${nvidia}-driver-libs-i386 [amd64],
@@ -112,6 +113,7 @@ Recommends:
  nvidia-egl-wayland-icd (= ${binary:Version}),
  ${nvidia}-vulkan-icd (= ${binary:Version}) [amd64 i386],
 Conflicts:
+ libgldispatch0-nvidia,
 # libglvnd0-nvidia,
 # libopengl0-glvnd-nvidia,
 # libglx0-glvnd-nvidia,
@@ -171,6 +173,7 @@ Recommends:
  nvidia-egl-wayland-icd (= ${binary:Version}),
  ${nvidia}-nonglvnd-vulkan-icd (= ${binary:Version}) [amd64 i386],
 Conflicts:
+ libgldispatch0-nvidia,
 # libglvnd0-nvidia,
 # libopengl0-glvnd-nvidia,
 # libglx0-glvnd-nvidia,
@@ -185,6 +188,10 @@ Conflicts:
  libegl1 (>> 0),
  libgles1 (>> 0),
  libgles2 (>> 0),
+ libgl1-mesa-glx (>= 17),
+ libegl1-mesa (>= 17),
+ libgles1-mesa (>= 17),
+ libgles2-mesa (>= 17),
 Breaks:
  ${nvidia}-driver-libs,
  libgl1-${nvidia}-glvnd-glx,
