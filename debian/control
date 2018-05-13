@@ -110,7 +110,7 @@ Recommends:
  libgles-${nvidia}1 (= ${binary:Version}),
  libgles-${nvidia}2 (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}),
- nvidia-egl-wayland-icd (= ${binary:Version}),
+ ${nvidia}-egl-wayland-icd (= ${binary:Version}),
  ${nvidia}-vulkan-icd (= ${binary:Version}) [amd64 i386],
 Conflicts:
  libgldispatch0-nvidia,
@@ -170,7 +170,7 @@ Recommends:
  libgles-${nvidia}1 (= ${binary:Version}),
  libgles-${nvidia}2 (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}),
- nvidia-egl-wayland-icd (= ${binary:Version}),
+ ${nvidia}-egl-wayland-icd (= ${binary:Version}),
  ${nvidia}-nonglvnd-vulkan-icd (= ${binary:Version}) [amd64 i386],
 Conflicts:
  libgldispatch0-nvidia,
@@ -196,7 +196,7 @@ Breaks:
  ${nvidia}-driver-libs,
  libgl1-${nvidia}-glvnd-glx,
  ${nvidia}-vulkan-icd,
-Description: NVIDIA metapackage (non-GLVND OpenGL/GLX/EGL/GLES libraries)${nvidia:LegacyDesc}
+Description: NVIDIA metapackage (non-GLVND OpenGL/GLX/EGL/GLES libraries)${nvidia:LegacyDescShort}
  This metapackage depends on the (non-GLVND) NVIDIA binary libraries
  that provide optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server.
@@ -210,9 +210,10 @@ Depends:
  ${misc:Depends}
 Conflicts:
  libgl1-${nvidia}-glx-i386,
-Description: NVIDIA metapackage (non-GLVND OpenGL/GLX/EGL/GLES 32-bit libraries)${nvidia:LegacyDescShort}
+Description: NVIDIA metapackage (non-GLVND OpenGL/EGL/etc. 32-bit libraries)${nvidia:LegacyDescShort}
  This metapackage helps the automatic installation of the 32-bit NVIDIA
- OpenGL/GLX/EGL/GLES libraries when installing ${nvidia}-driver-libs-nonglvnd
+ OpenGL/GLX/EGL/GLES libraries when installing
+ ${nvidia}-driver-libs-nonglvnd
  on amd64 with foreign architecture i386 enabled.
 
 #Package: xserver-xorg-video-${nvidia}
@@ -706,7 +707,8 @@ Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Recommends:
- libegl-${nvidia}0,
+ libegl-${nvidia}0
+ | libegl-nvidia-legacy-390xx0,
 Description: NVIDIA binary EGL driver - common files
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
  for use with other graphics libraries, such as OpenGL|ES.
@@ -735,12 +737,14 @@ Description: NVIDIA EGL installable client driver (ICD)
  This metapackage provides the NVIDIA installable client driver (ICD) for
  EGL via GLVND which supports NVIDIA GPUs.
 
+#Package: lib${nvidia}-egl-wayland1
 Package: libnvidia-egl-wayland1
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Breaks:
  libnvidia-egl-wayland,
@@ -759,7 +763,8 @@ Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Recommends:
- lib${nvidia}-egl-wayland1,
+ lib${nvidia}-egl-wayland1
+ | libnvidia-legacy-390xx-egl-wayland1,
 Description: NVIDIA binary Wayland EGL external platform - common files
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
  for use with other graphics libraries, such as OpenGL|ES.
@@ -767,16 +772,18 @@ Description: NVIDIA binary Wayland EGL external platform - common files
  This package provides the common files for the NVIDIA implementation
  of Wayland as an EGL external platform.
 
+#Package: ${nvidia}-egl-wayland-icd
 Package: nvidia-egl-wayland-icd
 Architecture: i386 amd64 armhf
 Multi-Arch: same
 Depends:
  nvidia-egl-wayland-common,
- libegl1+eglexternalplatform | libegl-${nvidia}0 (= ${binary:Version}),
- libnvidia-egl-wayland1 (= ${binary:Version}),
+# libegl1+eglexternalplatform |
+ libegl-${nvidia}0 (= ${binary:Version}),
+ lib${nvidia}-egl-wayland1 (= ${binary:Version}),
  ${misc:Depends}
-Enhances:
- libegl1+eglexternalplatform,
+#Enhances:
+# libegl1+eglexternalplatform,
 Provides:
  egl-wayland-icd,
 Description: NVIDIA Wayland EGL external platform library (ICD)
@@ -792,9 +799,11 @@ Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Recommends:
- ${nvidia}-vulkan-icd,
+ ${nvidia}-vulkan-icd
+ | nvidia-legacy-390xx-vulkan-icd,
 Conflicts:
  libgl1-${nvidia}-glx,
+ libgl1-nvidia-legacy-390xx-glx,
  nvidia-nonglvnd-vulkan-common,
 Description: NVIDIA Vulkan driver - common files
  Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
@@ -831,9 +840,11 @@ Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Recommends:
- ${nvidia}-nonglvnd-vulkan-icd,
+ ${nvidia}-nonglvnd-vulkan-icd
+ | nvidia-legacy-390xx-nonglvnd-vulkan-icd,
 Conflicts:
  libgl1-${nvidia}-glvnd-glx,
+ libgl1-nvidia-legacy-390xx-glvnd-glx,
  nvidia-vulkan-common,
 Description: NVIDIA Vulkan driver - common files (non-GLVND variant)
  Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
@@ -858,7 +869,7 @@ Provides:
  vulkan-icd,
 Conflicts:
  ${nvidia}-vulkan-icd,
-Description: NVIDIA Vulkan installable client driver (ICD) (non-GLVND variant)${nvidia:LegacyDesc}
+Description: NVIDIA Vulkan ICD (non-GLVND variant)${nvidia:LegacyDesc}
  Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
  .
  This metapackage provides the NVIDIA installable client driver (ICD) for
@@ -1298,7 +1309,8 @@ Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Recommends:
- ${nvidia}-opencl-icd,
+ ${nvidia}-opencl-icd
+ | nvidia-legacy-390xx-opencl-icd,
 Description: NVIDIA OpenCL driver - common files
  OpenCL (Open Computing Language) is a multivendor open standard for
  general-purpose parallel programming of heterogeneous systems that include
