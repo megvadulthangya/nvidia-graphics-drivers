@@ -1,4 +1,1 @@
 breaks-without-version
-
-# Do not conflict with the virtual packages from src:mesa (<< 17).
-conflicts-with-version lib* (>> 0)

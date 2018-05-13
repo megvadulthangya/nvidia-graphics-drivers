@@ -10,4 +10,4 @@ package-name-doesnt-match-sonames libGLdispatch0
 
 # Packages built against the NVIDIA libglvnd should declare dependencies on
 # the free version for Debian's purposes.
-symbols-declares-dependency-on-other-package libglvnd0xxx
+symbols-declares-dependency-on-other-package libglvnd0

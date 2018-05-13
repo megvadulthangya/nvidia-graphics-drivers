@@ -1,3 +1,10 @@
+nvidia-graphics-drivers (390.48-3~bpo9+1) UNRELEASED; urgency=medium
+
+  * Rebuild for stretch-backports.
+  * Use libglvnd and MESA from stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 13 May 2018 14:25:25 +0200
+
 nvidia-graphics-drivers (390.48-3) unstable; urgency=medium
 
   * Prepare nvidia-detect for the upcoming nvidia-legacy-390xx packages.
