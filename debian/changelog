@@ -1,9 +1,9 @@
-nvidia-graphics-drivers (390.48-2~bpo9+3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers (390.48-2~bpo9+3) stretch-backports; urgency=medium
 
   * Add Conflicts against glvnd-aware MESA >= 17 from stretch-backports.
   * Fix some upgrade issues from older versions in stretch.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 12 May 2018 23:13:27 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 13 May 2018 13:00:11 +0200
 
 nvidia-graphics-drivers (390.48-2~bpo9+2) stretch-backports; urgency=medium
 
