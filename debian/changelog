@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-304xx (304.137-6) UNRELEASED; urgency=medium
+
+  * Bump Standards-Version to 4.1.4. No changes needed.
+  * Convert packaging repository from SVN to GIT.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 31 May 2018 04:08:12 +0200
+
 nvidia-graphics-drivers-legacy-304xx (304.137-5~deb9u1) stretch; urgency=medium
 
   * Rebuild for stretch.

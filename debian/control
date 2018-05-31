@@ -7,8 +7,8 @@ Uploaders:
  Andreas Beckmann <anbe@debian.org>,
  Vincent Cheng <vcheng@debian.org>,
  Luca Boccassi <bluca@debian.org>,
-Vcs-Svn: svn://anonscm.debian.org/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-304xx/trunk
-Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-nvidia/packages/nvidia-graphics-drivers-legacy-304xx/
+Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
+Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b 304xx/master
 Build-Depends:
  debhelper (>= 10),
  dpkg-dev (>= 1.18.8),
@@ -18,7 +18,7 @@ Build-Depends:
  libxvmc1,
  quilt,
 Rules-Requires-Root: no
-Standards-Version: 4.1.3
+Standards-Version: 4.1.4
 Homepage: https://www.nvidia.com
 XS-Autobuild: yes
 
@@ -538,4 +538,3 @@ Description: NVIDIA OpenCL installable client driver (ICD)${nvidia:LegacyDesc}
  .
  This package provides the NVIDIA installable client driver (ICD) for OpenCL
  which supports NVIDIA GPUs. This ICD supports OpenCL 1.x only.
-
