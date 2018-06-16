@@ -23,6 +23,7 @@ nvidia-graphics-drivers-legacy-304xx (304.137-0~deb8u1) UNRELEASED; urgency=medi
     (384.111-1).  (Closes: #883615)
   * nvidia-kernel-{dkms,source}: Mention the supported architecture(s) in the
     long Description (384.111-4).
+  * Convert packaging repository from SVN to GIT.
   * Update lintian overrides.
   * Upload to jessie.
 
@@ -50,6 +51,7 @@ nvidia-graphics-drivers-legacy-304xx (304.135-1) jessie; urgency=medium
   * New upstream legacy 304xx branch release 304.135 (2017-02-14).
     * Fixed CVE-2017-0309, CVE-2017-0310, CVE-2017-0311, CVE-2017-0318,
       CVE-2017-0321.  (Closes: #855279)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4398
 
   [ Luca Boccassi ]
   * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.135-2:
@@ -66,10 +68,12 @@ nvidia-graphics-drivers-legacy-304xx (304.134-0~deb8u1) jessie; urgency=medium
 
   * New upstream legacy 304xx branch release 304.134 (2016-12-14).
     * Fixed CVE-2016-8826.  (Closes: #848197)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4278
     - Added support for X.Org xserver ABI 23 (xorg-server 1.19)
     * Improved compatibility with recent Linux kernels.
   * New upstream legacy 304xx branch release 304.132 (2016-09-26).
     * Fixed CVE-2016-7382, CVE-2016-7389.  (Closes: #846331)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4246
     - Added /var/log/dmesg to the list of paths which are searched by
       nvidia-bug-report.sh for kernel messages.
     - Fixed a bug that caused kernel panics when using the NVIDIA driver on
@@ -4137,4 +4141,3 @@ nvidia-graphics-drivers (1.0.4363-1) unstable; urgency=low
     <mmagallo@debian.org>. Thanks. (closes: #192312, #192311)
 
  -- Randall Donald <rdonald@debian.org>  Fri,  9 May 2003 14:51:15 -0700
-
