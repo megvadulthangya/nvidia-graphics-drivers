@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-304xx (304.137-0~deb8u1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.137-0~deb8u1) jessie; urgency=medium
 
   * The 304.xx legacy driver series has been declared as End-of-Life by
     NVIDIA. No further updates fixing security issues, critical bugs, or
@@ -44,7 +44,7 @@ nvidia-graphics-drivers-legacy-304xx (304.137-0~deb8u1) UNRELEASED; urgency=medi
   [ Russ Allbery ]
   * Remove myself from Uploaders.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jan 2018 05:27:11 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Jun 2018 05:17:19 +0200
 
 nvidia-graphics-drivers-legacy-304xx (304.135-1) jessie; urgency=medium
 
