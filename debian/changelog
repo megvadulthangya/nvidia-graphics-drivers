@@ -87,6 +87,54 @@ nvidia-graphics-drivers-legacy-304xx (304.137-1) unstable; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 12 Oct 2017 20:34:21 +0200
 
+nvidia-graphics-drivers-legacy-304xx (304.137-0~deb8u1) jessie; urgency=medium
+
+  * The 304.xx legacy driver series has been declared as End-of-Life by
+    NVIDIA. No further updates fixing security issues, critical bugs, or
+    adding support for new Xorg or Linux releases will be issued.
+    https://nvidia.custhelp.com/app/answers/detail/a_id/3142
+
+  * New upstream legacy 304xx branch release 304.137 (2017-09-19).
+    - Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Add NEWS entry for End-of-Life status.
+  * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.137-5.
+  * not-parallel.patch: New, prevent parallel module build (304.135-3).
+  * Switch watch URL from ftp:// to https:// (375.82-1).
+  * build-module-packages.sh: Order kernels by descending version (375.82-2).
+  * bug-control: Add arch qualification to M-A:same packages in report-with
+    list otherwise reportbug will ignore them if more than one is installed
+    (375.82-5).
+  * Use https:// URLs where possible (375.82-8).
+  * Stop shipping the classic libnvidia-tls.so.* and ship the modern one (for
+    Linux 2.6 onwards) in the regular libdir instead of the tls/ subdir
+    (384.111-1).  (Closes: #883615)
+  * nvidia-kernel-{dkms,source}: Mention the supported architecture(s) in the
+    long Description (384.111-4).
+  * Convert packaging repository from SVN to GIT.
+  * Update lintian overrides.
+  * Upload to jessie.
+
+  [ Luca Boccassi ]
+  * Switch to my debian.org email address in Uploaders.
+  * Drop drm-driver-legacy.patch and deprecated-cpu-events.patch, fixed
+    upstream (304.137-1).
+  * Refresh disable-mtrr.patch to remove fuzz from upstream changes
+    (304.137-1).
+  * Add pud-offset.patch to fix runtime error on Linux 4.12 and newer.
+    Original patch: https://bugzilla.rpmfusion.org/show_bug.cgi?id=4629#c11
+    (304.135-5)
+  * Add nvidia-drm-pci-init.patch to fix kernel module build on Linux 4.14
+    and newer (304.137-1).
+  * Add timer.patch to fix kernel module build on Linux 4.15 and newer
+    (304.137-4).
+
+  [ Russ Allbery ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Jun 2018 05:17:19 +0200
+
 nvidia-graphics-drivers-legacy-304xx (304.135-5) unstable; urgency=medium
 
   [ Andreas Beckmann ]

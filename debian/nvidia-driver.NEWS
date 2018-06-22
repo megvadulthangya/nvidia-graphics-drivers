@@ -14,4 +14,3 @@ nvidia-graphics-drivers-legacy-304xx (304.131-2) unstable; urgency=medium
   enable it.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Oct 2015 16:00:30 +0200
-
