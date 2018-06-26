@@ -1,9 +1,22 @@
-nvidia-graphics-drivers-legacy-340xx (340.106-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.107-1) UNRELEASED; urgency=medium
 
+  * New upstream legacy 340xx branch release 340.107 (2018-06-06).
+    - Added support for X.Org xserver ABI 24 (xorg-server 1.20).
+    - Improved nvidia-bug-report.sh to check for kern.log which is the default
+      kernel log-file location for many Debian-based Linux distributions.
+    - Fixed a bug which could cause X servers that export a Video Driver
+      ABI earlier than 0.8 to crash when running X11 applications which
+      call XRenderAddTraps().
+
+  [ Andreas Beckmann ]
   * Convert packaging repository from SVN to GIT.
   * Bump Standards-Version to 4.1.4. No changes needed.
+  * Add xorg-video-abi-24 (xserver 1.20) as alternative dependency.
+  * nvidia-drm-outputclass.conf: Prepend (in a backwards-compatible way)
+      ModulePath "/usr/lib/xorg/modules/linux"
+    since xserver 1.20 no longer does that.
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 31 May 2018 04:21:34 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 21 Jun 2018 22:28:56 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.106-2~deb9u1) stretch; urgency=medium
 
@@ -403,7 +416,7 @@ nvidia-graphics-drivers-legacy-340xx (340.93-1) unstable; urgency=medium
       playback application using the overlay presentation queue in VDPAU.
     - Fixed a rare deadlock condition when running applications that use
       OpenGL in multiple threads on a Quadro GPU.
-    - Fixed a bug which caused truncation of the EGLAttribEXT value returned
+    - Fixed a bug which caused truncation of the EGLAttrib value returned
       by eglQueryDeviceAttribEXT() on 64-bit systems.
     - Fixed a kernel memory leak that occurred when looping hardware-
       accelerated video decoding with VDPAU on Maxwell-based GPUs.
