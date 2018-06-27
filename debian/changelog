@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.107-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.107-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.107 (2018-06-06).
     - Added support for X.Org xserver ABI 24 (xorg-server 1.20).
@@ -12,11 +12,12 @@ nvidia-graphics-drivers-legacy-340xx (340.107-1) UNRELEASED; urgency=medium
   * Convert packaging repository from SVN to GIT.
   * Bump Standards-Version to 4.1.4. No changes needed.
   * Add xorg-video-abi-24 (xserver 1.20) as alternative dependency.
+    (Closes: #900789, #900338)
   * nvidia-drm-outputclass.conf: Prepend (in a backwards-compatible way)
       ModulePath "/usr/lib/xorg/modules/linux"
     since xserver 1.20 no longer does that.
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 21 Jun 2018 22:28:56 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 27 Jun 2018 20:38:25 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.106-2~deb9u1) stretch; urgency=medium
 
