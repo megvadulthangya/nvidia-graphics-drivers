@@ -1,3 +1,13 @@
+nvidia-graphics-drivers-legacy-340xx (340.107-2) UNRELEASED; urgency=high
+
+  * Backport kmem_cache_create_usercopy.patch from 390.67-2 for the 340.xx
+    series, fixing "Bad or missing usercopy whitelist? Kernel memory exposure
+    attempt detected from SLUB object 'nvidia_stack_cache'" on Linux kernels
+    that have disabled CONFIG_HARDENED_USERCOPY_FALLBACK
+    (i.e. linux-image-4.16.0-2-* or newer).  (Closes: #899998)
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 04 Jul 2018 19:39:58 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.107-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.107 (2018-06-06).
