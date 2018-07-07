@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-340xx (340.107-2~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 07 Jul 2018 19:43:46 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.107-2) unstable; urgency=high
 
   * Backport kmem_cache_create_usercopy.patch from 390.67-2 for the 340.xx
