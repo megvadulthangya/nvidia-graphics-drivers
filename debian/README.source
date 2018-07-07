@@ -1,4 +1,4 @@
-Building "bleeding edge" from SVN for users
+Building "bleeding edge" from GIT for users
 
     As new upstream versions of the proprietary driver are released, upload
     might not happen immediately. This might be for various reasons, including
@@ -6,18 +6,58 @@ Building "bleeding edge" from SVN for users
     Users wishing to try to build new version locally can follow the
     instructions on the Debian wiki:
 
-    https://wiki.debian.org/NvidiaGraphicsDrivers#Building_newer_releases_from_SVN
+    https://wiki.debian.org/NvidiaGraphicsDrivers#Building_newer_releases_from_GIT
 
     WARNING: these will most likely be work in progress, and the final upload
     may be different and may not support clean upgrades from/to the versions
     uploaded in the archive.
 
+
+The branch structure in the GIT repository
+
+    The following branches exist in the git repository:
+
+    branch                    upload to           merge into
+                              (compatible with)   (reintegrate into)
+
+    {71,96,173}xx/*     EoL
+    304                 EoL   wheezy              304-jessie
+    304-jessie          EoL   (jessie)            304-stretch, 340, 304xx/jessie
+    304-stretch         EoL   (stretch)           340-stretch, 304xx/master
+    304xx/jessie        EoL   jessie              304xx/master
+    304xx/master        EoL   stretch,sid
+    340                       jessie              340-stretch
+    340-stretch               (stretch,sid)       390, 340xx/master
+    340xx/master              stretch,sid
+    390                       stretch             master
+    390xx/master              sid
+    master                    sid                 YYY
+    YYY                       experimental        ZZZ, (master)
+    ZZZ                       experimental        (master)
+    *-backports               *-backports
+    ABCxx/*-backports         *-backports
+
+    New upstream releases (XXX.yy) are always imported into the XXX branch.
+    If this branch does not yet exist, fork it from ZZZ or master (but do
+    not adjust the debian-branch in gbp.conf for non-persistent branches).
+
+    Try to avoid creating XXX-$testing (and ABCxx/$testing) branches as
+    long as possible by postponing stable-incompatible changes in branches
+    currently used used for both stable and sid.
+
+    Minor updates, fixes and features should always go to the oldest branch
+    where they are applicable, i.e. 340-stretch (or 340) in most cases.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 23 Jun 2018 23:17:07 +0200
+
+
 Importing a New Upstream Release
 
-    The *.orig.tar.gz file for nvidia-graphics-drivers contains just a
-    directory named nvidia-graphics-drivers-<version> containing the
-    upstream .run files for amd64, i386, and maybe armhf.
-    Everything else comes from the Subversion repository for the package.
+    The orig tarballs for nvidia-graphics-drivers are split by
+    architecture. The *.orig.tar.gz file contains just an empty directory
+    and the *.orig-<arch>.tar.gz files contain the upstream .run file for
+    the corresponding architecture.
+    Everything else comes from the GIT repository for the package.
 
     Use the following steps to update to a new upstream release:
 
@@ -29,25 +69,14 @@ Importing a New Upstream Release
 
           debchange --distribution UNRELEASED --newversion <version>-1
 
-    * Download the driver archives and create a new .orig.tar.gz
+    * Download the driver archives and create new .orig*.tar.gz
 
           debian/rules get-orig-source
 
-      Alternatively do it manually:
-      - Download the .run files for i386 and amd64 from upstream.
-      - mkdir nvidia-graphics-drivers-<version>.orig and place package files
-        in that directory.  Make them executable.  Then, create the orig
-        tarball with:
-            tar czvf nvidia-graphics-drivers_<version>.orig.tar.gz
-
-    * For generating tarballs of older versions first set WATCH_VERSION in
-      debian/rules.defs appropriately and regenerate debian/watch.
-
-    * Edit debian/module/conftest.h if necessary for kernel compatibility
-      and test.
-
-    * Add the new *.orig.tar.gz to the tarballs directory in the svn
+    !TODO!
+    * Add the new *.orig*.tar.gz to the tarballs directory in the svn
       repository: svn://svn.debian.org/svn/pkg-nvidia/tarballs
+
 
 Building and Uploading
 
@@ -68,15 +97,15 @@ Using the nks-history.git repository for upstreams changelog and the non-blob
 parts of the kernel module
 
     This repository is intended to simplify extracting upstream changelog
-    updates and reimplementing the conftest.sh script as conftest.h.
+    updates.
 
     To setup an initial clone of this repository run these two commands in
     an empty directory:
 
-      git clone git+ssh://git.debian.org/git/pkg-nvidia/nks-history.git history
-      git clone git+ssh://git.debian.org/git/pkg-nvidia/nks-history.git --reference history -b scripts scripts
+      git clone https://salsa.debian.org/nvidia-team/nks-history.git history
+      git clone https://salsa.debian.org/nvidia-team/nks-history.git --reference history -b scripts scripts
 
-    To importing the changelog and module source of a new release follow
+    To import the changelog and module source of a new release follow
     these instructions:
 
     * Change to the scripts directory.
@@ -86,7 +115,7 @@ parts of the kernel module
       gitk. If something was wrong or a parent was missing, edit 'versions'
       and run ./00import-history again. Repeat until you are happy.
     * Commit 'versions' and push both repositories (scripts and history).
-    * Update debian/changelog and conftest.h with data from nks-history.
+    * Update debian/changelog with data from nks-history.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 09 Nov 2014 14:49:10 +0100
 
