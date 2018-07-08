@@ -44,7 +44,7 @@ nvidia-graphics-drivers-legacy-304xx (304.137-4) unstable; urgency=medium
     nvidia-legacy-304xx-alternative triggers handle it instead (384.111-3).
 
   [ Luca Boccassi ]
-  * Add timer.patch to fix kernel module build on Linux 4.15 and newer.
+  * Add timer.patch to fix kernel module build for Linux 4.15 and newer.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 16 Jan 2018 02:14:32 +0100
 
@@ -82,7 +82,7 @@ nvidia-graphics-drivers-legacy-304xx (304.137-1) unstable; urgency=medium
   * Drop drm-driver-legacy.patch, deprecated-cpu-events.patch and
     drm-unload.patch, fixed upstream.
   * Refresh disable-mtrr.patch to remove fuzz from upstream changes.
-  * Add nvidia-drm-pci-init.patch to fix kernel module build on Linux 4.14
+  * Add nvidia-drm-pci-init.patch to fix kernel module build for Linux 4.14
     and newer.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 12 Oct 2017 20:34:21 +0200
@@ -122,12 +122,12 @@ nvidia-graphics-drivers-legacy-304xx (304.137-0~deb8u1) jessie; urgency=medium
     upstream (304.137-1).
   * Refresh disable-mtrr.patch to remove fuzz from upstream changes
     (304.137-1).
-  * Add pud-offset.patch to fix runtime error on Linux 4.12 and newer.
+  * Add pud-offset.patch to fix runtime error for Linux 4.12 and newer.
     Original patch: https://bugzilla.rpmfusion.org/show_bug.cgi?id=4629#c11
     (304.135-5)
-  * Add nvidia-drm-pci-init.patch to fix kernel module build on Linux 4.14
+  * Add nvidia-drm-pci-init.patch to fix kernel module build for Linux 4.14
     and newer (304.137-1).
-  * Add timer.patch to fix kernel module build on Linux 4.15 and newer
+  * Add timer.patch to fix kernel module build for Linux 4.15 and newer
     (304.137-4).
 
   [ Russ Allbery ]
@@ -142,7 +142,7 @@ nvidia-graphics-drivers-legacy-304xx (304.135-5) unstable; urgency=medium
 
   [ Luca Boccassi ]
   * Switch to my debian.org email address in Uploaders.
-  * Update pud-offset.patch to fix runtime error on Linux 4.12 and newer.
+  * Update pud-offset.patch to fix runtime error for Linux 4.12 and newer.
     Original patch: https://bugzilla.rpmfusion.org/show_bug.cgi?id=4629#c11
     (Closes: #875425)
 
@@ -163,7 +163,7 @@ nvidia-graphics-drivers-legacy-304xx (304.135-4) unstable; urgency=medium
   * Update lintian overrides.
 
   [ Luca Boccassi ]
-  * Add pud-offset.patch to fix kernel module build on Linux 4.12 and newer.
+  * Add pud-offset.patch to fix kernel module build for Linux 4.12 and newer.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Aug 2017 11:43:22 +0200
 
@@ -176,7 +176,7 @@ nvidia-graphics-drivers-legacy-304xx (304.135-3) unstable; urgency=medium
   * not-parallel.patch: New, prevent parallel module build.
 
   [ Luca Boccassi ]
-  * Add drm-unload.patch to fix kernel module build on Linux 4.11 and newer.
+  * Add drm-unload.patch to fix kernel module build for Linux 4.11 and newer.
     (Closes: #865964)
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 29 Jun 2017 23:54:21 +0200
@@ -197,7 +197,7 @@ nvidia-graphics-drivers-legacy-304xx (304.135-1) jessie; urgency=medium
   [ Luca Boccassi ]
   * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.135-2:
     - Add deprecated-cpu-events.patch and update disable-mtrr.patch to fix
-      kernel module build on Linux 4.10 and newer.
+      kernel module build for Linux 4.10 and newer.
   * Synchronize packaging with nvidia-graphics-drivers-legacy-304xx 304.134-2:
     - Add drm-driver-legacy.patch to fix nvidia kernel module load issue on
       Linux 4.9 and newer.  (Closes: #852152)
