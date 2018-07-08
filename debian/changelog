@@ -84,7 +84,7 @@ nvidia-graphics-drivers-legacy-340xx (340.104-4) unstable; urgency=medium
     nvidia-legacy-340xx-alternative triggers handle it instead (384.111-3).
 
   [ Luca Boccassi ]
-  * Add timer.patch to fix kernel module build on Linux 4.15 and newer.
+  * Add timer.patch to fix kernel module build for Linux 4.15 and newer.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 16 Jan 2018 03:08:52 +0100
 
@@ -125,7 +125,7 @@ nvidia-graphics-drivers-legacy-340xx (340.104-1) unstable; urgency=medium
     vmf-address.patch, drm-unload.patch, fatal-signal.patch and
     set-memory.patch, fixed upstream.
   * Refresh vm-fault.patch to remove fuzz from upstream changes.
-  * Add nvidia-drm-pci-init.patch to fix kernel module build on Linux 4.14
+  * Add nvidia-drm-pci-init.patch to fix kernel module build for Linux 4.14
     and newer.
 
   [ Russ Allbery ]
@@ -147,7 +147,7 @@ nvidia-graphics-drivers-legacy-340xx (340.102-3) unstable; urgency=medium
   * Update lintian overrides.
 
   [ Luca Boccassi ]
-  * Add set-memory.patch to fix kernel module build on Linux 4.12 and newer.
+  * Add set-memory.patch to fix kernel module build for Linux 4.12 and newer.
     (Closes: #872330)
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 18 Aug 2017 16:37:03 +0200
@@ -161,7 +161,7 @@ nvidia-graphics-drivers-legacy-340xx (340.102-2) unstable; urgency=medium
 
   [ Luca Boccassi ]
   * Add drm-unload.patch, fatal-signal.patch, and vm-fault.patch to fix kernel
-    module build on Linux 4.11 and newer.  (Closes: #865964)
+    module build for Linux 4.11 and newer.  (Closes: #865964)
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 02 Jul 2017 00:26:32 +0200
 
@@ -178,7 +178,7 @@ nvidia-graphics-drivers-legacy-340xx (340.102-1) unstable; urgency=medium
 
   [ Luca Boccassi ]
   * Add deprecated-cpu-events.patch and vmf-address.patch to fix kernel
-    module build on Linux 4.10 and newer.
+    module build for Linux 4.10 and newer.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 24 Feb 2017 11:25:36 +0100
 
