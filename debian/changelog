@@ -1,9 +1,9 @@
-nvidia-graphics-drivers (390.67-2~deb9u1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers (390.67-2~bpo9+1) stretch-backports; urgency=medium
 
   * Rebuild for stretch-backports.
   * Use libglvnd and MESA from stretch-backports.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 07 Jul 2018 22:42:40 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 09 Jul 2018 02:04:54 +0200
 
 nvidia-graphics-drivers (390.67-2) unstable; urgency=high
 
