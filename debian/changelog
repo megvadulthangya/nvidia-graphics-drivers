@@ -1,8 +1,9 @@
-nvidia-graphics-drivers (390.77-1~bpo9+1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers (390.77-1~bpo9+1) stretch-backports; urgency=medium
 
+  * Rebuild for stretch-backports.
   * Use vulkan from stretch-backports.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 06 Aug 2018 00:58:46 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 06 Aug 2018 01:01:44 +0200
 
 nvidia-graphics-drivers (390.77-1) unstable; urgency=medium
 
