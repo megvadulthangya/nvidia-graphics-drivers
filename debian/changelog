@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (390.87-2~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 23 Sep 2018 14:45:34 +0200
+
 nvidia-graphics-drivers (390.87-2) unstable; urgency=medium
 
   * Reinstate cc_version_check-gcc5.patch.  (Closes: #908568)
