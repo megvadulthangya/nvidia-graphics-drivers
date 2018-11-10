@@ -1,7 +1,16 @@
 nvidia-graphics-drivers-legacy-304xx (304.137-6) UNRELEASED; urgency=medium
 
-  * Bump Standards-Version to 4.1.4. No changes needed.
   * Convert packaging repository from SVN to GIT.
+  * Add debian/rules targets for archiving the tarballs in a separate
+    repository using sparse checkouts and git-lfs as storage backend.
+  * Bump Standards-Version to 4.2.1. No changes needed.
+  * Synchronize the module build debhelper sequence with debhelper 10
+    (390.87-1).
+  * Pass the private library directory to dh_shlibdeps using the -l option
+    instead of LD_LIBRARY_PATH, fixing FTBFS with dpkg 1.19.1 (390.87-3).
+  * Add Build-Depends-Package to symbols files where appropriate and override
+    symbols-file-missing-build-depends-package-field elsewhere (390.87-3).
+  * Clean up and unify rule style in debian/rules (390.87-3).
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 31 May 2018 04:08:12 +0200
 
@@ -956,7 +965,7 @@ nvidia-graphics-drivers (304.84-1) unstable; urgency=low
       unplugging the last connected monitor.
     - Added support for X.org xserver ABI 14 (xorg-server 1.14).
     - Fixed font rendering performance and corruption problems on X servers with
-      backported support for the new glyph cache functionality added to Pixman
+      back-ported support for the new glyph cache functionality added to Pixman
       0.27.
     - Fixed a potential X server crash during initialization, when a
       graphics card with a TV connector has no TV connected.
@@ -1063,7 +1072,7 @@ nvidia-graphics-drivers (304.60-1) unstable; urgency=low
     - Added support for the "Backlight" RandR output property for
       configuring the brightness of some notebook internal panels.
     - Fixed a bug that prevented the Ubuntu Unity launcher panel from
-      unhiding: https://bugs.launchpad.net/unity/+bug/1057000
+      revealing: https://bugs.launchpad.net/unity/+bug/1057000
     - Fixed a bug that caused incorrect input transformation after resizing
       an NVIDIA X screen with xserver ABI 12 (xorg-server 1.12) or newer.
     - Fixed a bug that caused GLX to leak memory when Xinerama is
@@ -1097,7 +1106,7 @@ nvidia-graphics-drivers (304.51-1) experimental; urgency=low
       without support for DRI2.
     - Fixed a regression that broke color controls on older X servers.
     - Fixed a bug that prevented panning from working correctly after a
-      modeswitch on some X servers with support for cursor constraining.
+      mode switch on some X servers with support for cursor constraining.
     - Gamma ramp and colormap adjustments now apply correctly when screen
       transformations such as rotation and keystone correction are in use.
     * Closes: #688660.
@@ -1133,7 +1142,7 @@ nvidia-graphics-drivers (304.48-2) unstable; urgency=low
 nvidia-graphics-drivers (304.48-1) unstable; urgency=low
 
   * New upstream long lived branch release 304.48 (2012-09-11).
-    - Fixed RandR per-CRTC gamma persistence across modeswitches and
+    - Fixed RandR per-CRTC gamma persistence across mode-switches and
       VT-switches.
     - Fixed a bug that caused the X server to sometimes hang in response to
       input events.  (Closes: #684941)
