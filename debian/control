@@ -18,7 +18,7 @@ Build-Depends:
  quilt,
  po-debconf,
 Rules-Requires-Root: no
-Standards-Version: 4.1.4
+Standards-Version: 4.2.1
 Homepage: https://www.nvidia.com
 XS-Autobuild: yes
 
@@ -568,7 +568,7 @@ Description: NVIDIA runtime compiler library${nvidia:LegacyDesc}
  .
  This package contains the runtime compiler library.
 
-#Package: lib${nvidia}-nvcuvid1
+#Package: lib${nvidia:if-legacy}nvcuvid1
 Package: libnvidia-legacy-340xx-nvcuvid1
 Architecture: i386 amd64 armhf
 Multi-Arch: same
