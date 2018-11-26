@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.107-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.107-3) unstable; urgency=medium
 
   * Synchronize the module build debhelper sequence with debhelper 10
     (390.87-1).
@@ -12,7 +12,7 @@ nvidia-graphics-drivers-legacy-340xx (340.107-3) UNRELEASED; urgency=medium
     repository using sparse checkouts and git-lfs as storage backend.
   * Refresh patches.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 11 Nov 2018 06:06:56 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 26 Nov 2018 23:45:23 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.107-2) unstable; urgency=high
 
