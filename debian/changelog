@@ -1,11 +1,11 @@
-nvidia-graphics-drivers-legacy-340xx (340.107-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.107-4) unstable; urgency=medium
 
   * use-nv-kernel-ARCH.o_shipped.patch: Simplify for better kernel
     compatibility.  (Closes: #922479)
   * Drop versioned constraints that are satisfied in wheezy (390.87-7).
   * Bump Standards-Version to 4.3.0. No changes needed.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Mar 2019 00:05:15 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Mar 2019 00:11:52 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.107-3) unstable; urgency=medium
 
