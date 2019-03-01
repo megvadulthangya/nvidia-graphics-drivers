@@ -18,7 +18,7 @@ Build-Depends:
  quilt,
  po-debconf,
 Rules-Requires-Root: no
-Standards-Version: 4.2.1
+Standards-Version: 4.3.0
 Homepage: https://www.nvidia.com
 XS-Autobuild: yes
 
@@ -121,7 +121,7 @@ Pre-Depends:
 Depends:
  lib${nvidia}-glcore (= ${binary:Version}),
  ${nvidia}-alternative (= ${binary:Version}),
- nvidia-support (>= 20120630),
+ nvidia-support,
  ${nvidia:xorgDepends},
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
@@ -407,7 +407,7 @@ Package: nvidia-legacy-340xx-kernel-source
 Section: non-free/kernel
 Architecture: i386 amd64 armhf
 Depends:
- debhelper (>= 9),
+ debhelper (>= 10),
  make:any,
  quilt,
  xz-utils,
