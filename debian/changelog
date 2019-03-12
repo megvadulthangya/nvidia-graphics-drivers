@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-390xx (390.116-1~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Mar 2019 20:49:00 +0100
+
 nvidia-graphics-drivers-legacy-390xx (390.116-1) unstable; urgency=medium
 
   * New upstream legacy branch release 390.116 (2019-02-22).
