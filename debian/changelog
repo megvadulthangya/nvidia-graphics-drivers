@@ -1,3 +1,281 @@
+nvidia-graphics-drivers (410.104-1) unstable; urgency=medium
+
+  * New upstream long lived branch release 410.104 (2019-02-22).
+    * Fixed CVE‑2018‑6260.  (Closes: #913467)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4772
+    - Added support for the following GPU: Tesla V100-SXM3-32GB-H.
+    - Fixed a bug where destroying a direct-to-display swapchain could
+      crash Vulkan applications.
+    - Fixed a bug that prevented Vulkan applications from using the
+      VK_EXT_display_control extension on a display that is driven by X.
+  * New upstream release 390 series.
+    - Improved nvidia-bug-report.sh to grab the output of the `vulkaninfo`
+      command when it is available.
+
+  [ Andreas Beckmann ]
+  * Use substitution to keep debhelper-compat in sync.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Mar 2019 19:35:49 +0100
+
+nvidia-graphics-drivers (410.93-2) unstable; urgency=medium
+
+  * Merge changes from 396.54-4.
+  * Add slave alternative for libnvoptix.so.1.
+  * Restrict watch file to releases from the 410.xx long lived branch.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 11 Feb 2019 17:15:09 +0100
+
+nvidia-graphics-drivers (410.93-1) experimental; urgency=medium
+
+  * New upstream long lived branch release 410.93 (2019-01-03).
+    - Fixed a bug that could prevent display detection from working on
+      displays connected to some notebook docking stations.
+    - Added support for the following GPU: Quadro RTX 8000.
+
+  [ Andreas Beckmann ]
+  * Merge changes from 390.87-6.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 09 Jan 2019 10:34:41 +0100
+
+nvidia-graphics-drivers (410.78-2) experimental; urgency=medium
+
+  * Merge changes from 396.54-3.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 14 Dec 2018 12:41:04 +0100
+
+nvidia-graphics-drivers (410.78-1) experimental; urgency=medium
+
+  * New upstream long lived branch release 410.78 (2018-11-15).
+    - Fixed a bug that could cause the X server to hang on systems booted in
+      legacy VGA mode when using a DisplayPort Multi-Stream link.
+    - Added support for the following GPUs: Quadro RTX 4000, Tesla T4.
+  * New upstream long lived branch release 410.73 (2018-10-25).
+  * New upstream long lived branch release 410.66 (2018-10-16).
+    - Added a USB-C display connector type identifier, such that a display
+      connected using Turing's USB-C connector will be named, e.g., "USB-C-0"
+      rather than "DP-5". Scripts and configuration files that use the DP
+      identifier for this connector will be affected.
+    - Added support for the following GPUs: Quadro RTX 5000, Quadro RTX 6000,
+      GeForce RTX 2070.
+  * New upstream beta 410.57 (2018-09-20).
+    - Added a graphics API visual indicator.  It can be toggled through
+      nvidia-settings' "OpenGL Settings" panel, the
+      __GL_SHOW_GRAPHICS_OSD environment variable, or the
+      GLShowGraphicsOSD application profile.  See the README for more
+      information.
+    - Added support for X11 RandR transformations on outputs where the NVIDIA X
+      driver is used as a synchronized RandR 1.4 output source (i.e., "PRIME
+      Sync").
+    - Fixed a bug that caused OpenGL corruption on outputs where the NVIDIA X
+      driver was used as an RandR 1.4 output source (i.e., "PRIME"), and the
+      output sink required a software cursor.
+    - Fixed an X driver RandR output source (i.e., "PRIME") bug that could cause
+      a duplicate cursor to appear on such outputs.
+    - Exposed EGL 1.5 in the EGL version string. This does not add
+      any extra functionality to the EGL driver. All EGL 1.5 features
+      were already supported through EGL 1.4 plus extensions.
+    - Added support for the following GPUs: GeForce RTX 2080 Ti,
+      GeForce RTX 2080, Tesla V100-SXM2-16GB-LS, Tesla V100-PCIE-16GB-LS,
+      Tesla V100-SXM2-32GB-LS, Tesla V100-SXM3-32GB.
+    - Added the OptiX ray tracing engine, libnvoptix.so.1, to the driver
+      package.
+      This library is loaded by the liboptix.so.* library bundled with
+      applications that use the OptiX API.
+    - Added experimental support for VK_EXT_global_priority.
+    - Removed support for the VK_NV_glsl_shader Vulkan extension.
+      This extension was added before the Vulkan ecosystem had mature
+      SPIR-V compilers and tools.  Now that the SPIR-V compilers and
+      tools have advanced, Vulkan developers are encouraged to use SPIR-V
+      instead of GLSL.
+    - Fixed a bug that caused VDPAU-decoded H.265/HEVC content to have
+      interlaced artifacts when shared with OpenGL through the
+      GL_NV_vdpau_interop extension.
+    - Implemented support for Vulkan real-time ray tracing extensions
+      (VK_NV_raytracing). Two new libraries, libnvidia-rtcore.so and
+      libnvidia-cbl.so, have been added to support the new functionality.
+      These new libraries are needed by Vulkan at run-time to expose the
+      new extension. If they are not found, Vulkan will continue to work
+      without VK_NV_raytracing support.
+  * New upstream release 396 series.
+    - Added support for the following GPUs: Quadro P5200 with Max-Q Design,
+      Quadro P4200 with Max-Q Design, Quadro P2000 with Max-Q Design.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Drop drm-mode.patch, fixed upstream.
+  * Update libnvidia-egl-wayland ABI version to 1.1.0.
+  * libglx.so has been replaced by libglxserver_nvidia.so.
+  * Remove ModulePath workarounds since we no longer collide with the Xorg
+    module libglx.so.
+  * Update symbols files.
+  * libnvidia-cbl, libnvidia-rtcore: New packages for the internal libraries
+    implementing the Vulkan real-time ray tracing extensions.
+  * libnvoptix1: New package for the implementation of the OptiX ray tracing
+    engine for NVIDIA/CUDA.
+  * Update lintian overrides.
+  * Upload to experimental.
+
+  [ Luca Boccassi ]
+  * Drop kmem_cache_create_usercopy.patch, fixed upstream.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 26 Nov 2018 15:43:24 +0100
+
+nvidia-graphics-drivers (396.54-4) unstable; urgency=medium
+
+  * Merge changes from 390.87-8.
+  * Drop libgles[12]-nvidia transitional packages.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 09 Feb 2019 14:44:51 +0100
+
+nvidia-graphics-drivers (396.54-3) experimental; urgency=medium
+
+  * Merge changes from 390.87-4.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 11 Dec 2018 06:11:16 +0100
+
+nvidia-graphics-drivers (396.54-2) experimental; urgency=medium
+
+  * Drop do-div-cast.patch, 32-bit platforms are no longer supported.
+  * Revert move of libglx.so to /usr/lib/nvidia/current/modules.
+  * Merge changes from 390.87-3.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Nov 2018 20:06:14 +0100
+
+nvidia-graphics-drivers (396.54-1) experimental; urgency=medium
+
+  * New upstream short lived branch release 396.54 (2018-08-21).
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 18 Sep 2018 19:06:21 +0200
+
+nvidia-graphics-drivers (396.51-1) experimental; urgency=medium
+
+  * New upstream short lived branch release 396.51 (2018-08-03).
+    - Added support for VK_EXT_vertex_attribute_divisor.
+    - Added support for the following GPU: Quadro P3200 with Max-Q Design.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 06 Aug 2018 00:16:07 +0200
+
+nvidia-graphics-drivers (396.45-1) experimental; urgency=medium
+
+  * New upstream short lived branch release 396.45 (2018-07-19).
+    - Improved recovery of Vulkan direct-to-display applications after an
+      application hang or crash.
+    - Fixed a bug that could cause multi-threaded EGL applications to crash
+      when exiting.
+    - Added support for the following GPU: TITAN V JHH Special Edition.
+  * New upstream short lived branch release 396.24 (2018-05-02).
+    - Fixed a regression that caused the current MetaMode's ViewPortIn and
+      ViewPortOut settings to be preserved across RandR modesets. The driver now
+      clears ViewPortIn and ViewPortOut when the mode is set through RandR,
+      restoring the behavior that existed prior to the regression.
+    - Improved error reporting in the Vulkan driver if
+      libnvidia-glvkspirv.so, the new Vulkan SPIR-V compiler added in
+      396.18, cannot be found at run time.
+    - Fixed performance regressions and corruption issues in the new Vulkan
+      SPIR-V compiler.
+    - Added support for 32-bit PCI domains throughout the NVIDIA driver stack.
+      This support is required for running Linux VMs with recent versions of
+      the pci_hyperv driver on top of Hyper-V.
+
+  [ Andreas Beckmann ]
+  * libcuda1: Add Provides: libcuda-9.2-1{,-i386}.
+  * Move libglx.so to /usr/lib/nvidia/current/modules.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 21 Jul 2018 12:52:40 +0200
+
+nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
+
+  * New upstream beta 396.18 (2018-04-10).
+    - Added support for a new Vulkan SPIR-V compiler which reduces shader
+      compilation time and shader system memory consumption.
+      A new environment variable can be used to enable (1) (default) or
+      disable (0) the new compiler if errors in existing applications
+      are found:
+          __GL_NextGenCompiler=<int>
+      The following application profile setting with the same definition
+      is also available:
+          { "pattern" : [], "profile" : [ "NextGenCompiler", <int> ] }
+      The old compiler is deprecated and will be removed in a future
+      release.
+    - Improved performance of the following Vulkan APIs:
+        vkAllocateMemory(), vkBindBufferMemory(), vkBindImageMemory().
+    - Fixed a bug that caused the NV_CTRL_STEREO_SWAP_MODE setting for
+      quad-buffered stereo visuals to not be preserved across modesets
+      or VT switches.
+    - Added a new global X configuration option "AllowExternalGpus", which
+      defaults to disabled, but can be enabled to allow eGPUs and other
+      surprise-removable GPUs to be configured with X screens.
+    * Drop support for Fermi chips, supported by the 390xx legacy series.
+    * Drop kernel and Xorg driver support for i386, drop all support for
+      armhf: https://nvidia.custhelp.com/app/answers/detail/a_id/4604
+
+  [ Luca Boccassi ]
+  * Update nv-readme.ids.
+  * Update libnvidia-egl-wayland ABI version to 1.0.3.
+  * Update symbols files.
+  * Add libnvidia-glvkspirv package for SPIR-V compiler support.
+  * Drop swiotlb.patch, merged upstream.
+
+  [ Andreas Beckmann ]
+  * Build i386 library packages from the 32/ folder in the x86_64 .run file.
+  * Continue building nvidia-egl-common and nvidia-egl-wayland-common on i386
+    and armhf since they are used by legacy drivers.
+  * Add NEWS entry and update nvidia-legacy-check to use
+    nvidia-legacy-390xx-driver for Fermi cards.
+  * Upload to experimental.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.116-1) stretch; urgency=medium
+
+  * New upstream legacy branch release 390.116 (2019-02-22).
+    * Fixed CVE‑2018‑6260.  (Closes: #913467)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/4772
+    - Fixed build failures which resulted in errors like "implicit declaration
+      of function drm_...", when building the NVIDIA DRM kernel module for Linux
+      kernel 5.0 release candidates.
+    - Fixed a bug which could cause VK_KHR_external_semaphore_fd operations
+      to fail.
+    - Fixed a build failure, "implicit declaration of function
+      'vm_insert_pfn'", when building the NVIDIA DRM kernel module for Linux
+      kernel 4.20 release candidates.
+    - Fixed a build failure, "unknown type name 'ipmi_user_t'", when building
+      the NVIDIA kernel module for Linux kernel 4.20 release candidates.
+    - Fixed a bug that caused mode switches to fail when an SDI output board was
+      connected.
+    - Fixed a bug that could cause rendering corruption in Vulkan programs.
+    - Fixed a bug that caused vkGetPhysicalDeviceDisplayPropertiesKHR() to
+      occasionally return incorrect values for physicalResolution.
+  * New upstream legacy branch release 340 series.
+    - Fixed a build failure, "too many arguments to function 'get_user_pages'",
+      when building the NVIDIA kernel module for Linux kernel v4.4.168.
+    - Fixed a build failure, "implicit declaration of function do_gettimeofday",
+      when building the NVIDIA kernel module for Linux kernel 5.0 release
+      candidates.
+    - Added a new kernel module parameter, NVreg_RestrictProfilingToAdminUsers,
+      to allow restricting the use of GPU performance counters to system
+      administrators only.
+
+  [ Luca Boccassi ]
+  * Drop kmem_cache_create_usercopy.patch, drm-mode.patch,
+    ipmi-user.patch, vm-insert-pfn.patch: fixed upstream.
+  * Update symbols files.
+
+  [ Andreas Beckmann ]
+  * nvidia-detect: stretch now has a 390.xx driver.
+  * nvidia-kernel-source: Bump debhelper dependency to match Build-Depends.
+  * Upload to stretch.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Mar 2019 09:27:07 +0100
+
+nvidia-graphics-drivers (390.87-8~deb9u1) stretch; urgency=medium
+
+  * Rebuild for stretch.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 06 Feb 2019 10:00:53 +0100
+
 nvidia-graphics-drivers (390.87-8~bpo9+1) stretch-backports; urgency=medium
 
   * Rebuild for stretch-backports.

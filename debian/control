@@ -27,7 +27,7 @@ XS-Autobuild: yes
 
 Package: nvidia-driver
 Section: non-free/x11
-Architecture: i386 amd64 armhf
+Architecture: amd64
 Pre-Depends:
  nvidia-installer-cleanup,
  ${nvidia:legacy-check},
@@ -68,7 +68,7 @@ Description: NVIDIA metapackage${nvidia:LegacyDesc}
 
 Package: nvidia-driver-bin
 Section: non-free/x11
-Architecture: i386 amd64 armhf
+Architecture: amd64
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
@@ -90,7 +90,7 @@ Description: NVIDIA driver support binaries${nvidia:LegacyDesc}
  This package contains supporting binaries for the driver.
 
 Package: nvidia-driver-libs
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Depends:
  libgl1-${nvidia}-glvnd-glx (= ${binary:Version}),
@@ -102,7 +102,7 @@ Recommends:
  libglx-${nvidia}0 (= ${binary:Version}),
  libgles-${nvidia}1 (= ${binary:Version}),
  libgles-${nvidia}2 (= ${binary:Version}),
- lib${nvidia}-cfg1 (= ${binary:Version}),
+ lib${nvidia}-cfg1 (= ${binary:Version}) [!i386],
  ${nvidia}-vulkan-icd (= ${binary:Version}) [amd64 i386],
 Conflicts:
  libgldispatch0-nvidia,
@@ -137,7 +137,7 @@ Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES 32-bit libraries)${nvidia:L
  on amd64 with foreign architecture i386 enabled.
 
 Package: nvidia-driver-libs-nonglvnd
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Depends:
  libgl1-${nvidia}-glx (= ${binary:Version}),
@@ -148,7 +148,7 @@ Recommends:
  libglx-${nvidia}0 (= ${binary:Version}),
  libgles-${nvidia}1 (= ${binary:Version}),
  libgles-${nvidia}2 (= ${binary:Version}),
- lib${nvidia}-cfg1 (= ${binary:Version}),
+ lib${nvidia}-cfg1 (= ${binary:Version}) [!i386],
  ${nvidia}-nonglvnd-vulkan-icd (= ${binary:Version}) [amd64 i386],
 Conflicts:
  libgldispatch0-nvidia,
@@ -184,7 +184,7 @@ Description: NVIDIA metapackage (non-GLVND OpenGL/EGL/etc. 32-bit libraries)${nv
 
 Package: xserver-xorg-video-nvidia
 Section: non-free/x11
-Architecture: i386 amd64 armhf
+Architecture: amd64
 Pre-Depends:
  nvidia-installer-cleanup,
  ${nvidia:legacy-check},
@@ -221,7 +221,7 @@ Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  for a complete list of supported GPUs and PCI IDs.
 
 Package: nvidia-legacy-check
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: foreign
 Pre-Depends:
  debconf | debconf-2.0,
@@ -237,7 +237,7 @@ Description: check for NVIDIA GPUs requiring a legacy driver
  confirm the installation of the current driver line.
 
 Package: libglx-nvidia0
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -260,7 +260,7 @@ Description: NVIDIA binary GLX library${nvidia:LegacyDesc}
  that is accessed via GLVND.
 
 Package: libgl1-nvidia-glvnd-glx
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Depends:
  libgl1 (>= 0.2.999) | libgl1-glvnd-nvidia-glx,
@@ -281,7 +281,7 @@ Description: NVIDIA binary OpenGL/GLX library (GLVND variant)${nvidia:LegacyDesc
  GLVND and the corresponding GLVND loader library.
 
 Package: libgl1-nvidia-glx
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
@@ -314,7 +314,7 @@ Description: NVIDIA binary OpenGL/GLX library (non-GLVND variant)${nvidia:Legacy
  provided by NVIDIA as a non-GLVND alternative.
 
 Package: libnvidia-glcore
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -338,7 +338,7 @@ Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:LegacyDesc}
  implementation of OpenGL and GLX.
 
 Package: libegl1-nvidia
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -357,7 +357,7 @@ Description: NVIDIA binary EGL library (non-GLVND variant)${nvidia:LegacyDesc}
  as a non-GLVND alternative.
 
 Package: libegl-nvidia0
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -376,28 +376,8 @@ Description: NVIDIA binary EGL library${nvidia:LegacyDesc}
  This package contains the driver specific binary EGL implementation provided
  by NVIDIA that is accessed via GLVND.
 
-Package: libgles1-nvidia
-Section: non-free/oldlibs
-Architecture: i386 amd64 armhf
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- libgles-${nvidia}1 (= ${binary:Version}),
- ${misc:Depends}
-Description: NVIDIA binary OpenGL|ES 1.x library (transitional)${nvidia:LegacyDesc}
- OpenGL|ES is a cross-platform API for full-function 2D and 3D graphics on
- embedded systems - including consoles, phones, appliances and vehicles.
- It contains a subset of OpenGL plus a number of extensions for the
- special needs of embedded systems.
- .
- OpenGL|ES 1.x provides an API for fixed-function hardware.
- .
- This is a transitional package to aid switching to the GLVND based
- implementation.
-
 Package: libgles-nvidia1
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -421,29 +401,8 @@ Description: NVIDIA binary OpenGL|ES 1.x library${nvidia:LegacyDesc}
  This package contains the driver specific binary OpenGL|ES 1.x implementation
  by NVIDIA that is accessed via GLVND.
 
-Package: libgles2-nvidia
-Section: non-free/oldlibs
-Architecture: i386 amd64 armhf
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- libgles-${nvidia}2 (= ${binary:Version}),
- ${misc:Depends}
-Description: NVIDIA binary OpenGL|ES 2.x library (transitional)${nvidia:LegacyDesc}
- OpenGL|ES is a cross-platform API for full-function 2D and 3D graphics on
- embedded systems - including consoles, phones, appliances and vehicles.
- It contains a subset of OpenGL plus a number of extensions for the
- special needs of embedded systems.
- .
- OpenGL|ES 2.x provides an API for programmable hardware including vertex
- and fragment shaders.
- .
- This is a transitional package to aid switching to the GLVND based
- implementation.
-
 Package: libgles-nvidia2
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -469,7 +428,7 @@ Description: NVIDIA binary OpenGL|ES 2.x library${nvidia:LegacyDesc}
  by NVIDIA that is accessed via GLVND.
 
 Package: libnvidia-eglcore
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -507,7 +466,7 @@ Description: NVIDIA binary EGL driver - common files
  driver (ICD) for EGL via GLVND.
 
 Package: nvidia-egl-icd
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Depends:
  nvidia-egl-common,
@@ -551,7 +510,11 @@ Depends:
  nvidia-vulkan-common,
  libvulkan1 (>= 1.0.42),
  libglx-${nvidia}0 (= ${binary:Version}),
+ lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${misc:Depends}
+Recommends:
+ lib${nvidia}-cbl (= ${binary:Version}) [amd64],
+ lib${nvidia}-rtcore (= ${binary:Version}) [amd64],
 Suggests:
  vulkan-utils,
 Enhances:
@@ -591,7 +554,11 @@ Depends:
  nvidia-nonglvnd-vulkan-common,
  libvulkan1 (>= 1.0.42),
  libgl1-${nvidia}-glx (= ${binary:Version}),
+ lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${misc:Depends}
+Recommends:
+ lib${nvidia}-cbl (= ${binary:Version}) [amd64],
+ lib${nvidia}-rtcore (= ${binary:Version}) [amd64],
 Suggests:
  vulkan-utils,
 Enhances:
@@ -606,8 +573,68 @@ Description: NVIDIA Vulkan ICD (non-GLVND variant)${nvidia:LegacyDesc}
  This metapackage provides the NVIDIA installable client driver (ICD) for
  Vulkan (non-GLVND variant) which supports NVIDIA GPUs.
 
+Package: libnvidia-glvkspirv
+Architecture: i386 amd64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends}, ${misc:Depends}
+Provides:
+ libnvidia-glvkspirv-${nvidia:Version}
+Conflicts:
+ libnvidia-glvkspirv-${nvidia:Version}
+Description: NVIDIA binary Vulkan Spir-V compiler library${nvidia:LegacyDesc}
+ Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
+ .
+ This library provides a NVIDIA Vulkan Spir-V compiler which reduces shader
+ compilation time and shader system memory consumption.
+ .
+ This package contains the private Spir-V compiler libraries used by the
+ NVIDIA implementation of Vulkan.
+
+Package: libnvidia-cbl
+Architecture: amd64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends}, ${misc:Depends}
+Provides:
+ libnvidia-cbl-${nvidia:Version},
+Conflicts:
+ libnvidia-cbl-${nvidia:Version},
+Description: NVIDIA binary Vulkan ray tracing (cbl) library${nvidia:LegacyDesc}
+ Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
+ .
+ This library is part of the Vulkan real-time ray tracing extensions
+ (VK_NV_raytracing) implementation by NVIDIA.
+ .
+ This package contains the private cbl library used by the NVIDIA
+ implementation of Vulkan.
+
+Package: libnvidia-rtcore
+Architecture: amd64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends}, ${misc:Depends}
+Provides:
+ libnvidia-rtcore-${nvidia:Version},
+Conflicts:
+ libnvidia-rtcore-${nvidia:Version},
+Description: NVIDIA binary Vulkan ray tracing (rtcore) library${nvidia:LegacyDesc}
+ Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
+ .
+ This library is part of the Vulkan real-time ray tracing extensions
+ (VK_NV_raytracing) implementation by NVIDIA.
+ .
+ This package contains the private rtcore library used by the NVIDIA
+ implementation of Vulkan.
+
 Package: libnvidia-cfg1
-Architecture: i386 amd64 armhf
+Architecture: amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -628,13 +655,13 @@ Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:LegacyDesc}
  This package contains the libnvidia-cfg.so.1 runtime library.
 
 Package: nvidia-alternative
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: foreign
 Pre-Depends:
  dpkg (>= 1.17.21),
  ${nvidia:legacy-check},
 Depends:
- glx-alternative-nvidia (>= 0.8.4~) [!ppc64el],
+ glx-alternative-nvidia (>= 0.9) [!ppc64el],
  ${misc:Depends}
 Provides:
  ${nvidia}-alternative--kmod-alias,
@@ -663,7 +690,7 @@ Description: allows the selection of NVIDIA as GLX provider${nvidia:LegacyDesc}
 
 Package: nvidia-kernel-support
 Section: non-free/kernel
-Architecture: i386 amd64 armhf
+Architecture: amd64
 Multi-Arch: foreign
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
@@ -687,7 +714,7 @@ Description: NVIDIA binary kernel module support files${nvidia:LegacyDesc}
 
 Package: nvidia-kernel-dkms
 Section: non-free/kernel
-Architecture: i386 amd64 armhf
+Architecture: amd64
 Multi-Arch: foreign
 Pre-Depends:
  nvidia-installer-cleanup,
@@ -721,9 +748,9 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
 
 Package: nvidia-kernel-source
 Section: non-free/kernel
-Architecture: i386 amd64 armhf
+Architecture: amd64
 Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= ${nvidia:debhelper-compat}),
  make:any,
  quilt,
  xz-utils,
@@ -757,7 +784,7 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
 
 Package: nvidia-vdpau-driver
 Section: non-free/video
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
@@ -789,7 +816,7 @@ Description: Video Decode and Presentation API for Unix - NVIDIA driver${nvidia:
 
 Package: nvidia-smi
 Section: non-free/utils
-Architecture: i386 amd64 armhf
+Architecture: amd64
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-ml1 (= ${binary:Version}),
@@ -808,7 +835,7 @@ Description: NVIDIA System Management Interface${nvidia:LegacyDesc}
 
 Package: nvidia-cuda-mps
 Section: non-free/utils
-Architecture: i386 amd64 armhf
+Architecture: amd64
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA CUDA Multi Process Service (MPS)
@@ -824,7 +851,7 @@ Description: NVIDIA CUDA Multi Process Service (MPS)
  Pre-CUDA 4.0 APIs are not supported under CUDA MPS.
 
 Package: libcuda1
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${nvidia:legacy-check},
@@ -863,6 +890,8 @@ Provides:
  libcuda-9.0-1-i386 [i386],
  libcuda-9.1-1,
  libcuda-9.1-1-i386 [i386],
+ libcuda-9.2-1,
+ libcuda-9.2-1-i386 [i386],
 Homepage: https://www.nvidia.com/CUDA
 Description: NVIDIA CUDA Driver Library${nvidia:LegacyDesc}
  The Compute Unified Device Architecture (CUDA) enables NVIDIA
@@ -907,7 +936,7 @@ Description: NVIDIA runtime compiler library${nvidia:LegacyDesc}
  This package contains the runtime compiler library.
 
 Package: libnvidia-fatbinaryloader
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -926,7 +955,7 @@ Description: NVIDIA FAT binary loader${nvidia:LegacyDesc}
  This package contains the FAT multiarchitecture binary loader.
 
 Package: libnvidia-ptxjitcompiler1
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -940,7 +969,7 @@ Description: NVIDIA PTX JIT Compiler${nvidia:LegacyDesc}
  This package contains the runtime PTX JIT compiler library.
 
 Package: libnvcuvid1
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -958,7 +987,7 @@ Description: NVIDIA CUDA Video Decoder runtime library${nvidia:LegacyDesc}
  This package contains the nvcuvid runtime library.
 
 Package: libnvidia-encode1
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -972,7 +1001,7 @@ Description: NVENC Video Encoding runtime library${nvidia:LegacyDesc}
  This package contains the nvidia-encode runtime library.
 
 Package: libnvidia-ifr1
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -988,7 +1017,7 @@ Description: NVIDIA OpenGL-based Inband Frame Readback runtime library${nvidia:L
  This package contains the NvIFROpenGL runtime library.
 
 Package: libnvidia-fbc1
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -1003,8 +1032,24 @@ Description: NVIDIA OpenGL-based Framebuffer Capture runtime library${nvidia:Leg
  .
  This package contains the NvFBCOpenGL runtime library.
 
+Package: libnvoptix1
+Architecture: amd64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${libcuda1} (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Description: NVIDIA implementation of the OptiX ray tracing engine${nvidia:LegacyDesc}
+ The OptiX API is an application framework for achieving optimal ray tracing
+ performance on the GPU.
+ .
+ This package contains runtime library of the OptiX ray tracing engine
+ implementation for NVIDIA CUDA.
+ It is used by liboptix.so.* coming with applications using the OptiX API.
+
 Package: libnvidia-ml1
-Architecture: i386 amd64 armhf
+Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -1093,7 +1138,7 @@ Description: NVIDIA OpenCL ICD Loader library
 
 Package: nvidia-detect
 Section: non-free/x11
-Architecture: i386 amd64 armhf
+Architecture: amd64
 Depends:
  pciutils,
  ${misc:Depends}
