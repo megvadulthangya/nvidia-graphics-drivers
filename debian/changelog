@@ -1,3 +1,19 @@
+nvidia-graphics-drivers (418.74-1) unstable; urgency=medium
+
+  * New upstream long lived branch release 418.74 (2019-05-07).
+    - Added support for the following GPUs: Quadro P2200, GeForce GTX 1650,
+      GeForce GTX 1650 with Max-Q Design,
+      GeForce GTX 1660 Ti with Max-Q Design.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Refresh patches.
+  * Restrict watch file to releases from the 418.xx long lived branch.
+  * Remove support for arch-specific nv-readme.ids.
+  * Tune Recommends to smoothen some upgrade paths on i386.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 11 May 2019 13:52:38 +0200
+
 nvidia-graphics-drivers (418.56-2~bpo9+1) stretch-backports; urgency=medium
 
   * Rebuild for stretch-backports.
@@ -179,6 +195,7 @@ nvidia-graphics-drivers (410.104-2) unstable; urgency=medium
   * [i386 armhf]: Drop nvidia-legacy-check.
   * [i386 armhf]: Reinstate nvidia-driver, xserver-xorg-video-nvidia as
     transitional packages depending on the 390.xx legacy driver.
+    (Closes: #921917)
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 26 Mar 2019 10:30:59 +0100
 
@@ -247,7 +264,7 @@ nvidia-graphics-drivers (410.78-1) experimental; urgency=medium
       rather than "DP-5". Scripts and configuration files that use the DP
       identifier for this connector will be affected.
     - Added support for the following GPUs: Quadro RTX 5000, Quadro RTX 6000,
-      GeForce RTX 2070.
+      GeForce RTX 2070.  (Closes: #911433)
   * New upstream beta 410.57 (2018-09-20).
     - Added a graphics API visual indicator.  It can be toggled through
       nvidia-settings' "OpenGL Settings" panel, the
@@ -444,6 +461,7 @@ nvidia-graphics-drivers (390.116-1) stretch; urgency=medium
     - Fixed a build failure, "implicit declaration of function do_gettimeofday",
       when building the NVIDIA kernel module for Linux kernel 5.0 release
       candidates.
+  * New upstream legacy branch release 367 series.
     - Added a new kernel module parameter, NVreg_RestrictProfilingToAdminUsers,
       to allow restricting the use of GPU performance counters to system
       administrators only.
