@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (418.74-1~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 16 Jun 2019 12:53:57 +0200
+
 nvidia-graphics-drivers (418.74-1) unstable; urgency=medium
 
   * New upstream long lived branch release 418.74 (2019-05-07).
