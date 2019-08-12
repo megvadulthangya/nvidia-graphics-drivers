@@ -1,11 +1,11 @@
-nvidia-graphics-drivers-legacy-340xx (340.107-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.107-5) unstable; urgency=medium
 
   * Add buildfix_kernel_4.11.patch (replacing vm-fault.patch),
     buildfix_kernel_5.0.patch, buildfix_kernel_5.2.patch from Ubuntu to fix
     kernel module build for Linux 5.2.  (Closes: #934295)
   * Bump Standards-Version to 4.4.0. No changes needed.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 10 Aug 2019 00:18:10 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 12 Aug 2019 12:20:21 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.107-4) unstable; urgency=medium
 
