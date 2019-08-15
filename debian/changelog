@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-340xx (340.107-6) UNRELEASED; urgency=medium
+
+  * Add conftest-include-guard.patch to restore compatibility with older
+    kernels.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Aug 2019 13:29:24 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.107-5) unstable; urgency=medium
 
   * Add buildfix_kernel_4.11.patch (replacing vm-fault.patch),
