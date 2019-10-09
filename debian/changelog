@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-340xx (340.107-7) UNRELEASED; urgency=medium
+
+  * Add buildfix_kernel_5.3.patch from Ubuntu to fix kernel module build for
+    Linux 5.3.  (Closes: #941788)
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 09 Oct 2019 22:34:10 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.107-6) unstable; urgency=medium
 
   * Add conftest-include-guard.patch to restore compatibility with older
