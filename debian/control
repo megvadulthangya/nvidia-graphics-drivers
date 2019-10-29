@@ -60,60 +60,129 @@ Description: NVIDIA metapackage${nvidia:LegacyDesc}
  .
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
-#Package: ${nvidia}-driver-bin
-Package: nvidia-legacy-340xx-driver-bin
-Section: non-free/x11
+#Package: ${nvidia}-alternative
+Package: nvidia-legacy-340xx-alternative
 Architecture: i386 amd64 armhf
+Multi-Arch: foreign
+Pre-Depends:
+ dpkg (>= 1.17.21),
+ ${nvidia:legacy-check},
+ ${misc:Pre-Depends}
+Depends:
+ glx-alternative-nvidia (>= 0.7),
+ ${misc:Depends}
+Conflicts:
+ nvidia-alternative,
+ nvidia-alternative-any,
+Provides:
+ nvidia-alternative-any,
+ ${nvidia}-alternative--kmod-alias,
+Description: allows the selection of NVIDIA as GLX provider${nvidia:LegacyDesc}
+ In setups with several NVIDIA driver versions installed (e.g. current and
+ legacy) this metapackage registers an alternative to allow easy switching
+ between the different versions.
+ .
+ Use 'update-glx --config nvidia' to select a version.
+ .
+ This package does not depend on the corresponding NVIDIA libraries.
+ In order to install the NVIDIA driver and libraries, install the
+ ${nvidia}-driver package instead.
+
+#Package: ${nvidia}-kernel-support
+Package: nvidia-legacy-340xx-kernel-support
+Section: non-free/kernel
+Architecture: i386 amd64 armhf
+Multi-Arch: foreign
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
- ${shlibs:Depends}, ${misc:Depends}
-Recommends:
- ${nvidia}-driver,
+ ${nvidia}-alternative--kmod-alias,
+ nvidia-kernel-common (>= 20151021),
+ nvidia-modprobe,
+ ${misc:Depends}
 Provides:
- nvidia-driver-bin-${nvidia:Version},
-Conflicts:
- nvidia-driver-bin-${nvidia:Version},
-Description: NVIDIA driver support binaries${nvidia:LegacyDesc}
+ nvidia-kernel-support-any,
+ ${nvidia}-kernel-support--v1,
+Breaks:
+ glx-alternative-nvidia (<< 0.6.91),
+Replaces:
+ glx-alternative-nvidia (<< 0.6.91),
+Description: NVIDIA binary kernel module support files${nvidia:LegacyDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
  for graphics cards using NVIDIA chip sets.
  .
- This package contains supporting binaries for the driver.
+ This package provides supporting configuration for the kernel module.
 
-#Package: ${nvidia}-driver-libs
-Package: nvidia-legacy-340xx-driver-libs
+#Package: ${nvidia}-kernel-dkms
+Package: nvidia-legacy-340xx-kernel-dkms
+Section: non-free/kernel
 Architecture: i386 amd64 armhf
-Multi-Arch: same
+Multi-Arch: foreign
+Pre-Depends:
+ nvidia-installer-cleanup,
 Depends:
- libgl1-${nvidia}-glx (= ${binary:Version}),
- libegl1-${nvidia} (= ${binary:Version}),
+ ${nvidia}-kernel-support--v1,
  ${misc:Depends}
 Recommends:
- ${nvidia}-driver-libs-i386 [amd64],
- libgles1-${nvidia} (= ${binary:Version}),
- libgles2-${nvidia} (= ${binary:Version}),
- lib${nvidia}-encode1 (= ${binary:Version}),
- lib${nvidia}-cfg1 (= ${binary:Version}),
+ ${nvidia}-driver (>= ${nvidia:Version}) | ${libcuda1} (>= ${nvidia:Version}),
 Provides:
- nvidia-driver-libs-any,
-Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES libraries)${nvidia:LegacyDesc}
- This metapackage depends on the NVIDIA binary libraries
- that provide optimized hardware acceleration of
- OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server.
+ ${nvidia}-kernel-${nvidia:Version},
+Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
+ This package builds the NVIDIA binary kernel modules needed by
+ ${nvidia}-driver, using DKMS.
+ Provided that you have the kernel header packages installed, the kernel
+ module will be built for your running kernel and automatically rebuilt for
+ any new kernel headers that are installed.
+ .
+ The NVIDIA binary driver provides optimized hardware acceleration of
+ OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
+ for graphics cards using NVIDIA chip sets.
+ .
+ ${nvidia:Models}
+ .
+ See /usr/share/doc/${nvidia}-kernel-dkms/README.txt.gz
+ for a complete list of supported GPUs and PCI IDs.
+ .
+ This package contains the blobs for building kernel modules for the
+ ${nvidia:kmod:blob:archlist}.
+ Building the kernel modules has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
-#Package: ${nvidia}-driver-libs-i386
-Package: nvidia-legacy-340xx-driver-libs-i386
-Architecture: i386
-Multi-Arch: foreign
+#Package: ${nvidia}-kernel-source
+Package: nvidia-legacy-340xx-kernel-source
+Section: non-free/kernel
+Architecture: i386 amd64 armhf
 Depends:
- ${nvidia}-driver-libs,
+ debhelper (>= 10),
+ quilt,
  ${misc:Depends}
-Conflicts:
- libgl1-${nvidia}-glx-i386,
-Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES 32-bit libraries)${nvidia:LegacyDescShort}
- This metapackage helps the automatic installation of the 32-bit NVIDIA
- OpenGL/GLX/EGL/GLES libraries when installing ${nvidia}-driver-libs
- on amd64 with foreign architecture i386 enabled.
+Recommends:
+ module-assistant,
+ ${nvidia}-kernel-support--v1,
+Suggests:
+ ${nvidia}-driver (>= ${nvidia:Version}),
+Breaks:
+ module-assistant (<< 0.11.6~),
+Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
+ This package provides the source for the NVIDIA binary kernel modules
+ needed by ${nvidia}-driver in a form suitable
+ for use by module-assistant.
+ .
+ The NVIDIA binary driver provides optimized hardware acceleration of
+ OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
+ for graphics cards using NVIDIA chip sets.
+ .
+ PLEASE read /usr/share/doc/${nvidia}-kernel-source/README.Debian.gz
+ for building information. If you want the kernel module to be automatically
+ installed via DKMS, install ${nvidia}-kernel-dkms instead.
+ .
+ ${nvidia:Models}
+ .
+ See /usr/share/doc/${nvidia}-kernel-source/README.txt.gz
+ for a complete list of supported GPUs and PCI IDs.
+ .
+ This package contains the blobs for building kernel modules for the
+ ${nvidia:kmod:blob:archlist}.
+ Building the kernel modules has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
 #Package: xserver-xorg-video-${nvidia}
 Package: xserver-xorg-video-nvidia-legacy-340xx
@@ -153,6 +222,84 @@ Description: NVIDIA binary Xorg driver${nvidia:LegacyDesc}
  .
  See /usr/share/doc/${nvidia}-driver/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
+
+#Package: ${nvidia}-driver-bin
+Package: nvidia-legacy-340xx-driver-bin
+Section: non-free/x11
+Architecture: i386 amd64 armhf
+Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+ ${nvidia}-driver,
+Provides:
+ nvidia-driver-bin-${nvidia:Version},
+Conflicts:
+ nvidia-driver-bin-${nvidia:Version},
+Description: NVIDIA driver support binaries${nvidia:LegacyDesc}
+ The NVIDIA binary driver provides optimized hardware acceleration of
+ OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
+ for graphics cards using NVIDIA chip sets.
+ .
+ This package contains supporting binaries for the driver.
+
+#Package: lib${nvidia}-cfg1
+Package: libnvidia-legacy-340xx-cfg1
+Architecture: i386 amd64 armhf
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Provides:
+ libnvidia-cfg.so.1 (= ${nvidia:Version}),
+ libnvidia-cfg1-any,
+Breaks:
+ libgl1-${nvidia}-glx (<< 340.96-8~),
+Replaces:
+ libgl1-${nvidia}-glx (<< 340.96-8~),
+Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:LegacyDesc}
+ The NVIDIA binary driver provides optimized hardware acceleration of
+ OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
+ for graphics cards using NVIDIA chip sets.
+ .
+ This package contains the libnvidia-cfg.so.1 runtime library.
+
+#Package: ${nvidia}-driver-libs
+Package: nvidia-legacy-340xx-driver-libs
+Architecture: i386 amd64 armhf
+Multi-Arch: same
+Depends:
+ libgl1-${nvidia}-glx (= ${binary:Version}),
+ libegl1-${nvidia} (= ${binary:Version}),
+ ${misc:Depends}
+Recommends:
+ ${nvidia}-driver-libs-i386 [amd64],
+ libgles1-${nvidia} (= ${binary:Version}),
+ libgles2-${nvidia} (= ${binary:Version}),
+ lib${nvidia}-encode1 (= ${binary:Version}),
+ lib${nvidia}-cfg1 (= ${binary:Version}),
+Provides:
+ nvidia-driver-libs-any,
+Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES libraries)${nvidia:LegacyDesc}
+ This metapackage depends on the NVIDIA binary libraries
+ that provide optimized hardware acceleration of
+ OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server.
+
+#Package: ${nvidia}-driver-libs-i386
+Package: nvidia-legacy-340xx-driver-libs-i386
+Architecture: i386
+Multi-Arch: foreign
+Depends:
+ ${nvidia}-driver-libs,
+ ${misc:Depends}
+Conflicts:
+ libgl1-${nvidia}-glx-i386,
+Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES 32-bit libraries)${nvidia:LegacyDescShort}
+ This metapackage helps the automatic installation of the 32-bit NVIDIA
+ OpenGL/GLX/EGL/GLES libraries when installing ${nvidia}-driver-libs
+ on amd64 with foreign architecture i386 enabled.
 
 #Package: libgl1-${nvidia}-glx
 Package: libgl1-nvidia-legacy-340xx-glx
@@ -301,153 +448,6 @@ Description: NVIDIA binary EGL core libraries${nvidia:LegacyDesc}
  This package contains the private core libraries used by the NVIDIA
  implementation of EGL and OpenGL|ES.
 
-#Package: lib${nvidia}-cfg1
-Package: libnvidia-legacy-340xx-cfg1
-Architecture: i386 amd64 armhf
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${nvidia}-alternative (= ${binary:Version}),
- ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-cfg.so.1 (= ${nvidia:Version}),
- libnvidia-cfg1-any,
-Breaks:
- libgl1-${nvidia}-glx (<< 340.96-8~),
-Replaces:
- libgl1-${nvidia}-glx (<< 340.96-8~),
-Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:LegacyDesc}
- The NVIDIA binary driver provides optimized hardware acceleration of
- OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
- for graphics cards using NVIDIA chip sets.
- .
- This package contains the libnvidia-cfg.so.1 runtime library.
-
-#Package: ${nvidia}-alternative
-Package: nvidia-legacy-340xx-alternative
-Architecture: i386 amd64 armhf
-Multi-Arch: foreign
-Pre-Depends:
- dpkg (>= 1.17.21),
- ${nvidia:legacy-check},
- ${misc:Pre-Depends}
-Depends:
- glx-alternative-nvidia (>= 0.7),
- ${misc:Depends}
-Conflicts:
- nvidia-alternative,
- nvidia-alternative-any,
-Provides:
- nvidia-alternative-any,
- ${nvidia}-alternative--kmod-alias,
-Description: allows the selection of NVIDIA as GLX provider${nvidia:LegacyDesc}
- In setups with several NVIDIA driver versions installed (e.g. current and
- legacy) this metapackage registers an alternative to allow easy switching
- between the different versions.
- .
- Use 'update-glx --config nvidia' to select a version.
- .
- This package does not depend on the corresponding NVIDIA libraries.
- In order to install the NVIDIA driver and libraries, install the
- ${nvidia}-driver package instead.
-
-#Package: ${nvidia}-kernel-support
-Package: nvidia-legacy-340xx-kernel-support
-Section: non-free/kernel
-Architecture: i386 amd64 armhf
-Multi-Arch: foreign
-Depends:
- ${nvidia}-alternative (= ${binary:Version}),
- ${nvidia}-alternative--kmod-alias,
- nvidia-kernel-common (>= 20151021),
- nvidia-modprobe,
- ${misc:Depends}
-Provides:
- nvidia-kernel-support-any,
- ${nvidia}-kernel-support--v1,
-Breaks:
- glx-alternative-nvidia (<< 0.6.91),
-Replaces:
- glx-alternative-nvidia (<< 0.6.91),
-Description: NVIDIA binary kernel module support files${nvidia:LegacyDesc}
- The NVIDIA binary driver provides optimized hardware acceleration of
- OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
- for graphics cards using NVIDIA chip sets.
- .
- This package provides supporting configuration for the kernel module.
-
-#Package: ${nvidia}-kernel-dkms
-Package: nvidia-legacy-340xx-kernel-dkms
-Section: non-free/kernel
-Architecture: i386 amd64 armhf
-Multi-Arch: foreign
-Pre-Depends:
- nvidia-installer-cleanup,
-Depends:
- ${nvidia}-kernel-support--v1,
- ${misc:Depends}
-Recommends:
- ${nvidia}-driver (>= ${nvidia:Version}) | ${libcuda1} (>= ${nvidia:Version}),
-Provides:
- ${nvidia}-kernel-${nvidia:Version},
-Description: NVIDIA binary kernel module DKMS source${nvidia:LegacyDesc}
- This package builds the NVIDIA binary kernel modules needed by
- ${nvidia}-driver, using DKMS.
- Provided that you have the kernel header packages installed, the kernel
- module will be built for your running kernel and automatically rebuilt for
- any new kernel headers that are installed.
- .
- The NVIDIA binary driver provides optimized hardware acceleration of
- OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
- for graphics cards using NVIDIA chip sets.
- .
- ${nvidia:Models}
- .
- See /usr/share/doc/${nvidia}-kernel-dkms/README.txt.gz
- for a complete list of supported GPUs and PCI IDs.
- .
- This package contains the blobs for building kernel modules for the
- ${nvidia:kmod:blob:archlist}.
- Building the kernel modules has been tested up to Linux ${nvidia:kmod:tested:Linux}.
-
-#Package: ${nvidia}-kernel-source
-Package: nvidia-legacy-340xx-kernel-source
-Section: non-free/kernel
-Architecture: i386 amd64 armhf
-Depends:
- debhelper (>= 10),
- quilt,
- ${misc:Depends}
-Recommends:
- module-assistant,
- ${nvidia}-kernel-support--v1,
-Suggests:
- ${nvidia}-driver (>= ${nvidia:Version}),
-Breaks:
- module-assistant (<< 0.11.6~),
-Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
- This package provides the source for the NVIDIA binary kernel modules
- needed by ${nvidia}-driver in a form suitable
- for use by module-assistant.
- .
- The NVIDIA binary driver provides optimized hardware acceleration of
- OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
- for graphics cards using NVIDIA chip sets.
- .
- PLEASE read /usr/share/doc/${nvidia}-kernel-source/README.Debian.gz
- for building information. If you want the kernel module to be automatically
- installed via DKMS, install ${nvidia}-kernel-dkms instead.
- .
- ${nvidia:Models}
- .
- See /usr/share/doc/${nvidia}-kernel-source/README.txt.gz
- for a complete list of supported GPUs and PCI IDs.
- .
- This package contains the blobs for building kernel modules for the
- ${nvidia:kmod:blob:archlist}.
- Building the kernel modules has been tested up to Linux ${nvidia:kmod:tested:Linux}.
-
 #Package: ${nvidia}-vdpau-driver
 Package: nvidia-legacy-340xx-vdpau-driver
 Section: non-free/video
@@ -500,6 +500,24 @@ Description: NVIDIA System Management Interface${nvidia:LegacyDesc}
  .
  See the output from the --help command line option for supported models and
  further information.
+
+#Package: lib${nvidia}-ml1
+Package: libnvidia-legacy-340xx-ml1
+Architecture: i386 amd64 armhf
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Provides:
+ libnvidia-ml.so.1 (= ${nvidia:Version}),
+Homepage: https://developer.nvidia.com/nvidia-management-library-NVML
+Description: NVIDIA Management Library (NVML) runtime library${nvidia:LegacyDesc}
+ The NVIDIA Management Library (NVML) provides a monitoring and management API.
+ It provides a direct access to the queries and commands exposed via nvidia-smi.
+ .
+ This package contains the nvidia-ml runtime library.
 
 #Package: ${libcuda1}
 Package: libnvidia-legacy-340xx-cuda1
@@ -643,24 +661,6 @@ Description: NVIDIA OpenGL-based Framebuffer Capture runtime library${nvidia:Leg
  approved partners for use in remote graphics scenarios.
  .
  This package contains the NvFBCOpenGL runtime library.
-
-#Package: lib${nvidia}-ml1
-Package: libnvidia-legacy-340xx-ml1
-Architecture: i386 amd64 armhf
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${nvidia}-alternative (= ${binary:Version}),
- ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-ml.so.1 (= ${nvidia:Version}),
-Homepage: https://developer.nvidia.com/nvidia-management-library-NVML
-Description: NVIDIA Management Library (NVML) runtime library${nvidia:LegacyDesc}
- The NVIDIA Management Library (NVML) provides a monitoring and management API.
- It provides a direct access to the queries and commands exposed via nvidia-smi.
- .
- This package contains the nvidia-ml runtime library.
 
 #Package: ${nvidia}-opencl-icd
 Package: nvidia-legacy-340xx-opencl-icd
