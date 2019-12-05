@@ -429,7 +429,7 @@ Description: NVIDIA binary kernel module source${nvidia:LegacyDesc}
  for graphics cards using NVIDIA chip sets.
  .
  PLEASE read /usr/share/doc/${nvidia}-kernel-source/README.Debian.gz
- for building information.  If you want the kernel module to be automatically
+ for building information. If you want the kernel module to be automatically
  installed via DKMS, install ${nvidia}-kernel-dkms instead.
  .
  ${nvidia:Models}
@@ -645,8 +645,8 @@ Pre-Depends:
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
-Breaks:
- ${nvidia}-smi (<< ${nvidia:Version}),
+Provides:
+ libnvidia-ml.so.1 (= ${nvidia:Version}),
 Homepage: https://developer.nvidia.com/nvidia-management-library-NVML
 Description: NVIDIA Management Library (NVML) runtime library${nvidia:LegacyDesc}
  The NVIDIA Management Library (NVML) provides a monitoring and management API.
