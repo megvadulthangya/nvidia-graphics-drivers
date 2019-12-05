@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.107-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.107-8) unstable; urgency=medium
 
   * Create and commit tarball symlinks for legacy branches (430.64-1).
   * Allow alternative libnvidia-{tesla,legacy-*}-ml1 packages to substitute
@@ -9,7 +9,7 @@ nvidia-graphics-drivers-legacy-340xx (340.107-8) UNRELEASED; urgency=medium
   * Add buildfix_kernel_5.4.patch from Ubuntu to fix kernel module build for
     Linux 5.4.  (Closes: #946137)
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 05 Dec 2019 15:01:05 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 05 Dec 2019 22:45:31 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.107-7) unstable; urgency=medium
 
