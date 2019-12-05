@@ -6,6 +6,8 @@ nvidia-graphics-drivers-legacy-340xx (340.107-8) UNRELEASED; urgency=medium
     - Add Provides: libnvidia-ml.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libnvidia-ml.so.1 through
       the symbols file.
+  * Add buildfix_kernel_5.4.patch from Ubuntu to fix kernel module build for
+    Linux 5.4.  (Closes: #946137)
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 05 Dec 2019 15:01:05 +0100
 
