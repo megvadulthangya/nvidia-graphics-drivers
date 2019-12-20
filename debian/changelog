@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (430.64-4~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 21 Dec 2019 00:10:51 +0100
+
 nvidia-graphics-drivers (430.64-4) unstable; urgency=medium
 
   * Do not build most non-GLVND packages (435.17-1).  (Closes: #939401)
