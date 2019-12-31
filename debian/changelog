@@ -1,3 +1,30 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy 340xx branch release 340.108 (2019-12-23).
+    - Updated the nvidia-drm kernel module for compatibility with the removal
+      of the DRIVER_PRIME flag in recent Linux kernel versions.
+    - Updated nvidia-bug-report.sh to search the systemd journal for
+      gdm-x-session logs.
+    - Fixed a build failure, "too many arguments to function 'get_user_pages'",
+      when building the NVIDIA kernel module for Linux kernel v4.4.168.
+    - Fixed a build failure, "implicit declaration of function do_gettimeofday",
+      when building the NVIDIA kernel module for Linux kernel 5.0 release
+      candidates.
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Add buildfix_kernel_4.11.patch (replacing vm-fault.patch) and (parts of)
+    buildfix_kernel_5.2.patch from Ubuntu to fix more vm-fault issues during
+    kernel module build for Linux 5.2+.
+  * Refresh patches.
+  * Allow alternative libnvidia-{tesla,legacy-*}-cuda1 packages to substitute
+    libcuda1 in third-party packages (430.64-3).
+    - Add Provides: libcuda.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libcuda.so.1 through the
+      symbols file.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 31 Dec 2019 03:25:04 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.107-8) unstable; urgency=medium
 
   * Create and commit tarball symlinks for legacy branches (430.64-1).
@@ -80,6 +107,7 @@ nvidia-graphics-drivers-legacy-340xx (340.107-1) unstable; urgency=medium
     - Fixed a bug which could cause X servers that export a Video Driver
       ABI earlier than 0.8 to crash when running X11 applications which
       call XRenderAddTraps().
+    * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
   * Convert packaging repository from SVN to GIT.

@@ -15,7 +15,7 @@ diff --git a/uvm/nvidia_uvm_lite.c b/uvm/nvidia_uvm_lite.c
 index 246ed04..119c93a 100644
 --- a/uvm/nvidia_uvm_lite.c
 +++ b/uvm/nvidia_uvm_lite.c
-@@ -818,8 +818,15 @@ done:
+@@ -820,8 +820,15 @@ done:
  }
  
  #if defined(NV_VM_OPERATIONS_STRUCT_HAS_FAULT)
@@ -31,7 +31,7 @@ index 246ed04..119c93a 100644
  #if defined(NV_VM_FAULT_HAS_ADDRESS)
      unsigned long vaddr = vmf->address;
  #else
-@@ -866,7 +873,11 @@ static struct vm_operations_struct uvmlite_vma_ops =
+@@ -868,7 +875,11 @@ static struct vm_operations_struct uvmli
  // it's dealing with anonymous mapping (see handle_pte_fault).
  //
  #if defined(NV_VM_OPERATIONS_STRUCT_HAS_FAULT)
