@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-1) unstable; urgency=medium
 
   * New upstream legacy 340xx branch release 340.108 (2019-12-23).
     - Updated the nvidia-drm kernel module for compatibility with the removal
@@ -23,7 +23,7 @@ nvidia-graphics-drivers-legacy-340xx (340.108-1) UNRELEASED; urgency=medium
     - Generate alternative versioned dependency on libcuda.so.1 through the
       symbols file.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 31 Dec 2019 03:25:04 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 31 Dec 2019 04:23:51 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.107-8) unstable; urgency=medium
 
