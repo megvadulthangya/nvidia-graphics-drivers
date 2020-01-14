@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-2~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 14 Jan 2020 12:04:10 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.108-2) unstable; urgency=medium
 
   * Restore kmem_cache_create_usercopy.patch.  (Closes: #948032, #948195)
