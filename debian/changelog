@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-3~deb9u1) stretch; urgency=medium
+
+  * Rebuild for stretch.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 02 Feb 2020 12:56:28 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.108-3~deb10u1) buster; urgency=medium
 
   * Rebuild for buster.
