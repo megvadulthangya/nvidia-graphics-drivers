@@ -1,3 +1,227 @@
+nvidia-graphics-drivers (440.59-1) unstable; urgency=medium
+
+  * New upstream long lived branch release 440.44 (2020-02-03).
+    - Disabled frame rate limiting for configurations without active
+      displays when HardDPMS is enabled.
+    - Restricted the maximum number of GPU Screens to one GPU Screen per
+      GPU device, to prevent X from crashing when more than one GPU Screen
+      is configured for a single GPU device.
+    - Fixed a bug that could cause the X server to crash while exiting
+      DPMS with HardDPMS enabled.
+    - Added support for the following GPUs: Tesla PG500-216, Tesla PG504-216.
+    - Added support for audio over DisplayPort Multi-Stream. This support
+      requires Linux kernel version 5.5 or newer.
+    - Updated the NVIDIA driver to allow NVIDIA High Definition Audio (HDA)
+      controllers to respond to display hotplug events while the HDA is
+      runtime-suspended.
+    - Fixed a bug that caused DXVK titles to endlessly loop during shader
+      compilation if no OpSource instruction was present.
+  * New upstream release 390 series.
+    - Add PRIME Synchronization support for Linux kernel 5.4 and newer.
+      (Closes: #948568)
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Update symbols files.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 06 Feb 2020 22:39:27 +0100
+
+nvidia-graphics-drivers (440.44-2) unstable; urgency=medium
+
+  * Merge changes from 435.21-3.
+  * Rename "legacy" variables to more generic "variant".
+  * Upload to unstable.  (Closes: #950128)
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 29 Jan 2020 21:03:10 +0100
+
+nvidia-graphics-drivers (440.44-1) experimental; urgency=medium
+
+  * New upstream long lived branch release 440.44 (2019-12-11).
+    - Added support for the following GPU: GeForce GTX 1650 SUPER.
+    - Added support for the __GL_SYNC_DISPLAY_DEVICE environment variable for
+      Vulkan applications.
+    - Fixed a bug that caused applications running directly on a display
+      (such as VR HMDs) to tear when a G-SYNC or G-SYNC Compatible monitor
+      is plugged in the system.
+  * New upstream release 430 series.
+    - Fixed a bug in an error handling path that could cause a kernel crash
+      while loading nvidia.ko.
+  * New upstream release 418 series.
+    - Added support for the following GPU: Quadro T2000 with Max-Q Design.
+  * New upstream release 390 series.
+    - Fixed driver installation failure on Oracle Linux 7.7 systems,
+      where the NVIDIA kernel module failed to build with error "unknown
+      type name 'vm_fault_t'".
+
+  [ Andreas Beckmann ]
+  * Merge changes from 430.64-4.
+  * Update nv-readme.ids.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 16 Dec 2019 13:06:12 +0100
+
+nvidia-graphics-drivers (440.36-1) experimental; urgency=medium
+
+  * New upstream long lived branch release 440.36 (2019-11-22).
+    - Fixed graphical corruption that can occur when using
+      glslang SPIR-V Generator Version <= 2.
+
+  [ Andreas Beckmann ]
+  * Update symbols files.
+  * libcuda1: Add Provides: libcuda-10.2-1{,-i386}.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 26 Nov 2019 15:27:45 +0100
+
+nvidia-graphics-drivers (440.31-1) experimental; urgency=medium
+
+  * New upstream long lived branch release 440.31 (2019-11-04).
+    - Added support for the following GPUs: Tesla V100S-PCIE-32GB,
+      GeForce GTX 1660 SUPER.
+    - Fixed a regression in the 440.26 driver that could prevent the NVIDIA
+      kernel modules from building correctly on systems localized to a
+      language other than English.  (Closes: #944556)
+
+  [ Andreas Beckmann ]
+  * Merge changes from 430.64-1.
+  * Update nv-readme.ids.
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 18 Nov 2019 00:28:08 +0100
+
+nvidia-graphics-drivers (440.26-1) experimental; urgency=medium
+
+  * New upstream beta 440.26 (2019-10-17).
+    - Enabled parallel GLSL shader linking by default; i.e., allow
+      GL_ARB_parallel_shader_compile to work without first calling
+      glMaxShaderCompilerThreadsARB().
+    - Added support for HDMI 2.1 variable refresh rate (VRR) G-SYNC Compatible
+      monitors on supported GPUs.  For more details, see "Configuring Multiple
+      Display Devices on One X Screen" in the README.
+    - Added support for the GLX_NV_multigpu_context and GL_NV_gpu_multicast
+      extensions.  For more details, see the "Configuring SLI and Multi-GPU
+      FrameRendering" chapter of the README, and the extension specifications:
+        https://www.khronos.org/registry/OpenGL/extensions/NV/GLX_NV_multigpu_context.txt
+        https://www.khronos.org/registry/OpenGL/extensions/NV/NV_gpu_multicast.txt
+    - Fixed a bug that prevented Vulkan applications running on systems
+      configured for SLI. Vulkan applications can now run while SLI is
+      enabled; however, they will only be able to use a single GPU.
+    - Simplified the nvidia-sleep.sh sample script to no longer depend on
+      unreliable detection of the current VT through X server logs.
+    - Added EGL support for PRIME render offload. Please see the PRIME Render
+      Offload chapter in the README for configuration details.
+    - Fixed a regression introduced in 435.19.02 that would cause some
+      applications which use the VK_KHR_DISPLAY extension to result in a
+      segmentation fault.
+    - Enabled HardDPMS by default. See the README entry on the X configuration
+      option "HardDPMS" for more information.
+    - Fixed a bug which caused corruption in the following DXVK titles:
+        Saints Row IV, Saints Row: The Third.
+    - Added VP9 decode support to the NVIDIA VDPAU driver. See the
+      VDPAU Support appendix in the README for supported VP9 decoder
+      profiles.
+    - Fixed a bug that could cause heapUsage values reported by
+      VK_EXT_memory_budget to not immediately update after vkFreeMemory was
+      called.
+    - Changed GPU clock management strategy to more quickly ramp down clocks
+      after a drop in GPU utilization.
+    - Added X configuration option, "SidebandSocketPath", which
+      controls the directory in which the X driver will create a
+      pathname UNIX domain socket used to communicate with the NVIDIA
+      OpenGL, Vulkan and VDPAU driver components.
+    - The X driver will now create a fallback pathname UNIX domain
+      socket in the directory specified by the "SidebandSocketPath"
+      option, or /var/run by default, which will be used by other
+      NVIDIA driver components if they are unable to connect to the
+      default abstract socket.  This fixes a bug where graphics
+      applications run within a network namespace (which prevents the
+      use of abstract sockets) were unable to take advantage of some
+      driver features, such as G-Sync.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Update symbols files.
+  * Refresh patches.
+  * Update lintian overrides.
+  * libnvidia-allocator1: New package for the allocator runtime library.
+  * Upload to experimental.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Nov 2019 18:31:45 +0100
+
+nvidia-graphics-drivers (435.21-3) unstable; urgency=low
+
+  * Merge changes from 430.64-5.
+  * Continue building libegl1-nvidia.
+  * Insert '-' between suffix ending with digit and SOVERSION.
+  * Bump Standards-Version to 4.5.0. No changes needed.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 28 Jan 2020 16:14:18 +0100
+
+nvidia-graphics-drivers (435.21-2) experimental; urgency=medium
+
+  * Merge changes from 430.50-2.
+  * Continue building nvidia-nonglvnd-vulkan-common.
+  * Restrict watch file to releases from the 435.xx short lived branch.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 31 Oct 2019 15:07:11 +0100
+
+nvidia-graphics-drivers (435.21-1) experimental; urgency=medium
+
+  * New upstream short lived branch release 435.21 (2019-08-29).
+    - Fixed a bug that caused the X server to crash when using HardDPMS with
+      an NVIDIA-driven GPU Screen.
+  * New upstream beta 435.17 (2019-08-13).
+    - Fixed a bug which caused the kernel to panic when exiting a single X
+      server when multiple X servers were active and in an SLI configuration.
+    - Fixed a regression introduced in the 430.* series of releases that
+      caused a segmentation fault in libnvcuvid.so while using Video Codec
+      SDK APIs on certain graphics boards.
+    - Added initial experimental support for runtime D3 (RTD3) power
+      management on Turing notebook GPUs.
+    - Improved nvidia-bug-report.sh to collect runtime D3 (RTD3) power
+      management information.
+    - Improved nvidia-bug-report.sh to collect ACPI tables when the acpidump
+      tool is available.
+    - Added Vulkan and OpenGL+GLX support for PRIME render offload.
+      Please see the PRIME Render Offload chapter in the README for
+      system requirements and configuration details.
+    - Fixed the cuvidParseVideoData API in the NVCUVID driver to
+      correctly propagate errors returned by the PFNVIDSEQUENCECALLBACK
+      callback function to the application.
+    - Fixed a bug that caused the NVIDIA X driver to behave incorrectly or
+      crash when a client queried Xinerama information on X servers with a
+      non-NVIDIA X screen as screen 0.
+    - Fixed a bug that could cause Vulkan applications to generate spurious
+      warning messages about a missing NV-GLX extension.
+    - Removed the non-GLVND OpenGL libraries from the NVIDIA Linux driver
+      installation package. The GLVND OpenGL libraries were introduced in
+      release 361.16, and have been installed by default since release
+      364.12, with the non-GLVND versions available as an alternative via
+      the "--no-glvnd-glx-client" and "--no-glvnd-egl-client" installer
+      options. As the non-GLVND libraries are no longer included in the
+      installation package, these options will no longer have any effect.
+    - Fixed a bug that prevented nvidia-drm from marking preferred modes
+      properly when reporting display information via the DRM-KMS API.
+    - Fixed the NvEncodeAPI driver to correctly reject the encoding of
+      sequences with resolutions smaller than what the NVENC supports.
+
+  [ Luca Boccassi ]
+  * Remove non-GLVND packages.
+  * nvidia-vulkan-common: Ship nvidia_layers.json.
+  * Update symbols files.
+  * Update lintian overrides.
+
+  [ Andreas Beckmann ]
+  * Upload to experimental.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 31 Aug 2019 00:15:24 +0200
+
+nvidia-graphics-drivers (430.64-5) unstable; urgency=medium
+
+  * Use substitution to keep Standards-Version in sync.
+  * nvidia-detect: The 340xx legacy driver will not be in bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 08 Jan 2020 23:11:01 +0100
+
 nvidia-graphics-drivers (430.64-4~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -627,9 +851,6 @@ nvidia-graphics-drivers (390.132-1) UNRELEASED; urgency=medium
       candidates.
     - Updated nvidia-bug-report.sh to collect information about X server crashes
       from coredumpctl, when available.
-  * New upstream legacy branch release 340 series.
-    - Updated the nvidia-drm kernel module for compatibility with the removal
-      of the DRIVER_PRIME flag in recent Linux kernel versions.
 
   [ Andreas Beckmann ]
   * Refresh patches.
@@ -642,9 +863,6 @@ nvidia-graphics-drivers (390.129-1) UNRELEASED; urgency=medium
     - Improved nvidia-bug-report.sh to grab the output of the `vulkaninfo`
       command when it is available.
     * Improved compatibility with recent Linux kernels.
-  * New upstream legacy branch release 340 series.
-    - Updated nvidia-bug-report.sh to search the systemd journal for
-      gdm-x-session logs.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 06 Aug 2019 19:04:49 +0200
 
@@ -668,12 +886,6 @@ nvidia-graphics-drivers (390.116-1) stretch; urgency=medium
     - Fixed a bug that could cause rendering corruption in Vulkan programs.
     - Fixed a bug that caused vkGetPhysicalDeviceDisplayPropertiesKHR() to
       occasionally return incorrect values for physicalResolution.
-  * New upstream legacy branch release 340 series.
-    - Fixed a build failure, "too many arguments to function 'get_user_pages'",
-      when building the NVIDIA kernel module for Linux kernel v4.4.168.
-    - Fixed a build failure, "implicit declaration of function do_gettimeofday",
-      when building the NVIDIA kernel module for Linux kernel 5.0 release
-      candidates.
   * New upstream legacy branch release 367 series.
     - Added a new kernel module parameter, NVreg_RestrictProfilingToAdminUsers,
       to allow restricting the use of GPU performance counters to system
@@ -3121,6 +3333,38 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
+nvidia-graphics-drivers (340.108-1) UNRELEASED; urgency=medium
+
+  * The 340.xx legacy driver series has been declared as End-of-Life by
+    NVIDIA. No further updates fixing security issues, critical bugs, or
+    adding support for new Xorg or Linux releases will be issued.
+    https://nvidia.custhelp.com/app/answers/detail/a_id/3142
+
+  * New upstream legacy 340xx branch release 340.108 (2019-12-23).
+    - Updated the nvidia-drm kernel module for compatibility with the removal
+      of the DRIVER_PRIME flag in recent Linux kernel versions.
+    - Updated nvidia-bug-report.sh to search the systemd journal for
+      gdm-x-session logs.
+    - Fixed a build failure, "too many arguments to function 'get_user_pages'",
+      when building the NVIDIA kernel module for Linux kernel v4.4.168.
+    - Fixed a build failure, "implicit declaration of function do_gettimeofday",
+      when building the NVIDIA kernel module for Linux kernel 5.0 release
+      candidates.
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Backport kmem_cache_create_usercopy.patch from 390.67-2 for the 340.xx
+    series, fixing "Bad or missing usercopy whitelist? Kernel memory exposure
+    attempt detected from SLUB object 'nvidia_stack_cache'" on Linux kernels
+    that have disabled CONFIG_HARDENED_USERCOPY_FALLBACK
+    (i.e. linux-image-4.16.0-2-* or newer).
+  * Add buildfix_kernel_4.11.patch (replacing vm-fault.patch) and (parts of)
+    buildfix_kernel_5.2.patch from Ubuntu to fix more vm-fault issues during
+    kernel module build for Linux 5.2+.
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 03 Jan 2020 02:29:02 +0100
+
 nvidia-graphics-drivers (340.107-1) UNRELEASED; urgency=medium
 
   * New upstream legacy 340xx branch release 340.107 (2018-06-06).
@@ -3130,6 +3374,12 @@ nvidia-graphics-drivers (340.107-1) UNRELEASED; urgency=medium
     - Fixed a bug which could cause X servers that export a Video Driver
       ABI earlier than 0.8 to crash when running X11 applications which
       call XRenderAddTraps().
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * use-nv-kernel-ARCH.o_shipped.patch: Simplify for better kernel
+    compatibility.  (Closes: #922479)
+  * Refresh patches.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 21 Jun 2018 22:28:56 +0200
 

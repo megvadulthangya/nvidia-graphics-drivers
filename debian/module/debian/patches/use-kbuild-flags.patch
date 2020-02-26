@@ -5,17 +5,17 @@ Description: use KBUILD_CFLAGS and (KBUILD_)LDFLAGS
 
 --- a/Kbuild
 +++ b/Kbuild
-@@ -104,6 +104,7 @@ NV_CONFTEST_CMD := /bin/sh $(NV_CONFTEST
-  "$(CC)" "$(HOST_CC)" $(ARCH) $(NV_KERNEL_SOURCES) $(NV_KERNEL_OUTPUT)
+@@ -105,6 +105,7 @@ NV_CONFTEST_CMD := /bin/sh $(NV_CONFTEST
+ NV_CFLAGS_FROM_CONFTEST := $(shell $(NV_CONFTEST_CMD) build_cflags)
  
- NV_CONFTEST_CFLAGS := $(shell $(NV_CONFTEST_CMD) build_cflags)
+ NV_CONFTEST_CFLAGS = $(NV_CFLAGS_FROM_CONFTEST) $(EXTRA_CFLAGS) -fno-pie
 +NV_CONFTEST_CFLAGS += $(filter-out -Werror%,$(KBUILD_CFLAGS))
  
  NV_CONFTEST_COMPILE_TEST_HEADERS := $(obj)/conftest/macros.h
  NV_CONFTEST_COMPILE_TEST_HEADERS += $(obj)/conftest/functions.h
 --- a/nvidia/nvidia.Kbuild
 +++ b/nvidia/nvidia.Kbuild
-@@ -88,7 +88,7 @@ NVIDIA_INTERFACE := nvidia/nv-interface.
+@@ -87,7 +87,7 @@ NVIDIA_INTERFACE := nvidia/nv-interface.
  always += $(NVIDIA_INTERFACE)
  
  $(obj)/$(NVIDIA_INTERFACE): $(addprefix $(obj)/,$(NVIDIA_OBJECTS))
