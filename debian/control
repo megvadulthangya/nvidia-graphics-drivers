@@ -15,6 +15,7 @@ Build-Depends:
  xz-utils,
  dkms,
  libxext6,
+ libxv1,
  libxvmc1,
  quilt,
 Rules-Requires-Root: no
