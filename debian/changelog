@@ -1,8 +1,8 @@
-nvidia-graphics-drivers-legacy-304xx (304.137-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-304xx (304.137-8) unstable; urgency=medium
 
   * Add Build-Depends: libxv1 because libxvmc1 dropped that dependency.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 11 Mar 2020 22:15:08 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 16 Mar 2020 18:35:20 +0100
 
 nvidia-graphics-drivers-legacy-304xx (304.137-7) unstable; urgency=medium
 
