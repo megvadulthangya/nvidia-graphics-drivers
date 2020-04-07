@@ -1,9 +1,9 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-4) unstable; urgency=medium
 
   * Add linux-5.5.patch from Archlinux to fix kernel module build for
     Linux 5.5.  (Closes: #956034)
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 07 Apr 2020 17:32:52 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 07 Apr 2020 18:58:40 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.108-3~deb9u1) stretch; urgency=medium
 
