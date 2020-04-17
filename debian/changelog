@@ -1,3 +1,67 @@
+nvidia-graphics-drivers (440.82-1) unstable; urgency=medium
+
+  * New upstream long lived branch release 440.82 (2020-04-07).
+    - Added a workaround for Steam Play title DOOM Eternal, which overrides
+      application requested memory locations, to ensure performance-critical
+      resources be placed in video memory.
+    - Allow presenting from queue families which only expose
+      VK_QUEUE_COMPUTE_BIT when using XCB in addition to Xlib surfaces.
+    - Fixed a bug that caused render-offloaded applications to crash on exit.
+  * New upstream release 390 series.
+   - Fixed a driver installation failure on Linux kernel 5.6 release
+     candidates, where the NVIDIA kernel module failed to build
+     with error "implicit declaration of function 'timespec_to_ns'".
+   - Fixed a driver installation failure on Linux kernel 5.6 release
+     candidates, where the NVIDIA kernel module failed to build
+     with error "implicit declaration of function 'getrawmonotonic'".
+   - Fixed a driver installation failure on Linux kernel 5.6 release
+     candidates, where the NVIDIA kernel module failed to build
+     with error "implicit declaration of function 'getnstimeofday'".
+   - Fixed a driver installation failure on Linux kernel 5.6 release
+     candidates, where the NVIDIA kernel module failed to build
+     with error "dereferencing pointer to incomplete type 'struct timeval'".
+   - Fixed a driver installation failure on Linux kernel 5.6 release
+     candidates, where the NVIDIA kernel module failed to build
+     with error "implicit declaration of function 'jiffies_to_timespec'".
+   - Fixed driver installation failure on Linux kernel 5.6 release
+     candidates, where the NVIDIA kernel module failed to build
+     with error "passing argument 4 of 'proc_create_data' from
+     incompatible pointer type".
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 11 Apr 2020 14:29:59 +0200
+
+nvidia-graphics-drivers (440.64-2) unstable; urgency=medium
+
+  * Prepare infrastructure for packaging Tesla 440 driver releases (available
+    for amd64 (including some i386 libs) and ppc64el).
+  * nvidia-detect: Add support for Tesla 440 drivers.
+  * Drop versioned constraints that are satisfied in stretch.
+  * bug-control: Report information about more (virtual) packages.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 18 Mar 2020 21:01:28 +0100
+
+nvidia-graphics-drivers (440.64-1) unstable; urgency=medium
+
+  * New upstream long lived branch release 440.64 (2020-02-28).
+    - Added support for the following GPUs: GeForce MX330, GeForce MX350.
+    - Fixed a regression that allowed displays to enter DPMS mode even
+      when DPMS is disabled in the X server settings.
+  * New upstream release 390 series.
+   - Fixed driver installation failure on Linux kernel 5.6 release
+     candidates, where the NVIDIA kernel module failed to build
+     with error "implicit declaration of function
+     'ioremap_nocache'".
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 01 Mar 2020 11:25:24 +0100
+
 nvidia-graphics-drivers (440.59-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -6,7 +70,7 @@ nvidia-graphics-drivers (440.59-1~bpo10+1) buster-backports; urgency=medium
 
 nvidia-graphics-drivers (440.59-1) unstable; urgency=medium
 
-  * New upstream long lived branch release 440.44 (2020-02-03).
+  * New upstream long lived branch release 440.59 (2020-02-03).
     - Disabled frame rate limiting for configurations without active
       displays when HardDPMS is enabled.
     - Restricted the maximum number of GPU Screens to one GPU Screen per
@@ -253,7 +317,7 @@ nvidia-graphics-drivers (430.64-3) unstable; urgency=medium
 nvidia-graphics-drivers (430.64-2) unstable; urgency=medium
 
   * nvidia-detect: Add PCI ID list for 418.74 in buster.
-  * nvidia-detect: Add support for Tesla drivers.
+  * nvidia-detect: Add support for Tesla 418 drivers.
   * nvidia-detect: Build for ppc64el.
   * Allow alternative libnvidia-{tesla,legacy-*}-ml1 packages to substitute
     libnvidia-ml1.
@@ -287,8 +351,8 @@ nvidia-graphics-drivers (430.50-2) unstable; urgency=medium
   * debian/gen-control.pl: Support substitutions in the Architecture field and
     skip packages with empty or commented Architecture field.
   * Build the nvidia-*-common packages for ppc64el.
-  * Prepare infrastructure for packaging Tesla driver releases (available for
-    amd64 (including some i386 libs) and ppc64el).
+  * Prepare infrastructure for packaging Tesla 418 driver releases (available
+    for amd64 (including some i386 libs) and ppc64el).
   * Bump Standards-Version to 4.4.1. No changes needed.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 30 Oct 2019 21:04:31 +0100
@@ -401,6 +465,8 @@ nvidia-graphics-drivers (418.113-1) UNRELEASED; urgency=medium
   [ Andreas Beckmann ]
   * Update nv-readme.ids.
   * Refresh patches.
+  * Import drmP.patch for 390.xx from Fedora and port it to 418.xx to fix
+    kernel module build failure for Linux 5.5 and newer.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Nov 2019 05:46:46 +0100
 

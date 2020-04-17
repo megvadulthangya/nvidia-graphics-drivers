@@ -48,11 +48,8 @@ Recommends:
 Suggests:
  ${nvidia:kmod:source},
 Provides:
+ nvidia-driver-any [${nvidia:arch:has-driver}],
  nvidia-glx-any [${nvidia:arch:has-driver}],
-Breaks:
- nvidia-glx${nvidia:Variant},
-Replaces:
- nvidia-glx${nvidia:Variant},
 Description: NVIDIA metapackage${nvidia:VariantDesc}
  ${nvidia:no-driver-notice}This metapackage depends on the NVIDIA binary driver and libraries
  that provide optimized hardware acceleration of
@@ -74,12 +71,11 @@ Pre-Depends:
  dpkg (>= 1.17.21),
  ${nvidia:legacy-check},
 Depends:
- glx-alternative-nvidia (>= 0.9),
+ glx-alternative-nvidia (>= 1.1),
  ${misc:Depends}
 Provides:
  ${nvidia}-alternative--kmod-alias,
 Conflicts:
- libgldispatch0-nvidia,
  libglvnd0-nvidia,
  libopengl0-glvnd-nvidia,
  libglx0-glvnd-nvidia,
@@ -88,8 +84,6 @@ Conflicts:
  libgles1-glvnd-nvidia,
  libgles2-glvnd-nvidia,
 Breaks:
- nvidia-driver (<< 343.22-2~),
- libcuda1 (<< 352.63),
  nvidia-tesla-alternative (>> 0),
 Description: allows the selection of NVIDIA as GLX provider${nvidia:VariantDesc}
  In setups with several NVIDIA driver versions installed (e.g. current and
@@ -115,10 +109,6 @@ Depends:
 Provides:
  nvidia-kernel-support-any,
  ${nvidia}-kernel-support--v1,
-Breaks:
- glx-alternative-nvidia (<< 0.6.91),
-Replaces:
- glx-alternative-nvidia (<< 0.6.91),
 Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -220,10 +210,6 @@ Suggests:
 Provides:
  xserver-xorg-video-nvidia-any [${nvidia:arch:has-driver}],
  ${nvidia:xorgProvides},
-Breaks:
- glx-alternative-nvidia (<< 0.6.91),
-Replaces:
- glx-alternative-nvidia (<< 0.6.91),
 Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
  ${nvidia:no-driver-notice}The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -264,10 +250,6 @@ Provides:
  nvidia-driver-bin-${nvidia:Version},
 Conflicts:
  nvidia-driver-bin-${nvidia:Version},
-Breaks:
- ${nvidia}-driver (<< 343.22-2~),
-Replaces:
- ${nvidia}-driver (<< 343.22-2~),
 Description: NVIDIA driver support binaries${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -285,10 +267,6 @@ Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
  libnvidia-cfg1-any,
-Breaks:
- libgl1-${nvidia}-glx (<< 355.11-5),
-Replaces:
- libgl1-${nvidia}-glx (<< 355.11-5),
 Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -304,15 +282,16 @@ Depends:
  ${nvidia}-egl-icd (= ${binary:Version}),
  ${misc:Depends}
 Recommends:
- ${nvidia}-driver-libs-i386 [amd64],
+ ${nvidia}-driver-libs-i386 (= ${binary:Version}) [amd64],
  libopengl0 | libopengl0-glvnd-nvidia,
  libglx-${nvidia-}0 (= ${binary:Version}),
  libgles-${nvidia-}1 (= ${binary:Version}),
  libgles-${nvidia-}2 (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
  ${nvidia}-vulkan-icd (= ${binary:Version}) [amd64 i386],
+Provides:
+ nvidia-driver-libs-any,
 Conflicts:
- libgldispatch0-nvidia,
  libglvnd0-nvidia,
  libopengl0-glvnd-nvidia,
  libglx0-glvnd-nvidia,
@@ -334,7 +313,7 @@ Package: nvidia-driver-libs-i386
 Architecture: i386
 Multi-Arch: foreign
 Depends:
- ${nvidia}-driver-libs,
+ ${nvidia}-driver-libs (= ${binary:Version}),
  ${misc:Depends}
 Conflicts:
  libgl1-${nvidia}-glx-i386,
@@ -398,11 +377,6 @@ Provides:
  libnvidia-glcore-${nvidia:Version},
 Conflicts:
  libnvidia-glcore-${nvidia:Version},
- libgl1-nvidia-glx-${nvidia:Version},
-Breaks:
- libgl1-${nvidia}-glx (<< 355.11-5),
-Replaces:
- libgl1-${nvidia}-glx (<< 355.11-5),
 Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -531,6 +505,7 @@ Depends:
  ${misc:Depends}
 Suggests:
  libegl-${nvidia-}0 [i386 amd64 ${arch:ppc64el}]
+ | libegl-nvidia-tesla-440-0 [!i386 !armhf]
  | libegl-nvidia-tesla-418-0 [!i386 !armhf]
  | libegl-nvidia-legacy-390xx0 [!ppc64el],
 Description: NVIDIA binary EGL driver - common files
@@ -599,6 +574,7 @@ Depends:
  ${misc:Depends}
 Suggests:
  ${nvidia}-vulkan-icd [i386 amd64 ${arch:ppc64el}]
+ | nvidia-tesla-440-vulkan-icd [!i386]
  | nvidia-tesla-418-vulkan-icd [!i386]
  | nvidia-legacy-390xx-vulkan-icd [!ppc64el],
 Conflicts:
@@ -630,6 +606,7 @@ Enhances:
  libvulkan1,
 Provides:
  vulkan-icd,
+ nvidia-vulkan-icd-any,
 Conflicts:
  ${nvidia}-nonglvnd-vulkan-icd,
 Description: NVIDIA Vulkan installable client driver (ICD)${nvidia:VariantDesc}
@@ -649,6 +626,7 @@ Suggests:
  | nvidia-legacy-390xx-nonglvnd-vulkan-icd [!ppc64el],
 Conflicts:
  libgl1-${nvidia}-glvnd-glx,
+ libgl1-nvidia-tesla-440-glvnd-glx,
  libgl1-nvidia-tesla-418-glvnd-glx,
  libgl1-nvidia-legacy-390xx-glvnd-glx,
  nvidia-vulkan-common,
@@ -788,7 +766,7 @@ Recommends:
  ${nvidia}-smi [${nvidia:arch:has-driver}],
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
  nvidia-persistenced,
- ${libcuda1}-i386 [amd64],
+ ${libcuda1}-i386 (= ${binary:Version}) [amd64],
 Suggests:
  nvidia-cuda-mps [${nvidia:arch:has-driver}],
  ${nvidia:kmod:source},
@@ -839,7 +817,7 @@ Package: libcuda1-i386
 Architecture: i386
 Multi-Arch: foreign
 Depends:
- ${libcuda1},
+ ${libcuda1} (= ${binary:Version}),
  ${misc:Depends}
 Description: NVIDIA CUDA 32-bit runtime library${nvidia:VariantDesc}
  This metapackage helps the automatic installation of the 32-bit NVIDIA CUDA
@@ -1014,6 +992,7 @@ Depends:
  ${misc:Depends}
 Suggests:
  ${nvidia}-opencl-icd [i386 amd64 ${arch:ppc64el}]
+ | nvidia-tesla-440-opencl-icd [!i386]
  | nvidia-tesla-418-opencl-icd [!i386]
  | nvidia-legacy-390xx-opencl-icd [!ppc64el],
 Description: NVIDIA OpenCL driver - common files
@@ -1088,5 +1067,5 @@ Depends:
 Description: NVIDIA GPU detection utility
  The 'nvidia-detect' script in this package checks for an NVIDIA GPU in the
  system and recommends one of the non-free accelerated driver meta-packages
- (nvidia-driver, nvidia-legacy-390xx-driver, nvidia-legacy-340xx-driver, or
+ (nvidia-driver, nvidia-legacy-390xx-driver, nvidia-tesla-440-driver, or
  nvidia-tesla-418-driver) for installation.
