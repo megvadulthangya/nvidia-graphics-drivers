@@ -1,7 +1,8 @@
 nvidia-graphics-drivers-legacy-340xx (340.108-5) UNRELEASED; urgency=medium
 
-  * Backport nv_ioremap_nocache changes from 440.64 to fix kernel module build
-    for Linux 5.6.
+  * Backport nv_ioremap_nocache changes from 440.64 and nv_proc_ops_t and
+    nv_timeval changes from 440.82 to fix kernel module build for Linux 5.6.
+    (Closes: #956458)
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 28 Apr 2020 03:22:51 +0200
 
