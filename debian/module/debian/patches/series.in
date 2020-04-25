@@ -4,6 +4,7 @@ kmem_cache_create_usercopy.patch
 buildfix_kernel_4.11.patch
 buildfix_kernel_5.2.patch
 03-unfuck-for-5.5.x.patch
+0001-backport-nv_ioremap_nocache-changes-from-440.64.patch
 
 # build system updates
 separate-makefile-kbuild.patch
