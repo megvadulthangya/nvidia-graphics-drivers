@@ -1,7 +1,7 @@
 nvidia-graphics-drivers-legacy-340xx (340.108-4) unstable; urgency=medium
 
-  * Add linux-5.5.patch from Archlinux to fix kernel module build for
-    Linux 5.5.  (Closes: #956034)
+  * Add 03-unfuck-for-5.5.x.patch from Archlinux to fix kernel module build
+    for Linux 5.5.  (Closes: #956034)
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 07 Apr 2020 18:58:40 +0200
 
