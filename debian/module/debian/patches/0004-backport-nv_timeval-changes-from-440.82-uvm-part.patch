@@ -1,62 +1,54 @@
-From ad030dcafd5ebdf9c876a52c5da6ca023a480d70 Mon Sep 17 00:00:00 2001
+From 19788cb03351bdd537786ccd62b894b16df97673 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 25 Apr 2020 11:42:24 +0200
 Subject: [PATCH 4/4] backport nv_timeval changes from 440.82 (uvm part)
 
 ---
- nvidia-uvm/nvidia-uvm.Kbuild |  3 +++
- nvidia-uvm/uvm_linux.h       | 11 +++++++++--
- 2 files changed, 12 insertions(+), 2 deletions(-)
+ uvm/Makefile          |  2 ++
+ uvm/nvidia_uvm_lite.c | 10 +++++-----
+ 2 files changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/nvidia-uvm/nvidia-uvm.Kbuild b/nvidia-uvm/nvidia-uvm.Kbuild
-index 1b1a4ff..a839c2a 100644
---- a/nvidia-uvm/nvidia-uvm.Kbuild
-+++ b/nvidia-uvm/nvidia-uvm.Kbuild
-@@ -109,6 +109,7 @@ NV_CONFTEST_FUNCTION_COMPILE_TESTS += usleep_range
- NV_CONFTEST_FUNCTION_COMPILE_TESTS += radix_tree_empty
- NV_CONFTEST_FUNCTION_COMPILE_TESTS += radix_tree_replace_slot
- NV_CONFTEST_FUNCTION_COMPILE_TESTS += do_gettimeofday
-+NV_CONFTEST_FUNCTION_COMPILE_TESTS += ktime_get_raw_ts64
+diff --git a/uvm/Makefile b/uvm/Makefile
+index 043a08d..e366330 100644
+--- a/uvm/Makefile
++++ b/uvm/Makefile
+@@ -157,6 +157,8 @@ RM_OUT_DIR ?= $(src)/..
+ VERSION_HEADER := $(RM_OUT_DIR)/nv_compiler.h
  
- NV_CONFTEST_TYPE_COMPILE_TESTS += proc_dir_entry
- NV_CONFTEST_TYPE_COMPILE_TESTS += irq_handler_t
-@@ -130,3 +131,5 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += vm_ops_fault_removed_vma_arg
- NV_CONFTEST_TYPE_COMPILE_TESTS += pnv_npu2_init_context
- NV_CONFTEST_TYPE_COMPILE_TESTS += kmem_cache_has_kobj_remove_work
- NV_CONFTEST_TYPE_COMPILE_TESTS += sysfs_slab_unlink
-+NV_CONFTEST_TYPE_COMPILE_TESTS += proc_ops
-+NV_CONFTEST_TYPE_COMPILE_TESTS += timeval
-diff --git a/nvidia-uvm/uvm_linux.h b/nvidia-uvm/uvm_linux.h
-index 8784a82..0c4fc95 100644
---- a/nvidia-uvm/uvm_linux.h
-+++ b/nvidia-uvm/uvm_linux.h
-@@ -333,9 +333,16 @@ static inline uint64_t NV_DIV64(uint64_t dividend, uint64_t divisor, uint64_t *r
- /* Return a nanosecond-precise value */
- static inline NvU64 NV_GETTIME(void)
+ COMPILE_TESTS = \
++	timeval \
++	proc_ops \
+ 	remap_page_range \
+ 	remap_pfn_range \
+ 	irq_handler_t \
+diff --git a/uvm/nvidia_uvm_lite.c b/uvm/nvidia_uvm_lite.c
+index fd7a4ce..c2abbc3 100644
+--- a/uvm/nvidia_uvm_lite.c
++++ b/uvm/nvidia_uvm_lite.c
+@@ -131,8 +131,8 @@ static
+ RM_STATUS _preexisting_error_on_channel(UvmGpuMigrationTracking *pMigTracker,
+                                          UvmCommitRecord *pRecord);
+ 
+-static void _set_timeout_in_usec(struct timeval *src,
+-                                 struct timeval *result,
++static void _set_timeout_in_usec(nv_timeval *src,
++                                 nv_timeval *result,
+                                  unsigned long timeoutInUsec)
  {
-+/*
-+ * Use ktime_get_raw_ts64() instead of getrawmonotonic() when it is available.
-+ */
-+#if defined(NV_KTIME_GET_RAW_TS64_PRESENT)
-+    struct timespec64 ts = {0};
-+    ktime_get_raw_ts64(&ts);
-+#else
-     struct timespec ts = {0};
--
-     getrawmonotonic(&ts);
-+#endif
- 
-     /* Wraps around every 583 years */
-     return (ts.tv_sec * 1000000000ULL + ts.tv_nsec);
-@@ -345,7 +352,7 @@ static inline NvU64 NV_GETTIME(void)
-  * available non-GPL symbols. */
- static inline NvU64 NV_GETTIME(void)
+     if (!src || !result)
+@@ -2023,9 +2023,9 @@ void umvlite_destroy_per_process_gpu_resources(UvmGpuUuid *gpuUuidStruct)
+ static RM_STATUS _check_ecc_errors(UvmGpuMigrationTracking *pMigTracker,
+                                     NvBool *pIsEccErrorSet)
  {
--    struct timeval tv = {0};
-+    nv_timeval tv = {0};
- 
-     nv_gettimeofday(&tv);
- 
+-    struct timeval eccErrorStartTime = {0};
+-    struct timeval eccErrorCurrentTime = {0};
+-    struct timeval eccTimeout = {0};
++    nv_timeval eccErrorStartTime = {0};
++    nv_timeval eccErrorCurrentTime = {0};
++    nv_timeval eccTimeout = {0};
+     NvBool bEccErrorTimeout = NV_FALSE;
+     NvBool bEccIncomingError = NV_FALSE;
+     unsigned rmInterruptSet = 0;
 -- 
 2.20.1
 

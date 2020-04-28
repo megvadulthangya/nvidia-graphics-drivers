@@ -1,22 +1,61 @@
-From 46bacfba76b2d85ed910d335374bc7b0223bdec1 Mon Sep 17 00:00:00 2001
+From 0239526cc268dde0562eb074a255ab94b1a76fd4 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 25 Apr 2020 11:40:05 +0200
 Subject: [PATCH 2/4] backport nv_proc_ops_t changes from 440.82
 
 ---
- common/inc/nv-procfs.h | 38 ++++++++++++++++++++++++++++++--------
- conftest.sh            | 16 ++++++++++++++++
- nvidia/nv-procfs.c     | 38 +++++++++++++++++++-------------------
- nvidia/nvidia.Kbuild   |  1 +
- 4 files changed, 66 insertions(+), 27 deletions(-)
+ Makefile    |  1 +
+ conftest.sh | 16 ++++++++++++++++
+ nv-linux.h  | 38 ++++++++++++++++++++++++++++++--------
+ nv-procfs.c | 28 ++++++++++++++--------------
+ 4 files changed, 61 insertions(+), 22 deletions(-)
 
-diff --git a/common/inc/nv-procfs.h b/common/inc/nv-procfs.h
-index 3c812ea..217ce46 100644
---- a/common/inc/nv-procfs.h
-+++ b/common/inc/nv-procfs.h
-@@ -28,6 +28,28 @@
+diff --git a/Makefile b/Makefile
+index 125a690..1355277 100644
+--- a/Makefile
++++ b/Makefile
+@@ -90,6 +90,7 @@ ifdef NV_BUILD_MODULE_INSTANCES
+ endif
  
- #define IS_EXERCISE_ERROR_FORWARDING_ENABLED() (EXERCISE_ERROR_FORWARDING)
+ COMPILE_TESTS = \
++	proc_ops \
+ 	remap_pfn_range \
+ 	vmap \
+ 	set_pages_uc \
+diff --git a/conftest.sh b/conftest.sh
+index b7a85f0..8553b09 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -2188,6 +2188,22 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_DRM_DRIVER_PRIME_FLAG_PRESENT" "" "types"
+         ;;
+ 
++        proc_ops)
++            #
++            # Determine if the 'struct proc_ops' type is present.
++            #
++            # Added by commit d56c0d45f0e2 ("proc: decouple proc from VFS with 
++            # "struct proc_ops"") in 5.6-rc1
++            #
++            CODE="
++            #include <linux/proc_fs.h>
++
++            struct proc_ops p_ops;
++            "
++
++            compile_check_conftest "$CODE" "NV_PROC_OPS_PRESENT" "" "types"
++        ;;
++
+     esac
+ }
+ 
+diff --git a/nv-linux.h b/nv-linux.h
+index 1b412ce..11aafc9 100644
+--- a/nv-linux.h
++++ b/nv-linux.h
+@@ -1950,6 +1950,28 @@ extern NvU32 nv_assign_gpu_count;
+ 
+ #if defined(CONFIG_PROC_FS)
  
 +#if defined(NV_PROC_OPS_PRESENT)
 +typedef struct proc_ops nv_proc_ops_t;
@@ -43,7 +82,7 @@ index 3c812ea..217ce46 100644
  #if defined(NV_PROC_DIR_ENTRY_HAS_OWNER)
  #define NV_SET_PROC_ENTRY_OWNER(entry) ((entry)->owner = THIS_MODULE)
  #else
-@@ -56,8 +78,8 @@
+@@ -1978,8 +2000,8 @@ extern NvU32 nv_assign_gpu_count;
     ({                                                                    \
          struct proc_dir_entry *__entry;                                  \
          int mode = (S_IFREG | S_IRUGO);                                  \
@@ -54,7 +93,7 @@ index 3c812ea..217ce46 100644
              mode |= S_IWUSR;                                             \
          __entry = NV_CREATE_PROC_ENTRY(filename, mode, parent, fops,     \
              __data);                                                     \
-@@ -114,12 +136,12 @@
+@@ -2036,12 +2058,12 @@ extern NvU32 nv_assign_gpu_count;
              NV_PDE_DATA(inode));                                              \
      }                                                                         \
                                                                                \
@@ -73,38 +112,11 @@ index 3c812ea..217ce46 100644
      };
  
  #endif  /* CONFIG_PROC_FS */
-diff --git a/conftest.sh b/conftest.sh
-index 2ca4971..e340731 100755
---- a/conftest.sh
-+++ b/conftest.sh
-@@ -3955,6 +3955,22 @@ compile_test() {
-             compile_check_conftest "$CODE" "NV_DRM_GEM_PRIME_EXPORT_HAS_DEV_ARG" "" "types"
-         ;;
- 
-+        proc_ops)
-+            #
-+            # Determine if the 'struct proc_ops' type is present.
-+            #
-+            # Added by commit d56c0d45f0e2 ("proc: decouple proc from VFS with 
-+            # "struct proc_ops"") in 5.6-rc1
-+            #
-+            CODE="
-+            #include <linux/proc_fs.h>
-+
-+            struct proc_ops p_ops;
-+            "
-+
-+            compile_check_conftest "$CODE" "NV_PROC_OPS_PRESENT" "" "types"
-+        ;;
-+
-     esac
- }
- 
-diff --git a/nvidia/nv-procfs.c b/nvidia/nv-procfs.c
-index 5808a88..167b21f 100644
---- a/nvidia/nv-procfs.c
-+++ b/nvidia/nv-procfs.c
-@@ -414,13 +414,13 @@ done:
+diff --git a/nv-procfs.c b/nv-procfs.c
+index ebca3e8..56bb5ff 100644
+--- a/nv-procfs.c
++++ b/nv-procfs.c
+@@ -409,13 +409,13 @@ done:
      return ((status < 0) ? status : (int)count);
  }
  
@@ -124,25 +136,8 @@ index 5808a88..167b21f 100644
 +    .NV_PROC_OPS_RELEASE = nv_procfs_close_registry,
  };
  
- /*
-@@ -517,11 +517,11 @@ done:
-     return status;
- }
- 
--static struct file_operations nv_procfs_exercise_error_forwarding_fops = {
--    .owner   = THIS_MODULE,
--    .open    = nv_procfs_open_exercise_error_forwarding,
--    .write   = nv_procfs_write_file,
--    .release = nv_procfs_close_exercise_error_forwarding,
-+static nv_proc_ops_t nv_procfs_exercise_error_forwarding_fops = {
-+     NV_PROC_OPS_SET_OWNER()
-+    .NV_PROC_OPS_OPEN    = nv_procfs_open_exercise_error_forwarding,
-+    .NV_PROC_OPS_WRITE   = nv_procfs_write_file,
-+    .NV_PROC_OPS_RELEASE = nv_procfs_close_exercise_error_forwarding,
- };
- 
  static int
-@@ -650,13 +650,13 @@ done:
+@@ -538,13 +538,13 @@ done:
      return rc;
  }
  
@@ -163,18 +158,6 @@ index 5808a88..167b21f 100644
  };
  
  static int
-diff --git a/nvidia/nvidia.Kbuild b/nvidia/nvidia.Kbuild
-index 8ae1016..46099d7 100644
---- a/nvidia/nvidia.Kbuild
-+++ b/nvidia/nvidia.Kbuild
-@@ -189,6 +189,7 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += kstrtoull
- NV_CONFTEST_TYPE_COMPILE_TESTS += backlight_properties_type
- NV_CONFTEST_TYPE_COMPILE_TESTS += kmem_cache_has_kobj_remove_work
- NV_CONFTEST_TYPE_COMPILE_TESTS += sysfs_slab_unlink
-+NV_CONFTEST_TYPE_COMPILE_TESTS += proc_ops
- 
- NV_CONFTEST_GENERIC_COMPILE_TESTS += dom0_kernel_present
- NV_CONFTEST_GENERIC_COMPILE_TESTS += nvidia_vgpu_kvm_build
 -- 
 2.20.1
 
