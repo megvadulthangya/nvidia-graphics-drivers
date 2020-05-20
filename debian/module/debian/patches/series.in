@@ -9,6 +9,7 @@ buildfix_kernel_5.2.patch
 0003-backport-nv_timeval-changes-from-440.82.patch
 #HAS_UVM#0004-backport-nv_timeval-changes-from-440.82-uvm-part.patch
 0005-drm_legacy_pci_init-was-moved-to-drm-drm_legacy.h.patch
+kernel-5.7.0-set-memory-array.patch
 
 # build system updates
 separate-makefile-kbuild.patch
