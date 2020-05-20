@@ -1,10 +1,10 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-6) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-6) unstable; urgency=medium
 
   * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
     thanks to Jiri Palecek.  (Closes: #960735)
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 20 May 2020 13:58:23 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 20 May 2020 17:07:41 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.108-5) unstable; urgency=medium
 
