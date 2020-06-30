@@ -3,6 +3,13 @@ unregister_procfs_on_failure.patch
 kmem_cache_create_usercopy.patch
 buildfix_kernel_4.11.patch
 buildfix_kernel_5.2.patch
+03-unfuck-for-5.5.x.patch
+0001-backport-nv_ioremap_nocache-changes-from-440.64.patch
+0002-backport-nv_proc_ops_t-changes-from-440.82.patch
+0003-backport-nv_timeval-changes-from-440.82.patch
+#HAS_UVM#0004-backport-nv_timeval-changes-from-440.82-uvm-part.patch
+0005-drm_legacy_pci_init-was-moved-to-drm-drm_legacy.h.patch
+kernel-5.7.0-set-memory-array.patch
 
 # build system updates
 separate-makefile-kbuild.patch
