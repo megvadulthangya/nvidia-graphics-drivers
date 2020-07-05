@@ -11,7 +11,7 @@ Uploaders:
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
 Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b tesla-418/master
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  dpkg-dev (>= 1.18.8),
  xz-utils,
  dkms,
@@ -49,6 +49,7 @@ Recommends:
 Suggests:
  ${nvidia:kmod:source},
 Provides:
+ nvidia-driver-any [${nvidia:arch:has-driver}],
  nvidia-glx-any [${nvidia:arch:has-driver}],
 Description: NVIDIA metapackage${nvidia:VariantDesc}
  ${nvidia:no-driver-notice}This metapackage depends on the NVIDIA binary driver and libraries
@@ -63,16 +64,6 @@ Description: NVIDIA metapackage${nvidia:VariantDesc}
  for a complete list of supported GPUs and PCI IDs.
  .
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
-
-Package: nvidia-tesla-driver
-Section: non-free/oldlibs
-Architecture: amd64 ppc64el
-Depends:
- ${nvidia}-driver (= ${binary:Version}),
- ${misc:Depends}
-Description: transition to nvidia-tesla-418-driver
- This transitional package aides switching to ${nvidia}-driver.
- It can be safely removed.
 
 Package: nvidia-tesla-418-alternative
 Architecture: i386 amd64 ppc64el
@@ -276,13 +267,15 @@ Depends:
  ${nvidia}-egl-icd (= ${binary:Version}),
  ${misc:Depends}
 Recommends:
- ${nvidia}-driver-libs-i386 [amd64],
+ ${nvidia}-driver-libs-i386 (= ${binary:Version}) [amd64],
  libopengl0 | libopengl0-glvnd-nvidia,
  libglx-${nvidia-}0 (= ${binary:Version}),
  libgles-${nvidia-}1 (= ${binary:Version}),
  libgles-${nvidia-}2 (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
  ${nvidia}-vulkan-icd (= ${binary:Version}) [amd64 i386],
+Provides:
+ nvidia-driver-libs-any,
 Conflicts:
  libglvnd0-nvidia,
  libopengl0-glvnd-nvidia,
@@ -305,7 +298,7 @@ Package: nvidia-tesla-418-driver-libs-i386
 Architecture: i386
 Multi-Arch: foreign
 Depends:
- ${nvidia}-driver-libs,
+ ${nvidia}-driver-libs (= ${binary:Version}),
  ${misc:Depends}
 Conflicts:
  libgl1-${nvidia}-glx-i386,
@@ -322,12 +315,14 @@ Depends:
  libegl1-${nvidia} (= ${binary:Version}),
  ${misc:Depends}
 Recommends:
- ${nvidia}-driver-libs-nonglvnd-i386 [amd64],
+ ${nvidia}-driver-libs-nonglvnd-i386 (= ${binary:Version}) [amd64],
  libglx-${nvidia-}0 (= ${binary:Version}),
  libgles-${nvidia-}1 (= ${binary:Version}),
  libgles-${nvidia-}2 (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
  ${nvidia}-nonglvnd-vulkan-icd (= ${binary:Version}) [amd64 i386],
+Provides:
+ nvidia-driver-libs-any,
 Conflicts:
  libglvnd0-nvidia,
  libopengl0-glvnd-nvidia,
@@ -349,7 +344,7 @@ Package: nvidia-tesla-418-driver-libs-nonglvnd-i386
 Architecture: i386
 Multi-Arch: foreign
 Depends:
- ${nvidia}-driver-libs-nonglvnd,
+ ${nvidia}-driver-libs-nonglvnd (= ${binary:Version}),
  ${misc:Depends}
 Conflicts:
  libgl1-${nvidia}-glx-i386,
@@ -638,6 +633,7 @@ Enhances:
  libvulkan1,
 Provides:
  vulkan-icd,
+ nvidia-vulkan-icd-any,
 Conflicts:
  ${nvidia}-nonglvnd-vulkan-icd,
 Description: NVIDIA Vulkan installable client driver (ICD)${nvidia:VariantDesc}
@@ -665,6 +661,7 @@ Enhances:
  libvulkan1,
 Provides:
  vulkan-icd,
+ nvidia-vulkan-icd-any,
 Conflicts:
  ${nvidia}-vulkan-icd,
 Description: NVIDIA Vulkan ICD (non-GLVND variant)${nvidia:VariantDesc}
@@ -786,7 +783,7 @@ Recommends:
  ${nvidia}-smi [${nvidia:arch:has-driver}],
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
  nvidia-persistenced,
- ${libcuda1}-i386 [amd64],
+ ${libcuda1}-i386 (= ${binary:Version}) [amd64],
 Suggests:
  nvidia-cuda-mps [${nvidia:arch:has-driver}],
  ${nvidia:kmod:source},
@@ -835,7 +832,7 @@ Package: libnvidia-tesla-418-cuda1-i386
 Architecture: i386
 Multi-Arch: foreign
 Depends:
- ${libcuda1},
+ ${libcuda1} (= ${binary:Version}),
  ${misc:Depends}
 Description: NVIDIA CUDA 32-bit runtime library${nvidia:VariantDesc}
  This metapackage helps the automatic installation of the 32-bit NVIDIA CUDA
@@ -979,6 +976,7 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
+ ${libcuda1} (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Homepage: https://developer.nvidia.com/opticalflow-sdk
 Description: NVIDIA Optical Flow runtime library${nvidia:VariantDesc}
