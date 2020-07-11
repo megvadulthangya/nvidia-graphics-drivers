@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-390xx (390.138-1~deb10u1~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 11 Jul 2020 23:39:50 +0200
+
 nvidia-graphics-drivers-legacy-390xx (390.138-1~deb10u1) buster; urgency=medium
 
   * Rebuild for buster.
