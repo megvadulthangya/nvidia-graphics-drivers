@@ -29,7 +29,7 @@ Description: Redefine WRITE_COMBINE_FLUSH on ARM on kernel >= 4.3
  
  #include "nvidia-drm-os-interface.h"
  #include "nvidia-drm.h"
-@@ -69,7 +70,13 @@ char *nv_drm_asprintf(const char *fmt, .
+@@ -75,7 +76,13 @@ char *nv_drm_asprintf(const char *fmt, .
    #define WRITE_COMBINE_FLUSH()    asm volatile("sfence":::"memory")
  #elif defined(NVCPU_FAMILY_ARM)
    #if defined(NVCPU_ARM)

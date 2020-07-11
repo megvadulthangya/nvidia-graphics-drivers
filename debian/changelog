@@ -1,3 +1,144 @@
+nvidia-graphics-drivers-legacy-390xx (390.138-1~deb10u1) buster; urgency=medium
+
+  * Rebuild for buster.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 28 Jun 2020 23:44:19 +0200
+
+nvidia-graphics-drivers-legacy-390xx (390.138-1) unstable; urgency=medium
+
+  * New upstream legacy branch release 390.138 (2020-06-24).
+    * Fixed CVE-2020-5963, CVE-2020-5967.  (Closes: #963908)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5031
+    - Fixed a driver installation failure on Linux kernel 5.6 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "implicit declaration of function 'timespec_to_ns'".
+    - Fixed a driver installation failure on Linux kernel 5.6 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "implicit declaration of function 'getrawmonotonic'".
+    - Fixed a driver installation failure on Linux kernel 5.6 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "implicit declaration of function 'getnstimeofday'".
+    - Fixed a driver installation failure on Linux kernel 5.6 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "dereferencing pointer to incomplete type 'struct timeval'".
+    - Fixed a driver installation failure on Linux kernel 5.6 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "implicit declaration of function 'jiffies_to_timespec'".
+    - Fixed driver installation failure on Linux kernel 5.6 release candidates,
+      where the NVIDIA kernel module failed to build with error "passing
+      argument 4 of 'proc_create_data' from incompatible pointer type".
+    - Fixed driver installation failure on Linux kernel 5.6 release candidates,
+      where the NVIDIA kernel module failed to build with error "implicit
+      declaration of function 'ioremap_nocache'".
+    - Fixed driver installation failure on Oracle Linux 7.7 systems, where the
+      NVIDIA kernel module failed to build with error "unknown type name
+      'vm_fault_t'".
+    - Add PRIME Synchronization support for Linux kernel 5.4 and newer.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 28 Jun 2020 23:36:28 +0200
+
+nvidia-graphics-drivers-legacy-390xx (390.132-5) unstable; urgency=medium
+
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
+    thanks to Jiri Palecek.  (Closes: #960735)
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 20 May 2020 17:13:15 +0200
+
+nvidia-graphics-drivers-legacy-390xx (390.132-4) unstable; urgency=medium
+
+  * Backport nv_ioremap_nocache changes from 440.64 and nv_proc_ops_t and
+    nv_timeval changes from 440.82 to fix kernel module build for Linux 5.6.
+    (Closes: #956458)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 25 Apr 2020 23:33:51 +0200
+
+nvidia-graphics-drivers-legacy-390xx (390.132-3~deb10u1) buster; urgency=medium
+
+  * Rebuild for buster.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 23 Apr 2020 23:22:27 +0200
+
+nvidia-graphics-drivers-legacy-390xx (390.132-3) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * bug-control: Report information about more (virtual) packages (440.64-2).
+  * Update lintian overrides.
+
+  [ Luca Boccassi ]
+  * Import drmP.patch from Fedora to fix kernel module build failure for
+    Linux 5.5 and newer.  (Closes: #951091)
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 09 Apr 2020 20:20:53 +0200
+
+nvidia-graphics-drivers-legacy-390xx (390.132-2) unstable; urgency=medium
+
+  * Create and commit tarball symlinks for legacy branches (430.64-1).
+  * Allow alternative libnvidia-{tesla,legacy-*}-ml1 packages to substitute
+    libnvidia-ml1 (430.64-2).
+    - Add Provides: libnvidia-ml.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libnvidia-ml.so.1 through
+      the symbols file.
+  * Allow alternative libnvidia-{tesla,legacy-*}-cuda1 packages to substitute
+    libcuda1 in third-party packages (430.64-3).
+    - Add Provides: libcuda.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libcuda.so.1 through the
+      symbols file.
+  * Use substitution to keep Standards-Version in sync (430.64-5).
+  * Insert '-' between suffix ending with digit and SOVERSION (435.21-3).
+  * Rename "legacy" variables to more generic "variant" (440.44-2).
+  * Bump Standards-Version to 4.5.0. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 29 Jan 2020 21:23:19 +0100
+
+nvidia-graphics-drivers-legacy-390xx (390.132-1) unstable; urgency=medium
+
+  * New upstream legacy branch release 390.132 (2019-11-08).
+    - Fixed kernel module build problems with Linux kernel 5.4.0 release
+      candidates.
+    - Updated nvidia-bug-report.sh to collect information about X server crashes
+      from coredumpctl, when available.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 14 Nov 2019 22:37:22 +0100
+
+nvidia-graphics-drivers-legacy-390xx (390.129-2) unstable; urgency=medium
+
+  * Add mobile Kepler GPUs to supported EoL models. The are dropped from the
+    mainline driver in the 430 series.
+    https://nvidia.custhelp.com/app/answers/detail/a_id/4779
+    https://nvidia.custhelp.com/app/answers/detail/a_id/4788
+  * debian/gen-control.pl: Support substitutions in the Architecture field and
+    skip packages with empty or commented Architecture field (430.50-2).
+  * Bump Standards-Version to 4.4.1. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Nov 2019 23:17:15 +0100
+
+nvidia-graphics-drivers-legacy-390xx (390.129-1) unstable; urgency=medium
+
+  * New upstream legacy branch release 390.129 (2019-07-29).
+    - Improved nvidia-bug-report.sh to grab the output of the `vulkaninfo`
+      command when it is available.
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.4.0. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Aug 2019 11:14:49 +0200
+
+nvidia-graphics-drivers-legacy-390xx (390.116-2) unstable; urgency=medium
+
+  [ Kevin Locke ]
+  * Backport changes from 418.74 and 430.14 to support building the module for
+    Linux 5.1 and 5.2.  (Closes: #928634)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 14 Jul 2019 15:15:52 +0200
+
 nvidia-graphics-drivers-legacy-390xx (390.116-1~bpo9+1) stretch-backports; urgency=medium
 
   * Rebuild for stretch-backports.
@@ -24,12 +165,7 @@ nvidia-graphics-drivers-legacy-390xx (390.116-1) unstable; urgency=medium
     - Fixed a bug that could cause rendering corruption in Vulkan programs.
     - Fixed a bug that caused vkGetPhysicalDeviceDisplayPropertiesKHR() to
       occasionally return incorrect values for physicalResolution.
-  * New upstream legacy branch release 340 series.
-    - Fixed a build failure, "too many arguments to function 'get_user_pages'",
-      when building the NVIDIA kernel module for Linux kernel v4.4.168.
-    - Fixed a build failure, "implicit declaration of function do_gettimeofday",
-      when building the NVIDIA kernel module for Linux kernel 5.0 release
-      candidates.
+  * New upstream legacy branch release 367 series.
     - Added a new kernel module parameter, NVreg_RestrictProfilingToAdminUsers,
       to allow restricting the use of GPU performance counters to system
       administrators only.
