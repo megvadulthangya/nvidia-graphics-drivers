@@ -30,6 +30,8 @@ pkg-history.txt
 tls_test
 tls_test_dso.so
 
+NVIDIA_Changelog
+
 libOpenCL.so.1.0.0
 nvidia.icd
 nvidia-cuda-mps-control

@@ -1,4 +1,4 @@
-libnvidia-cfg.so.1 #PACKAGE# #MINVER#
+libnvidia-cfg.so.1 #PACKAGE# #MINVER# | libnvidia-cfg.so.1 #MINVER#
  nvCfgAttachPciDevice@Base 319
  nvCfgCloseAllGSyncDevices@Base 304.30
  nvCfgCloseAllPciDevices@Base 180.35

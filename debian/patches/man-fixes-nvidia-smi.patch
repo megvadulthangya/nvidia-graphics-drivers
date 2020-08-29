@@ -1,5 +1,6 @@
 Author: Andreas Beckmann <anbe@debian.org>
 Description: fix hyphenation and spelling in nvidia-smi.1
+Forwarded: not-needed
 
 --- a/NVIDIA-Linux/nvidia-smi.1
 +++ b/NVIDIA-Linux/nvidia-smi.1

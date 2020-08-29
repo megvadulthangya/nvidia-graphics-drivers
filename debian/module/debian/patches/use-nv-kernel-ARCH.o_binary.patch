@@ -7,26 +7,30 @@ Description: Select the correct nv-kernel.o blob for the target architecture
 
 --- a/Makefile
 +++ b/Makefile
-@@ -63,7 +63,10 @@ VERSION_HEADER := nv_compiler.h
+@@ -63,6 +63,10 @@ VERSION_HEADER := nv_compiler.h
  # Make sure KBUILD understands that we want a module.
  #
  
--CORE_OBJS := nv-kernel.o
-+CORE_OBJS			:=
 +CORE_OBJS-$(CONFIG_X86_32)	+= nv-kernel-i386.o
 +CORE_OBJS-$(CONFIG_X86_64)	+= nv-kernel-amd64.o
 +CORE_OBJS-$(CONFIG_ARM)		+= nv-kernel-armhf.o
++
+ CORE_OBJS := nv-kernel.o
  
  ifdef NV_BUILD_MODULE_INSTANCES
-  ifeq ($(NV_MODULE_SUFFIX),frontend)
-@@ -78,6 +81,10 @@ else
-  $(MODULE_NAME)-objs := $(CORE_OBJS) $(MODULE_GLUE_OBJS)
- endif
- 
-+ifneq ($(NV_MODULE_SUFFIX),frontend)
-+$(MODULE_NAME)-y	+= $(CORE_OBJS-y)
-+endif
-+
+--- a/nvidia-modules-common.mk
++++ b/nvidia-modules-common.mk
+@@ -152,8 +152,11 @@ MOD_SIGN_CMD ?= $(KERNEL_SOURCES)/script
+ # to satisfy KBUILD requirements and to support NVIDIA specifics.
  #
- # List of targets to build in case of multiple NVIDIA kernel module builds. 
- # The actual target is constructed by prefixing nvidia/nvidia- to every
+ 
+-$(obj)/$(CORE_OBJS):
+-	$(NVQ)cp $(src)/$(CORE_OBJS) $(obj)/$(CORE_OBJS)
++quiet_cmd_symlink = SYMLINK $@
++ cmd_symlink = ln -sf $< $@
++
++$(obj)/$(CORE_OBJS): $(src)/$(CORE_OBJS-y)_binary
++	$(call if_changed,symlink)
+ 
+ $(obj)/$(VERSION_HEADER):
+ 	$(NVQ)echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@

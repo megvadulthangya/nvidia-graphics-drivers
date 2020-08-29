@@ -5,7 +5,6 @@ Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders:
  Andreas Beckmann <anbe@debian.org>,
- Vincent Cheng <vcheng@debian.org>,
  Luca Boccassi <bluca@debian.org>,
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
 Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b 340xx/master
@@ -44,6 +43,7 @@ Recommends:
 Suggests:
  ${nvidia:kmod:source},
 Provides:
+ nvidia-driver-any,
  nvidia-glx-any,
 Description: NVIDIA metapackage${nvidia:LegacyDesc}
  This metapackage depends on the NVIDIA binary driver and libraries
@@ -92,6 +92,8 @@ Recommends:
  libgles1-${nvidia} (= ${binary:Version}),
  libgles2-${nvidia} (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}),
+Provides:
+ nvidia-driver-libs-any,
 Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES libraries)${nvidia:LegacyDesc}
  This metapackage depends on the NVIDIA binary libraries
  that provide optimized hardware acceleration of
@@ -307,6 +309,7 @@ Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
+ libnvidia-cfg.so.1 (= ${nvidia:Version}),
  libnvidia-cfg1-any,
 Breaks:
  libgl1-${nvidia}-glx (<< 340.96-8~),

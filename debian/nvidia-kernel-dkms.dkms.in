@@ -4,19 +4,22 @@
 PACKAGE_NAME="#MODULE#"
 PACKAGE_VERSION="#MODULE_VERSION#"
 
-BUILT_MODULE_NAME[0]="nvidia"
-DEST_MODULE_NAME[0]="$PACKAGE_NAME"
-DEST_MODULE_LOCATION[0]="/updates/dkms"
 AUTOINSTALL=yes
+PATCH=(#MODULE_PATCHES#)
 
 MAKE[0]="unset ARCH; env NV_VERBOSE=1 \
     make ${parallel_jobs+-j$parallel_jobs} modules KERNEL_UNAME=${kernelver}"
 CLEAN="make KERNEL_UNAME=${kernelver} clean"
 
+#HAS_UVM#MAKE[0]+="; env CCACHE_DISABLE=1 NV_VERBOSE=1 \
+#HAS_UVM#    make -C uvm modules KERNEL_UNAME=${kernelver} KBUILD_EXTMOD=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build/uvm"
+#HAS_UVM#CLEAN+="; make -C uvm KERNEL_UNAME=${kernelver} clean"
+
+BUILT_MODULE_NAME[0]="nvidia"
+DEST_MODULE_NAME[0]="$PACKAGE_NAME"
+DEST_MODULE_LOCATION[0]="/updates/dkms"
+
 #HAS_UVM#BUILT_MODULE_NAME[1]="nvidia-uvm"
 #HAS_UVM#BUILT_MODULE_LOCATION[1]="uvm/"
 #HAS_UVM#DEST_MODULE_NAME[1]="$PACKAGE_NAME-uvm"
 #HAS_UVM#DEST_MODULE_LOCATION[1]="/updates/dkms"
-#HAS_UVM#MAKE[0]+="; env CCACHE_DISABLE=1 NV_VERBOSE=1 \
-#HAS_UVM#    make -C uvm modules KERNEL_UNAME=${kernelver} KBUILD_EXTMOD=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build/uvm"
-#HAS_UVM#CLEAN+="; make -C uvm KERNEL_UNAME=${kernelver} clean"
