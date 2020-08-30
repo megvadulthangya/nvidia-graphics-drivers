@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-7) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-7) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Allow alternative libnvidia-{tesla,legacy}-*-cfg1 packages to substitute
@@ -19,7 +19,7 @@ nvidia-graphics-drivers-legacy-340xx (340.108-7) UNRELEASED; urgency=medium
   [ Vincent Cheng ]
   * Remove myself from Uploaders.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 30 Aug 2020 01:23:21 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 30 Aug 2020 02:44:30 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.108-6) unstable; urgency=medium
 
