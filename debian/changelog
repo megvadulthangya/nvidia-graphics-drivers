@@ -1,3 +1,185 @@
+nvidia-graphics-drivers (450.66-1) unstable; urgency=medium
+
+  * New upstream long lived branch release 450.66 (2020-08-18).
+    - Added support for the following GPUs: EIZO Quadro MED-XN31LP,
+      EIZO Quadro MED-XN50LP, EIZO Quadro MED-XN51LP, EIZO Quadro MED-XN70,
+      EIZO Quadro MED-XN71, EIZO Quadro MED-XN72, EIZO Quadro MED-XN90,
+      EIZO Quadro MED-XN91, EIZO Quadro MED-XN92, Matrox D-Series D1450,
+      Matrox D-Series D1480
+    - Fixed triple buffering support of Vulkan X11 swapchains when applications
+      are syncing to vblank.
+
+  [ Luca Boccassi ]
+  * Update nv-readme.ids.
+  * Update symbols files.
+
+  [ Andreas Beckmann ]
+  * Test that the patches can be applied to the module source.
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
+    while building kernel modules.
+  * Simplify generating the -source and -dkms packages.
+
+  [ Vincent Cheng ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:29:22 +0200
+
+nvidia-graphics-drivers (450.57-3) unstable; urgency=medium
+
+  * There is no libnvidia-compiler on arm64.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 16 Aug 2020 14:53:30 +0200
+
+nvidia-graphics-drivers (450.57-2) unstable; urgency=medium
+
+  * Allow alternative libnvidia-{tesla,legacy}-*-cfg1 packages to substitute
+    libnvidia-cfg1 in third-party packages.
+    - Add Provides: libnvidia-cfg.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
+      the symbols file.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 09 Aug 2020 23:55:49 +0200
+
+nvidia-graphics-drivers (450.57-1) experimental; urgency=medium
+
+  * New upstream long lived branch release 450.57 (2020-07-09).
+    - Fixed a bug that caused a brief orange flash on some platforms when a
+      display mode is being set.
+  * New upstream release 440 series.
+    - Fixed a bug that could cause the X server to crash when using large
+      cursor images with PRIME display offloading.
+    - Fixed an interaction problem with 5.4 and newer Linux kernels that caused
+      a performance regression when allocating system memory.
+  * New upstream release 390 series.
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "'struct mm_struct' has no member named 'mmap_sem'".
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "too many arguments to function '__vmalloc'".
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Jul 2020 16:33:11 +0200
+
+nvidia-graphics-drivers (450.51-2) experimental; urgency=medium
+
+  * Prepare infrastructure for packaging Tesla 450 driver releases (available
+    for amd64 (including some i386 libs), arm64 and ppc64el).
+  * nvidia-detect: Add support for Tesla 450 drivers.
+  * Merge changes from 440.100-2.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 17 Jul 2020 16:34:04 +0200
+
+nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
+
+  * New upstream Tesla release 450.51.06 (2020-07-28).
+  * New upstream Tesla release 450.51.05 (2020-07-07).
+  * New upstream beta 450.51 (2020-06-24).
+    - Added support for Vulkan direct-to-display on DisplayPort displays which
+      are connected via DisplayPort Multi-Stream Transport (DP-MST).
+    - Added a new documentation file, supported-gpus.json, which exposes a
+      machine-readable list of supported GPUs and features.
+    - Added an implementation of glNamedBufferPageCommitmentARB, which was
+      missing from the NVIDIA driver's support for the GL_ARB_sparse_buffer
+      extension.
+    - Fixed a bug that could cause a KDE Plasma session to crash when running
+      under Wayland.
+    - Fixed a bug that could cause some Swap Group configurations to present
+      at half of the display refresh rate.
+    - Fixed a bug that prevented X11 EGL displays from being reinitialized.
+    - The 450 driver series is the last that supports NvFBC's
+      NVFBC_CAPTURE_TO_HW_ENCODER capture interface, which has been deprecated
+      since NVIDIA Capture SDK 6.0 released in 2017. Future NVIDIA drivers
+      after the 450 series will return NVFBC_ERR_UNSUPPORTED if that capture
+      interface is requested.
+      The recommended way to encode captured frames with NVENC is by using the
+      NVIDIA Video Codec SDK.
+      See: https://developer.nvidia.com/nvidia-video-codec-sdk
+    - Implemented support for NVIDIA NGX. A new library, libnvidia-ngx.so, has
+      been added to support the new functionality. This new library is needed by
+      applications which link against any of the following SDKs:
+      NVIDIA DLSS SDK, NVIDIA NGX SDK.
+    - Fixed a bug which caused Vulkan applications to leak file descriptors
+      when destroying Vulkan instances.
+    - Added a fallback presentation path for PRIME Render Offload
+      configurations where the DRI3 and/or Present extension are unavailable.
+    - Fixed a bug where vkCreateSampler would fail with no borderColor data,
+      even though it wasn't needed.
+    - Fixed a bug where vkUpdateDescriptorSetWithTemplate would ignore the
+      stride parameter for some VkDescriptorType values.
+    - Fixed a bug causing the Plasma desktop panel to freeze when
+      compositing is disabled (https://bugs.kde.org/show_bug.cgi?id=353983)
+    - Added support for the following GPUs: A100-PCIE-40GB, A100-PG509-200,
+      A100-SXM4-40GB.
+    - Improved Vulkan device enumeration under an X.Org X server environment.
+      See the "Known Issues" in the README for more information.
+    - Fixed a visual glitch of Vulkan applications when they stop flipping
+      due to a window change, such as when alt-tab is used to change
+      window focus.
+    - Fixed a bug where XGetImage requests would return stale data for
+      flipping Vulkan applications. In particular, this fixes screen-scraping
+      tools such as VNC and import.
+    - Removed libnvidia-fatbinaryloader.so from the driver package.  This
+      functionality is now built into other driver libraries.
+    - Extended the dynamic runtime power management support in the NVIDIA
+      driver to shut off power to video memory under certain conditions.
+      See the chapter titled "PCI-Express Runtime D3 (RTD3) Power Management"
+      in the README for more information.
+    - Added HEVC 10/12 bit "decode only" support to the NVIDIA VDPAU driver.
+      Note that VDPAU's presentation pipeline and OpenGL-VDPAU interop
+      does not support 10- and 12-bit video surfaces yet. See the "VDPAU
+      Support" appendix in the README for supported HEVC decoder profiles.
+    - Added support for Image Sharpening for OpenGL and Vulkan applications
+    - Added new VdpYCbCrFormats VDP_YCBCR_FORMAT_Y_U_V_444_16,
+      VDP_YCBCR_FORMAT_P010 and VDP_YCBCR_FORMAT_P016 for accessing 16-bit
+      surfaces via VdpVideoSurfaceGetBitsYCbCr() and
+      VdpVideoSurfacePutBitsYCbCr() in the NVIDIA VDPAU driver.
+    - Added support to create 16-bit video surfaces in the NVIDIA VDPAU driver.
+    - Modified nvidia-persistenced and libnvidia-ml (NVML) to use libtirpc for
+      communication instead of relying on the deprecated glibc RPC
+      implementation.
+    - Enabled GPU screens by default on X.Org xserver version 1.20.7 and higher.
+    - Fixed a bug where rendering in a separate user namespace (unshare -U)
+      would show black window and produce Xid 13 errors.
+  * New upstream release 445 series.
+    - Removed support for "IgnoreDisplayDevices" X configuration option.
+    - Added support for PRIME Synchronization when using displays driven by
+      the x86-video-amdgpu driver as PRIME display offload sinks.
+    - Added support for displays connected to NVIDIA GPUs to act as PRIME
+      display offload sinks, also known as "Reverse PRIME". See the chapter
+      titled "Offloading Graphics Display with RandR 1.4" in the README for
+      additional information.
+    - Removed 'libGL.la' libtool archive from the install package.
+  * New upstream release 440 series.
+    - Fixed a bug where a Vulkan application under PRIME render
+      offload would not always be correctly throttled to vsync despite
+      the application's request for VK_PRESENT_MODE_FIFO_KHR. This was
+      particularly prevalent on DXVK titles.
+
+  [ Andreas Beckmann ]
+  * Add support for arm64 driver releases.
+  * Update nv-readme.ids.
+  * Refresh patches.
+  * Update symbols files.
+  * Remove libnvidia-fatbinaryloader package.
+  * libnvidia-ngx1: New package for the NVIDIA NGX runtime library.
+  * libcuda1: Add Provides: libcuda-11.0-1{,-i386}.
+  * Update lintian overrides.
+  * Build the nvidia-*-common and nvidia-detect packages for arm64.
+  * Bump glx-alternative-nvidia dependency for arm64 support.
+  * Upload to experimental.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 01 Jul 2020 00:02:18 +0200
+
+nvidia-graphics-drivers (440.100-2) unstable; urgency=medium
+
+  * Restrict watch file to releases from the 440.xx long lived branch.
+  * Replace *-i386 helper packages with *:i386 recommendations.
+  * [i386 armhf]: Remove transitional packages.
+  * nvidia-detect.install: Use dh-exec for arch restrictions.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 17 Jul 2020 13:30:24 +0200
+
 nvidia-graphics-drivers (440.100-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -556,7 +738,7 @@ nvidia-graphics-drivers (418.88-1) unstable; urgency=medium
 
   * New upstream long lived branch release 418.88 (2019-07-29).
     * Improved compatibility with recent Linux kernels.
-      (Closes: #934290, #934344, #934648)
+      (Closes: #934290, #934344, #934648, #946128)
 
   [ Andreas Beckmann ]
   * Bump Standards-Version to 4.4.0. No changes needed.
@@ -1062,12 +1244,12 @@ nvidia-graphics-drivers (390.132-1) stretch; urgency=medium
   * debian/gen-control.pl: Support substitutions in the Architecture field and
     skip packages with empty or commented Architecture field (430.50-2).
   * Create and commit tarball symlinks for legacy branches (430.64-1).
-  * Allow alternative libnvidia-{tesla,legacy-*}-ml1 packages to substitute
-    libnvidia-ml1 (430.64-2).
+  * Allow alternative libnvidia-{tesla,legacy}-*-ml1 packages to substitute
+    libnvidia-ml1 in third-party packages (430.64-2).
     - Add Provides: libnvidia-ml.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libnvidia-ml.so.1 through
       the symbols file.
-  * Allow alternative libnvidia-{tesla,legacy-*}-cuda1 packages to substitute
+  * Allow alternative libnvidia-{tesla,legacy}-*-cuda1 packages to substitute
     libcuda1 in third-party packages (430.64-3).
     - Add Provides: libcuda.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libcuda.so.1 through the

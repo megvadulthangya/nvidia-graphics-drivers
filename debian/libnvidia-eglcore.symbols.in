@@ -1407,6 +1407,7 @@ libnvidia-eglcore.so.#VERSION# #PACKAGE# #MINVER#
  _glNamedBufferAttachMemoryNV@Base 415
  _glNamedBufferData@Base 346
  _glNamedBufferDataEXT@Base 346
+ _glNamedBufferPageCommitmentARB@Base 450
  _glNamedBufferPageCommitmentEXT@Base 346
  _glNamedBufferStorage@Base 346
  _glNamedBufferStorageEXT@Base 346

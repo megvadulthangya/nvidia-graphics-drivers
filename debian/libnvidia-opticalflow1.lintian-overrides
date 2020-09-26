@@ -2,7 +2,7 @@
 [i386]: binary-file-built-without-LFS-support
 hardening-no-bindnow
 hardening-no-fortify-functions
-hardening-no-relro
+[!arm64]: hardening-no-relro
 [i386]: specific-address-in-shared-library
 
 # Lintian and debhelper disagree w.r.t. a library in a private directory.

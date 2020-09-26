@@ -1,10 +1,5 @@
 .manifest
 LICENSE
-gl.h
-glext.h
-glx.h
-glxext.h
-libGL.la
 makeself-help-script.sh
 makeself.sh
 mkprecompiled

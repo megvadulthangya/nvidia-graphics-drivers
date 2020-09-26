@@ -12,38 +12,6 @@ For any news on this package check
 https://bugs.debian.org/#NVIDIA#-driver
 
 
-NOTES ABOUT GLVND VS. NON-GLVND FLAVOURS:
------------------------------------------------------------------------
-
-NVIDIA recently created and published an open source vendor-neutral dispatch
-layer for OpenGL. The intention is to allow co-existance of multiple, different
-implementations of OpenGL from multiple vendors on the same system without
-conflicts (EG: Mesa + Nvidia). See Github repository for more details [1].
-
-NVIDIA packages in Debian non-free come in two flavours: glvnd and non-glvnd.
-The reason is that it's still a work in progress, and although it's now very
-stable, there are still bugs found now and then.
-So Debian non-free provides both to allow users to choose and change if a
-problem is encountered.
-The default for new installations is the glvnd flavour, but upgrades from Jessie
-will be kept on non-glvnd until a user manually decides to switch.
-
-To install the glvnd flavour:
-
-  aptitude install nvidia-driver-libs nvidia-vulkan-common nvidia-driver-libs-nonglvnd- nvidia-nonglvnd-vulkan-common-
-
-To install the non-glvnd flavour:
-
-  aptitude install nvidia-driver-libs-nonglvnd nvidia-nonglvnd-vulkan-common nvidia-driver-libs- nvidia-vulkan-common-
-
-And restart the X session. If multiarch (amd64 + i386) is used, also install
-the :i386 version of the nvidia-driver-libs* package.
-
-Bumblebee users: only the nonglvnd flavour is supported.
-
-[1] https://github.com/NVIDIA/libglvnd
-
-
 NOTES ABOUT GLX DRIVER AND OPENGL:
 -----------------------------------------------------------------------
 
@@ -66,6 +34,15 @@ There are many more settings that can be tuned in xorg.conf.  For file
 format description and general options please see the xorg.conf(5) manpage.
 See /usr/share/doc/#NVIDIA#-driver/README.txt.gz
 for descriptions of all supported NVIDIA driver specific options.
+
+
+NOTES ABOUT SUPPORTED ARCHITECTURES:
+-----------------------------------------------------------------------
+
+The drivers for architectures other than amd64 cannot be tested by the
+maintainers due to lack of access to supported hardware. The packages are
+provided nonetheless in the hope that they will be useful to people using
+such platforms.
 
 
 NOTES ABOUT REPORTING BUGS TO NVIDIA:

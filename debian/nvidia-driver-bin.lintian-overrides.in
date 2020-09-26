@@ -3,7 +3,7 @@ embedded-library usr/lib/#PRIVATE#/nvidia-debugdump: zlib
 hardening-no-bindnow
 hardening-no-fortify-functions
 hardening-no-pie
-hardening-no-relro
+[!arm64]: hardening-no-relro
 
 # The current setup involving multiple chained alternatives would be very
 # hard to migrate to /usr/libexec.

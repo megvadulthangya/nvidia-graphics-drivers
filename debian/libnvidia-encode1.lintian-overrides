@@ -3,7 +3,7 @@
 [i386]: specific-address-in-shared-library
 hardening-no-bindnow
 hardening-no-fortify-functions
-hardening-no-relro
+[!arm64]: hardening-no-relro
 
 # Lintian and debhelper disagree w.r.t. a library in a private directory.
 package-has-unnecessary-activation-of-ldconfig-trigger

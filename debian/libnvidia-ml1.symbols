@@ -1,8 +1,17 @@
 libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
 * Build-Depends-Package: #PACKAGE#
+ nscq_init@Base 450
+ nscq_path_compile@Base 450
+ nscq_path_release@Base 450
+ nscq_session_create@Base 450
+ nscq_session_destroy@Base 450
+ nscq_shutdown@Base 450
+ nvmlComputeInstanceDestroy@Base 450
+ nvmlComputeInstanceGetInfo@Base 450
  nvmlDeviceClearAccountingPids@Base 319
  nvmlDeviceClearCpuAffinity@Base 340
  nvmlDeviceClearEccErrorCounts@Base 270
+ nvmlDeviceCreateGpuInstance@Base 450
 #MISSING: 415.25# nvmlDeviceCudaClocks@Base 415.22
  nvmlDeviceDiscoverGpus@Base 375
  nvmlDeviceFreezeNvLinkUtilizationCounter@Base 361
@@ -13,6 +22,9 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceGetAccountingStats@Base 319
  nvmlDeviceGetActiveVgpus@Base 361.45
  nvmlDeviceGetApplicationsClock@Base 304.30
+ nvmlDeviceGetArchitecture@Base 450
+ nvmlDeviceGetAttributes@Base 450
+ nvmlDeviceGetAttributes_v2@Base 450
  nvmlDeviceGetAutoBoostedClocksEnabled@Base 340
  nvmlDeviceGetBAR1MemoryInfo@Base 331.38
  nvmlDeviceGetBoardId@Base 340
@@ -21,11 +33,14 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceGetBridgeChipInfo@Base 331.20
  nvmlDeviceGetClock@Base 361.42
  nvmlDeviceGetClockInfo@Base 270
+ nvmlDeviceGetComputeInstanceId@Base 450
  nvmlDeviceGetComputeMode@Base 270
  nvmlDeviceGetComputeRunningProcesses@Base 285
+ nvmlDeviceGetComputeRunningProcesses_v2@Base 450.66
  nvmlDeviceGetCount@Base 270
  nvmlDeviceGetCount_v2@Base 319
  nvmlDeviceGetCpuAffinity@Base 340
+ nvmlDeviceGetCpuAffinityWithinScope@Base 450
  nvmlDeviceGetCreatableVgpus@Base 361.42
  nvmlDeviceGetCudaComputeCapability@Base 378
  nvmlDeviceGetCurrPcieLinkGeneration@Base 295
@@ -34,6 +49,7 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceGetDecoderUtilization@Base 340
  nvmlDeviceGetDefaultApplicationsClock@Base 319
  nvmlDeviceGetDetailedEccErrors@Base 270
+ nvmlDeviceGetDeviceHandleFromMigDeviceHandle@Base 450
  nvmlDeviceGetDisplayActive@Base 319
  nvmlDeviceGetDisplayMode@Base 270
  nvmlDeviceGetDriverModel@Base 270
@@ -48,8 +64,15 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceGetFanSpeed@Base 270
  nvmlDeviceGetFanSpeed_v2@Base 418
  nvmlDeviceGetFieldValues@Base 384
+ nvmlDeviceGetGpuInstanceById@Base 450
+ nvmlDeviceGetGpuInstanceId@Base 450
+ nvmlDeviceGetGpuInstancePossiblePlacements@Base 450
+ nvmlDeviceGetGpuInstanceProfileInfo@Base 450
+ nvmlDeviceGetGpuInstanceRemainingCapacity@Base 450
+ nvmlDeviceGetGpuInstances@Base 450
  nvmlDeviceGetGpuOperationMode@Base 304.48
  nvmlDeviceGetGraphicsRunningProcesses@Base 346
+ nvmlDeviceGetGraphicsRunningProcesses_v2@Base 450.66
  nvmlDeviceGetGridLicensableFeatures@Base 375.82
  nvmlDeviceGetGridLicensableFeatures_v2@Base 410
  nvmlDeviceGetGridLicensableFeatures_v3@Base 440
@@ -67,10 +90,14 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceGetMPSComputeRunningProcesses@Base 384.90
  nvmlDeviceGetMaxClockInfo@Base 285
  nvmlDeviceGetMaxCustomerBoostClock@Base 361.42
+ nvmlDeviceGetMaxMigDeviceCount@Base 450
  nvmlDeviceGetMaxPcieLinkGeneration@Base 295
  nvmlDeviceGetMaxPcieLinkWidth@Base 295
+ nvmlDeviceGetMemoryAffinity@Base 450
  nvmlDeviceGetMemoryErrorCounter@Base 304
  nvmlDeviceGetMemoryInfo@Base 270
+ nvmlDeviceGetMigDeviceHandleByIndex@Base 450
+ nvmlDeviceGetMigMode@Base 450
  nvmlDeviceGetMinorNumber@Base 331.38
  nvmlDeviceGetMultiGpuBoard@Base 340
  nvmlDeviceGetName@Base 270
@@ -98,9 +125,11 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceGetPowerState@Base 270
  nvmlDeviceGetPowerUsage@Base 270
  nvmlDeviceGetProcessUtilization@Base 384
+ nvmlDeviceGetRemappedRows@Base 450
  nvmlDeviceGetRetiredPages@Base 319
  nvmlDeviceGetRetiredPagesPendingStatus@Base 319
  nvmlDeviceGetRetiredPages_v2@Base 410
+ nvmlDeviceGetRowRemapperHistogram@Base 450
  nvmlDeviceGetSamples@Base 340
  nvmlDeviceGetSerial@Base 270
  nvmlDeviceGetSupportedClocksThrottleReasons@Base 304
@@ -123,6 +152,7 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceGetViolationStatus@Base 340
  nvmlDeviceGetVirtualizationMode@Base 361.28
 #MISSING: 384.69# nvmlDeviceGetXidErrors@Base 375.39
+ nvmlDeviceIsMigDeviceHandle@Base 450
  nvmlDeviceModifyDrainState@Base 375
  nvmlDeviceOnSameBoard@Base 295
  nvmlDeviceQueryDrainState@Base 375
@@ -144,6 +174,7 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceSetEccMode@Base 270
  nvmlDeviceSetGpuLockedClocks@Base 410
  nvmlDeviceSetGpuOperationMode@Base 304.48
+ nvmlDeviceSetMigMode@Base 450
  nvmlDeviceSetNvLinkUtilizationControl@Base 361
  nvmlDeviceSetPersistenceMode@Base 270
  nvmlDeviceSetPowerManagementLimit@Base 304
@@ -156,10 +187,18 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlEventSetCreate@Base 285
  nvmlEventSetFree@Base 285
  nvmlEventSetWait@Base 285
+ nvmlEventSetWait_v2@Base 450
  nvmlGetBlacklistDeviceCount@Base 410
  nvmlGetBlacklistDeviceInfoByIndex@Base 410
  nvmlGetVgpuCompatibility@Base 375.26
  nvmlGetVgpuVersion@Base 410.66
+ nvmlGpuInstanceCreateComputeInstance@Base 450
+ nvmlGpuInstanceDestroy@Base 450
+ nvmlGpuInstanceGetComputeInstanceById@Base 450
+ nvmlGpuInstanceGetComputeInstanceProfileInfo@Base 450
+ nvmlGpuInstanceGetComputeInstanceRemainingCapacity@Base 450
+ nvmlGpuInstanceGetComputeInstances@Base 450
+ nvmlGpuInstanceGetInfo@Base 450
  nvmlInit@Base 270
  nvmlInitWithFlags@Base 384.90
  nvmlInit_v2@Base 319
@@ -182,6 +221,7 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlUnitGetTemperature@Base 270
  nvmlUnitGetUnitInfo@Base 270
  nvmlUnitSetLedState@Base 270
+ nvmlVgpuInstanceClearAccountingPids@Base 450
  nvmlVgpuInstanceGetAccountingMode@Base 390.59
  nvmlVgpuInstanceGetAccountingPids@Base 390.59
  nvmlVgpuInstanceGetAccountingStats@Base 390.59

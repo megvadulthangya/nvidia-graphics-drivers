@@ -1403,6 +1403,7 @@ libGLX_nvidia.so.0 #PACKAGE# #MINVER#
  glNamedBufferAttachMemoryNV@Base 415
  glNamedBufferData@Base 361.28
  glNamedBufferDataEXT@Base 361.28
+ glNamedBufferPageCommitmentARB@Base 450
  glNamedBufferPageCommitmentEXT@Base 361.28
  glNamedBufferStorage@Base 361.28
  glNamedBufferStorageEXT@Base 361.28

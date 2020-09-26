@@ -31,6 +31,7 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuCtxPopCurrent_v2@Base 270
  cuCtxPushCurrent@Base 177
  cuCtxPushCurrent_v2@Base 270
+ cuCtxResetPersistingL2Cache@Base 450
  cuCtxSetCacheConfig@Base 260
  cuCtxSetCurrent@Base 270
  cuCtxSetLimit@Base 256
@@ -52,24 +53,28 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuDeviceGetUuid@Base 396
  cuDevicePrimaryCtxGetState@Base 346
  cuDevicePrimaryCtxRelease@Base 346
+ cuDevicePrimaryCtxRelease_v2@Base 450
  cuDevicePrimaryCtxReset@Base 346
+ cuDevicePrimaryCtxReset_v2@Base 450
  cuDevicePrimaryCtxRetain@Base 346
  cuDevicePrimaryCtxSetFlags@Base 346
+ cuDevicePrimaryCtxSetFlags_v2@Base 450
  cuDeviceTotalMem@Base 169
  cuDeviceTotalMem_v2@Base 260
  cuDriverGetVersion@Base 185
- (arch=amd64)cuEGLApiInit@Base 390
-#MISSING: 390# (arch=amd64)cuEGLInit@Base 346
- (arch=amd64)cuEGLStreamConsumerAcquireFrame@Base 346
- (arch=amd64)cuEGLStreamConsumerConnect@Base 346
- (arch=amd64)cuEGLStreamConsumerConnectWithFlags@Base 367.44
- (arch=amd64)cuEGLStreamConsumerDisconnect@Base 346
- (arch=amd64)cuEGLStreamConsumerReleaseFrame@Base 346
- (arch=amd64)cuEGLStreamProducerConnect@Base 346
- (arch=amd64)cuEGLStreamProducerDisconnect@Base 346
- (arch=amd64)cuEGLStreamProducerPresentFrame@Base 349
- (arch=amd64)cuEGLStreamProducerReturnFrame@Base 349
+ (arch=!i386 !ppc64el)cuEGLApiInit@Base 390
+#MISSING: 390# (arch=!i386 !ppc64el)cuEGLInit@Base 346
+ (arch=!i386 !ppc64el)cuEGLStreamConsumerAcquireFrame@Base 346
+ (arch=!i386 !ppc64el)cuEGLStreamConsumerConnect@Base 346
+ (arch=!i386 !ppc64el)cuEGLStreamConsumerConnectWithFlags@Base 367.44
+ (arch=!i386 !ppc64el)cuEGLStreamConsumerDisconnect@Base 346
+ (arch=!i386 !ppc64el)cuEGLStreamConsumerReleaseFrame@Base 346
+ (arch=!i386 !ppc64el)cuEGLStreamProducerConnect@Base 346
+ (arch=!i386 !ppc64el)cuEGLStreamProducerDisconnect@Base 346
+ (arch=!i386 !ppc64el)cuEGLStreamProducerPresentFrame@Base 349
+ (arch=!i386 !ppc64el)cuEGLStreamProducerReturnFrame@Base 349
  cuEventCreate@Base 169
+ (arch=arm64)cuEventCreateFromEGLSync@Base 450
  cuEventDestroy@Base 169
  cuEventDestroy_v2@Base 270
  cuEventElapsedTime@Base 169
@@ -80,6 +85,7 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuExternalMemoryGetMappedBuffer@Base 410
  cuExternalMemoryGetMappedMipmappedArray@Base 410
  cuFuncGetAttribute@Base 185
+ cuFuncGetModule@Base 450
  cuFuncSetAttribute@Base 384
  cuFuncSetBlockShape@Base 169
  cuFuncSetCacheConfig@Base 195.30
@@ -128,7 +134,11 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuGraphHostNodeGetParams@Base 410
  cuGraphHostNodeSetParams@Base 410
  cuGraphInstantiate@Base 410
+ cuGraphInstantiate_v2@Base 450
+ cuGraphKernelNodeCopyAttributes@Base 450
+ cuGraphKernelNodeGetAttribute@Base 450
  cuGraphKernelNodeGetParams@Base 410
+ cuGraphKernelNodeSetAttribute@Base 450
  cuGraphKernelNodeSetParams@Base 410
  cuGraphLaunch@Base 410
  cuGraphLaunch_ptsz@Base 410
@@ -141,12 +151,12 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuGraphNodeGetDependentNodes@Base 410
  cuGraphNodeGetType@Base 410
  cuGraphRemoveDependencies@Base 410
- (arch=amd64)cuGraphicsEGLRegisterImage@Base 346
+ (arch=!i386 !ppc64el)cuGraphicsEGLRegisterImage@Base 346
  cuGraphicsGLRegisterBuffer@Base 195
  cuGraphicsGLRegisterImage@Base 195
  cuGraphicsMapResources@Base 195
  cuGraphicsMapResources_ptsz@Base 346
- (arch=amd64)cuGraphicsResourceGetMappedEglFrame@Base 349
+ (arch=!i386 !ppc64el)cuGraphicsResourceGetMappedEglFrame@Base 349
  cuGraphicsResourceGetMappedMipmappedArray@Base 304
  cuGraphicsResourceGetMappedPointer@Base 195
  cuGraphicsResourceGetMappedPointer_v2@Base 260
@@ -166,6 +176,7 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuIpcGetMemHandle@Base 285.05
  cuIpcOpenEventHandle@Base 285.05
  cuIpcOpenMemHandle@Base 285.05
+ cuIpcOpenMemHandle_v2@Base 450.66
  cuLaunch@Base 169
 #MISSING: 378.13# cuLaunchCooperativeGrid@Base 378
 #MISSING: 378.13# cuLaunchCooperativeGrid_ptsz@Base 378
@@ -224,6 +235,7 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuMemRangeGetAttribute@Base 367.44
  cuMemRangeGetAttributes@Base 367.44
  cuMemRelease@Base 440
+ cuMemRetainAllocationHandle@Base 450
  cuMemSetAccess@Base 440
  cuMemUnmap@Base 440
  cuMemcpy2D@Base 169
@@ -363,12 +375,16 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuStreamBeginCapture_ptsz@Base 410
  cuStreamBeginCapture_v2@Base 418
  cuStreamBeginCapture_v2_ptsz@Base 418
+ cuStreamCopyAttributes@Base 450
+ cuStreamCopyAttributes_ptsz@Base 450
  cuStreamCreate@Base 169
  cuStreamCreateWithPriority@Base 319
  cuStreamDestroy@Base 169
  cuStreamDestroy_v2@Base 270
  cuStreamEndCapture@Base 410
  cuStreamEndCapture_ptsz@Base 410
+ cuStreamGetAttribute@Base 450
+ cuStreamGetAttribute_ptsz@Base 450
  cuStreamGetCaptureInfo@Base 418
  cuStreamGetCaptureInfo_ptsz@Base 418
  cuStreamGetCtx@Base 396
@@ -381,6 +397,8 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuStreamIsCapturing_ptsz@Base 410
  cuStreamQuery@Base 169
  cuStreamQuery_ptsz@Base 346
+ cuStreamSetAttribute@Base 450
+ cuStreamSetAttribute_ptsz@Base 450
  cuStreamSynchronize@Base 169
  cuStreamSynchronize_ptsz@Base 346
  cuStreamWaitEvent@Base 260
