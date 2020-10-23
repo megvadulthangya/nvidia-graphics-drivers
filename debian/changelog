@@ -1,11 +1,12 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-8) unstable; urgency=medium
 
   * Backport drm_gem_object_get changes from 418.30.
   * Backport get_user_pages_remote, vga_tryget, drm_driver_has_gem_free_object
     changes from 455.23.04 to fix kernel module build for Linux 5.9.
+    (Closes: #972430)
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 14 Oct 2020 02:32:17 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 23 Oct 2020 23:49:54 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.108-7) unstable; urgency=medium
 
