@@ -198,7 +198,6 @@ override_dh_install:
 	dh_install
 
 	chmod a+x $(module_source_pkg)/usr/src/modules/$(nvidia)-kernel/debian/rules
-	find $(module_source_pkg)/usr/src/modules -name '*.in' -delete
 	find $(module_source_pkg)/usr/src/modules -depth -newermt '@$(SOURCE_DATE_EPOCH)' -print0 | \
 		xargs -0r touch --no-dereference --date='@$(SOURCE_DATE_EPOCH)'
 
@@ -207,6 +206,7 @@ override_dh_install:
 	  LC_ALL=C sort -z | \
 	  tar cfJ $(module_source_txz) \
 	    --owner=root --group=src -C $(module_source_pkg)/usr/src \
+	    --exclude '*.in' \
 	    --no-recursion --null -T -
 	tar tfvJ $(module_source_txz)
 	$(RM) -r $(module_source_pkg)/usr/src/modules

@@ -1,0 +1,27 @@
+Author: Andreas Beckmann <anbe@debian.org>
+Description: linux/ioctl32.h is gone since 2.6.22
+
+--- a/nv-linux.h
++++ b/nv-linux.h
+@@ -136,7 +136,8 @@
+ 
+ #if defined(NVCPU_X86_64) && !defined(HAVE_COMPAT_IOCTL)
+ #include <linux/syscalls.h>         /* sys_ioctl()                      */
+-#include <linux/ioctl32.h>          /* register_ioctl32_conversion()    */
++// gone since 2.6.22
++//#include <linux/ioctl32.h>          /* register_ioctl32_conversion()    */
+ #endif
+ 
+ #if !defined(NV_FILE_OPERATIONS_HAS_IOCTL) && \
+--- a/uvm/nvidia_uvm_linux.h
++++ b/uvm/nvidia_uvm_linux.h
+@@ -158,7 +158,8 @@
+ 
+ #if defined(NVCPU_X86_64) && !defined(HAVE_COMPAT_IOCTL)
+ #include <linux/syscalls.h>         /* sys_ioctl()                      */
+-#include <linux/ioctl32.h>          /* register_ioctl32_conversion()    */
++// gone since 2.6.22
++//#include <linux/ioctl32.h>          /* register_ioctl32_conversion()    */
+ #endif
+ 
+ #if !defined(NV_FILE_OPERATIONS_HAS_IOCTL) && \
