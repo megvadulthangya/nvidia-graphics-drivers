@@ -1,0 +1,67 @@
+From 785c239fa1f669a6b39e9e7f2a1b1a57ca689e81 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Fri, 2 Oct 2020 00:03:05 +0200
+Subject: [PATCH 2/2] backport vga_tryget changes from 455.23.04
+
+---
+ Makefile    |  1 +
+ conftest.sh | 16 ++++++++++++++++
+ nv.c        |  2 ++
+ 3 files changed, 19 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 0288cd6..139a72f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -90,6 +90,7 @@ ifdef NV_BUILD_MODULE_INSTANCES
+ endif
+ 
+ COMPILE_TESTS = \
++	vga_tryget \
+ 	mm_has_mmap_lock \
+ 	vmalloc_has_pgprot_t_arg \
+ 	timeval \
+diff --git a/conftest.sh b/conftest.sh
+index 7a384b4..c06a74f 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -2324,6 +2324,22 @@ compile_test() {
+ 
+         ;;
+ 
++        vga_tryget)
++            #
++            # Determine if vga_tryget() is present
++            #
++            # vga_tryget() was removed by commit f369bc3f9096 ("vgaarb: mark
++            # vga_tryget static") in v5.9-rc1 (2020-08-01).
++            #
++            CODE="
++            #include <linux/vgaarb.h>
++            void conftest_vga_tryget(void) {
++                vga_tryget();
++            }"
++
++            compile_check_conftest "$CODE" "NV_VGA_TRYGET_PRESENT" "" "functions"
++        ;;
++
+     esac
+ }
+ 
+diff --git a/nv.c b/nv.c
+index 9a521c2..9559228 100644
+--- a/nv.c
++++ b/nv.c
+@@ -2787,7 +2787,9 @@ nvidia_probe
+ 
+ #if defined(CONFIG_VGA_ARB)
+ #if defined(VGA_DEFAULT_DEVICE)
++#if defined(NV_VGA_TRYGET_PRESENT)
+     vga_tryget(VGA_DEFAULT_DEVICE, VGA_RSRC_LEGACY_MASK);
++#endif
+ #endif
+     vga_set_legacy_decoding(dev, VGA_RSRC_NONE);
+ #endif
+-- 
+2.20.1
+

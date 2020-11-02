@@ -1,0 +1,75 @@
+From 307899e0bab58cd65e18a5bf7deaaa1ad446a3ab Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sat, 3 Oct 2020 00:26:27 +0200
+Subject: [PATCH] backport drm_gem_object_get changes from 418.30
+
+---
+ Makefile    |  1 +
+ conftest.sh | 19 +++++++++++++++++++
+ nv-drm.c    |  6 ++++++
+ 3 files changed, 26 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index bf516d2..0288cd6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -93,6 +93,7 @@ COMPILE_TESTS = \
+ 	mm_has_mmap_lock \
+ 	vmalloc_has_pgprot_t_arg \
+ 	timeval \
++	drm_gem_object_get \
+ 	proc_ops \
+ 	remap_pfn_range \
+ 	vmap \
+diff --git a/conftest.sh b/conftest.sh
+index 18fdb59..63eb81f 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -2196,6 +2196,25 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_DRM_DRIVER_PRIME_FLAG_PRESENT" "" "types"
+         ;;
+ 
++        drm_gem_object_get)
++            #
++            # Determine if the function drm_gem_object_get() is present.
++            #
++            # Added by commit e6b62714e87c8811d5564b6a0738dcde63a51774 (drm:
++            # Introduce drm_gem_object_{get,put}()) on 2017-02-28.
++            #
++            CODE="
++            #include <drm/drmP.h>
++            #if defined(NV_DRM_DRM_GEM_H_PRESENT)
++            #include <drm/drm_gem.h>
++            #endif
++            void conftest_drm_gem_object_get(void) {
++                drm_gem_object_get();
++            }"
++
++            compile_check_conftest "$CODE" "NV_DRM_GEM_OBJECT_GET_PRESENT" "" "functions"
++        ;;
++
+         proc_ops)
+             #
+             # Determine if the 'struct proc_ops' type is present.
+diff --git a/nv-drm.c b/nv-drm.c
+index c486442..c2f11fd 100644
+--- a/nv-drm.c
++++ b/nv-drm.c
+@@ -286,8 +286,14 @@ RM_STATUS NV_API_CALL nv_alloc_os_descriptor_handle(
+         goto done;
+     }
+ 
++#if defined(NV_DRM_GEM_OBJECT_GET_PRESENT)
++
+ #if defined(NV_DRM_GEM_OBJECT_PUT_UNLOCKED_PRESENT)
+     drm_gem_object_put_unlocked(&nv_obj->base);
++#else
++    drm_gem_object_put(&nv_obj->base);
++#endif
++
+ #else
+     drm_gem_object_unreference_unlocked(&nv_obj->base);
+ #endif
+-- 
+2.20.1
+

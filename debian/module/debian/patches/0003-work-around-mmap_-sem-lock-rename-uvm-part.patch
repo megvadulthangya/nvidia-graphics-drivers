@@ -1,0 +1,39 @@
+From 8a35210dc2cafd7152c4f4006f3318eacdb88f56 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sat, 29 Aug 2020 22:53:56 +0200
+Subject: [PATCH 3/3] work around mmap_{sem=>lock} rename, uvm part
+
+---
+ uvm/Makefile           | 1 +
+ uvm/nvidia_uvm_linux.h | 4 ++++
+ 2 files changed, 5 insertions(+)
+
+diff --git a/uvm/Makefile b/uvm/Makefile
+index e366330..f6e94c1 100644
+--- a/uvm/Makefile
++++ b/uvm/Makefile
+@@ -157,6 +157,7 @@ RM_OUT_DIR ?= $(src)/..
+ VERSION_HEADER := $(RM_OUT_DIR)/nv_compiler.h
+ 
+ COMPILE_TESTS = \
++	mm_has_mmap_lock \
+ 	timeval \
+ 	proc_ops \
+ 	remap_page_range \
+diff --git a/uvm/nvidia_uvm_linux.h b/uvm/nvidia_uvm_linux.h
+index 1625209..a5858c6 100644
+--- a/uvm/nvidia_uvm_linux.h
++++ b/uvm/nvidia_uvm_linux.h
+@@ -447,5 +447,9 @@ static inline const char *kbasename(const char *str)
+ }
+ #endif
+ 
++#if defined(NV_MM_HAS_MMAP_LOCK)
++#define mmap_sem mmap_lock
++#endif
++
+ #endif // _NVIDIA_UVM_LINUX_H
+ 
+-- 
+2.20.1
+

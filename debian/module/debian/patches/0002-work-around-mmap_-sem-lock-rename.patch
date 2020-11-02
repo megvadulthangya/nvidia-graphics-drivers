@@ -1,0 +1,70 @@
+From da31ceccb73684d2a2637b59ddd0f6c5def0297e Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sat, 29 Aug 2020 00:23:41 +0200
+Subject: [PATCH 2/3] work around mmap_{sem=>lock} rename
+
+---
+ Makefile    |  1 +
+ conftest.sh | 18 ++++++++++++++++++
+ nv-linux.h  |  4 ++++
+ 3 files changed, 23 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 81313d5..bf516d2 100644
+--- a/Makefile
++++ b/Makefile
+@@ -90,6 +90,7 @@ ifdef NV_BUILD_MODULE_INSTANCES
+ endif
+ 
+ COMPILE_TESTS = \
++	mm_has_mmap_lock \
+ 	vmalloc_has_pgprot_t_arg \
+ 	timeval \
+ 	proc_ops \
+diff --git a/conftest.sh b/conftest.sh
+index f03a746..18fdb59 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -2249,6 +2249,24 @@ compile_test() {
+ 
+         ;;
+ 
++        mm_has_mmap_lock)
++            #
++            # Determine if the 'mm_struct' structure has a 'mmap_lock' field.
++            #
++            # Kernel commit da1c55f1b272 ("mmap locking API: rename mmap_sem
++            # to mmap_lock") replaced the field 'mmap_sem' by 'mmap_lock'
++            # in v5.8-rc1 (2020-06-08).
++            CODE="
++            #include <linux/mm_types.h>
++
++            int conftest_mm_has_mmap_lock(void) {
++                return offsetof(struct mm_struct, mmap_lock);
++            }"
++
++            compile_check_conftest "$CODE" "NV_MM_HAS_MMAP_LOCK" "" "types"
++
++        ;;
++
+     esac
+ }
+ 
+diff --git a/nv-linux.h b/nv-linux.h
+index f8a9864..dd63b52 100644
+--- a/nv-linux.h
++++ b/nv-linux.h
+@@ -2108,6 +2108,10 @@ static inline NvU64 nv_node_end_pfn(int nid)
+ #endif
+ }
+ 
++#if defined(NV_MM_HAS_MMAP_LOCK)
++#define mmap_sem mmap_lock
++#endif
++
+ /* get_user_pages
+  *
+  * The 8-argument version of get_user_pages was deprecated by commit 
+-- 
+2.20.1
+

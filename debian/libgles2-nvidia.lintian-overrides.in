@@ -3,7 +3,6 @@
 hardening-no-bindnow
 hardening-no-fortify-functions
 hardening-no-relro
-hardening-no-stackprotector
 
 # Packages built against the NVIDIA libGL should declare dependencies on
 # the free version for Debian's purposes.
