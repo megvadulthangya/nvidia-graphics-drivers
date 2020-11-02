@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-8~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 02 Nov 2020 17:55:28 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.108-8) unstable; urgency=medium
 
   * Backport drm_gem_object_get changes from 418.30.
