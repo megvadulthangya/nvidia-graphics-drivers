@@ -3,7 +3,6 @@
 hardening-no-bindnow
 hardening-no-fortify-functions
 hardening-no-relro
-hardening-no-stackprotector
 
 # This is also built from src:libglvnd.
 package-name-doesnt-match-sonames libGLdispatch0

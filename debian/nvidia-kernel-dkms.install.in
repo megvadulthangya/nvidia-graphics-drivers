@@ -1,0 +1,3 @@
+kernel/*				usr/src/#MODULE#-#VERSION#/
+debian/module/debian/patches/series	usr/src/#MODULE#-#VERSION#/patches/
+debian/module/debian/patches/*.patch	usr/src/#MODULE#-#VERSION#/patches/

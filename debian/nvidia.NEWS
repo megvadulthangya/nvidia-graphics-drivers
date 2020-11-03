@@ -109,4 +109,3 @@ nvidia-graphics-drivers (1.0.7667-2) unstable; urgency=low
   You may use the free nouveau or nv Xorg drivers instead.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 22 Sep 2010 08:15:26 +0200
-

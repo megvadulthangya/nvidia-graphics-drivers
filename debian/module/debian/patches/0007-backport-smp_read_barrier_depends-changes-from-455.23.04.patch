@@ -1,0 +1,52 @@
+From f68126e72f5b256f26b801f13c084543d1de2a0c Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Mon, 19 Oct 2020 23:26:08 +0200
+Subject: [PATCH 7/7] backport smp_read_barrier_depends changes from 455.23.04
+
+---
+ nvidia-uvm/uvm8_tools.c    | 1 -
+ nvidia-uvm/uvm8_va_range.h | 9 ---------
+ 2 files changed, 10 deletions(-)
+
+diff --git a/nvidia-uvm/uvm8_tools.c b/nvidia-uvm/uvm8_tools.c
+index ae0744f..90e0f12 100644
+--- a/nvidia-uvm/uvm8_tools.c
++++ b/nvidia-uvm/uvm8_tools.c
+@@ -192,7 +192,6 @@ static uvm_tools_event_tracker_t *tools_event_tracker(struct file *filp)
+ {
+     long event_tracker = atomic_long_read((atomic_long_t *)&filp->private_data);
+ 
+-    smp_read_barrier_depends();
+     return (uvm_tools_event_tracker_t *)event_tracker;
+ }
+ 
+diff --git a/nvidia-uvm/uvm8_va_range.h b/nvidia-uvm/uvm8_va_range.h
+index 5187f46..aa33068 100644
+--- a/nvidia-uvm/uvm8_va_range.h
++++ b/nvidia-uvm/uvm8_va_range.h
+@@ -722,9 +722,6 @@ size_t uvm_va_range_block_index(uvm_va_range_t *va_range, NvU64 addr);
+ // Looks up the VA block at va_range->blocks[index]. If no block is present at
+ // that index, NULL is returned.
+ //
+-// This will reduce down to a single read and a compiler barrier on x86 release
+-// builds.
+-//
+ // The va_range must have type UVM_VA_RANGE_TYPE_MANAGED.
+ static uvm_va_block_t *uvm_va_range_block(uvm_va_range_t *va_range, size_t index)
+ {
+@@ -733,12 +730,6 @@ static uvm_va_block_t *uvm_va_range_block(uvm_va_range_t *va_range, size_t index
+     UVM_ASSERT(index < uvm_va_range_num_blocks(va_range));
+     block = (uvm_va_block_t *)atomic_long_read(&va_range->blocks[index]);
+ 
+-    // Later accesses in this thread will read state out of block, potentially
+-    // as soon as the block pointer is updated by another thread. We have to
+-    // make sure that any initialization of this block by the creating thread is
+-    // visible to later accesses in this thread, which requires a data
+-    // dependency barrier.
+-    smp_read_barrier_depends();
+     return block;
+ }
+ 
+-- 
+2.20.1
+

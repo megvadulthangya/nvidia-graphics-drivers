@@ -1,3 +1,45 @@
+nvidia-graphics-drivers-tesla-418 (418.165.02-1) unstable; urgency=medium
+
+  * New upstream Tesla release 418.165.02 (2020-09-30).
+  * New upstream release 390 series.
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "too many arguments to function '__vmalloc'".
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "'struct mm_struct' has no member named 'mmap_sem'".
+
+  [ Andreas Beckmann ]
+  * Backport get_user_pages_remote, vga_tryget, smp_read_barrier_depends,
+    drm_driver_has_gem_free_object, drm_display_mode_has_vrefresh,
+    drm_driver_master_set_has_int_return_type and drm_gem_object_put_unlocked
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+  * Refresh patches.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Oct 2020 03:21:07 +0100
+
+nvidia-graphics-drivers-tesla-418 (418.152.00-2) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Replace *-i386 helper packages with *:i386 recommendations (440.100-2).
+  * Allow alternative libnvidia-{tesla,legacy}-*-cfg1 packages to substitute
+    libnvidia-cfg1 in third-party packages (450.57-2).
+    - Add Provides: libnvidia-cfg.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
+      the symbols file.
+  * Test that the patches can be applied to the module source (450.66-1).
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
+    while building kernel modules (450.66-1).
+  * Simplify generating the -source and -dkms packages (450.66-1).
+  * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
+    to fix kernel module build for Linux 5.8.
+
+  [ Vincent Cheng ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:48:01 +0200
+
 nvidia-graphics-drivers-tesla-418 (418.152.00-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -15,6 +57,20 @@ nvidia-graphics-drivers-tesla-418 (418.152.00-1) unstable; urgency=medium
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 29 Jun 2020 20:13:42 +0200
+
+nvidia-graphics-drivers (418.152.00-1) buster; urgency=medium
+
+  * New upstream Tesla release 418.152.00 (2020-06-24).
+    * Fixed CVE-2020-5963, CVE-2020-5967.  (Closes: #963766)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5031
+
+  [ Andreas Beckmann ]
+  * Use amd64 Tesla releases for buster.
+  * Refresh patches.
+  * Update lintian overrides.
+  * Upload to buster.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 29 Jun 2020 18:01:24 +0200
 
 nvidia-graphics-drivers-tesla-418 (418.126.02-4) unstable; urgency=medium
 
@@ -68,10 +124,10 @@ nvidia-graphics-drivers-tesla-418 (418.116.00-2) experimental; urgency=medium
   * Rename to *-tesla-418-*.
   * Add transitional nvidia-tesla-driver package.
   * Use separately packaged nvidia-settings-tesla-418.  (Closes: #948961)
-  * Drop superfluous Conflicts+Breaks+Replaces.
   * Use substitution to keep Standards-Version in sync (430.64-5).
   * Insert '-' between suffix ending with digit and SOVERSION (435.21-3).
   * Rename "legacy" variables to more generic "variant" (440.44-2).
+  * Drop versioned constraints that are satisfied in stretch (440.64-2).
   * Bump Standards-Version to 4.5.0. No changes needed.
   * Upload to experimental.
 
@@ -141,7 +197,7 @@ nvidia-graphics-drivers (418.88-1) unstable; urgency=medium
 
   * New upstream long lived branch release 418.88 (2019-07-29).
     * Improved compatibility with recent Linux kernels.
-      (Closes: #934290, #934344, #934648)
+      (Closes: #934290, #934344, #934648, #946128)
 
   [ Andreas Beckmann ]
   * Bump Standards-Version to 4.4.0. No changes needed.
@@ -620,6 +676,19 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
 
+nvidia-graphics-drivers (390.138-2) UNRELEASED; urgency=medium
+
+  * Backport nv_vmalloc changes from 450.57
+    and work around mmap_{sem=>lock} rename
+    to fix kernel module build for Linux 5.8.
+  * Backport get_user_pages_remote, vga_tryget,
+    drm_driver_has_gem_free_object, drm_display_mode_has_vrefresh,
+    drm_driver_master_set_has_int_return_type and drm_gem_object_put_unlocked
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:58:11 +0200
+
 nvidia-graphics-drivers (390.138-1) stretch; urgency=medium
 
   * New upstream legacy branch release 390.138 (2020-06-24).
@@ -650,6 +719,7 @@ nvidia-graphics-drivers (390.138-1) stretch; urgency=medium
       NVIDIA kernel module failed to build with error "unknown type name
       'vm_fault_t'".
     - Add PRIME Synchronization support for Linux kernel 5.4 and newer.
+      (Closes: #948568)
 
   [ Andreas Beckmann ]
   * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
@@ -673,12 +743,12 @@ nvidia-graphics-drivers (390.132-1) stretch; urgency=medium
   * debian/gen-control.pl: Support substitutions in the Architecture field and
     skip packages with empty or commented Architecture field (430.50-2).
   * Create and commit tarball symlinks for legacy branches (430.64-1).
-  * Allow alternative libnvidia-{tesla,legacy-*}-ml1 packages to substitute
-    libnvidia-ml1 (430.64-2).
+  * Allow alternative libnvidia-{tesla,legacy}-*-ml1 packages to substitute
+    libnvidia-ml1 in third-party packages (430.64-2).
     - Add Provides: libnvidia-ml.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libnvidia-ml.so.1 through
       the symbols file.
-  * Allow alternative libnvidia-{tesla,legacy-*}-cuda1 packages to substitute
+  * Allow alternative libnvidia-{tesla,legacy}-*-cuda1 packages to substitute
     libcuda1 in third-party packages (430.64-3).
     - Add Provides: libcuda.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libcuda.so.1 through the

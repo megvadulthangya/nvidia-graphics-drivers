@@ -94,6 +94,7 @@ RENAMED_CONTROL	 = $(foreach f,$(RENAME_CONTROL),$(call applyprefixrenamelist,$f
 TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/module/debian/patches/*.in debian/detect/*.in)
 AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
 AUTOGEN		+= debian/module/debian/changelog
+AUTOGEN		+= debian/module/debian/bug-control
 AUTOGEN		+= $(patsubst %.in,%,$(RENAMED_CONTROL))
 AUTOGEN		+= debian/bug-control
 AUTOGEN		+= debian/substvars
@@ -102,19 +103,12 @@ AUTOGEN		+= $(AUTOKEEP)
 AUTOKEEP	 = debian/watch debian/control
 AUTOCLEAN	 = $(filter-out $(AUTOKEEP),$(AUTOGEN))
 
-module_source	 = debian/$(nvidia)-kernel-source/usr/src/modules/$(nvidia)-kernel
-module_txz	 = $(subst /modules/,/,$(module_source)).tar.xz
-dkms_source	 = debian/$(nvidia)-kernel-dkms/usr/src/$(module)-$(version)
-
 empty		 =
 space		 = $(empty) $(empty)
 comma		 = ,
-xorg_depends	 = $(foreach abi, $(XORG_ABI_LIST), xorg-video-abi-$(abi) [$${nvidia:arch:has-driver}] |)
-xorg_depends	+= $(comma) xserver-xorg-core $(XORG_BOUND) [$${nvidia:arch:has-driver}]
-xorg_provides	 = xorg-driver-video [$${nvidia:arch:has-driver}]
-
-# Use the amd64 changelog for all architectures to be M-A:same safe.
-upstream_changelog	 = NVIDIA-Linux-amd64/NVIDIA_Changelog
+xorg_depends	 = $(foreach abi, $(XORG_ABI_LIST), xorg-video-abi-$(abi) |)
+xorg_depends	+= $(comma) xserver-xorg-core $(XORG_BOUND)
+xorg_provides	 = xorg-driver-video
 
 
 .PHONY: autogen prepare patch
@@ -209,6 +203,7 @@ override_dh_auto_clean:
 	$(RM) -r .pc
 	$(RM) NVIDIA-Linux
 	$(RM) -r $(foreach a,$(ARCH_LIST),NVIDIA-Linux-$a $(NVIDIA_DIRNAME_$a))
+	$(RM) -r build
 	$(RM) -r glvnd nonglvnd
 	$(RM) -r kernel-source-tree
 	$(RM) nvidia.ids nv-readme.ids pci.ids.nvidia*
@@ -232,85 +227,71 @@ debian/control: $(CONTROL_FILES) debian/changelog
 
 override_dh_auto_configure: prepare
 
-# Build two kernel module source tarballs for use with
-#  - module-assistant and make-kpkg
-#  - dkms
-.PHONY: install-into-tmp build-kernel-source-tree build-kernel-dkms-tree kernel-source-tree
-override_dh_auto_install: install-into-tmp
+build-stamp: unpack-stamp
+	$(RM) -r build
+	cp -al NVIDIA-Linux/ build
+	# Use the amd64 changelog for all architectures to be M-A:same safe.
+	cp -al NVIDIA-Linux-amd64/NVIDIA_Changelog build/
+	$(RM) -r build/32
+	$(RM) -r build/libglvnd_install_checker
 ifneq (,$(has_driver))
-override_dh_auto_install: build-kernel-source-tree build-kernel-dkms-tree
-endif
+	gzip -9fn build/nvidia-smi.1
 
-install-into-tmp:
-	# "Install" into debian/tmp.
-	$(RM) -r debian/tmp
-	cp -al NVIDIA-Linux/ debian/tmp
-	$(RM) -r debian/tmp/32
-	$(RM) -r debian/tmp/libglvnd_install_checker
-	$(RM) debian/tmp/NVIDIA_Changelog
-ifneq (,$(has_driver))
-	gzip -9fn debian/tmp/nvidia-smi.1
-endif
-
-build-kernel-source-tree: install-into-tmp
-	# Build the nvidia-kernel-source tree.
-	$(RM) -r $(module_source)
-	mkdir -p $(module_source)
-	mv debian/tmp/kernel/* $(module_source)/
 	# This copy of the changelog is going to be installed into the module
 	# binary packages.
-	cp -al $(upstream_changelog) $(module_source)/
+	cp -al build/NVIDIA_Changelog build/kernel/
 
 	# We may need nv-kernel.o for several architectures to accomodate
-	# all kernel flavors. Use Kbuild-compatible names.
-	$(RM) $(module_source)/nvidia/nv-kernel.o_binary
-	$(foreach a,$(BLOB_ARCH_LIST),cp -al NVIDIA-Linux-$a/kernel/nvidia/nv-kernel.o_binary $(module_source)/nvidia/nv-kernel-$a.o_binary ;)
-	$(RM) $(module_source)/nvidia-modeset/nv-modeset-kernel.o_binary
-	$(foreach a,$(BLOB_ARCH_LIST),cp -al NVIDIA-Linux-$a/kernel/nvidia-modeset/nv-modeset-kernel.o_binary $(module_source)/nvidia-modeset/nv-modeset-kernel-$a.o_binary ;)
-
-	# Install a debian/ tree.
-	cp -a debian/module/debian $(module_source)/
-	cp -a debian/copyright $(module_source)/debian/
-	cp -a debian/bug-script $(module_source)/debian/
-	cp -a debian/bug-control $(module_source)/debian/
-	echo "" >> $(module_source)/debian/bug-control
-	echo "Submit-As: $(nvidia)-kernel-source" >> $(module_source)/debian/bug-control
+	# all kernel flavors.
+	$(RM) build/kernel/nvidia/nv-kernel.o_binary
+	$(foreach a,$(BLOB_ARCH_LIST),cp -al NVIDIA-Linux-$a/kernel/nvidia/nv-kernel.o_binary build/kernel/nvidia/nv-kernel-$a.o_binary ;)
+	$(RM) build/kernel/nvidia-modeset/nv-modeset-kernel.o_binary
+	$(foreach a,$(BLOB_ARCH_LIST),cp -al NVIDIA-Linux-$a/kernel/nvidia-modeset/nv-modeset-kernel.o_binary build/kernel/nvidia-modeset/nv-modeset-kernel-$a.o_binary ;)
 
 	# Fix permissions.
-	chmod -R a-sx,u=rwX,go=rX $(module_source)/../..
-	chmod a+x $(module_source)/debian/rules
-	find '$(module_source)/../../modules' -depth -newermt '@$(SOURCE_DATE_EPOCH)' -print0 | \
+	chmod -R a-sx,u=rwX,go=rX build/kernel
+endif
+
+	touch $@
+
+override_dh_auto_build: build-stamp
+
+override_dh_auto_install:
+	$(RM) -r debian/tmp
+	cp -al build/ debian/tmp
+
+module_source_pkg	 = debian/$(nvidia)-kernel-source
+module_source_txz	 = $(module_source_pkg)/usr/src/$(nvidia)-kernel.tar.xz
+
+pack-module-source:
+	chmod a+x $(module_source_pkg)/usr/src/modules/$(nvidia)-kernel/debian/rules
+	find $(module_source_pkg)/usr/src/modules -depth -newermt '@$(SOURCE_DATE_EPOCH)' -print0 | \
 		xargs -0r touch --no-dereference --date='@$(SOURCE_DATE_EPOCH)'
 
 	# Build the tarball.
-	(cd $(module_source)/../.. && find modules -print0) | \
+	(cd $(module_source_pkg)/usr/src && find modules -print0) | \
 	  LC_ALL=C sort -z | \
-	  tar cfJ $(module_txz) \
-	    --owner=root --group=src -C $(module_source)/../.. \
+	  tar cfJ $(module_source_txz) \
+	    --owner=root --group=src -C $(module_source_pkg)/usr/src \
 	    --exclude '*.in' \
 	    --no-recursion --null -T -
-	tar tfvJ $(module_txz)
+	tar tfvJ $(module_source_txz)
+	$(RM) -r $(module_source_pkg)/usr/src/modules
 
-build-kernel-dkms-tree: build-kernel-source-tree
-	# Use the nvidia-kernel-source source to create the DKMS tree.
-	$(RM) -r $(dir $(dkms_source))
-	mkdir -p $(dir $(dkms_source))
-	mv $(module_source) $(dkms_source)
-	rmdir $(dir $(module_source))
-	cd $(dkms_source) \
-	    && QUILT_PATCHES=debian/patches quilt --quiltrc /dev/null push -a || test $$? = 2 \
-	    && $(RM) -r .pc debian
-	ls -la $(dkms_source)
-
-# This target is not used by the package build process.  You can use it if
-# you want to work with the patches that get applied to the module source.
-kernel-source-tree: prepare build-kernel-source-tree
+kernel-source-tree: build-stamp $(AUTOGEN)
 	$(RM) -r $@
-	cp -a $(module_source) $@
+	cp -a build/kernel $@
 	cd $@ && QUILT_PATCHES=../debian/module/debian/patches quilt --quiltrc /dev/null push -a || test $$? = 2
 
+ifneq (,$(has_driver))
+execute_after_dh_install: pack-module-source
+
+# Test that the patches can be applied to the module source.
+override_dh_auto_test: kernel-source-tree
+endif
+
 override_dh_installchangelogs:
-	dh_installchangelogs $(upstream_changelog)
+	dh_installchangelogs debian/tmp/NVIDIA_Changelog
 
 override_dh_dkms:
 	dh_dkms -V $(version)
@@ -324,6 +305,7 @@ override_dh_shlibdeps:
 override_dh_gencontrol:
 	dh_gencontrol -- \
 		-V'nvidia:Version=$(version)' \
+		-V'nvidia:Version:major=$(version_major)' \
 		-V'nvidia:xorgDepends=$(xorg_depends)' \
 		-V'nvidia:xorgProvides=$(xorg_provides)' \
 		-V'nvidia=$(nvidia)' \
@@ -344,7 +326,6 @@ override_dh_gencontrol:
 		-V'nvidia:kmod:tested:Linux=$(strip $(or $(LINUX_KMOD_TESTED_$(DEB_HOST_ARCH)),$(LINUX_KMOD_TESTED),???))' \
 		-V'nvidia:kmod:blob:archlist=$(subst $(space),$(comma)$(space),$(BLOB_ARCH_LIST)) architecture$(if $(filter 1,$(words $(BLOB_ARCH_LIST))),,s)' \
 		-Vnvidia:kmod:Description="`cat debian/control.kmod`" \
-		-Vnvidia:no-driver-notice="$(if $(has_driver),,`cat debian/control.no-driver`)" \
 		-Vnvidia:Models="`cat debian/control.models`"
 
 # used by dpkg-genchanges
@@ -386,10 +367,20 @@ override_dh_strip_nondeterminism:
 	-e 's{#ARCH_LIST#}{$(DRIVER_ARCH_LIST)}g;' \
 	-e 's{#HAS_UVM#}{$(if $(has_uvm),,#)}g;' \
 	-e 's{#!ppc64el#}{$(if $(filter ppc64el,$(DEB_HOST_ARCH)),#)}g;' \
+	$(EXTRA_SUBSTITUTIONS) \
 	< $< > $@
+
+debian/module/debian/patches/series: EXTRA_SUBSTITUTIONS =
+debian/nvidia-kernel-dkms.dkms: debian/module/debian/patches/series
+debian/nvidia-kernel-dkms.dkms: EXTRA_SUBSTITUTIONS += -e 's{\#MODULE_PATCHES\#}{$(patsubst %,%,$(shell grep -v ^\# debian/module/debian/patches/series))}g;'
 
 debian/module/debian/changelog: debian/changelog
 	sed '1s/^nvidia-graphics-drivers$(-variant)/$(nvidia)-kernel/g' $< > $@
+
+debian/module/debian/bug-control: debian/bug-control
+	cp $< $@
+	echo "" >> $@
+	echo "Submit-As: $(nvidia)-kernel-source" >> $@
 
 
 # Renaming control files for variant packaging

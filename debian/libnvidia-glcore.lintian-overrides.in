@@ -5,7 +5,6 @@ spelling-error-in-binary
 hardening-no-bindnow
 hardening-no-fortify-functions
 hardening-no-relro
-hardening-no-stackprotector
 
 # The libnvidia-{glcore,tls}.so.* SONAME changes with every upstream
 # release.

@@ -1,6 +1,14 @@
 # kernel support
 drmP.patch
 kernel-5.7.0-set-memory-array.patch
+linux-5.9.patch
+0001-backport-get_user_pages_remote-changes-from-455.23.04.patch
+0002-backport-vga_tryget-changes-from-455.23.04.patch
+0003-backport-drm_driver_has_gem_free_object-changes-from-455.23.04.patch
+0004-backport-drm_display_mode_has_vrefresh-changes-from-455.23.04.patch
+0005-backport-drm_driver_master_set_has_int_return_type-changes-from-455.23.04.patch
+0006-backport-drm_gem_object_put_unlocked-changes-from-455.23.04.patch
+0007-backport-smp_read_barrier_depends-changes-from-455.23.04.patch
 
 # build system updates
 use-kbuild-compiler.patch

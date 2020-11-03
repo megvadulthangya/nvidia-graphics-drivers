@@ -312,9 +312,9 @@ Bug-Debian: https://bugs.debian.org/951091
 +            fi
 +        ;;
 +
-     esac
- }
- 
+         vmalloc_has_pgprot_t_arg)
+             #
+             # Determine if __vmalloc has the 'pgprot' argument.
 --- a/nvidia-drm/nvidia-drm-connector.c
 +++ b/nvidia-drm/nvidia-drm-connector.c
 @@ -58,20 +58,100 @@ static void nv_drm_connector_destroy(str

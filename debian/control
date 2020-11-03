@@ -6,13 +6,12 @@ Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
 Uploaders:
  Andreas Beckmann <anbe@debian.org>,
- Vincent Cheng <vcheng@debian.org>,
  Luca Boccassi <bluca@debian.org>,
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
 Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b tesla-418/master
 Build-Depends:
  debhelper-compat (= 13),
- dpkg-dev (>= 1.18.8),
+ dh-exec,
  xz-utils,
  dkms,
  libvulkan1 (>= 1.0.42),
@@ -29,30 +28,29 @@ Package: nvidia-tesla-418-driver
 Section: non-free/x11
 Architecture: amd64 ppc64el
 Pre-Depends:
- nvidia-installer-cleanup [${nvidia:arch:has-driver}],
+ nvidia-installer-cleanup,
  ${nvidia:legacy-check},
 Depends:
- nvidia-legacy-390xx-driver [${nvidia:arch:has-no-driver}],
- ${nvidia}-driver-libs (= ${binary:Version}) [${nvidia:arch:has-driver}]
- | ${nvidia}-driver-libs-nonglvnd (= ${binary:Version}) [${nvidia:arch:has-driver}],
- ${nvidia}-driver-bin (= ${binary:Version}) [${nvidia:arch:has-driver}],
- xserver-xorg-video-${nvidia} (= ${binary:Version}) [${nvidia:arch:has-driver}],
- ${nvidia}-vdpau-driver (= ${binary:Version}) [${nvidia:arch:has-driver}],
- ${nvidia}-alternative (= ${binary:Version}) [${nvidia:arch:has-driver}],
+ ${nvidia}-driver-libs (= ${binary:Version})
+ | ${nvidia}-driver-libs-nonglvnd (= ${binary:Version}),
+ ${nvidia}-driver-bin (= ${binary:Version}),
+ xserver-xorg-video-${nvidia} (= ${binary:Version}),
+ ${nvidia}-vdpau-driver (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
  ${nvidia:kmod:binary},
- nvidia-support [${nvidia:arch:has-driver}],
+ nvidia-support,
  ${misc:Depends}
 Recommends:
- ${nvidia-settings} [${nvidia:arch:has-driver}],
- lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
- nvidia-persistenced [${nvidia:arch:has-driver}],
+ ${nvidia-settings},
+ lib${nvidia}-cfg1 (= ${binary:Version}),
+ nvidia-persistenced,
 Suggests:
  ${nvidia:kmod:source},
 Provides:
- nvidia-driver-any [${nvidia:arch:has-driver}],
- nvidia-glx-any [${nvidia:arch:has-driver}],
+ nvidia-driver-any,
+ nvidia-glx-any,
 Description: NVIDIA metapackage${nvidia:VariantDesc}
- ${nvidia:no-driver-notice}This metapackage depends on the NVIDIA binary driver and libraries
+ This metapackage depends on the NVIDIA binary driver and libraries
  that provide optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES/Vulkan applications via a direct-rendering X Server.
  .
@@ -105,7 +103,7 @@ Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${nvidia}-alternative--kmod-alias,
  nvidia-kernel-common (>= 20151021),
- nvidia-modprobe (>= 352),
+ nvidia-modprobe (>= ${nvidia:Version:major}),
  ${misc:Depends}
 Provides:
  nvidia-kernel-support-any,
@@ -128,7 +126,7 @@ Depends:
  ${nvidia}-kernel-support--v1,
  ${misc:Depends}
 Recommends:
- ${nvidia}-driver (>= ${nvidia:Version}) [${nvidia:arch:has-driver}]
+ ${nvidia}-driver (>= ${nvidia:Version})
  | ${libcuda1} (>= ${nvidia:Version}),
 Provides:
  ${nvidia}-kernel-${nvidia:Version},
@@ -165,7 +163,7 @@ Recommends:
  module-assistant | kernel-package,
  ${nvidia}-kernel-support,
 Suggests:
- ${nvidia}-driver (>= ${nvidia:Version}) [!ppc64el],
+ ${nvidia}-driver (>= ${nvidia:Version}),
 Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
  This package provides the source for the NVIDIA Xorg binary kernel module
  needed by ${nvidia}-driver in a form suitable
@@ -192,27 +190,26 @@ Package: xserver-xorg-video-nvidia-tesla-418
 Section: non-free/x11
 Architecture: amd64 ppc64el
 Pre-Depends:
- nvidia-installer-cleanup [${nvidia:arch:has-driver}],
+ nvidia-installer-cleanup,
  ${nvidia:legacy-check},
 Depends:
- xserver-xorg-video-nvidia-legacy-390xx [${nvidia:arch:has-no-driver}],
- lib${nvidia}-glcore (= ${binary:Version}) [${nvidia:arch:has-driver}],
- ${nvidia}-alternative (= ${binary:Version}) [${nvidia:arch:has-driver}],
- nvidia-support [${nvidia:arch:has-driver}],
+ lib${nvidia}-glcore (= ${binary:Version}),
+ ${nvidia}-alternative (= ${binary:Version}),
+ nvidia-support,
  ${nvidia:xorgDepends},
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
- ${nvidia}-driver (>= ${nvidia:Version}) [${nvidia:arch:has-driver}],
- ${nvidia}-vdpau-driver (>= ${nvidia:Version}) [${nvidia:arch:has-driver}],
+ ${nvidia}-driver (>= ${nvidia:Version}),
+ ${nvidia}-vdpau-driver (>= ${nvidia:Version}),
  ${nvidia:kmod:binary},
- ${nvidia-settings} [${nvidia:arch:has-driver}],
+ ${nvidia-settings},
 Suggests:
  ${nvidia:kmod:source},
 Provides:
- xserver-xorg-video-nvidia-any [${nvidia:arch:has-driver}],
+ xserver-xorg-video-nvidia-any,
  ${nvidia:xorgProvides},
 Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
- ${nvidia:no-driver-notice}The NVIDIA binary driver provides optimized hardware acceleration of
+ The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
  for graphics cards using NVIDIA chip sets.
  .
@@ -251,6 +248,7 @@ Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
+ libnvidia-cfg.so.1 (= ${nvidia:Version}),
  libnvidia-cfg1-any,
 Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
@@ -267,13 +265,13 @@ Depends:
  ${nvidia}-egl-icd (= ${binary:Version}),
  ${misc:Depends}
 Recommends:
- ${nvidia}-driver-libs-i386 (= ${binary:Version}) [amd64],
+ ${nvidia}-driver-libs:i386 (= ${binary:Version}) [amd64],
  libopengl0 | libopengl0-glvnd-nvidia,
  libglx-${nvidia-}0 (= ${binary:Version}),
  libgles-${nvidia-}1 (= ${binary:Version}),
  libgles-${nvidia-}2 (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
- ${nvidia}-vulkan-icd (= ${binary:Version}) [amd64 i386],
+ ${nvidia}-vulkan-icd (= ${binary:Version}),
 Provides:
  nvidia-driver-libs-any,
 Conflicts:
@@ -284,6 +282,7 @@ Conflicts:
  libegl1-glvnd-nvidia,
  libgles1-glvnd-nvidia,
  libgles2-glvnd-nvidia,
+ libgl1-${nvidia}-glx-i386,
 Breaks:
  ${nvidia}-driver-libs-nonglvnd,
  libgl1-${nvidia}-glx,
@@ -294,19 +293,6 @@ Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES libraries)${nvidia:VariantD
  that provide optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server.
 
-Package: nvidia-tesla-418-driver-libs-i386
-Architecture: i386
-Multi-Arch: foreign
-Depends:
- ${nvidia}-driver-libs (= ${binary:Version}),
- ${misc:Depends}
-Conflicts:
- libgl1-${nvidia}-glx-i386,
-Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES 32-bit libraries)${nvidia:VariantDescShort}
- This metapackage helps the automatic installation of the 32-bit NVIDIA
- OpenGL/GLX/EGL/GLES libraries when installing ${nvidia}-driver-libs
- on amd64 with foreign architecture i386 enabled.
-
 Package: nvidia-tesla-418-driver-libs-nonglvnd
 Architecture: i386 amd64 ppc64el
 Multi-Arch: same
@@ -315,12 +301,12 @@ Depends:
  libegl1-${nvidia} (= ${binary:Version}),
  ${misc:Depends}
 Recommends:
- ${nvidia}-driver-libs-nonglvnd-i386 (= ${binary:Version}) [amd64],
+ ${nvidia}-driver-libs-nonglvnd:i386 (= ${binary:Version}) [amd64],
  libglx-${nvidia-}0 (= ${binary:Version}),
  libgles-${nvidia-}1 (= ${binary:Version}),
  libgles-${nvidia-}2 (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
- ${nvidia}-nonglvnd-vulkan-icd (= ${binary:Version}) [amd64 i386],
+ ${nvidia}-nonglvnd-vulkan-icd (= ${binary:Version}),
 Provides:
  nvidia-driver-libs-any,
 Conflicts:
@@ -339,20 +325,6 @@ Description: NVIDIA metapackage (non-GLVND OpenGL/GLX/EGL/GLES libraries)${nvidi
  This metapackage depends on the (non-GLVND) NVIDIA binary libraries
  that provide optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server.
-
-Package: nvidia-tesla-418-driver-libs-nonglvnd-i386
-Architecture: i386
-Multi-Arch: foreign
-Depends:
- ${nvidia}-driver-libs-nonglvnd (= ${binary:Version}),
- ${misc:Depends}
-Conflicts:
- libgl1-${nvidia}-glx-i386,
-Description: NVIDIA metapackage (non-GLVND OpenGL/EGL etc. 32-bit libraries)${nvidia:VariantDescShort}
- This metapackage helps the automatic installation of the 32-bit NVIDIA
- OpenGL/GLX/EGL/GLES libraries when installing
- ${nvidia}-driver-libs-nonglvnd
- on amd64 with foreign architecture i386 enabled.
 
 Package: libglx-nvidia-tesla-418-0
 Architecture: i386 amd64 ppc64el
@@ -625,8 +597,8 @@ Depends:
  lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${misc:Depends}
 Recommends:
- lib${nvidia}-cbl (= ${binary:Version}) [amd64],
- lib${nvidia}-rtcore (= ${binary:Version}) [amd64],
+ lib${nvidia}-cbl (= ${binary:Version}) [!i386 !ppc64el],
+ lib${nvidia}-rtcore (= ${binary:Version}) [!i386 !ppc64el],
 Suggests:
  vulkan-utils,
 Enhances:
@@ -652,8 +624,8 @@ Depends:
  lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${misc:Depends}
 Recommends:
- lib${nvidia}-cbl (= ${binary:Version}) [amd64],
- lib${nvidia}-rtcore (= ${binary:Version}) [amd64],
+ lib${nvidia}-cbl (= ${binary:Version}) [!i386 !ppc64el],
+ lib${nvidia}-rtcore (= ${binary:Version}) [!i386 !ppc64el],
  nvidia-legacy-390xx-driver-libs-nonglvnd [i386],
 Suggests:
  vulkan-utils,
@@ -734,16 +706,15 @@ Package: nvidia-tesla-418-smi
 Section: non-free/utils
 Architecture: amd64 ppc64el
 Depends:
- nvidia-legacy-390xx-smi [${nvidia:arch:has-no-driver}],
- ${nvidia}-alternative (= ${binary:Version}) [${nvidia:arch:has-driver}],
- lib${nvidia}-ml1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
+ ${nvidia}-alternative (= ${binary:Version}),
+ lib${nvidia}-ml1 (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia:kmod:binary},
 Suggests:
  ${nvidia:kmod:source},
 Description: NVIDIA System Management Interface${nvidia:VariantDesc}
- ${nvidia:no-driver-notice}The NVIDIA Management Library (NVML) provides a monitoring and management API.
+ The NVIDIA Management Library (NVML) provides a monitoring and management API.
  The application "nvidia-smi" is the NVIDIA System Management Interface (NVSMI)
  and provides a command line interface to this functionality.
  .
@@ -782,8 +753,8 @@ Recommends:
  ${nvidia:kmod:binary},
  ${nvidia}-smi [${nvidia:arch:has-driver}],
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
- nvidia-persistenced,
- ${libcuda1}-i386 (= ${binary:Version}) [amd64],
+ nvidia-persistenced [${nvidia:arch:has-driver}],
+ ${libcuda1}:i386 (= ${binary:Version}) [amd64],
 Suggests:
  nvidia-cuda-mps [${nvidia:arch:has-driver}],
  ${nvidia:kmod:source},
@@ -827,17 +798,6 @@ Description: NVIDIA CUDA Driver Library${nvidia:VariantDesc}
  series, as well as the Tesla computing processors.
  .
  ${nvidia:kmod:Description}
-
-Package: libnvidia-tesla-418-cuda1-i386
-Architecture: i386
-Multi-Arch: foreign
-Depends:
- ${libcuda1} (= ${binary:Version}),
- ${misc:Depends}
-Description: NVIDIA CUDA 32-bit runtime library${nvidia:VariantDesc}
- This metapackage helps the automatic installation of the 32-bit NVIDIA CUDA
- library when installing ${libcuda1} on amd64 with foreign
- architecture i386 enabled.
 
 Package: libnvidia-tesla-418-compiler
 Architecture: i386 amd64
