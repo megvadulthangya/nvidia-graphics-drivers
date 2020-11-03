@@ -1,3 +1,18 @@
+nvidia-graphics-drivers (450.80.02-1) unstable; urgency=medium
+
+  * New upstream long lived branch release 450.80.02 (2020-09-30).
+    - Added support for the following GPUs: DGX Display, GeForce MX450.
+    * Improved compatibility with recent Linux kernels.
+      (Closes: #972514, #972582, #972834, #972856, #972901, #973362, #973665)
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Update symbols files.
+  * Restrict watch file to releases from the 450.xx long lived branch.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 29 Oct 2020 01:05:29 +0100
+
 nvidia-graphics-drivers (450.66-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -67,6 +82,25 @@ nvidia-graphics-drivers (450.57-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Jul 2020 16:33:11 +0200
 
+nvidia-graphics-drivers (450.51.06-2) UNRELEASED; urgency=medium
+
+  * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
+    to fix kernel module build for Linux 5.8.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:39:37 +0200
+
+nvidia-graphics-drivers (450.51.06-1) UNRELEASED; urgency=medium
+
+  * New upstream Tesla release 450.51.06 (2020-07-28).
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 18 Aug 2020 23:20:53 +0200
+
+nvidia-graphics-drivers (450.51.05-1) UNRELEASED; urgency=medium
+
+  * New upstream Tesla release 450.51.05 (2020-07-07).
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 17 Jul 2020 17:50:32 +0200
+
 nvidia-graphics-drivers (450.51-2) experimental; urgency=medium
 
   * Prepare infrastructure for packaging Tesla 450 driver releases (available
@@ -78,8 +112,6 @@ nvidia-graphics-drivers (450.51-2) experimental; urgency=medium
 
 nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
 
-  * New upstream Tesla release 450.51.06 (2020-07-28).
-  * New upstream Tesla release 450.51.05 (2020-07-07).
   * New upstream beta 450.51 (2020-06-24).
     - Added support for Vulkan direct-to-display on DisplayPort displays which
       are connected via DisplayPort Multi-Stream Transport (DP-MST).
@@ -177,6 +209,27 @@ nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 01 Jul 2020 00:02:18 +0200
 
+nvidia-graphics-drivers (440.118.02-1) UNRELEASED; urgency=medium
+
+  * New upstream Tesla release 440.118.02 (2020-09-30).
+    - Fixed a bug that could cause the X server to crash when using large
+      cursor images with PRIME display offloading.
+    - Fixed a bug where a Vulkan application under PRIME render
+      offload would not always be correctly throttled to vsync despite
+      the application's request for VK_PRESENT_MODE_FIFO_KHR. This was
+      particularly prevalent on DXVK titles.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Backport get_user_pages_remote, vga_tryget, smp_read_barrier_depends,
+    drm_driver_has_gem_free_object, drm_display_mode_has_vrefresh,
+    drm_driver_master_set_has_int_return_type and drm_gem_object_put_unlocked
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+  * Refresh patches.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Oct 2020 00:01:20 +0200
+
 nvidia-graphics-drivers (440.100-2) unstable; urgency=medium
 
   * Restrict watch file to releases from the 440.xx long lived branch.
@@ -221,6 +274,8 @@ nvidia-graphics-drivers (440.95.01-1) UNRELEASED; urgency=medium
   * Update nv-readme.ids.
   * Refresh patches.
   * Update lintian overrides.
+  * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
+    to fix kernel module build for Linux 5.8.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 29 Jun 2020 21:42:12 +0200
 
@@ -254,6 +309,15 @@ nvidia-graphics-drivers (440.82-1) unstable; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 11 Apr 2020 14:29:59 +0200
 
+nvidia-graphics-drivers (440.64.00-1) UNRELEASED; urgency=medium
+
+  * New upstream Tesla release 440.64.00 (2020-03-10).
+
+  [ Andreas Beckmann ]
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 18 Mar 2020 21:10:14 +0100
+
 nvidia-graphics-drivers (440.64-2) unstable; urgency=medium
 
   * Prepare infrastructure for packaging Tesla 440 driver releases (available
@@ -267,7 +331,6 @@ nvidia-graphics-drivers (440.64-2) unstable; urgency=medium
 
 nvidia-graphics-drivers (440.64-1) unstable; urgency=medium
 
-  * New upstream Tesla release 440.64.00 (2020-03-10).
   * New upstream long lived branch release 440.64 (2020-02-28).
     - Added support for the following GPUs: GeForce MX330, GeForce MX350.
     - Fixed a regression that allowed displays to enter DPMS mode even
@@ -656,6 +719,34 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
+
+nvidia-graphics-drivers (418.165.02-1) UNRELEASED; urgency=medium
+
+  * New upstream Tesla release 418.165.02 (2020-09-30).
+  * New upstream release 390 series.
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "too many arguments to function '__vmalloc'".
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "'struct mm_struct' has no member named 'mmap_sem'".
+
+  [ Andreas Beckmann ]
+  * Backport get_user_pages_remote, vga_tryget, smp_read_barrier_depends,
+    drm_driver_has_gem_free_object, drm_display_mode_has_vrefresh,
+    drm_driver_master_set_has_int_return_type and drm_gem_object_put_unlocked
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+  * Refresh patches.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 11 Oct 2020 23:49:36 +0200
+
+nvidia-graphics-drivers (418.152.00-2) UNRELEASED; urgency=medium
+
+  * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
+    to fix kernel module build for Linux 5.8.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:48:01 +0200
 
 nvidia-graphics-drivers (418.152.00-1) buster; urgency=medium
 
@@ -1195,6 +1286,19 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.138-2) UNRELEASED; urgency=medium
+
+  * Backport nv_vmalloc changes from 450.57
+    and work around mmap_{sem=>lock} rename
+    to fix kernel module build for Linux 5.8.
+  * Backport get_user_pages_remote, vga_tryget,
+    drm_driver_has_gem_free_object, drm_display_mode_has_vrefresh,
+    drm_driver_master_set_has_int_return_type and drm_gem_object_put_unlocked
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:58:11 +0200
 
 nvidia-graphics-drivers (390.138-1) stretch; urgency=medium
 
