@@ -2,7 +2,7 @@ nvidia-graphics-drivers-legacy-340xx (340.108-9) unstable; urgency=medium
 
   * Backport drm_legacy_pci_init/exit from src:linux 5.9.11-1 which are no
     longer available after NOUVEAU_LEGACY_CTX_SUPPORT (and thus DRM_LEGACY)
-    got finally disabled.  (Closes: #976056)
+    got finally disabled.  (Closes: #976056, #976638)
   * Bump Standards-Version to 4.5.1. No changes needed.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 08 Dec 2020 20:00:58 +0100
