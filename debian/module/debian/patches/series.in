@@ -18,6 +18,7 @@ linux-5.9.patch
 0001-backport-get_user_pages_remote-changes-from-455.23.04.patch
 0002-backport-vga_tryget-changes-from-455.23.04.patch
 0003-backport-drm_driver_has_gem_free_object-changes-from-455.23.04.patch
+drm_legacy_pci_init.patch
 
 # build system updates
 separate-makefile-kbuild.patch
