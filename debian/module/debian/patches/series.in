@@ -19,6 +19,7 @@ linux-5.9.patch
 0002-backport-vga_tryget-changes-from-455.23.04.patch
 0003-backport-drm_driver_has_gem_free_object-changes-from-455.23.04.patch
 drm_legacy_pci_init.patch
+0001-backport-drm_prime_pages_to_sg_has_drm_device_arg-changes-from-455.45.01.patch
 
 # build system updates
 separate-makefile-kbuild.patch
