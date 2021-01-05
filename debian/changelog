@@ -1,3 +1,20 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-10) unstable; urgency=medium
+
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+  * Use a version=4 watch file.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 15 Dec 2020 22:23:56 +0100
+
+nvidia-graphics-drivers-legacy-340xx (340.108-9) unstable; urgency=medium
+
+  * Backport drm_legacy_pci_init/exit from src:linux 5.9.11-1 which are no
+    longer available after NOUVEAU_LEGACY_CTX_SUPPORT (and thus DRM_LEGACY)
+    got finally disabled.  (Closes: #976056, #976638)
+  * Bump Standards-Version to 4.5.1. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 08 Dec 2020 20:00:58 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.108-8~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
