@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-390xx (390.138-6~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 05 Jan 2021 20:40:51 +0100
+
 nvidia-graphics-drivers-legacy-390xx (390.138-6) unstable; urgency=medium
 
   * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
