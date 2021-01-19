@@ -1,19 +1,6 @@
 # kernel support
 do-div-cast.patch
 kernel-5.7.0-set-memory-array.patch
-0001-backport-nv_vmalloc-changes-from-450.57.patch
-0002-work-around-mmap_-sem-lock-rename.patch
-#HAS_UVM#0003-work-around-mmap_-sem-lock-rename-uvm-part.patch
-disable-module-nvidia-uvm.patch
-linux-5.9.patch
-0001-backport-get_user_pages_remote-changes-from-455.23.04.patch
-0002-backport-vga_tryget-changes-from-455.23.04.patch
-0003-backport-drm_driver_has_gem_free_object-changes-from-455.23.04.patch
-0004-backport-drm_display_mode_has_vrefresh-changes-from-455.23.04.patch
-0005-backport-drm_driver_master_set_has_int_return_type-changes-from-455.23.04.patch
-0006-backport-drm_gem_object_put_unlocked-changes-from-455.23.04.patch
-0001-backport-drm_prime_pages_to_sg_has_drm_device_arg-changes-from-455.45.01.patch
-0002-backport-get_dma_ops-changes-from-455.45.01.patch
 
 # build system updates
 use-kbuild-compiler.patch

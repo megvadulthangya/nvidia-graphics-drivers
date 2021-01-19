@@ -1,3 +1,29 @@
+nvidia-graphics-drivers-legacy-390xx (390.141-2) unstable; urgency=medium
+
+  * Really re-enable building the nvidia-uvm module.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Jan 2021 02:08:48 +0100
+
+nvidia-graphics-drivers-legacy-390xx (390.141-1) unstable; urgency=medium
+
+  * New upstream legacy branch release 390.141 (2021-01-07).
+    * Fixed CVE-2021-1056.  (Closes: #979672)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5142
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "'struct mm_struct' has no member named 'mmap_sem'".
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "too many arguments to function '__vmalloc'".
+
+  [ Andreas Beckmann ]
+  * Re-enable building the nvidia-uvm module.
+  * Refresh patches.
+  * Update symbols files.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 10 Jan 2021 03:31:58 +0100
+
 nvidia-graphics-drivers-legacy-390xx (390.138-6~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -8,7 +34,7 @@ nvidia-graphics-drivers-legacy-390xx (390.138-6) unstable; urgency=medium
 
   * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
     from 455.45.01 to fix kernel module build for Linux 5.10.
-  * Use a version=4 watch file.
+  * Bump watch file version to 4.
   * Bump Standards-Version to 4.5.1. No changes needed.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Dec 2020 00:28:48 +0100
@@ -62,6 +88,7 @@ nvidia-graphics-drivers-legacy-390xx (390.138-2) unstable; urgency=medium
     a) commenting the last paragraph in dkms.conf and
     b) building with NV_EXCLUDE_KERNEL_MODULES=nvidia-uvm set in the
        environment.
+  * Update lintian overrides.
 
   [ Vincent Cheng ]
   * Remove myself from Uploaders.
@@ -145,18 +172,21 @@ nvidia-graphics-drivers (390.138-1) stretch; urgency=medium
       (Closes: #948568)
 
   [ Andreas Beckmann ]
-  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
-    thanks to Jiri Palecek.  (Closes: #960735)
   * Refresh patches.
   * Update lintian overrides.
   * Upload to stretch.
+
+  [ Jiri Palecek ]
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7.
+    (Closes: #960735)
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 28 Jun 2020 22:35:52 +0200
 
 nvidia-graphics-drivers-legacy-390xx (390.132-5) unstable; urgency=medium
 
-  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
-    thanks to Jiri Palecek.  (Closes: #960735)
+  [ Jiri Palecek ]
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7.
+    (Closes: #960735)
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 20 May 2020 17:13:15 +0200
 
@@ -293,7 +323,7 @@ nvidia-graphics-drivers-legacy-390xx (390.116-2) unstable; urgency=medium
 nvidia-graphics-drivers-legacy-390xx (390.116-1) unstable; urgency=medium
 
   * New upstream legacy branch release 390.116 (2019-02-22).
-    * Fixed CVE‑2018‑6260.  (Closes: #913467)
+    * Fixed CVE-2018-6260.  (Closes: #913467)
       https://nvidia.custhelp.com/app/answers/detail/a_id/4772
     - Fixed build failures which resulted in errors like "implicit declaration
       of function drm_...", when building the NVIDIA DRM kernel module for Linux
@@ -325,7 +355,7 @@ nvidia-graphics-drivers-legacy-390xx (390.116-1) unstable; urgency=medium
 nvidia-graphics-drivers (390.116-1) stretch; urgency=medium
 
   * New upstream legacy branch release 390.116 (2019-02-22).
-    * Fixed CVE‑2018‑6260.  (Closes: #913467)
+    * Fixed CVE-2018-6260.  (Closes: #913467)
       https://nvidia.custhelp.com/app/answers/detail/a_id/4772
     - Fixed build failures which resulted in errors like "implicit declaration
       of function drm_...", when building the NVIDIA DRM kernel module for Linux

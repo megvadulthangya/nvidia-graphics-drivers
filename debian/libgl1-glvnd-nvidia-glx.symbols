@@ -1,18 +1,21 @@
 #include "libgl1-nvidia-glx.symbols.common"
- AllocExecPages@Base 361
+#MISSING: 390.141# AllocExecPages@Base 361
  FindNextStringToken@Base 375
- FreeExecPages@Base 361
+#MISSING: 390.141# FreeExecPages@Base 361
  IntersectionExtensionStrings@Base 375.20
  IsTokenInString@Base 375
  SplitString@Base 375
  UnionExtensionStrings@Base 375.20
 #MISSING: 384.111# __glXWrapperInit@Base 361
- entry_generate_default_code@Base 361
- entry_get_patch_addresses@Base 361
+#MISSING: 390.141# entry_generate_default_code@Base 361
+ entry_get_patch_address@Base 390.141
+#MISSING: 390.141# entry_get_patch_addresses@Base 361
  entry_get_public@Base 361
- entry_init_public@Base 361
+#MISSING: 390.141# entry_init_public@Base 361
  entry_patch_finish@Base 361
  entry_patch_start@Base 361
+ entry_restore_entrypoints@Base 390.141
+ entry_save_entrypoints@Base 390.141
  entry_stub_size@Base 361
  entry_type@Base 361
  glAccumxOES@Base 361
@@ -26,6 +29,8 @@
  glApplyFramebufferAttachmentCMAAINTEL@Base 361
  glApplyTextureEXT@Base 361
  glArrayObjectATI@Base 361
+ glAsyncCopyBufferSubDataNVX@Base 390.141
+ glAsyncCopyImageSubDataNVX@Base 390.141
  glAsyncMarkerSGIX@Base 361
  glBeginFragmentShaderATI@Base 361
  glBeginPerfMonitorAMD@Base 361
@@ -39,6 +44,7 @@
  glBindLightParameterEXT@Base 361
  glBindMaterialParameterEXT@Base 361
  glBindParameterEXT@Base 361
+ glBindShadingRateImageNV@Base 390.141
  glBindTexGenParameterEXT@Base 361
  glBindTextureUnitParameterEXT@Base 361
  glBindVertexArrayAPPLE@Base 361
@@ -65,6 +71,7 @@
  glBlendFuncSeparateIndexedAMD@Base 361
  glBlendFuncSeparateOES@Base 361
  glBlitFramebufferANGLE@Base 361
+ glBufferAttachMemoryNV@Base 390.141
  glBufferParameteriAPPLE@Base 361
  glBufferStorageExternalEXT@Base 390.116
  glClearAccumxOES@Base 361
@@ -73,6 +80,7 @@
  glClearDepthxOES@Base 361
  glClearPixelLocalStorageuiEXT@Base 390.116
  glClientActiveVertexStreamATI@Base 361
+ glClientWaitSemaphoreui64NVX@Base 390.141
  glClientWaitSyncAPPLE@Base 361
  glClipPlanefIMG@Base 361
  glClipPlanefOES@Base 361
@@ -122,6 +130,7 @@
  glCoverageOperationNV@Base 361
  glCreateMemoryObjectsEXT@Base 390.116
  glCreatePerfQueryINTEL@Base 361
+ glCreateProgressFenceNVX@Base 390.141
  glCullParameterdvEXT@Base 361
  glCullParameterfvEXT@Base 361
  glCurrentPaletteMatrixARB@Base 361
@@ -154,6 +163,8 @@
  glDrawElementsInstancedANGLE@Base 361
  glDrawMeshArraysSUN@Base 361
  glDrawMeshNV@Base 1.0.4349
+ glDrawMeshTasksIndirectNV@Base 390.141
+ glDrawMeshTasksNV@Base 390.141
  glDrawRangeElementArrayAPPLE@Base 361
  glDrawRangeElementArrayATI@Base 361
  glDrawTransformFeedbackInstancedEXT@Base 390.116
@@ -225,6 +236,7 @@
  glFramebufferFetchBarrierQCOM@Base 390.116
  glFramebufferFoveationConfigQCOM@Base 390.116
  glFramebufferFoveationParametersQCOM@Base 390.116
+ glFramebufferParameteriMESA@Base 390.141
  glFramebufferPixelLocalStorageSizeEXT@Base 390.116
  glFramebufferSamplePositionsfvAMD@Base 390.116
  glFramebufferTexture2DDownsampleIMG@Base 390.116
@@ -268,6 +280,7 @@
  glGetFragmentMaterialfvSGIX@Base 361
  glGetFragmentMaterialivSGIX@Base 361
  glGetFramebufferParameterfvAMD@Base 390.116
+ glGetFramebufferParameterivMESA@Base 390.141
  glGetFramebufferPixelLocalStorageSizeEXT@Base 390.116
  glGetHistogramEXT@Base 361
  glGetHistogramParameterfvEXT@Base 361
@@ -296,6 +309,7 @@
  glGetMapxvOES@Base 361
  glGetMaterialxOES@Base 361
  glGetMaterialxvOES@Base 361
+ glGetMemoryObjectDetachedResourcesuivNV@Base 390.141
  glGetMemoryObjectParameterivEXT@Base 390.116
  glGetMinmaxEXT@Base 361
  glGetMinmaxParameterfvEXT@Base 361
@@ -323,6 +337,8 @@
  glGetProgramResourceLocationIndexEXT@Base 361
  glGetQueryObjectivEXT@Base 361
  glGetSeparableFilterEXT@Base 361
+ glGetShadingRateImagePaletteNV@Base 390.141
+ glGetShadingRateSampleLocationivNV@Base 390.141
  glGetSharpenTexFuncSGIS@Base 361
  glGetSyncivAPPLE@Base 361
  glGetTexBumpParameterfvATI@Base 361
@@ -427,6 +443,8 @@
  glMultiDrawElementsBaseVertexEXT@Base 361
 #MISSING: 390.116# glMultiDrawElementsBaseVertexOES@Base 361
  glMultiDrawElementsIndirectCount@Base 390.116
+ glMultiDrawMeshTasksIndirectCountNV@Base 390.141
+ glMultiDrawMeshTasksIndirectNV@Base 390.141
  glMultiDrawRangeElementArrayAPPLE@Base 361
  glMultiModeDrawArraysIBM@Base 361
  glMultiModeDrawElementsIBM@Base 361
@@ -456,10 +474,15 @@
  glMulticastGetQueryObjectivNV@Base 390.116
  glMulticastGetQueryObjectui64vNV@Base 390.116
  glMulticastGetQueryObjectuivNV@Base 390.116
+ glMulticastScissorArrayvNVX@Base 390.141
+ glMulticastViewportArrayvNVX@Base 390.141
+ glMulticastViewportPositionWScaleNVX@Base 390.141
  glMulticastWaitSyncNV@Base 390.116
+ glNamedBufferAttachMemoryNV@Base 390.141
  glNamedBufferPageCommitmentARB@Base 361
  glNamedBufferStorageExternalEXT@Base 390.116
  glNamedFramebufferSamplePositionsfvAMD@Base 390.116
+ glNamedRenderbufferStorageMultisampleAdvancedAMD@Base 390.141
  glNewObjectBufferATI@Base 361
  glNormal3fVertex3fSUN@Base 361
  glNormal3fVertex3fvSUN@Base 361
@@ -531,6 +554,7 @@
  glRenderGpuMaskNV@Base 390.116
  glRenderbufferStorageMultisampleANGLE@Base 361
  glRenderbufferStorageMultisampleAPPLE@Base 361
+ glRenderbufferStorageMultisampleAdvancedAMD@Base 390.141
  glRenderbufferStorageMultisampleIMG@Base 361
  glReplacementCodePointerSUN@Base 361
  glReplacementCodeubSUN@Base 361
@@ -556,6 +580,7 @@
  glReplacementCodeusSUN@Base 361
  glReplacementCodeusvSUN@Base 361
  glResetHistogramEXT@Base 361
+ glResetMemoryObjectParameterNV@Base 390.141
  glResetMinmaxEXT@Base 361
  glResizeBuffersMESA@Base 361
  glResolveMultisampleFramebufferAPPLE@Base 361
@@ -567,6 +592,8 @@
  glSamplePatternEXT@Base 361
  glSamplePatternSGIS@Base 361
  glScalexOES@Base 361
+ glScissorExclusiveArrayvNV@Base 390.141
+ glScissorExclusiveNV@Base 390.141
  glSecondaryColorPointerListIBM@Base 361
  glSelectPerfMonitorCountersAMD@Base 361
  glSemaphoreParameterui64vEXT@Base 390.116
@@ -579,7 +606,12 @@
  glShaderOp1EXT@Base 361
  glShaderOp2EXT@Base 361
  glShaderOp3EXT@Base 361
+ glShadingRateImageBarrierNV@Base 390.141
+ glShadingRateImagePaletteNV@Base 390.141
+ glShadingRateSampleOrderCustomNV@Base 390.141
+ glShadingRateSampleOrderNV@Base 390.141
  glSharpenTexFuncSGIS@Base 361
+ glSignalSemaphoreui64NVX@Base 390.141
  glSignalSemaphoreEXT@Base 390.116
  glSignalVkFenceNV@Base 390.116
  glSignalVkSemaphoreNV@Base 390.116
@@ -616,6 +648,7 @@
  glTessellationModeAMD@Base 361
  glTestFenceAPPLE@Base 361
  glTestObjectAPPLE@Base 361
+ glTexAttachMemoryNV@Base 390.141
  glTexBumpParameterfvATI@Base 361
  glTexBumpParameterivATI@Base 361
  glTexCoord1bOES@Base 361
@@ -667,6 +700,7 @@
  glTexSubImage2DEXT@Base 361
  glTexSubImage3DOES@Base 361
  glTexSubImage4DSGIS@Base 361
+ glTextureAttachMemoryNV@Base 390.141
  glTextureColorMaskSGIS@Base 361
  glTextureFoveationParametersQCOM@Base 390.116
  glTextureLightEXT@Base 361
@@ -686,6 +720,8 @@
  glUnmapObjectBufferATI@Base 361
  glUnmapTexture2DINTEL@Base 361
  glUpdateObjectBufferATI@Base 361
+ glUploadGpuMaskNVX@Base 390.141
+ glVDPAURegisterVideoSurfaceWithPictureStructureNV@Base 390.141
  glVariantArrayObjectATI@Base 361
  glVariantPointerEXT@Base 361
  glVariantbvEXT@Base 361
@@ -761,6 +797,7 @@
  glViewportIndexedfvOES@Base 390.116
  glViewportPositionWScaleNV@Base 390.116
  glWaitSemaphoreEXT@Base 390.116
+ glWaitSemaphoreui64NVX@Base 390.141
  glWaitSyncAPPLE@Base 361
  glWaitVkSemaphoreNV@Base 390.116
  glWeightPointerARB@Base 361
@@ -817,6 +854,7 @@
  glXGetGPUInfoAMD@Base 361
  glXGetMscRateOML@Base 361
  glXGetScreenDriver@Base 361
+ glXGetSwapIntervalMESA@Base 390.141
  glXGetSyncValuesOML@Base 361
  glXGetTransparentIndexSUN@Base 361
  glXHyperpipeAttribSGIX@Base 361
@@ -836,6 +874,7 @@
  glXReleaseBuffersMESA@Base 361
  glXSet3DfxModeMESA@Base 361
  glXSwapBuffersMscOML@Base 361
+ glXSwapIntervalMESA@Base 390.141
  glXWaitForMscOML@Base 361
  glXWaitForSbcOML@Base 361
  glvnd_asprintf@Base 361
@@ -843,8 +882,9 @@
  glvnd_vasprintf@Base 375
 #MISSING: 361.45# public_entry_end@Base 361
 #MISSING: 361.45# public_entry_start@Base 361
+ stub_cleanup@Base 390.141
  stub_find_public@Base 361
- stub_get_addr@Base 361
+#MISSING: 390.141# stub_get_addr@Base 361
 #MISSING: 381.22# stub_get_name@Base 361
  stub_get_patch_callbacks@Base 361
- stub_get_slot@Base 361
+#MISSING: 390.141# stub_get_slot@Base 361

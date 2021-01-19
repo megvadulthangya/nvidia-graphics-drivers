@@ -6,8 +6,8 @@ Description: Include linux/swiotlb.h if CONFIG_ARM is defined
 
 --- a/common/inc/nv-linux.h
 +++ b/common/inc/nv-linux.h
-@@ -178,7 +178,7 @@ static inline uid_t __kuid_val(kuid_t ui
- #include <linux/dma-mapping.h>
+@@ -182,7 +182,7 @@ static inline uid_t __kuid_val(kuid_t ui
+ #endif
  #endif
  
 -#if defined(CONFIG_SWIOTLB) && defined(NVCPU_AARCH64)

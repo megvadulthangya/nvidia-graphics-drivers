@@ -34,11 +34,14 @@ The branch structure in the GIT repository
     390xx/master              buster,sid
     418                       buster              418-bullseye
     418-bullseye              (bullseye)          450, 418-tesla
-    418-tesla                 (sid)               tesla-418/master
-    tesla-418/master          sid
-    450                       (sid)               master, 450-tesla
-    450-tesla                 (sid)               tesla-450/master
-    tesla-450/master          sid
+    418-tesla                 (bullseye)          450-tesla, tesla-418/master
+    tesla-418/master          bullseye,sid        tesla-450/master
+    450                       (bullseye)          460, 450-tesla
+    450-tesla                 (bullseye)          460-tesla, tesla-450/master
+    tesla-450/master          bullseye,sid        tesla-460/master
+    460                       (bullseye)          master, 460-tesla
+    460-tesla                 (bullseye)          tesla-460/master
+    tesla-460/master          bullseye,sid
     master                    sid                 YYY
     YYY                       experimental        ZZZ, (master)
     ZZZ                       experimental        (master)
