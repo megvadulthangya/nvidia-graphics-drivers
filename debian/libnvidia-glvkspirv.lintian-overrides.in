@@ -4,7 +4,6 @@ exit-in-shared-library
 spelling-error-in-binary
 hardening-no-bindnow
 hardening-no-fortify-functions
-[ppc64el]: hardening-no-relro
 
 # The libnvidia-glvkspirv.so.* SONAME changes with every upstream
 # release.

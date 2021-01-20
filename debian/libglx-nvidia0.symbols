@@ -116,6 +116,7 @@ libGLX_nvidia.so.0 #PACKAGE# #MINVER#
  glBufferDataARB@Base 361.28
  glBufferDataSysmem@Base 361.28
  glBufferPageCommitmentARB@Base 361.28
+ glBufferPageCommitmentMemNV@Base 460
  glBufferStorage@Base 361.28
  glBufferStorageEXT@Base 361.28
  glBufferStorageMemEXT@Base 384.69
@@ -328,6 +329,7 @@ libGLX_nvidia.so.0 #PACKAGE# #MINVER#
  glCreateQueries@Base 361.28
  glCreateRenderbuffers@Base 361.28
  glCreateSamplers@Base 361.28
+ glCreateSemaphoresNV@Base 460
  glCreateShader@Base 361.28
  glCreateShaderObjectARB@Base 361.28
  glCreateShaderProgramEXT@Base 361.28
@@ -888,6 +890,7 @@ libGLX_nvidia.so.0 #PACKAGE# #MINVER#
  glGetSamplerParameterIuivOES@Base 361.28
  glGetSamplerParameterfv@Base 361.28
  glGetSamplerParameteriv@Base 361.28
+ glGetSemaphoreParameterivNV@Base 460
  glGetSemaphoreParameterui64vEXT@Base 384.69
  glGetSeparableFilter@Base 361.28
  glGetShaderInfoLog@Base 361.28
@@ -928,6 +931,7 @@ libGLX_nvidia.so.0 #PACKAGE# #MINVER#
  glGetTexParameterfv@Base 361.28
  glGetTexParameteriv@Base 361.28
  glGetTexParameterxv@Base 361.28
+ glGetTextureDirtyTileMapNV@Base 455
  glGetTextureHandleARB@Base 361.28
  glGetTextureHandleNV@Base 361.28
  glGetTextureImage@Base 361.28
@@ -1405,6 +1409,7 @@ libGLX_nvidia.so.0 #PACKAGE# #MINVER#
  glNamedBufferDataEXT@Base 361.28
  glNamedBufferPageCommitmentARB@Base 450
  glNamedBufferPageCommitmentEXT@Base 361.28
+ glNamedBufferPageCommitmentMemNV@Base 460
  glNamedBufferStorage@Base 361.28
  glNamedBufferStorageEXT@Base 361.28
  glNamedBufferStorageMemEXT@Base 384.69
@@ -1887,6 +1892,7 @@ libGLX_nvidia.so.0 #PACKAGE# #MINVER#
  glSecondaryColorPointer@Base 361.28
  glSecondaryColorPointerEXT@Base 361.28
  glSelectBuffer@Base 361.28
+ glSemaphoreParameterivNV@Base 460
  glSemaphoreParameterui64vEXT@Base 384.69
  glSeparableFilter2D@Base 361.28
  glSetFenceNV@Base 361.28
@@ -2010,6 +2016,7 @@ libGLX_nvidia.so.0 #PACKAGE# #MINVER#
  glTexImage3DNV@Base 361.28
  glTexPageCommitmentARB@Base 361.28
  glTexPageCommitmentEXT@Base 361.28
+ glTexPageCommitmentMemNV@Base 460
  glTexParameterIiv@Base 361.28
  glTexParameterIivEXT@Base 361.28
  glTexParameterIivOES@Base 361.28
@@ -2058,6 +2065,7 @@ libGLX_nvidia.so.0 #PACKAGE# #MINVER#
  glTextureImage3DMultisampleCoverageNV@Base 361.28
  glTextureImage3DMultisampleNV@Base 361.28
  glTexturePageCommitmentEXT@Base 361.28
+ glTexturePageCommitmentMemNV@Base 460
  glTextureParameterIiv@Base 361.28
  glTextureParameterIivEXT@Base 361.28
  glTextureParameterIuiv@Base 361.28

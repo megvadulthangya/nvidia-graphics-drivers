@@ -17,10 +17,14 @@ Files: *
 Copyright: 1993-2020 NVIDIA Corporation.  All rights reserved.
 License: NVIDIA-graphics-drivers
 
+Files: supported-gpus/supported-gpus.json
+Copyright: 2020 NVIDIA Corporation
+License: zlib/libpng
+
 Files: debian/*
 Copyright: 2001-2010 Randall Donald <rdonald@debian.org>
            2009-2010 Andres Mejia <mcitadel@gmail.com>
-           2009-2020 Andreas Beckmann <anbe@debian.org>
+           2009-2021 Andreas Beckmann <anbe@debian.org>
            2010-2011 Russ Allbery <rra@debian.org>
            2014-2015 Vincent Cheng <vcheng@debian.org>
            2015-2019 Luca Boccassi <bluca@debian.org>
@@ -248,3 +252,19 @@ Comment:
  .
  - Andy
 
+License: zlib/libpng
+ This software is provided 'as-is', without any express or implied
+ warranty.  In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ .
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ .
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.

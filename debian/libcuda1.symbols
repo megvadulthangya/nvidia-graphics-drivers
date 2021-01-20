@@ -11,6 +11,8 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuArrayDestroy@Base 169
  cuArrayGetDescriptor@Base 169
  cuArrayGetDescriptor_v2@Base 260
+ cuArrayGetPlane@Base 460
+ cuArrayGetSparseProperties@Base 455
  cuCtxAttach@Base 169
  cuCtxCreate@Base 169
  cuCtxCreate_v2@Base 260
@@ -45,11 +47,15 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuDeviceGetAttribute@Base 169
  cuDeviceGetByPCIBusId@Base 285
  cuDeviceGetCount@Base 169
+ cuDeviceGetDefaultMemPool@Base 460
+ cuDeviceGetLuid@Base 455
+ cuDeviceGetMemPool@Base 460
  cuDeviceGetName@Base 169
  cuDeviceGetNvSciSyncAttributes@Base 440
  cuDeviceGetP2PAttribute@Base 361
  cuDeviceGetPCIBusId@Base 285
  cuDeviceGetProperties@Base 169
+ cuDeviceGetTexture1DLinearMaxWidth@Base 455
  cuDeviceGetUuid@Base 396
  cuDevicePrimaryCtxGetState@Base 346
  cuDevicePrimaryCtxRelease@Base 346
@@ -59,6 +65,7 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuDevicePrimaryCtxRetain@Base 346
  cuDevicePrimaryCtxSetFlags@Base 346
  cuDevicePrimaryCtxSetFlags_v2@Base 450
+ cuDeviceSetMemPool@Base 460
  cuDeviceTotalMem@Base 169
  cuDeviceTotalMem_v2@Base 260
  cuDriverGetVersion@Base 185
@@ -80,6 +87,8 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuEventElapsedTime@Base 169
  cuEventQuery@Base 169
  cuEventRecord@Base 169
+ cuEventRecordWithFlags@Base 455
+ cuEventRecordWithFlags_ptsz@Base 455
  cuEventRecord_ptsz@Base 346
  cuEventSynchronize@Base 169
  cuExternalMemoryGetMappedBuffer@Base 410
@@ -113,6 +122,10 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuGraphAddChildGraphNode@Base 410
  cuGraphAddDependencies@Base 410
  cuGraphAddEmptyNode@Base 410
+ cuGraphAddEventRecordNode@Base 455
+ cuGraphAddEventWaitNode@Base 455
+ cuGraphAddExternalSemaphoresSignalNode@Base 460
+ cuGraphAddExternalSemaphoresWaitNode@Base 460
  cuGraphAddHostNode@Base 410
  cuGraphAddKernelNode@Base 410
  cuGraphAddMemcpyNode@Base 410
@@ -122,12 +135,25 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuGraphCreate@Base 410
  cuGraphDestroy@Base 410
  cuGraphDestroyNode@Base 410
+ cuGraphEventRecordNodeGetEvent@Base 455
+ cuGraphEventRecordNodeSetEvent@Base 455
+ cuGraphEventWaitNodeGetEvent@Base 455
+ cuGraphEventWaitNodeSetEvent@Base 455
+ cuGraphExecChildGraphNodeSetParams@Base 455
  cuGraphExecDestroy@Base 410
+ cuGraphExecEventRecordNodeSetEvent@Base 455
+ cuGraphExecEventWaitNodeSetEvent@Base 455
+ cuGraphExecExternalSemaphoresSignalNodeSetParams@Base 460
+ cuGraphExecExternalSemaphoresWaitNodeSetParams@Base 460
  cuGraphExecHostNodeSetParams@Base 440
  cuGraphExecKernelNodeSetParams@Base 418
  cuGraphExecMemcpyNodeSetParams@Base 440
  cuGraphExecMemsetNodeSetParams@Base 440
  cuGraphExecUpdate@Base 440
+ cuGraphExternalSemaphoresSignalNodeGetParams@Base 460
+ cuGraphExternalSemaphoresSignalNodeSetParams@Base 460
+ cuGraphExternalSemaphoresWaitNodeGetParams@Base 460
+ cuGraphExternalSemaphoresWaitNodeSetParams@Base 460
  cuGraphGetEdges@Base 410
  cuGraphGetNodes@Base 410
  cuGraphGetRootNodes@Base 410
@@ -151,6 +177,8 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuGraphNodeGetDependentNodes@Base 410
  cuGraphNodeGetType@Base 410
  cuGraphRemoveDependencies@Base 410
+ cuGraphUpload@Base 455
+ cuGraphUpload_ptsz@Base 455
  (arch=!i386 !ppc64el)cuGraphicsEGLRegisterImage@Base 346
  cuGraphicsGLRegisterBuffer@Base 195
  cuGraphicsGLRegisterImage@Base 195
@@ -201,6 +229,10 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuMemAddressReserve@Base 440
  cuMemAdvise@Base 361.28
  cuMemAlloc@Base 169
+ cuMemAllocAsync@Base 460
+ cuMemAllocAsync_ptsz@Base 460
+ cuMemAllocFromPoolAsync@Base 460
+ cuMemAllocFromPoolAsync_ptsz@Base 460
  cuMemAllocHost@Base 169
  cuMemAllocHost_v2@Base 260
  cuMemAllocManaged@Base 331
@@ -210,6 +242,8 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuMemCreate@Base 440
  cuMemExportToShareableHandle@Base 440
  cuMemFree@Base 169
+ cuMemFreeAsync@Base 460
+ cuMemFreeAsync_ptsz@Base 460
  cuMemFreeHost@Base 169
  cuMemFree_v2@Base 260
  cuMemGetAccess@Base 440
@@ -230,6 +264,19 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuMemHostUnregister@Base 270
  cuMemImportFromShareableHandle@Base 440
  cuMemMap@Base 440
+ cuMemMapArrayAsync@Base 455
+ cuMemMapArrayAsync_ptsz@Base 455
+ cuMemPoolCreate@Base 460
+ cuMemPoolDestroy@Base 460
+ cuMemPoolExportPointer@Base 460
+ cuMemPoolExportToShareableHandle@Base 460
+ cuMemPoolGetAccess@Base 460
+ cuMemPoolGetAttribute@Base 460
+ cuMemPoolImportFromShareableHandle@Base 460
+ cuMemPoolImportPointer@Base 460
+ cuMemPoolSetAccess@Base 460
+ cuMemPoolSetAttribute@Base 460
+ cuMemPoolTrimTo@Base 460
  cuMemPrefetchAsync@Base 367
  cuMemPrefetchAsync_ptsz@Base 367
  cuMemRangeGetAttribute@Base 367.44
@@ -337,6 +384,7 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuMipmappedArrayCreate@Base 304
  cuMipmappedArrayDestroy@Base 304
  cuMipmappedArrayGetLevel@Base 304
+ cuMipmappedArrayGetSparseProperties@Base 455
  cuModuleGetFunction@Base 169
  cuModuleGetGlobal@Base 169
  cuModuleGetGlobal_v2@Base 260

@@ -3,6 +3,7 @@
 # https://us.download.nvidia.com/tesla/418.126.02/NVIDIA-Linux-x86_64-418.126.02.run
 # https://us.download.nvidia.com/tesla/418.126.02/NVIDIA-Linux-ppc64le-418.126.02.run
 # https://us.download.nvidia.com/tesla/450.51.05/NVIDIA-Linux-aarch64-450.51.05.run
-version=3
+version=4
+opts=component=amd64 \
 https://download.nvidia.com/XFree86/Linux-x86_64/(#WATCH_PATTERN#)/NVIDIA-Linux-x86_64-(\d[\d\.\-]*)\.run
 #opts=searchmode=plain https://docs.nvidia.com/datacenter/tesla/index.html Version.(#WATCH_PATTERN#)

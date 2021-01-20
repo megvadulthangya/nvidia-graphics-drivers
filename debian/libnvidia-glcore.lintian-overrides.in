@@ -4,7 +4,6 @@
 spelling-error-in-binary
 hardening-no-bindnow
 hardening-no-fortify-functions
-[!arm64]: hardening-no-relro
 
 # The libnvidia-{glcore,tls}.so.* SONAME changes with every upstream
 # release.

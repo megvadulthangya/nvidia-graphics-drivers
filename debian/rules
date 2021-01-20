@@ -130,7 +130,6 @@ NVIDIA-Linux-i386: NVIDIA-Linux-amd64
 	cp -al $</32 $@
 	cp -al $</*.icd $@
 	cp -al $</*.json* $@
-	$(RM) $@/supported-gpus.json
 endif
 
 ifneq (,$(filter armhf,$(NO_DRIVER_ARCH_LIST)))
@@ -138,7 +137,6 @@ NVIDIA-Linux-armhf: NVIDIA-Linux-amd64
 	$(RM) -r $@
 	mkdir $@
 	cp -al $</*.json $@
-	$(RM) $@/supported-gpus.json
 endif
 
 ifneq (,$(filter ppc64el,$(NO_DRIVER_ARCH_LIST)))
@@ -369,6 +367,7 @@ override_dh_strip_nondeterminism:
 	-e 's{#!ppc64el#}{$(if $(filter ppc64el,$(DEB_HOST_ARCH)),#)}g;' \
 	$(EXTRA_SUBSTITUTIONS) \
 	< $< > $@
+	chmod --reference=$< $@
 
 debian/module/debian/patches/series: EXTRA_SUBSTITUTIONS =
 debian/nvidia-kernel-dkms.dkms: debian/module/debian/patches/series

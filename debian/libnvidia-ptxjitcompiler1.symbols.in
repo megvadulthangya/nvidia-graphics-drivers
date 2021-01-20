@@ -1,5 +1,15 @@
 libnvidia-ptxjitcompiler.so.1 #PACKAGE# #MINVER#
  __cuda_CallJitEntryPoint@Base 361
+ nvLinkerAddCubin@Base 460
+ nvLinkerCreate@Base 460
+ nvLinkerDestroy@Base 460
+ nvLinkerFinish@Base 460
+ nvLinkerGetErrorLog@Base 460
+ nvLinkerGetErrorLogSize@Base 460
+ nvLinkerGetInfoLog@Base 460
+ nvLinkerGetInfoLogSize@Base 460
+ nvLinkerGetLinkedCubin@Base 460
+ nvLinkerGetLinkedCubinSize@Base 460
  nvPTXCompilerCompile@Base 378
  nvPTXCompilerCreate@Base 378
  nvPTXCompilerDestroy@Base 378

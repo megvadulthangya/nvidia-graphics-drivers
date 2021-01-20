@@ -1,9 +1,7 @@
 # The NVIDIA license does not allow any form of modification.
-[i386]: binary-file-built-without-LFS-support
 exit-in-shared-library
 hardening-no-bindnow
 hardening-no-fortify-functions
-[!arm64]: hardening-no-relro
 
 # This is also built from src:libglvnd.
 package-name-doesnt-match-sonames libGLX0

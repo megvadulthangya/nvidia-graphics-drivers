@@ -2,4 +2,3 @@
 spelling-error-in-binary
 hardening-no-bindnow
 hardening-no-fortify-functions
-[!arm64]: hardening-no-relro

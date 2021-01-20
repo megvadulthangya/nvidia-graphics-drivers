@@ -3,4 +3,3 @@ spelling-error-in-binary
 hardening-no-bindnow
 hardening-no-fortify-functions
 hardening-no-pie
-[!arm64]: hardening-no-relro

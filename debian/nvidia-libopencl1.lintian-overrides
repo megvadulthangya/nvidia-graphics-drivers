@@ -3,7 +3,6 @@
 [i386]: specific-address-in-shared-library
 hardening-no-bindnow
 hardening-no-fortify-functions
-[!arm64]: hardening-no-relro
 
 # There are multiple vendors providing this library.
 package-name-doesnt-match-sonames libOpenCL1

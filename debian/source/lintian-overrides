@@ -1,6 +1,10 @@
 # patching is done manually after unpacking the .run files
 patch-file-present-but-not-mentioned-in-series
 
+# this file is part of the compressed .run files
+unused-file-paragraph-in-dep5-copyright paragraph at line 20
+wildcard-matches-nothing-in-dep5-copyright supported-gpus/supported-gpus.json (line 20)
+
 # upstream provides no signatures
 debian-watch-does-not-check-gpg-signature
 

@@ -1,4 +1,4 @@
 README.txt
 html/
 debian/README.alternatives
-supported-gpus.json
+supported-gpus/supported-gpus.json

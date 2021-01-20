@@ -1,3 +1,249 @@
+nvidia-graphics-drivers (460.32.03-1) unstable; urgency=medium
+
+  * New upstream production branch release 460.32.03 (2021-01-07).
+    * Fixed CVE-2021-1052, CVE-2021-1053, CVE-2021-1056.  (Closes: #979670)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5142
+    - Added a new "NoInterlacedModes" token to the NVIDIA X driver's
+      "ModeValidation" option, to allow preventing interlaced modes from
+      being validated. Refer to the "X Config Options" appendix of the
+      driver README for further details.
+    - Added support for the following GPU: A40.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Refresh patches.
+  * Update symbols files.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 15 Jan 2021 00:23:35 +0100
+
+nvidia-graphics-drivers (460.27.04-1) experimental; urgency=medium
+
+  * New upstream beta 460.27.04 (2020-12-15).
+    - Fixed a bug that could cause detailed timing information for displays
+      with a large number of detailed timings to be truncated in the X log.
+    - Fixed a bug that prevented scaled display resolutions configured via
+      the nvidia-settings control panel from being reported by RandR.
+    - Added support for the following GPUs: GeForce RTX 3060 Ti, RTX A6000.
+    - Added support for RandR rotation and reflection while using an
+      NVIDIA-driven display as a PRIME Display Offload sink.
+    - Added support for "Reverse PRIME Bypass", an optimization that bypasses
+      the bandwidth overhead of PRIME Render Offload and PRIME Display Offload
+      in conditions where a render offload application is fullscreen,
+      unredirected, and visible only on a given NVIDIA-driven PRIME Display
+      Offload output. Use of the optimization is reported in the X log when
+      verbose logging is enabled in the X server.
+    - Add support for the VK_KHR_acceleration_structure extension.
+    - Add support for the VK_KHR_ray_tracing_pipeline extension.
+    - Add support for the VK_KHR_ray_query extension.
+    - Add support for the VK_KHR_pipeline_library extension.
+    - Add support for the VK_KHR_deferred_host_operations extension.
+    - Removed the MetaMode string truncation warning for older X Servers when
+      saving the X Configuration file from nvidia-settings.
+    - Add support for the VK_NV_fragment_shading_rate_enums extension.
+    - Fixed a bug where copying from an X11 pixmap to an RGB overlay window
+      would exhibit corruption.
+    - Fixed an issue with VK_ACCESS_MEMORY_READ_BIT and
+      VK_ACCESS_MEMORY_WRITE_BIT when used as part of a render pass.
+    - Add support for the VK_KHR_fragment_shading_rate extension.
+    - Add support for the VK_KHR_shader_terminate_invocation extension.
+    - Reduce host memory consumption for descriptor memory in cases where the
+      pNext chain contains a structure of type
+      VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO.
+    - Increased the default size for new OpenGL/Vulkan Shader Disk Cache
+      location to 1024MB. Note that caches with paths containing "/.nv/ will
+      continue to use the previous default of 128MB unless the size is manually
+      overridden. For more information see the "OpenGL Shader Disk Cache"
+      section in the "Specifying OpenGL Environment Variable Settings" chapter
+      of the README.
+    - Changed the default location for new OpenGL/Vulkan Shader Disk Caches.
+      If the location is not manually overridden and a cache is detected in the
+      previous default location, that location will be used instead of the new
+      default location. For more information see the "OpenGL Shader Disk Cache"
+      section in the "Specifying OpenGL Environment Variable Settings" chapter
+      of the README.
+    - Add support for the VK_EXT_shader_image_atomic_int64 extension.
+    - Add support for the VK_KHR_copy_commands2 extension.
+    - Allow importing cached memory via VK_EXT_external_memory_host.
+    - Default AllowEmptyInitialConfiguration to True such that the NVIDIA X
+      driver succeeds when launching the X server even if there are no display
+      devices connected.
+    - RRGetCrtcInfo will now return Rotate_0 instead of 0 as the active
+      rotation for disabled CRTCs.
+    - Improved the NVIDIA VDPAU implementation of
+      VdpVideoSurfaceGetBitsYCbCr and VdpVideoSurfacePutBitsYCbCr when
+      using planar or semi-planar formats.  This helps applications that
+      transfer data between VDPAU video surfaces and system memory.
+    - Added initial experimental support for S0ix-based system suspend
+      (suspend-to-idle). This feature is platform and GPU dependent,
+      so the feature will be disabled by default. To enable this feature,
+      refer to the 'powermanagement' section of the README.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Update symbols files.
+  * nvidia-libopencl1 now supports up to OpenCL 3.0.
+  * libcuda1: Add Provides: libcuda-11.2-1{,-i386}.
+  * Update lintian overrides.
+  * Upload to experimental.
+
+  [ Luca Boccassi ]
+  * Update location and license (zlib/libpng) of supported-gpus.json.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 06 Jan 2021 02:22:29 +0100
+
+nvidia-graphics-drivers (455.45.01-2) unstable; urgency=medium
+
+  * Restrict watch file to releases from the 455.xx short lived branch.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 05 Jan 2021 16:27:49 +0100
+
+nvidia-graphics-drivers (455.45.01-1) experimental; urgency=medium
+
+  * New upstream short lived branch release 455.45.01 (2020-11-17).
+    - Fixed an issue where Vulkan applications would fail to initialize if the
+      connected X11 Server did not expose support for GLX.
+    - Fixed a bug in a Vulkan blending optimization that could produce incorrect
+      results. Some of the Vulkan titles affected by this bug were:
+      Life is Strange 2, Shadow of the Tomb Raider.
+    - Fixed an issue that caused Vulkan swapchain creation to fail for
+      full-screen windows when a G-SYNC monitor is connected.
+    * Supposedly fixes nvidia-uvm usability with Linux 5.9.  (Closes: #973729)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 20 Nov 2020 22:12:34 +0100
+
+nvidia-graphics-drivers (455.38-1) experimental; urgency=medium
+
+  * New upstream short lived branch release 455.38 (2020-10-29).
+    - Added support for the following GPU: GeForce RTX 3070.
+    - Added support for using an NVIDIA-driven display as a PRIME Display
+      Offload sink with a PRIME Display Offload source driven by the
+      xf86-video-intel driver.
+    - Fixed a bug in a Vulkan barrier optimization that allowed some
+      back-to-back copies to run unordered.
+  * New upstream release 450 series.
+    - Fixed a performance regression in the NVIDIA X driver which affected
+      some X11 RENDER extension use cases.
+    - Added AMD Secure Memory Encryption compatibility.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 03 Nov 2020 08:34:40 +0100
+
+nvidia-graphics-drivers (455.28-1) experimental; urgency=medium
+
+  * New upstream short lived branch release 455.28 (2020-10-07).
+    - Fixed a bug that caused X to crash when the NVIDIA RandR provider was
+      disabled while using an NVIDIA-driven display as a PRIME Display Offload
+      sink.  (Closes: #972860)
+  * New upstream release 450 series.
+    - Fixed a bug where glGetGraphicsResetStatusARB would incorrectly
+      return GL_PURGED_CONTEXT_RESET_NV immediately after application
+      start-up if the system had previously been suspended.
+    - Added support for the following GPUs: A100 Graphics Device.
+
+  [ Luca Boccassi ]
+  * Update nv-readme.ids.
+
+  [ Andreas Beckmann ]
+  * libcuda1: Add Provides: libcuda-11.1-1{,-i386}.
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 02 Nov 2020 13:57:40 +0100
+
+nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
+
+  * New upstream beta 455.23.04 (2020-09-17).
+    - Added support for the following GPUs: GeForce RTX 3080, GeForce RTX 3090.
+    - Fixed a bug that prevented 8K displays from being used in portrait
+      orientation on Pascal and earlier GPUs.
+    - Fixed a bug which caused excessive CPU usage in Vulkan applications
+      which create a large number of VkFence objects. This was particularly
+      prevalent in the Steam Play title Red Dead Redemption 2.
+    - Added support for a new device-local VkMemoryType which is host-coherent
+      and host-visible. This may result in improved performance in some
+      applications. Applications which are known to benefit from this new
+      VkMemoryType include: DXVK Title DiRT Rally 2.0, Steam Play Title
+      DOOM: Eternal, and DXVK title World of Warcraft.
+    - Fixed a bug that caused WebKit-based applications to crash when
+      running on Wayland.
+    - Fixed a bug that led to display corruption at some resolutions when
+      using an NVIDIA-driven display as a PRIME Display Offload sink.
+    - Fixed a bug in a SPIR-V optimization that may cause conditional blocks to
+      not execute.
+    - Fixed a bug where calls to vkGetRandROutputDisplayEXT with unexpected
+      inputs would generate X11 protocol errors.
+      (https://bugs.winehq.org/show_bug.cgi?id=49407)
+    - Fixed a small memory leak during exit of the NVIDIA EGL driver.
+    - Implemented support for the NVIDIA NGX Updater. See the "NGX" chapter in
+      the README for information on how to configure this feature.
+    - Removed support for the SLI modes "SFR", "AFR", and "AA".  SLI Mosaic,
+      Base Mosaic, GL_NV_gpu_multicast, and GLX_NV_multigpu_context are still
+      supported.
+    - Updated Base Mosaic support on GeForce to allow a maximum of
+      five simultaneous displays, rather than three.
+    - Fixed several synchronization bugs that could momentarily lock
+      up the X server when moving/resizing/focusing OpenGL and Vulkan
+      windows when PRIME Sync was enabled.
+    - Added NVIDIA VDPAU driver support for decoding VP9 10- and 12-bit
+      bitstreams.
+      Note that VDPAU's presentation pipeline and OpenGL-VDPAU interop
+      does not support 10- and 12-bit video surfaces yet. See the "VDPAU
+      Support" appendix in the README for supported decoder profiles.
+    - Fixed a bug that could cause dual-link DVI to be driven over a
+      connector that only supports single-link DVI, when "NoMaxPClkCheck" is
+      specified in the "ModeValidation" X configuration option.  Note this fix
+      may cause behavioral changes for configurations using this option.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Update symbols files.
+  * Update lintian overrides.
+  * Upload to experimental.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
+
+nvidia-graphics-drivers (450.102.04-1) UNRELEASED; urgency=medium
+
+  * New upstream long lived branch release 450.102.04 (2021-01-07).
+    * Fixed CVE-2021-1052, CVE-2021-1053, CVE-2021-1056.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5142
+    - Fixed the X driver's composition pipeline (used, e.g., for X desktop
+      rotation, "ForceCompositionPipeline", and some OpenGL Swap Group
+      configurations) to correctly preserve color precision in depth 30.
+    - Fixed a bug that could cause X clients to crash when closing display
+      connections to the X server.
+    - Fixed a bug that could cause the X server to configure DisplayPort
+      Multi-Stream Transport displays in an inconsistent order.
+    - Added support for the following GPUs: T500, A100-SXM4-80GB.
+    - Improved the memory allocation strategy in nvidia-modeset.ko to reduce
+      the likelihood of out-of-memory errors, which typically manifest as
+      "page allocation failure" messages in the kernel log.  (Closes: #979573)
+    - Fixed a performance regression in the NVIDIA X driver which affected
+      some X11 RENDER extension use cases.
+    - Added AMD Secure Memory Encryption compatibility.
+    - Fixed a bug where glGetGraphicsResetStatusARB would incorrectly
+      return GL_PURGED_CONTEXT_RESET_NV immediately after application
+      start-up if the system had previously been suspended.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 11 Jan 2021 17:23:13 +0100
+
+nvidia-graphics-drivers (450.80.02-2) unstable; urgency=medium
+
+  * libcuda1: Add Provides: libcuda-11.1-1{,-i386}.
+  * Bump watch file version to 4.
+  * Bump Standards-Version to 4.5.1. No changes needed.
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Dec 2020 14:57:31 +0100
+
 nvidia-graphics-drivers (450.80.02-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -7,7 +253,8 @@ nvidia-graphics-drivers (450.80.02-1~bpo10+1) buster-backports; urgency=medium
 nvidia-graphics-drivers (450.80.02-1) unstable; urgency=medium
 
   * New upstream long lived branch release 450.80.02 (2020-09-30).
-    - Added support for the following GPUs: DGX Display, GeForce MX450.
+    - Added support for the following GPUs: A100-PCIE-40GB,
+      A100 Graphics Device, DGX Display, GeForce MX450.
     * Improved compatibility with recent Linux kernels.
       (Closes: #972514, #972582, #972834, #972856, #972901, #973362, #973665)
 
@@ -78,13 +325,6 @@ nvidia-graphics-drivers (450.57-1) experimental; urgency=medium
       cursor images with PRIME display offloading.
     - Fixed an interaction problem with 5.4 and newer Linux kernels that caused
       a performance regression when allocating system memory.
-  * New upstream release 390 series.
-    - Fixed a driver installation failure on Linux kernel 5.8 release
-      candidates, where the NVIDIA kernel module failed to build with error
-      "'struct mm_struct' has no member named 'mmap_sem'".
-    - Fixed a driver installation failure on Linux kernel 5.8 release
-      candidates, where the NVIDIA kernel module failed to build with error
-      "too many arguments to function '__vmalloc'".
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Jul 2020 16:33:11 +0200
 
@@ -188,7 +428,7 @@ nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
   * New upstream release 445 series.
     - Removed support for "IgnoreDisplayDevices" X configuration option.
     - Added support for PRIME Synchronization when using displays driven by
-      the x86-video-amdgpu driver as PRIME display offload sinks.
+      the xf86-video-amdgpu driver as PRIME display offload sinks.
     - Added support for displays connected to NVIDIA GPUs to act as PRIME
       display offload sinks, also known as "Reverse PRIME". See the chapter
       titled "Offloading Graphics Display with RandR 1.4" in the README for
@@ -215,6 +455,13 @@ nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 01 Jul 2020 00:02:18 +0200
 
+nvidia-graphics-drivers (440.118.02-2) UNRELEASED; urgency=medium
+
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Dec 2020 02:05:26 +0100
+
 nvidia-graphics-drivers (440.118.02-1) UNRELEASED; urgency=medium
 
   * New upstream Tesla release 440.118.02 (2020-09-30).
@@ -234,7 +481,7 @@ nvidia-graphics-drivers (440.118.02-1) UNRELEASED; urgency=medium
   * Refresh patches.
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Oct 2020 00:01:20 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Oct 2020 21:46:41 +0100
 
 nvidia-graphics-drivers (440.100-2) unstable; urgency=medium
 
@@ -261,6 +508,13 @@ nvidia-graphics-drivers (440.100-1) unstable; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 30 Jun 2020 09:52:45 +0200
 
+nvidia-graphics-drivers (440.95.01-2) UNRELEASED; urgency=medium
+
+  * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
+    to fix kernel module build for Linux 5.8.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:44:13 +0200
+
 nvidia-graphics-drivers (440.95.01-1) UNRELEASED; urgency=medium
 
   * New upstream Tesla release 440.95.01 (2020-06-24).
@@ -280,16 +534,17 @@ nvidia-graphics-drivers (440.95.01-1) UNRELEASED; urgency=medium
   * Update nv-readme.ids.
   * Refresh patches.
   * Update lintian overrides.
-  * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
-    to fix kernel module build for Linux 5.8.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 29 Jun 2020 21:42:12 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 29 Jun 2020 23:14:48 +0200
 
 nvidia-graphics-drivers (440.82-2) unstable; urgency=medium
 
-  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
-    thanks to Jiri Palecek.  (Closes: #960735)
+  [ Andreas Beckmann ]
   * Switch to debhelper-compat (= 13).
+
+  [ Jiri Palecek ]
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7.
+    (Closes: #960735)
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 20 May 2020 17:22:58 +0200
 
@@ -322,7 +577,7 @@ nvidia-graphics-drivers (440.64.00-1) UNRELEASED; urgency=medium
   [ Andreas Beckmann ]
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 18 Mar 2020 21:10:14 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 18 Mar 2020 21:33:14 +0100
 
 nvidia-graphics-drivers (440.64-2) unstable; urgency=medium
 
@@ -584,7 +839,7 @@ nvidia-graphics-drivers (430.64-4) unstable; urgency=medium
 
 nvidia-graphics-drivers (430.64-3) unstable; urgency=medium
 
-  * Allow alternative libnvidia-{tesla,legacy-*}-cuda1 packages to substitute
+  * Allow alternative libnvidia-{tesla,legacy}-*-cuda1 packages to substitute
     libcuda1 in third-party packages.
     - Add Provides: libcuda.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libcuda.so.1 through the
@@ -597,7 +852,7 @@ nvidia-graphics-drivers (430.64-2) unstable; urgency=medium
   * nvidia-detect: Add PCI ID list for 418.74 in buster.
   * nvidia-detect: Add support for Tesla 418 drivers.
   * nvidia-detect: Build for ppc64el.
-  * Allow alternative libnvidia-{tesla,legacy-*}-ml1 packages to substitute
+  * Allow alternative libnvidia-{tesla,legacy}-*-ml1 packages to substitute
     libnvidia-ml1.
     - Add Provides: libnvidia-ml.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libnvidia-ml.so.1 through
@@ -726,6 +981,13 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers (418.165.02-2) UNRELEASED; urgency=medium
+
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Dec 2020 01:02:45 +0100
+
 nvidia-graphics-drivers (418.165.02-1) UNRELEASED; urgency=medium
 
   * New upstream Tesla release 418.165.02 (2020-09-30).
@@ -745,7 +1007,7 @@ nvidia-graphics-drivers (418.165.02-1) UNRELEASED; urgency=medium
   * Refresh patches.
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 11 Oct 2020 23:49:36 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Oct 2020 03:21:07 +0100
 
 nvidia-graphics-drivers (418.152.00-2) UNRELEASED; urgency=medium
 
@@ -768,27 +1030,42 @@ nvidia-graphics-drivers (418.152.00-1) buster; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 29 Jun 2020 18:01:24 +0200
 
+nvidia-graphics-drivers (418.126.02-4) UNRELEASED; urgency=medium
+
+  [ Jiri Palecek ]
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7.
+    (Closes: #960735)
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 20 May 2020 17:17:13 +0200
+
+nvidia-graphics-drivers (418.126.02-3) UNRELEASED; urgency=medium
+
+  * Backport nv_ioremap_nocache changes from 440.64 and nv_proc_ops_t and
+    nv_timeval changes from 440.82 to fix kernel module build for Linux 5.6.
+    (Closes: #956458)
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 28 Apr 2020 03:00:13 +0200
+
+nvidia-graphics-drivers (418.126.02-2) UNRELEASED; urgency=medium
+
+  * Update lintian overrides.
+  * Import drmP.patch from Fedora and port it from 390.xx to 418.xx to fix
+    kernel module build for Linux 5.5.  (Closes: #951091)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 10 Apr 2020 23:37:32 +0200
+
 nvidia-graphics-drivers (418.126.02-1) UNRELEASED; urgency=medium
 
   * New upstream Tesla release 418.126.02 (2020-02-28).
     - Added support for the following GPU: Quadro T2000 with Max-Q Design.
 
-  [ Andreas Beckmann ]
-  * Import drmP.patch from Fedora and port it from 390.xx to 418.xx to fix
-    kernel module build for Linux 5.5.  (Closes: #951091)
-  * Backport nv_ioremap_nocache changes from 440.64 and nv_proc_ops_t and
-    nv_timeval changes from 440.82 to fix kernel module build for Linux 5.6.
-    (Closes: #956458)
-  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
-    thanks to Jiri Palecek.  (Closes: #960735)
-
- -- Andreas Beckmann <anbe@debian.org>  Sat, 14 Mar 2020 23:08:06 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 16 Mar 2020 10:59:07 +0100
 
 nvidia-graphics-drivers (418.116.00-1) UNRELEASED; urgency=medium
 
   * New upstream Tesla release 418.116.00 (2019-12-09).
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 14 Dec 2019 14:29:50 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 15 Dec 2019 04:06:58 +0100
 
 nvidia-graphics-drivers (418.113-1) buster; urgency=medium
 
@@ -815,12 +1092,12 @@ nvidia-graphics-drivers (418.113-1) buster; urgency=medium
   * nvidia-detect: Add PCI ID list for 418.74 in buster (430.64-2).
   * nvidia-detect: Add support for Tesla 418 drivers (430.64-2).
   * nvidia-detect: The 340xx legacy driver will not be in bullseye (430.64-5).
-  * Allow alternative libnvidia-{tesla,legacy-*}-ml1 packages to substitute
+  * Allow alternative libnvidia-{tesla,legacy}-*-ml1 packages to substitute
     libnvidia-ml1 (430.64-2).
     - Add Provides: libnvidia-ml.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libnvidia-ml.so.1 through
       the symbols file.
-  * Allow alternative libnvidia-{tesla,legacy-*}-cuda1 packages to substitute
+  * Allow alternative libnvidia-{tesla,legacy}-*-cuda1 packages to substitute
     libcuda1 in third-party packages (430.64-3).
     - Add Provides: libcuda.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libcuda.so.1 through the
@@ -862,7 +1139,7 @@ nvidia-graphics-drivers (418.87.01-1) UNRELEASED; urgency=medium
   * Update nv-readme.ids.
   * Backport fixes for Linux 5.2/5.3 from 418.88.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 26 Oct 2019 19:36:41 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 03 Nov 2019 13:25:11 +0100
 
 nvidia-graphics-drivers (418.74-1) unstable; urgency=medium
 
@@ -911,7 +1188,7 @@ nvidia-graphics-drivers (418.56-1) experimental; urgency=medium
 nvidia-graphics-drivers (418.43-1) experimental; urgency=medium
 
   * New upstream long lived branch release 418.43 (2019-02-22).
-    * Fixed CVE‑2018‑6260.  (Closes: #913467)
+    * Fixed CVE-2018-6260.  (Closes: #913467)
       https://nvidia.custhelp.com/app/answers/detail/a_id/4772
     - Added support for the following GPU: GeForce GTX 1660 Ti.
     - Fixed a bug that would occasionally cause visual corruption on some
@@ -1069,7 +1346,7 @@ nvidia-graphics-drivers (410.104-2) unstable; urgency=medium
 nvidia-graphics-drivers (410.104-1) unstable; urgency=medium
 
   * New upstream long lived branch release 410.104 (2019-02-22).
-    * Fixed CVE‑2018‑6260.  (Closes: #913467)
+    * Fixed CVE-2018-6260.  (Closes: #913467)
       https://nvidia.custhelp.com/app/answers/detail/a_id/4772
     - Added support for the following GPU: Tesla V100-SXM3-32GB-H.
     - Fixed a bug where destroying a direct-to-display swapchain could
@@ -1293,15 +1570,46 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
 
+nvidia-graphics-drivers (390.141-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy branch release 390.141 (2021-01-07).
+    * Fixed CVE-2021-1056.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5142
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "'struct mm_struct' has no member named 'mmap_sem'".
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "too many arguments to function '__vmalloc'".
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update symbols files.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 09 Jan 2021 23:16:55 +0100
+
+nvidia-graphics-drivers (390.138-4) UNRELEASED; urgency=medium
+
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Dec 2020 00:11:19 +0100
+
+nvidia-graphics-drivers (390.138-3) UNRELEASED; urgency=medium
+
+  * Backport get_user_pages_remote, vga_tryget,
+    drm_driver_has_gem_free_object, drm_display_mode_has_vrefresh,
+    drm_driver_master_set_has_int_return_type and drm_gem_object_put_unlocked
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Oct 2020 01:00:51 +0100
+
 nvidia-graphics-drivers (390.138-2) UNRELEASED; urgency=medium
 
   * Backport nv_vmalloc changes from 450.57
     and work around mmap_{sem=>lock} rename
     to fix kernel module build for Linux 5.8.
-  * Backport get_user_pages_remote, vga_tryget,
-    drm_driver_has_gem_free_object, drm_display_mode_has_vrefresh,
-    drm_driver_master_set_has_int_return_type and drm_gem_object_put_unlocked
-    changes from 455.23.04 to fix kernel module build for Linux 5.9.
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:58:11 +0200
@@ -1339,13 +1647,37 @@ nvidia-graphics-drivers (390.138-1) stretch; urgency=medium
       (Closes: #948568)
 
   [ Andreas Beckmann ]
-  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
-    thanks to Jiri Palecek.  (Closes: #960735)
   * Refresh patches.
   * Update lintian overrides.
   * Upload to stretch.
 
+  [ Jiri Palecek ]
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7.
+    (Closes: #960735)
+
  -- Andreas Beckmann <anbe@debian.org>  Sun, 28 Jun 2020 22:35:52 +0200
+
+nvidia-graphics-drivers (390.132-4) UNRELEASED; urgency=medium
+
+  [ Jiri Palecek ]
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 20 May 2020 17:13:15 +0200
+
+nvidia-graphics-drivers (390.132-3) UNRELEASED; urgency=medium
+
+  * Backport nv_ioremap_nocache changes from 440.64 and nv_proc_ops_t and
+    nv_timeval changes from 440.82 to fix kernel module build for Linux 5.6.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 25 Apr 2020 23:33:51 +0200
+
+nvidia-graphics-drivers (390.132-2) UNRELEASED; urgency=medium
+
+  [ Luca Boccassi ]
+  * Import drmP.patch from Fedora to fix kernel module build failure for
+    Linux 5.5 and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 09 Apr 2020 20:20:53 +0200
 
 nvidia-graphics-drivers (390.132-1) stretch; urgency=medium
 
@@ -1393,12 +1725,20 @@ nvidia-graphics-drivers (390.129-1) UNRELEASED; urgency=medium
       command when it is available.
     * Improved compatibility with recent Linux kernels.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 06 Aug 2019 19:04:49 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Aug 2019 11:14:49 +0200
+
+nvidia-graphics-drivers (390.116-2) UNRELEASED; urgency=medium
+
+  [ Kevin Locke ]
+  * Backport changes from 418.74 and 430.14 to support building the module for
+    Linux 5.1 and 5.2.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 14 Jul 2019 15:15:52 +0200
 
 nvidia-graphics-drivers (390.116-1) stretch; urgency=medium
 
   * New upstream legacy branch release 390.116 (2019-02-22).
-    * Fixed CVE‑2018‑6260.  (Closes: #913467)
+    * Fixed CVE-2018-6260.  (Closes: #913467)
       https://nvidia.custhelp.com/app/answers/detail/a_id/4772
     - Fixed build failures which resulted in errors like "implicit declaration
       of function drm_...", when building the NVIDIA DRM kernel module for Linux
@@ -3862,6 +4202,30 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
+nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
+
+  * Add 03-unfuck-for-5.5.x.patch from Archlinux to fix kernel module build
+    for Linux 5.5.
+  * Backport nv_ioremap_nocache changes from 440.64 and nv_proc_ops_t and
+    nv_timeval changes from 440.82 to fix kernel module build for Linux 5.6.
+  * drm_legacy_pci_init() was moved to drm/drm_legacy.h in Linux 5.6.
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
+    thanks to Jiri Palecek.
+  * Backport nv_vmalloc changes from 450.57
+    and work around mmap_{sem=>lock} rename
+    and modernize use-nv-kernel-ARCH.o_binary.patch
+    to fix kernel module build for Linux 5.8.
+  * Backport drm_gem_object_get changes from 418.30.
+  * Backport get_user_pages_remote, vga_tryget, drm_driver_has_gem_free_object
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+  * Backport drm_legacy_pci_init/exit from src:linux 5.9.11-1 which are no
+    longer available after NOUVEAU_LEGACY_CTX_SUPPORT (and thus DRM_LEGACY)
+    got finally disabled.
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 15 Dec 2020 22:23:56 +0100
+
 nvidia-graphics-drivers (340.108-1) UNRELEASED; urgency=medium
 
   * The 340.xx legacy driver series has been declared as End-of-Life by
@@ -3893,6 +4257,23 @@ nvidia-graphics-drivers (340.108-1) UNRELEASED; urgency=medium
   * Refresh patches.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 03 Jan 2020 02:29:02 +0100
+
+nvidia-graphics-drivers (340.107-2) UNRELEASED; urgency=medium
+
+  * Backport kmem_cache_create_usercopy.patch from 390.67-2 for the 340.xx
+    series, fixing "Bad or missing usercopy whitelist? Kernel memory exposure
+    attempt detected from SLUB object 'nvidia_stack_cache'" on Linux kernels
+    that have disabled CONFIG_HARDENED_USERCOPY_FALLBACK
+    (i.e. linux-image-4.16.0-2-* or newer).
+  * Add buildfix_kernel_4.11.patch (replacing vm-fault.patch),
+    buildfix_kernel_5.0.patch, buildfix_kernel_5.2.patch from Ubuntu to fix
+    kernel module build for Linux 5.2.
+  * Add buildfix_kernel_5.3.patch from Ubuntu to fix kernel module build for
+    Linux 5.3.
+  * Add buildfix_kernel_5.4.patch from Ubuntu to fix kernel module build for
+    Linux 5.4.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 05 Dec 2019 22:45:31 +0100
 
 nvidia-graphics-drivers (340.107-1) UNRELEASED; urgency=medium
 

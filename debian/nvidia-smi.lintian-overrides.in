@@ -4,7 +4,6 @@ spelling-error-in-binary
 hardening-no-bindnow
 hardening-no-fortify-functions
 hardening-no-pie
-[ppc64el]: hardening-no-relro
 
 # The current setup involving multiple chained alternatives would be very
 # hard to migrate to /usr/libexec.
