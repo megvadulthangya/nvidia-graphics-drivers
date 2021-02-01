@@ -22,7 +22,7 @@ Bug-Debian: https://bugs.debian.org/960735
 
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -450,6 +450,8 @@ compile_test() {
+@@ -473,6 +473,8 @@ compile_test() {
              # It does not exist on all architectures.
              #
              CODE="
@@ -31,7 +31,7 @@ Bug-Debian: https://bugs.debian.org/960735
              #if defined(NV_ASM_SET_MEMORY_H_PRESENT)
              #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
              #include <asm/pgtable_types.h>
-@@ -471,6 +473,8 @@ compile_test() {
+@@ -494,6 +496,8 @@ compile_test() {
              # It does not exist on all architectures.
              #
              CODE="
@@ -40,7 +40,7 @@ Bug-Debian: https://bugs.debian.org/960735
              #if defined(NV_ASM_SET_MEMORY_H_PRESENT)
              #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
              #include <asm/pgtable_types.h>
-@@ -527,6 +531,8 @@ compile_test() {
+@@ -550,6 +554,8 @@ compile_test() {
              # It does not exist on all architectures.
              #
              CODE="

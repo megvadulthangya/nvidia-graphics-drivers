@@ -18,7 +18,7 @@ Build-Depends:
  po-debconf,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.5.0
+Standards-Version: 4.5.1
 Homepage: https://www.nvidia.com
 XS-Autobuild: yes
 
@@ -945,6 +945,8 @@ Provides:
  libcuda-10.2-1-i386 [i386],
  libcuda-11.0-1,
  libcuda-11.0-1-i386 [i386],
+ libcuda-11.1-1,
+ libcuda-11.1-1-i386 [i386],
 Homepage: https://www.nvidia.com/CUDA
 Description: NVIDIA CUDA Driver Library${nvidia:VariantDesc}
  The Compute Unified Device Architecture (CUDA) enables NVIDIA

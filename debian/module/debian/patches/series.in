@@ -1,8 +1,5 @@
 # kernel support
 kernel-5.7.0-set-memory-array.patch
-0001-backport-nv_vmalloc-changes-from-450.57.patch
-0002-backport-nv_mmap_-mmap_-sem-lock-changes-from-450.57.patch
-#HAS_UVM#0003-backport-nv_mmap_-mmap_-sem-lock-changes-from-450.57.patch
 
 # build system updates
 use-kbuild-compiler.patch

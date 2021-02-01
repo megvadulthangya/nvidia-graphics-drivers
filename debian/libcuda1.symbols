@@ -176,6 +176,7 @@ libcuda.so.1 #PACKAGE# #MINVER# | libcuda.so.1 #MINVER#
  cuIpcGetMemHandle@Base 285.05
  cuIpcOpenEventHandle@Base 285.05
  cuIpcOpenMemHandle@Base 285.05
+ cuIpcOpenMemHandle_v2@Base 450.66
  cuLaunch@Base 169
 #MISSING: 378.13# cuLaunchCooperativeGrid@Base 378
 #MISSING: 378.13# cuLaunchCooperativeGrid_ptsz@Base 378

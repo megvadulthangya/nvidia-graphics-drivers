@@ -53,7 +53,7 @@ ifneq (nvidia,$(MODULE_BASENAME))
 endif
 	touch $@
 
-get_built_using	?= $(filter-out (=),$(shell dpkg-query -f='$${source:Package} (=$${source:Version})' -W $1))
+get_built_using	?= $(subst (= ),,$(shell dpkg-query -f='$${source:Package} (= $${source:Version})' -W $1))
 
 binary: binary-arch binary-indep
 binary-indep:

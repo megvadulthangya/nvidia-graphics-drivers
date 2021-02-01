@@ -1,3 +1,127 @@
+nvidia-graphics-drivers-tesla-450 (450.102.04-1) unstable; urgency=medium
+
+  * New upstream long lived branch release 450.102.04 (2021-01-07).
+    * Fixed CVE-2021-1052, CVE-2021-1053, CVE-2021-1056.  (Closes: #979675)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5142
+    - Fixed the X driver's composition pipeline (used, e.g., for X desktop
+      rotation, "ForceCompositionPipeline", and some OpenGL Swap Group
+      configurations) to correctly preserve color precision in depth 30.
+    - Fixed a bug that could cause X clients to crash when closing display
+      connections to the X server.
+    - Fixed a bug that could cause the X server to configure DisplayPort
+      Multi-Stream Transport displays in an inconsistent order.
+    - Added support for the following GPUs: T500, A100-SXM4-80GB.
+    - Improved the memory allocation strategy in nvidia-modeset.ko to reduce
+      the likelihood of out-of-memory errors, which typically manifest as
+      "page allocation failure" messages in the kernel log.
+    - Fixed a performance regression in the NVIDIA X driver which affected
+      some X11 RENDER extension use cases.
+    - Added AMD Secure Memory Encryption compatibility.
+    - Fixed a bug where glGetGraphicsResetStatusARB would incorrectly
+      return GL_PURGED_CONTEXT_RESET_NV immediately after application
+      start-up if the system had previously been suspended.
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 25 Jan 2021 18:21:19 +0100
+
+nvidia-graphics-drivers-tesla-450 (450.80.02-2) unstable; urgency=medium
+
+  * Rebuild as Tesla 450 driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Dec 2020 20:39:59 +0100
+
+nvidia-graphics-drivers (450.80.02-2) unstable; urgency=medium
+
+  * libcuda1: Add Provides: libcuda-11.1-1{,-i386}.
+  * Bump watch file version to 4.
+  * Bump Standards-Version to 4.5.1. No changes needed.
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Dec 2020 14:57:31 +0100
+
+nvidia-graphics-drivers-tesla-450 (450.80.02-1) unstable; urgency=medium
+
+  * Rebuild as Tesla 450 driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 02 Nov 2020 10:20:10 +0100
+
+nvidia-graphics-drivers (450.80.02-1) unstable; urgency=medium
+
+  * New upstream long lived branch release 450.80.02 (2020-09-30).
+    - Added support for the following GPUs: A100-PCIE-40GB,
+      A100 Graphics Device, DGX Display, GeForce MX450.
+    * Improved compatibility with recent Linux kernels.
+      (Closes: #972514, #972582, #972834, #972856, #972901, #973362, #973665)
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Update symbols files.
+  * Restrict watch file to releases from the 450.xx long lived branch.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 29 Oct 2020 01:05:29 +0100
+
+nvidia-graphics-drivers (450.66-1) unstable; urgency=medium
+
+  * New upstream long lived branch release 450.66 (2020-08-18).
+    - Added support for the following GPUs: EIZO Quadro MED-XN31LP,
+      EIZO Quadro MED-XN50LP, EIZO Quadro MED-XN51LP, EIZO Quadro MED-XN70,
+      EIZO Quadro MED-XN71, EIZO Quadro MED-XN72, EIZO Quadro MED-XN90,
+      EIZO Quadro MED-XN91, EIZO Quadro MED-XN92, Matrox D-Series D1450,
+      Matrox D-Series D1480
+    - Fixed triple buffering support of Vulkan X11 swapchains when applications
+      are syncing to vblank.
+
+  [ Luca Boccassi ]
+  * Update nv-readme.ids.
+  * Update symbols files.
+
+  [ Andreas Beckmann ]
+  * Test that the patches can be applied to the module source.
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
+    while building kernel modules.
+  * Simplify generating the -source and -dkms packages.
+
+  [ Vincent Cheng ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:29:22 +0200
+
+nvidia-graphics-drivers (450.57-3) unstable; urgency=medium
+
+  * There is no libnvidia-compiler on arm64.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 16 Aug 2020 14:53:30 +0200
+
+nvidia-graphics-drivers (450.57-2) unstable; urgency=medium
+
+  * Allow alternative libnvidia-{tesla,legacy}-*-cfg1 packages to substitute
+    libnvidia-cfg1 in third-party packages.
+    - Add Provides: libnvidia-cfg.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
+      the symbols file.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 09 Aug 2020 23:55:49 +0200
+
+nvidia-graphics-drivers (450.57-1) experimental; urgency=medium
+
+  * New upstream long lived branch release 450.57 (2020-07-09).
+    - Fixed a bug that caused a brief orange flash on some platforms when a
+      display mode is being set.
+  * New upstream release 440 series.
+    - Fixed a bug that could cause the X server to crash when using large
+      cursor images with PRIME display offloading.
+    - Fixed an interaction problem with 5.4 and newer Linux kernels that caused
+      a performance regression when allocating system memory.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Jul 2020 16:33:11 +0200
+
 nvidia-graphics-drivers-tesla-450 (450.51.06-2~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -68,9 +192,6 @@ nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
       under Wayland.
     - Fixed a bug that could cause some Swap Group configurations to present
       at half of the display refresh rate.
-    - Added a new Connector-N display connector name alias type, with a unique
-      alias assigned to each physical display connector on a GPU. See the
-      README for more information.
     - Fixed a bug that prevented X11 EGL displays from being reinitialized.
     - The 450 driver series is the last that supports NvFBC's
       NVFBC_CAPTURE_TO_HW_ENCODER capture interface, which has been deprecated
@@ -156,6 +277,43 @@ nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 01 Jul 2020 00:02:18 +0200
 
+nvidia-graphics-drivers-tesla-440 (440.118.02-3) unstable; urgency=medium
+
+  * Metadata updates.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 25 Jan 2021 17:58:15 +0100
+
+nvidia-graphics-drivers-tesla-440 (440.118.02-2) unstable; urgency=medium
+
+  * Bump watch file version to 4.
+  * Bump Standards-Version to 4.5.1. No changes needed.
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Dec 2020 13:35:38 +0100
+
+nvidia-graphics-drivers-tesla-440 (440.118.02-1) unstable; urgency=medium
+
+  * New upstream Tesla release 440.118.02 (2020-09-30).
+    - Fixed a bug that could cause the X server to crash when using large
+      cursor images with PRIME display offloading.
+    - Fixed a bug where a Vulkan application under PRIME render
+      offload would not always be correctly throttled to vsync despite
+      the application's request for VK_PRESENT_MODE_FIFO_KHR. This was
+      particularly prevalent on DXVK titles.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Update glvnd symbols files.
+  * Backport get_user_pages_remote, vga_tryget, smp_read_barrier_depends,
+    drm_driver_has_gem_free_object, drm_display_mode_has_vrefresh,
+    drm_driver_master_set_has_int_return_type and drm_gem_object_put_unlocked
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+  * Refresh patches.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Oct 2020 21:46:41 +0100
+
 nvidia-graphics-drivers (440.100-2) unstable; urgency=medium
 
   * Restrict watch file to releases from the 440.xx long lived branch.
@@ -175,7 +333,28 @@ nvidia-graphics-drivers (440.100-1) unstable; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 30 Jun 2020 09:52:45 +0200
 
-nvidia-graphics-drivers (440.95.01-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-440 (440.95.01-2) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Replace *-i386 helper packages with *:i386 recommendations (440.100-2).
+  * Allow alternative libnvidia-{tesla,legacy}-*-cfg1 packages to substitute
+    libnvidia-cfg1 in third-party packages (450.57-2).
+    - Add Provides: libnvidia-cfg.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
+      the symbols file.
+  * Test that the patches can be applied to the module source (450.66-1).
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
+    while building kernel modules (450.66-1).
+  * Simplify generating the -source and -dkms packages (450.66-1).
+  * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
+    to fix kernel module build for Linux 5.8.
+
+  [ Vincent Cheng ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:44:13 +0200
+
+nvidia-graphics-drivers-tesla-440 (440.95.01-1) unstable; urgency=medium
 
   * New upstream Tesla release 440.95.01 (2020-06-24).
     * Fixed CVE-2020-5963, CVE-2020-5967.  (Closes: #963766)
@@ -195,13 +374,16 @@ nvidia-graphics-drivers (440.95.01-1) UNRELEASED; urgency=medium
   * Refresh patches.
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 29 Jun 2020 21:42:12 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 29 Jun 2020 23:14:48 +0200
 
 nvidia-graphics-drivers (440.82-2) unstable; urgency=medium
 
-  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
-    thanks to Jiri Palecek.  (Closes: #960735)
+  [ Andreas Beckmann ]
   * Switch to debhelper-compat (= 13).
+
+  [ Jiri Palecek ]
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7.
+    (Closes: #960735)
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 20 May 2020 17:22:58 +0200
 
@@ -221,6 +403,17 @@ nvidia-graphics-drivers (440.82-1) unstable; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 11 Apr 2020 14:29:59 +0200
 
+nvidia-graphics-drivers-tesla-440 (440.64.00-1) unstable; urgency=medium
+
+  * New upstream Tesla release 440.64.00 (2020-03-10).
+
+  [ Andreas Beckmann ]
+  * Fork as new source package, rename everything to include '-tesla-440'.
+  * Do not build 'unversioned' packages from this source.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 18 Mar 2020 21:33:14 +0100
+
 nvidia-graphics-drivers (440.64-2) unstable; urgency=medium
 
   * Prepare infrastructure for packaging Tesla 440 driver releases (available
@@ -234,7 +427,6 @@ nvidia-graphics-drivers (440.64-2) unstable; urgency=medium
 
 nvidia-graphics-drivers (440.64-1) unstable; urgency=medium
 
-  * New upstream Tesla release 440.64.00 (2020-03-10).
   * New upstream long lived branch release 440.64 (2020-02-28).
     - Added support for the following GPUs: GeForce MX330, GeForce MX350.
     - Fixed a regression that allowed displays to enter DPMS mode even
@@ -470,7 +662,7 @@ nvidia-graphics-drivers (430.64-4) unstable; urgency=medium
 
 nvidia-graphics-drivers (430.64-3) unstable; urgency=medium
 
-  * Allow alternative libnvidia-{tesla,legacy-*}-cuda1 packages to substitute
+  * Allow alternative libnvidia-{tesla,legacy}-*-cuda1 packages to substitute
     libcuda1 in third-party packages.
     - Add Provides: libcuda.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libcuda.so.1 through the
@@ -483,7 +675,7 @@ nvidia-graphics-drivers (430.64-2) unstable; urgency=medium
   * nvidia-detect: Add PCI ID list for 418.74 in buster.
   * nvidia-detect: Add support for Tesla 418 drivers.
   * nvidia-detect: Build for ppc64el.
-  * Allow alternative libnvidia-{tesla,legacy-*}-ml1 packages to substitute
+  * Allow alternative libnvidia-{tesla,legacy}-*-ml1 packages to substitute
     libnvidia-ml1.
     - Add Provides: libnvidia-ml.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libnvidia-ml.so.1 through
@@ -612,6 +804,101 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.181.07-1) unstable; urgency=medium
+
+  * New upstream Tesla release 418.181.07 (2021-01-19).
+    * Fixed CVE-2021-1056.  (Closes: #979673)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5142
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 22 Jan 2021 14:01:39 +0100
+
+nvidia-graphics-drivers (418.181.07-1) buster; urgency=medium
+
+  * New upstream Tesla release 418.181.07 (2021-01-19).
+    * Fixed CVE-2021-1056.  (Closes: #979670)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5142
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Allow alternative libnvidia-{tesla,legacy}-*-cfg1 packages to substitute
+    libnvidia-cfg1 in third-party packages (450.57-2).
+    - Add Provides: libnvidia-cfg.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
+      the symbols file.
+  * Test that the patches can be applied to the module source (450.66-1).
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
+    while building kernel modules (450.66-1).
+  * Simplify generating the -source and -dkms packages (450.66-1).
+  * Bump watch file version to 4.
+  * Bump Standards-Version to 4.5.1. No changes needed.
+  * Upload to buster.
+
+  [ Vincent Cheng ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 23 Jan 2021 19:12:36 +0100
+
+nvidia-graphics-drivers-tesla-418 (418.165.02-2) unstable; urgency=medium
+
+  * Bump watch file version to 4.
+  * Bump Standards-Version to 4.5.1. No changes needed.
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Dec 2020 13:08:40 +0100
+
+nvidia-graphics-drivers-tesla-418 (418.165.02-1) unstable; urgency=medium
+
+  * New upstream Tesla release 418.165.02 (2020-09-30).
+
+  [ Andreas Beckmann ]
+  * Backport get_user_pages_remote, vga_tryget, smp_read_barrier_depends,
+    drm_driver_has_gem_free_object, drm_display_mode_has_vrefresh,
+    drm_driver_master_set_has_int_return_type and drm_gem_object_put_unlocked
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+  * Refresh patches.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Oct 2020 03:21:07 +0100
+
+nvidia-graphics-drivers-tesla-418 (418.152.00-2) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Replace *-i386 helper packages with *:i386 recommendations (440.100-2).
+  * Allow alternative libnvidia-{tesla,legacy}-*-cfg1 packages to substitute
+    libnvidia-cfg1 in third-party packages (450.57-2).
+    - Add Provides: libnvidia-cfg.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
+      the symbols file.
+  * Test that the patches can be applied to the module source (450.66-1).
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
+    while building kernel modules (450.66-1).
+  * Simplify generating the -source and -dkms packages (450.66-1).
+  * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
+    to fix kernel module build for Linux 5.8.
+
+  [ Vincent Cheng ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:48:01 +0200
+
+nvidia-graphics-drivers-tesla-418 (418.152.00-1) unstable; urgency=medium
+
+  * New upstream Tesla release 418.152.00 (2020-06-24).
+    * Fixed CVE-2020-5963, CVE-2020-5967.  (Closes: #963766)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5031
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 29 Jun 2020 20:13:42 +0200
+
 nvidia-graphics-drivers (418.152.00-1) buster; urgency=medium
 
   * New upstream Tesla release 418.152.00 (2020-06-24).
@@ -626,27 +913,76 @@ nvidia-graphics-drivers (418.152.00-1) buster; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 29 Jun 2020 18:01:24 +0200
 
-nvidia-graphics-drivers (418.126.02-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.126.02-4) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Switch to debhelper-compat (= 13).
+
+  [ Jiri Palecek ]
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7.
+    (Closes: #960735)
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 20 May 2020 17:17:13 +0200
+
+nvidia-graphics-drivers-tesla-418 (418.126.02-3) unstable; urgency=medium
+
+  * Backport nv_ioremap_nocache changes from 440.64 and nv_proc_ops_t and
+    nv_timeval changes from 440.82 to fix kernel module build for Linux 5.6.
+    (Closes: #956458)
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 28 Apr 2020 03:00:13 +0200
+
+nvidia-graphics-drivers-tesla-418 (418.126.02-2) unstable; urgency=medium
+
+  * bug-control: Report information about more (virtual) packages (440.64-2).
+  * Prepare infrastructure for packaging Tesla 440 driver releases (available
+    for amd64 (including some i386 libs) and ppc64el) (440.64-2).
+  * Update lintian overrides.
+  * Import drmP.patch from Fedora and port it from 390.xx to 418.xx to fix
+    kernel module build for Linux 5.5.  (Closes: #951091)
+  * Drop the transitional nvidia-tesla-driver package.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 10 Apr 2020 23:37:32 +0200
+
+nvidia-graphics-drivers-tesla-418 (418.126.02-1) unstable; urgency=medium
 
   * New upstream Tesla release 418.126.02 (2020-02-28).
     - Added support for the following GPU: Quadro T2000 with Max-Q Design.
 
-  [ Andreas Beckmann ]
-  * Import drmP.patch from Fedora and port it from 390.xx to 418.xx to fix
-    kernel module build for Linux 5.5.  (Closes: #951091)
-  * Backport nv_ioremap_nocache changes from 440.64 and nv_proc_ops_t and
-    nv_timeval changes from 440.82 to fix kernel module build for Linux 5.6.
-    (Closes: #956458)
-  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
-    thanks to Jiri Palecek.  (Closes: #960735)
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 16 Mar 2020 10:59:07 +0100
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 14 Mar 2020 23:08:06 +0100
+nvidia-graphics-drivers-tesla-418 (418.116.00-3) unstable; urgency=medium
 
-nvidia-graphics-drivers (418.116.00-1) UNRELEASED; urgency=medium
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 09 Feb 2020 23:03:18 +0100
+
+nvidia-graphics-drivers-tesla-418 (418.116.00-2) experimental; urgency=medium
+
+  * Rename to *-tesla-418-*.
+  * Add transitional nvidia-tesla-driver package.
+  * Use separately packaged nvidia-settings-tesla-418.  (Closes: #948961)
+  * Use substitution to keep Standards-Version in sync (430.64-5).
+  * Insert '-' between suffix ending with digit and SOVERSION (435.21-3).
+  * Rename "legacy" variables to more generic "variant" (440.44-2).
+  * Drop versioned constraints that are satisfied in stretch (440.64-2).
+  * Bump Standards-Version to 4.5.0. No changes needed.
+  * Upload to experimental.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 28 Jan 2020 16:41:44 +0100
+
+nvidia-graphics-drivers-tesla (418.116.00-1) unstable; urgency=medium
 
   * New upstream Tesla release 418.116.00 (2019-12-09).
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 14 Dec 2019 14:29:50 +0100
+  [ Andreas Beckmann ]
+  * Allow alternative libnvidia-{tesla,legacy}-*-cuda1 packages to substitute
+    libcuda1 in third-party packages (430.64-3).
+    - Add Provides: libcuda.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libcuda.so.1 through the
+      symbols file.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 15 Dec 2019 04:06:58 +0100
 
 nvidia-graphics-drivers (418.113-1) buster; urgency=medium
 
@@ -673,12 +1009,12 @@ nvidia-graphics-drivers (418.113-1) buster; urgency=medium
   * nvidia-detect: Add PCI ID list for 418.74 in buster (430.64-2).
   * nvidia-detect: Add support for Tesla 418 drivers (430.64-2).
   * nvidia-detect: The 340xx legacy driver will not be in bullseye (430.64-5).
-  * Allow alternative libnvidia-{tesla,legacy-*}-ml1 packages to substitute
+  * Allow alternative libnvidia-{tesla,legacy}-*-ml1 packages to substitute
     libnvidia-ml1 (430.64-2).
     - Add Provides: libnvidia-ml.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libnvidia-ml.so.1 through
       the symbols file.
-  * Allow alternative libnvidia-{tesla,legacy-*}-cuda1 packages to substitute
+  * Allow alternative libnvidia-{tesla,legacy}-*-cuda1 packages to substitute
     libcuda1 in third-party packages (430.64-3).
     - Add Provides: libcuda.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libcuda.so.1 through the
@@ -706,7 +1042,25 @@ nvidia-graphics-drivers (418.88-1) unstable; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 12 Aug 2019 23:41:02 +0200
 
-nvidia-graphics-drivers (418.87.01-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (418.87.01-3) unstable; urgency=medium
+
+  * Allow alternative libnvidia-{tesla,legacy}-*-ml1 packages to substitute
+    libnvidia-ml1 (430.64-2).
+    - Add Provides: libnvidia-ml.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libnvidia-ml.so.1 through
+      the symbols file.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 06 Dec 2019 18:07:11 +0100
+
+nvidia-graphics-drivers-tesla (418.87.01-2) unstable; urgency=medium
+
+  * Bump glx-alternative-nvidia dependency for ppc64el support (440.64-2).
+  * Create and commit tarball symlinks for legacy branches (430.64-1).
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 24 Nov 2019 01:47:20 +0100
+
+nvidia-graphics-drivers-tesla (418.87.01-1) experimental; urgency=medium
 
   * New upstream Tesla release 418.87.01 (2019-10-03).
   * New upstream Tesla release 418.87.00 (2019-08-13).
@@ -719,8 +1073,17 @@ nvidia-graphics-drivers (418.87.01-1) UNRELEASED; urgency=medium
   [ Andreas Beckmann ]
   * Update nv-readme.ids.
   * Backport fixes for Linux 5.2/5.3 from 418.88.
+  * debian/gen-control.pl: Support substitutions in the Architecture field and
+    skip packages with empty or commented Architecture field (430.50-2).
+  * Prepare infrastructure for packaging Tesla 418 driver releases (available
+    for amd64 (including some i386 libs) and ppc64el) (430.50-2).
+  * Fork as new source package, rename everything to include '-tesla'.
+    (Closes: #942149)
+  * Do not build 'unversioned' packages from this source.
+  * Bump Standards-Version to 4.4.1. No changes needed.
+  * Upload to experimental.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 26 Oct 2019 19:36:41 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 03 Nov 2019 13:25:11 +0100
 
 nvidia-graphics-drivers (418.74-1) unstable; urgency=medium
 
@@ -769,7 +1132,7 @@ nvidia-graphics-drivers (418.56-1) experimental; urgency=medium
 nvidia-graphics-drivers (418.43-1) experimental; urgency=medium
 
   * New upstream long lived branch release 418.43 (2019-02-22).
-    * Fixed CVE‑2018‑6260.  (Closes: #913467)
+    * Fixed CVE-2018-6260.  (Closes: #913467)
       https://nvidia.custhelp.com/app/answers/detail/a_id/4772
     - Added support for the following GPU: GeForce GTX 1660 Ti.
     - Fixed a bug that would occasionally cause visual corruption on some
@@ -927,7 +1290,7 @@ nvidia-graphics-drivers (410.104-2) unstable; urgency=medium
 nvidia-graphics-drivers (410.104-1) unstable; urgency=medium
 
   * New upstream long lived branch release 410.104 (2019-02-22).
-    * Fixed CVE‑2018‑6260.  (Closes: #913467)
+    * Fixed CVE-2018-6260.  (Closes: #913467)
       https://nvidia.custhelp.com/app/answers/detail/a_id/4772
     - Added support for the following GPU: Tesla V100-SXM3-32GB-H.
     - Fixed a bug where destroying a direct-to-display swapchain could
@@ -1151,6 +1514,51 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
 
+nvidia-graphics-drivers (390.141-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy branch release 390.141 (2021-01-07).
+    * Fixed CVE-2021-1056.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5142
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "'struct mm_struct' has no member named 'mmap_sem'".
+    - Fixed a driver installation failure on Linux kernel 5.8 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "too many arguments to function '__vmalloc'".
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update glvnd symbols files.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 10 Jan 2021 03:31:58 +0100
+
+nvidia-graphics-drivers (390.138-4) UNRELEASED; urgency=medium
+
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Dec 2020 00:28:48 +0100
+
+nvidia-graphics-drivers (390.138-3) UNRELEASED; urgency=medium
+
+  * Backport get_user_pages_remote, vga_tryget,
+    drm_driver_has_gem_free_object, drm_display_mode_has_vrefresh,
+    drm_driver_master_set_has_int_return_type and drm_gem_object_put_unlocked
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Oct 2020 01:00:51 +0100
+
+nvidia-graphics-drivers (390.138-2) UNRELEASED; urgency=medium
+
+  * Backport nv_vmalloc changes from 450.57
+    and work around mmap_{sem=>lock} rename
+    to fix kernel module build for Linux 5.8.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:58:11 +0200
+
 nvidia-graphics-drivers (390.138-1) stretch; urgency=medium
 
   * New upstream legacy branch release 390.138 (2020-06-24).
@@ -1184,13 +1592,37 @@ nvidia-graphics-drivers (390.138-1) stretch; urgency=medium
       (Closes: #948568)
 
   [ Andreas Beckmann ]
-  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
-    thanks to Jiri Palecek.  (Closes: #960735)
   * Refresh patches.
   * Update lintian overrides.
   * Upload to stretch.
 
+  [ Jiri Palecek ]
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7.
+    (Closes: #960735)
+
  -- Andreas Beckmann <anbe@debian.org>  Sun, 28 Jun 2020 22:35:52 +0200
+
+nvidia-graphics-drivers (390.132-4) UNRELEASED; urgency=medium
+
+  [ Jiri Palecek ]
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 20 May 2020 17:13:15 +0200
+
+nvidia-graphics-drivers (390.132-3) UNRELEASED; urgency=medium
+
+  * Backport nv_ioremap_nocache changes from 440.64 and nv_proc_ops_t and
+    nv_timeval changes from 440.82 to fix kernel module build for Linux 5.6.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 25 Apr 2020 23:33:51 +0200
+
+nvidia-graphics-drivers (390.132-2) UNRELEASED; urgency=medium
+
+  [ Luca Boccassi ]
+  * Import drmP.patch from Fedora to fix kernel module build failure for
+    Linux 5.5 and newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 09 Apr 2020 20:20:53 +0200
 
 nvidia-graphics-drivers (390.132-1) stretch; urgency=medium
 
@@ -1238,12 +1670,20 @@ nvidia-graphics-drivers (390.129-1) UNRELEASED; urgency=medium
       command when it is available.
     * Improved compatibility with recent Linux kernels.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 06 Aug 2019 19:04:49 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Aug 2019 11:14:49 +0200
+
+nvidia-graphics-drivers (390.116-2) UNRELEASED; urgency=medium
+
+  [ Kevin Locke ]
+  * Backport changes from 418.74 and 430.14 to support building the module for
+    Linux 5.1 and 5.2.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 14 Jul 2019 15:15:52 +0200
 
 nvidia-graphics-drivers (390.116-1) stretch; urgency=medium
 
   * New upstream legacy branch release 390.116 (2019-02-22).
-    * Fixed CVE‑2018‑6260.  (Closes: #913467)
+    * Fixed CVE-2018-6260.  (Closes: #913467)
       https://nvidia.custhelp.com/app/answers/detail/a_id/4772
     - Fixed build failures which resulted in errors like "implicit declaration
       of function drm_...", when building the NVIDIA DRM kernel module for Linux
@@ -3707,6 +4147,30 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
+nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
+
+  * Add 03-unfuck-for-5.5.x.patch from Archlinux to fix kernel module build
+    for Linux 5.5.
+  * Backport nv_ioremap_nocache changes from 440.64 and nv_proc_ops_t and
+    nv_timeval changes from 440.82 to fix kernel module build for Linux 5.6.
+  * drm_legacy_pci_init() was moved to drm/drm_legacy.h in Linux 5.6.
+  * Fix #includes in conftest.sh to fix kernel module build for Linux 5.7,
+    thanks to Jiri Palecek.
+  * Backport nv_vmalloc changes from 450.57
+    and work around mmap_{sem=>lock} rename
+    and modernize use-nv-kernel-ARCH.o_binary.patch
+    to fix kernel module build for Linux 5.8.
+  * Backport drm_gem_object_get changes from 418.30.
+  * Backport get_user_pages_remote, vga_tryget, drm_driver_has_gem_free_object
+    changes from 455.23.04 to fix kernel module build for Linux 5.9.
+  * Backport drm_legacy_pci_init/exit from src:linux 5.9.11-1 which are no
+    longer available after NOUVEAU_LEGACY_CTX_SUPPORT (and thus DRM_LEGACY)
+    got finally disabled.
+  * Backport drm_prime_pages_to_sg_has_drm_device_arg changes
+    from 455.45.01 to fix kernel module build for Linux 5.10.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 15 Dec 2020 22:23:56 +0100
+
 nvidia-graphics-drivers (340.108-1) UNRELEASED; urgency=medium
 
   * The 340.xx legacy driver series has been declared as End-of-Life by
@@ -3738,6 +4202,23 @@ nvidia-graphics-drivers (340.108-1) UNRELEASED; urgency=medium
   * Refresh patches.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 03 Jan 2020 02:29:02 +0100
+
+nvidia-graphics-drivers (340.107-2) UNRELEASED; urgency=medium
+
+  * Backport kmem_cache_create_usercopy.patch from 390.67-2 for the 340.xx
+    series, fixing "Bad or missing usercopy whitelist? Kernel memory exposure
+    attempt detected from SLUB object 'nvidia_stack_cache'" on Linux kernels
+    that have disabled CONFIG_HARDENED_USERCOPY_FALLBACK
+    (i.e. linux-image-4.16.0-2-* or newer).
+  * Add buildfix_kernel_4.11.patch (replacing vm-fault.patch),
+    buildfix_kernel_5.0.patch, buildfix_kernel_5.2.patch from Ubuntu to fix
+    kernel module build for Linux 5.2.
+  * Add buildfix_kernel_5.3.patch from Ubuntu to fix kernel module build for
+    Linux 5.3.
+  * Add buildfix_kernel_5.4.patch from Ubuntu to fix kernel module build for
+    Linux 5.4.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 05 Dec 2019 22:45:31 +0100
 
 nvidia-graphics-drivers (340.107-1) UNRELEASED; urgency=medium
 
