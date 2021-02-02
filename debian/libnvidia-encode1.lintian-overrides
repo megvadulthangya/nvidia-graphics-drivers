@@ -1,5 +1,5 @@
 # The NVIDIA license does not allow any form of modification.
-[i386]: specific-address-in-shared-library
+[i386 ppc64el]: specific-address-in-shared-library
 hardening-no-bindnow
 hardening-no-fortify-functions
 

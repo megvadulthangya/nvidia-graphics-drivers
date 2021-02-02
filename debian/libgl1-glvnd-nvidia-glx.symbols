@@ -1,7 +1,7 @@
 libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
-#MISSING: 390.141# AllocExecPages@Base 361
+#MISSING: 440.118.02# AllocExecPages@Base 361
  FindNextStringToken@Base 375
-#MISSING: 390.141# FreeExecPages@Base 361
+#MISSING: 440.118.02# FreeExecPages@Base 361
  IntersectionExtensionStrings@Base 375.20
  IsTokenInString@Base 375
  SplitString@Base 375
@@ -9,15 +9,15 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
 #MISSING: 384.111# __glXWrapperInit@Base 361
  __libGLFini@Base 460
  __libGLInit@Base 460
-#MISSING: 390.141# entry_generate_default_code@Base 361
- entry_get_patch_address@Base 390.141
-#MISSING: 390.141# entry_get_patch_addresses@Base 361
+ (arch=ppc64el)entry_generate_default_code@Base 361
+ entry_get_patch_address@Base 440.118.02
+#MISSING: 440.118.02# entry_get_patch_addresses@Base 361
  entry_get_public@Base 361
-#MISSING: 390.141# entry_init_public@Base 361
+#MISSING: 440.118.02# entry_init_public@Base 361
  entry_patch_finish@Base 361
  entry_patch_start@Base 361
- entry_restore_entrypoints@Base 390.141
- entry_save_entrypoints@Base 390.141
+ entry_restore_entrypoints@Base 440.118.02
+ entry_save_entrypoints@Base 440.118.02
  entry_stub_size@Base 361
  entry_type@Base 361
  glAccum@Base 1.0.4349
@@ -47,8 +47,8 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glArrayElement@Base 1.0.4349
  glArrayElementEXT@Base 1.0.4349
  glArrayObjectATI@Base 361
- glAsyncCopyBufferSubDataNVX@Base 390.141
- glAsyncCopyImageSubDataNVX@Base 390.141
+ glAsyncCopyBufferSubDataNVX@Base 440.118.02
+ glAsyncCopyImageSubDataNVX@Base 440.118.02
  glAsyncMarkerSGIX@Base 361
  glAttachObjectARB@Base 1.0.6106
  glAttachShader@Base 1.0.7664
@@ -108,7 +108,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glBindRenderbufferOES@Base 325
  glBindSampler@Base 256
  glBindSamplers@Base 331
- glBindShadingRateImageNV@Base 390.141
+ glBindShadingRateImageNV@Base 440.118.02
 #MISSING: 331# glBindStateObjectNV@Base 260
  glBindTexGenParameterEXT@Base 361
  glBindTexture@Base 1.0.4349
@@ -184,7 +184,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glBlitFramebufferNV@Base 334
  glBlitNamedFramebuffer@Base 346
  glBufferAddressRangeNV@Base 185
- glBufferAttachMemoryNV@Base 390.141
+ glBufferAttachMemoryNV@Base 440.118.02
  glBufferData@Base 1.0.6106
  glBufferDataARB@Base 1.0.4349
  glBufferDataSysmem@Base 280
@@ -248,7 +248,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glClientActiveTextureARB@Base 1.0.4349
  glClientActiveVertexStreamATI@Base 361
  glClientAttribDefaultEXT@Base 180
- glClientWaitSemaphoreui64NVX@Base 390.141
+ glClientWaitSemaphoreui64NVX@Base 440.118.02
  glClientWaitSync@Base 190.18.05
  glClientWaitSyncAPPLE@Base 361
  glClientWaitSyncValueuiNVX@Base 285
@@ -461,7 +461,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glCreateProgram@Base 1.0.7664
  glCreateProgramObjectARB@Base 1.0.6106
  glCreateProgramPipelines@Base 346
- glCreateProgressFenceNVX@Base 390.141
+ glCreateProgressFenceNVX@Base 440.118.02
  glCreateQueries@Base 346
  glCreateRenderbuffers@Base 346
  glCreateSamplers@Base 346
@@ -635,8 +635,8 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glDrawElementsInstancedNV@Base 325
  glDrawMeshArraysSUN@Base 361
  glDrawMeshNV@Base 1.0.4349
- glDrawMeshTasksIndirectNV@Base 390.141
- glDrawMeshTasksNV@Base 390.141
+ glDrawMeshTasksIndirectNV@Base 440.118.02
+ glDrawMeshTasksNV@Base 440.118.02
  glDrawPixels@Base 1.0.4349
  glDrawRangeElementArrayAPPLE@Base 361
  glDrawRangeElementArrayATI@Base 361
@@ -811,7 +811,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glFramebufferFoveationConfigQCOM@Base 390.116
  glFramebufferFoveationParametersQCOM@Base 390.116
  glFramebufferParameteri@Base 310
- glFramebufferParameteriMESA@Base 390.141
+ glFramebufferParameteriMESA@Base 440.118.02
  glFramebufferPixelLocalStorageSizeEXT@Base 390.116
  glFramebufferReadBufferEXT@Base 180
  glFramebufferRenderbuffer@Base 180
@@ -1009,7 +1009,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glGetFramebufferParameterfvAMD@Base 390.116
  glGetFramebufferParameteriv@Base 310
  glGetFramebufferParameterivEXT@Base 180
- glGetFramebufferParameterivMESA@Base 390.141
+ glGetFramebufferParameterivMESA@Base 440.118.02
  glGetFramebufferPixelLocalStorageSizeEXT@Base 390.116
  glGetGraphicsResetStatus@Base 346
  glGetGraphicsResetStatusARB@Base 260
@@ -1068,7 +1068,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glGetMaterialxOES@Base 361
  glGetMaterialxv@Base 302
  glGetMaterialxvOES@Base 361
- glGetMemoryObjectDetachedResourcesuivNV@Base 390.141
+ glGetMemoryObjectDetachedResourcesuivNV@Base 440.118.02
  glGetMemoryObjectParameterivEXT@Base 390.116
  glGetMinmax@Base 1.0.4349
  glGetMinmaxEXT@Base 361
@@ -1240,8 +1240,8 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glGetShaderSource@Base 1.0.7664
  glGetShaderSourceARB@Base 1.0.6106
  glGetShaderiv@Base 1.0.7664
- glGetShadingRateImagePaletteNV@Base 390.141
- glGetShadingRateSampleLocationivNV@Base 390.141
+ glGetShadingRateImagePaletteNV@Base 440.118.02
+ glGetShadingRateSampleLocationivNV@Base 440.118.02
  glGetSharpenTexFuncSGIS@Base 361
  glGetStageIndexNV@Base 346
 #MISSING: 331# glGetStateDynamicPropertyNameivNV@Base 260
@@ -1724,8 +1724,8 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glMultiDrawElementsIndirectCount@Base 390.116
  glMultiDrawElementsIndirectCountARB@Base 331
  glMultiDrawElementsIndirectEXT@Base 346
- glMultiDrawMeshTasksIndirectCountNV@Base 390.141
- glMultiDrawMeshTasksIndirectNV@Base 390.141
+ glMultiDrawMeshTasksIndirectCountNV@Base 440.118.02
+ glMultiDrawMeshTasksIndirectNV@Base 440.118.02
  glMultiDrawRangeElementArrayAPPLE@Base 361
  glMultiModeDrawArraysIBM@Base 361
  glMultiModeDrawElementsIBM@Base 361
@@ -1868,12 +1868,12 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glMulticastGetQueryObjectivNV@Base 390.116
  glMulticastGetQueryObjectui64vNV@Base 390.116
  glMulticastGetQueryObjectuivNV@Base 390.116
- glMulticastScissorArrayvNVX@Base 390.141
- glMulticastViewportArrayvNVX@Base 390.141
- glMulticastViewportPositionWScaleNVX@Base 390.141
+ glMulticastScissorArrayvNVX@Base 440.118.02
+ glMulticastViewportArrayvNVX@Base 440.118.02
+ glMulticastViewportPositionWScaleNVX@Base 440.118.02
  glMulticastWaitSyncNV@Base 390.116
  glNVENCInterOpFunctionNVX@Base 313
- glNamedBufferAttachMemoryNV@Base 390.141
+ glNamedBufferAttachMemoryNV@Base 440.118.02
  glNamedBufferData@Base 346
  glNamedBufferDataEXT@Base 180
  glNamedBufferPageCommitmentARB@Base 361
@@ -1919,7 +1919,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glNamedRenderbufferStorage@Base 346
  glNamedRenderbufferStorageEXT@Base 180
  glNamedRenderbufferStorageMultisample@Base 346
- glNamedRenderbufferStorageMultisampleAdvancedAMD@Base 390.141
+ glNamedRenderbufferStorageMultisampleAdvancedAMD@Base 440.118.02
  glNamedRenderbufferStorageMultisampleCoverageEXT@Base 180
  glNamedRenderbufferStorageMultisampleEXT@Base 180
  glNamedStringARB@Base 270
@@ -2346,7 +2346,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glRenderbufferStorageMultisample@Base 180
  glRenderbufferStorageMultisampleANGLE@Base 361
  glRenderbufferStorageMultisampleAPPLE@Base 361
- glRenderbufferStorageMultisampleAdvancedAMD@Base 390.141
+ glRenderbufferStorageMultisampleAdvancedAMD@Base 440.118.02
  glRenderbufferStorageMultisampleCoverageNV@Base 1.0.9746
  glRenderbufferStorageMultisampleEXT@Base 1.0.9625
  glRenderbufferStorageMultisampleIMG@Base 361
@@ -2378,7 +2378,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glRequestResidentProgramsNV@Base 1.0.4349
  glResetHistogram@Base 1.0.4349
  glResetHistogramEXT@Base 361
- glResetMemoryObjectParameterNV@Base 390.141
+ glResetMemoryObjectParameterNV@Base 440.118.02
  glResetMinmax@Base 1.0.4349
  glResetMinmaxEXT@Base 361
  glResizeBuffersMESA@Base 361
@@ -2421,8 +2421,8 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glScissorArrayvNV@Base 346
  glScissorArrayvOES@Base 390.116
  glScissorArrayvOES@Base 410.73
- glScissorExclusiveArrayvNV@Base 390.141
- glScissorExclusiveNV@Base 390.141
+ glScissorExclusiveArrayvNV@Base 440.118.02
+ glScissorExclusiveNV@Base 440.118.02
  glScissorIndexed@Base 260
  glScissorIndexedNV@Base 346
  glScissorIndexedOES@Base 390.116
@@ -2487,15 +2487,15 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glShaderOp1EXT@Base 361
  glShaderOp2EXT@Base 361
  glShaderOp3EXT@Base 361
- glShadingRateImageBarrierNV@Base 390.141
- glShadingRateImagePaletteNV@Base 390.141
- glShadingRateSampleOrderCustomNV@Base 390.141
- glShadingRateSampleOrderNV@Base 390.141
  glShaderSource@Base 1.0.7664
  glShaderSourceARB@Base 1.0.6106
  glShaderStorageBlockBinding@Base 310
+ glShadingRateImageBarrierNV@Base 440.118.02
+ glShadingRateImagePaletteNV@Base 440.118.02
+ glShadingRateSampleOrderCustomNV@Base 440.118.02
+ glShadingRateSampleOrderNV@Base 440.118.02
  glSharpenTexFuncSGIS@Base 361
- glSignalSemaphoreui64NVX@Base 390.141
+ glSignalSemaphoreui64NVX@Base 440.118.02
  glSignalSemaphoreEXT@Base 390.116
  glSignalVkFenceNV@Base 390.116
  glSignalVkSemaphoreNV@Base 390.116
@@ -2553,7 +2553,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glTestFenceAPPLE@Base 361
  glTestFenceNV@Base 1.0.4349
  glTestObjectAPPLE@Base 361
- glTexAttachMemoryNV@Base 390.141
+ glTexAttachMemoryNV@Base 440.118.02
  glTexBuffer@Base 190
  glTexBufferARB@Base 180
  glTexBufferEXT@Base 1.0.9746
@@ -2721,7 +2721,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
 #MISSING: 313.18# glTexSubImage3DOES@Base 270
  glTexSubImage3DOES@Base 361
  glTexSubImage4DSGIS@Base 361
- glTextureAttachMemoryNV@Base 390.141
+ glTextureAttachMemoryNV@Base 440.118.02
  glTextureBarrier@Base 346
  glTextureBarrierNV@Base 190.18.05
  glTextureBuffer@Base 346
@@ -2928,7 +2928,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glUnmapObjectBufferATI@Base 361
  glUnmapTexture2DINTEL@Base 361
  glUpdateObjectBufferATI@Base 361
- glUploadGpuMaskNVX@Base 390.141
+ glUploadGpuMaskNVX@Base 440.118.02
  glUseProgram@Base 1.0.7664
  glUseProgramObjectARB@Base 1.0.6106
  glUseProgramStages@Base 260
@@ -2941,7 +2941,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glVDPAUMapSurfacesNV@Base 256
  glVDPAURegisterOutputSurfaceNV@Base 256
  glVDPAURegisterVideoSurfaceNV@Base 256
- glVDPAURegisterVideoSurfaceWithPictureStructureNV@Base 390.141
+ glVDPAURegisterVideoSurfaceWithPictureStructureNV@Base 440.118.02
  glVDPAUSurfaceAccessNV@Base 256
  glVDPAUUnmapSurfacesNV@Base 256
  glVDPAUUnregisterSurfaceNV@Base 256
@@ -3327,7 +3327,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glViewportPositionWScaleNV@Base 390.116
  glViewportSwizzleNV@Base 343
  glWaitSemaphoreEXT@Base 390.116
- glWaitSemaphoreui64NVX@Base 390.141
+ glWaitSemaphoreui64NVX@Base 440.118.02
  glWaitSync@Base 190.18.05
  glWaitSyncAPPLE@Base 361
  glWaitSyncValueuiNVX@Base 285
@@ -3474,7 +3474,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glXGetScreenDriver@Base 361
  glXGetSelectedEvent@Base 1.0.4349
  glXGetSelectedEventSGIX@Base 1.0.4349
- glXGetSwapIntervalMESA@Base 390.141
+ glXGetSwapIntervalMESA@Base 440.118.02
  glXGetSyncValuesOML@Base 361
  glXGetTransparentIndexSUN@Base 361
  glXGetVideoDeviceNV@Base 1.0.6629
@@ -3530,7 +3530,7 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glXSwapBuffers@Base 1.0.4349
  glXSwapBuffersMscOML@Base 361
  glXSwapIntervalEXT@Base 195
- glXSwapIntervalMESA@Base 390.141
+ glXSwapIntervalMESA@Base 440.118.02
  glXSwapIntervalSGI@Base 1.0.5328
  glXUseXFont@Base 1.0.4349
  glXWaitForMscOML@Base 361
@@ -3543,9 +3543,9 @@ libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
  glvnd_vasprintf@Base 375
 #MISSING: 361.45# public_entry_end@Base 361
 #MISSING: 361.45# public_entry_start@Base 361
- stub_cleanup@Base 390.141
+ stub_cleanup@Base 440.118.02
  stub_find_public@Base 361
-#MISSING: 390.141# stub_get_addr@Base 361
+#MISSING: 440.118.02# stub_get_addr@Base 361
 #MISSING: 381.22# stub_get_name@Base 361
  stub_get_patch_callbacks@Base 361
-#MISSING: 390.141# stub_get_slot@Base 361
+#MISSING: 440.118.02# stub_get_slot@Base 361
