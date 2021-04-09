@@ -194,7 +194,7 @@ compare-copyright-license: LICENSE.txt
 
 .PHONY: binary binary-arch binary-indep build clean install
 binary binary-arch binary-indep build clean install:
-	dh $@ --with dkms
+	dh $@
 
 override_dh_auto_clean:
 	$(RM) -r .pc
@@ -289,9 +289,6 @@ endif
 
 override_dh_installchangelogs:
 	dh_installchangelogs debian/tmp/NVIDIA_Changelog
-
-override_dh_dkms:
-	dh_dkms -V $(version)
 
 override_dh_bugfiles:
 	dh_bugfiles -A

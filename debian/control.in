@@ -9,9 +9,9 @@ Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
 Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git
 Build-Depends:
  debhelper-compat (= 13),
+ dh-sequence-dkms,
  dh-exec,
  xz-utils,
- dkms,
  libvulkan1 (>= 1.0.42),
  libxext6,
  quilt,
