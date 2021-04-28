@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla-418 (418.197.02-1~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Apr 2021 15:58:42 +0200
+
 nvidia-graphics-drivers-tesla-418 (418.197.02-1) unstable; urgency=medium
 
   * New upstream Tesla release 418.197.02 (2021-04-19).
