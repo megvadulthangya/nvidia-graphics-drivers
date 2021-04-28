@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-390xx (390.143-1~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Apr 2021 15:47:13 +0200
+
 nvidia-graphics-drivers-legacy-390xx (390.143-1) unstable; urgency=medium
 
   * New upstream legacy branch release 390.143 (2021-04-19).
