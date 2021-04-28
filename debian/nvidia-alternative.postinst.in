@@ -80,10 +80,14 @@ if [ "$1" = "triggered" ]; then
 		$(add_slave /etc/nvidia/nvidia-modprobe.conf nvidia-modprobe.conf /etc/#PRIVATE#/nvidia-modprobe.conf)
 		$(add_slave /etc/nvidia/nvidia-load.conf nvidia-load.conf /etc/#PRIVATE#/nvidia-load.conf)
 "
+	libnvidia_ml_so_slave=
+	if [ -f /usr/include/nvml.h ]; then
+		libnvidia_ml_so_slave="$(add_multiarch_slave /usr/lib "" libnvidia-ml.so /usr/lib #PRIVATE#/)"
+	fi
 	if echo "$slaves" | grep -q "slave" ; then
-		update-alternatives --install /usr/lib/nvidia/nvidia nvidia /usr/lib/#PRIVATE# #MAJOR# $slaves $conf_slaves
+		update-alternatives --install /usr/lib/nvidia/nvidia nvidia /usr/lib/#PRIVATE# #MAJOR# $slaves $conf_slaves $libnvidia_ml_so_slave
 		# work around #916799 and re-register the alternative to clean-up leftover slaves
-		update-alternatives --install /usr/lib/nvidia/nvidia nvidia /usr/lib/#PRIVATE# #MAJOR# $slaves $conf_slaves
+		update-alternatives --install /usr/lib/nvidia/nvidia nvidia /usr/lib/#PRIVATE# #MAJOR# $slaves $conf_slaves $libnvidia_ml_so_slave
 	else
 		update-alternatives --remove nvidia /usr/lib/#PRIVATE#
 	fi

@@ -1,3 +1,29 @@
+nvidia-graphics-drivers-legacy-390xx (390.143-1) unstable; urgency=medium
+
+  * New upstream legacy branch release 390.143 (2021-04-19).
+    * Fixed CVE-2021-1076.  (Closes: #987218)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5172
+    - Fixed a bug where vkCreateSwapchain could cause the X Server to crash
+      when an invalid imageFormat was provided.
+    - Fixed a driver installation failure on Linux kernel 5.11 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "fatal error: asm/kmap_types.h: No such file or directory".
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 20 Apr 2021 02:04:19 +0200
+
+nvidia-graphics-drivers-legacy-390xx (390.141-3) unstable; urgency=medium
+
+  * nvidia-legacy-390xx-alternative: Add libnvidia-ml.so slave alternative if
+    libnvidia-ml-dev is installed (460.56-2).  (Closes: #984881)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 13 Mar 2021 22:39:29 +0100
+
+nvidia-graphics-drivers-legacy-390xx (390.141-2~deb10u1) buster; urgency=medium
+
+  * Rebuild for buster.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 23 Jan 2021 18:04:20 +0100
+
 nvidia-graphics-drivers-legacy-390xx (390.141-2~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -21,11 +47,12 @@ nvidia-graphics-drivers-legacy-390xx (390.141-1) unstable; urgency=medium
     - Fixed a driver installation failure on Linux kernel 5.8 release
       candidates, where the NVIDIA kernel module failed to build with error
       "too many arguments to function '__vmalloc'".
+    * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
   * Re-enable building the nvidia-uvm module.
   * Refresh patches.
-  * Update symbols files.
+  * Update glvnd symbols files.
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 10 Jan 2021 03:31:58 +0100
@@ -85,15 +112,6 @@ nvidia-graphics-drivers-legacy-390xx (390.138-2) unstable; urgency=medium
   * Backport nv_vmalloc changes from 450.57
     and work around mmap_{sem=>lock} rename
     to fix kernel module build for Linux 5.8.  (Partly addresses #969085)
-  * Note: The nvidia-uvm kernel module will fail to build for Linux 5.8 due to
-    licence incompatibility unless cfa6705d89b6562f79c40c249f8d94073c4276e4
-    "radix-tree: Use local_lock for protection" (which effectively made
-    radix_tree_preloads GPL-only) gets reverted in Linux 5.8 or NVIDIA
-    switches the nvidia-uvm module license to "Dual MIT/GPL" as in 415.18.
-  * Note: Building the nvidia-uvm module can be temporarily disabled by
-    a) commenting the last paragraph in dkms.conf and
-    b) building with NV_EXCLUDE_KERNEL_MODULES=nvidia-uvm set in the
-       environment.
   * Update lintian overrides.
 
   [ Vincent Cheng ]

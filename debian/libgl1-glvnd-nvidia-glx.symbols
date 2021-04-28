@@ -7,7 +7,7 @@
  SplitString@Base 375
  UnionExtensionStrings@Base 375.20
 #MISSING: 384.111# __glXWrapperInit@Base 361
-#MISSING: 390.141# entry_generate_default_code@Base 361
+ (arch=ppc64el)entry_generate_default_code@Base 361
  entry_get_patch_address@Base 390.141
 #MISSING: 390.141# entry_get_patch_addresses@Base 361
  entry_get_public@Base 361

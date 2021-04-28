@@ -8,7 +8,7 @@ libGLESv2.so.2 libgles2 (>= 0.2.999) | libgles2-mesa
 #MISSING: 361# NvGlEs2Init@Base 331
  SplitString@Base 390.59
  UnionExtensionStrings@Base 390.59
-#MISSING: 390.141# entry_generate_default_code@Base 390.59
+ (arch=ppc64el)entry_generate_default_code@Base 390.59
  entry_get_patch_address@Base 390.141
 #MISSING: 390.141# entry_get_patch_addresses@Base 390.59
  entry_get_public@Base 390.59

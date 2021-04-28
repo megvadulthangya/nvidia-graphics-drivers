@@ -138,9 +138,9 @@ debian/nv-readme.ids: debian/nv-readme.ids.common debian/nv-readme.ids.$(DEB_HOS
 	cat $^ | sort -u > $@
 
 nv-readme.ids: unpack-stamp debian/nv-readme.ids
-	sed	-e '0,/A. Supported\|APPENDIX A: SUPPORTED/d' \
-		-e '0,/Appendix A. Supported\|APPENDIX A: SUPPORTED/d' \
-		-e '0,/^Below\|APPENDIX B/{/ 0x/s/.*  0x\([0-9a-fA-F]\{4\}\).*/10de\1/p; /^.\{41\} [0-9a-fA-F]\{4\} /s/^.\{41\} \([0-9a-fA-F]\{4\}\) .*/10de\1/p};d' \
+	sed -r	-e '0,/A. Supported|APPENDIX A: SUPPORTED/d' \
+		-e '0,/Appendix A. Supported|APPENDIX A: SUPPORTED/d' \
+		-e '0,/^Below|APPENDIX B/{/ 0x/s/.*  0x([0-9a-fA-F]{4}).*/10de\1/p; /^(.{41}|.{49}) [0-9a-fA-F]{4} /s/^(.{41}|.{49}) ([0-9a-fA-F]{4}) .*/10de\2/p};d' \
 		NVIDIA-Linux/README.txt \
 		| tr a-f A-F | sort -u > $@
 	@set -e -x ; \
