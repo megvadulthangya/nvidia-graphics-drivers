@@ -2,7 +2,7 @@
 #TESLA_MAJOR		 =
 #NVIDIA_TESLA		 = $(TESLA_MAJOR)
 #NVIDIA_LEGACY		 =
-WATCH_VERSION		 =
+WATCH_VERSION		 = 460
 
 NVIDIA_SETTINGS		 = nvidia-settings (>= $(version_major))
 NVIDIA_LEGACY_CHECK	 = nvidia-legacy-check (>= 396) [amd64]

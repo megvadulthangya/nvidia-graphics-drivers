@@ -166,9 +166,9 @@ nonglvnd/nvidia_icd.json: $(nvidia_icd.json.template)
 	sed 's/libGLX_nvidia.so.0/libGL.so.1/' $< > $@
 
 nv-readme.ids: unpack-stamp
-	sed	-e '0,/A. Supported\|APPENDIX A: SUPPORTED/d' \
-		-e '0,/Appendix A. Supported\|APPENDIX A: SUPPORTED/d' \
-		-e '0,/^Below\|APPENDIX B/{/ 0x/s/.*  0x\([0-9a-fA-F]\{4\}\).*/10de\1/p; /^.\{41\} [0-9a-fA-F]\{4\} /s/^.\{41\} \([0-9a-fA-F]\{4\}\) .*/10de\1/p};d' \
+	sed -r	-e '0,/A. Supported|APPENDIX A: SUPPORTED/d' \
+		-e '0,/Appendix A. Supported|APPENDIX A: SUPPORTED/d' \
+		-e '0,/^Below|APPENDIX B/{/ 0x/s/.*  0x([0-9a-fA-F]{4}).*/10de\1/p; /^(.{41}|.{49}) [0-9a-fA-F]{4} /s/^(.{41}|.{49}) ([0-9a-fA-F]{4}) .*/10de\2/p};d' \
 		NVIDIA-Linux/README.txt \
 		| tr a-f A-F | sort -u > $@
 	@set -e -x ; \
