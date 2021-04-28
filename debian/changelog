@@ -1,3 +1,30 @@
+nvidia-graphics-drivers-tesla-450 (450.119.03-1) unstable; urgency=medium
+
+  * New upstream Tesla release 450.119.03 (2021-04-19).
+    * Fixed CVE-2021-1076, CVE-2021-1077.  (Closes: #987221)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5172
+    - Fixed a driver installation failure on Linux kernel 5.11 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "error: implicit declaration of function 'sys_close'".
+    - Fixed a bug where calls to vkCreateDevice could fail on Ampere GPUs when
+      ray tracing extensions were enabled and the application was running within
+      the Steam Linux Runtime.
+    - Fixed a regression that could cause display corruption when using
+      a scaled resolution after resuming from power management suspend.
+    - Fixed a bug that could intermittently cause NvFBC applications to fail
+      with the error message "Unable to send exported fds".
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 22 Apr 2021 21:13:14 +0200
+
+nvidia-graphics-drivers-tesla-450 (450.102.04-2) unstable; urgency=medium
+
+  * Switch to dh-sequence-dkms (460.56-1).
+  * Simplify dh_dkms usage (460.56-1).
+  * nvidia-tesla-450-alternative: Add libnvidia-ml.so slave alternative if
+    libnvidia-ml-dev is installed (460.56-2).  (Closes: #984881)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 13 Mar 2021 18:43:15 +0100
+
 nvidia-graphics-drivers-tesla-450 (450.102.04-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -256,12 +283,11 @@ nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
   * New upstream release 445 series.
     - Removed support for "IgnoreDisplayDevices" X configuration option.
     - Added support for PRIME Synchronization when using displays driven by
-      the x86-video-amdgpu driver as PRIME display offload sinks.
+      the xf86-video-amdgpu driver as PRIME display offload sinks.
     - Added support for displays connected to NVIDIA GPUs to act as PRIME
       display offload sinks, also known as "Reverse PRIME". See the chapter
       titled "Offloading Graphics Display with RandR 1.4" in the README for
       additional information.
-    - Removed 'libGL.la' libtool archive from the install package.
   * New upstream release 440 series.
     - Fixed a bug where a Vulkan application under PRIME render
       offload would not always be correctly throttled to vsync despite
@@ -282,6 +308,15 @@ nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 01 Jul 2020 00:02:18 +0200
+
+nvidia-graphics-drivers-tesla-440 (440.118.02-4) unstable; urgency=medium
+
+  * Switch to dh-sequence-dkms (460.56-1).
+  * Simplify dh_dkms usage (460.56-1).
+  * nvidia-tesla-440-alternative: Add libnvidia-ml.so slave alternative if
+    libnvidia-ml-dev is installed (460.56-2).  (Closes: #984881)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 12 Mar 2021 21:03:13 +0100
 
 nvidia-graphics-drivers-tesla-440 (440.118.02-3) unstable; urgency=medium
 
@@ -809,6 +844,35 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
+
+nvidia-graphics-drivers-tesla-418 (418.197.02-1) unstable; urgency=medium
+
+  * New upstream Tesla release 418.197.02 (2021-04-19).
+    * Fixed CVE-2021-1076.  (Closes: #987219)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5172
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 20 Apr 2021 16:15:04 +0200
+
+nvidia-graphics-drivers (418.197.02-1) buster; urgency=medium
+
+  * New upstream Tesla release 418.197.02 (2021-04-19).
+    * Fixed CVE-2021-1076.  (Closes: #987216)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5172
+
+  [ Andreas Beckmann ]
+  * nvidia-alternative: Add libnvidia-ml.so slave alternative if
+    libnvidia-ml-dev is installed (460.56-2).  (Closes: #984881)
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 20 Apr 2021 15:01:59 +0200
+
+nvidia-graphics-drivers-tesla-418 (418.181.07-2) unstable; urgency=medium
+
+  * Switch to dh-sequence-dkms (460.56-1).
+  * Simplify dh_dkms usage (460.56-1).
+  * nvidia-tesla-418-alternative: Add libnvidia-ml.so slave alternative if
+    libnvidia-ml-dev is installed (460.56-2).  (Closes: #984881)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 12 Mar 2021 20:11:00 +0100
 
 nvidia-graphics-drivers-tesla-418 (418.181.07-1) unstable; urgency=medium
 
@@ -1519,6 +1583,19 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.143-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy branch release 390.143 (2021-04-19).
+    * Fixed CVE-2021-1076.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5172
+    - Fixed a bug where vkCreateSwapchain could cause the X Server to crash
+      when an invalid imageFormat was provided.
+    - Fixed a driver installation failure on Linux kernel 5.11 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "fatal error: asm/kmap_types.h: No such file or directory".
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 19 Apr 2021 22:38:56 +0200
 
 nvidia-graphics-drivers (390.141-1) UNRELEASED; urgency=medium
 
