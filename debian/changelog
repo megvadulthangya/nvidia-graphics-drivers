@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla-460 (460.73.01-1~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Apr 2021 16:39:09 +0200
+
 nvidia-graphics-drivers-tesla-460 (460.73.01-1) unstable; urgency=medium
 
   * New upstream production branch release 460.73.01 (2021-04-14).
