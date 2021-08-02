@@ -1,3 +1,73 @@
+nvidia-graphics-drivers-tesla-460 (460.91.03-1) unstable; urgency=medium
+
+  * New upstream production branch release 460.91.03 (2021-07-20).
+    * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.  (Closes: #991357)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5211
+    - Added support for the following GPUs: GeForce RTX 3070 Ti, CMP 50HX.
+    * Fixed crash with certain DisplayPort devices.  (Closes: #989069)
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Drop manually added Depends: libcuda1 from libraries not referencing it.
+  * nvidia-tesla-460-driver-libs: Add Recommends: libnvidia-tesla-460-encode1.
+    (Closes: #989885)
+  * debian/gen-control.pl: Support substitutions in the Vcs-Git field.
+  * Compute and substitute the Git branch instead of hardcoding it.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 25 Jul 2021 01:58:49 +0200
+
+nvidia-graphics-drivers (460.91.03-1) unstable; urgency=medium
+
+  * New upstream production branch release 460.91.03 (2021-07-20).
+    * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.  (Closes: #991351)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5211
+    - Added support for the following GPUs: GeForce RTX 3070 Ti, CMP 50HX.
+    * Fixed crash with certain DisplayPort devices.  (Closes: #989069)
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Drop manually added Depends: libcuda1 from libraries not referencing it.
+  * nvidia-driver-libs: Add Recommends: libnvidia-encode1.  (Closes: #989885)
+  * debian/gen-control.pl: Support substitutions in the Vcs-Git field.
+  * Compute and substitute the Git branch instead of hardcoding it.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 24 Jul 2021 01:25:40 +0200
+
+nvidia-graphics-drivers (460.84-1) unstable; urgency=medium
+
+  * New upstream production branch release 460.84 (2021-06-03).
+    - Added support for the following GPU: GeForce RTX 3080 Ti.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 05 Jun 2021 03:30:17 +0200
+
+nvidia-graphics-drivers (460.80-1) unstable; urgency=medium
+
+  * New upstream production branch release 460.80 (2021-05-11).
+    - Fixed a bug that could cause AddressSanitizer to report a
+      heap-buffer-overflow during initialization of the OpenGL and Vulkan
+      libraries.
+    - Added support for the following GPUs: GeForce RTX 3050 Ti Laptop GPU,
+      GeForce RTX 3050 Laptop GPU, T600 Laptop GPU, T1200 Laptop GPU,
+      RTX A5000 Laptop GPU, RTX A4000 Laptop GPU, RTX A3000 Laptop GPU,
+      RTX A2000 Laptop GPU.
+    - Fixed a bug that could prevent a system from resuming from suspend
+      when DisplayPort activity occurred while the system was suspended.
+    - Fixed a regression that prevented eglQueryDevicesEXT from correctly
+      enumerating GPUs on systems with multiple GPUs where access to the
+      GPU device files was restricted for some GPUs.
+    - Fixed a regression that could cause system hangs when changing display
+      resolution on SLI Mosaic configurations.
+
+  [ Luca Boccassi ]
+  * Update nv-readme.ids.
+  * Refresh kmods patches to remove fuzz.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 21 May 2021 22:21:31 +0200
+
 nvidia-graphics-drivers-tesla-460 (460.73.01-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -322,6 +392,31 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
+nvidia-graphics-drivers-tesla-450 (450.142.00-1) unstable; urgency=medium
+
+  * New upstream Tesla release 450.142.00 (2021-07-20).
+    * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.  (Closes: #991356)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5211
+    - Fixed a bug that could result in blank displays when driving multiple
+      displays at the same resolution using active DisplayPort dongles.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * nvidia-tesla-450-driver-libs: Add Recommends: libnvidia-tesla-450-encode1
+    (460.91.03-1).  (Closes: #989885)
+  * debian/gen-control.pl: Support substitutions in the Vcs-Git field
+    (460.91.03-1).
+  * Compute and substitute the Git branch instead of hardcoding it
+    (460.91.03-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 23 Jul 2021 22:54:44 +0200
+
+nvidia-graphics-drivers-tesla-450 (450.119.04-1) unstable; urgency=medium
+
+  * New upstream Tesla release 450.119.04 (2021-05-04).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 20 May 2021 13:53:07 +0200
+
 nvidia-graphics-drivers-tesla-450 (450.119.03-1) unstable; urgency=medium
 
   * New upstream Tesla release 450.119.03 (2021-04-19).
@@ -620,6 +715,17 @@ nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 01 Jul 2020 00:02:18 +0200
+
+nvidia-graphics-drivers-tesla-440 (440.118.02-5) unstable; urgency=medium
+
+  * nvidia-tesla-440-driver-libs: Add Recommends: libnvidia-tesla-440-encode1
+    (460.91.03-1).  (Closes: #989885)
+  * debian/gen-control.pl: Support substitutions in the Vcs-Git field
+    (460.91.03-1).
+  * Compute and substitute the Git branch instead of hardcoding it
+    (460.91.03-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 22 Jul 2021 18:05:03 +0200
 
 nvidia-graphics-drivers-tesla-440 (440.118.02-4) unstable; urgency=medium
 
@@ -1157,6 +1263,41 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.211.00-1) unstable; urgency=medium
+
+  * New upstream Tesla release 418.211.00 (2021-07-20).
+    * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.  (Closes: #991354)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5211
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * nvidia-driver-libs: Add Recommends: libnvidia-encode1
+    (460.91.03-1).  (Closes: #989885)
+  * debian/gen-control.pl: Support substitutions in the Vcs-Git field
+    (460.91.03-1).
+  * Compute and substitute the Git branch instead of hardcoding it
+    (460.91.03-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 22 Jul 2021 11:27:19 +0200
+
+nvidia-graphics-drivers (418.211.00-1) buster; urgency=medium
+
+  * New upstream Tesla release 418.211.00 (2021-07-20).
+    * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.  (Closes: #991351)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5211
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * nvidia-driver-libs: Add Recommends: libnvidia-encode1
+    (460.91.03-1).  (Closes: #989885)
+  * debian/gen-control.pl: Support substitutions in the Vcs-Git field
+    (460.91.03-1).
+  * Compute and substitute the Git branch instead of hardcoding it
+    (460.91.03-1).
+  * Upload to buster.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 21 Jul 2021 22:06:09 +0200
+
 nvidia-graphics-drivers-tesla-418 (418.197.02-1) unstable; urgency=medium
 
   * New upstream Tesla release 418.197.02 (2021-04-19).
@@ -1174,8 +1315,9 @@ nvidia-graphics-drivers (418.197.02-1) buster; urgency=medium
   [ Andreas Beckmann ]
   * nvidia-alternative: Add libnvidia-ml.so slave alternative if
     libnvidia-ml-dev is installed (460.56-2).  (Closes: #984881)
+  * Upload to buster.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 20 Apr 2021 15:01:59 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 31 May 2021 11:40:00 +0200
 
 nvidia-graphics-drivers-tesla-418 (418.181.07-2) unstable; urgency=medium
 
@@ -1896,6 +2038,19 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
 
+nvidia-graphics-drivers (390.144-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy branch release 390.144 (2021-07-20).
+    * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5211
+    - Worked around a bug in Meson builds of libglvnd 1.3.0 that caused the
+      nvidia_icd.json file to be installed in the wrong location.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 21 Jul 2021 18:15:32 +0200
+
 nvidia-graphics-drivers (390.143-1) UNRELEASED; urgency=medium
 
   * New upstream legacy branch release 390.143 (2021-04-19).
@@ -1907,7 +2062,7 @@ nvidia-graphics-drivers (390.143-1) UNRELEASED; urgency=medium
       candidates, where the NVIDIA kernel module failed to build with error
       "fatal error: asm/kmap_types.h: No such file or directory".
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 19 Apr 2021 22:38:56 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 20 Apr 2021 02:04:19 +0200
 
 nvidia-graphics-drivers (390.141-1) UNRELEASED; urgency=medium
 

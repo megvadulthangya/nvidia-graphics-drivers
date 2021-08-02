@@ -400,6 +400,7 @@ debian/control-real: $(CONTROL_FILES)
 		-V'nvidia-if-variant=$(nvidia_if_variant)' \
 		-V'nvidia:Variant=$(-variant)' \
 		-V'libcuda1=$(libcuda1)' \
+		-V'Vcs-Git:Branch=$(if $(variant), -b $(subst legacy-,,$(variant))/master)' \
 		$(foreach a,$(ARCH_CANDIDATES),-V'arch:$a=$(filter $a,$(DRIVER_ARCH_LIST))') \
 		-- \
 		debian/control.in > debian/control.new
