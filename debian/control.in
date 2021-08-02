@@ -6,7 +6,7 @@ Uploaders:
  Andreas Beckmann <anbe@debian.org>,
  Luca Boccassi <bluca@debian.org>,
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
-Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b tesla-418/master
+Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git${Vcs-Git:Branch}
 Build-Depends:
  debhelper-compat (= 13),
  dh-sequence-dkms,
@@ -286,6 +286,7 @@ Recommends:
  libgles-${nvidia-}1 (= ${binary:Version}),
  libgles-${nvidia-}2 (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
+ lib${nvidia}-encode1 (= ${binary:Version}),
  ${nvidia}-vulkan-icd (= ${binary:Version}),
 Provides:
  nvidia-driver-libs-any,
@@ -1092,12 +1093,12 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA PTX JIT Compiler${nvidia:VariantDesc}
+Description: NVIDIA PTX JIT Compiler library${nvidia:VariantDesc}
  The Compute Unified Device Architecture (CUDA) enables NVIDIA
  graphics processing units (GPUs) to be used for massively parallel
  general purpose computation.
  .
- This package contains the runtime PTX JIT compiler library.
+ This package contains the runtime PTX JIT Compiler library.
 
 Package: lib${nvidia-if-variant}nvcuvid1
 Architecture: i386 amd64 ${arch:ppc64el}
