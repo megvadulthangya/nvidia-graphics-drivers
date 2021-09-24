@@ -1,0 +1,35 @@
+From f3278c7697f8f77c4c9d77080a31636832f73a87 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 22 Sep 2021 08:49:14 +0200
+Subject: [PATCH] backport warning on unknown conftests
+
+for easier backporting of future conftest.sh changes
+---
+ conftest.sh | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/conftest.sh b/conftest.sh
+index b7a85f0..21a4db5 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -2188,6 +2188,17 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_DRM_DRIVER_PRIME_FLAG_PRESENT" "" "types"
+         ;;
+ 
++        # When adding a new conftest entry, please use the correct format for
++        # specifying the relevant upstream Linux kernel commit.
++        #
++        # <function> was added|removed|etc by commit <sha> ("<commit message")
++        # in <kernel-version> (<commit date>).
++
++        *)
++            # Unknown test name given
++            echo "Error: unknown conftest '$1' requested" >&2
++            #exit 1
++        ;;
+     esac
+ }
+ 
+-- 
+2.20.1
+

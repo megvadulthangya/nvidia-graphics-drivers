@@ -1,7 +1,7 @@
-From 19788cb03351bdd537786ccd62b894b16df97673 Mon Sep 17 00:00:00 2001
+From d15e898501d821f5df380aebc0596ef75a1d79d0 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 25 Apr 2020 11:42:24 +0200
-Subject: [PATCH 4/4] backport nv_timeval changes from 440.82 (uvm part)
+Subject: [PATCH 4/5] backport nv_timeval changes from 440.82 (uvm part)
 
 ---
  uvm/Makefile          |  2 ++

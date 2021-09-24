@@ -1,7 +1,7 @@
-From 785c239fa1f669a6b39e9e7f2a1b1a57ca689e81 Mon Sep 17 00:00:00 2001
+From 8d7ba857f1b7e46ecd061f79a3dd33bb8b74707c Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Fri, 2 Oct 2020 00:03:05 +0200
-Subject: [PATCH 2/2] backport vga_tryget changes from 455.23.04
+Subject: [PATCH 2/3] backport vga_tryget changes from 455.23.04
 
 ---
  Makefile    |  1 +
@@ -22,10 +22,10 @@ index 0288cd6..139a72f 100644
  	vmalloc_has_pgprot_t_arg \
  	timeval \
 diff --git a/conftest.sh b/conftest.sh
-index 7a384b4..c06a74f 100755
+index 7193567..0fca146 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2324,6 +2324,22 @@ compile_test() {
+@@ -2330,6 +2330,22 @@ compile_test() {
  
          ;;
  
@@ -45,9 +45,9 @@ index 7a384b4..c06a74f 100755
 +            compile_check_conftest "$CODE" "NV_VGA_TRYGET_PRESENT" "" "functions"
 +        ;;
 +
-     esac
- }
- 
+         # When adding a new conftest entry, please use the correct format for
+         # specifying the relevant upstream Linux kernel commit.
+         #
 diff --git a/nv.c b/nv.c
 index 9a521c2..9559228 100644
 --- a/nv.c

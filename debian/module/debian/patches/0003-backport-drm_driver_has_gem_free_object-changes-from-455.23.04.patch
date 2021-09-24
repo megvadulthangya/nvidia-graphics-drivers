@@ -1,4 +1,4 @@
-From 1d6cee3446ad49d1c454efd2633d3fd1e14f1655 Mon Sep 17 00:00:00 2001
+From a844034ebf88db0f883bcd31f9aeaddb2d845e3d Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 3 Oct 2020 00:58:27 +0200
 Subject: [PATCH 3/3] backport drm_driver_has_gem_free_object changes from
@@ -23,10 +23,10 @@ index 139a72f..cf5cd35 100644
  	mm_has_mmap_lock \
  	vmalloc_has_pgprot_t_arg \
 diff --git a/conftest.sh b/conftest.sh
-index c06a74f..aaafeb8 100755
+index 0fca146..4ac1165 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2324,6 +2324,30 @@ compile_test() {
+@@ -2330,6 +2330,30 @@ compile_test() {
  
          ;;
  

@@ -1,4 +1,4 @@
-From da31ceccb73684d2a2637b59ddd0f6c5def0297e Mon Sep 17 00:00:00 2001
+From 8b5374216313bc8d4d188304f6c9d25f5771cdf5 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 29 Aug 2020 00:23:41 +0200
 Subject: [PATCH 2/3] work around mmap_{sem=>lock} rename
@@ -22,10 +22,10 @@ index 81313d5..bf516d2 100644
  	timeval \
  	proc_ops \
 diff --git a/conftest.sh b/conftest.sh
-index f03a746..18fdb59 100755
+index fdd71ef..5e4e929 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2249,6 +2249,24 @@ compile_test() {
+@@ -2255,6 +2255,24 @@ compile_test() {
  
          ;;
  
@@ -47,9 +47,9 @@ index f03a746..18fdb59 100755
 +
 +        ;;
 +
-     esac
- }
- 
+         # When adding a new conftest entry, please use the correct format for
+         # specifying the relevant upstream Linux kernel commit.
+         #
 diff --git a/nv-linux.h b/nv-linux.h
 index f8a9864..dd63b52 100644
 --- a/nv-linux.h

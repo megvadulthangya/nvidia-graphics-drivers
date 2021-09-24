@@ -1,4 +1,4 @@
-From 307899e0bab58cd65e18a5bf7deaaa1ad446a3ab Mon Sep 17 00:00:00 2001
+From 996030b1ba30c31b17a80f9ba141117d5cfff9b2 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 3 Oct 2020 00:26:27 +0200
 Subject: [PATCH] backport drm_gem_object_get changes from 418.30
@@ -22,10 +22,10 @@ index bf516d2..0288cd6 100644
  	remap_pfn_range \
  	vmap \
 diff --git a/conftest.sh b/conftest.sh
-index 18fdb59..63eb81f 100755
+index 5e4e929..03ba62d 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2196,6 +2196,25 @@ compile_test() {
+@@ -2202,6 +2202,25 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DRM_DRIVER_PRIME_FLAG_PRESENT" "" "types"
          ;;
  

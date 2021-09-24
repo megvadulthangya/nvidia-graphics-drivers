@@ -1,4 +1,4 @@
-From d21f62fc20671cc72fec4e90791682728e9115dc Mon Sep 17 00:00:00 2001
+From f2406ae505c92db93d78534a8640fdd8901a32f5 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Tue, 15 Dec 2020 18:17:00 +0100
 Subject: [PATCH] backport drm_prime_pages_to_sg_has_drm_device_arg changes
@@ -23,10 +23,10 @@ index 330c578..cb20b47 100644
  	vga_tryget \
  	mm_has_mmap_lock \
 diff --git a/conftest.sh b/conftest.sh
-index a778486..a27e1ff 100755
+index 6b1e20e..256f56f 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2386,6 +2386,30 @@ compile_test() {
+@@ -2392,6 +2392,30 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_VGA_TRYGET_PRESENT" "" "functions"
          ;;
  
@@ -54,9 +54,9 @@ index a778486..a27e1ff 100755
 +            compile_check_conftest "$CODE" "NV_DRM_PRIME_PAGES_TO_SG_HAS_DRM_DEVICE_ARG" "" "types"
 +        ;;
 +
-     esac
- }
- 
+         # When adding a new conftest entry, please use the correct format for
+         # specifying the relevant upstream Linux kernel commit.
+         #
 diff --git a/nv-drm.c b/nv-drm.c
 index f6d5820..fddf7b3 100644
 --- a/nv-drm.c

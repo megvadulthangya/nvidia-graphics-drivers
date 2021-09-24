@@ -1,7 +1,7 @@
-From 0239526cc268dde0562eb074a255ab94b1a76fd4 Mon Sep 17 00:00:00 2001
+From 9a4d92b8634342efcd1f450254833f63f8680736 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 25 Apr 2020 11:40:05 +0200
-Subject: [PATCH 2/4] backport nv_proc_ops_t changes from 440.82
+Subject: [PATCH 2/5] backport nv_proc_ops_t changes from 440.82
 
 ---
  Makefile    |  1 +
@@ -23,7 +23,7 @@ index 125a690..1355277 100644
  	vmap \
  	set_pages_uc \
 diff --git a/conftest.sh b/conftest.sh
-index b7a85f0..8553b09 100755
+index 21a4db5..670e488 100755
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -2188,6 +2188,22 @@ compile_test() {
@@ -46,9 +46,9 @@ index b7a85f0..8553b09 100755
 +            compile_check_conftest "$CODE" "NV_PROC_OPS_PRESENT" "" "types"
 +        ;;
 +
-     esac
- }
- 
+         # When adding a new conftest entry, please use the correct format for
+         # specifying the relevant upstream Linux kernel commit.
+         #
 diff --git a/nv-linux.h b/nv-linux.h
 index 1b412ce..11aafc9 100644
 --- a/nv-linux.h

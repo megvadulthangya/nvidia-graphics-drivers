@@ -1,7 +1,7 @@
-From fd351fdc2b5e937a894e9b919617dcdfc5dc364c Mon Sep 17 00:00:00 2001
+From 05485fd1a9c3ab5ebdc76af7ae4524964f68a994 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 25 Apr 2020 11:40:44 +0200
-Subject: [PATCH 3/4] backport nv_timeval changes from 440.82
+Subject: [PATCH 3/5] backport nv_timeval changes from 440.82
 
 ---
  Makefile       |  1 +
@@ -23,7 +23,7 @@ index 1355277..14bfd9d 100644
  	remap_pfn_range \
  	vmap \
 diff --git a/conftest.sh b/conftest.sh
-index 8553b09..dfd6b68 100755
+index 670e488..ab835ce 100755
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -2204,6 +2204,23 @@ compile_test() {
@@ -47,9 +47,9 @@ index 8553b09..dfd6b68 100755
 +            compile_check_conftest "$CODE" "NV_TIMEVAL_PRESENT" "" "types"
 +        ;;
 +
-     esac
- }
- 
+         # When adding a new conftest entry, please use the correct format for
+         # specifying the relevant upstream Linux kernel commit.
+         #
 diff --git a/nv-time.h b/nv-time.h
 index a34ceb2..c6f619c 100644
 --- a/nv-time.h

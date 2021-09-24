@@ -1,4 +1,4 @@
-From f5b605421691ac02ba46e5c17a50c2888a2363e0 Mon Sep 17 00:00:00 2001
+From 8a7bcb563cf0481770d0cb23e9c1dbd994aa6b84 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Tue, 28 Apr 2020 10:41:36 +0200
 Subject: [PATCH 5/5] drm_legacy_pci_init() was moved to drm/drm_legacy.h
@@ -9,7 +9,7 @@ Subject: [PATCH 5/5] drm_legacy_pci_init() was moved to drm/drm_legacy.h
  2 files changed, 12 insertions(+)
 
 diff --git a/conftest.sh b/conftest.sh
-index dfd6b68..50a2edb 100755
+index ab835ce..6f59bd2 100755
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -155,6 +155,7 @@ test_headers() {
