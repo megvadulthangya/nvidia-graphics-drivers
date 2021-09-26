@@ -1,11 +1,12 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-11) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-11) unstable; urgency=medium
 
   * Backport asm/kmap_types.h changes from 390.143 to fix kernel module build
     for Linux 5.11.
   * Backport set_current_state changes from 470.63.01 to fix kernel module
-    build for Linux 5.14.
+    build for Linux 5.14.  (Closes: #995054)
+  * Refresh patches.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 24 Sep 2021 13:41:38 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 26 Sep 2021 21:40:52 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.108-10) unstable; urgency=medium
 
