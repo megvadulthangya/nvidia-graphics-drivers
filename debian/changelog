@@ -1,3 +1,11 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-12) UNRELEASED; urgency=medium
+
+  * Add /lib/udev/rules.d/61-nvidia.rules to associate the gpu driven by the
+    non-drm legacy driver with a seat, thanks to Oswald Buddenhagen.
+    (Closes: #1001756)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 17 Dec 2021 18:07:51 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.108-11) unstable; urgency=medium
 
   * Backport asm/kmap_types.h changes from 390.143 to fix kernel module build
