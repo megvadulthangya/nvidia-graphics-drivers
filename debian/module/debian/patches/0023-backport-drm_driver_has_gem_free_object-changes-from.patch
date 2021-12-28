@@ -1,7 +1,7 @@
-From a844034ebf88db0f883bcd31f9aeaddb2d845e3d Mon Sep 17 00:00:00 2001
+From 75319aaa699e879104713706c35926f2468a73c9 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 3 Oct 2020 00:58:27 +0200
-Subject: [PATCH 3/3] backport drm_driver_has_gem_free_object changes from
+Subject: [PATCH 23/34] backport drm_driver_has_gem_free_object changes from
  455.23.04
 
 ---
@@ -11,22 +11,22 @@ Subject: [PATCH 3/3] backport drm_driver_has_gem_free_object changes from
  3 files changed, 27 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index 139a72f..cf5cd35 100644
+index 0d6c500..aba77a1 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -90,6 +90,7 @@ ifdef NV_BUILD_MODULE_INSTANCES
- endif
- 
- COMPILE_TESTS = \
-+	drm_driver_has_gem_free_object \
- 	vga_tryget \
- 	mm_has_mmap_lock \
+@@ -160,6 +160,7 @@ COMPILE_TESTS = \
  	vmalloc_has_pgprot_t_arg \
+ 	mm_has_mmap_lock \
+ 	vga_tryget \
++	drm_driver_has_gem_free_object \
+ 
+ #
+ # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index 0fca146..4ac1165 100755
+index 507cc02..d9f3603 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2330,6 +2330,30 @@ compile_test() {
+@@ -2370,6 +2370,30 @@ compile_test() {
  
          ;;
  

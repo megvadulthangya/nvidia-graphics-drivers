@@ -106,6 +106,7 @@ unpack-stamp: $(patsubst %,NVIDIA-Linux-%,$(ARCH_LIST))
 	$(RM) NVIDIA-Linux
 	ln -s NVIDIA-Linux-$(DEB_HOST_ARCH) NVIDIA-Linux
 	QUILT_PATCHES=debian/patches QUILT_SERIES=series-postunpack quilt --quiltrc /dev/null push -a || test $$? = 2
+	sed -i 's/==/=/g' NVIDIA-Linux/nvidia-bug-report.sh
 	ls -al
 	touch $@
 
@@ -233,6 +234,7 @@ override_dh_missing:
 
 override_dh_shlibdeps:
 	dh_shlibdeps -l/$(libdir)/$(nvidia_private)
+	test -z "$$(ls debian/*.substvars 2>/dev/null)" || sed -r -i 's/libnvidia-(e?glcore)-$(version)/lib$(nvidia)-\1 (= $${binary:Version})/g' debian/*.substvars
 
 override_dh_gencontrol:
 	dh_gencontrol -- -V'nvidia:Version=$(version)' \
@@ -294,6 +296,7 @@ override_dh_strip_nondeterminism:
 	-e 's{#tls#}{$(if $(filter armhf,$(DEB_HOST_ARCH)),,tls/)}g;' \
 	$(EXTRA_SUBSTITUTIONS) \
 	< $< > $@
+	chmod --reference=$< $@
 
 debian/module/debian/patches/series: EXTRA_SUBSTITUTIONS =
 debian/nvidia-kernel-dkms.dkms: debian/module/debian/patches/series

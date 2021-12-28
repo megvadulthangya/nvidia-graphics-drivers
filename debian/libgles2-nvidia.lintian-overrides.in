@@ -6,7 +6,7 @@ hardening-no-relro
 
 # Packages built against the NVIDIA libGL should declare dependencies on
 # the free version for Debian's purposes.
-symbols-declares-dependency-on-other-package libgles2-mesa
+symbols-declares-dependency-on-other-package libgles2-mesa (libGLESv2.so.2)
 symbols-file-missing-build-depends-package-field
 
 # Lintian and debhelper disagree w.r.t. a library in a private directory.

@@ -1,7 +1,7 @@
-From 996030b1ba30c31b17a80f9ba141117d5cfff9b2 Mon Sep 17 00:00:00 2001
+From 4131a6a09b4bac888700d0c40f589ce8cd3fca53 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 3 Oct 2020 00:26:27 +0200
-Subject: [PATCH] backport drm_gem_object_get changes from 418.30
+Subject: [PATCH 10/34] backport drm_gem_object_get changes from 418.30
 
 ---
  Makefile    |  1 +
@@ -10,23 +10,23 @@ Subject: [PATCH] backport drm_gem_object_get changes from 418.30
  3 files changed, 26 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index bf516d2..0288cd6 100644
+index 1f55b62..c709d7f 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -93,6 +93,7 @@ COMPILE_TESTS = \
- 	mm_has_mmap_lock \
- 	vmalloc_has_pgprot_t_arg \
- 	timeval \
+@@ -154,6 +154,7 @@ COMPILE_TESTS = \
+ 	drm_driver_legacy_feature_bit_present \
+ 	drm_driver_prime_flag_present \
+ 	drm_driver_has_legacy_dev_list \
 +	drm_gem_object_get \
- 	proc_ops \
- 	remap_pfn_range \
- 	vmap \
+ 
+ #
+ # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index 5e4e929..03ba62d 100755
+index 7134767..ba25a5f 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2202,6 +2202,25 @@ compile_test() {
-             compile_check_conftest "$CODE" "NV_DRM_DRIVER_PRIME_FLAG_PRESENT" "" "types"
+@@ -2228,6 +2228,25 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_DRM_DRIVER_HAS_LEGACY_DEV_LIST" "" "types"
          ;;
  
 +        drm_gem_object_get)
@@ -48,14 +48,14 @@ index 5e4e929..03ba62d 100755
 +            compile_check_conftest "$CODE" "NV_DRM_GEM_OBJECT_GET_PRESENT" "" "functions"
 +        ;;
 +
-         proc_ops)
-             #
-             # Determine if the 'struct proc_ops' type is present.
+         # When adding a new conftest entry, please use the correct format for
+         # specifying the relevant upstream Linux kernel commit.
+         #
 diff --git a/nv-drm.c b/nv-drm.c
-index c486442..c2f11fd 100644
+index 0d1cdbf..5d22ad5 100644
 --- a/nv-drm.c
 +++ b/nv-drm.c
-@@ -286,8 +286,14 @@ RM_STATUS NV_API_CALL nv_alloc_os_descriptor_handle(
+@@ -282,8 +282,14 @@ RM_STATUS NV_API_CALL nv_alloc_os_descriptor_handle(
          goto done;
      }
  

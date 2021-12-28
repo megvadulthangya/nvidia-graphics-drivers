@@ -1,64 +1,17 @@
-Author: Andreas Beckmann <anbe@debian.org>
-Description: backport drm_legacy_pci_init/exit from src:linux 5.9.11-1
- these are no longer available after NOUVEAU_LEGACY_CTX_SUPPORT (and thus
- DRM_LEGACY) got finally disabled
+From 712d7f9eefa98e34cbae701979dfc6c18e396ef3 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Tue, 15 Dec 2020 15:51:51 +0100
+Subject: [PATCH 26/34] import drm_legacy_pci_init/exit() from src:linux
+ 5.9.11-1
 
---- a/conftest.sh
-+++ b/conftest.sh
-@@ -156,6 +156,7 @@ test_headers() {
-     FILES="$FILES drm/drm_ioctl.h"
-     FILES="$FILES drm/drm_pci.h"
-     FILES="$FILES drm/drm_legacy.h"
-+    FILES="$FILES drm/drm_agpsupport.h"
-     FILES="$FILES generated/autoconf.h"
-     FILES="$FILES generated/compile.h"
-     FILES="$FILES generated/utsrelease.h"
-@@ -2089,6 +2090,23 @@ compile_test() {
-             compile_check_conftest "$CODE" "NV_DRM_DRIVER_UNLOAD_HAS_INT_RETURN_TYPE" "" "types"
-         ;;
- 
-+        drm_pci_init)
-+            CODE="
-+            #if defined(NV_DRM_DRMP_H_PRESENT)
-+            #include <drm/drmP.h>
-+            #endif
-+
-+            #if defined(NV_DRM_DRM_PCI_H_PRESENT)
-+            #include <drm/drm_pci.h>
-+            #endif
-+
-+            void conftest_drm_pci_init(void) {
-+                drm_pci_init();
-+            }"
-+
-+            compile_check_conftest "$CODE" "NV_DRM_PCI_INIT_PRESENT" "" "functions"
-+        ;;
-+
-         drm_legacy_pci_init)
-             #
-             # Determine if drm_legacy_pci_init() is present. drm_pci_init() was
-@@ -2112,7 +2130,11 @@ compile_test() {
-             #include <drm/drm_legacy.h>
-             #endif
-             void conftest_drm_legacy_pci_init(void) {
-+            #if IS_ENABLED(CONFIG_DRM_LEGACY)
-                 drm_legacy_pci_init();
-+            #else
-+                drm_legacy_pci_init_without_DRM_LEGACY();
-+            #endif
-             }"
- 
-             compile_check_conftest "$CODE" "NV_DRM_LEGACY_PCI_INIT_PRESENT" "" "functions"
---- a/Makefile
-+++ b/Makefile
-@@ -154,6 +154,7 @@ COMPILE_TESTS = \
- 	vm_fault_present \
- 	vm_fault_has_address \
- 	drm_driver_unload_has_int_return_type \
-+	drm_pci_init \
- 	drm_legacy_pci_init \
- 	timer_setup \
- 	do_gettimeofday \
+these are no longer available after NOUVEAU_LEGACY_CTX_SUPPORT (and thus
+DRM_LEGACY) got finally disabled
+---
+ nv-drm.c | 281 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 281 insertions(+)
+
+diff --git a/nv-drm.c b/nv-drm.c
+index 40cec8e..2b4a414 100644
 --- a/nv-drm.c
 +++ b/nv-drm.c
 @@ -8,6 +8,81 @@
@@ -143,22 +96,10 @@ Description: backport drm_legacy_pci_init/exit from src:linux 5.9.11-1
  #define  __NO_VERSION__
  
  #include "nv-misc.h"
-@@ -54,9 +129,226 @@
- #if defined(NV_DRM_LEGACY_PCI_INIT_PRESENT)
- #define nv_drm_pci_init drm_legacy_pci_init
- #define nv_drm_pci_exit drm_legacy_pci_exit
--#else
-+#elif defined(NV_DRM_PCI_INIT_PRESENT)
+@@ -58,6 +133,212 @@
  #define nv_drm_pci_init drm_pci_init
  #define nv_drm_pci_exit drm_pci_exit
-+#else
-+
-+#if defined(NV_DRM_DRM_AGPSUPPORT_H_PRESENT)
-+#include <drm/drm_agpsupport.h>
-+#endif
-+
-+#define nv_drm_pci_init nv_drm_legacy_pci_init
-+#define nv_drm_pci_exit nv_drm_legacy_pci_exit
+ #else
 +
 +// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_legacy.h
 +struct drm_agp_mem {
@@ -169,16 +110,18 @@ Description: backport drm_legacy_pci_init/exit from src:linux 5.9.11-1
 +	struct list_head head;
 +};
 +
-+static
-+// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_pci.c
-+void drm_pci_agp_destroy(struct drm_device *dev)
++// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_memory.c
++/** Wrapper around agp_free_memory() */
++void drm_free_agp(struct agp_memory *handle, int pages)
 +{
-+	if (dev->agp) {
-+		arch_phys_wc_del(dev->agp->agp_mtrr);
-+		drm_legacy_agp_clear(dev);
-+		kfree(dev->agp);
-+		dev->agp = NULL;
-+	}
++	agp_free_memory(handle);
++}
++
++// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_memory.c
++/** Wrapper around agp_unbind_memory() */
++int drm_unbind_agp(struct agp_memory *handle)
++{
++	return agp_unbind_memory(handle);
 +}
 +
 +// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_pci.c
@@ -193,6 +136,52 @@ Description: backport drm_legacy_pci_init/exit from src:linux 5.9.11-1
 +				dev->agp->agp_info.aper_size *
 +				1024 * 1024);
 +		}
++	}
++}
++
++// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_agpsupport.c
++/**
++ * drm_legacy_agp_clear - Clear AGP resource list
++ * @dev: DRM device
++ *
++ * Iterate over all AGP resources and remove them. But keep the AGP head
++ * intact so it can still be used. It is safe to call this if AGP is disabled or
++ * was already removed.
++ *
++ * Cleanup is only done for drivers who have DRIVER_LEGACY set.
++ */
++void drm_legacy_agp_clear(struct drm_device *dev)
++{
++	struct drm_agp_mem *entry, *tempe;
++
++	if (!dev->agp)
++		return;
++	if (!drm_core_check_feature(dev, DRIVER_LEGACY))
++		return;
++
++	list_for_each_entry_safe(entry, tempe, &dev->agp->memory, head) {
++		if (entry->bound)
++			drm_unbind_agp(entry->memory);
++		drm_free_agp(entry->memory, entry->pages);
++		kfree(entry);
++	}
++	INIT_LIST_HEAD(&dev->agp->memory);
++
++	if (dev->agp->acquired)
++		drm_agp_release(dev);
++
++	dev->agp->acquired = 0;
++	dev->agp->enabled = 0;
++}
++
++// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_pci.c
++void drm_pci_agp_destroy(struct drm_device *dev)
++{
++	if (dev->agp) {
++		arch_phys_wc_del(dev->agp->agp_mtrr);
++		drm_legacy_agp_clear(dev);
++		kfree(dev->agp);
++		dev->agp = NULL;
 +	}
 +}
 +
@@ -243,7 +232,6 @@ Description: backport drm_legacy_pci_init/exit from src:linux 5.9.11-1
 +	return ret;
 +}
 +
-+static
 +// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_pci.c
 +/**
 + * drm_legacy_pci_init - shadow-attach a legacy DRM PCI driver
@@ -254,7 +242,7 @@ Description: backport drm_legacy_pci_init/exit from src:linux 5.9.11-1
 + *
 + * Return: 0 on success or a negative error code on failure.
 + */
-+int nv_drm_legacy_pci_init(struct drm_driver *driver, struct pci_driver *pdriver)
++int drm_legacy_pci_init(struct drm_driver *driver, struct pci_driver *pdriver)
 +{
 +	struct pci_dev *pdev = NULL;
 +	const struct pci_device_id *pid;
@@ -291,7 +279,6 @@ Description: backport drm_legacy_pci_init/exit from src:linux 5.9.11-1
 +	return 0;
 +}
 +
-+static
 +// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_pci.c
 +/**
 + * drm_legacy_pci_exit - unregister shadow-attach legacy DRM driver
@@ -301,7 +288,7 @@ Description: backport drm_legacy_pci_init/exit from src:linux 5.9.11-1
 + * Unregister a DRM driver shadow-attached through drm_legacy_pci_init(). This
 + * is deprecated and only used by dri1 drivers.
 + */
-+void nv_drm_legacy_pci_exit(struct drm_driver *driver, struct pci_driver *pdriver)
++void drm_legacy_pci_exit(struct drm_driver *driver, struct pci_driver *pdriver)
 +{
 +	struct drm_device *dev, *tmp;
 +
@@ -319,55 +306,9 @@ Description: backport drm_legacy_pci_init/exit from src:linux 5.9.11-1
 +	DRM_INFO("Module unloaded\n");
 +}
 +
-+// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_agpsupport.c
-+/**
-+ * drm_legacy_agp_clear - Clear AGP resource list
-+ * @dev: DRM device
-+ *
-+ * Iterate over all AGP resources and remove them. But keep the AGP head
-+ * intact so it can still be used. It is safe to call this if AGP is disabled or
-+ * was already removed.
-+ *
-+ * Cleanup is only done for drivers who have DRIVER_LEGACY set.
-+ */
-+void drm_legacy_agp_clear(struct drm_device *dev)
-+{
-+	struct drm_agp_mem *entry, *tempe;
-+
-+	if (!dev->agp)
-+		return;
-+	if (!drm_core_check_feature(dev, DRIVER_LEGACY))
-+		return;
-+
-+	list_for_each_entry_safe(entry, tempe, &dev->agp->memory, head) {
-+		if (entry->bound)
-+			drm_unbind_agp(entry->memory);
-+		drm_free_agp(entry->memory, entry->pages);
-+		kfree(entry);
-+	}
-+	INIT_LIST_HEAD(&dev->agp->memory);
-+
-+	if (dev->agp->acquired)
-+		drm_agp_release(dev);
-+
-+	dev->agp->acquired = 0;
-+	dev->agp->enabled = 0;
-+}
-+
-+// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_memory.c
-+/** Wrapper around agp_free_memory() */
-+void drm_free_agp(struct agp_memory *handle, int pages)
-+{
-+	agp_free_memory(handle);
-+}
-+
-+// copied from src:linux (5.9.11-1) drivers/gpu/drm/drm_memory.c
-+/** Wrapper around agp_unbind_memory() */
-+int drm_unbind_agp(struct agp_memory *handle)
-+{
-+	return agp_unbind_memory(handle);
-+}
-+
  #endif
  
  extern nv_linux_state_t *nv_linux_devices;
+-- 
+2.20.1
+

@@ -1,7 +1,7 @@
-From 8b5374216313bc8d4d188304f6c9d25f5771cdf5 Mon Sep 17 00:00:00 2001
+From 3d584a19fce5245197d64f3f17d9b5994af6cb14 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 29 Aug 2020 00:23:41 +0200
-Subject: [PATCH 2/3] work around mmap_{sem=>lock} rename
+Subject: [PATCH 19/34] work around mmap_{sem=>lock} rename
 
 ---
  Makefile    |  1 +
@@ -10,22 +10,22 @@ Subject: [PATCH 2/3] work around mmap_{sem=>lock} rename
  3 files changed, 23 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index 81313d5..bf516d2 100644
+index a022ffa..c3435c6 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -90,6 +90,7 @@ ifdef NV_BUILD_MODULE_INSTANCES
- endif
- 
- COMPILE_TESTS = \
-+	mm_has_mmap_lock \
- 	vmalloc_has_pgprot_t_arg \
- 	timeval \
+@@ -158,6 +158,7 @@ COMPILE_TESTS = \
  	proc_ops \
+ 	timeval \
+ 	vmalloc_has_pgprot_t_arg \
++	mm_has_mmap_lock \
+ 
+ #
+ # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index fdd71ef..5e4e929 100755
+index 1eb8008..7247a19 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2255,6 +2255,24 @@ compile_test() {
+@@ -2314,6 +2314,24 @@ compile_test() {
  
          ;;
  
@@ -51,10 +51,10 @@ index fdd71ef..5e4e929 100755
          # specifying the relevant upstream Linux kernel commit.
          #
 diff --git a/nv-linux.h b/nv-linux.h
-index f8a9864..dd63b52 100644
+index 050b154..120ff0c 100644
 --- a/nv-linux.h
 +++ b/nv-linux.h
-@@ -2108,6 +2108,10 @@ static inline NvU64 nv_node_end_pfn(int nid)
+@@ -2103,6 +2103,10 @@ static inline NvU64 nv_node_end_pfn(int nid)
  #endif
  }
  

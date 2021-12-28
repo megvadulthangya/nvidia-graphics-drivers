@@ -38,6 +38,14 @@ ls -l /dev/dri/* /dev/nvidia* 2>/dev/null
 getent group video
 echo
 
+echo "Alternative 'nvidia':"
+update-alternatives --display nvidia
+echo
+
+echo "Alternative 'glx':"
+update-alternatives --display glx
+echo
+
 echo "OpenGL and NVIDIA library files installed:"
 ls -l	/etc/alternatives/glx* \
 	/etc/alternatives/nvidia* \

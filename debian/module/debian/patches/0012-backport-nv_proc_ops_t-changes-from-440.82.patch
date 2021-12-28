@@ -1,7 +1,7 @@
-From 9a4d92b8634342efcd1f450254833f63f8680736 Mon Sep 17 00:00:00 2001
+From 2d4f4d02896d07eef830938d826f548abea7a7ee Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 25 Apr 2020 11:40:05 +0200
-Subject: [PATCH 2/5] backport nv_proc_ops_t changes from 440.82
+Subject: [PATCH 12/34] backport nv_proc_ops_t changes from 440.82
 
 ---
  Makefile    |  1 +
@@ -11,23 +11,23 @@ Subject: [PATCH 2/5] backport nv_proc_ops_t changes from 440.82
  4 files changed, 61 insertions(+), 22 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 125a690..1355277 100644
+index c709d7f..ef8992a 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -90,6 +90,7 @@ ifdef NV_BUILD_MODULE_INSTANCES
- endif
- 
- COMPILE_TESTS = \
+@@ -155,6 +155,7 @@ COMPILE_TESTS = \
+ 	drm_driver_prime_flag_present \
+ 	drm_driver_has_legacy_dev_list \
+ 	drm_gem_object_get \
 +	proc_ops \
- 	remap_pfn_range \
- 	vmap \
- 	set_pages_uc \
+ 
+ #
+ # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index 21a4db5..670e488 100755
+index ba25a5f..9cafe54 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2188,6 +2188,22 @@ compile_test() {
-             compile_check_conftest "$CODE" "NV_DRM_DRIVER_PRIME_FLAG_PRESENT" "" "types"
+@@ -2247,6 +2247,22 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_DRM_GEM_OBJECT_GET_PRESENT" "" "functions"
          ;;
  
 +        proc_ops)

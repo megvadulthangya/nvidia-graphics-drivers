@@ -1,7 +1,7 @@
-From 05485fd1a9c3ab5ebdc76af7ae4524964f68a994 Mon Sep 17 00:00:00 2001
+From 17a1286d6e2e7e85875b168bcbd862986d73d250 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 25 Apr 2020 11:40:44 +0200
-Subject: [PATCH 3/5] backport nv_timeval changes from 440.82
+Subject: [PATCH 13/34] backport nv_timeval changes from 440.82
 
 ---
  Makefile       |  1 +
@@ -11,22 +11,22 @@ Subject: [PATCH 3/5] backport nv_timeval changes from 440.82
  4 files changed, 30 insertions(+), 6 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 1355277..14bfd9d 100644
+index ef8992a..14b0774 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -90,6 +90,7 @@ ifdef NV_BUILD_MODULE_INSTANCES
- endif
- 
- COMPILE_TESTS = \
-+	timeval \
+@@ -156,6 +156,7 @@ COMPILE_TESTS = \
+ 	drm_driver_has_legacy_dev_list \
+ 	drm_gem_object_get \
  	proc_ops \
- 	remap_pfn_range \
- 	vmap \
++	timeval \
+ 
+ #
+ # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index 670e488..ab835ce 100755
+index 9cafe54..1ea9928 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2204,6 +2204,23 @@ compile_test() {
+@@ -2263,6 +2263,23 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_PROC_OPS_PRESENT" "" "types"
          ;;
  

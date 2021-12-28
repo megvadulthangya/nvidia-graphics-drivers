@@ -5,7 +5,7 @@ Description: use KBUILD_CFLAGS
 
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -288,6 +288,14 @@ build_cflags() {
+@@ -291,6 +291,14 @@
              CFLAGS="$CFLAGS -DCC_HAVE_ASM_GOTO"
          fi
      fi

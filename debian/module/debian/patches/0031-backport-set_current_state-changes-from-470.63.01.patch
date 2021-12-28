@@ -1,7 +1,7 @@
-From 44b3b870a66d0d06627946a55437dbf7388b6783 Mon Sep 17 00:00:00 2001
+From d7f3e083c642088696d6547f9b47875cb56607c6 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sun, 19 Sep 2021 15:24:53 +0200
-Subject: [PATCH] backport set_current_state changes from 470.63.01
+Subject: [PATCH 31/34] backport set_current_state changes from 470.63.01
 
 ---
  os-interface.c | 2 +-

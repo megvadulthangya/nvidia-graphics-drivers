@@ -6,7 +6,7 @@ Description: Redefine WRITE_COMBINE_FLUSH on ARM on kernel >= 4.3
 
 --- a/nv-linux.h
 +++ b/nv-linux.h
-@@ -457,7 +457,13 @@ typedef spinlock_t                nv_spi
+@@ -451,7 +451,13 @@
  #if defined(CONFIG_OUTER_CACHE)
  #define OUTER_FLUSH_RANGE(start, end)   outer_flush_range((start),(end))
  #endif

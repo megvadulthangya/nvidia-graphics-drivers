@@ -3,7 +3,7 @@ Description: run conftest.sh from within Kbuild
 
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -190,6 +190,7 @@ $(obj)/conftest/patches.h: $(src)/confte
+@@ -193,6 +193,7 @@
  
  MODULE_GLUE_TARGETS = $(addprefix $(obj)/,$(MODULE_GLUE_OBJS))
  
@@ -11,7 +11,7 @@ Description: run conftest.sh from within Kbuild
  $(MODULE_GLUE_TARGETS): $(CONFTEST_HEADERS)
  
  $(obj)/nv.o: $(obj)/$(VERSION_HEADER)
-@@ -229,7 +230,7 @@ suser-sanity-check:
+@@ -232,7 +233,7 @@
  rmmod-sanity-check:
  	@if ! $(CONFTEST) rmmod_sanity_check; then exit 1; fi
  
@@ -20,7 +20,7 @@ Description: run conftest.sh from within Kbuild
  # Begin of Kbuild section
  
  BUILD_SANITY_CHECKS = \
-@@ -251,7 +252,7 @@ build-sanity-checks: conftest-verbose
+@@ -254,7 +255,7 @@
  	done
  
  # End of Kbuild section
@@ -29,7 +29,7 @@ Description: run conftest.sh from within Kbuild
  
  ifeq ($(KERNELRELEASE),)
  # Begin of Makefile section
-@@ -272,7 +273,7 @@ ifeq ($(KERNELRELEASE),)
+@@ -275,7 +276,7 @@
  #
  
  define BUILD_MODULE_RULE

@@ -10,3 +10,6 @@ package-placeholder-in-symbols-file
 
 # only binary releases
 upstream-metadata-missing-repository
+
+# this package targets stretch
+package-uses-old-debhelper-compat-version 10

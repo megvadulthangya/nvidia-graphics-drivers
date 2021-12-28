@@ -3,7 +3,7 @@ Description: simplify customizing build-sanity-checks
 
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -225,8 +225,10 @@ BUILD_SANITY_CHECKS = \
+@@ -227,8 +227,10 @@
  	xen_sanity_check \
  	preempt_rt_sanity_check
  

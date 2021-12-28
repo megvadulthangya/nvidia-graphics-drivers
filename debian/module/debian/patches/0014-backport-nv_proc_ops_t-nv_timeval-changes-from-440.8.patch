@@ -1,7 +1,8 @@
-From d15e898501d821f5df380aebc0596ef75a1d79d0 Mon Sep 17 00:00:00 2001
+From 4918c80580b679bcc861dcb186f421e4f62fc5a9 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 25 Apr 2020 11:42:24 +0200
-Subject: [PATCH 4/5] backport nv_timeval changes from 440.82 (uvm part)
+Subject: [PATCH 14/34] backport nv_proc_ops_t/nv_timeval changes from 440.82
+ (uvm part)
 
 ---
  uvm/Makefile          |  2 ++
@@ -9,18 +10,18 @@ Subject: [PATCH 4/5] backport nv_timeval changes from 440.82 (uvm part)
  2 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/uvm/Makefile b/uvm/Makefile
-index 043a08d..e366330 100644
+index b99f16c..93d941b 100644
 --- a/uvm/Makefile
 +++ b/uvm/Makefile
-@@ -157,6 +157,8 @@ RM_OUT_DIR ?= $(src)/..
- VERSION_HEADER := $(RM_OUT_DIR)/nv_compiler.h
- 
- COMPILE_TESTS = \
-+	timeval \
+@@ -172,6 +172,8 @@ COMPILE_TESTS = \
+ 	kuid_t \
+ 	vm_fault_has_address \
+ 	do_gettimeofday \
 +	proc_ops \
- 	remap_page_range \
- 	remap_pfn_range \
- 	irq_handler_t \
++	timeval \
+ 
+ MODULE_NAME:= nvidia-uvm
+ 
 diff --git a/uvm/nvidia_uvm_lite.c b/uvm/nvidia_uvm_lite.c
 index fd7a4ce..c2abbc3 100644
 --- a/uvm/nvidia_uvm_lite.c

@@ -1,7 +1,7 @@
-From 8d7ba857f1b7e46ecd061f79a3dd33bb8b74707c Mon Sep 17 00:00:00 2001
+From f96d7785f6dec67e73f938a08c24dfa38a2f1598 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Fri, 2 Oct 2020 00:03:05 +0200
-Subject: [PATCH 2/3] backport vga_tryget changes from 455.23.04
+Subject: [PATCH 22/34] backport vga_tryget changes from 455.23.04
 
 ---
  Makefile    |  1 +
@@ -10,22 +10,22 @@ Subject: [PATCH 2/3] backport vga_tryget changes from 455.23.04
  3 files changed, 19 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index 0288cd6..139a72f 100644
+index c3435c6..0d6c500 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -90,6 +90,7 @@ ifdef NV_BUILD_MODULE_INSTANCES
- endif
- 
- COMPILE_TESTS = \
-+	vga_tryget \
- 	mm_has_mmap_lock \
- 	vmalloc_has_pgprot_t_arg \
+@@ -159,6 +159,7 @@ COMPILE_TESTS = \
  	timeval \
+ 	vmalloc_has_pgprot_t_arg \
+ 	mm_has_mmap_lock \
++	vga_tryget \
+ 
+ #
+ # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index 7193567..0fca146 100755
+index ecf34a7..507cc02 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2330,6 +2330,22 @@ compile_test() {
+@@ -2370,6 +2370,22 @@ compile_test() {
  
          ;;
  

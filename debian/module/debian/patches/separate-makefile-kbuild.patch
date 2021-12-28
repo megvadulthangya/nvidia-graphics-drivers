@@ -20,7 +20,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # The precompiled kernel module build process requires a separation of the
  # closed source and open source object files.
-@@ -49,6 +56,9 @@ EXTRA_CFLAGS += -Wall -MD $(DEFINES) $(I
+@@ -49,6 +56,9 @@
  src ?= .
  obj ?= $(src)
  
@@ -30,7 +30,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # Determine location of the Linux kernel source tree. Allow users to override
  # the default (i.e. automatically determined) kernel source location with the
-@@ -82,6 +92,11 @@ else
+@@ -82,6 +92,11 @@
   endif
  endif
  
@@ -42,7 +42,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  CC ?= cc
  HOST_CC ?= $(CC)
  LD ?= ld
-@@ -112,6 +127,9 @@ TOPDIR ?= $(KERNEL_SOURCES)
+@@ -112,6 +127,9 @@
  
  MODULE_OBJECT := $(MODULE_NAME).ko
  
@@ -52,7 +52,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # NVIDIA specific CFLAGS and #define's.
  #
-@@ -163,6 +181,12 @@ $(MODULE_GLUE_TARGETS): $(CONFTEST_HEADE
+@@ -165,6 +183,12 @@
  
  $(obj)/nv.o: $(obj)/$(VERSION_HEADER)
  
@@ -65,7 +65,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # KBUILD build parameters.
  #
-@@ -179,6 +203,9 @@ KBUILD_PARAMS += KBUILD_VERBOSE=$(NV_VER
+@@ -181,6 +205,9 @@
  KBUILD_PARAMS += -C $(KERNEL_SOURCES) M=$(PWD)
  KBUILD_PARAMS += ARCH=$(ARCH)
  
@@ -75,7 +75,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # NVIDIA sanity checks.
  #
-@@ -189,6 +216,9 @@ suser-sanity-check:
+@@ -191,6 +218,9 @@
  rmmod-sanity-check:
  	@if ! $(CONFTEST) rmmod_sanity_check; then exit 1; fi
  
@@ -85,7 +85,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  BUILD_SANITY_CHECKS = \
  	cc_version_check \
  	rivafb_sanity_check \
-@@ -204,6 +234,12 @@ build-sanity-checks:
+@@ -206,6 +236,12 @@
  	 fi; \
  	done
  
@@ -98,7 +98,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # BUILD_MODULE_RULE generates rules for building individual module targets.
  #
-@@ -328,3 +364,6 @@ clean:
+@@ -330,3 +366,6 @@
  
  print-module-filename:
  	@echo $(MODULE_OBJECT)

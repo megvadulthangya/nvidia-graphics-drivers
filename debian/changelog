@@ -3,13 +3,42 @@ nvidia-graphics-drivers-legacy-340xx (340.108-12) UNRELEASED; urgency=medium
   * Add /lib/udev/rules.d/61-nvidia.rules to associate the gpu driven by the
     non-drm legacy driver with a seat, thanks to Oswald Buddenhagen.
     (Closes: #1001756)
+  * Work around update-alternatives bug #916799 and re-register the
+    alternative to clean-up leftover slaves (390.87-5).
+  * nvidia-legacy-340xx-alternative: Add libnvidia-ml.so slave alternative if
+    libnvidia-ml-dev is installed (460.56-2).
+  * nvidia-legacy-340xx-driver-libs: Add Recommends: libnvidia-encode1
+    (460.91.03-1).  (Closes: #989885)
+  * Generate tight dependencies on libnvidia*-glcore/libnvidia*-eglcore
+    (470.57.02-3).
+  * bug-script: Show the nvidia and glx alternatives (470.82.00-1).
+  * nvidia-legacy-340xx-alternative: libnvidia-cfg.so.1 on its own is not
+    sufficient to activate a nvidia alternative (470.82.00-1).
+  * Fix bashisms in upstream scripts (470.82.00-1).
+  * nvidia-legacy-340xx-kernel-support: Provide
+    /etc/modprobe.d/nvidia-options.conf as a template taking into account the
+    module renaming. This is a slave alternative of the nvidia alternative
+    (470.86-1).  (Closes: #999670)
+  * Backport drm_driver_has_gem_prime_callbacks changes from 460.39 to fix drm
+    detection for Linux 5.11.  (Closes: #995799)
+  * Backport drm_driver_has_legacy_dev_list changes from 361.16 and disable
+    operations using drm_driver.legacy_dev_list if unavailable to fix kernel
+    module build with DRM_LEGACY disabled.
+  * Backport drm_device_has_pdev changes from 470.63.01 to fix kernel module
+    build for Linux 5.14.
+  * Add check for drm_device.agp and disable operations using drm_device.agp
+    if unavailable to fix kernel module build with DRM_LEGACY disabled.
+  * Backport stdarg.h changes from 495.44 to fix kernel module build for
+    Linux 5.16.
+  * Bump Standards-Version to 4.6.0. No changes needed.
+  * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 17 Dec 2021 18:07:51 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.108-11) unstable; urgency=medium
 
-  * Backport asm/kmap_types.h changes from 390.143 to fix kernel module build
-    for Linux 5.11.
+  * Backport asm/kmap_types.h changes from 460.32.03 to fix kernel module
+    build for Linux 5.11.
   * Backport set_current_state changes from 470.63.01 to fix kernel module
     build for Linux 5.14.  (Closes: #995054)
   * Refresh patches.
@@ -20,13 +49,13 @@ nvidia-graphics-drivers-legacy-340xx (340.108-10) unstable; urgency=medium
 
   * Backport drm_prime_pages_to_sg_has_drm_device_arg changes
     from 455.45.01 to fix kernel module build for Linux 5.10.
-  * Use a version=4 watch file.
+  * Bump watch file version to 4.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 15 Dec 2020 22:23:56 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.108-9) unstable; urgency=medium
 
-  * Backport drm_legacy_pci_init/exit from src:linux 5.9.11-1 which are no
+  * Import drm_legacy_pci_init/exit() from src:linux 5.9.11-1 which are no
     longer available after NOUVEAU_LEGACY_CTX_SUPPORT (and thus DRM_LEGACY)
     got finally disabled.  (Closes: #976056, #976638)
   * Bump Standards-Version to 4.5.1. No changes needed.
@@ -136,9 +165,9 @@ nvidia-graphics-drivers-legacy-340xx (340.108-1) unstable; urgency=medium
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
-  * Add buildfix_kernel_4.11.patch (replacing vm-fault.patch) and (parts of)
-    buildfix_kernel_5.2.patch from Ubuntu to fix more vm-fault issues during
-    kernel module build for Linux 5.2+.
+  * Add back buildfix_kernel_4.11.patch (replacing vm-fault.patch) and (parts
+    of) buildfix_kernel_5.2.patch from Ubuntu to fix more vm-fault issues
+    during kernel module build for Linux 5.2+.
   * Refresh patches.
   * Allow alternative libnvidia-{tesla,legacy}-*-cuda1 packages to substitute
     libcuda1 in third-party packages (430.64-3).
@@ -350,7 +379,8 @@ nvidia-graphics-drivers-legacy-340xx (340.104-1) unstable; urgency=medium
 nvidia-graphics-drivers-legacy-340xx (340.102-3) unstable; urgency=medium
 
   [ Andreas Beckmann ]
-  * disable-preempt_rt_sanity_check.patch: Remove, unsupported upstream.
+  * disable-preempt_rt_sanity_check.patch: Remove, unsupported upstream
+    (355.11-2).
   * Bump Standards-Version to 4.0.1. No changes needed.
   * nvidia-alternative: Explicitly use interest-await triggers (375.82-2).
   * Switch from dh_install --list-missing to dh_missing (375.82-2).

@@ -1,7 +1,7 @@
-From dc50dd26252dbd3d8dbaa8af2dd0269e702c1c0f Mon Sep 17 00:00:00 2001
+From 938b1eef3a83b4b7f7038a56e9d7918cbdae4d52 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Thu, 23 Sep 2021 16:30:10 +0200
-Subject: [PATCH] backport asm/kmap_types.h changes from 390.143
+Subject: [PATCH 28/34] backport asm/kmap_types.h changes from 460.32.03
 
 ---
  nv-linux.h             | 1 -
