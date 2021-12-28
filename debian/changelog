@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-12) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-12) unstable; urgency=medium
 
   * Add /lib/udev/rules.d/61-nvidia.rules to associate the gpu driven by the
     non-drm legacy driver with a seat, thanks to Oswald Buddenhagen.
@@ -33,7 +33,7 @@ nvidia-graphics-drivers-legacy-340xx (340.108-12) UNRELEASED; urgency=medium
   * Bump Standards-Version to 4.6.0. No changes needed.
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 17 Dec 2021 18:07:51 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 28 Dec 2021 20:41:22 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.108-11) unstable; urgency=medium
 
