@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-390xx (390.147-1~bpo11+1) bullseye-backports; urgency=medium
+
+  * Rebuild for bullseye-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 05 Jan 2022 14:45:32 +0100
+
 nvidia-graphics-drivers-legacy-390xx (390.147-1) unstable; urgency=medium
 
   * New upstream legacy branch release 390.147 (2021-12-16).
