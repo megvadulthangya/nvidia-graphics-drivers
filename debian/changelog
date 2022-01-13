@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (470.94-1~bpo11+1) bullseye-backports; urgency=medium
+
+  * Rebuild for bullseye-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 13 Jan 2022 11:48:13 +0100
+
 nvidia-graphics-drivers (470.94-1) unstable; urgency=medium
 
   * New upstream production branch release 470.94 (2021-12-13).
