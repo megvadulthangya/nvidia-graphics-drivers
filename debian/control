@@ -1,6 +1,6 @@
 # NOTE: This file is generated from debian/control.in. To regenerate,
 # run `make -f debian/rules debian/control'.
-Source: nvidia-graphics-drivers-tesla-470
+Source: nvidia-graphics-drivers-tesla-510
 Section: non-free/libs
 Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
@@ -8,7 +8,7 @@ Uploaders:
  Andreas Beckmann <anbe@debian.org>,
  Luca Boccassi <bluca@debian.org>,
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
-Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b tesla-470/master
+Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b tesla-510/master
 Build-Depends:
  debhelper-compat (= 13),
 Build-Depends-Arch:
@@ -26,7 +26,7 @@ Standards-Version: 4.6.0
 Homepage: https://www.nvidia.com
 XS-Autobuild: yes
 
-Package: nvidia-tesla-470-driver
+Package: nvidia-tesla-510-driver
 Section: non-free/x11
 Architecture: amd64 arm64 ppc64el
 Pre-Depends:
@@ -64,7 +64,7 @@ Description: NVIDIA metapackage${nvidia:VariantDesc}
  .
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
-Package: nvidia-tesla-470-alternative
+Package: nvidia-tesla-510-alternative
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: foreign
 Pre-Depends:
@@ -97,7 +97,7 @@ Description: allows the selection of NVIDIA as GLX provider${nvidia:VariantDesc}
  In order to install the NVIDIA driver and libraries, install the
  ${nvidia}-driver package instead.
 
-Package: nvidia-tesla-470-kernel-support
+Package: nvidia-tesla-510-kernel-support
 Section: non-free/kernel
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: foreign
@@ -120,7 +120,7 @@ Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  .
  This package provides supporting configuration for the kernel module.
 
-Package: nvidia-tesla-470-kernel-dkms
+Package: nvidia-tesla-510-kernel-dkms
 Section: non-free/kernel
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: foreign
@@ -156,7 +156,7 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  ${nvidia:kmod:blob:archlist}.
  Building the kernel modules has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
-Package: nvidia-tesla-470-kernel-source
+Package: nvidia-tesla-510-kernel-source
 Section: non-free/kernel
 Architecture: amd64 arm64 ppc64el
 Depends:
@@ -192,7 +192,7 @@ Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
  ${nvidia:kmod:blob:archlist}.
  Building the kernel modules has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
-Package: xserver-xorg-video-nvidia-tesla-470
+Package: xserver-xorg-video-nvidia-tesla-510
 Section: non-free/x11
 Architecture: amd64 arm64 ppc64el
 Pre-Depends:
@@ -225,7 +225,7 @@ Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
  See /usr/share/doc/${nvidia}-driver/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-Package: nvidia-tesla-470-driver-bin
+Package: nvidia-tesla-510-driver-bin
 Section: non-free/x11
 Architecture: amd64 arm64 ppc64el
 Depends:
@@ -244,7 +244,7 @@ Description: NVIDIA driver support binaries${nvidia:VariantDesc}
  .
  This package contains supporting binaries for the driver.
 
-Package: libnvidia-tesla-470-cfg1
+Package: libnvidia-tesla-510-cfg1
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -262,7 +262,7 @@ Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:VariantDesc}
  .
  This package contains the libnvidia-cfg.so.1 runtime library.
 
-Package: nvidia-tesla-470-driver-libs
+Package: nvidia-tesla-510-driver-libs
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Depends:
@@ -299,7 +299,7 @@ Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES libraries)${nvidia:VariantD
  that provide optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server.
 
-Package: libglx-nvidia-tesla-470-0
+Package: libglx-nvidia-tesla-510-0
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -321,7 +321,7 @@ Description: NVIDIA binary GLX library${nvidia:VariantDesc}
  This package contains the driver specific binary GLX implementation by NVIDIA
  that is accessed via GLVND.
 
-Package: libgl1-nvidia-tesla-470-glvnd-glx
+Package: libgl1-nvidia-tesla-510-glvnd-glx
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Depends:
@@ -342,7 +342,7 @@ Description: NVIDIA binary OpenGL/GLX library (GLVND variant)${nvidia:VariantDes
  This metapackage depends on the NVIDIA binary OpenGL/GLX implementation using
  GLVND and the corresponding GLVND loader library.
 
-Package: libnvidia-tesla-470-glcore
+Package: libnvidia-tesla-510-glcore
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -361,7 +361,7 @@ Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:VariantDesc}
  This package contains the private core libraries used by the NVIDIA
  implementation of OpenGL and GLX.
 
-Package: libegl-nvidia-tesla-470-0
+Package: libegl-nvidia-tesla-510-0
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -380,7 +380,7 @@ Description: NVIDIA binary EGL library${nvidia:VariantDesc}
  This package contains the driver specific binary EGL implementation provided
  by NVIDIA that is accessed via GLVND.
 
-Package: libgles-nvidia-tesla-470-1
+Package: libgles-nvidia-tesla-510-1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -405,7 +405,7 @@ Description: NVIDIA binary OpenGL|ES 1.x library${nvidia:VariantDesc}
  This package contains the driver specific binary OpenGL|ES 1.x implementation
  by NVIDIA that is accessed via GLVND.
 
-Package: libgles-nvidia-tesla-470-2
+Package: libgles-nvidia-tesla-510-2
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -431,7 +431,7 @@ Description: NVIDIA binary OpenGL|ES 2.x library${nvidia:VariantDesc}
  This package contains the driver specific binary OpenGL|ES 2.x implementation
  by NVIDIA that is accessed via GLVND.
 
-Package: libnvidia-tesla-470-eglcore
+Package: libnvidia-tesla-510-eglcore
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -454,7 +454,7 @@ Description: NVIDIA binary EGL core libraries${nvidia:VariantDesc}
  This package contains the private core libraries used by the NVIDIA
  implementation of EGL and OpenGL|ES.
 
-Package: nvidia-tesla-470-egl-icd
+Package: nvidia-tesla-510-egl-icd
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Depends:
@@ -474,7 +474,7 @@ Description: NVIDIA EGL installable client driver (ICD)
  This metapackage provides the NVIDIA installable client driver (ICD) for
  EGL via GLVND which supports NVIDIA GPUs.
 
-Package: nvidia-tesla-470-vdpau-driver
+Package: nvidia-tesla-510-vdpau-driver
 Section: non-free/video
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
@@ -506,7 +506,7 @@ Description: Video Decode and Presentation API for Unix - NVIDIA driver${nvidia:
  .
  ${nvidia:kmod:Description}
 
-Package: nvidia-tesla-470-vulkan-icd
+Package: nvidia-tesla-510-vulkan-icd
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Depends:
@@ -532,7 +532,7 @@ Description: NVIDIA Vulkan installable client driver (ICD)${nvidia:VariantDesc}
  This metapackage provides the NVIDIA installable client driver (ICD) for
  Vulkan (GLVND variant) which supports NVIDIA GPUs.
 
-Package: libnvidia-tesla-470-glvkspirv
+Package: libnvidia-tesla-510-glvkspirv
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -552,7 +552,7 @@ Description: NVIDIA binary Vulkan Spir-V compiler library${nvidia:VariantDesc}
  This package contains the private Spir-V compiler libraries used by the
  NVIDIA implementation of Vulkan.
 
-Package: libnvidia-tesla-470-rtcore
+Package: libnvidia-tesla-510-rtcore
 Architecture: amd64 arm64
 Multi-Arch: same
 Pre-Depends:
@@ -572,7 +572,7 @@ Description: NVIDIA binary Vulkan ray tracing (rtcore) library${nvidia:VariantDe
  This package contains the private rtcore library used by the NVIDIA
  implementation of Vulkan.
 
-Package: nvidia-tesla-470-smi
+Package: nvidia-tesla-510-smi
 Section: non-free/utils
 Architecture: amd64 arm64 ppc64el
 Depends:
@@ -591,7 +591,7 @@ Description: NVIDIA System Management Interface${nvidia:VariantDesc}
  See the output from the --help command line option for supported models and
  further information.
 
-Package: libnvidia-tesla-470-ml1
+Package: libnvidia-tesla-510-ml1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -608,7 +608,7 @@ Description: NVIDIA Management Library (NVML) runtime library${nvidia:VariantDes
  .
  This package contains the nvidia-ml runtime library.
 
-Package: libnvidia-tesla-470-cuda1
+Package: libnvidia-tesla-510-cuda1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -685,7 +685,7 @@ Description: NVIDIA CUDA Driver Library${nvidia:VariantDesc}
  .
  ${nvidia:kmod:Description}
 
-Package: libnvidia-tesla-470-compiler
+Package: libnvidia-tesla-510-compiler
 Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
@@ -703,7 +703,7 @@ Description: NVIDIA runtime compiler library${nvidia:VariantDesc}
  .
  This package contains the runtime compiler library.
 
-Package: libnvidia-tesla-470-ptxjitcompiler1
+Package: libnvidia-tesla-510-ptxjitcompiler1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -717,7 +717,7 @@ Description: NVIDIA PTX JIT Compiler library${nvidia:VariantDesc}
  .
  This package contains the runtime PTX JIT Compiler library.
 
-Package: libnvidia-tesla-470-nvvm4
+Package: libnvidia-tesla-510-nvvm4
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -731,7 +731,7 @@ Description: NVIDIA NVVM Compiler library${nvidia:VariantDesc}
  .
  This package contains the NVVM Compiler library.
 
-Package: libnvidia-tesla-470-nvcuvid1
+Package: libnvidia-tesla-510-nvcuvid1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -749,7 +749,7 @@ Description: NVIDIA CUDA Video Decoder runtime library${nvidia:VariantDesc}
  .
  This package contains the nvcuvid runtime library.
 
-Package: libnvidia-tesla-470-encode1
+Package: libnvidia-tesla-510-encode1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -762,7 +762,7 @@ Description: NVENC Video Encoding runtime library${nvidia:VariantDesc}
  .
  This package contains the nvidia-encode runtime library.
 
-Package: libnvidia-tesla-470-fbc1
+Package: libnvidia-tesla-510-fbc1
 Architecture: i386 amd64
 Multi-Arch: same
 Pre-Depends:
@@ -778,7 +778,7 @@ Description: NVIDIA OpenGL-based Framebuffer Capture runtime library${nvidia:Var
  .
  This package contains the NvFBCOpenGL runtime library.
 
-Package: libnvidia-tesla-470-nvoptix1
+Package: libnvidia-tesla-510-nvoptix1
 Architecture: amd64 arm64
 Multi-Arch: same
 Pre-Depends:
@@ -794,7 +794,7 @@ Description: NVIDIA implementation of the OptiX ray tracing engine${nvidia:Varia
  implementation for NVIDIA CUDA.
  It is used by liboptix.so.* coming with applications using the OptiX API.
 
-Package: libnvidia-tesla-470-opticalflow1
+Package: libnvidia-tesla-510-opticalflow1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -808,7 +808,7 @@ Description: NVIDIA Optical Flow runtime library${nvidia:VariantDesc}
  .
  This package contains the Optical Flow runtime library.
 
-Package: libnvidia-tesla-470-allocator1
+Package: libnvidia-tesla-510-allocator1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -822,7 +822,7 @@ Description: NVIDIA allocator runtime library${nvidia:VariantDesc}
  .
  This package contains the private nvidia-allocator runtime library.
 
-Package: libnvidia-tesla-470-ngx1
+Package: libnvidia-tesla-510-ngx1
 Architecture: amd64
 Multi-Arch: same
 Pre-Depends:
@@ -836,7 +836,7 @@ Description: NVIDIA NGX runtime library${nvidia:VariantDescShort}
  .
  This package contains the NVIDIA NGX runtime library.
 
-Package: nvidia-tesla-470-opencl-icd
+Package: nvidia-tesla-510-opencl-icd
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
