@@ -2,7 +2,7 @@
 # Based on https://wiki.debian.org/NvidiaGraphicsDrivers?action=AttachFile&do=view&target=nvidia-versions.sh
 #
 # Copyright © 2008-2011 Filipus Klutiero <chealer@gmail.com>
-# Copyright © 2011-2021 Andreas Beckmann <anbe@debian.org>
+# Copyright © 2011-2022 Andreas Beckmann <anbe@debian.org>
 #
 # This package is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -96,6 +96,11 @@ fi
 if grep -q -i $NVGA $IDLISTDIR/nvidia-tesla-460.ids 2>/dev/null
 then
 	VERSIONS[461]=460.32.03
+fi
+
+if grep -q -i $NVGA $IDLISTDIR/nvidia-470.ids 2>/dev/null
+then
+	VERSIONS[470]=470.103.01
 fi
 
 if grep -q -i $NVGA $IDLISTDIR/nvidia-tesla-470.ids 2>/dev/null
@@ -220,13 +225,17 @@ fi
 		fi
 	elif grep -q "bullseye\|^11" /etc/debian_version
 	then
-		if [[ -n ${VERSIONS[999]} ]]; then
+		if [[ -n ${VERSIONS[470]} ]]; then
 			if [[ -n ${VERSIONS[390]} ]]; then
 					echo "Your card is supported by all driver versions."
 			else
 				echo "Your card is supported by the default drivers."
 			fi
 			PACKAGE="nvidia-driver"
+		elif [[ -n ${VERSIONS[999]} ]]; then
+			echo "Your card is only supported by the updated drivers from bullseye-backports."
+			echo "See https://backports.debian.org for instructions how to use backports."
+			PACKAGE="nvidia-driver/bullseye-backports"
 		elif [[ -n ${VERSIONS[390]} ]]; then
 			echo "Your card is only supported up to the 390 legacy drivers series."
 			PACKAGE="nvidia-legacy-390xx-driver"

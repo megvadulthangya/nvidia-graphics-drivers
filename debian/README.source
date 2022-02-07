@@ -13,6 +13,27 @@ Building "bleeding edge" from GIT for users
     uploaded in the archive.
 
 
+Upstream support timeframes
+
+    https://nvidia.custhelp.com/app/answers/detail/a_id/3142
+    https://docs.nvidia.com/datacenter/tesla/drivers/
+
+    Driver Series       Supported until
+    71                  EoL
+    96                  EoL
+    173                 EoL
+    304                 12/2017 EoL
+    340                 12/2019 EoL
+    390                 12/2022
+    Tesla 410           EoL
+    Tesla 418 (LTSB)    03/2022
+    Tesla 440           11/2020
+    Tesla 450 (LTSB)    07/2023
+    Tesla 460 (PB)      01/2022
+    Tesla 470 (LTSB)    07/2024
+    Tesla 510
+
+
 The branch structure in the GIT repository
 
     The following branches exist in the git repository:
@@ -39,9 +60,15 @@ The branch structure in the GIT repository
     450                       (bullseye)          460, 450-tesla
     450-tesla                 (bullseye)          460-tesla, tesla-450/master
     tesla-450/master          bullseye,sid        tesla-460/master
-    460                       (bullseye)          master, 460-tesla
-    460-tesla                 (bullseye)          tesla-460/master
-    tesla-460/master          bullseye,sid
+    460                       (bullseye)          470, 460-tesla
+    460-tesla                 (bullseye)          470-tesla, tesla-460/master
+    tesla-460/master          bullseye,sid        tesla-470/master
+    470                       (bullseye)          510, 470-tesla
+    470-tesla                 (bullseye)          510-tesla, tesla-470/master
+    tesla-470/master          bullseye,sid        tesla-510/master
+    510                       (bookworm)          master, 510-tesla
+    510-tesla                 (bookworm)          tesla-510/master
+    tesla-510/master          bookworm,sid
     master                    sid                 YYY
     YYY                       experimental        ZZZ, (master)
     ZZZ                       experimental        (master)
