@@ -1,3 +1,11 @@
+nvidia-graphics-drivers-tesla-510 (510.47.03-1) unstable; urgency=medium
+
+  * Fork as new source package, rename everything to include '-tesla-510'.
+  * Do not build 'unversioned' packages from this source.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 07 Feb 2022 16:01:11 +0100
+
 nvidia-graphics-drivers (510.47.03-1) experimental; urgency=medium
 
   * New upstream production branch release 510.47.03 (2022-02-01).
