@@ -16,6 +16,7 @@ Disclaimer:
 Files:
  amd64/*
  arm64/*
+ ppc64el/*
 Copyright: 1993-2022 NVIDIA Corporation.  All rights reserved.
 License: NVIDIA-graphics-drivers
 
