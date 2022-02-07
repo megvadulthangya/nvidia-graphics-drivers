@@ -1,11 +1,8 @@
 # If needed, set to the major part of the upstream version number.
 TESLA_MAJOR		 = 510
-#NVIDIA_TESLA		 = $(TESLA_MAJOR)
+NVIDIA_TESLA		 = $(TESLA_MAJOR)
 #NVIDIA_LEGACY		 =
-WATCH_VERSION		 =
-
-NVIDIA_SETTINGS		 = nvidia-settings (>= $(version_major))
-NVIDIA_LEGACY_CHECK	 = nvidia-legacy-check (>= 495)
+#WATCH_VERSION		 =
 
 XORG_ABI_LIST		 = 24 23 20 19 18 15 14 13 12 11 10 8 6.0
 XORG_BOUND		 = (<< 2:1.20.99)
