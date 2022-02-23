@@ -334,6 +334,8 @@ Pre-Depends:
 Depends:
  glx-alternative-nvidia (>= 0.7),
  ${misc:Depends}
+Conflicts:
+ nvidia-alternative,
 Provides:
  ${nvidia}-alternative--kmod-alias,
 Description: allows the selection of NVIDIA as GLX provider${nvidia:LegacyDesc}

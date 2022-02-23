@@ -5,6 +5,9 @@ nvidia-graphics-drivers-legacy-340xx (340.108-13) UNRELEASED; urgency=medium
   * Add /etc/X11/xorg.conf.d/20-nvidia-legacy-340xx.conf setting
       Option "IgnoreABI" "1"
   * Add xorg-video-abi-25 (Xorg Xserver 21) as alternative dependency.
+  * nvidia-legacy-340xx-alternative: Add Conflicts: nvidia-alternative to
+    prevent co-installation of this unsupported EoL legacy driver along with
+    components of the current driver.  (Closes: #1003707)
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 22 Feb 2022 23:56:57 +0100
 
