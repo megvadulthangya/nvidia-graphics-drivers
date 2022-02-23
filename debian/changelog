@@ -2,6 +2,8 @@ nvidia-graphics-drivers-legacy-340xx (340.108-13) UNRELEASED; urgency=medium
 
   * Backport pde_data changes from 510.39.01 to fix kernel module build for
     Linux 5.17.
+  * Add /etc/X11/xorg.conf.d/20-nvidia-legacy-340xx.conf setting
+      Option "IgnoreABI" "1"
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 22 Feb 2022 23:56:57 +0100
 

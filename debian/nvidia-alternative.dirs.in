@@ -1,5 +1,6 @@
 etc/modprobe.d
 etc/nvidia
+etc/X11/xorg.conf.d
 usr/lib/#PRIVATE#
 #LIBDIR#/nvidia
 #LIBDIR#/vdpau
