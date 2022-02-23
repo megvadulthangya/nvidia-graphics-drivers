@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-13) UNRELEASED; urgency=medium
+
+  * Backport pde_data changes from 510.39.01 to fix kernel module build for
+    Linux 5.17.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 22 Feb 2022 23:56:57 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.108-12) unstable; urgency=medium
 
   * Add /lib/udev/rules.d/61-nvidia.rules to associate the gpu driven by the
@@ -14,6 +21,7 @@ nvidia-graphics-drivers-legacy-340xx (340.108-12) unstable; urgency=medium
   * bug-script: Show the nvidia and glx alternatives (470.82.00-1).
   * nvidia-legacy-340xx-alternative: libnvidia-cfg.so.1 on its own is not
     sufficient to activate a nvidia alternative (470.82.00-1).
+    (Closes: #996595)
   * Fix bashisms in upstream scripts (470.82.00-1).
   * nvidia-legacy-340xx-kernel-support: Provide
     /etc/modprobe.d/nvidia-options.conf as a template taking into account the
@@ -28,7 +36,7 @@ nvidia-graphics-drivers-legacy-340xx (340.108-12) unstable; urgency=medium
     build for Linux 5.14.
   * Add check for drm_device.agp and disable operations using drm_device.agp
     if unavailable to fix kernel module build with DRM_LEGACY disabled.
-  * Backport stdarg.h changes from 495.44 to fix kernel module build for
+  * Backport stdarg.h changes from 470.82.00 to fix kernel module build for
     Linux 5.16.
   * Bump Standards-Version to 4.6.0. No changes needed.
   * Update lintian overrides.
@@ -559,6 +567,7 @@ nvidia-graphics-drivers-legacy-340xx (340.96-2) unstable; urgency=medium
   * Synchronize packaging with nvidia-graphics-drivers 340.96-4:
     - Do not run dh_strip_nondeterminism, it may perform modifications not
       permitted by the NVIDIA license.
+    - rules, rules.defs: Unified naming of arch-specific variables.
     - get-orig-source: Download *.run with wget from http download server to
       preserve timestamps.
     - get-orig-source: Generate tarball reproducibly.

@@ -1,7 +1,7 @@
-From 173610bbc196eeb0f7239ce81386e809ead54409 Mon Sep 17 00:00:00 2001
+From 10e1e217717ca249024a7b85d2e3bf7a3308f917 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 20 Dec 2021 14:39:02 +0100
-Subject: [PATCH 34/34] backport stdarg.h changes from 495.44
+Subject: [PATCH 34/34] backport stdarg.h changes from 470.82.00
 
 ---
  conftest.sh              |  1 +

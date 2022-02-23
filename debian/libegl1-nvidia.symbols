@@ -1,4 +1,4 @@
-libEGL.so.1 libegl1-mesa
+libEGL.so.1 libegl1-mesa | libegl1
  NvEglRegClientApi@Base 331
  eglBindAPI@Base 331
  eglBindTexImage@Base 331

@@ -4,7 +4,7 @@ hardening-no-bindnow
 hardening-no-fortify-functions
 hardening-no-relro
 
-# Packages built against the NVIDIA libGL should declare dependencies on
+# Packages built against the NVIDIA libGLES should declare dependencies on
 # the free version for Debian's purposes.
 symbols-declares-dependency-on-other-package libgles1-mesa (libGLESv1_CM.so.1)
 symbols-file-missing-build-depends-package-field
