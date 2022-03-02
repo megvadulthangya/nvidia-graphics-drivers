@@ -17,17 +17,18 @@ Upstream support timeframes
 
     https://nvidia.custhelp.com/app/answers/detail/a_id/3142
     https://docs.nvidia.com/datacenter/tesla/drivers/
+    https://web.archive.org/web/20210522000916/https://docs.nvidia.com/datacenter/tesla/drivers/
 
     Driver Series       Supported until
-    71                  EoL
-    96                  EoL
-    173                 EoL
+    71                          EoL
+    96                          EoL
+    173                         EoL
     304                 12/2017 EoL
     340                 12/2019 EoL
     390                 12/2022
-    Tesla 410           EoL
+    Tesla 410                   EoL
     Tesla 418 (LTSB)    03/2022
-    Tesla 440           11/2020
+    Tesla 440           11/2020 EoL
     Tesla 450 (LTSB)    07/2023
     Tesla 460 (PB)      01/2022
     Tesla 470 (LTSB)    07/2024

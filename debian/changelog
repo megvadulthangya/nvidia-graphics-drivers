@@ -139,6 +139,24 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
+nvidia-graphics-drivers-tesla-470 (470.103.01-2) unstable; urgency=medium
+
+  * Add xorg-video-abi-25 (Xorg Xserver 21) as alternative dependency.
+    (Closes: #1005934)
+  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip building for -rt
+    kernels, not supported upstream (510.54-1).
+  * Declare Testsuite: autopkgtest-pkg-dkms (510.54-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 02 Mar 2022 00:58:08 +0100
+
+nvidia-graphics-drivers (470.103.01-2) unstable; urgency=medium
+
+  * Add xorg-video-abi-25 (Xorg Xserver 21) as alternative dependency.
+    (Closes: #1005311)
+  * nvidia-detect: Add support for (Tesla) 470 drivers in bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 13 Feb 2022 23:20:24 +0100
+
 nvidia-graphics-drivers-tesla-470 (470.103.01-1) unstable; urgency=medium
 
   * Rebuild as Tesla 470 driver.  (Closes: #1004853)
@@ -209,7 +227,8 @@ nvidia-graphics-drivers (470.82.00-1) unstable; urgency=medium
   * Refresh patches.
   * bug-script: Show the nvidia and glx alternatives.
   * nvidia-alternative: libnvidia-cfg.so.1 on its own is not
-    sufficient to activate a nvidia alternative.  (Closes: #996595)
+    sufficient to activate a nvidia alternative.
+    (Closes: #996595)
   * Fix bashisms in upstream scripts.
   * Drop the unusable leftover non-GLVND libegl1-nvidia package.
     (Closes: #996763)
@@ -483,6 +502,22 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
+
+nvidia-graphics-drivers-tesla-460 (460.106.00-2) unstable; urgency=medium
+
+  * Backport stdarg.h and stddef.h changes from 495.44 to fix kernel module
+    build for Linux 5.16.
+  * Backport pde_data changes from 470.103.01 to fix kernel module build for
+    Linux 5.17.  (Closes: #1005406)
+  * nvidia-tesla-460-kernel-support: Provide
+    /etc/modprobe.d/nvidia-options.conf as a template taking into account the
+    module renaming. This is a slave alternative of the nvidia alternative
+    (470.86-1).  (Closes: #999670)
+  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip build for -rt
+    kernels, not supported upstream.
+  * Declare Testsuite: autopkgtest-pkg-dkms.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Mar 2022 21:31:18 +0100
 
 nvidia-graphics-drivers-tesla-460 (460.106.00-1) unstable; urgency=medium
 
@@ -894,6 +929,18 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
+nvidia-graphics-drivers-tesla-450 (450.172.01-2) unstable; urgency=medium
+
+  * Backport pde_data changes from 470.103.01 to fix kernel module build for
+    Linux 5.17.
+  * Add xorg-video-abi-25 (Xorg Xserver 21) as alternative dependency.
+    (Closes: #1005932)
+  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip build for -rt
+    kernels, not supported upstream.
+  * Declare Testsuite: autopkgtest-pkg-dkms.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 28 Feb 2022 21:03:12 +0100
+
 nvidia-graphics-drivers-tesla-450 (450.172.01-1) unstable; urgency=medium
 
   * New upstream Tesla release 450.172.01 (2022-01-31).
@@ -924,6 +971,7 @@ nvidia-graphics-drivers-tesla-450 (450.156.00-1) unstable; urgency=medium
   * bug-script: Show the nvidia and glx alternatives (470.82.00-1).
   * nvidia-tesla-450-alternative: libnvidia-cfg.so.1 on its own is not
     sufficient to activate a nvidia alternative (470.82.00-1).
+    (Closes: #996595)
   * Fix bashisms in upstream scripts (470.82.00-1).
   * Drop the unusable leftover non-GLVND libegl1-nvidia-tesla-450 package
     (470.82.00-1).
@@ -1814,6 +1862,19 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.226.00-2) unstable; urgency=medium
+
+  * Backport stdarg.h and stddef.h changes from 495.44 to fix kernel module
+    build for Linux 5.16.
+  * Backport pde_data changes from 470.103.01 to fix kernel module build for
+    Linux 5.17.  (Closes: #1005405)
+  * nvidia-tesla-418-kernel-support: Provide
+    /etc/modprobe.d/nvidia-options.conf as a template taking into account the
+    module renaming. This is a slave alternative of the nvidia alternative
+    (470.86-1).  (Closes: #999670)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 25 Feb 2022 13:48:18 +0100
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-1) unstable; urgency=medium
 
   * New upstream Tesla release 418.226.00 (2021-10-26).
@@ -1822,6 +1883,7 @@ nvidia-graphics-drivers-tesla-418 (418.226.00-1) unstable; urgency=medium
   * bug-script: Show the nvidia and glx alternatives (470.82.00-1).
   * nvidia-tesla-418-alternative: libnvidia-cfg.so.1 on its own is not
     sufficient to activate a nvidia alternative (470.82.00-1).
+    (Closes: #996595)
   * Fix bashisms in upstream scripts (470.82.00-1).
   * libegl1-mesa is a transitional package since buster (470.82.00-1).
   * Update lintian overrides.
@@ -2612,6 +2674,13 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.147-2) UNRELEASED; urgency=medium
+
+  * Backport pde_data changes from 470.103.01 to fix kernel module build for
+    Linux 5.17.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Feb 2022 18:28:11 +0100
 
 nvidia-graphics-drivers (390.147-1) UNRELEASED; urgency=medium
 
@@ -5290,6 +5359,9 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
+
+  * Backport pde_data changes from 470.103.01 to fix kernel module build for
+    Linux 5.17.
 
   * Backport drm_driver_has_gem_prime_callbacks changes from 460.39 to fix drm
     detection for Linux 5.11.
