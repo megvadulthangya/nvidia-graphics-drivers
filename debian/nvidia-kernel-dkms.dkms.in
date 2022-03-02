@@ -3,6 +3,10 @@
 PACKAGE_NAME="#MODULE#"
 PACKAGE_VERSION="#VERSION#"
 
+# The NVIDIA driver does not support real-time kernels.
+# Can't easily set this via BUILD_EXCLUSIVE.
+[[ "$kernelver" =~ "-rt-" ]] && build_exclude="yes"
+
 AUTOINSTALL=yes
 PATCH=(#MODULE_PATCHES#)
 

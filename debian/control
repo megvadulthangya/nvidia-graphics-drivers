@@ -24,6 +24,7 @@ Build-Depends-Arch:
 Rules-Requires-Root: no
 Standards-Version: 4.6.0
 Homepage: https://www.nvidia.com
+Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
 
 Package: nvidia-driver
