@@ -5,6 +5,9 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-3) UNRELEASED; urgency=medium
     adding support for new Xorg or Linux releases will be issued.
     https://docs.nvidia.com/datacenter/tesla/drivers/
 
+  * Turn into transitional packages to aid switching to
+    nvidia-graphics-drivers-tesla-470.  (Closes: #1004852, #1005933)
+
  -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Mar 2022 09:02:46 +0100
 
 nvidia-graphics-drivers-tesla-460 (460.106.00-2) unstable; urgency=medium
