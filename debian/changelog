@@ -7,6 +7,7 @@ nvidia-graphics-drivers-tesla-450 (450.248.02-4) UNRELEASED; urgency=medium
 
   * Turn metapackages into transitional packages to aid switching to
     nvidia-graphics-drivers-tesla-470.
+  * Provide less virtual packages.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 14 Nov 2023 13:46:30 +0100
 
