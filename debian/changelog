@@ -3,6 +3,7 @@ nvidia-graphics-drivers-tesla (525.147.05-6) UNRELEASED; urgency=medium
   * Turn metapackages into transitional packages to aid switching to
     nvidia-graphics-drivers.
   * Provide less virtual packages.
+  * Remove the Tesla driver from the nvidia alternative.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 19 Jan 2024 23:42:04 +0100
 
