@@ -1,3 +1,16 @@
+nvidia-graphics-drivers-tesla-460 (460.106.00-3) UNRELEASED; urgency=medium
+
+  The Tesla 460 driver series has been declared as End-of-Life by
+  NVIDIA. No further updates fixing security issues, critical bugs, or
+  adding support for new Xorg or Linux releases will be issued.
+  https://docs.nvidia.com/datacenter/tesla/drivers/
+
+  The Tesla 460 driver packages have been turned into transitional packages
+  to automatically switch to the Tesla 470 driver (which supports a superset
+  of GPUs).
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Mar 2022 09:02:46 +0100
+
 nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
   LEGACY GPUs: If you have a GeForce 710A/810M/820M/825M/910M,
