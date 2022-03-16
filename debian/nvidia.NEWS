@@ -5,6 +5,10 @@ nvidia-graphics-drivers-tesla-450 (450.248.02-4) UNRELEASED; urgency=medium
   adding support for new Xorg or Linux releases will be issued.
   https://docs.nvidia.com/datacenter/tesla/drivers/
 
+  The Tesla 450 driver packages have been turned into transitional packages
+  to automatically switch to the Tesla 470 driver (which supports a superset
+  of GPUs).
+
  -- Andreas Beckmann <anbe@debian.org>  Tue, 14 Nov 2023 13:46:30 +0100
 
 nvidia-graphics-drivers-tesla-418 (418.226.00-3) unstable; urgency=medium
