@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla-510 (510.47.03-3) UNRELEASED; urgency=medium
+
+  * Build nvidia-cuda-mps from the latest Tesla driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 22 Mar 2022 11:01:29 +0100
+
 nvidia-graphics-drivers-tesla-510 (510.47.03-2) unstable; urgency=medium
 
   * Add xorg-video-abi-25 (Xorg Xserver 21) as alternative dependency.

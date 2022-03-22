@@ -56,9 +56,6 @@ nvidia_icd.json
 nvidia_layers.json
 nvidia.icd
 libOpenCL.so.1.0.0
-nvidia-cuda-mps-server
-nvidia-cuda-mps-control
-nvidia-cuda-mps-control.1
 
 # not shipped
 

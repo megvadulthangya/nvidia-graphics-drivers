@@ -609,6 +609,23 @@ Description: NVIDIA Management Library (NVML) runtime library${nvidia:VariantDes
  .
  This package contains the nvidia-ml runtime library.
 
+Package: nvidia-cuda-mps
+Section: non-free/utils
+Architecture: amd64 arm64 ppc64el
+Depends:
+ ${shlibs:Depends}, ${misc:Depends}
+Description: NVIDIA CUDA Multi Process Service (MPS)
+ The Compute Unified Device Architecture (CUDA) enables NVIDIA
+ graphics processing units (GPUs) to be used for massively parallel
+ general purpose computation.
+ .
+ CUDA MPS is a feature that allows multiple CUDA processes to share a single
+ GPU context. CUDA MPS should be transparent to CUDA programs.
+ .
+ CUDA MPS requires a device that supports Unified Virtual Address (UVA) and
+ has compute capability SM 3.5 or higher.
+ Pre-CUDA 4.0 APIs are not supported under CUDA MPS.
+
 Package: libnvidia-tesla-510-cuda1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
