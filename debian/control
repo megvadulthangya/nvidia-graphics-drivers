@@ -13,15 +13,16 @@ Build-Depends:
  debhelper-compat (= 13),
  dh-sequence-dkms,
  dh-exec,
- xz-utils,
  libvulkan1 (>= 1.0.42),
  libxext6,
- quilt,
  po-debconf,
+ quilt,
+ xz-utils,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.5.1
+Standards-Version: 4.6.0
 Homepage: https://www.nvidia.com
+Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
 
 Package: nvidia-tesla-450-driver
@@ -68,6 +69,7 @@ Multi-Arch: foreign
 Pre-Depends:
  dpkg (>= 1.17.21),
  ${nvidia:legacy-check},
+ ${misc:Pre-Depends}
 Depends:
  glx-alternative-nvidia (>= 1.2),
  ${misc:Depends}
@@ -192,7 +194,6 @@ Pre-Depends:
  nvidia-installer-cleanup,
  ${nvidia:legacy-check},
 Depends:
- lib${nvidia}-glcore (= ${binary:Version}),
  ${nvidia}-alternative (= ${binary:Version}),
  nvidia-support,
  ${nvidia:xorgDepends},
@@ -301,7 +302,6 @@ Pre-Depends:
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  libglx0 | libglx0-glvnd-nvidia,
- lib${nvidia}-glcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
  libglx-vendor,
@@ -356,25 +356,6 @@ Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:VariantDesc}
  This package contains the private core libraries used by the NVIDIA
  implementation of OpenGL and GLX.
 
-Package: libegl1-nvidia-tesla-450
-Architecture: amd64 arm64 ppc64el
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${nvidia}-alternative (= ${binary:Version}),
- libegl-${nvidia-}0 (= ${binary:Version}),
- ${shlibs:Depends}, ${misc:Depends}
-Conflicts:
- ${nvidia}-driver-libs,
- libgl1-${nvidia}-glvnd-glx,
-Description: NVIDIA binary EGL library (non-GLVND variant)${nvidia:VariantDesc}
- EGL provides a platform-agnostic mechanism for creating rendering surfaces
- for use with other graphics libraries, such as OpenGL|ES.
- .
- This package contains the driver specific binary EGL implementation by NVIDIA
- as a non-GLVND alternative.
-
 Package: libegl-nvidia-tesla-450-0
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
@@ -382,7 +363,6 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
- lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA binary EGL library${nvidia:VariantDesc}
  EGL provides a platform-agnostic mechanism for creating rendering surfaces

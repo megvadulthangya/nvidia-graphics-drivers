@@ -2,7 +2,7 @@
 # Based on https://wiki.debian.org/NvidiaGraphicsDrivers?action=AttachFile&do=view&target=nvidia-versions.sh
 #
 # Copyright © 2008-2011 Filipus Klutiero <chealer@gmail.com>
-# Copyright © 2011-2020 Andreas Beckmann <anbe@debian.org>
+# Copyright © 2011-2021 Andreas Beckmann <anbe@debian.org>
 #
 # This package is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -203,6 +203,10 @@ fi
 		elif [[ -n ${VERSIONS[340]} ]]; then
 			echo "Your card is only supported up to the 340 legacy drivers series."
 			PACKAGE="nvidia-legacy-340xx-driver"
+		elif [[ -n ${VERSIONS[451]} ]]; then
+			echo "Your card is supported by the Tesla 450 drivers series in buster-backports."
+			echo "See https://backports.debian.org for instructions how to use backports."
+			PACKAGE="nvidia-tesla-450-driver/buster-backports"
 		elif [[ -n ${VERSIONS[419]} ]]; then
 			echo "Your card is supported by the Tesla 418 drivers series in buster-backports."
 			echo "See https://backports.debian.org for instructions how to use backports."
@@ -237,9 +241,6 @@ fi
 		elif [[ -n ${VERSIONS[451]} ]]; then
 			echo "Your card is supported by the Tesla 450 drivers series."
 			PACKAGE="nvidia-tesla-450-driver"
-		elif [[ -n ${VERSIONS[441]} ]]; then
-			echo "Your card is supported by the Tesla 440 drivers series."
-			PACKAGE="nvidia-tesla-440-driver"
 		elif [[ -n ${VERSIONS[419]} ]]; then
 			echo "Your card is supported by the Tesla 418 drivers series."
 			PACKAGE="nvidia-tesla-418-driver"
@@ -258,9 +259,6 @@ fi
 		fi
 		if [ -n "$PACKAGE" ] && [ "$PACKAGE" != "nvidia-tesla-450-driver" ] && [[ -n ${VERSIONS[451]} ]]; then
 			echo "Your card is also supported by the Tesla 450 drivers series."
-		fi
-		if [ -n "$PACKAGE" ] && [ "$PACKAGE" != "nvidia-tesla-440-driver" ] && [[ -n ${VERSIONS[441]} ]]; then
-			echo "Your card is also supported by the Tesla 440 drivers series."
 		fi
 		if [ -n "$PACKAGE" ] && [ "$PACKAGE" != "nvidia-tesla-418-driver" ] && [[ -n ${VERSIONS[419]} ]]; then
 			echo "Your card is also supported by the Tesla 418 drivers series."

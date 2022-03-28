@@ -1,7 +1,9 @@
 # kernel support
 kernel-5.7.0-set-memory-array.patch
+0006-backport-pde_data-changes-from-470.103.01.patch
 
 # build system updates
+bashisms.patch
 use-kbuild-compiler.patch
 use-kbuild-flags.patch
 use-kbuild-gcc-plugins.patch

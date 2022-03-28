@@ -67,7 +67,6 @@ CONTROL_PREFIXES	 = nvidia-driver nvidia-kernel nvidia-alternative xserver-xorg-
 CONTROL_PREFIXES	+= libnvidia
 CONTROL_PREFIXES	+= libgl1-nvidia
 CONTROL_PREFIXES	+= libglx-nvidia0
-CONTROL_PREFIXES	+= libegl1-nvidia
 CONTROL_PREFIXES	+= libegl-nvidia0
 CONTROL_PREFIXES	+= libgles-nvidia1 libgles-nvidia2
 CONTROL_PREFIXES	+= nvidia-vdpau-driver
@@ -91,7 +90,7 @@ ALL_CONTROL	:= $(wildcard $(patsubst %,debian/%*,$(CONTROL_PREFIXES)))
 LEGACY_CONTROL	:= $(wildcard $(patsubst %,debian/%*,$(CONTROL_PREFIXES_RENAMED)))
 RENAME_CONTROL	 = $(filter-out $(LEGACY_CONTROL),$(ALL_CONTROL))
 RENAMED_CONTROL	 = $(foreach f,$(RENAME_CONTROL),$(call applyprefixrenamelist,$f,$(CONTROL_PREFIXES)))
-TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/module/debian/patches/*.in debian/detect/*.in)
+TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/module/debian/patches/*.in debian/detect/*.in debian/tests/*.in)
 AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
 AUTOGEN		+= debian/module/debian/changelog
 AUTOGEN		+= debian/module/debian/bug-control
@@ -100,7 +99,9 @@ AUTOGEN		+= debian/bug-control
 AUTOGEN		+= debian/substvars
 AUTOGEN		+= $(if $(has_vulkan),nonglvnd/nvidia_icd.json)
 AUTOGEN		+= $(AUTOKEEP)
-AUTOKEEP	 = debian/watch debian/control
+AUTOKEEP	 = debian/watch
+AUTOKEEP	+= debian/tests/autopkgtest-pkg-dkms.conf
+AUTOKEEP	+= debian/control
 AUTOCLEAN	 = $(filter-out $(AUTOKEEP),$(AUTOGEN))
 
 empty		 =
@@ -157,6 +158,7 @@ unpack-stamp: $(patsubst %,NVIDIA-Linux-%,$(ARCH_LIST))
 	ln -s NVIDIA-Linux-$(DEB_HOST_ARCH) NVIDIA-Linux
 ifneq (,$(has_driver))
 	QUILT_PATCHES=debian/patches QUILT_SERIES=series-postunpack quilt --quiltrc /dev/null push -a || test $$? = 2
+	sed -i 's/==/=/g' NVIDIA-Linux/nvidia-bug-report.sh
 endif
 	ls -al
 	touch $@
@@ -297,6 +299,7 @@ override_dh_bugfiles:
 
 override_dh_shlibdeps:
 	dh_shlibdeps -l/$(libdir)/$(nvidia_private)
+	test -z "$$(ls debian/*.substvars 2>/dev/null)" || sed -r -i 's/libnvidia-(e?glcore)-$(version)/lib$(nvidia)-\1 (= $${binary:Version})/g' debian/*.substvars
 
 override_dh_gencontrol:
 	dh_gencontrol -- \

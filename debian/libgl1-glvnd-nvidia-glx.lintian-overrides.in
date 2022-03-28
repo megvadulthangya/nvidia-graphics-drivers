@@ -5,8 +5,7 @@ hardening-no-fortify-functions
 
 # Packages built against the NVIDIA libGL should declare dependencies on
 # the free version for Debian's purposes.
-symbols-declares-dependency-on-other-package libgl1 (*)
-symbols-declares-dependency-on-other-package libgl1-mesa-glx
+symbols-declares-dependency-on-other-package libgl1 (>*) (libGL.so.1)
 symbols-file-missing-build-depends-package-field
 
 # Do not conflict with the virtual package from src:mesa (<< 17).

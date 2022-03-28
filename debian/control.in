@@ -11,15 +11,16 @@ Build-Depends:
  debhelper-compat (= 13),
  dh-sequence-dkms,
  dh-exec,
- xz-utils,
  libvulkan1 (>= 1.0.42),
  libxext6,
- quilt,
  po-debconf,
+ quilt,
+ xz-utils,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.5.1
+Standards-Version: 4.6.0
 Homepage: https://www.nvidia.com
+Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
 
 Package: ${nvidia}-driver
@@ -67,6 +68,7 @@ Multi-Arch: foreign
 Pre-Depends:
  dpkg (>= 1.17.21),
  ${nvidia:legacy-check},
+ ${misc:Pre-Depends}
 Depends:
  glx-alternative-nvidia (>= 1.2),
  ${misc:Depends}
@@ -191,7 +193,6 @@ Pre-Depends:
  nvidia-installer-cleanup,
  ${nvidia:legacy-check},
 Depends:
- lib${nvidia}-glcore (= ${binary:Version}),
  ${nvidia}-alternative (= ${binary:Version}),
  nvidia-support,
  ${nvidia:xorgDepends},
@@ -373,7 +374,6 @@ Pre-Depends:
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  libglx0 | libglx0-glvnd-nvidia,
- lib${nvidia}-glcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
  libglx-vendor,
@@ -470,25 +470,6 @@ Description: Vendor neutral GL dispatch library -- libEGL
  This package contains the (binary) GLVND libEGL.so.1 stub library provided by
  NVIDIA which dispatches to vendor implementations (libEGL_*.so.0) via GLVND.
 
-Package: libegl1-${nvidia}
-Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${nvidia}-alternative (= ${binary:Version}),
- libegl-${nvidia-}0 (= ${binary:Version}),
- ${shlibs:Depends}, ${misc:Depends}
-Conflicts:
- ${nvidia}-driver-libs,
- libgl1-${nvidia}-glvnd-glx,
-Description: NVIDIA binary EGL library (non-GLVND variant)${nvidia:VariantDesc}
- EGL provides a platform-agnostic mechanism for creating rendering surfaces
- for use with other graphics libraries, such as OpenGL|ES.
- .
- This package contains the driver specific binary EGL implementation by NVIDIA
- as a non-GLVND alternative.
-
 Package: libegl-${nvidia-}0
 Architecture: i386 amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: same
@@ -496,7 +477,6 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
- lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA binary EGL library${nvidia:VariantDesc}
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
@@ -648,7 +628,6 @@ Depends:
 Suggests:
  libegl-${nvidia-}0 [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
  | libegl-nvidia-tesla-450-0 [i386 amd64 arm64 ppc64el]
- | libegl-nvidia-tesla-440-0 [i386 amd64 ppc64el]
  | libegl-nvidia-tesla-418-0 [i386 amd64 ppc64el]
  | libegl-nvidia-legacy-390xx0 [i386 amd64 armhf],
 Description: NVIDIA binary EGL driver - common files
@@ -718,7 +697,6 @@ Depends:
 Suggests:
  ${nvidia}-vulkan-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
  | nvidia-tesla-450-vulkan-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-440-vulkan-icd [i386 amd64 ppc64el]
  | nvidia-tesla-418-vulkan-icd [i386 amd64 ppc64el]
  | nvidia-legacy-390xx-vulkan-icd [i386 amd64],
 Conflicts:
@@ -1127,7 +1105,6 @@ Depends:
 Suggests:
  ${nvidia}-opencl-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
  | nvidia-tesla-450-opencl-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-440-opencl-icd [i386 amd64 ppc64el]
  | nvidia-tesla-418-opencl-icd [i386 amd64 ppc64el]
  | nvidia-legacy-390xx-opencl-icd [i386 amd64],
 Description: NVIDIA OpenCL driver - common files
@@ -1202,5 +1179,6 @@ Depends:
 Description: NVIDIA GPU detection utility
  The 'nvidia-detect' script in this package checks for an NVIDIA GPU in the
  system and recommends one of the non-free accelerated driver meta-packages
- (nvidia-driver, nvidia-legacy-390xx-driver, nvidia-tesla-450-driver,
- nvidia-tesla-440-driver, or nvidia-tesla-418-driver) for installation.
+ (nvidia-driver,
+ nvidia-tesla-450-driver, nvidia-tesla-418-driver,
+ or nvidia-legacy-390xx-driver) for installation.
