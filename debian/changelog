@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla-450 (450.172.01-2~deb11u1~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 29 Mar 2022 19:43:39 +0200
+
 nvidia-graphics-drivers-tesla-450 (450.172.01-2~deb11u1) bullseye; urgency=medium
 
   * Rebuild for bullseye.
