@@ -70,7 +70,7 @@ ALL_CONTROL	:= $(wildcard $(patsubst %,debian/%*,$(CONTROL_PREFIXES)))
 LEGACY_CONTROL	:= $(wildcard $(patsubst %,debian/%*,$(CONTROL_PREFIXES_RENAMED)))
 RENAME_CONTROL	 = $(filter-out $(LEGACY_CONTROL),$(ALL_CONTROL))
 RENAMED_CONTROL	 = $(foreach f,$(RENAME_CONTROL),$(call applyprefixrenamelist,$f,$(CONTROL_PREFIXES)))
-TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/module/debian/patches/*.in debian/detect/*.in)
+TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/module/debian/patches/*.in debian/detect/*.in debian/tests/*.in)
 AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
 AUTOGEN		+= debian/module/debian/changelog
 AUTOGEN		+= debian/module/debian/bug-control
@@ -78,6 +78,7 @@ AUTOGEN		+= $(patsubst %.in,%,$(RENAMED_CONTROL))
 AUTOGEN		+= debian/bug-control
 AUTOGEN		+= debian/substvars
 AUTOKEEP	 = debian/watch
+AUTOKEEP	+= debian/tests/autopkgtest-pkg-dkms.conf
 AUTOCLEAN	 = $(filter-out $(AUTOKEEP),$(AUTOGEN))
 
 empty		 =

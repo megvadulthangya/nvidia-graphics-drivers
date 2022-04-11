@@ -1,13 +1,13 @@
-From e030503bc8166ca0b1f56e283c24ec200ca9d369 Mon Sep 17 00:00:00 2001
+From 050adfbd9bab2432d307af82f80b0245def2712f Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Wed, 16 Feb 2022 16:56:45 +0100
-Subject: [PATCH] backport pde_data changes from 510.39.01
+Subject: [PATCH] backport pde_data changes from 470.103.01
 
 ---
  Makefile    |  1 +
- conftest.sh | 20 ++++++++++++++++++--
+ conftest.sh | 19 ++++++++++++++++++-
  nv-linux.h  |  6 ++++--
- 3 files changed, 23 insertions(+), 4 deletions(-)
+ 3 files changed, 23 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile b/Makefile
 index 8b64faa..2963b91 100644
@@ -22,14 +22,12 @@ index 8b64faa..2963b91 100644
  	sg_table \
  	pm_vt_switch_required \
 diff --git a/conftest.sh b/conftest.sh
-index 6ea47a5..0bf5194 100755
+index 6ea47a5..b198001 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -1574,8 +1574,24 @@ compile_test() {
-             compile_check_conftest "$CODE" "NV_PROC_CREATE_DATA_PRESENT" "" "functions"
-         ;;
+@@ -1576,6 +1576,23 @@ compile_test() {
  
--
+ 
          pde_data)
 +            #
 +            # Determine if the pde_data() function is present.
@@ -51,7 +49,7 @@ index 6ea47a5..0bf5194 100755
              #
              # Determine if the PDE_DATA() function is present.
              #
-@@ -1585,7 +1601,7 @@ compile_test() {
+@@ -1585,7 +1602,7 @@ compile_test() {
                  PDE_DATA();
              }"
  

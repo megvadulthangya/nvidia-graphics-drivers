@@ -33,7 +33,7 @@ kernel-5.7.0-set-memory-array.patch
 0032-backport-drm_device_has_pdev-changes-from-470.63.01.patch
 0033-check-for-member-agp-in-struct-drm_device.patch
 0034-backport-stdarg.h-changes-from-470.82.00.patch
-0035-backport-pde_data-changes-from-510.39.01.patch
+0035-backport-pde_data-changes-from-470.103.01.patch
 
 # build system updates
 separate-makefile-kbuild.patch

@@ -3,7 +3,7 @@ Description: add include guards to conftest.h
 
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -132,11 +132,14 @@
+@@ -132,11 +132,14 @@ update_conftest() {
  
          # regenerate conftest.h to include any include existing subheaders
          rm -f conftest.h

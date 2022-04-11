@@ -4,7 +4,7 @@ Description: disable cc_version_check
 
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -245,6 +245,7 @@
+@@ -245,6 +245,7 @@ BUILD_SANITY_CHECKS = \
  	preempt_rt_sanity_check
  
  SKIP_SANITY_CHECKS	 =
