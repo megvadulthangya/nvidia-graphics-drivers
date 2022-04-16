@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-3) unstable; urgency=medium
 
   The Tesla 460 driver series has been declared as End-of-Life by
   NVIDIA. No further updates fixing security issues, critical bugs, or
@@ -9,7 +9,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-3) UNRELEASED; urgency=medium
   to automatically switch to the Tesla 470 driver (which supports a superset
   of GPUs).
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Mar 2022 09:02:46 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Mar 2022 15:24:04 +0100
 
 nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
@@ -26,6 +26,15 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
   packages instead.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
+
+nvidia-graphics-drivers-tesla-418 (418.226.00-3) unstable; urgency=medium
+
+  The Tesla 418 driver series has been declared as End-of-Life by
+  NVIDIA. No further updates fixing security issues, critical bugs, or
+  adding support for new Xorg or Linux releases will be issued.
+  https://docs.nvidia.com/datacenter/tesla/drivers/
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 13 Apr 2022 18:44:57 +0200
 
 nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 

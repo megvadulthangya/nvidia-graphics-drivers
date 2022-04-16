@@ -1,4 +1,4 @@
-From 93333d84d7a8cc6087abfe5df91e86fd8490b49a Mon Sep 17 00:00:00 2001
+From 65505a64ecbe4304b58cf4975131208b20d7e1dd Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 20 Dec 2021 14:39:02 +0100
 Subject: [PATCH] backport stdarg.h changes from 495.44
@@ -86,7 +86,7 @@ index 4720c66..5dd37fb 100644
  #include <os/nv_memory_type.h>
  
 diff --git a/conftest.sh b/conftest.sh
-index 3dfa0eb..5f22d09 100755
+index 3aaf177..5dc78bd 100755
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -159,6 +159,7 @@ test_headers() {

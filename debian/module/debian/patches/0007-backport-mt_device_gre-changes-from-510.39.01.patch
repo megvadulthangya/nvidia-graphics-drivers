@@ -1,0 +1,73 @@
+From 48e4fb617b41369c4923cb17bde37d6e94b2cd3c Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Thu, 14 Apr 2022 22:07:16 +0200
+Subject: [PATCH] backport mt_device_gre changes from 510.39.01
+
+---
+ common/inc/nv-pgprot.h |  5 +++++
+ conftest.sh            | 18 ++++++++++++++++++
+ nvidia/nvidia.Kbuild   |  1 +
+ 3 files changed, 24 insertions(+)
+
+diff --git a/common/inc/nv-pgprot.h b/common/inc/nv-pgprot.h
+index fdeaa8e..6446c0f 100644
+--- a/common/inc/nv-pgprot.h
++++ b/common/inc/nv-pgprot.h
+@@ -83,8 +83,13 @@ static inline pgprot_t pgprot_modify_writecombine(pgprot_t old_prot)
+ #else
+ #define NV_PGPROT_UNCACHED_DEVICE(old_prot)     pgprot_noncached(old_prot)
+ #if defined(NVCPU_AARCH64)
++#if defined(NV_MT_DEVICE_GRE_PRESENT)
+ #define NV_PROT_WRITE_COMBINED_DEVICE   (PROT_DEFAULT | PTE_PXN | PTE_UXN |   \
+                                          PTE_ATTRINDX(MT_DEVICE_GRE))
++#else
++#define NV_PROT_WRITE_COMBINED_DEVICE   (PROT_DEFAULT | PTE_PXN | PTE_UXN |   \
++                                         PTE_ATTRINDX(MT_DEVICE_nGnRE))
++#endif
+ #define NV_PGPROT_WRITE_COMBINED_DEVICE(old_prot)                             \
+     __pgprot_modify(old_prot, PTE_ATTRINDX_MASK, NV_PROT_WRITE_COMBINED_DEVICE)
+ #define NV_PGPROT_WRITE_COMBINED(old_prot)      NV_PGPROT_UNCACHED(old_prot)
+diff --git a/conftest.sh b/conftest.sh
+index dfb84d2..fe1c87c 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -2524,6 +2524,24 @@ compile_test() {
+                 return
+             fi
+         ;;
++
++        mt_device_gre)
++            #
++            # Determine if MT_DEVICE_GRE flag is present.
++            #
++            # MT_DEVICE_GRE flag is removed by commit 58cc6b72a21274
++            # ("arm64: mm: Remove unused support for Device-GRE memory type") in v5.14-rc1
++            # (2021-06-01).
++            #
++            CODE="
++            #include <asm/memory.h>
++            unsigned int conftest_mt_device_gre(void) {
++                return MT_DEVICE_GRE;
++            }"
++
++            compile_check_conftest "$CODE" "NV_MT_DEVICE_GRE_PRESENT" "" "types"
++        ;;
++
+         get_user_pages)
+             #
+             # Conftest for get_user_pages()
+diff --git a/nvidia/nvidia.Kbuild b/nvidia/nvidia.Kbuild
+index 04e7bdc..72708f2 100644
+--- a/nvidia/nvidia.Kbuild
++++ b/nvidia/nvidia.Kbuild
+@@ -209,6 +209,7 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += vmalloc_has_pgprot_t_arg
+ NV_CONFTEST_TYPE_COMPILE_TESTS += acpi_fadt_low_power_s0
+ NV_CONFTEST_TYPE_COMPILE_TESTS += mm_has_mmap_lock
+ NV_CONFTEST_TYPE_COMPILE_TESTS += pci_channel_state
++NV_CONFTEST_TYPE_COMPILE_TESTS += mt_device_gre
+ 
+ NV_CONFTEST_GENERIC_COMPILE_TESTS += dom0_kernel_present
+ NV_CONFTEST_GENERIC_COMPILE_TESTS += nvidia_vgpu_kvm_build
+-- 
+2.20.1
+

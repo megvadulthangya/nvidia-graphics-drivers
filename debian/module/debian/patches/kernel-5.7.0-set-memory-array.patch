@@ -49,3 +49,12 @@ Bug-Debian: https://bugs.debian.org/960735
              #if defined(NV_ASM_SET_MEMORY_H_PRESENT)
              #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
              #include <asm/pgtable_types.h>
+@@ -582,6 +588,8 @@ compile_test() {
+             # 19 14:51:15 2009)
+             #
+             CODE="
++            #include <asm/page.h>
++            #include <asm/pgtable.h>
+             #if defined(NV_ASM_SET_MEMORY_H_PRESENT)
+             #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
+             #include <asm/pgtable_types.h>
