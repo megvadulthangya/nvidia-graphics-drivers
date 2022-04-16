@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-4) unstable; urgency=medium
 
   * Update kernel-5.7.0-set-memory-array.patch to fix kernel module build for
     ppc64el.
@@ -6,7 +6,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-4) UNRELEASED; urgency=medium
     for arm64.
   * Refresh patches.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 15 Apr 2022 22:56:54 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Apr 2022 17:54:31 +0200
 
 nvidia-graphics-drivers-tesla-460 (460.106.00-3) unstable; urgency=medium
 
