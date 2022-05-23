@@ -20,7 +20,7 @@ Build-Depends:
  xz-utils,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.6.0
+Standards-Version: 4.6.1
 Homepage: https://www.nvidia.com
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes

@@ -1,6 +1,14 @@
+nvidia-graphics-drivers-tesla-460 (460.106.00-5) UNRELEASED; urgency=medium
+
+  * Backport linker scripts changes from 510.60.02.
+  * Refresh patches.
+  * Bump Standards-Version to 4.6.1. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 23 May 2022 16:46:36 +0200
+
 nvidia-graphics-drivers-tesla-460 (460.106.00-4) unstable; urgency=medium
 
-  * Update kernel-5.7.0-set-memory-array.patch to fix kernel module build for
+  * Update 0003-fix-conftest-includes.patch to fix kernel module build for
     ppc64el.
   * Backport mt_device_gre changes from 510.39.01 to fix kernel module build
     for arm64.
@@ -449,10 +457,22 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
+nvidia-graphics-drivers-tesla-450 (450.191.01-1) unstable; urgency=medium
+
+  * New upstream Tesla release 450.191.01 (2022-05-16).
+    * Fixed CVE-2022-28181, CVE-2022-28185, CVE-2022-28192. (Closes: #1011144)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5353
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Bump Standards-Version to 4.6.1. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 22 May 2022 18:48:35 +0200
+
 nvidia-graphics-drivers-tesla-450 (450.172.01-3) unstable; urgency=medium
 
-  * Update kernel-5.7.0-set-memory-array.patch to fix kernel module build for
-    ppc64el.
+  * Update 0003-fix-conftest-includes.patch to fix kernel module build for
+    ppc64el.  (Closes: #976901)
   * Backport mt_device_gre changes from 510.39.01 to fix kernel module build
     for arm64.  (Closes: #1009740)
   * Refresh patches.
@@ -1398,9 +1418,18 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.226.00-5) unstable; urgency=medium
+
+  * Backport linker scripts changes from 510.60.02.
+  * Refresh patches.
+  * Bump Standards-Version to 4.6.1. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 22 May 2022 13:17:00 +0200
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-4) unstable; urgency=medium
 
-  * Fix kernel module build for ppc64el.
+  * Update 0003-fix-conftest-includes.patch to fix kernel module build for
+    ppc64el.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 14 Apr 2022 16:03:48 +0200
 
@@ -2230,6 +2259,40 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
 
+nvidia-graphics-drivers (390.151-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy branch release 390.151 (2022-05-16).
+    * Fixed CVE-2022-28181, CVE-2022-28185.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5353
+    - Fixed a bug which prevented kernel modules linked from precompiled
+      kernel interface object files from being loaded on recent Linux
+      kernels. This affected custom packages which were prepared with
+      nvidia-installer's --add-this-kernel option, for example.
+    - Fixed a driver installation failure on Linux kernel 5.17 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "implicit declaration of function 'PDE'".
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Work around architecture misdetection when building the kernel modules in
+    an armhf environment on an arm64 host.  (Closes: #1010230)
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 19 May 2022 12:07:44 +0200
+
+nvidia-graphics-drivers (390.147-4) UNRELEASED; urgency=medium
+
+  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip building for -rt
+    kernels, not supported upstream (510.54-1).
+  * Declare Testsuite: autopkgtest-pkg-dkms (510.54-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Apr 2022 20:59:01 +0200
+
+nvidia-graphics-drivers (390.147-3) UNRELEASED; urgency=medium
+
+  * Fix incomplete backport of pde_data changes from 470.103.01.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Feb 2022 22:35:21 +0100
+
 nvidia-graphics-drivers (390.147-2) UNRELEASED; urgency=medium
 
   * Add xorg-video-abi-25 (Xorg Xserver 21) as alternative dependency.
@@ -2256,6 +2319,18 @@ nvidia-graphics-drivers (390.144-2) UNRELEASED; urgency=medium
     to fix kernel module build for Linux 5.14.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Sep 2021 21:13:35 +0200
+
+nvidia-graphics-drivers (390.144-1~deb9u1) stretch-security; urgency=high
+
+  * Non-maintainer upload by the LTS team.
+  * Fix CVE-2021-1076, CVE-2021-1093, CVE-2021-1094, CVE-2021-1095
+    and CVE-2021-1056.  (Closes: #987216, #991351)
+    Multiple security vulnerabilities have been discovered in the
+    NVIDIA binary driver and libraries that provide optimized
+    hardware acceleration which may lead to denial of service,
+    information disclosure, or data corruption.
+
+ -- Markus Koschany <apo@debian.org>  Tue, 18 Jan 2022 18:50:56 +0100
 
 nvidia-graphics-drivers (390.144-1) UNRELEASED; urgency=medium
 

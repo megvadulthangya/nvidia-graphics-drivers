@@ -1,9 +1,10 @@
 # kernel support
-kernel-5.7.0-set-memory-array.patch
+0003-fix-conftest-includes.patch
 0004-backport-stdarg.h-changes-from-495.44.patch
 0005-backport-stddef.h-changes-from-495.44.patch
 0006-backport-pde_data-changes-from-470.103.01.patch
-0007-backport-mt_device_gre-changes-from-510.39.01.patch
+0007-backport-linker-scripts-changes-from-510.60.02.patch
+0008-backport-mt_device_gre-changes-from-510.39.01.patch
 
 # build system updates
 bashisms.patch
