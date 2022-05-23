@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-5) unstable; urgency=medium
 
   * Backport linker scripts changes from 510.60.02.
   * Refresh patches.
@@ -24,7 +24,8 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-3) unstable; urgency=medium
     https://docs.nvidia.com/datacenter/tesla/drivers/
 
   * Turn metapackages into transitional packages to aid switching to
-    nvidia-graphics-drivers-tesla-470.  (Closes: #1004852, #1005933)
+    nvidia-graphics-drivers-tesla-470.
+    (Closes: #1004852, #1005933, #1011145)
   * Provide less virtual packages.
   * Remove the Tesla 460 driver from the nvidia alternative.
 
