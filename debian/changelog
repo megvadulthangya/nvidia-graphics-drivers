@@ -213,17 +213,23 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
+nvidia-graphics-drivers-tesla-470 (470.129.06-2) unstable; urgency=medium
+
+  * Rebuild as Tesla 470 driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 24 May 2022 22:00:10 +0200
+
 nvidia-graphics-drivers (470.129.06-2) unstable; urgency=medium
 
   * Fix discrepancy between amd64 and i386 README.txt.  (Closes: #1011527)
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 24 May 2022 18:43:07 +0200
 
-nvidia-graphics-drivers (470.129.06-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.129.06-1) unstable; urgency=medium
 
   * New upstream production branch release 470.129.06 (2022-05-16).
     * Fixed CVE-2022-28181, CVE-2022-28183, CVE-2022-28184, CVE-2022-28185,
-      CVE-2022-28191, CVE-2022-28192.
+      CVE-2022-28191, CVE-2022-28192.  (Closes: #1011146)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5353
     - Added support for the following GPUs: GeForce RTX 3050,
       GeForce RTX 3070 Ti Laptop GPU, GeForce RTX 3080 Ti Laptop GPU,
@@ -294,6 +300,12 @@ nvidia-graphics-drivers (470.103.01-3) unstable; urgency=medium
   * nvidia-detect: Drop support for Tesla 460 drivers (EoL).
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Mar 2022 10:27:06 +0100
+
+nvidia-graphics-drivers-tesla-470 (470.103.01-2~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 21 Mar 2022 04:22:46 +0100
 
 nvidia-graphics-drivers-tesla-470 (470.103.01-2) unstable; urgency=medium
 
@@ -661,7 +673,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers (460.106.00-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-5) UNRELEASED; urgency=medium
 
   * Backport linker scripts changes from 510.60.02.
   * Refresh patches.
@@ -669,7 +681,7 @@ nvidia-graphics-drivers (460.106.00-5) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 23 May 2022 16:46:36 +0200
 
-nvidia-graphics-drivers (460.106.00-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-4) UNRELEASED; urgency=medium
 
   * Update 0003-fix-conftest-includes.patch to fix kernel module build for
     ppc64el.
@@ -679,7 +691,7 @@ nvidia-graphics-drivers (460.106.00-4) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Apr 2022 17:54:31 +0200
 
-nvidia-graphics-drivers (460.106.00-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-3) UNRELEASED; urgency=medium
 
   * The Tesla 460 driver series has been declared as End-of-Life by
     NVIDIA. No further updates fixing security issues, critical bugs, or
@@ -1114,10 +1126,10 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers (450.191.01-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.191.01-1) unstable; urgency=medium
 
   * New upstream Tesla release 450.191.01 (2022-05-16).
-    * Fixed CVE-2022-28181, CVE-2022-28185, CVE-2022-28192.
+    * Fixed CVE-2022-28181, CVE-2022-28185, CVE-2022-28192. (Closes: #1011144)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5353
 
   [ Andreas Beckmann ]
@@ -1126,22 +1138,28 @@ nvidia-graphics-drivers (450.191.01-1) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 May 2022 18:48:35 +0200
 
-nvidia-graphics-drivers (450.172.01-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.172.01-3) unstable; urgency=medium
 
   * Update 0003-fix-conftest-includes.patch to fix kernel module build for
     ppc64el.  (Closes: #976901)
   * Backport mt_device_gre changes from 510.39.01 to fix kernel module build
-    for arm64.
+    for arm64.  (Closes: #1009740)
   * Refresh patches.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 15 Apr 2022 22:28:22 +0200
 
+nvidia-graphics-drivers-tesla-450 (450.172.01-2~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 20 Mar 2022 16:53:36 +0100
+
 nvidia-graphics-drivers-tesla-450 (450.172.01-2) unstable; urgency=medium
 
-  * Backport pde_data changes from 470.103.01 to fix kernel module build for
-    Linux 5.17.
   * Add xorg-video-abi-25 (Xorg Xserver 21) as alternative dependency.
     (Closes: #1005932)
+  * Backport pde_data changes from 470.103.01 to fix kernel module build for
+    Linux 5.17.
   * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip building for -rt
     kernels, not supported upstream (510.54-1).
   * Declare Testsuite: autopkgtest-pkg-dkms (510.54-1).
@@ -2069,7 +2087,7 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
-nvidia-graphics-drivers (418.226.00-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-5) unstable; urgency=medium
 
   * Backport linker scripts changes from 510.60.02.
   * Refresh patches.
@@ -2077,14 +2095,14 @@ nvidia-graphics-drivers (418.226.00-5) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 May 2022 13:17:00 +0200
 
-nvidia-graphics-drivers (418.226.00-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-4) unstable; urgency=medium
 
   * Update 0003-fix-conftest-includes.patch to fix kernel module build for
     ppc64el.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 14 Apr 2022 16:03:48 +0200
 
-nvidia-graphics-drivers (418.226.00-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-3) unstable; urgency=medium
 
   * The Tesla 418 driver series has been declared as End-of-Life by
     NVIDIA. No further updates fixing security issues, critical bugs, or
