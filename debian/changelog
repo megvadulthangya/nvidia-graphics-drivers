@@ -1,3 +1,70 @@
+nvidia-graphics-drivers-tesla-510 (510.73.08-1) UNRELEASED; urgency=medium
+
+  * New upstream Tesla release 510.73.08 (2022-05-23).
+  * New upstream production branch release 510.73.05 (2022-05-16).
+    * Fixed CVE-2022-28181, CVE-2022-28183, CVE-2022-28184, CVE-2022-28185,
+      CVE-2022-28191, CVE-2022-28192.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5353
+    - Added a new configuration option for NVIDIA NGX to allow disabling the DSO
+      signature check. See the "NGX" chapter of the README for more information.
+  * New upstream production branch release 510.68.02 (2022-04-26).
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 25 May 2022 18:32:58 +0200
+
+nvidia-graphics-drivers (510.73.08-1) experimental; urgency=medium
+
+  * New upstream Tesla release 510.73.08 (2022-05-23).
+  * New upstream production branch release 510.73.05 (2022-05-16).
+    * Fixed CVE-2022-28181, CVE-2022-28183, CVE-2022-28184, CVE-2022-28185,
+      CVE-2022-28191, CVE-2022-28192.  (Closes: #1011140)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5353
+    - Added a new configuration option for NVIDIA NGX to allow disabling the DSO
+      signature check. See the "NGX" chapter of the README for more information.
+  * New upstream production branch release 510.68.02 (2022-04-26).
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update nv-readme.ids.
+  * Update symbols files.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 24 May 2022 22:32:57 +0200
+
+nvidia-graphics-drivers (510.60.02-1) experimental; urgency=medium
+
+  * New upstream production branch release 510.60.02 (2022-03-22).
+    - Added support for the following GPUs: NVIDIA RTX A4000H,
+      NVIDIA RTX A5500.
+    - Fixed a bug that could cause displays with HDMI or DisplayPort audio
+      to be deselected as the default audio output device after resuming
+      from suspend.
+    - Fixed a regression that could cause OpenGL applications to hang or
+      render incorrectly after suspend/resume cycles or VT-switches
+    - Fixed a bug, introduced in 495.29.05, that caused GPU "Model:" in
+      /proc/driver/nvidia/gpus/<Bus:Device.Function>/information to be
+      "Unknown" for some GPUs.
+
+  [ Luca Boccassi ]
+  * Update nv-readme.ids.
+  * Refresh use-kbuild-flags.patch.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Mar 2022 22:13:19 +0100
+
+nvidia-graphics-drivers (510.54-1) experimental; urgency=medium
+
+  * New upstream production branch release 510.54 (2022-02-14).
+    - Fixed a bug that could cause GPU exceptions when minimizing a fullscreen
+      Vulkan application on certain desktops, such as Plasma.
+
+  [ Andreas Beckmann ]
+  * Update nv-readme.ids.
+  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip building for -rt
+    kernels, not supported upstream.
+  * Declare Testsuite: autopkgtest-pkg-dkms.
+  * Disable building nvidia-cuda-mps, will be built from
+    src:nvidia-graphics-drivers-tesla-${latest}.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 02 Mar 2022 12:00:52 +0100
+
 nvidia-graphics-drivers-tesla-510 (510.47.03-3) experimental; urgency=medium
 
   * Build nvidia-cuda-mps from the latest Tesla driver.
@@ -78,13 +145,6 @@ nvidia-graphics-drivers (510.47.03-1) experimental; urgency=medium
   * New upstream release 495 series.
     - Fixed a bug in the Vulkan driver where some Ray Tracing shaders would
       timeout, resulting in device loss.
-  * New upstream release 470 series.
-    - Added an application profile to avoid an image corruption issue in
-      Blender, as described at https://developer.blender.org/T76874
-  * New upstream release 390 series.
-    - Fixed a driver installation failure on Linux kernel 5.17 release
-      candidates, where the NVIDIA kernel module failed to build with error
-      "implicit declaration of function 'PDE'".
 
   [ Andreas Beckmann ]
   * Refresh patches.
@@ -153,6 +213,88 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
+nvidia-graphics-drivers (470.129.06-2) unstable; urgency=medium
+
+  * Fix discrepancy between amd64 and i386 README.txt.  (Closes: #1011527)
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 24 May 2022 18:43:07 +0200
+
+nvidia-graphics-drivers (470.129.06-1) UNRELEASED; urgency=medium
+
+  * New upstream production branch release 470.129.06 (2022-05-16).
+    * Fixed CVE-2022-28181, CVE-2022-28183, CVE-2022-28184, CVE-2022-28185,
+      CVE-2022-28191, CVE-2022-28192.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5353
+    - Added support for the following GPUs: GeForce RTX 3050,
+      GeForce RTX 3070 Ti Laptop GPU, GeForce RTX 3080 Ti Laptop GPU,
+      GeForce RTX 3090 Ti, RTX A500 Laptop GPU, RTX A1000 Embedded GPU,
+      RTX A2000 Embedded GPU, RTX A1000 Laptop GPU, RTX A2000 8GB Laptop GPU,
+      RTX A3000 12GB Laptop GPU, RTX A4500 Embedded GPU, RTX A4500 Laptop GPU,
+      RTX A5500 Laptop GPU, T550 Laptop GPU.
+    - Fixed an issue where NvFBC was requesting Vulkan 1.0 while using
+      Vulkan 1.1 core features. This caused NvFBC to fail to initialize with
+      Vulkan loader versions 1.3.204 or newer.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 24 May 2022 04:51:58 +0200
+
+nvidia-graphics-drivers (470.129.06-1) unstable; urgency=medium
+
+  * New upstream production branch release 470.129.06 (2022-05-16).
+    * Fixed CVE-2022-28181, CVE-2022-28183, CVE-2022-28184, CVE-2022-28185,
+      CVE-2022-28191, CVE-2022-28192.  (Closes: #1011140)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5353
+    - Added support for the following GPUs: GeForce RTX 3050,
+      GeForce RTX 3070 Ti Laptop GPU, GeForce RTX 3080 Ti Laptop GPU,
+      GeForce RTX 3090 Ti, RTX A500 Laptop GPU, RTX A1000 Embedded GPU,
+      RTX A2000 Embedded GPU, RTX A1000 Laptop GPU, RTX A2000 8GB Laptop GPU,
+      RTX A3000 12GB Laptop GPU, RTX A4500 Embedded GPU, RTX A4500 Laptop GPU,
+      RTX A5500 Laptop GPU, T550 Laptop GPU.  (Closes: #1011183)
+    - Fixed an issue where NvFBC was requesting Vulkan 1.0 while using
+      Vulkan 1.1 core features. This caused NvFBC to fail to initialize with
+      Vulkan loader versions 1.3.204 or newer.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update nv-readme.ids.
+  * Import missing legacy IDs from the 510.* README.txt.
+    The Kepler notebook GPUs seem still supported by the 470.* driver.
+    (Closes: #1011245, #939447, #939067)
+  * Bump Standards-Version to 4.6.1. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 24 May 2022 02:51:40 +0200
+
+nvidia-graphics-drivers (470.103.01-4) unstable; urgency=medium
+
+  * Update 0003-fix-conftest-includes.patch to fix kernel module build for
+    ppc64el.
+  * Backport mt_device_gre changes from 510.39.01 to fix kernel module build
+    for arm64.
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 17 May 2022 14:21:14 +0200
+
+nvidia-graphics-drivers (470.103.01-3~deb11u2) bullseye; urgency=medium
+
+  * Re-enable building libnvidia-nvvm4.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 22 Mar 2022 13:38:53 +0100
+
+nvidia-graphics-drivers (470.103.01-3~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+  * Temporarily disable building libnvidia-nvvm4 to avoid NEW.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 20 Mar 2022 21:38:19 +0100
+
+nvidia-graphics-drivers (470.103.01-3) unstable; urgency=medium
+
+  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip building for -rt
+    kernels, not supported upstream (510.54-1).
+  * Declare Testsuite: autopkgtest-pkg-dkms (510.54-1).
+  * nvidia-detect: Drop support for Tesla 460 drivers (EoL).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Mar 2022 10:27:06 +0100
+
 nvidia-graphics-drivers-tesla-470 (470.103.01-2) unstable; urgency=medium
 
   * Add xorg-video-abi-25 (Xorg Xserver 21) as alternative dependency.
@@ -182,6 +324,8 @@ nvidia-graphics-drivers (470.103.01-1) unstable; urgency=medium
   * New upstream production branch release 470.103.01 (2022-01-31).
     * Fixed CVE‑2022‑21813, CVE‑2022‑21814.  (Closes: #1004847)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5312
+    - Added an application profile to avoid an image corruption issue in
+      Blender, as described at https://developer.blender.org/T76874
     - Added support for the following GPUs: NVIDIA GeForce MX550,
       NVIDIA GeForce MX570, NVIDIA GeForce RTX 2050.
 
@@ -517,6 +661,33 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
+nvidia-graphics-drivers (460.106.00-5) UNRELEASED; urgency=medium
+
+  * Backport linker scripts changes from 510.60.02.
+  * Refresh patches.
+  * Bump Standards-Version to 4.6.1. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 23 May 2022 16:46:36 +0200
+
+nvidia-graphics-drivers (460.106.00-4) UNRELEASED; urgency=medium
+
+  * Update 0003-fix-conftest-includes.patch to fix kernel module build for
+    ppc64el.
+  * Backport mt_device_gre changes from 510.39.01 to fix kernel module build
+    for arm64.
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Apr 2022 17:54:31 +0200
+
+nvidia-graphics-drivers (460.106.00-3) UNRELEASED; urgency=medium
+
+  * The Tesla 460 driver series has been declared as End-of-Life by
+    NVIDIA. No further updates fixing security issues, critical bugs, or
+    adding support for new Xorg or Linux releases will be issued.
+    https://docs.nvidia.com/datacenter/tesla/drivers/
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Mar 2022 15:24:04 +0100
+
 nvidia-graphics-drivers-tesla-460 (460.106.00-2) unstable; urgency=medium
 
   * Backport stdarg.h and stddef.h changes from 495.44 to fix kernel module
@@ -527,9 +698,9 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-2) unstable; urgency=medium
     /etc/modprobe.d/nvidia-options.conf as a template taking into account the
     module renaming. This is a slave alternative of the nvidia alternative
     (470.86-1).  (Closes: #999670)
-  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip build for -rt
-    kernels, not supported upstream.
-  * Declare Testsuite: autopkgtest-pkg-dkms.
+  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip building for -rt
+    kernels, not supported upstream (510.54-1).
+  * Declare Testsuite: autopkgtest-pkg-dkms (510.54-1).
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Mar 2022 21:31:18 +0100
 
@@ -943,15 +1114,37 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
+nvidia-graphics-drivers (450.191.01-1) UNRELEASED; urgency=medium
+
+  * New upstream Tesla release 450.191.01 (2022-05-16).
+    * Fixed CVE-2022-28181, CVE-2022-28185, CVE-2022-28192.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5353
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Bump Standards-Version to 4.6.1. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 22 May 2022 18:48:35 +0200
+
+nvidia-graphics-drivers (450.172.01-3) UNRELEASED; urgency=medium
+
+  * Update 0003-fix-conftest-includes.patch to fix kernel module build for
+    ppc64el.  (Closes: #976901)
+  * Backport mt_device_gre changes from 510.39.01 to fix kernel module build
+    for arm64.
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 15 Apr 2022 22:28:22 +0200
+
 nvidia-graphics-drivers-tesla-450 (450.172.01-2) unstable; urgency=medium
 
   * Backport pde_data changes from 470.103.01 to fix kernel module build for
     Linux 5.17.
   * Add xorg-video-abi-25 (Xorg Xserver 21) as alternative dependency.
     (Closes: #1005932)
-  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip build for -rt
-    kernels, not supported upstream.
-  * Declare Testsuite: autopkgtest-pkg-dkms.
+  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip building for -rt
+    kernels, not supported upstream (510.54-1).
+  * Declare Testsuite: autopkgtest-pkg-dkms (510.54-1).
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 28 Feb 2022 21:03:12 +0100
 
@@ -1876,6 +2069,34 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers (418.226.00-5) UNRELEASED; urgency=medium
+
+  * Backport linker scripts changes from 510.60.02.
+  * Refresh patches.
+  * Bump Standards-Version to 4.6.1. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 22 May 2022 13:17:00 +0200
+
+nvidia-graphics-drivers (418.226.00-4) UNRELEASED; urgency=medium
+
+  * Update 0003-fix-conftest-includes.patch to fix kernel module build for
+    ppc64el.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 14 Apr 2022 16:03:48 +0200
+
+nvidia-graphics-drivers (418.226.00-3) UNRELEASED; urgency=medium
+
+  * The Tesla 418 driver series has been declared as End-of-Life by
+    NVIDIA. No further updates fixing security issues, critical bugs, or
+    adding support for new Xorg or Linux releases will be issued.
+    https://docs.nvidia.com/datacenter/tesla/drivers/
+
+  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip building for -rt
+    kernels, not supported upstream (510.54-1).
+  * Declare Testsuite: autopkgtest-pkg-dkms (510.54-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 13 Apr 2022 18:44:57 +0200
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-2) unstable; urgency=medium
 
   * Backport stdarg.h and stddef.h changes from 495.44 to fix kernel module
@@ -2689,8 +2910,43 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
 
+nvidia-graphics-drivers (390.151-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy branch release 390.151 (2022-05-16).
+    * Fixed CVE-2022-28181, CVE-2022-28185.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5353
+    - Fixed a bug which prevented kernel modules linked from precompiled
+      kernel interface object files from being loaded on recent Linux
+      kernels. This affected custom packages which were prepared with
+      nvidia-installer's --add-this-kernel option, for example.
+    - Fixed a driver installation failure on Linux kernel 5.17 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "implicit declaration of function 'PDE'".
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Work around architecture misdetection when building the kernel modules in
+    an armhf environment on an arm64 host.  (Closes: #1010230)
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 19 May 2022 12:07:44 +0200
+
+nvidia-graphics-drivers (390.147-4) UNRELEASED; urgency=medium
+
+  * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip building for -rt
+    kernels, not supported upstream (510.54-1).
+  * Declare Testsuite: autopkgtest-pkg-dkms (510.54-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Apr 2022 20:59:01 +0200
+
+nvidia-graphics-drivers (390.147-3) UNRELEASED; urgency=medium
+
+  * Fix incomplete backport of pde_data changes from 470.103.01.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Feb 2022 22:35:21 +0100
+
 nvidia-graphics-drivers (390.147-2) UNRELEASED; urgency=medium
 
+  * Add xorg-video-abi-25 (Xorg Xserver 21) as alternative dependency.
   * Backport pde_data changes from 470.103.01 to fix kernel module build for
     Linux 5.17.
 
@@ -2714,6 +2970,18 @@ nvidia-graphics-drivers (390.144-2) UNRELEASED; urgency=medium
     to fix kernel module build for Linux 5.14.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Sep 2021 21:13:35 +0200
+
+nvidia-graphics-drivers (390.144-1~deb9u1) stretch-security; urgency=high
+
+  * Non-maintainer upload by the LTS team.
+  * Fix CVE-2021-1076, CVE-2021-1093, CVE-2021-1094, CVE-2021-1095
+    and CVE-2021-1056.  (Closes: #987216, #991351)
+    Multiple security vulnerabilities have been discovered in the
+    NVIDIA binary driver and libraries that provide optimized
+    hardware acceleration which may lead to denial of service,
+    information disclosure, or data corruption.
+
+ -- Markus Koschany <apo@debian.org>  Tue, 18 Jan 2022 18:50:56 +0100
 
 nvidia-graphics-drivers (390.144-1) UNRELEASED; urgency=medium
 

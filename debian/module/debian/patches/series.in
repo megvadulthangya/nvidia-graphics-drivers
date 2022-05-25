@@ -1,11 +1,11 @@
 # kernel support
 linux-2.6.34-dev_pm_info-runtime_auto.patch
+0003-fix-conftest-includes.patch
 
 # build system updates
 bashisms.patch
 use-kbuild-compiler.patch
 use-kbuild-flags.patch
-use-kbuild-gcc-plugins.patch
 conftest-verbose.patch
 cc_version_check-gcc5.patch
 nvidia-use-ARCH.o_binary.patch

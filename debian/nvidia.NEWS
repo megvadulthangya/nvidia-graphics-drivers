@@ -1,13 +1,17 @@
 nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
-  LEGACY GPUs: If you have a GRID K520, GeForce 710M/920M,
-  GeForce GT 630/635/640/640M/710/720/730/730M/740/740M/745M,
-  GeForce GTX 645/650/660/670/680/690/760/760M/770/780/870M,
-  GeForce GTX TITAN/TITAN Black/TITAN Z, NVS 510,
-  Quadro 410/K420/K600/K2000/K2000D/K4000/K4200/K5000/K5200/K6000,
-  Tesla K8/K10/K20/K40/K80, i.e., any GPU based on the GK104/GK104GL/GK104M,
-  GK106/GK106GL/GK106M, GK107/GK107GL/GK107M, GK110/GK110B/GK110BGL/GK110GL,
-  GK180GL, GK208/GK208B/GK208BM/GK208M, GK210GL chips or a variant thereof
+  LEGACY GPUs: If you have a GRID K520, GeForce 710A,
+  GeForce 710M/810M/820M/825M/910M/920M, GeForce GT 630/635/640/640M/645M,
+  GeForce GT 650M/710/720/720M/730/730M/730M/740/740M/745M/750M/755M,
+  GeForce GTX 645/650/660/660M/670/670MX/675MX/680/680M/680MX/690/760/760M,
+  GeForce GTX 765M/770/770M/775M/780/780M/860M/870M/880M,
+  GeForce GTX TITAN/TITAN Black/TITAN Z, NVS 510, Quadro 410/K420/K500M/K510M,
+  Quadro K600/K610M/K1000M/K1100M/K2000/K2000D/K2000M/K2100M/K3000M/K3100M,
+  Quadro K4000/K4000M/K4100M/K4200/K5000/K5000M/K5100M/K5200/K6000,
+  Tesla K8/K10/K20/K40/K80, i.e., any GPU based on the
+  GK104/GK104GL/GK104M/GK104GLM, GK106/GK106GL/GK106M/GK106GLM,
+  GK107/GK107GL/GK107M/GK107GLM, GK110/GK110B/GK110BGL/GK110GL, GK180GL,
+  GK208/GK208B/GK208BM/GK208M/GK208GLM, GK210GL chips or a variant thereof
   (that is anything from the Kepler architecture),
   DO NOT INSTALL THIS RELEASE!!!
   Use the nvidia-tesla-470-driver, nvidia-tesla-470-kernel-dkms
@@ -15,21 +19,23 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
-nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
+nvidia-graphics-drivers (460.106.00-3) unstable; urgency=medium
 
-  LEGACY GPUs: If you have a GeForce 710A/810M/820M/825M/910M,
-  GeForce GT 640M/645M/650M/720M/730M/735M/740M/745M/750M/755M,
-  GeForce GTX 660M/670MX/675MX/680M/680MX/765M/770M/775M/780M/860M/880M,
-  Quadro K500M/K510M/K610M/K1000M/K1100M/K2000M/K2100M/K3000M/K3100M,
-  Quadro K4000M/K4100M/K5000M/K5100M, i.e., any GPU based on the
-  GK104M/GK104GLM, GK106M/GK106GLM, GK107M/GK107GLM, GK208M/GK208BM/GK208GLM
-  chips or a variant thereof (that is any notebook GPU from the Kepler
-  architecture),
-  DO NOT INSTALL THIS RELEASE!!!
-  Use the nvidia-legacy-390xx-driver, nvidia-legacy-390xx-kernel-dkms
-  packages instead.
+  The Tesla 460 driver series has been declared as End-of-Life by
+  NVIDIA. No further updates fixing security issues, critical bugs, or
+  adding support for new Xorg or Linux releases will be issued.
+  https://docs.nvidia.com/datacenter/tesla/drivers/
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Mar 2022 15:24:04 +0100
+
+nvidia-graphics-drivers (418.226.00-3) unstable; urgency=medium
+
+  The Tesla 418 driver series has been declared as End-of-Life by
+  NVIDIA. No further updates fixing security issues, critical bugs, or
+  adding support for new Xorg or Linux releases will be issued.
+  https://docs.nvidia.com/datacenter/tesla/drivers/
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 13 Apr 2022 18:44:57 +0200
 
 nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 

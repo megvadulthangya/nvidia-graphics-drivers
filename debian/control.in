@@ -20,7 +20,7 @@ Build-Depends-Arch:
  xz-utils,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.6.0
+Standards-Version: 4.6.1
 Homepage: https://www.nvidia.com
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
@@ -635,7 +635,6 @@ Suggests:
  libegl-${nvidia-}0 [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
  | libegl-nvidia-tesla-510-0 [i386 amd64 arm64 ppc64el]
  | libegl-nvidia-tesla-470-0 [i386 amd64 arm64 ppc64el]
- | libegl-nvidia-tesla-460-0 [i386 amd64 arm64 ppc64el]
  | libegl-nvidia-tesla-450-0 [i386 amd64 arm64 ppc64el]
  | libegl-nvidia-tesla-418-0 [i386 amd64 ppc64el]
  | libegl-nvidia-legacy-390xx0 [i386 amd64 armhf],
@@ -707,7 +706,6 @@ Suggests:
  ${nvidia}-vulkan-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
  | nvidia-tesla-510-vulkan-icd [i386 amd64 arm64 ppc64el]
  | nvidia-tesla-470-vulkan-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-460-vulkan-icd [i386 amd64 arm64 ppc64el]
  | nvidia-tesla-450-vulkan-icd [i386 amd64 arm64 ppc64el]
  | nvidia-tesla-418-vulkan-icd [i386 amd64 ppc64el]
  | nvidia-legacy-390xx-vulkan-icd [i386 amd64],
@@ -1118,7 +1116,6 @@ Suggests:
  ${nvidia}-opencl-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
  | nvidia-tesla-510-opencl-icd [i386 amd64 arm64 ppc64el]
  | nvidia-tesla-470-opencl-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-460-opencl-icd [i386 amd64 arm64 ppc64el]
  | nvidia-tesla-450-opencl-icd [i386 amd64 arm64 ppc64el]
  | nvidia-tesla-418-opencl-icd [i386 amd64 ppc64el]
  | nvidia-legacy-390xx-opencl-icd [i386 amd64],
@@ -1198,6 +1195,5 @@ Description: NVIDIA GPU detection utility
  The 'nvidia-detect' script in this package checks for an NVIDIA GPU in the
  system and recommends one of the non-free accelerated driver meta-packages
  (nvidia-driver, nvidia-tesla-510-driver, nvidia-tesla-470-driver,
- nvidia-tesla-460-driver,
  nvidia-tesla-450-driver, nvidia-tesla-418-driver,
  or nvidia-legacy-390xx-driver) for installation.
