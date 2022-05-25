@@ -1,15 +1,15 @@
-nvidia-graphics-drivers-tesla-510 (510.73.08-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-510 (510.73.08-1) experimental; urgency=medium
 
   * New upstream Tesla release 510.73.08 (2022-05-23).
   * New upstream production branch release 510.73.05 (2022-05-16).
     * Fixed CVE-2022-28181, CVE-2022-28183, CVE-2022-28184, CVE-2022-28185,
-      CVE-2022-28191, CVE-2022-28192.
+      CVE-2022-28191, CVE-2022-28192.  (Closes: #1011147)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5353
     - Added a new configuration option for NVIDIA NGX to allow disabling the DSO
       signature check. See the "NGX" chapter of the README for more information.
   * New upstream production branch release 510.68.02 (2022-04-26).
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 25 May 2022 18:32:58 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 25 May 2022 21:14:43 +0200
 
 nvidia-graphics-drivers (510.73.08-1) experimental; urgency=medium
 
