@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-15) UNRELEASED; urgency=medium
+
+  * Switch to B-D: dh-dkms.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 01 Jun 2022 06:31:57 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.108-14) unstable; urgency=medium
 
   * dkms.conf: Use a BUILD_EXCLUSIVE equivalent hack to skip building for -rt
