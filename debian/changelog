@@ -1,3 +1,11 @@
+nvidia-graphics-drivers (510.73.08-2) experimental; urgency=medium
+
+  * Add nvidia-drm_gbm.so symlink.  (Closes: #1012514)
+  * nvidia-driver-libs: Recommend libnvidia-allocator1.
+  * libnvidia-allocator1: Recommend libnvidia-egl-gbm1.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 10 Jun 2022 00:43:27 +0200
+
 nvidia-graphics-drivers-tesla-510 (510.73.08-1) experimental; urgency=medium
 
   * New upstream Tesla release 510.73.08 (2022-05-23).
@@ -212,6 +220,18 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
+
+nvidia-graphics-drivers (470.129.06-4) unstable; urgency=medium
+
+  * Use different virtual packages for firmware file Conflicts and Depends.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 10 Jun 2022 00:03:45 +0200
+
+nvidia-graphics-drivers (470.129.06-3) unstable; urgency=medium
+
+  * Do not create backups when patching README.txt.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 26 May 2022 13:27:23 +0200
 
 nvidia-graphics-drivers-tesla-470 (470.129.06-2) unstable; urgency=medium
 

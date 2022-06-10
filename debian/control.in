@@ -109,7 +109,7 @@ Depends:
  ${misc:Depends}
 Provides:
  nvidia-kernel-support-any,
- ${nvidia}-kernel-support--v1,
+ ${nvidia}-kernel-support-${nvidia:Version},
  nvidia-firmware-${nvidia:Version},
 Conflicts:
  nvidia-firmware-${nvidia:Version},
@@ -128,8 +128,7 @@ Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
  dkms,
- nvidia-firmware-${nvidia:Version} [amd64],
- ${nvidia}-kernel-support--v1,
+ ${nvidia}-kernel-support-${nvidia:Version},
  ${misc:Depends}
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version})
@@ -294,6 +293,7 @@ Recommends:
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
  lib${nvidia}-encode1 (= ${binary:Version}),
  ${nvidia}-vulkan-icd (= ${binary:Version}),
+ lib${nvidia}-allocator1 (= ${binary:Version}),
 Provides:
  nvidia-driver-libs-any,
 Conflicts:
@@ -1086,6 +1086,8 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+ libnvidia-egl-gbm1,
 Description: NVIDIA allocator runtime library${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server

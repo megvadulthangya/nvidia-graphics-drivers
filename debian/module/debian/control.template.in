@@ -12,8 +12,7 @@ Package: #NVIDIA#-kernel-#KVERS#
 Architecture: #ARCH_LIST#
 Provides: #NVIDIA#-kernel-#VERSION#
 Depends:
- nvidia-firmware-#VERSION# [amd64],
- #NVIDIA#-kernel-support--v1,
+ #NVIDIA#-kernel-support-#VERSION#,
 Recommends: linux-image-#KVERS#
 Built-Using: ${built:using:kernel}, ${built:using:nvidia}
 Description: NVIDIA binary kernel module for Linux #KVERS#
