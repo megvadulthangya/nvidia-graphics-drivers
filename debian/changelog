@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-tesla-510 (510.73.08-2) unstable; urgency=medium
+
+  * Rebuild as Tesla 510 driver.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 10 Jun 2022 23:28:39 +0200
+
 nvidia-graphics-drivers (510.73.08-2) experimental; urgency=medium
 
   * Add nvidia-drm_gbm.so symlink.  (Closes: #1012514)
