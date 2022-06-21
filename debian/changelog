@@ -1,6 +1,10 @@
 nvidia-graphics-drivers-legacy-340xx (340.108-15) UNRELEASED; urgency=medium
 
+  * Backport pci/dma and acpi_bus_get_device changes from 470.129.06 to fix
+    kernel module build for Linux 5.18.  (Closes: #1012588)
   * Switch to B-D: dh-dkms.
+  * Bump Standards-Version to 4.6.1. No changes needed.
+  * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 01 Jun 2022 06:31:57 +0200
 

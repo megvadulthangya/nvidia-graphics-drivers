@@ -10,6 +10,7 @@ package-placeholder-in-symbols-file
 
 # only binary releases
 upstream-metadata-missing-repository
+very-long-line-length-in-source-file * > 512 [*/NVIDIA-Linux-*-*.run:*]
 
 # this package targets stretch
 package-uses-old-debhelper-compat-version 10

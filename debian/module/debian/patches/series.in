@@ -34,6 +34,8 @@ kernel-5.7.0-set-memory-array.patch
 0033-check-for-member-agp-in-struct-drm_device.patch
 0034-backport-stdarg.h-changes-from-470.82.00.patch
 0035-backport-pde_data-changes-from-470.103.01.patch
+0036-backport-pci-dma-changes-from-470.129.06.patch
+0037-backport-acpi_bus_get_device-changes-from-470.129.06.patch
 
 # build system updates
 separate-makefile-kbuild.patch
