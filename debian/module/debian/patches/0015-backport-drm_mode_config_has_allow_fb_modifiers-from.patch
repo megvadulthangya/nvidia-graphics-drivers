@@ -1,0 +1,86 @@
+From 7db17638bd5748092e42ed44c6b6cb12957438fd Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Mon, 20 Jun 2022 11:10:23 +0200
+Subject: [PATCH] backport drm_mode_config_has_allow_fb_modifiers from
+ 470.129.06
+
+---
+ conftest.sh                  | 28 ++++++++++++++++++++++++++++
+ nvidia-drm/nvidia-drm-drv.c  |  4 ++--
+ nvidia-drm/nvidia-drm.Kbuild |  1 +
+ 3 files changed, 31 insertions(+), 2 deletions(-)
+
+diff --git a/conftest.sh b/conftest.sh
+index d5243bc..14636e3 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -121,6 +121,7 @@ test_headers() {
+     FILES="$FILES drm/drm_file.h"
+     FILES="$FILES drm/drm_ioctl.h"
+     FILES="$FILES drm/drm_device.h"
++    FILES="$FILES drm/drm_mode_config.h"
+     FILES="$FILES dt-bindings/interconnect/tegra_icc_id.h"
+     FILES="$FILES generated/autoconf.h"
+     FILES="$FILES generated/compile.h"
+@@ -4592,6 +4593,33 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_DRM_DEVICE_HAS_PDEV" "" "types"
+         ;;
+ 
++        drm_mode_config_has_allow_fb_modifiers)
++            #
++            # Determine if the 'drm_mode_config' structure has
++            # an 'allow_fb_modifiers' field.
++            #
++            # an 'allow_fb_modifiers' field in the 'drm_mode_config' structure,
++            # is added by commit e3eb3250d84e ("drm: add support for
++            # tiled/compressed/etc modifier in addfb2") in v4.1, and removed by
++            # commit 3d082157a242 ("drm: remove allow_fb_modifiers") in v5.18-rc1.
++            #
++            # The 'struct drm_mode_config' definition, is moved to
++            # drm_mode_config.h file by commit 28575f165d36 ("drm: Extract
++            # drm_mode_config.[hc]") in v4.10.
++            #
++            CODE="$CONFTEST_PREAMBLE
++            #if defined(NV_DRM_DRM_MODE_CONFIG_H_PRESENT)
++            #include <drm/drm_mode_config.h>
++            #else
++            #include <drm/drm_crtc.h>
++            #endif
++            int conftest_drm_mode_config_has_allow_fb_modifiers(void) {
++                return offsetof(struct drm_mode_config, allow_fb_modifiers);
++            }"
++
++            compile_check_conftest "$CODE" "NV_DRM_MODE_CONFIG_HAS_ALLOW_FB_MODIFIERS" "" "types"
++        ;;
++
+         dma_set_coherent_mask)
+             #
+             # Determine if dma_set_coherent_mask is present
+diff --git a/nvidia-drm/nvidia-drm-drv.c b/nvidia-drm/nvidia-drm-drv.c
+index 0776be6..6d6a078 100644
+--- a/nvidia-drm/nvidia-drm-drv.c
++++ b/nvidia-drm/nvidia-drm-drv.c
+@@ -251,9 +251,9 @@ nv_drm_init_mode_config(struct nv_drm_device *nv_dev,
+     dev->mode_config.async_page_flip = false;
+ #endif
+ 
+-#if defined(NV_DRM_FORMAT_MODIFIERS_PRESENT)
++#if defined(NV_DRM_FORMAT_MODIFIERS_PRESENT) && \
++    defined(NV_DRM_MODE_CONFIG_HAS_ALLOW_FB_MODIFIERS)
+     /* Allow clients to define framebuffer layouts using DRM format modifiers */
+-
+     dev->mode_config.allow_fb_modifiers = true;
+ #endif
+ 
+diff --git a/nvidia-drm/nvidia-drm.Kbuild b/nvidia-drm/nvidia-drm.Kbuild
+index 24bd119..546cfa2 100644
+--- a/nvidia-drm/nvidia-drm.Kbuild
++++ b/nvidia-drm/nvidia-drm.Kbuild
+@@ -111,3 +111,4 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += drm_crtc_atomic_check_has_atomic_state_arg
+ NV_CONFTEST_TYPE_COMPILE_TESTS += drm_gem_object_vmap_has_map_arg
+ NV_CONFTEST_TYPE_COMPILE_TESTS += drm_plane_atomic_check_has_atomic_state_arg
+ NV_CONFTEST_TYPE_COMPILE_TESTS += drm_device_has_pdev
++NV_CONFTEST_TYPE_COMPILE_TESTS += drm_mode_config_has_allow_fb_modifiers
+-- 
+2.20.1
+

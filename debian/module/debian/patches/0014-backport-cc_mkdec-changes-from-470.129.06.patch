@@ -1,0 +1,85 @@
+From bfe1a3757667d6f2affdddaab48f03d53be4195a Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Mon, 20 Jun 2022 12:59:38 +0200
+Subject: [PATCH] backport cc_mkdec changes from 470.129.06
+
+---
+ common/inc/nv-linux.h |  7 +++++++
+ conftest.sh           | 20 ++++++++++++++++++++
+ nvidia/nvidia.Kbuild  |  1 +
+ 3 files changed, 28 insertions(+)
+
+diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
+index 135e9bc..cea6402 100644
+--- a/common/inc/nv-linux.h
++++ b/common/inc/nv-linux.h
+@@ -975,9 +975,16 @@ static inline pgprot_t nv_adjust_pgprot(pgprot_t vm_prot, NvU32 extra)
+     /*
+      * When AMD memory encryption is enabled, device memory mappings with the
+      * C-bit set read as 0xFF, so ensure the bit is cleared for user mappings.
++     *
++     * If cc_mkdec() is present, then pgprot_decrypted() can't be used.
+      */
++#if defined(NV_CC_MKDEC_PRESENT)
++    prot =  __pgprot(__sme_clr(pgprot_val(vm_prot)));
++#else
+     prot = pgprot_decrypted(prot);
+ #endif
++#endif
++
+     return prot;
+ }
+ 
+diff --git a/conftest.sh b/conftest.sh
+index 1620c14..d5243bc 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -161,6 +161,7 @@ test_headers() {
+     FILES="$FILES linux/dma-map-ops.h"
+     FILES="$FILES linux/stdarg.h"
+     FILES="$FILES linux/iosys-map.h"
++    FILES="$FILES asm/coco.h"
+ 
+     translate_and_preprocess_header_files $FILES
+ }
+@@ -4335,6 +4336,25 @@ compile_test() {
+ 
+         ;;
+ 
++        cc_mkdec)
++            #
++            # Determine if cc_mkdec() is present.
++            #
++            # cc_mkdec() by commit b577f542f93c ("x86/coco: Add API to handle
++            # encryption mask) in v5.18-rc1 (2022-02-22).
++            #
++            CODE="
++            #if defined(NV_ASM_COCO_H_PRESENT)
++            #include <asm/coco.h>
++            #endif
++
++            void conftest_cc_mkdec(void) {
++                cc_mkdec();
++            }"
++
++            compile_check_conftest "$CODE" "NV_CC_MKDEC_PRESENT" "" "functions"
++        ;;
++
+         drm_prime_pages_to_sg_has_drm_device_arg)
+             #
+             # Determine if drm_prime_pages_to_sg() has 'dev' argument.
+diff --git a/nvidia/nvidia.Kbuild b/nvidia/nvidia.Kbuild
+index 9694d1b..3ac70c5 100644
+--- a/nvidia/nvidia.Kbuild
++++ b/nvidia/nvidia.Kbuild
+@@ -160,6 +160,7 @@ NV_CONFTEST_FUNCTION_COMPILE_TESTS += hlist_for_each_entry
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += pci_enable_atomic_ops_to_root
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += vga_tryget
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += pgprot_decrypted
++NV_CONFTEST_FUNCTION_COMPILE_TESTS += cc_mkdec
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += iterate_fd
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += seq_read_iter
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += unsafe_follow_pfn
+-- 
+2.20.1
+

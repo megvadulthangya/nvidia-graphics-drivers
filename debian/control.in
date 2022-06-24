@@ -74,6 +74,7 @@ Depends:
  glx-alternative-nvidia (>= 1.2),
  ${misc:Depends}
 Provides:
+ nvidia-alternative-any,
  ${nvidia}-alternative--kmod-alias,
 Conflicts:
  libglvnd0-nvidia,
