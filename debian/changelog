@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-6) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-6) unstable; urgency=medium
 
   * Backport pci/dma, iosys_map, dma_set_coherent_mask, acpi_bus_get_device,
     cc_mkdec and drm_mode_config_has_allow_fb_modifiers changes from
