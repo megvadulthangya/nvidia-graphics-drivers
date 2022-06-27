@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-tesla-510 (510.73.08-3) UNRELEASED; urgency=medium
+
+  * Rebuild as Tesla 510 driver.
+  * Temporarily disable autopkgtest on ppc64el.  (Cf. #1012246)
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 27 Jun 2022 18:56:38 +0200
+
 nvidia-graphics-drivers (510.73.08-3) experimental; urgency=medium
 
   * Merge changes from 470.129.06-5.
@@ -227,6 +234,13 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
+
+nvidia-graphics-drivers-tesla-470 (470.129.06-5) unstable; urgency=medium
+
+  * Rebuild as Tesla 470 driver.
+  * Temporarily disable autopkgtest on ppc64el.  (Cf. #1012245)
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 26 Jun 2022 03:38:36 +0200
 
 nvidia-graphics-drivers (470.129.06-5) unstable; urgency=medium
 
@@ -718,7 +732,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers (460.106.00-6) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-6) UNRELEASED; urgency=medium
 
   * Backport pci/dma, iosys_map, dma_set_coherent_mask, acpi_bus_get_device,
     cc_mkdec and drm_mode_config_has_allow_fb_modifiers changes from
@@ -1180,11 +1194,11 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers (450.191.01-2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.191.01-2) unstable; urgency=medium
 
   * Backport pci/dma, iosys_map, dma_set_coherent_mask, acpi_bus_get_device
     and cc_mkdec changes from 470.129.06 to fix kernel module build for
-    Linux 5.18.
+    Linux 5.18.  (Closes: #1013130)
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 24 Jun 2022 10:28:25 +0200
@@ -2150,7 +2164,7 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
-nvidia-graphics-drivers (418.226.00-6) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-6) unstable; urgency=medium
 
   * Backport pci/dma, iosys_map, dma_set_coherent_mask and acpi_bus_get_device
     changes from 470.129.06 to fix kernel module build for Linux 5.18.
