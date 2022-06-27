@@ -11,6 +11,7 @@ Build-Depends:
  debhelper-compat (= 13),
 Build-Depends-Arch:
  dh-sequence-dkms,
+ dh-dkms (>= 3.0.3-4~),
  dh-exec,
  libnvidia-egl-wayland1,
  libvulkan1 (>= 1.0.42),
@@ -75,6 +76,7 @@ Depends:
  glx-alternative-nvidia (>= 1.2),
  ${misc:Depends}
 Provides:
+ nvidia-alternative-any,
  ${nvidia}-alternative--kmod-alias,
 Conflicts:
  libglvnd0-nvidia,
@@ -109,6 +111,7 @@ Depends:
  ${misc:Depends}
 Provides:
  nvidia-kernel-support-any,
+ ${nvidia}-kernel-support--v1,
  ${nvidia}-kernel-support-${nvidia:Version},
  nvidia-firmware-${nvidia:Version},
 Conflicts:
@@ -129,6 +132,7 @@ Pre-Depends:
 Depends:
  dkms,
  ${nvidia}-kernel-support-${nvidia:Version},
+ ${nvidia}-kernel-support--v1,
  ${misc:Depends}
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version})
