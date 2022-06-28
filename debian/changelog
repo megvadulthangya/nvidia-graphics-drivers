@@ -1,9 +1,9 @@
-nvidia-graphics-drivers-tesla-510 (510.73.08-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-510 (510.73.08-3) unstable; urgency=medium
 
   * Rebuild as Tesla 510 driver.
   * Temporarily disable autopkgtest on ppc64el.  (Cf. #1012246)
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 27 Jun 2022 18:56:38 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 28 Jun 2022 02:35:48 +0200
 
 nvidia-graphics-drivers (510.73.08-3) experimental; urgency=medium
 
