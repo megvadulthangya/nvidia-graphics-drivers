@@ -3,6 +3,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-6) unstable; urgency=medium
   * Backport pci/dma, iosys_map, dma_set_coherent_mask, acpi_bus_get_device,
     cc_mkdec and drm_mode_config_has_allow_fb_modifiers changes from
     470.129.06 to fix kernel module build for Linux 5.18.
+  * Minor packaging sync and cleanup (470.129.06-6).
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 24 Jun 2022 15:51:57 +0200
@@ -467,11 +468,18 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
+nvidia-graphics-drivers-tesla-450 (450.191.01-2~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Jul 2022 13:57:27 +0200
+
 nvidia-graphics-drivers-tesla-450 (450.191.01-2) unstable; urgency=medium
 
   * Backport pci/dma, iosys_map, dma_set_coherent_mask, acpi_bus_get_device
     and cc_mkdec changes from 470.129.06 to fix kernel module build for
     Linux 5.18.  (Closes: #1013130)
+  * Minor packaging sync and cleanup (470.129.06-6).
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 24 Jun 2022 10:28:25 +0200
@@ -1437,10 +1445,17 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.226.00-6~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Jul 2022 10:50:17 +0200
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-6) unstable; urgency=medium
 
   * Backport pci/dma, iosys_map, dma_set_coherent_mask and acpi_bus_get_device
     changes from 470.129.06 to fix kernel module build for Linux 5.18.
+  * Minor packaging sync and cleanup (470.129.06-6).
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 23 Jun 2022 14:36:25 +0200
