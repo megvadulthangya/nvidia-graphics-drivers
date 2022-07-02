@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla-460 (460.106.00-6~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Jul 2022 18:09:57 +0200
+
 nvidia-graphics-drivers-tesla-460 (460.106.00-6) unstable; urgency=medium
 
   * Backport pci/dma, iosys_map, dma_set_coherent_mask, acpi_bus_get_device,
