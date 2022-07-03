@@ -1,3 +1,12 @@
+nvidia-graphics-drivers-tesla-418 (418.226.00-3) unstable; urgency=medium
+
+  The Tesla 418 driver series has been declared as End-of-Life by
+  NVIDIA. No further updates fixing security issues, critical bugs, or
+  adding support for new Xorg or Linux releases will be issued.
+  https://docs.nvidia.com/datacenter/tesla/drivers/
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 13 Apr 2022 18:44:57 +0200
+
 nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 
   LEGACY GPUs: If you have a GeForce 410M/510/605/610M/705M/710M/810M/820M,
@@ -52,6 +61,15 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
   packages instead.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 14 Oct 2014 15:14:53 +0200
+
+nvidia-graphics-drivers (340.108-1) unstable; urgency=medium
+
+  The 340.xx legacy driver series has been declared as End-of-Life by
+  NVIDIA. No further updates fixing security issues, critical bugs, or
+  adding support for new Xorg or Linux releases will be issued.
+  https://nvidia.custhelp.com/app/answers/detail/a_id/3142
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 06 Jan 2020 13:56:19 +0100
 
 nvidia-graphics-drivers (310.14-1) unstable; urgency=low
 

@@ -5,7 +5,7 @@ hardening-no-fortify-functions
 hardening-no-relro
 
 # Use wildcard instead of exact path substitution, this is a M-A: same package.
-embedded-library usr/lib*/libnvidia-fatbinaryloader.so.#VERSION#: zlib
+embedded-library zlib [usr/lib*/libnvidia-fatbinaryloader.so.#VERSION#]
 
 # The libnvidia-fatbinaryloader.so.* SONAME changes with every upstream
 # release.

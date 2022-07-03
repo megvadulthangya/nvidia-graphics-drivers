@@ -1,0 +1,148 @@
+From 15d59c7572901ea2a4314803871c1873fced37be Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Mon, 20 Jun 2022 10:14:54 +0200
+Subject: [PATCH 1/2] backport pci/dma changes from 470.129.06
+
+---
+ nvidia/nv-dma.c | 20 ++++++++++----------
+ nvidia/nv-vm.c  |  2 +-
+ nvidia/nv.c     | 16 ++++++++--------
+ 3 files changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/nvidia/nv-dma.c b/nvidia/nv-dma.c
+index cd1ad08..129b520 100644
+--- a/nvidia/nv-dma.c
++++ b/nvidia/nv-dma.c
+@@ -27,9 +27,9 @@ static NV_STATUS nv_dma_map_contig(
+     NvU64 *va
+ )
+ {
+-    *va = pci_map_page(dma_map->dev, dma_map->pages[0], 0,
+-            dma_map->page_count * PAGE_SIZE, PCI_DMA_BIDIRECTIONAL);
+-    if (NV_PCI_DMA_MAPPING_ERROR(dma_map->dev, *va))
++    *va = dma_map_page(&dma_map->dev->dev, dma_map->pages[0], 0,
++            dma_map->page_count * PAGE_SIZE, DMA_BIDIRECTIONAL);
++    if (dma_mapping_error(&dma_map->dev->dev, *va))
+     {
+         return NV_ERR_OPERATING_SYSTEM;
+     }
+@@ -57,8 +57,8 @@ static NV_STATUS nv_dma_map_contig(
+ 
+ static void nv_dma_unmap_contig(nv_dma_map_t *dma_map)
+ {
+-    pci_unmap_page(dma_map->dev, dma_map->mapping.contig.dma_addr,
+-            dma_map->page_count * PAGE_SIZE, PCI_DMA_BIDIRECTIONAL);
++    dma_unmap_page(&dma_map->dev->dev, dma_map->mapping.contig.dma_addr,
++            dma_map->page_count * PAGE_SIZE, DMA_BIDIRECTIONAL);
+ }
+ 
+ static void nv_fill_scatterlist
+@@ -166,10 +166,10 @@ NV_STATUS nv_map_dma_map_scatterlist(nv_dma_map_t *dma_map)
+ 
+     NV_FOR_EACH_DMA_SUBMAP(dma_map, submap, i)
+     {
+-        submap->sg_map_count = pci_map_sg(dma_map->dev,
++        submap->sg_map_count = dma_map_sg(&dma_map->dev->dev,
+                 NV_DMA_SUBMAP_SCATTERLIST(submap),
+                 NV_DMA_SUBMAP_SCATTERLIST_LENGTH(submap),
+-                PCI_DMA_BIDIRECTIONAL);
++                DMA_BIDIRECTIONAL);
+         if (submap->sg_map_count == 0)
+         {
+             status = NV_ERR_OPERATING_SYSTEM;
+@@ -197,9 +197,9 @@ void nv_unmap_dma_map_scatterlist(nv_dma_map_t *dma_map)
+             break;
+         }
+ 
+-        pci_unmap_sg(dma_map->dev, NV_DMA_SUBMAP_SCATTERLIST(submap),
++        dma_unmap_sg(&dma_map->dev->dev, NV_DMA_SUBMAP_SCATTERLIST(submap),
+                 NV_DMA_SUBMAP_SCATTERLIST_LENGTH(submap),
+-                PCI_DMA_BIDIRECTIONAL);
++                DMA_BIDIRECTIONAL);
+     }
+ }
+ 
+@@ -236,7 +236,7 @@ void nv_load_dma_map_scatterlist(
+         NV_FOR_EACH_DMA_SUBMAP_SG(submap, sg, j)
+         {
+             /*
+-             * It is possible for pci_map_sg() to merge scatterlist entries, so
++             * It is possible for dma_map_sg() to merge scatterlist entries, so
+              * make sure we account for that here.
+              */
+             for (sg_addr = sg_dma_address(sg), sg_len = sg_dma_len(sg),
+diff --git a/nvidia/nv-vm.c b/nvidia/nv-vm.c
+index dccf59c..6cd9f1a 100644
+--- a/nvidia/nv-vm.c
++++ b/nvidia/nv-vm.c
+@@ -360,7 +360,7 @@ static unsigned int nv_compute_gfp_mask(
+  * NV_GET_FREE_PAGES may not be machine contiguous when size is more than 
+  * 1 page. nv_alloc_coherent_pages() will give us machine contiguous memory.
+  * Even though we get dma_address directly in this function, we will 
+- * still call pci_map_page() later to get dma address. This is fine as it 
++ * still call dma_map_page() later to get dma address. This is fine as it 
+  * will return the same machine address.
+  */
+ static NV_STATUS nv_alloc_coherent_pages(
+diff --git a/nvidia/nv.c b/nvidia/nv.c
+index 14239c5..8a51f1c 100644
+--- a/nvidia/nv.c
++++ b/nvidia/nv.c
+@@ -2964,7 +2964,7 @@ nv_set_dma_address_size(
+     if (!nvl->tce_bypass_enabled)
+     {
+         NvU64 new_mask = (((NvU64)1) << phys_addr_bits) - 1;
+-        pci_set_dma_mask(nvl->dev, new_mask);
++        dma_set_mask(&nvl->dev->dev, new_mask);
+         /* Certain kernels have a bug which causes pci_set_consistent_dma_mask
+          * to call GPL sme_active symbol, this bug has already been fixed in a
+          * minor release update but detect the failure scenario here to prevent
+@@ -4805,7 +4805,7 @@ NvU64 NV_API_CALL nv_get_dma_start_address(
+      * Otherwise, the DMA start address only needs to be set once, and it
+      * won't change afterward. Just return the cached value if asked again,
+      * to avoid the kernel printing redundant messages to the kernel
+-     * log when we call pci_set_dma_mask().
++     * log when we call dma_set_mask().
+      */
+     nvl = NV_GET_NVL_FROM_NV_STATE(nv);
+     if ((nv_tce_bypass_mode == NV_TCE_BYPASS_MODE_DISABLE) ||
+@@ -4861,14 +4861,14 @@ NvU64 NV_API_CALL nv_get_dma_start_address(
+         goto done;
+     }
+ 
+-    dma_addr = pci_map_single(dev, NULL, 1, DMA_BIDIRECTIONAL);
+-    if (pci_dma_mapping_error(dev, dma_addr))
++    dma_addr = dma_map_single(&dev->dev, NULL, 1, DMA_BIDIRECTIONAL);
++    if (dma_mapping_error(&dev->dev, dma_addr))
+     {
+-        pci_set_dma_mask(dev, saved_dma_mask);
++        dma_set_mask(&dev->dev, saved_dma_mask);
+         goto done;
+     }
+ 
+-    pci_unmap_single(dev, dma_addr, 1, DMA_BIDIRECTIONAL);
++    dma_unmap_single(&dev->dev, dma_addr, 1, DMA_BIDIRECTIONAL);
+ 
+     /*
+      * From IBM: "For IODA2, native DMA bypass or KVM TCE-based implementation
+@@ -4900,7 +4900,7 @@ NvU64 NV_API_CALL nv_get_dma_start_address(
+          */
+         nv_printf(NV_DBG_WARNINGS,
+             "NVRM: DMA window limited by platform\n");
+-        pci_set_dma_mask(dev, saved_dma_mask);
++        dma_set_mask(&dev->dev, saved_dma_mask);
+         goto done;
+     }
+     else if ((dma_addr & saved_dma_mask) != 0)
+@@ -4919,7 +4919,7 @@ NvU64 NV_API_CALL nv_get_dma_start_address(
+              */
+             nv_printf(NV_DBG_WARNINGS,
+                 "NVRM: DMA window limited by memory size\n");
+-            pci_set_dma_mask(dev, saved_dma_mask);
++            dma_set_mask(&dev->dev, saved_dma_mask);
+             goto done;
+         }
+     }
+-- 
+2.20.1
+

@@ -1,0 +1,62 @@
+From d94dcd9745e93373155b44954c6d52c7c9362914 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Mon, 20 Jun 2022 10:14:54 +0200
+Subject: [PATCH 2/2] backport pci/dma changes from 470.129.06 (uvm part)
+
+---
+ nvidia-uvm/uvm8_gpu.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/nvidia-uvm/uvm8_gpu.c b/nvidia-uvm/uvm8_gpu.c
+index cda670a..02dbc4d 100644
+--- a/nvidia-uvm/uvm8_gpu.c
++++ b/nvidia-uvm/uvm8_gpu.c
+@@ -1627,7 +1627,7 @@ static NV_STATUS discover_nvlink_peers(uvm_gpu_t *gpu)
+             continue;
+ 
+         // Indirect peers are only supported when onlined as NUMA nodes, because
+-        // we want to use vm_insert_page and pci_map_page.
++        // we want to use vm_insert_page and dma_map_page.
+         if (p2p_caps_params.indirectAccess && (!gpu->numa_info.enabled || !other_gpu->numa_info.enabled))
+             continue;
+ 
+@@ -2316,15 +2316,15 @@ void uvm_processor_uuid_from_id(NvProcessorUuid *uuid, uvm_processor_id_t id)
+ 
+ NV_STATUS uvm_gpu_map_cpu_pages(uvm_gpu_t *gpu, struct page *page, size_t size, NvU64 *dma_addr_out)
+ {
+-    NvU64 dma_addr = pci_map_page(gpu->pci_dev, page, 0, size, PCI_DMA_BIDIRECTIONAL);
++    NvU64 dma_addr = dma_map_page(&gpu->pci_dev->dev, page, 0, size, DMA_BIDIRECTIONAL);
+ 
+     UVM_ASSERT(PAGE_ALIGNED(size));
+ 
+-    if (NV_PCI_DMA_MAPPING_ERROR(gpu->pci_dev, dma_addr))
++    if (dma_mapping_error(&gpu->pci_dev->dev, dma_addr))
+         return NV_ERR_OPERATING_SYSTEM;
+ 
+     if (dma_addr < gpu->dma_addressable_start || dma_addr + size - 1 > gpu->dma_addressable_limit) {
+-        pci_unmap_page(gpu->pci_dev, dma_addr, size, PCI_DMA_BIDIRECTIONAL);
++        dma_unmap_page(&gpu->pci_dev->dev, dma_addr, size, DMA_BIDIRECTIONAL);
+         UVM_ERR_PRINT_RL("PCI mapped range [0x%llx, 0x%llx) not in the addressable range [0x%llx, 0x%llx), GPU %s\n",
+                          dma_addr,
+                          dma_addr + (NvU64)size,
+@@ -2339,7 +2339,7 @@ NV_STATUS uvm_gpu_map_cpu_pages(uvm_gpu_t *gpu, struct page *page, size_t size,
+     // The GPU has its NV_PFB_XV_UPPER_ADDR register set by RM to
+     // dma_addressable_start (in bifSetupDmaWindow_IMPL()) and hence when
+     // referencing sysmem from the GPU, dma_addressable_start should be
+-    // subtracted from the DMA address we get from pci_map_page().
++    // subtracted from the DMA address we get from dma_map_page().
+     dma_addr -= gpu->dma_addressable_start;
+ 
+     // See Bug 1920398 for background and details about NVLink DMA address
+@@ -2358,7 +2358,7 @@ void uvm_gpu_unmap_cpu_pages(uvm_gpu_t *gpu, NvU64 dma_address, size_t size)
+     if (gpu->npu)
+         dma_address = nv_expand_nvlink_addr(dma_address);
+     dma_address += gpu->dma_addressable_start;
+-    pci_unmap_page(gpu->pci_dev, dma_address, size, PCI_DMA_BIDIRECTIONAL);
++    dma_unmap_page(&gpu->pci_dev->dev, dma_address, size, DMA_BIDIRECTIONAL);
+     atomic64_sub(size, &gpu->mapped_cpu_pages_size);
+ }
+ 
+-- 
+2.20.1
+

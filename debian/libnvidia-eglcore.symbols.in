@@ -1,4 +1,4 @@
-libnvidia-eglcore.so.#VERSION# #PACKAGE# #MINVER#
+libnvidia-eglcore.so.#VERSION# libnvidia-eglcore-#VERSION#, #PACKAGE# #MINVER#
  NvGlEglApiInit@Base 390
  NvGlEglGetFunctions@Base 331
  _glAccum@Base 346
@@ -2584,5 +2584,5 @@ libnvidia-eglcore.so.#VERSION# #PACKAGE# #MINVER#
  _glWindowPos3sv@Base 346
  _glWindowPos3svARB@Base 346
  _glWindowRectanglesEXT@Base 375.26
-libnvidia-glsi.so.#VERSION# #PACKAGE# #MINVER#
+libnvidia-glsi.so.#VERSION# libnvidia-eglcore-#VERSION#, #PACKAGE# #MINVER#
  (regex)"^_nv\d*glsi@Base$" 0

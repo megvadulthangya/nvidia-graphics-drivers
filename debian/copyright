@@ -13,14 +13,16 @@ Disclaimer:
  software license.  No modifications of the included binaries are
  permitted, and the binaries are not distributed with source code.
 
-Files: *
+Files:
+ amd64/*
+ ppc64el/*
 Copyright: 1993-2021 NVIDIA Corporation.  All rights reserved.
 License: NVIDIA-graphics-drivers
 
 Files: debian/*
 Copyright: 2001-2010 Randall Donald <rdonald@debian.org>
            2009-2010 Andres Mejia <mcitadel@gmail.com>
-           2009-2021 Andreas Beckmann <anbe@debian.org>
+           2009-2022 Andreas Beckmann <anbe@debian.org>
            2010-2011 Russ Allbery <rra@debian.org>
            2014-2015 Vincent Cheng <vcheng@debian.org>
            2015-2019 Luca Boccassi <bluca@debian.org>
