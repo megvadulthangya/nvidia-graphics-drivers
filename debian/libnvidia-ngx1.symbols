@@ -12,6 +12,7 @@ libnvidia-ngx.so.1 #PACKAGE# #MINVER#
  NVSDK_NGX_CUDA_ReleaseFeature@Base 450
  NVSDK_NGX_CUDA_Shutdown@Base 450
  NVSDK_NGX_VULKAN_AllocateParameters@Base 455
+ NVSDK_NGX_VULKAN_CreateFeature1@Base 470
  NVSDK_NGX_VULKAN_CreateFeature@Base 450
  NVSDK_NGX_VULKAN_DestroyParameters@Base 455
  NVSDK_NGX_VULKAN_EvaluateFeature@Base 450
@@ -22,4 +23,5 @@ libnvidia-ngx.so.1 #PACKAGE# #MINVER#
  NVSDK_NGX_VULKAN_Init_Ext@Base 450
  NVSDK_NGX_VULKAN_ReleaseFeature@Base 450
  NVSDK_NGX_VULKAN_RequiredExtensions@Base 450
+ NVSDK_NGX_VULKAN_Shutdown1@Base 470
  NVSDK_NGX_VULKAN_Shutdown@Base 450

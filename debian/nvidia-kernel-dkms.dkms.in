@@ -1,8 +1,11 @@
 # DKMS configuration for the NVIDIA kernel module.  -*- sh -*-
 
-# The version is replaced at build time by dh_dkms invoked in debian/rules.
 PACKAGE_NAME="#MODULE#"
 PACKAGE_VERSION="#VERSION#"
+
+# The NVIDIA driver does not support real-time kernels.
+# Can't easily set this via BUILD_EXCLUSIVE.
+[[ "$kernelver" =~ "-rt-" ]] && build_exclude="yes"
 
 AUTOINSTALL=yes
 PATCH=(#MODULE_PATCHES#)
@@ -23,6 +26,10 @@ BUILT_MODULE_NAME[2]="nvidia-drm"
 DEST_MODULE_NAME[2]="$PACKAGE_NAME-drm"
 DEST_MODULE_LOCATION[2]="/updates/dkms"
 
-#HAS_UVM#BUILT_MODULE_NAME[3]="nvidia-uvm"
-#HAS_UVM#DEST_MODULE_NAME[3]="$PACKAGE_NAME-uvm"
-#HAS_UVM#DEST_MODULE_LOCATION[3]="/updates/dkms"
+BUILT_MODULE_NAME[3]="nvidia-uvm"
+DEST_MODULE_NAME[3]="$PACKAGE_NAME-uvm"
+DEST_MODULE_LOCATION[3]="/updates/dkms"
+
+BUILT_MODULE_NAME[4]="nvidia-peermem"
+DEST_MODULE_NAME[4]="$PACKAGE_NAME-peermem"
+DEST_MODULE_LOCATION[4]="/updates/dkms"

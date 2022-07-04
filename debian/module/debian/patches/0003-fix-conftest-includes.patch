@@ -1,0 +1,72 @@
+From b96e30d78b8b445ada6180a7b4e23aa491341eca Mon Sep 17 00:00:00 2001
+From: Jiri Palecek <jpalecek@web.de>
+Date: Sat, 16 May 2020 02:02:43 +0200
+Subject: [PATCH] fix conftest includes
+
+I was trying to test nvidia drivers with the new kernel in experimental
+5.7.0-rc5-686-pae. In the build log, I noticed it failed due to missing
+functions set_memory_array_wb and friends. However, the code seemed to
+be prepared for that possibility, so the problem must be the conftest.
+
+I checked the output from the compilation checks and found some are
+failing for the wrong reason, which causes some functions to be wrongly
+detected as present (!) and some wrongly detected as missing. This would
+probably apply to the other branches of nvidia drivers as well. I
+prepared a patch for this, some comments:
+
+- asm/page.h and asm/pgtable.h are needed for the pgprop_t type. Some
+  arches have here, some have it there. Otherwise the compilation
+  wrongly fails and detects the functions as present
+
+I checked that these files were present in the linux kernel since
+2.6.39, but haven't tested compilation with such old kernels. It
+should, however, work.
+
+Bug-Debian: https://bugs.debian.org/960735
+---
+ conftest.sh | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/conftest.sh b/conftest.sh
+index 31f8f16..ffec4c2 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -510,6 +510,8 @@ compile_test() {
+             # It does not exist on all architectures.
+             #
+             CODE="
++            #include <asm/page.h>
++            #include <asm/pgtable.h>
+             #if defined(NV_ASM_SET_MEMORY_H_PRESENT)
+             #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
+             #include <asm/pgtable_types.h>
+@@ -531,6 +533,8 @@ compile_test() {
+             # It does not exist on all architectures.
+             #
+             CODE="
++            #include <asm/page.h>
++            #include <asm/pgtable.h>
+             #if defined(NV_ASM_SET_MEMORY_H_PRESENT)
+             #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
+             #include <asm/pgtable_types.h>
+@@ -587,6 +591,8 @@ compile_test() {
+             # It does not exist on all architectures.
+             #
+             CODE="
++            #include <asm/page.h>
++            #include <asm/pgtable.h>
+             #if defined(NV_ASM_SET_MEMORY_H_PRESENT)
+             #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
+             #include <asm/pgtable_types.h>
+@@ -613,6 +619,8 @@ compile_test() {
+             # 19 14:51:15 2009)
+             #
+             CODE="
++            #include <asm/page.h>
++            #include <asm/pgtable.h>
+             #if defined(NV_ASM_SET_MEMORY_H_PRESENT)
+             #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
+             #include <asm/pgtable_types.h>
+-- 
+2.20.1
+

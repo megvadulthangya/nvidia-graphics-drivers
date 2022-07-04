@@ -11,6 +11,7 @@ NVIDIA_TESLA		?=
 NVIDIA_LEGACY		?=
 WATCH_VERSION		?= $(or $(NVIDIA_TESLA),$(NVIDIA_LEGACY))
 WATCH_PATTERN		?=
+GIT_BRANCH		?= $(if $(variant),$(variant)/master)
 XORG_ABI_LIST		?=
 XORG_BOUND		?=
 LINUX_KMOD_TESTED	?=
@@ -20,7 +21,7 @@ ARCH_CANDIDATES		?= amd64 i386 armhf arm64 ppc64el
 ARCH_LIST		?= amd64
 BLOB_ARCH_LIST		?= $(strip $(DEB_HOST_ARCH) $(ARCH_DEPS_$(DEB_HOST_ARCH)))
 NO_DRIVER_ARCH_LIST	?=
-NO_UVM_ARCH_LIST	?=
+NO_AUTOPKGTEST_ARCH_LIST?=
 NO_VULKAN_ARCH_LIST	?=
 
 NVIDIA_RELEASE		 = $(DEB_VERSION_UPSTREAM)
@@ -47,15 +48,16 @@ watch_pattern		 = $(or $(WATCH_PATTERN),$(if $(WATCH_VERSION),$(WATCH_VERSION)(?
 standards_version	:= $(shell sed -rn 's/Standards-Version: (.*)/\1/p' debian/control)
 debhelper_compat	:= $(shell sed -rn 's/.*debhelper-compat \(= ([0-9]+)\).*/\1/p' debian/control)
 has_driver		 = $(filter $(DEB_HOST_ARCH),$(filter-out $(NO_DRIVER_ARCH_LIST),$(ARCH_LIST)))
-has_uvm			 = $(filter $(DEB_HOST_ARCH),$(filter-out $(NO_UVM_ARCH_LIST),$(ARCH_LIST)))
 has_vulkan		 = $(filter $(DEB_HOST_ARCH),$(filter-out $(NO_VULKAN_ARCH_LIST),$(ARCH_LIST)))
 DRIVER_ARCH_LIST	 = $(filter-out $(NO_DRIVER_ARCH_LIST),$(ARCH_LIST))
+AUTOPKGTEST_ARCH_LIST	 = $(filter-out $(NO_AUTOPKGTEST_ARCH_LIST),$(DRIVER_ARCH_LIST))
 
 # this needs the internal names (i.e. upstream's names, not our renamed files)
 unload_modules		 =
 unload_modules		+= nvidia-drm
 unload_modules		+= nvidia-modeset
-unload_modules		+= $(if $(has_uvm),nvidia-uvm)
+unload_modules		+= nvidia-peermem
+unload_modules		+= nvidia-uvm
 unload_modules		+= nvidia
 
 # system libdir
@@ -67,7 +69,6 @@ CONTROL_PREFIXES	 = nvidia-driver nvidia-kernel nvidia-alternative xserver-xorg-
 CONTROL_PREFIXES	+= libnvidia
 CONTROL_PREFIXES	+= libgl1-nvidia
 CONTROL_PREFIXES	+= libglx-nvidia0
-CONTROL_PREFIXES	+= libegl1-nvidia
 CONTROL_PREFIXES	+= libegl-nvidia0
 CONTROL_PREFIXES	+= libgles-nvidia1 libgles-nvidia2
 CONTROL_PREFIXES	+= nvidia-vdpau-driver
@@ -91,7 +92,7 @@ ALL_CONTROL	:= $(wildcard $(patsubst %,debian/%*,$(CONTROL_PREFIXES)))
 LEGACY_CONTROL	:= $(wildcard $(patsubst %,debian/%*,$(CONTROL_PREFIXES_RENAMED)))
 RENAME_CONTROL	 = $(filter-out $(LEGACY_CONTROL),$(ALL_CONTROL))
 RENAMED_CONTROL	 = $(foreach f,$(RENAME_CONTROL),$(call applyprefixrenamelist,$f,$(CONTROL_PREFIXES)))
-TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/module/debian/patches/*.in debian/detect/*.in)
+TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/module/debian/patches/*.in debian/detect/*.in debian/tests/*.in)
 AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
 AUTOGEN		+= debian/module/debian/changelog
 AUTOGEN		+= debian/module/debian/bug-control
@@ -100,7 +101,9 @@ AUTOGEN		+= debian/bug-control
 AUTOGEN		+= debian/substvars
 AUTOGEN		+= $(if $(has_vulkan),nonglvnd/nvidia_icd.json)
 AUTOGEN		+= $(AUTOKEEP)
-AUTOKEEP	 = debian/watch debian/control
+AUTOKEEP	 = debian/watch
+AUTOKEEP	+= debian/tests/autopkgtest-pkg-dkms.conf
+AUTOKEEP	+= debian/control
 AUTOCLEAN	 = $(filter-out $(AUTOKEEP),$(AUTOGEN))
 
 empty		 =
@@ -123,6 +126,7 @@ NVIDIA-Linux-%:
 	sh $*/${NVIDIA_FILENAME_$*} --extract-only
 	ln -s ${NVIDIA_DIRNAME_$*} $@
 	gunzip $@/*.1.gz
+	patch --no-backup-if-mismatch $@/README.txt < debian/patches/legacy-470.patch
 
 ifneq (,$(filter i386,$(NO_DRIVER_ARCH_LIST)))
 NVIDIA-Linux-i386: NVIDIA-Linux-amd64
@@ -155,6 +159,7 @@ unpack-stamp: $(patsubst %,NVIDIA-Linux-%,$(ARCH_LIST))
 	ln -s NVIDIA-Linux-$(DEB_HOST_ARCH) NVIDIA-Linux
 ifneq (,$(has_driver))
 	QUILT_PATCHES=debian/patches QUILT_SERIES=series-postunpack quilt --quiltrc /dev/null push -a || test $$? = 2
+	sed -i 's/==/=/g' NVIDIA-Linux/nvidia-bug-report.sh
 endif
 	ls -al
 	touch $@
@@ -166,9 +171,7 @@ nonglvnd/nvidia_icd.json: $(nvidia_icd.json.template)
 	sed 's/libGLX_nvidia.so.0/libGL.so.1/' $< > $@
 
 nv-readme.ids: unpack-stamp
-	sed -r	-e '0,/A. Supported|APPENDIX A: SUPPORTED/d' \
-		-e '0,/Appendix A. Supported|APPENDIX A: SUPPORTED/d' \
-		-e '0,/^Below|APPENDIX B/{/ 0x/s/.*  0x([0-9a-fA-F]{4}).*/10de\1/p; /^(.{41}|.{49}) [0-9a-fA-F]{4} /s/^(.{41}|.{49}) ([0-9a-fA-F]{4}) .*/10de\2/p};d' \
+	sed -r -n '/^Chapter [0-9]+\. GSP Firmware|^A1\. CURRENT NVIDIA GPUS|^A1\. NVIDIA GEFORCE GPUS/,/^Chapter|^Appendix|^Below/ s/^(.{41}|.{49}) ([0-9a-fA-F]{4})($$| .*)/10de\2/p' \
 		NVIDIA-Linux/README.txt \
 		| tr a-f A-F | sort -u > $@
 	@set -e -x ; \
@@ -231,6 +234,9 @@ build-stamp: unpack-stamp
 	cp -al NVIDIA-Linux-amd64/NVIDIA_Changelog build/
 	$(RM) -r build/32
 	$(RM) -r build/libglvnd_install_checker
+ifeq (amd64,$(DEB_HOST_ARCH))
+	chmod -x build/*.dll
+endif
 ifneq (,$(has_driver))
 	gzip -9fn build/nvidia-smi.1
 
@@ -295,6 +301,7 @@ override_dh_bugfiles:
 
 override_dh_shlibdeps:
 	dh_shlibdeps -l/$(libdir)/$(nvidia_private)
+	test -z "$$(ls debian/*.substvars 2>/dev/null)" || sed -r -i 's/libnvidia-(e?glcore)-$(version)/lib$(nvidia)-\1 (= $${binary:Version})/g' debian/*.substvars
 
 override_dh_gencontrol:
 	dh_gencontrol -- \
@@ -359,7 +366,7 @@ override_dh_strip_nondeterminism:
 	-e 's{#PRIVATE#}{$(nvidia_private)}g;' \
 	-e 's{#UNLOAD_MODULES#}{$(strip $(unload_modules))}g;' \
 	-e 's{#ARCH_LIST#}{$(DRIVER_ARCH_LIST)}g;' \
-	-e 's{#HAS_UVM#}{$(if $(has_uvm),,#)}g;' \
+	-e 's{#AUTOPKGTEST_ARCH_LIST#}{$(AUTOPKGTEST_ARCH_LIST)}g;' \
 	-e 's{#!arm64#}{$(if $(filter arm64,$(DEB_HOST_ARCH)),#)}g;' \
 	-e 's{#!ppc64el#}{$(if $(filter ppc64el,$(DEB_HOST_ARCH)),#)}g;' \
 	$(EXTRA_SUBSTITUTIONS) \
@@ -400,6 +407,7 @@ debian/control-real: $(CONTROL_FILES)
 		-V'nvidia-if-variant=$(nvidia_if_variant)' \
 		-V'nvidia:Variant=$(-variant)' \
 		-V'libcuda1=$(libcuda1)' \
+		-V'Vcs-Git:Branch=$(if $(GIT_BRANCH), -b $(GIT_BRANCH))' \
 		$(foreach a,$(ARCH_CANDIDATES),-V'arch:$a=$(filter $a,$(DRIVER_ARCH_LIST))') \
 		-- \
 		debian/control.in > debian/control.new
@@ -457,7 +465,7 @@ ORIGDIR.empty		?= $(ORIGDIR)
 TARBALL.empty		?= $(TARBALL)
 
 # $1 = arch
-get_download_url	 = $(or $(HTTPURL_PREFIX_$(strip $1)),$(HTTPURL_PREFIX))/$(if $(HTTPURL_ARCHDIR_$(strip $1)),$(HTTPURL_ARCHDIR_$(strip $1))/)$(or $(HTTPURL_VERDIR),$(NVIDIA_RELEASE))/$(NVIDIA_FILENAME_$(strip $1))
+get_download_url	 = $(or $(HTTPURL_PREFIX_$(strip $1)),$(HTTPURL_PREFIX))/$(if $(HTTPURL_ARCHDIR_$(strip $1)),$(HTTPURL_ARCHDIR_$(strip $1))/)$(if $2,,$(or $(HTTPURL_VERDIR),$(NVIDIA_RELEASE))/)$(NVIDIA_FILENAME_$(strip $1))
 get_origdir		 = $(or $(ORIGDIR.$(strip $1)),$(ORIGDIR)-$(strip $1))
 get_tarball		 = $(or $(TARBALL.$(strip $1)),$(TARBALL_BASE)-$(strip $1)$(TARBALL_SUFFIX))
 
@@ -471,7 +479,8 @@ get-orig-source-prepare/%: get-orig-source-prepare
 
 get-orig-source-download/%: get-orig-source-prepare
 	ln -v $(CACHE)/$(NVIDIA_FILENAME_$*) get-orig-source/ 2>/dev/null || \
-		wget $(call get_download_url,$*) -P get-orig-source/
+		wget $(call get_download_url,$*) -P get-orig-source/ || \
+		wget $(call get_download_url,$*,1) -P get-orig-source/
 	if [ -d $(CACHE) ] && [ ! -f $(CACHE)/$(NVIDIA_FILENAME_$*) ]; then \
 		ln -v get-orig-source/$(NVIDIA_FILENAME_$*) $(CACHE) ; fi
 

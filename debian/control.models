@@ -1,3 +1,5 @@
-This version only supports GeForce, Quadro, NVS, Tesla, ... GPUs based on the
-Kepler (desktop cards only), Maxwell, Volta, Turing, or newer architectures.
-Look at the legacy packages for older cards.
+This version only supports GeForce, NVS, Quadro, RTX, Tesla, ... GPUs based on
+the Kepler, Maxwell, Pascal, Volta, Turing, Ampere, or newer architectures.
+The (Tesla) 470 drivers are the last driver series supporting GPUs based on
+the Kepler architecture.
+Look at the legacy driver packages for older cards.

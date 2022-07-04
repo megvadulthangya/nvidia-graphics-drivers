@@ -2,8 +2,7 @@
 patch-file-present-but-not-mentioned-in-series
 
 # this file is part of the compressed .run files
-unused-file-paragraph-in-dep5-copyright paragraph at line 20
-wildcard-matches-nothing-in-dep5-copyright supported-gpus/supported-gpus.json (line 20)
+superfluous-file-pattern supported-gpus/supported-gpus.json [debian/copyright:*]
 
 # upstream provides no signatures
 debian-watch-does-not-check-gpg-signature
@@ -14,3 +13,4 @@ package-placeholder-in-symbols-file
 
 # only binary releases
 upstream-metadata-missing-repository
+very-long-line-length-in-source-file * > 512 [*/NVIDIA-Linux-*-*.run:*]

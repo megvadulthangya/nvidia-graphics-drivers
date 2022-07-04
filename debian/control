@@ -13,15 +13,17 @@ Build-Depends:
  debhelper-compat (= 13),
  dh-sequence-dkms,
  dh-exec,
- xz-utils,
+ libnvidia-egl-wayland1,
  libvulkan1 (>= 1.0.42),
  libxext6,
- quilt,
  po-debconf,
+ quilt,
+ xz-utils,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.5.1
+Standards-Version: 4.6.1
 Homepage: https://www.nvidia.com
+Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
 
 Package: nvidia-driver
@@ -68,10 +70,12 @@ Multi-Arch: foreign
 Pre-Depends:
  dpkg (>= 1.17.21),
  ${nvidia:legacy-check},
+ ${misc:Pre-Depends}
 Depends:
  glx-alternative-nvidia (>= 1.2),
  ${misc:Depends}
 Provides:
+ nvidia-alternative-any,
  ${nvidia}-alternative--kmod-alias,
 Conflicts:
  libglvnd0-nvidia,
@@ -107,6 +111,10 @@ Depends:
 Provides:
  nvidia-kernel-support-any,
  ${nvidia}-kernel-support--v1,
+ ${nvidia}-kernel-support-${nvidia:Version} [amd64],
+ nvidia-firmware-${nvidia:Version} [amd64],
+Conflicts:
+ nvidia-firmware-${nvidia:Version} [amd64],
 Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -121,7 +129,7 @@ Multi-Arch: foreign
 Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
- dkms,
+ ${nvidia}-kernel-support-${nvidia:Version} [amd64],
  ${nvidia}-kernel-support--v1,
  ${misc:Depends}
 Recommends:
@@ -130,7 +138,7 @@ Recommends:
 Provides:
  ${nvidia}-kernel-${nvidia:Version},
 Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
- This package builds the NVIDIA Xorg binary kernel module needed by
+ This package builds the NVIDIA binary kernel modules needed by
  ${nvidia}-driver, using DKMS.
  Provided that you have the kernel header packages installed, the kernel
  module will be built for your running kernel and automatically rebuilt for
@@ -164,7 +172,7 @@ Recommends:
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
- This package provides the source for the NVIDIA Xorg binary kernel module
+ This package provides the source for the NVIDIA binary kernel modules
  needed by ${nvidia}-driver in a form suitable
  for use by module-assistant or kernel-package.
  .
@@ -192,7 +200,6 @@ Pre-Depends:
  nvidia-installer-cleanup,
  ${nvidia:legacy-check},
 Depends:
- lib${nvidia}-glcore (= ${binary:Version}),
  ${nvidia}-alternative (= ${binary:Version}),
  nvidia-support,
  ${nvidia:xorgDepends},
@@ -286,6 +293,7 @@ Recommends:
  libgles-${nvidia-}1 (= ${binary:Version}),
  libgles-${nvidia-}2 (= ${binary:Version}),
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
+ lib${nvidia}-encode1 (= ${binary:Version}),
  ${nvidia}-vulkan-icd (= ${binary:Version}),
 Provides:
  nvidia-driver-libs-any,
@@ -316,7 +324,6 @@ Pre-Depends:
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  libglx0 | libglx0-glvnd-nvidia,
- lib${nvidia}-glcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
  libglx-vendor,
@@ -371,25 +378,6 @@ Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:VariantDesc}
  This package contains the private core libraries used by the NVIDIA
  implementation of OpenGL and GLX.
 
-Package: libegl1-nvidia
-Architecture: amd64 arm64
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${nvidia}-alternative (= ${binary:Version}),
- libegl-${nvidia-}0 (= ${binary:Version}),
- ${shlibs:Depends}, ${misc:Depends}
-Conflicts:
- ${nvidia}-driver-libs,
- libgl1-${nvidia}-glvnd-glx,
-Description: NVIDIA binary EGL library (non-GLVND variant)${nvidia:VariantDesc}
- EGL provides a platform-agnostic mechanism for creating rendering surfaces
- for use with other graphics libraries, such as OpenGL|ES.
- .
- This package contains the driver specific binary EGL implementation by NVIDIA
- as a non-GLVND alternative.
-
 Package: libegl-nvidia0
 Architecture: i386 amd64 arm64
 Multi-Arch: same
@@ -397,7 +385,6 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
- lib${nvidia}-eglcore (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA binary EGL library${nvidia:VariantDesc}
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
@@ -491,8 +478,8 @@ Depends:
  ${misc:Depends}
 Suggests:
  libegl-${nvidia-}0 [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
+ | libegl-nvidia-tesla-470-0 [i386 amd64 arm64 ppc64el]
  | libegl-nvidia-tesla-450-0 [i386 amd64 arm64 ppc64el]
- | libegl-nvidia-tesla-440-0 [i386 amd64 ppc64el]
  | libegl-nvidia-tesla-418-0 [i386 amd64 ppc64el]
  | libegl-nvidia-legacy-390xx0 [i386 amd64 armhf],
 Description: NVIDIA binary EGL driver - common files
@@ -561,8 +548,8 @@ Depends:
  ${misc:Depends}
 Suggests:
  ${nvidia}-vulkan-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
+ | nvidia-tesla-470-vulkan-icd [i386 amd64 arm64 ppc64el]
  | nvidia-tesla-450-vulkan-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-440-vulkan-icd [i386 amd64 ppc64el]
  | nvidia-tesla-418-vulkan-icd [i386 amd64 ppc64el]
  | nvidia-legacy-390xx-vulkan-icd [i386 amd64],
 Conflicts:
@@ -614,6 +601,8 @@ Suggests:
  | nvidia-legacy-390xx-nonglvnd-vulkan-icd [i386 amd64],
 Conflicts:
  libgl1-${nvidia}-glvnd-glx,
+ libgl1-nvidia-tesla-470-glvnd-glx,
+ libgl1-nvidia-tesla-460-glvnd-glx,
  libgl1-nvidia-tesla-450-glvnd-glx,
  libgl1-nvidia-tesla-440-glvnd-glx,
  libgl1-nvidia-tesla-418-glvnd-glx,
@@ -721,23 +710,6 @@ Description: NVIDIA Management Library (NVML) runtime library${nvidia:VariantDes
  .
  This package contains the nvidia-ml runtime library.
 
-Package: nvidia-cuda-mps
-Section: non-free/utils
-Architecture: amd64 arm64
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA CUDA Multi Process Service (MPS)
- The Compute Unified Device Architecture (CUDA) enables NVIDIA
- graphics processing units (GPUs) to be used for massively parallel
- general purpose computation.
- .
- CUDA MPS is a feature that allows multiple CUDA processes to share a single
- GPU context. CUDA MPS should be transparent to CUDA programs.
- .
- CUDA MPS requires a device that supports Unified Virtual Address (UVA) and
- has compute capability SM 3.5 or higher.
- Pre-CUDA 4.0 APIs are not supported under CUDA MPS.
-
 Package: libcuda1
 Architecture: i386 amd64 arm64
 Multi-Arch: same
@@ -793,6 +765,10 @@ Provides:
  libcuda-11.1-1-i386 [i386],
  libcuda-11.2-1,
  libcuda-11.2-1-i386 [i386],
+ libcuda-11.3-1,
+ libcuda-11.3-1-i386 [i386],
+ libcuda-11.4-1,
+ libcuda-11.4-1-i386 [i386],
 Homepage: https://www.nvidia.com/CUDA
 Description: NVIDIA CUDA Driver Library${nvidia:VariantDesc}
  The Compute Unified Device Architecture (CUDA) enables NVIDIA
@@ -832,12 +808,26 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA PTX JIT Compiler${nvidia:VariantDesc}
+Description: NVIDIA PTX JIT Compiler library${nvidia:VariantDesc}
  The Compute Unified Device Architecture (CUDA) enables NVIDIA
  graphics processing units (GPUs) to be used for massively parallel
  general purpose computation.
  .
- This package contains the runtime PTX JIT compiler library.
+ This package contains the runtime PTX JIT Compiler library.
+
+Package: libnvidia-nvvm4
+Architecture: amd64 arm64
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends}, ${misc:Depends}
+Description: NVIDIA NVVM Compiler library${nvidia:VariantDesc}
+ The Compute Unified Device Architecture (CUDA) enables NVIDIA
+ graphics processing units (GPUs) to be used for massively parallel
+ general purpose computation.
+ .
+ This package contains the NVVM Compiler library.
 
 Package: libnvcuvid1
 Architecture: i386 amd64 arm64
@@ -863,7 +853,6 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
- ${libcuda1} (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVENC Video Encoding runtime library${nvidia:VariantDesc}
  The NVENC Video Encoding library provides an interface to video encoder
@@ -925,7 +914,6 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
- ${libcuda1} (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Homepage: https://developer.nvidia.com/opticalflow-sdk
 Description: NVIDIA Optical Flow runtime library${nvidia:VariantDesc}
@@ -940,7 +928,6 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
- ${libcuda1} (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA allocator runtime library${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
@@ -955,7 +942,6 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
- ${libcuda1} (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA NGX runtime library${nvidia:VariantDescShort}
  The NVIDIA binary driver provides optimized hardware acceleration of
@@ -971,8 +957,8 @@ Depends:
  ${misc:Depends}
 Suggests:
  ${nvidia}-opencl-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
+ | nvidia-tesla-470-opencl-icd [i386 amd64 arm64 ppc64el]
  | nvidia-tesla-450-opencl-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-440-opencl-icd [i386 amd64 ppc64el]
  | nvidia-tesla-418-opencl-icd [i386 amd64 ppc64el]
  | nvidia-legacy-390xx-opencl-icd [i386 amd64],
 Description: NVIDIA OpenCL driver - common files
@@ -1050,5 +1036,6 @@ Depends:
 Description: NVIDIA GPU detection utility
  The 'nvidia-detect' script in this package checks for an NVIDIA GPU in the
  system and recommends one of the non-free accelerated driver meta-packages
- (nvidia-driver, nvidia-legacy-390xx-driver, nvidia-tesla-450-driver,
- nvidia-tesla-440-driver, or nvidia-tesla-418-driver) for installation.
+ (nvidia-driver, nvidia-tesla-470-driver,
+ nvidia-tesla-450-driver, nvidia-tesla-418-driver,
+ or nvidia-legacy-390xx-driver) for installation.

@@ -20,6 +20,7 @@ libnvidia-cfg.so.1 #PACKAGE# #MINVER# | libnvidia-cfg.so.1 #MINVER#
  nvCfgGetProductName@Base 1.0.8174
  nvCfgGetSupportedDisplayDevices@Base 180
  nvCfgGetTeslaSerialNumbers@Base 185.18
+ nvCfgIsPrimaryDevice@Base 470
  nvCfgOpenAllGSyncDevices@Base 304.30
  nvCfgOpenAllPciDevices@Base 180.35
  nvCfgOpenDevice@Base 1.0.8174

@@ -1,0 +1,19 @@
+Description: dev->power.runtime_auto was not yet in v2.6.32
+
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -3541,12 +3541,14 @@ compile_test() {
+             # d30d819dc8310 in v3.19 (2014-11-27).
+             # Rather than attempt to select the appropriate CONFIG option,
+             # simply check if this member is present.
++            # dev->power.runtime_auto was introduced in 53823639173cc (v2.6.34).
+             #
+             CODE="
+             #include <linux/pm.h>
+             void pm_runtime_conftest(void) {
+                 struct dev_pm_info dpmi;
+                 atomic_set(&dpmi.usage_count, 1);
++                dpmi.runtime_auto;
+             }"
+ 
+             compile_check_conftest "$CODE" "NV_PM_RUNTIME_AVAILABLE" "" "generic"

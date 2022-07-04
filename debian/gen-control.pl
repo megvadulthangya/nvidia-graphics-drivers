@@ -62,6 +62,7 @@ print "# run \`make -f debian/rules debian/control'.\n";
 
 my $src_fields = $control->get_source();
 $src_fields->{'Source'} = $substvars->substvars($src_fields->{'Source'});
+$src_fields->{'Vcs-Git'} = $substvars->substvars($src_fields->{'Vcs-Git'});
 $src_fields->output(\*STDOUT);
 
 foreach my $pkg_fields ($control->get_packages()) {
