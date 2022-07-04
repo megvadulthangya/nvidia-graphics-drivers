@@ -1,0 +1,93 @@
+From 81c6122b5d4b82bb4ca790e26ae6efbed9e6a0c6 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Mon, 20 Jun 2022 10:14:54 +0200
+Subject: [PATCH 1/2] backport pci/dma changes from 470.129.06
+
+---
+ nvidia/linux_nvswitch.c | 18 +++++++++---------
+ nvidia/nv.c             |  2 +-
+ 2 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/nvidia/linux_nvswitch.c b/nvidia/linux_nvswitch.c
+index 93a30f8..3d0e4c6 100644
+--- a/nvidia/linux_nvswitch.c
++++ b/nvidia/linux_nvswitch.c
+@@ -2074,11 +2074,11 @@ _nvswitch_to_pci_dma_direction
+ )
+ {
+     if (direction == NVSWITCH_DMA_DIR_TO_SYSMEM)
+-        return PCI_DMA_FROMDEVICE;
++        return DMA_FROM_DEVICE;
+     else if (direction == NVSWITCH_DMA_DIR_FROM_SYSMEM)
+-        return PCI_DMA_TODEVICE;
++        return DMA_TO_DEVICE;
+     else
+-        return PCI_DMA_BIDIRECTIONAL;
++        return DMA_BIDIRECTIONAL;
+ }
+ 
+ NvlStatus
+@@ -2100,9 +2100,9 @@ nvswitch_os_map_dma_region
+ 
+     dma_dir = _nvswitch_to_pci_dma_direction(direction);
+ 
+-    *dma_handle = (NvU64)pci_map_single(pdev, cpu_addr, size, dma_dir);
++    *dma_handle = (NvU64)dma_map_single(&pdev->dev, cpu_addr, size, dma_dir);
+ 
+-    if (pci_dma_mapping_error(pdev, *dma_handle))
++    if (dma_mapping_error(&pdev->dev, *dma_handle))
+     {
+         pr_err("nvidia-nvswitch: unable to create PCI DMA mapping\n");
+         return -NVL_ERR_GENERIC;
+@@ -2130,7 +2130,7 @@ nvswitch_os_unmap_dma_region
+ 
+     dma_dir = _nvswitch_to_pci_dma_direction(direction);
+ 
+-    pci_unmap_single(pdev, dma_handle, size, dma_dir);
++    dma_unmap_single(&pdev->dev, dma_handle, size, dma_dir);
+ 
+     return NVL_SUCCESS;
+ }
+@@ -2148,7 +2148,7 @@ nvswitch_os_set_dma_mask
+     if (!pdev)
+         return -NVL_BAD_ARGS;
+ 
+-    if (pci_set_dma_mask(pdev, DMA_BIT_MASK(dma_addr_width)))
++    if (dma_set_mask(&pdev->dev, DMA_BIT_MASK(dma_addr_width)))
+         return -NVL_ERR_GENERIC;
+ 
+     return NVL_SUCCESS;
+@@ -2172,7 +2172,7 @@ nvswitch_os_sync_dma_region_for_cpu
+ 
+     dma_dir = _nvswitch_to_pci_dma_direction(direction);
+ 
+-    pci_dma_sync_single_for_cpu(pdev, dma_handle, size, dma_dir);
++    dma_sync_single_for_cpu(&pdev->dev, dma_handle, size, dma_dir);
+ 
+     return NVL_SUCCESS;
+ }
+@@ -2195,7 +2195,7 @@ nvswitch_os_sync_dma_region_for_device
+ 
+     dma_dir = _nvswitch_to_pci_dma_direction(direction);
+ 
+-    pci_dma_sync_single_for_device(pdev, dma_handle, size, dma_dir);
++    dma_sync_single_for_device(&pdev->dev, dma_handle, size, dma_dir);
+ 
+     return NVL_SUCCESS;
+ }
+diff --git a/nvidia/nv.c b/nvidia/nv.c
+index d100006..d50ae02 100644
+--- a/nvidia/nv.c
++++ b/nvidia/nv.c
+@@ -2882,7 +2882,7 @@ nv_set_dma_address_size(
+     if (!nvl->tce_bypass_enabled)
+     {
+         NvU64 new_mask = (((NvU64)1) << phys_addr_bits) - 1;
+-        pci_set_dma_mask(nvl->pci_dev, new_mask);
++        dma_set_mask(&nvl->pci_dev->dev, new_mask);
+         /* Certain kernels have a bug which causes pci_set_consistent_dma_mask
+          * to call GPL sme_active symbol, this bug has already been fixed in a
+          * minor release update but detect the failure scenario here to prevent
+-- 
+2.20.1
+
