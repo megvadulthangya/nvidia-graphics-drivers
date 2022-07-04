@@ -1,0 +1,81 @@
+From 07c140d5f44acd0cd0108687953da420e6868ba4 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 16 Feb 2022 16:56:45 +0100
+Subject: [PATCH] backport pde_data changes from 470.103.01
+
+---
+ common/inc/nv-procfs.h |  6 ++++--
+ conftest.sh            | 19 ++++++++++++++++++-
+ nvidia/nvidia.Kbuild   |  1 +
+ 3 files changed, 23 insertions(+), 3 deletions(-)
+
+diff --git a/common/inc/nv-procfs.h b/common/inc/nv-procfs.h
+index 107b324..1f2b3f9 100644
+--- a/common/inc/nv-procfs.h
++++ b/common/inc/nv-procfs.h
+@@ -86,9 +86,11 @@ typedef struct file_operations nv_proc_ops_t;
+     })
+ 
+ #if defined(NV_PDE_DATA_PRESENT)
+-# define NV_PDE_DATA(inode) PDE_DATA(inode)
++#define NV_PDE_DATA(inode) pde_data(inode)
++#elif defined(NV_PDE_DATA_UPPER_CASE_PRESENT)
++#define NV_PDE_DATA(inode) PDE_DATA(inode)
+ #else
+-# define NV_PDE_DATA(inode) PDE(inode)->data
++#define NV_PDE_DATA(inode) PDE(inode)->data
+ #endif
+ 
+ #if defined(NV_PROC_REMOVE_PRESENT)
+diff --git a/conftest.sh b/conftest.sh
+index 5dc78bd..dfb84d2 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -1315,6 +1315,23 @@ compile_test() {
+         ;;
+ 
+         pde_data)
++            #
++            # Determine if the pde_data() function is present.
++            #
++            # The commit c28198889c15 removed the function
++            # 'PDE_DATA()', and replaced it with 'pde_data()'
++            # ("proc: remove PDE_DATA() completely") in v5.17-rc1. 
++            #
++            CODE="
++            #include <linux/proc_fs.h>
++            void conftest_pde_data(void) {
++                pde_data();
++            }"
++
++            compile_check_conftest "$CODE" "NV_PDE_DATA_PRESENT" "" "functions"
++        ;;
++
++        PDE_DATA)
+             #
+             # Determine if the PDE_DATA() function is present.
+             #
+@@ -1327,7 +1344,7 @@ compile_test() {
+                 PDE_DATA();
+             }"
+ 
+-            compile_check_conftest "$CODE" "NV_PDE_DATA_PRESENT" "" "functions"
++            compile_check_conftest "$CODE" "NV_PDE_DATA_UPPER_CASE_PRESENT" "" "functions"
+         ;;
+ 
+         get_num_physpages)
+diff --git a/nvidia/nvidia.Kbuild b/nvidia/nvidia.Kbuild
+index 0da1f85..04e7bdc 100644
+--- a/nvidia/nvidia.Kbuild
++++ b/nvidia/nvidia.Kbuild
+@@ -117,6 +117,7 @@ NV_CONFTEST_FUNCTION_COMPILE_TESTS += pci_get_domain_bus_and_slot
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += get_num_physpages
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += efi_enabled
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += pde_data
++NV_CONFTEST_FUNCTION_COMPILE_TESTS += PDE_DATA
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += proc_remove
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += pm_vt_switch_required
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += xen_ioemu_inject_msi
+-- 
+2.20.1
+

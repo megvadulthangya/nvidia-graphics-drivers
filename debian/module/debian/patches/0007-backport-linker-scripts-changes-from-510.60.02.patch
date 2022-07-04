@@ -1,0 +1,49 @@
+From 92cf5ab812fc4e622079c655f8bb3da328fa375a Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Fri, 20 May 2022 09:09:42 +0200
+Subject: [PATCH] backport linker scripts changes from 510.60.02
+
+---
+ Makefile | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 3eca854..49f55fd 100644
+--- a/Makefile
++++ b/Makefile
+@@ -91,14 +91,16 @@ else
+ 
+   module: modules
+ 
+-  # Check if the linker script module-common.lds exists. If it does,
+-  # pass that as a linker option (via variable NV_MODULE_COMMON_SCRIPT)
+-  # while building the kernel interface object file. This script does some
+-  # processing on the module symbols on which the Linux kernel's module
+-  # resolution is dependent and hence must be used whenever present.
++  # Check if the any of kernel module linker scripts exist. If they do, pass
++  # them as linker options (via variable NV_MODULE_LD_SCRIPTS) while building
++  # the kernel interface object files. These scripts do some processing on the
++  # module symbols on which the Linux kernel's module resolution is dependent
++  # and hence must be used whenever present.
+ 
+-  LD_SCRIPT ?= $(KERNEL_SOURCES)/scripts/module-common.lds
+-  NV_MODULE_COMMON_SCRIPT := $(if $(wildcard $(LD_SCRIPT)),-T $(LD_SCRIPT))
++  LD_SCRIPT ?= $(KERNEL_SOURCES)/scripts/module-common.lds      \
++               $(KERNEL_SOURCES)/arch/$(ARCH)/kernel/module.lds \
++               $(KERNEL_OUTPUT)/scripts/module.lds
++  NV_MODULE_COMMON_SCRIPTS := $(foreach s, $(wildcard $(LD_SCRIPT)), -T $(s))
+ 
+   # Use $* to match the stem % in the kernel interface file %-linux.o. Replace
+   # "nv" with "nvidia" in $* as appropriate: e.g. nv-modeset-linux.o links
+@@ -110,7 +112,7 @@ else
+   # cannot be defined in the *Kbuild files, which are only used during stage 1.
+ 
+   %-linux.o: modules
+-	$(LD) $(NV_MODULE_COMMON_SCRIPT) -r -o $@ \
++	$(LD) $(NV_MODULE_COMMON_SCRIPTS) -r -o $@ \
+ 	  $(subst nv,nvidia,$*).mod.o $(subst nv,nvidia,$*)/$*-interface.o
+ 
+   # Kbuild's "clean" rule won't clean up the conftest headers on its own, and
+-- 
+2.20.1
+

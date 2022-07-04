@@ -10,6 +10,9 @@ remove nvidia modprobe -r -i #UNLOAD_MODULES#
 
 remove nvidia-modeset modprobe -r -i nvidia-drm nvidia-modeset
 
+
+alias char-major-195* nvidia
+
 # These aliases are defined in *all* nvidia modules.
 # Duplicating them here sets higher precedence and ensures the selected
 # module gets loaded instead of a random first match if more than one

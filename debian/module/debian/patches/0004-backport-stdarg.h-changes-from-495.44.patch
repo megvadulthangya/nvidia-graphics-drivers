@@ -1,0 +1,141 @@
+From 65505a64ecbe4304b58cf4975131208b20d7e1dd Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Mon, 20 Dec 2021 14:39:02 +0100
+Subject: [PATCH] backport stdarg.h changes from 495.44
+
+---
+ common/inc/nv.h                              |  2 +-
+ common/inc/nv_stdarg.h                       | 39 ++++++++++++++++++++
+ common/inc/os-interface.h                    |  2 +-
+ conftest.sh                                  |  1 +
+ nvidia-modeset/nvidia-modeset-os-interface.h |  2 +-
+ nvidia-uvm/uvm_mmu.c                         |  2 +-
+ nvidia/export_nvswitch.h                     |  2 +-
+ 7 files changed, 45 insertions(+), 5 deletions(-)
+ create mode 100644 common/inc/nv_stdarg.h
+
+diff --git a/common/inc/nv.h b/common/inc/nv.h
+index d56e97d..cbf592a 100644
+--- a/common/inc/nv.h
++++ b/common/inc/nv.h
+@@ -22,7 +22,7 @@
+ 
+ #include <nvtypes.h>
+ #include <nvCpuUuid.h>
+-#include <stdarg.h>
++#include "nv_stdarg.h"
+ #include <nv-caps.h>
+ #include <nv-ioctl.h>
+ #include <nvmisc.h>
+diff --git a/common/inc/nv_stdarg.h b/common/inc/nv_stdarg.h
+new file mode 100644
+index 0000000..4b63340
+--- /dev/null
++++ b/common/inc/nv_stdarg.h
+@@ -0,0 +1,39 @@
++/*
++ * SPDX-FileCopyrightText: Copyright (c) 2021 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++ * SPDX-License-Identifier: MIT
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
++ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++ * DEALINGS IN THE SOFTWARE.
++ */
++
++
++#ifndef _NV_STDARG_H_
++#define _NV_STDARG_H_
++
++#if defined(NV_KERNEL_INTERFACE_LAYER) && defined(NV_LINUX)
++   #include "conftest.h"
++   #if defined(NV_LINUX_STDARG_H_PRESENT)
++     #include <linux/stdarg.h>
++   #else
++     #include <stdarg.h>
++   #endif   
++#else
++   #include <stdarg.h>
++#endif   
++
++#endif // _NV_STDARG_H_
+diff --git a/common/inc/os-interface.h b/common/inc/os-interface.h
+index 4720c66..5dd37fb 100644
+--- a/common/inc/os-interface.h
++++ b/common/inc/os-interface.h
+@@ -24,7 +24,7 @@
+ *                                                                           *
+ \***************************************************************************/
+ 
+-#include <stdarg.h>
++#include "nv_stdarg.h"
+ #include <nv-kernel-interface-api.h>
+ #include <os/nv_memory_type.h>
+ 
+diff --git a/conftest.sh b/conftest.sh
+index 3aaf177..5dc78bd 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -159,6 +159,7 @@ test_headers() {
+     FILES="$FILES asm/pgtable_types.h"
+     FILES="$FILES linux/stringhash.h"
+     FILES="$FILES linux/dma-map-ops.h"
++    FILES="$FILES linux/stdarg.h"
+ 
+     translate_and_preprocess_header_files $FILES
+ }
+diff --git a/nvidia-modeset/nvidia-modeset-os-interface.h b/nvidia-modeset/nvidia-modeset-os-interface.h
+index 6e6bfcb..a9da953 100644
+--- a/nvidia-modeset/nvidia-modeset-os-interface.h
++++ b/nvidia-modeset/nvidia-modeset-os-interface.h
+@@ -17,7 +17,7 @@
+ #define _NVIDIA_MODESET_OS_INTERFACE_H_
+ 
+ #include <stddef.h>  /* size_t */
+-#include <stdarg.h>  /* va_list */
++#include "nv_stdarg.h"  /* va_list */
+ 
+ #include "nvtypes.h" /* NvU8 */
+ 
+diff --git a/nvidia-uvm/uvm_mmu.c b/nvidia-uvm/uvm_mmu.c
+index 7c6e06e..f47a8d3 100644
+--- a/nvidia-uvm/uvm_mmu.c
++++ b/nvidia-uvm/uvm_mmu.c
+@@ -32,7 +32,7 @@
+ #include "uvm_push.h"
+ #include "uvm_mem.h"
+ #include "uvm_va_space.h"
+-#include <stdarg.h>
++#include "nv_stdarg.h"
+ 
+ // The page tree has 5 levels on pascal, and the root is never freed by a normal 'put' operation
+ // which leaves a maximum of 4 levels
+diff --git a/nvidia/export_nvswitch.h b/nvidia/export_nvswitch.h
+index 8902fa0..322d76a 100644
+--- a/nvidia/export_nvswitch.h
++++ b/nvidia/export_nvswitch.h
+@@ -28,7 +28,7 @@
+ extern "C" {
+ #endif
+ 
+-#include <stdarg.h>
++#include "nv_stdarg.h"
+ #include "nvlink_common.h"
+ #include "ioctl_common_nvswitch.h"
+ 
+-- 
+2.20.1
+

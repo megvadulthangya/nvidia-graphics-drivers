@@ -1,4 +1,4 @@
-libGL.so.1 libgl1 (>= 0.2.999) | libgl1-mesa-glx
+libGL.so.1 libgl1 (>= 0.2.999)
 #MISSING: 440.118.02# AllocExecPages@Base 361
  FindNextStringToken@Base 375
 #MISSING: 440.118.02# FreeExecPages@Base 361

@@ -13,6 +13,28 @@ Building "bleeding edge" from GIT for users
     uploaded in the archive.
 
 
+Upstream support timeframes
+
+    https://nvidia.custhelp.com/app/answers/detail/a_id/3142
+    https://docs.nvidia.com/datacenter/tesla/drivers/
+    https://web.archive.org/web/20210522000916/https://docs.nvidia.com/datacenter/tesla/drivers/
+
+    Driver Series       Supported until
+    71                          EoL
+    96                          EoL
+    173                         EoL
+    304                 12/2017 EoL
+    340                 12/2019 EoL
+    390                 12/2022
+    Tesla 410                   EoL
+    Tesla 418 (LTSB)    03/2022 EoL
+    Tesla 440           11/2020 EoL
+    Tesla 450 (LTSB)    07/2023
+    Tesla 460 (PB)      01/2022 EoL
+    Tesla 470 (LTSB)    07/2024
+    Tesla 510 (PB)      01/2023
+
+
 The branch structure in the GIT repository
 
     The following branches exist in the git repository:
@@ -31,17 +53,24 @@ The branch structure in the GIT repository
     340xx/master        EoL   stretch,buster,sid
     390                       stretch             390-buster
     390-buster                (buster)            418, 390xx/master
-    390xx/master              buster,sid
-    418                       buster              418-bullseye
-    418-bullseye              (bullseye)          450, 418-tesla
-    418-tesla                 (bullseye)          450-tesla, tesla-418/master
+    390xx/master              buster,bullseye,sid
+    418                 EoL   buster              418-bullseye
+    418-bullseye        EoL   (bullseye)          450, 418-tesla
+    418-tesla           EoL   (bullseye)          450-tesla, tesla-418/master
     tesla-418/master          bullseye,sid        tesla-450/master
     450                       (bullseye)          460, 450-tesla
     450-tesla                 (bullseye)          460-tesla, tesla-450/master
     tesla-450/master          bullseye,sid        tesla-460/master
-    460                       (bullseye)          master, 460-tesla
-    460-tesla                 (bullseye)          tesla-460/master
-    tesla-460/master          bullseye,sid
+    460                 EoL   (bullseye)          470, 460-tesla
+    460-tesla           EoL   (bullseye)          470-tesla, tesla-460/master
+    tesla-460/master    EoL   (bullseye),(sid)    tesla-470/master, tesla-460/transition-470
+    tesla-460/transition-470  bullseye,sid
+    470                       (bullseye)          510, 470-tesla
+    470-tesla                 (bullseye)          510-tesla, tesla-470/master
+    tesla-470/master          bullseye,sid        tesla-510/master
+    510                       (bookworm)          master, 510-tesla
+    510-tesla                 (bookworm)          tesla-510/master
+    tesla-510/master          bookworm,sid
     master                    sid                 YYY
     YYY                       experimental        ZZZ, (master)
     ZZZ                       experimental        (master)
@@ -59,6 +88,14 @@ The branch structure in the GIT repository
 
     Minor updates, fixes and features should always go to the oldest branch
     where they are applicable, i.e. 390-stretch (or 390) in most cases.
+
+    The following packages have hardcoded lists of alternative dependencies
+    that need to be updated whenever the list of supported driver packages
+    changes:
+     * src:nvidia-persistenced  debian/control
+     * src:bumblebee            debian/rules
+     * src:primus               debian/rules
+     * src:primus-vk            debian/rules
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 26 Jan 2020 22:49:17 +0100
 

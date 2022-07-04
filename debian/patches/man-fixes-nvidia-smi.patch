@@ -31,7 +31,7 @@ Forwarded: not-needed
  There also can\(aqt be any compute applications running on any other GPU in the system.
  
  Starting with the NVIDIA Ampere architecture, GPUs with NVLink connections can be individually reset.  On NVSwitch systems, Fabric Manager is required to facilitate reset.
-@@ -286,7 +286,7 @@ Specifies maximum power limit in watts.
+@@ -288,7 +288,7 @@ Specifies maximum power limit in watts.
  Accepts integer and floating point numbers.
  Only on supported devices from Kepler family.
  Requires administrator privileges.
@@ -40,7 +40,7 @@ Forwarded: not-needed
  
  .SS "\-cc, \-\-cuda\-clocks=MODE"
  Overrides or restores default CUDA clocks
-@@ -371,10 +371,10 @@ The specified file will be overwritten.
+@@ -373,10 +373,10 @@ The specified file will be overwritten.
  Display Unit DTD instead of device DTD.
  
  .SS "stats"
@@ -53,7 +53,7 @@ Forwarded: not-needed
  Shows all GPUs NVML is able to detect but CPU and NUMA node affinity information will only be shown for GPUs with Kepler or
  newer architectures.
  Note: GPU enumeration is the same as NVML.
-@@ -465,7 +465,7 @@ Display can be active even when no monit
+@@ -467,7 +467,7 @@ Display can be active even when no monit
  .SS "Persistence Mode"
  A flag that indicates whether persistence mode is enabled for the GPU.
  Value is either "Enabled" or "Disabled".
@@ -62,7 +62,7 @@ Forwarded: not-needed
  This minimizes the driver load latency associated with running dependent apps, such as CUDA programs.
  For all CUDA-capable products.
  Linux only.
-@@ -475,7 +475,7 @@ A flag that indicates whether accounting
+@@ -477,7 +477,7 @@ A flag that indicates whether accounting
  Value is either \"Enabled\" or \"Disabled\"
  When accounting is enabled statistics are calculated for each compute process running on the GPU.
  Statistics can be queried during the lifetime or after termination of the process. The execution time of process is reported as 0 while the process is in running state and updated to actual execution time after the process has terminated.
@@ -71,7 +71,7 @@ Forwarded: not-needed
  
  .SS "Accounting Mode Buffer Size"
  Returns the size of the circular buffer that holds list of processes that can be queried for accounting stats.
-@@ -549,7 +549,7 @@ Version for the power management data.
+@@ -551,7 +551,7 @@ Version for the power management data.
  
  
  .SS "GPU Operation Mode"
@@ -80,7 +80,7 @@ Forwarded: not-needed
  
  Each GOM is designed to meet specific user needs.
  
-@@ -906,7 +906,7 @@ Please note that for boards without INA
+@@ -908,7 +908,7 @@ Please note that for boards without INA
  
  .TP 15
  .B "Power Limit"
@@ -89,7 +89,7 @@ Forwarded: not-needed
  Only available if power management is supported.
  Requires Inforom PWR object version 3.0 or higher or Kepler device.
  On Kepler devices Power Limit can be adjusted using \-pl,\-\-power\-limit= switches.
-@@ -1644,7 +1644,7 @@ Set the video boost slider for the selec
+@@ -1646,7 +1646,7 @@ Set the video boost slider for the selec
  .PP
  .SH "UNIT ATTRIBUTES"
  .PP
@@ -98,7 +98,7 @@ Forwarded: not-needed
  Unless otherwise noted all numerical results are base 10 and unitless.
  
  .SS "Timestamp"
-@@ -1756,7 +1756,7 @@ For all S-class products.
+@@ -1758,7 +1758,7 @@ For all S-class products.
  .PP
  .SH "NOTES"
  .PP
@@ -107,7 +107,7 @@ Forwarded: not-needed
  Please see the relevant section of the driver README file.
  
  .PP
-@@ -1774,7 +1774,7 @@ Query UUID and persistence mode of all G
+@@ -1776,7 +1776,7 @@ Query UUID and persistence mode of all G
  Query ECC errors and power consumption for GPU 0 at a frequency of 10 seconds, indefinitely, and record to the file out.log.
  .SS
  "nvidia\-smi -c 1 -i GPU\-b2f5f1b745e3d23d\-65a3a26d-097db358\-7303e0b6\-149642ff3d219f8587cde3a8"
@@ -116,7 +116,7 @@ Forwarded: not-needed
  .SS "nvidia\-smi -q -u -x --dtd"
  Query attributes for all Units once, and display in XML format with embedded DTD to stdout.
  .SS "nvidia\-smi --dtd -u -f nvsmi_unit.dtd"
-@@ -1971,13 +1971,13 @@ Set vboost to value 1 for all GPUs.
+@@ -1976,13 +1976,13 @@ Set vboost to value 1 for all GPUs.
    * Added support for K40d and K80.
  .PP 1
  
@@ -132,7 +132,7 @@ Forwarded: not-needed
  .PP 1
  
    * Added support for displaying the GPU encoder and decoder utilizations
-@@ -2010,19 +2010,19 @@ Set vboost to value 1 for all GPUs.
+@@ -2015,19 +2015,19 @@ Set vboost to value 1 for all GPUs.
   
  .PP 1
  
@@ -155,7 +155,7 @@ Forwarded: not-needed
  .PP 1
  
   
-@@ -2031,13 +2031,13 @@ Set vboost to value 1 for all GPUs.
+@@ -2036,13 +2036,13 @@ Set vboost to value 1 for all GPUs.
    * Added reporting of Display Active state and updated documentation to clarify how it differs from Display Mode and Display Active state
  .PP 1
  
@@ -172,7 +172,7 @@ Forwarded: not-needed
  .PP 1
  
    * Renamed Clock Throttle Reason User Defined Clocks to Applications Clocks Setting
-@@ -2046,16 +2046,16 @@ Set vboost to value 1 for all GPUs.
+@@ -2051,16 +2051,16 @@ Set vboost to value 1 for all GPUs.
    * On error, return codes have distinct non zero values for each error class. See RETURN VALUE section
  .PP 1
  
@@ -192,7 +192,7 @@ Forwarded: not-needed
  .PP 1
  
    * Added the enforced power limit to the query output
-@@ -2064,7 +2064,7 @@ Set vboost to value 1 for all GPUs.
+@@ -2069,7 +2069,7 @@ Set vboost to value 1 for all GPUs.
   
  .PP 1
  
@@ -201,7 +201,7 @@ Forwarded: not-needed
  .PP 1
  
   
-@@ -2073,13 +2073,13 @@ Set vboost to value 1 for all GPUs.
+@@ -2078,13 +2078,13 @@ Set vboost to value 1 for all GPUs.
    * Added reporting of GPU Operation Mode (GOM)
  .PP 1
  
@@ -217,7 +217,7 @@ Forwarded: not-needed
  .PP 1
  
   
-@@ -2094,10 +2094,10 @@ Set vboost to value 1 for all GPUs.
+@@ -2099,10 +2099,10 @@ Set vboost to value 1 for all GPUs.
    * Better error handling when NVML shared library is not present in the system
  .PP 1
  
@@ -230,7 +230,7 @@ Forwarded: not-needed
  .PP 1
  
    * When reporting free memory, calculate it from the rounded total and used memory so that values add up
-@@ -2106,7 +2106,7 @@ Set vboost to value 1 for all GPUs.
+@@ -2111,7 +2111,7 @@ Set vboost to value 1 for all GPUs.
    * Added reporting of power management limit constraints and default limit
  .PP 1
  
@@ -239,7 +239,7 @@ Forwarded: not-needed
  .PP 1
  
    * Added reporting of texture memory ECC errors
-@@ -2118,7 +2118,7 @@ Set vboost to value 1 for all GPUs.
+@@ -2123,7 +2123,7 @@ Set vboost to value 1 for all GPUs.
   
  .PP 1
  
@@ -248,7 +248,7 @@ Forwarded: not-needed
  .PP 1
  
   
-@@ -2130,7 +2130,7 @@ Set vboost to value 1 for all GPUs.
+@@ -2135,7 +2135,7 @@ Set vboost to value 1 for all GPUs.
    * When running commands on multiple GPUs at once N/A errors are treated as warnings.
  .PP 1
  
@@ -257,7 +257,7 @@ Forwarded: not-needed
  .PP 1
  
    * UUID format changed to match UUID standard and will report a different value.
-@@ -2139,7 +2139,7 @@ Set vboost to value 1 for all GPUs.
+@@ -2144,7 +2144,7 @@ Set vboost to value 1 for all GPUs.
   
  .PP 1
  
@@ -266,7 +266,7 @@ Forwarded: not-needed
  .PP 1
  
   
-@@ -2148,7 +2148,7 @@ Set vboost to value 1 for all GPUs.
+@@ -2153,7 +2153,7 @@ Set vboost to value 1 for all GPUs.
    * Report VBIOS version.
  .PP 1
  
@@ -275,7 +275,7 @@ Forwarded: not-needed
  .PP 1
  
    * Added reporting of PCI Sub System ID
-@@ -2157,13 +2157,13 @@ Set vboost to value 1 for all GPUs.
+@@ -2162,13 +2162,13 @@ Set vboost to value 1 for all GPUs.
    * Updated docs to indicate we support M2075 and C2075
  .PP 1
  
@@ -291,7 +291,7 @@ Forwarded: not-needed
  .PP 1
  
    * Added message when NVIDIA driver is not running
-@@ -2175,19 +2175,19 @@ Set vboost to value 1 for all GPUs.
+@@ -2180,19 +2180,19 @@ Set vboost to value 1 for all GPUs.
    * Getting pending driver model works on non-admin
  .PP 1
  
@@ -315,7 +315,7 @@ Forwarded: not-needed
  .PP 1
  
    * Changed versioning scheme to also include "driver version"
-@@ -2196,10 +2196,10 @@ Set vboost to value 1 for all GPUs.
+@@ -2201,10 +2201,10 @@ Set vboost to value 1 for all GPUs.
    * XML format always conforms to DTD, even when error conditions occur
  .PP 1
  

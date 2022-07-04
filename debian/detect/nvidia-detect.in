@@ -278,9 +278,6 @@ fi
 		elif [[ -n ${VERSIONS[451]} ]]; then
 			echo "Your card is supported by the Tesla 450 drivers series."
 			PACKAGE="nvidia-tesla-450-driver"
-		elif [[ -n ${VERSIONS[441]} ]]; then
-			echo "Your card is supported by the Tesla 440 drivers series."
-			PACKAGE="nvidia-tesla-440-driver"
 		elif [[ -n ${VERSIONS[419]} ]]; then
 			echo "Your card is supported by the Tesla 418 drivers series."
 			PACKAGE="nvidia-tesla-418-driver"
@@ -302,9 +299,6 @@ fi
 		fi
 		if [ -n "$PACKAGE" ] && [ "$PACKAGE" != "nvidia-tesla-450-driver" ] && [[ -n ${VERSIONS[451]} ]]; then
 			echo "Your card is also supported by the Tesla 450 drivers series."
-		fi
-		if [ -n "$PACKAGE" ] && [ "$PACKAGE" != "nvidia-tesla-440-driver" ] && [[ -n ${VERSIONS[441]} ]]; then
-			echo "Your card is also supported by the Tesla 440 drivers series."
 		fi
 		if [ -n "$PACKAGE" ] && [ "$PACKAGE" != "nvidia-tesla-418-driver" ] && [[ -n ${VERSIONS[419]} ]]; then
 			echo "Your card is also supported by the Tesla 418 drivers series."
