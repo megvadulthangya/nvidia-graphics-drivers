@@ -1,4 +1,4 @@
-From 48e4fb617b41369c4923cb17bde37d6e94b2cd3c Mon Sep 17 00:00:00 2001
+From 2769360faf9d324d7e3e7b2447d35132339d7019 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Thu, 14 Apr 2022 22:07:16 +0200
 Subject: [PATCH] backport mt_device_gre changes from 510.39.01
@@ -28,10 +28,10 @@ index fdeaa8e..6446c0f 100644
      __pgprot_modify(old_prot, PTE_ATTRINDX_MASK, NV_PROT_WRITE_COMBINED_DEVICE)
  #define NV_PGPROT_WRITE_COMBINED(old_prot)      NV_PGPROT_UNCACHED(old_prot)
 diff --git a/conftest.sh b/conftest.sh
-index dfb84d2..fe1c87c 100755
+index 2a99ab1..288bf1a 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2524,6 +2524,24 @@ compile_test() {
+@@ -2520,6 +2520,24 @@ compile_test() {
                  return
              fi
          ;;

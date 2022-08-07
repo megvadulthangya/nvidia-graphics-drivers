@@ -1,4 +1,4 @@
-From 07c140d5f44acd0cd0108687953da420e6868ba4 Mon Sep 17 00:00:00 2001
+From 661f1f7884c5442da06006da1476194213d99a98 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Wed, 16 Feb 2022 16:56:45 +0100
 Subject: [PATCH] backport pde_data changes from 470.103.01
@@ -28,10 +28,10 @@ index 107b324..1f2b3f9 100644
  
  #if defined(NV_PROC_REMOVE_PRESENT)
 diff --git a/conftest.sh b/conftest.sh
-index 5dc78bd..dfb84d2 100755
+index 4b7ee6d..2a99ab1 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -1315,6 +1315,23 @@ compile_test() {
+@@ -1311,6 +1311,23 @@ compile_test() {
          ;;
  
          pde_data)
@@ -55,7 +55,7 @@ index 5dc78bd..dfb84d2 100755
              #
              # Determine if the PDE_DATA() function is present.
              #
-@@ -1327,7 +1344,7 @@ compile_test() {
+@@ -1323,7 +1340,7 @@ compile_test() {
                  PDE_DATA();
              }"
  

@@ -1,4 +1,4 @@
-From 92cf5ab812fc4e622079c655f8bb3da328fa375a Mon Sep 17 00:00:00 2001
+From e2e3873191275fcbca3a9218e65766166744090e Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Fri, 20 May 2022 09:09:42 +0200
 Subject: [PATCH] backport linker scripts changes from 510.60.02

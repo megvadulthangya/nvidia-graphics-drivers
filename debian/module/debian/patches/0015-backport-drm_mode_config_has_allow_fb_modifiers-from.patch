@@ -1,4 +1,4 @@
-From 7db17638bd5748092e42ed44c6b6cb12957438fd Mon Sep 17 00:00:00 2001
+From 7b45248ea4f7da6a88a1d1a21fbd8694f8ea2c31 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 20 Jun 2022 11:10:23 +0200
 Subject: [PATCH] backport drm_mode_config_has_allow_fb_modifiers from
@@ -11,7 +11,7 @@ Subject: [PATCH] backport drm_mode_config_has_allow_fb_modifiers from
  3 files changed, 31 insertions(+), 2 deletions(-)
 
 diff --git a/conftest.sh b/conftest.sh
-index d5243bc..14636e3 100755
+index acd42c0..7676169 100755
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -121,6 +121,7 @@ test_headers() {
@@ -22,7 +22,7 @@ index d5243bc..14636e3 100755
      FILES="$FILES dt-bindings/interconnect/tegra_icc_id.h"
      FILES="$FILES generated/autoconf.h"
      FILES="$FILES generated/compile.h"
-@@ -4592,6 +4593,33 @@ compile_test() {
+@@ -4588,6 +4589,33 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DRM_DEVICE_HAS_PDEV" "" "types"
          ;;
  

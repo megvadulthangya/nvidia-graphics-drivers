@@ -1,4 +1,4 @@
-From 423fe65e8bbd0971acb34a3cf9bd32f099ad0113 Mon Sep 17 00:00:00 2001
+From 9c1043194d21ae2f98cf9d9e5dd4008332b2d18f Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 20 Jun 2022 11:15:34 +0200
 Subject: [PATCH 3/3] backport acpi_bus_get_device changes from 470.129.06
@@ -10,10 +10,10 @@ Subject: [PATCH 3/3] backport acpi_bus_get_device changes from 470.129.06
  3 files changed, 35 insertions(+)
 
 diff --git a/conftest.sh b/conftest.sh
-index c520d92..1620c14 100755
+index bcc3156..1a81931 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -4588,6 +4588,22 @@ compile_test() {
+@@ -4584,6 +4584,22 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DMA_SET_COHERENT_MASK_PRESENT" "" "functions"
          ;;
  

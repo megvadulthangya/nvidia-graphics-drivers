@@ -1,4 +1,4 @@
-From bfe1a3757667d6f2affdddaab48f03d53be4195a Mon Sep 17 00:00:00 2001
+From e480ff7cb72c65f5ee9baea883004a0843e9d906 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 20 Jun 2022 12:59:38 +0200
 Subject: [PATCH] backport cc_mkdec changes from 470.129.06
@@ -31,7 +31,7 @@ index 135e9bc..cea6402 100644
  }
  
 diff --git a/conftest.sh b/conftest.sh
-index 1620c14..d5243bc 100755
+index 1a81931..acd42c0 100755
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -161,6 +161,7 @@ test_headers() {
@@ -42,7 +42,7 @@ index 1620c14..d5243bc 100755
  
      translate_and_preprocess_header_files $FILES
  }
-@@ -4335,6 +4336,25 @@ compile_test() {
+@@ -4331,6 +4332,25 @@ compile_test() {
  
          ;;
  

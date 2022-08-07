@@ -7,6 +7,10 @@ superfluous-file-pattern supported-gpus/supported-gpus.json [debian/copyright:*]
 # upstream provides no signatures
 debian-watch-does-not-check-gpg-signature
 
+# running tests would require nvidia hardware and using the
+# proprietary kernel module
+superficial-tests
+
 # several library packages ship their *.so link, so they actually
 # are their own -dev package
 package-placeholder-in-symbols-file
