@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-7) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-7) unstable; urgency=medium
 
   * Replace obsolete pci_*() functions with their dma_*() counterparts in
     ppc64el specific code paths to fix kernel module build for ppc64el.
@@ -14,7 +14,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-7) UNRELEASED; urgency=medium
   * Copy the Source stanza from d/control to the module control file
     (470.141.03-1).
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 01 Nov 2021 11:23:02 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 07 Aug 2022 05:22:22 +0200
 
 nvidia-graphics-drivers-tesla-460 (460.106.00-6~deb11u1) bullseye; urgency=medium
 
