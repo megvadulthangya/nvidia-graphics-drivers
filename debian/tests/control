@@ -1,8 +1,8 @@
-Test-Command: sh /usr/share/doc/nvidia-tesla-510-kernel-source/build-module-packages.sh
+Test-Command: sh /usr/share/doc/nvidia-tesla-kernel-source/build-module-packages.sh
 Features: test-name=module-assistant-autopkgtest
 Architecture: amd64 arm64 ppc64el
 Depends:
- nvidia-tesla-510-kernel-source,
+ nvidia-tesla-kernel-source,
  module-assistant,
 # amd64
  linux-headers-amd64 [amd64],
