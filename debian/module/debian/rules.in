@@ -3,6 +3,7 @@
 export NV_VERBOSE := 1
 
 MODULE_BASENAME	 = #MODULE#
+MODSRCPKG	 = #NVIDIA#-kernel-source
 
 CFLAGS = -Wall -g
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
@@ -10,10 +11,7 @@ ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
 else
     CFLAGS += -O2
 endif
-ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-    NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-    MAKEFLAGS += -j$(NUMJOBS)
-endif
+J_FLAG	?= $(if $(filter -j%,$(MAKEFLAGS)),,$(patsubst parallel=%,-j%,$(filter parallel=%,$(DEB_BUILD_OPTIONS))))
 
 # Find kernel build information.
 ifndef KSRC
@@ -44,13 +42,13 @@ build-arch: build-stamp
 build-indep:
 build-stamp: configure-stamp
 	dh_quilt_patch
-	unset ARCH; $(MAKE) modules $(KERNEL_SPEC)
+	unset ARCH; $(MAKE) $(J_FLAG) modules $(KERNEL_SPEC)
 ifneq (nvidia,$(MODULE_BASENAME))
 	mv nvidia.ko $(MODULE_BASENAME).ko
-	mv nvidia-modeset.ko #MODULE#-modeset.ko
-	mv nvidia-drm.ko #MODULE#-drm.ko
-	mv nvidia-peermem.ko #MODULE#-peermem.ko
-#HAS_UVM#	mv nvidia-uvm.ko $(MODULE_BASENAME)-uvm.ko
+	mv nvidia-modeset.ko $(MODULE_BASENAME)-modeset.ko
+	mv nvidia-drm.ko $(MODULE_BASENAME)-drm.ko
+	mv nvidia-uvm.ko $(MODULE_BASENAME)-uvm.ko
+	mv nvidia-peermem.ko $(MODULE_BASENAME)-peermem.ko
 endif
 	touch $@
 
@@ -76,8 +74,8 @@ binary-arch: build-stamp
 	dh_strip
 	dh_installdeb
 	dh_gencontrol -- -v`cat debian/VERSION` \
-		-V'built:using:kernel=$(call get_built_using,linux-headers-$(KVERS))' \
-		-V'built:using:nvidia=$(call get_built_using,#NVIDIA#-kernel-source)'
+		-V'built-using:kernel=$(call get_built_using,linux-headers-$(KVERS))' \
+		-V'built-using:module=$(call get_built_using,$(MODSRCPKG))'
 	dh_md5sums
 	dh_builddeb --destdir=$(KPKG_DEST_DIR)
 

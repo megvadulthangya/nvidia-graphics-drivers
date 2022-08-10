@@ -113,10 +113,10 @@ Depends:
 Provides:
  nvidia-kernel-support-any,
  ${nvidia}-kernel-support--v1,
- ${nvidia}-kernel-support-${nvidia:Version},
- nvidia-firmware-${nvidia:Version},
+ firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}],
+ firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
 Conflicts:
- nvidia-firmware-${nvidia:Version},
+ firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
 Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -131,8 +131,7 @@ Multi-Arch: foreign
 Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
- dkms,
- ${nvidia}-kernel-support-${nvidia:Version},
+ firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
  ${nvidia}-kernel-support--v1,
  ${misc:Depends}
 Recommends:
@@ -141,7 +140,7 @@ Recommends:
 Provides:
  ${nvidia}-kernel-${nvidia:Version},
 Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
- This package builds the NVIDIA Xorg binary kernel module needed by
+ This package builds the NVIDIA binary kernel modules needed by
  ${nvidia}-driver, using DKMS.
  Provided that you have the kernel header packages installed, the kernel
  module will be built for your running kernel and automatically rebuilt for
@@ -165,19 +164,18 @@ Section: non-free/kernel
 Architecture: amd64 arm64 ppc64el
 Depends:
  debhelper-compat (= ${nvidia:debhelper-compat}),
- make:any,
  quilt,
- xz-utils,
  ${misc:Depends}
 Recommends:
- module-assistant | kernel-package,
- ${nvidia}-kernel-support,
+ module-assistant,
+ firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
+ ${nvidia}-kernel-support--v1,
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
- This package provides the source for the NVIDIA Xorg binary kernel module
+ This package provides the source for the NVIDIA binary kernel modules
  needed by ${nvidia}-driver in a form suitable
- for use by module-assistant or kernel-package.
+ for use by module-assistant.
  .
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -612,23 +610,6 @@ Description: NVIDIA Management Library (NVML) runtime library${nvidia:VariantDes
  It provides a direct access to the queries and commands exposed via nvidia-smi.
  .
  This package contains the nvidia-ml runtime library.
-
-Package: nvidia-cuda-mps
-Section: non-free/utils
-Architecture: amd64 arm64 ppc64el
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA CUDA Multi Process Service (MPS)
- The Compute Unified Device Architecture (CUDA) enables NVIDIA
- graphics processing units (GPUs) to be used for massively parallel
- general purpose computation.
- .
- CUDA MPS is a feature that allows multiple CUDA processes to share a single
- GPU context. CUDA MPS should be transparent to CUDA programs.
- .
- CUDA MPS requires a device that supports Unified Virtual Address (UVA) and
- has compute capability SM 3.5 or higher.
- Pre-CUDA 4.0 APIs are not supported under CUDA MPS.
 
 Package: libnvidia-tesla-510-cuda1
 Architecture: i386 amd64 arm64 ppc64el
