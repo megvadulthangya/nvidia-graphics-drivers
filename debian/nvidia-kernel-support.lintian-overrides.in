@@ -1,5 +1,6 @@
 # Firmware blob.
 binary-from-other-architecture [lib/firmware/nvidia/#VERSION#/gsp.bin]
 statically-linked-binary [lib/firmware/nvidia/#VERSION#/gsp.bin]
+statically-linked-binary
 binary-has-unneeded-section .comment [lib/firmware/nvidia/#VERSION#/gsp.bin]
 spelling-error-in-binary * [lib/firmware/nvidia/#VERSION#/gsp.bin]
