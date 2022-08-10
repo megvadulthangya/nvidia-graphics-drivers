@@ -852,7 +852,7 @@ Description: NVIDIA Management Library (NVML) runtime library${nvidia:VariantDes
 
 Package: nvidia-powerd
 Section: non-free/utils
-Architecture: #amd64
+Architecture: amd64
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA Dynamic Boost (daemon)

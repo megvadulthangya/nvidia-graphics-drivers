@@ -69,6 +69,3 @@ nvidia-ngx-updater
 libEGL.so.#VERSION#
 
 libnvidia-compiler-next.so.#VERSION#
-
-nvidia-powerd
-nvidia-dbus.conf
