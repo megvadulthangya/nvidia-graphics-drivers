@@ -1,7 +1,7 @@
 # If needed, set to the major part of the upstream version number.
 TESLA_MAJOR		 = 510
-#NVIDIA_TESLA		 = yes
-NVIDIA_TESLA		 = $(TESLA_MAJOR)
+NVIDIA_TESLA		 = yes
+#NVIDIA_TESLA		 = $(TESLA_MAJOR)
 #NVIDIA_LEGACY		 =
 #WATCH_VERSION		 =
 
