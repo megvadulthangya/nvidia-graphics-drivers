@@ -5,7 +5,7 @@ patch-file-present-but-not-mentioned-in-series
 superfluous-file-pattern supported-gpus/supported-gpus.json [debian/copyright:*]
 
 # upstream provides no signatures
-debian-watch-does-not-check-gpg-signature
+debian-watch-does-not-check-openpgp-signature
 
 # running tests would require nvidia hardware and using the
 # proprietary kernel module
