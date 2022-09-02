@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla (510.85.02-2) UNRELEASED; urgency=medium
+
+  * Drop wildcard Lintian overrides again.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 02 Sep 2022 23:14:13 +0200
+
 nvidia-graphics-drivers-tesla (510.85.02-1) unstable; urgency=medium
 
   * Fork as new source package, rename everything to remove the version after
