@@ -1,0 +1,29 @@
+Test-Command: sh /usr/share/doc/nvidia-kernel-source/build-module-packages.sh
+Features: test-name=module-assistant-autopkgtest
+Architecture: amd64 arm64
+Depends:
+ nvidia-kernel-source,
+ module-assistant,
+# amd64
+ linux-headers-amd64 [amd64],
+ linux-headers-cloud-amd64 [amd64],
+ linux-headers-rt-amd64 [amd64],
+# i386
+ linux-headers-686 [i386],
+ linux-headers-686-pae [i386],
+ linux-headers-rt-686-pae [i386],
+# armhf
+ linux-headers-armmp [armhf],
+ linux-headers-armmp-lpae [armhf],
+ linux-headers-rt-armmp [armhf],
+# ppc64el
+ linux-headers-powerpc64le [ppc64el],
+# arm64
+ linux-headers-arm64 [arm64],
+ linux-headers-cloud-arm64 [arm64],
+ linux-headers-rt-arm64 [arm64],
+Restrictions:
+ superficial,
+ needs-root,
+ breaks-testbed,
+ allow-stderr,
