@@ -155,19 +155,17 @@ Section: non-free/kernel
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Depends:
  debhelper-compat (= ${nvidia:debhelper-compat}),
- make:any,
  quilt,
- xz-utils,
  ${misc:Depends}
 Recommends:
- module-assistant | kernel-package,
- ${nvidia}-kernel-support,
+ module-assistant,
+ ${nvidia}-kernel-support--v1,
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
  This package provides the source for the NVIDIA binary kernel modules
  needed by ${nvidia}-driver in a form suitable
- for use by module-assistant or kernel-package.
+ for use by module-assistant.
  .
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
