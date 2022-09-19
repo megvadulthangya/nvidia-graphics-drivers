@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-tesla-510 (510.85.02-3) UNRELEASED; urgency=medium
+
+  * Relax the dependencies on libnvidia*-glcore/libnvidia*-eglcore for the
+    transitional packages.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 19 Sep 2022 04:41:29 +0200
+
 nvidia-graphics-drivers-tesla-510 (510.85.02-2) unstable; urgency=medium
 
   * Turn into transitional packages to aid switching to
