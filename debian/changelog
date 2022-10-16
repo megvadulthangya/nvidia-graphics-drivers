@@ -287,6 +287,12 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
+nvidia-graphics-drivers-tesla-470 (470.141.03-1~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 02 Sep 2022 11:49:52 +0200
+
 nvidia-graphics-drivers-tesla-470 (470.141.03-1) unstable; urgency=medium
 
   * New upstream Tesla release 470.141.03 (2022-08-02).
@@ -299,6 +305,12 @@ nvidia-graphics-drivers-tesla-470 (470.141.03-1) unstable; urgency=medium
   * Re-enable autopkgtest on ppc64el, fixed in Linux 5.19.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 08 Aug 2022 18:22:03 +0200
+
+nvidia-graphics-drivers (470.141.03-1~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 02 Sep 2022 10:57:14 +0200
 
 nvidia-graphics-drivers (470.141.03-1) unstable; urgency=medium
 
@@ -1331,6 +1343,12 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
+
+nvidia-graphics-drivers-tesla-450 (450.203.03-1~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 02 Sep 2022 09:58:52 +0200
 
 nvidia-graphics-drivers-tesla-450 (450.203.03-1) unstable; urgency=medium
 
