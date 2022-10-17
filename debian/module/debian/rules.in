@@ -1,48 +1,45 @@
 #!/usr/bin/make -f
 
+#export DH_VERBOSE=1
+
 export NV_VERBOSE := 1
 
+MODULE		 = #NVIDIA#
+MODSRCPKG	 = $(MODULE)-kernel-source
 MODULE_BASENAME	 = #MODULE#
-MODSRCPKG	 = #NVIDIA#-kernel-source
 
-CFLAGS = -Wall -g
-ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-    CFLAGS += -O0
-else
-    CFLAGS += -O2
-endif
-J_FLAG	?= $(if $(filter -j%,$(MAKEFLAGS)),,$(patsubst parallel=%,-j%,$(filter parallel=%,$(DEB_BUILD_OPTIONS))))
+# The following variable is required by module-assistant:
+#   PACKAGE: modules binary package prefix (as in debian/control.modules.in)
+PACKAGE		 = $(MODULE)-kernel
 
-# Find kernel build information.
-ifndef KSRC
-    KSRC := /lib/modules/$(shell uname -r)/build
-endif
-ifndef KPKG_DEST_DIR
-    KPKG_DEST_DIR = ..
-endif
-KVERS := $(shell perl debian/kernel-version $(KSRC))
-export KVERS
-export KPKG_DEST_DIR
+MA_DIR		?= /usr/share/modass
+include $(MA_DIR)/include/generic.make
+include $(MA_DIR)/include/common-rules.make
+
+# The following variables are defined by module-assistant:
+#   KVERS:   kernel version string (version-abi-flavor-arch)
+#   KSRC:    path to the kernel headers/sources (/lib/modules/$(KVERS)/build)
+#   PKGNAME: package name to be built ($(PACKAGE)-$(KVERS))
+#   VERSION: package version to be built (module-source-debversion+kernel-debversion)
+#   DEB_DESTDIR: destination of the to-be-built package (/usr/src)
+
+get_built_using	?= $(subst (= ),,$(shell dpkg-query -f='$${source:Package} (= $${source:Version})' -W $1))
+
+MAKE_J_FLAG	?= $(if $(filter -j%,$(MAKEFLAGS)),,$(patsubst parallel=%,-j%,$(filter parallel=%,$(DEB_BUILD_OPTIONS))))
 
 KERNEL_SPEC	 = $(if $(filter /lib/modules/$(KVERS)/%,$(KSRC)),KERNEL_UNAME="$(KVERS)",SYSSRC="$(KSRC)")
-KERNEL_SPEC	+= $(KPKG_EXTRAV_ARG)
 
-configure: configure-stamp
-configure-stamp:
-	@if [ x"$(KVERS)" = x ] ; then \
-	    echo 'No version in $(KSRC)/include/linux/version.h' >&2; \
-	    exit 1; \
-	fi
-	sh debian/prep-modules $(KSRC)
-	sed 's/#KVERS#/$(KVERS)/g' debian/install.template > debian/install
-	touch $@
 
-build: build-arch build-indep
-build-arch: build-stamp
-build-indep:
-build-stamp: configure-stamp
+kdist_config: prep-deb-files
+
+binary-modules: kdist_config
+	dh_testdir
+	dh_testroot
+	dh_prep
+	dh_installdirs
+# Build and install the module.
 	dh_quilt_patch
-	unset ARCH; $(MAKE) $(J_FLAG) modules $(KERNEL_SPEC)
+	unset ARCH; $(MAKE) $(MAKE_J_FLAG) modules $(KERNEL_SPEC)
 ifneq (nvidia,$(MODULE_BASENAME))
 	mv nvidia.ko $(MODULE_BASENAME).ko
 	mv nvidia-modeset.ko $(MODULE_BASENAME)-modeset.ko
@@ -50,17 +47,7 @@ ifneq (nvidia,$(MODULE_BASENAME))
 	mv nvidia-uvm.ko $(MODULE_BASENAME)-uvm.ko
 	mv nvidia-peermem.ko $(MODULE_BASENAME)-peermem.ko
 endif
-	touch $@
-
-get_built_using	?= $(subst (= ),,$(shell dpkg-query -f='$${source:Package} (= $${source:Version})' -W $1))
-
-binary: binary-arch binary-indep
-binary-indep:
-binary-arch: build-stamp
-	dh_testdir
-	dh_testroot
-	dh_prep
-	dh_installdirs
+# Build the package.
 	dh_install
 	dh_installdocs $(wildcard debian/changelog.nvidia*-kernel*-source*)
 	dh_installchangelogs NVIDIA_Changelog
@@ -71,50 +58,21 @@ binary-arch: build-stamp
 	dh_strip_nondeterminism
 	dh_compress
 	dh_fixperms
+	dh_missing
+	dh_dwz
 	dh_strip
 	dh_installdeb
-	dh_gencontrol -- -v`cat debian/VERSION` \
+	dh_gencontrol -- -v$(VERSION) \
 		-V'built-using:kernel=$(call get_built_using,linux-headers-$(KVERS))' \
 		-V'built-using:module=$(call get_built_using,$(MODSRCPKG))'
 	dh_md5sums
-	dh_builddeb --destdir=$(KPKG_DEST_DIR)
+	dh_builddeb --destdir=$(DEB_DESTDIR)
 
-clean:
-	test -f debian/control || sed 's/#KVERS#/$(KVERS)/g' debian/control.template > debian/control
+kdist_clean:
+	test -f debian/control || sed -r 's/(##|#|_)KVERS\1/$(KVERS)/g' debian/control.modules.in > debian/control
 	dh_testdir
 	$(MAKE) clean $(KERNEL_SPEC)
 	dh_quilt_unpatch || quilt --quiltrc /dev/null pop -af
-	dh_clean debian/control debian/install
+	dh_clean $(patsubst %.modules.in,%,$(wildcard debian/*.modules.in))
 
-# The kdist_configure target is called by make-kpkg modules_config. It
-# should configure the module so it is ready for compilation (mostly useful
-# for calling configure).
-kdist_configure: configure-stamp
-
-# The kdist_image target is called by make-kpkg modules_image.  It is
-# responsible for building the module, but doesn't generate a *.changes
-# file.
-kdist_image: build-stamp
-	$(ROOT_CMD) $(MAKE) $(MFLAGS) -f debian/rules binary-arch
-	$(ROOT_CMD) $(MAKE) $(MFLAGS) -f debian/rules clean
-
-# The kdist target is called by make-kpkg modules.  It is responsible for
-# building the module and a *.changes file.  Normally it should also sign
-# the *.changes file, but we don't do that to avoid a dependency on
-# devscripts.
-kdist: build-stamp
-	$(ROOT_CMD) $(MAKE) $(MFLAGS) -f debian/rules binary-arch
-	KMAINT="$(KMAINT)" KEMAIL="$(KEMAIL)" sh -v debian/genchanges
-	$(ROOT_CMD) $(MAKE) $(MFLAGS) -f debian/rules clean
-
-# The kdist_clean target is called by make-kpkg modules_clean.  It is
-# responsible for cleaning up any changes that have been made by the other
-# kdist_commands (except for the .deb files created).
-kdist_clean:
-	$(ROOT_CMD) $(MAKE) $(MFLAGS) -f debian/rules clean
-
-# Legacy targets supported for backward compatibility.
-binary-modules binary_modules: binary-arch
-
-.PHONY: binary binary-arch binary-indep build build-arch build-indep clean
-.PHONY: configure kdist kdist_clean kdist_configure kdist_image
+.PHONY: kdist_config binary-modules kdist_clean

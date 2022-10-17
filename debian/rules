@@ -102,7 +102,7 @@ RENAMED_CONTROL	 = $(foreach f,$(RENAME_CONTROL),$(call applyprefixrenamelist,$f
 TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/module/debian/patches/*.in debian/detect/*.in debian/tests/*.in)
 AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
 AUTOGEN		+= debian/module/debian/bug-control
-AUTOGEN		+= debian/module/debian/control.template
+AUTOGEN		+= debian/module/debian/control.modules.in
 AUTOGEN		+= $(patsubst %.in,%,$(RENAMED_CONTROL))
 AUTOGEN		+= debian/bug-control
 AUTOGEN		+= debian/substvars
@@ -382,7 +382,7 @@ debian/module/debian/patches/series: EXTRA_SUBSTITUTIONS =
 debian/nvidia-kernel-dkms.dkms: debian/module/debian/patches/series
 debian/nvidia-kernel-dkms.dkms: EXTRA_SUBSTITUTIONS += -e 's{\#MODULE_PATCHES\#}{$(patsubst %,%,$(shell grep -v ^\# debian/module/debian/patches/series))}g;'
 
-debian/module/debian/control.template: debian/control debian/module/debian/control.template.binary
+debian/module/debian/control.modules.in: debian/control debian/module/debian/control.modules.in.binary
 	sed -n '0,/^$$/p' $< > $@
 	cat $(filter-out $<,$^) >> $@
 
