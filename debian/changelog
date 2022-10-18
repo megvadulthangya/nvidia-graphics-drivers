@@ -2,6 +2,7 @@ nvidia-graphics-drivers-tesla (510.85.02-2) unstable; urgency=medium
 
   * Drop wildcard Lintian overrides again.
   * Merge changes from nvidia-graphics-drivers 510.85.02-5.
+    (Closes: #1021976)
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 17 Oct 2022 21:45:37 +0200
 
