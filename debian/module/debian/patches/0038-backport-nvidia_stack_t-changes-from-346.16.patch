@@ -1,0 +1,81 @@
+From c1ea05b91f40822996c2162065cab570ea612959 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 19 Oct 2022 23:43:46 +0200
+Subject: [PATCH] backport nvidia_stack_t changes from 346.16
+
+---
+ nv-acpi.c | 9 ++++-----
+ nv.h      | 5 +++--
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/nv-acpi.c b/nv-acpi.c
+index 1225038..7484a4d 100644
+--- a/nv-acpi.c
++++ b/nv-acpi.c
+@@ -115,7 +115,7 @@ int nv_acpi_init(void)
+      * ACPI subsystem.
+      */
+     int status;
+-    nv_stack_t *sp = NULL;
++    nvidia_stack_t *sp = NULL;
+     NvU32 acpi_event_config = 0;
+     NV_STATUS rmStatus;
+     
+@@ -158,7 +158,7 @@ int nv_acpi_init(void)
+ 
+ int nv_acpi_uninit(void)
+ {
+-    nv_stack_t *sp = NULL;
++    nvidia_stack_t *sp = NULL;
+     NvU32 acpi_event_config = 0;
+     NV_STATUS rmStatus;
+     
+@@ -198,7 +198,7 @@ static int nv_acpi_add(struct acpi_device *device)
+     nv_acpi_t *pNvAcpiObject = NULL;
+     union acpi_object control_argument_0 = { ACPI_TYPE_INTEGER };
+     struct acpi_object_list control_argument_list = { 0, NULL };
+-    nv_stack_t *sp = NULL;
++    nvidia_stack_t *sp = NULL;
+     struct list_head *node, *next;
+     nv_acpi_integer_t device_id = 0;
+     int device_counter = 0;
+@@ -478,7 +478,7 @@ static int nv_acpi_match(struct acpi_device *device, struct acpi_driver *driver)
+ /* Do the necessary allocations and install notifier "handler" on the device-node "device" */
+ static NV_STATUS nv_install_notifier(struct acpi_device *device, acpi_notify_handler handler)
+ {        
+-    nv_stack_t *sp = NULL;
++    nvidia_stack_t *sp = NULL;
+     nv_acpi_t *pNvAcpiObject = NULL;
+     NV_STATUS rmStatus = NV_ERR_GENERIC;
+     acpi_status status = -1;
+@@ -489,7 +489,6 @@ static NV_STATUS nv_install_notifier(struct acpi_device *device, acpi_notify_han
+     NV_KMEM_CACHE_ALLOC_STACK(sp);
+     if (sp == NULL)
+     {
+-        nv_printf(NV_DBG_ERRORS, "NVRM: nv_install_notifier: failed to allocate stack!\n");
+         return NV_ERR_NO_MEMORY;
+     }
+ 
+diff --git a/nv.h b/nv.h
+index d0b9bfe..3b0e777 100644
+--- a/nv.h
++++ b/nv.h
+@@ -268,12 +268,13 @@ typedef struct
+ #define NV_STACK_SIZE (NV_RM_PAGE_SIZE * 2)
+ #endif
+ 
+-typedef struct nv_stack_s
++typedef struct nvidia_stack_s
+ {
+     NvU32 size;
+     void *top;
+     NvU8  stack[NV_STACK_SIZE-16] __attribute__ ((aligned(16)));
+-} nv_stack_t;
++} nvidia_stack_t;
++typedef nvidia_stack_t nv_stack_t;
+ 
+ /*
+  * this is a wrapper for unix events
+-- 
+2.20.1
+

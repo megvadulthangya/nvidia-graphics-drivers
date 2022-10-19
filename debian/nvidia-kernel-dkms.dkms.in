@@ -15,8 +15,8 @@ MAKE[0]="unset ARCH; env NV_VERBOSE=1 \
     make ${parallel_jobs+-j$parallel_jobs} modules KERNEL_UNAME=${kernelver}"
 CLEAN="make KERNEL_UNAME=${kernelver} clean"
 
-#HAS_UVM#MAKE[0]+="; env CCACHE_DISABLE=1 NV_VERBOSE=1 \
-#HAS_UVM#    make -C uvm modules KERNEL_UNAME=${kernelver} KBUILD_EXTMOD=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build/uvm"
+#HAS_UVM#MAKE[0]+="; env NV_VERBOSE=1 \
+#HAS_UVM#    make ${parallel_jobs+-j$parallel_jobs} -C uvm modules KERNEL_UNAME=${kernelver} KBUILD_EXTMOD=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build/uvm"
 #HAS_UVM#CLEAN+="; make -C uvm KERNEL_UNAME=${kernelver} clean"
 
 BUILT_MODULE_NAME[0]="nvidia"

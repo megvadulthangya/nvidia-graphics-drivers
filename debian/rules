@@ -18,6 +18,8 @@ NVIDIA_SETTINGS		?= nvidia-settings$(legacy)
 ARCH_LIST		?= amd64
 ARCH_DEPS_i386		?=
 BLOB_ARCH_LIST		?= $(strip $(DEB_HOST_ARCH) $(ARCH_DEPS_$(DEB_HOST_ARCH)))
+NO_DRIVER_ARCH_LIST	?=
+NO_AUTOPKGTEST_ARCH_LIST?=
 NO_UVM_ARCH_LIST	?=
 
 NVIDIA_RELEASE		 = $(DEB_VERSION_UPSTREAM)
@@ -34,7 +36,8 @@ legacy			 = $(if $(NVIDIA_LEGACY),-legacy-$(NVIDIA_LEGACY)xx)
 legacy_description	 = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))
 legacy_description_short = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy))
 watch_pattern		 = $(or $(WATCH_PATTERN),$(if $(WATCH_VERSION),$(WATCH_VERSION)(?:\.[\d\.\-]+)?),\d[\d\.\-]*)
-standards_version	:= $(shell sed -rn 's/Standards-Version: (.*)/\1/p' debian/control)
+DRIVER_ARCH_LIST	 = $(filter-out $(NO_DRIVER_ARCH_LIST),$(ARCH_LIST))
+AUTOPKGTEST_ARCH_LIST	 = $(filter-out $(NO_AUTOPKGTEST_ARCH_LIST),$(DRIVER_ARCH_LIST))
 
 # this needs the internal names (i.e. upstream's names, not our renamed files)
 unload_modules		 =
@@ -72,13 +75,14 @@ RENAME_CONTROL	 = $(filter-out $(LEGACY_CONTROL),$(ALL_CONTROL))
 RENAMED_CONTROL	 = $(foreach f,$(RENAME_CONTROL),$(call applyprefixrenamelist,$f,$(CONTROL_PREFIXES)))
 TEMPLATES	:= $(wildcard debian/*.in debian/module/debian/*.in debian/module/debian/patches/*.in debian/detect/*.in debian/tests/*.in)
 AUTOGEN		+= $(patsubst %.in,%,$(TEMPLATES))
-AUTOGEN		+= debian/module/debian/changelog
 AUTOGEN		+= debian/module/debian/bug-control
+AUTOGEN		+= debian/module/debian/control.template
 AUTOGEN		+= $(patsubst %.in,%,$(RENAMED_CONTROL))
 AUTOGEN		+= debian/bug-control
 AUTOGEN		+= debian/substvars
 AUTOKEEP	 = debian/watch
 AUTOKEEP	+= debian/tests/autopkgtest-pkg-dkms.conf
+AUTOKEEP	+= debian/tests/control
 AUTOCLEAN	 = $(filter-out $(AUTOKEEP),$(AUTOGEN))
 
 empty		 =
@@ -149,7 +153,7 @@ override_dh_auto_clean:
 	$(RM) -r $(foreach a,$(ARCH_LIST),NVIDIA-Linux-$a $(NVIDIA_DIRNAME_$a))
 	$(RM) -r build
 	$(RM) -r kernel-source-tree
-	$(RM) nvidia.ids nv-kernel.ids nv-readme.ids pci.ids.nvidia*
+	$(RM) nvidia.ids nv-readme.ids pci.ids.nvidia*
 	$(RM) LICENSE.txt LICENSE.tmp copyright.tmp
 	test ! -d debian/po || debconf-updatepo
 
@@ -199,18 +203,16 @@ module_source_txz	 = $(module_source_pkg)/usr/src/$(nvidia)-kernel.tar.xz
 override_dh_install:
 	dh_install
 
-	chmod a+x $(module_source_pkg)/usr/src/modules/$(nvidia)-kernel/debian/rules
-	find $(module_source_pkg)/usr/src/modules -depth -newermt '@$(SOURCE_DATE_EPOCH)' -print0 | \
-		xargs -0r touch --no-dereference --date='@$(SOURCE_DATE_EPOCH)'
-
-	# Build the tarball.
-	(cd $(module_source_pkg)/usr/src && find modules -print0) | \
-	  LC_ALL=C sort -z | \
-	  tar cfJ $(module_source_txz) \
-	    --owner=root --group=src -C $(module_source_pkg)/usr/src \
-	    --exclude '*.in' \
-	    --no-recursion --null -T -
-	tar tfvJ $(module_source_txz)
+	find $(module_source_pkg) \( -name '*.binary' -o -name '*.in' -not -name '*.modules.in' \) -print -delete
+	tar c \
+		-C $(module_source_pkg)/usr/src \
+		--owner=root --group=root \
+		--mode=a=rX,u+w \
+		--sort=name \
+		--mtime='@$(SOURCE_DATE_EPOCH)' \
+		--clamp-mtime \
+		modules | xz -9 > $(module_source_txz)
+	tar tfv $(module_source_txz)
 	$(RM) -r $(module_source_pkg)/usr/src/modules
 
 kernel-source-tree: build-stamp $(AUTOGEN)
@@ -287,11 +289,11 @@ override_dh_strip_nondeterminism:
 	-e 's{#LEGACY#}{$(legacy)}g;' \
 	-e 's{#MODULE#}{$(module)}g;' \
 	-e 's{#WATCH_PATTERN#}{$(subst \,\\,$(watch_pattern))}g;' \
-	-e 's{#STANDARDS_VERSION#}{$(standards_version)}g;' \
 	-e 's{#LIBDIR#}{$(libdir)}g;' \
 	-e 's{#PRIVATE#}{$(nvidia_private)}g;' \
 	-e 's{#UNLOAD_MODULES#}{$(strip $(unload_modules))}g;' \
-	-e 's{#ARCH_LIST#}{$(ARCH_LIST)}g;' \
+	-e 's{#ARCH_LIST#}{$(DRIVER_ARCH_LIST)}g;' \
+	-e 's{#AUTOPKGTEST_ARCH_LIST#}{$(AUTOPKGTEST_ARCH_LIST)}g;' \
 	-e 's{#HAS_UVM#}{$(if $(has_uvm),,#)}g;' \
 	-e 's{#!armhf#}{$(if $(filter armhf,$(DEB_HOST_ARCH)),#)}g;' \
 	-e 's{#tls#}{$(if $(filter armhf,$(DEB_HOST_ARCH)),,tls/)}g;' \
@@ -303,8 +305,9 @@ debian/module/debian/patches/series: EXTRA_SUBSTITUTIONS =
 debian/nvidia-kernel-dkms.dkms: debian/module/debian/patches/series
 debian/nvidia-kernel-dkms.dkms: EXTRA_SUBSTITUTIONS += -e 's{\#MODULE_PATCHES\#}{$(patsubst %,%,$(shell grep -v ^\# debian/module/debian/patches/series))}g;'
 
-debian/module/debian/changelog: debian/changelog
-	sed '1s/^nvidia-graphics-drivers$(legacy)/$(nvidia)-kernel/g' $< > $@
+debian/module/debian/control.template: debian/control debian/module/debian/control.modules.in.binary
+	sed -n '0,/^$$/p' $< > $@
+	cat $(filter-out $<,$^) >> $@
 
 debian/module/debian/bug-control: debian/bug-control
 	cp $< $@
@@ -350,7 +353,7 @@ pci.ids.nvidia: /usr/share/misc/pci.ids
 	done > $@
 
 # only invoked manually
-file-lists: $(patsubst %,debian/files_$(NVIDIA_RELEASE)_%,$(ARCH_LIST))
+file-lists: $(patsubst %,debian/files_$(NVIDIA_RELEASE)_%,$(DRIVER_ARCH_LIST))
 debian/files_$(NVIDIA_RELEASE)_%: NVIDIA-Linux-%
 	(cd $< && find .) | sed 's/$(NVIDIA_RELEASE)/VERSION/g' | sort > $@
 
@@ -369,7 +372,7 @@ ORIGDIR.empty		?= $(ORIGDIR)
 TARBALL.empty		?= $(TARBALL)
 
 # $1 = arch
-get_download_url	 = $(or $(HTTPURL_PREFIX_$(strip $1)),$(HTTPURL_PREFIX))/$(HTTPURL_ARCHDIR_$(strip $1))/$(NVIDIA_RELEASE)/$(NVIDIA_FILENAME_$(strip $1))
+get_download_url	 = $(or $(HTTPURL_PREFIX_$(strip $1)),$(HTTPURL_PREFIX))/$(if $(HTTPURL_ARCHDIR_$(strip $1)),$(HTTPURL_ARCHDIR_$(strip $1))/)$(or $(HTTPURL_VERDIR),$(NVIDIA_RELEASE))/$(NVIDIA_FILENAME_$(strip $1))
 get_origdir		 = $(or $(ORIGDIR.$(strip $1)),$(ORIGDIR)-$(strip $1))
 get_tarball		 = $(or $(TARBALL.$(strip $1)),$(TARBALL_BASE)-$(strip $1)$(TARBALL_SUFFIX))
 
@@ -406,8 +409,8 @@ get-orig-source-pack/%: get-orig-source-files/%
 	    touch $(call get_tarball,$*) -r $(call get_origdir,$*).stamp
 	mv get-orig-source/$(call get_tarball,$*) .
 
-get-orig-source-files/empty: get-orig-source-prepare/empty $(foreach a,$(ARCH_LIST),get-orig-source-pack/$a)
-	touch get-orig-source/$(call get_origdir,empty).stamp -r $$(ls -tr $(foreach a,$(ARCH_LIST),$(call get_tarball,$a)) | tail -n 1)
+get-orig-source-files/empty: get-orig-source-prepare/empty $(foreach a,$(DRIVER_ARCH_LIST),get-orig-source-pack/$a)
+	touch get-orig-source/$(call get_origdir,empty).stamp -r $$(ls -tr $(foreach a,$(DRIVER_ARCH_LIST),$(call get_tarball,$a)) | tail -n 1)
 
 .PHONY: get-orig-source
 get-orig-source: get-orig-source-pack/empty
@@ -418,7 +421,7 @@ get-orig-source-link/%:
 	ln -sf $(subst $(legacy),,$(call get_tarball,$*)) $(call get_tarball,$*)
 
 .PHONY: get-orig-links
-get-orig-links: get-orig-source-link/empty $(foreach a,$(ARCH_LIST),get-orig-source-link/$a)
+get-orig-links: get-orig-source-link/empty $(foreach a,$(DRIVER_ARCH_LIST),get-orig-source-link/$a)
 endif
 
 ############################################################################
@@ -430,7 +433,7 @@ endif
 
 UPSTREAM_NAME		 = nvidia-graphics-drivers
 UPSTREAM_VERSION	 = $(NVIDIA_RELEASE)
-TARBALL_LIST		 = $(foreach a,empty $(ARCH_LIST),$(call get_tarball,$a))
+TARBALL_LIST		 = $(foreach a,empty $(DRIVER_ARCH_LIST),$(call get_tarball,$a))
 
 GIT			?= git
 TARBALL_REPOSITORY	 = https://salsa.debian.org/nvidia-team/tarballs-$(UPSTREAM_NAME).git

@@ -1,4 +1,5 @@
 kernel/*		usr/src/modules/#NVIDIA#-kernel/
-debian/module/debian/*	usr/src/modules/#NVIDIA#-kernel/debian/
-debian/copyright	usr/src/modules/#NVIDIA#-kernel/debian/
 debian/bug-script	usr/src/modules/#NVIDIA#-kernel/debian/
+debian/changelog	usr/src/modules/#NVIDIA#-kernel/debian/
+debian/copyright	usr/src/modules/#NVIDIA#-kernel/debian/
+debian/module/debian/*	usr/src/modules/#NVIDIA#-kernel/debian/

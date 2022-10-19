@@ -35,7 +35,15 @@ kernel-5.7.0-set-memory-array.patch
 0034-backport-stdarg.h-changes-from-470.82.00.patch
 0035-backport-pde_data-changes-from-470.103.01.patch
 0036-backport-pci-dma-changes-from-470.129.06.patch
-0037-backport-acpi_bus_get_device-changes-from-470.129.06.patch
+0037-backport-status-code-renaming-s-RM_-NV_-from-346.16.patch
+0038-backport-nvidia_stack_t-changes-from-346.16.patch
+0039-backport-nv_install_notifier-changes-from-418.30.patch
+0040-backport-acpi_bus_get_device-changes-from-470.129.06.patch
+0041-backport-nv_install_notifier-changes-from-470.141.03.patch
+0042-backport-acpi-changes-from-430.09.patch
+0043-backport-acpi-changes-from-455.23.04.patch
+0044-backport-acpi-changes-from-510.85.02.patch
+0045-backport-acpi-changes-from-515.65.01.patch
 
 # build system updates
 separate-makefile-kbuild.patch

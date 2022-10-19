@@ -1,0 +1,875 @@
+From e57a877203c7ed5021f78364954460026cc9dc50 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 19 Oct 2022 14:30:57 +0200
+Subject: [PATCH] backport status code renaming (s/RM_/NV_/) from 346.16
+
+---
+ nv-acpi.c | 239 ++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 123 insertions(+), 116 deletions(-)
+
+diff --git a/nv-acpi.c b/nv-acpi.c
+index ad7497b..1225038 100644
+--- a/nv-acpi.c
++++ b/nv-acpi.c
+@@ -15,11 +15,20 @@
+ #include "nv-linux.h"
+ #include "nv-reg.h"
+ 
++#define NV_STATUS		RM_STATUS
++#define NV_OK			RM_OK
++#define NV_ERR_GENERIC		RM_ERROR
++#define NV_ERR_BUFFER_TOO_SMALL	RM_ERR_BUFFER_TOO_SMALL
++#define NV_ERR_INVALID_ARGUMENT	RM_ERR_INVALID_ARGUMENT
++#define NV_ERR_NO_MEMORY	RM_ERR_NO_MEMORY
++#define NV_ERR_NOT_SUPPORTED	RM_ERR_NOT_SUPPORTED
++#define NV_ERR_OPERATING_SYSTEM	RM_ERR_OPERATING_SYSTEM
++
+ #if defined(NV_LINUX_ACPI_EVENTS_SUPPORTED)
+-static RM_STATUS   nv_acpi_extract_integer (const union acpi_object *, void *, NvU32, NvU32 *);
+-static RM_STATUS   nv_acpi_extract_buffer  (const union acpi_object *, void *, NvU32, NvU32 *);
+-static RM_STATUS   nv_acpi_extract_package (const union acpi_object *, void *, NvU32, NvU32 *);
+-static RM_STATUS   nv_acpi_extract_object  (const union acpi_object *, void *, NvU32, NvU32 *);
++static NV_STATUS   nv_acpi_extract_integer (const union acpi_object *, void *, NvU32, NvU32 *);
++static NV_STATUS   nv_acpi_extract_buffer  (const union acpi_object *, void *, NvU32, NvU32 *);
++static NV_STATUS   nv_acpi_extract_package (const union acpi_object *, void *, NvU32, NvU32 *);
++static NV_STATUS   nv_acpi_extract_object  (const union acpi_object *, void *, NvU32, NvU32 *);
+ 
+ static int         nv_acpi_add             (struct acpi_device *);
+ 
+@@ -31,11 +40,11 @@ static int         nv_acpi_remove_one_arg(struct acpi_device *device);
+ 
+ static void        nv_acpi_event           (acpi_handle, u32, void *);
+ static acpi_status nv_acpi_find_methods    (acpi_handle, u32, void *, void **);
+-static RM_STATUS   nv_acpi_nvif_method     (NvU32, NvU32, void *, NvU16, NvU32 *, void *, NvU16 *);
++static NV_STATUS   nv_acpi_nvif_method     (NvU32, NvU32, void *, NvU16, NvU32 *, void *, NvU16 *);
+ 
+-static RM_STATUS   nv_acpi_wmmx_method     (NvU32, NvU8 *, NvU16 *);
+-static RM_STATUS   nv_acpi_mxmi_method     (NvU8 *, NvU16 *);
+-static RM_STATUS   nv_acpi_mxms_method     (NvU8 *, NvU16 *);
++static NV_STATUS   nv_acpi_wmmx_method     (NvU32, NvU8 *, NvU16 *);
++static NV_STATUS   nv_acpi_mxmi_method     (NvU8 *, NvU16 *);
++static NV_STATUS   nv_acpi_mxms_method     (NvU8 *, NvU16 *);
+ 
+ #if defined(NV_ACPI_DEVICE_OPS_HAS_MATCH)
+ static int         nv_acpi_match           (struct acpi_device *, struct acpi_driver *);
+@@ -108,7 +117,7 @@ int nv_acpi_init(void)
+     int status;
+     nv_stack_t *sp = NULL;
+     NvU32 acpi_event_config = 0;
+-    RM_STATUS rmStatus;
++    NV_STATUS rmStatus;
+     
+     NV_KMEM_CACHE_ALLOC_STACK(sp);
+     if (sp == NULL)
+@@ -121,7 +130,7 @@ int nv_acpi_init(void)
+                    NV_REG_REGISTER_FOR_ACPI_EVENTS, &acpi_event_config);
+     NV_KMEM_CACHE_FREE_STACK(sp);
+   
+-    if ((rmStatus == RM_OK) && (acpi_event_config == 0))
++    if ((rmStatus == NV_OK) && (acpi_event_config == 0))
+         return 0;
+ 
+     if (nv_acpi_driver != NULL)
+@@ -129,7 +138,7 @@ int nv_acpi_init(void)
+ 
+     rmStatus = os_alloc_mem((void **)&nv_acpi_driver,
+             sizeof(struct acpi_driver));
+-    if (rmStatus != RM_OK)
++    if (rmStatus != NV_OK)
+         return -ENOMEM;
+ 
+     memcpy((void *)nv_acpi_driver, (void *)&nv_acpi_driver_template,
+@@ -151,7 +160,7 @@ int nv_acpi_uninit(void)
+ {
+     nv_stack_t *sp = NULL;
+     NvU32 acpi_event_config = 0;
+-    RM_STATUS rmStatus;
++    NV_STATUS rmStatus;
+     
+     NV_KMEM_CACHE_ALLOC_STACK(sp);
+     if (sp == NULL)
+@@ -164,7 +173,7 @@ int nv_acpi_uninit(void)
+                    NV_REG_REGISTER_FOR_ACPI_EVENTS, &acpi_event_config);
+     NV_KMEM_CACHE_FREE_STACK(sp);
+   
+-    if ((rmStatus == RM_OK) && (acpi_event_config == 0))
++    if ((rmStatus == NV_OK) && (acpi_event_config == 0))
+         return 0;
+ 
+     if (nv_acpi_driver == NULL)
+@@ -185,7 +194,7 @@ static int nv_acpi_add(struct acpi_device *device)
+      * on the display device.
+      */
+     int status = -1;
+-    RM_STATUS rmStatus = RM_ERROR;
++    NV_STATUS rmStatus = NV_ERR_GENERIC;
+     nv_acpi_t *pNvAcpiObject = NULL;
+     union acpi_object control_argument_0 = { ACPI_TYPE_INTEGER };
+     struct acpi_object_list control_argument_list = { 0, NULL };
+@@ -203,7 +212,7 @@ static int nv_acpi_add(struct acpi_device *device)
+ 
+     // allocate data structure we need
+     rmStatus = os_alloc_mem((void **) &pNvAcpiObject, sizeof(nv_acpi_t));
+-    if (rmStatus != RM_OK)
++    if (rmStatus != NV_OK)
+     {
+         NV_KMEM_CACHE_FREE_STACK(sp);
+         nv_printf(NV_DBG_ERRORS,
+@@ -467,27 +476,25 @@ static int nv_acpi_match(struct acpi_device *device, struct acpi_driver *driver)
+ #endif
+ 
+ /* Do the necessary allocations and install notifier "handler" on the device-node "device" */
+-static RM_STATUS nv_install_notifier(struct acpi_device *device, acpi_notify_handler handler)
++static NV_STATUS nv_install_notifier(struct acpi_device *device, acpi_notify_handler handler)
+ {        
+     nv_stack_t *sp = NULL;
+     nv_acpi_t *pNvAcpiObject = NULL;
+-    RM_STATUS rmStatus = RM_ERROR;
++    NV_STATUS rmStatus = NV_ERR_GENERIC;
+     acpi_status status = -1;
+ 
+-
+-
+     if ((!device) || device->driver_data)
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+ 
+     NV_KMEM_CACHE_ALLOC_STACK(sp);
+     if (sp == NULL)
+     {
+         nv_printf(NV_DBG_ERRORS, "NVRM: nv_install_notifier: failed to allocate stack!\n");
+-        return RM_ERROR;
++        return NV_ERR_NO_MEMORY;
+     }
+ 
+     rmStatus = os_alloc_mem((void **) &pNvAcpiObject, sizeof(nv_acpi_t));
+-    if (rmStatus != RM_OK)
++    if (rmStatus != NV_OK)
+         goto return_error;
+ 
+     os_mem_set((void *)pNvAcpiObject, 0, sizeof(nv_acpi_t));
+@@ -504,7 +511,7 @@ static RM_STATUS nv_install_notifier(struct acpi_device *device, acpi_notify_han
+     if (!ACPI_FAILURE(status)) 
+     {
+         pNvAcpiObject->notify_handler_installed = 1;
+-        return RM_OK;
++        return NV_OK;
+     }
+ 
+ 
+@@ -514,7 +521,7 @@ return_error:
+      if (pNvAcpiObject)
+          os_free_mem((void *)pNvAcpiObject);
+      device->driver_data = NULL;
+-     return RM_ERROR;
++     return NV_ERR_GENERIC;
+ 
+ }
+ 
+@@ -557,7 +564,7 @@ static void nv_uninstall_notifier(struct acpi_device *device, acpi_notify_handle
+ void NV_API_CALL nv_acpi_methods_init(NvU32 *handlesPresent)
+ {
+     struct acpi_device *device = NULL;
+-    RM_STATUS rmStatus;
++    NV_STATUS rmStatus;
+     int retVal = -1;
+ 
+ 
+@@ -591,7 +598,7 @@ void NV_API_CALL nv_acpi_methods_init(NvU32 *handlesPresent)
+             }
+ 
+             rmStatus = nv_install_notifier(device, nv_acpi_event);
+-            if (rmStatus != RM_OK)
++            if (rmStatus != NV_OK)
+                 nvif_parent_gpu_handle = NULL;
+ 
+         } while (0);
+@@ -660,7 +667,7 @@ void NV_API_CALL nv_acpi_methods_uninit(void)
+     return;
+ }
+ 
+-static RM_STATUS nv_acpi_extract_integer(
++static NV_STATUS nv_acpi_extract_integer(
+     const union acpi_object *acpi_object,
+     void  *buffer,
+     NvU32  buffer_size,
+@@ -668,7 +675,7 @@ static RM_STATUS nv_acpi_extract_integer(
+ )
+ {
+     if (acpi_object->type != ACPI_TYPE_INTEGER)
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+ 
+     if (acpi_object->integer.value & ~0xffffffffULL)
+         *data_size = sizeof(acpi_object->integer.value);
+@@ -679,15 +686,15 @@ static RM_STATUS nv_acpi_extract_integer(
+         ((buffer_size < sizeof(acpi_object->integer.value)) &&
+          (acpi_object->integer.value & ~0xffffffffULL)))
+     {
+-        return RM_ERR_BUFFER_TOO_SMALL;
++        return NV_ERR_BUFFER_TOO_SMALL;
+     }
+ 
+     memcpy(buffer, &acpi_object->integer.value, *data_size);
+ 
+-    return RM_OK;
++    return NV_OK;
+ }
+ 
+-static RM_STATUS nv_acpi_extract_buffer(
++static NV_STATUS nv_acpi_extract_buffer(
+     const union acpi_object *acpi_object,
+     void  *buffer,
+     NvU32  buffer_size,
+@@ -695,30 +702,30 @@ static RM_STATUS nv_acpi_extract_buffer(
+ )
+ {
+     if (acpi_object->type != ACPI_TYPE_BUFFER)
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+ 
+     *data_size = acpi_object->buffer.length;
+ 
+     if (buffer_size < acpi_object->buffer.length)
+-        return RM_ERR_BUFFER_TOO_SMALL;
++        return NV_ERR_BUFFER_TOO_SMALL;
+ 
+     memcpy(buffer, acpi_object->buffer.pointer, *data_size);
+ 
+-    return RM_OK;
++    return NV_OK;
+ }
+ 
+-static RM_STATUS nv_acpi_extract_package(
++static NV_STATUS nv_acpi_extract_package(
+     const union acpi_object *acpi_object,
+     void  *buffer,
+     NvU32  buffer_size,
+     NvU32 *data_size
+ )
+ {
+-    RM_STATUS status = RM_OK;
++    NV_STATUS status = NV_OK;
+     NvU32 i, element_size = 0;
+ 
+     if (acpi_object->type != ACPI_TYPE_PACKAGE)
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+ 
+     *data_size = 0;
+     for (i = 0; i < acpi_object->package.count; i++)
+@@ -728,7 +735,7 @@ static RM_STATUS nv_acpi_extract_package(
+ 
+         status = nv_acpi_extract_object(&acpi_object->package.elements[i],
+                                         buffer, buffer_size, &element_size);
+-        if (status != RM_OK)
++        if (status != NV_OK)
+             break;
+ 
+         *data_size += element_size;
+@@ -737,14 +744,14 @@ static RM_STATUS nv_acpi_extract_package(
+     return status;
+ }
+ 
+-static RM_STATUS nv_acpi_extract_object(
++static NV_STATUS nv_acpi_extract_object(
+     const union acpi_object *acpi_object,
+     void  *buffer,
+     NvU32  buffer_size,
+     NvU32 *data_size
+ )
+ {
+-    RM_STATUS status;
++    NV_STATUS status;
+ 
+     switch (acpi_object->type)
+     {
+@@ -764,13 +771,13 @@ static RM_STATUS nv_acpi_extract_object(
+             break;
+ 
+         default:
+-            status = RM_ERR_NOT_SUPPORTED;
++            status = NV_ERR_NOT_SUPPORTED;
+     }
+ 
+     return status;
+ }
+ 
+-RM_STATUS NV_API_CALL nv_acpi_method(
++NV_STATUS NV_API_CALL nv_acpi_method(
+     NvU32 acpi_method,
+     NvU32 function,
+     NvU32 subFunction,
+@@ -781,7 +788,7 @@ RM_STATUS NV_API_CALL nv_acpi_method(
+     NvU16 *outDataSize
+ )
+ {
+-    RM_STATUS status;
++    NV_STATUS status;
+ 
+     switch (acpi_method)
+     {
+@@ -808,7 +815,7 @@ RM_STATUS NV_API_CALL nv_acpi_method(
+             break;
+ 
+         default:
+-            status = RM_ERR_NOT_SUPPORTED;
++            status = NV_ERR_NOT_SUPPORTED;
+     }
+ 
+     return status;
+@@ -817,7 +824,7 @@ RM_STATUS NV_API_CALL nv_acpi_method(
+ /*
+  * This function executes an MXMI ACPI method.
+  */
+-static RM_STATUS nv_acpi_mxmi_method(
++static NV_STATUS nv_acpi_mxmi_method(
+     NvU8  *pInOut,
+     NvU16 *pSize
+ )
+@@ -829,19 +836,19 @@ static RM_STATUS nv_acpi_mxmi_method(
+     union acpi_object mxmi_params[2];
+ 
+     if (!mxmi_handle)
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+ 
+     if ((pInOut == NULL) || (pSize == NULL))
+     {
+         nv_printf(NV_DBG_INFO,
+               "NVRM: nv_acpi_mxmi_method: invalid argument(s)!\n");
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+     }
+ 
+     if (*pSize == 0)
+     {
+         *pSize = sizeof(NvU8);
+-        return RM_ERR_BUFFER_TOO_SMALL;
++        return NV_ERR_BUFFER_TOO_SMALL;
+     }
+ 
+     if (!NV_MAY_SLEEP())
+@@ -850,7 +857,7 @@ static RM_STATUS nv_acpi_mxmi_method(
+         nv_printf(NV_DBG_ERRORS,
+             "NVRM: nv_acpi_mxmi_method: invalid context!\n");
+ #endif
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+     }
+ 
+     mxmi_params[0].integer.type   = ACPI_TYPE_INTEGER;
+@@ -868,7 +875,7 @@ static RM_STATUS nv_acpi_mxmi_method(
+     {
+         nv_printf(NV_DBG_ERRORS,
+             "NVRM: nv_acpi_mxmi_method: failed to get MXMI data!\n");
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+ 
+     mxmi = output.pointer;
+@@ -881,17 +888,17 @@ static RM_STATUS nv_acpi_mxmi_method(
+         nv_printf(NV_DBG_ERRORS,
+             "NVRM: nv_acpi_mxmi_method: MXMI data invalid!\n");
+         kfree(output.pointer);
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+ 
+     kfree(output.pointer);
+-    return RM_OK;
++    return NV_OK;
+ }
+ 
+ /*
+  * This function executes an MXMS ACPI method.
+  */
+-static RM_STATUS nv_acpi_mxms_method(
++static NV_STATUS nv_acpi_mxms_method(
+     NvU8  *pInOut,
+     NvU16 *pSize
+ )
+@@ -903,19 +910,19 @@ static RM_STATUS nv_acpi_mxms_method(
+     union acpi_object mxms_params[2];
+ 
+     if (!mxms_handle)
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+ 
+     if ((pInOut == NULL) || (pSize == NULL))
+     {
+         nv_printf(NV_DBG_INFO,
+               "NVRM: nv_acpi_mxms_method: invalid argument(s)!\n");
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+     }
+ 
+     if (*pSize == 0)
+     {
+         *pSize = sizeof(NvU8);
+-        return RM_ERR_BUFFER_TOO_SMALL;
++        return NV_ERR_BUFFER_TOO_SMALL;
+     }
+ 
+     if (!NV_MAY_SLEEP())
+@@ -924,7 +931,7 @@ static RM_STATUS nv_acpi_mxms_method(
+         nv_printf(NV_DBG_ERRORS,
+             "NVRM: nv_acpi_mxms_method: invalid context!\n");
+ #endif
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+     }
+ 
+     mxms_params[0].integer.type   = ACPI_TYPE_INTEGER;
+@@ -942,7 +949,7 @@ static RM_STATUS nv_acpi_mxms_method(
+     {
+         nv_printf(NV_DBG_ERRORS,
+             "NVRM: nv_acpi_mxms_method: failed to get MXMS data!\n");
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+ 
+     mxms = output.pointer;
+@@ -958,7 +965,7 @@ static RM_STATUS nv_acpi_mxms_method(
+         {
+             *pSize = mxms->buffer.length;
+              kfree(output.pointer);
+-            return RM_ERR_BUFFER_TOO_SMALL;
++            return NV_ERR_BUFFER_TOO_SMALL;
+         }
+     }
+     else
+@@ -966,17 +973,17 @@ static RM_STATUS nv_acpi_mxms_method(
+         nv_printf(NV_DBG_ERRORS,
+             "NVRM: nv_acpi_mxms_method: MXMS data invalid!\n");
+         kfree(output.pointer);
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+ 
+     kfree(output.pointer);
+-    return RM_OK;
++    return NV_OK;
+ }
+ 
+ /*
+  * This function executes an NVIF ACPI method.
+  */
+-static RM_STATUS nv_acpi_nvif_method(
++static NV_STATUS nv_acpi_nvif_method(
+     NvU32 function, 
+     NvU32 subFunction, 
+     void  *inParams, 
+@@ -995,7 +1002,7 @@ static RM_STATUS nv_acpi_nvif_method(
+     NvU8  localInParams[8];
+ 
+     if (!nvif_handle)
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+ 
+     if (!NV_MAY_SLEEP())
+     {
+@@ -1003,7 +1010,7 @@ static RM_STATUS nv_acpi_nvif_method(
+         nv_printf(NV_DBG_ERRORS,
+             "NVRM: nv_acpi_nvif_method: invalid context!\n");
+ #endif
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+     }
+ 
+     nvif_params[0].integer.type  =  ACPI_TYPE_INTEGER;
+@@ -1036,7 +1043,7 @@ static RM_STATUS nv_acpi_nvif_method(
+             "NVRM: nv_acpi_nvif_method: failed to get NVIF data, "
+             "status 0x%x, function 0x%x, subFunction 0x%x!\n",
+             status, function, subFunction);
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+     
+     nvif = output.pointer;
+@@ -1062,7 +1069,7 @@ static RM_STATUS nv_acpi_nvif_method(
+             {
+                 *outDataSize = localOutDataSize;
+                 kfree(output.pointer);
+-                return RM_ERR_BUFFER_TOO_SMALL;
++                return NV_ERR_BUFFER_TOO_SMALL;
+             }
+         } 
+     }
+@@ -1072,17 +1079,17 @@ static RM_STATUS nv_acpi_nvif_method(
+             "NVRM: nv_acpi_nvif_method: NVIF data invalid, function 0x%x, "
+             "subFunction 0x%x!\n", function, subFunction);
+         kfree(output.pointer);
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+  
+     kfree(output.pointer);
+-    return RM_OK; 
++    return NV_OK; 
+ }
+ 
+ /*
+  * This function executes a _DSM ACPI method.
+  */
+-RM_STATUS NV_API_CALL nv_acpi_dsm_method(
++NV_STATUS NV_API_CALL nv_acpi_dsm_method(
+     nv_state_t *nv,
+     NvU8  *pAcpiDsmGuid,
+     NvU32 acpiDsmRev,
+@@ -1094,7 +1101,7 @@ RM_STATUS NV_API_CALL nv_acpi_dsm_method(
+     NvU16 *pSize
+ )
+ {
+-    RM_STATUS status = RM_ERR_OPERATING_SYSTEM;
++    NV_STATUS status = NV_ERR_OPERATING_SYSTEM;
+     acpi_status acpi_status;
+     struct acpi_object_list input;
+     union acpi_object *dsm = NULL;
+@@ -1105,16 +1112,16 @@ RM_STATUS NV_API_CALL nv_acpi_dsm_method(
+     acpi_handle dev_handle  = NULL;
+ 
+     if (!nv_acpi_get_device_handle(nv, &dev_handle))
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+ 
+     if (!dev_handle)
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+ 
+     if ((!pInParams) || (inParamSize != 4) || (!pOutData) || (!pSize))
+     {
+         nv_printf(NV_DBG_INFO,
+                   "NVRM: %s: invalid argument(s)!\n", __FUNCTION__);
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+     }
+ 
+     if (!NV_MAY_SLEEP())
+@@ -1123,7 +1130,7 @@ RM_STATUS NV_API_CALL nv_acpi_dsm_method(
+         nv_printf(NV_DBG_INFO,
+                   "NVRM: %s: invalid argument(s)!\n", __FUNCTION__);
+ #endif
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+     }
+ 
+     // 
+@@ -1176,7 +1183,7 @@ RM_STATUS NV_API_CALL nv_acpi_dsm_method(
+ 
+         kfree(output.pointer);
+     }
+-    if (status != RM_OK)
++    if (status != NV_OK)
+     {
+         nv_printf(NV_DBG_ERRORS,
+                   "NVRM: %s: DSM data invalid!\n", __FUNCTION__);
+@@ -1188,7 +1195,7 @@ RM_STATUS NV_API_CALL nv_acpi_dsm_method(
+ /*
+  * This function executes a _DDC ACPI method.
+  */
+-RM_STATUS NV_API_CALL nv_acpi_ddc_method(
++NV_STATUS NV_API_CALL nv_acpi_ddc_method(
+     nv_state_t *nv,
+     void *pEdidBuffer,
+     NvU32 *pSize
+@@ -1207,15 +1214,15 @@ RM_STATUS NV_API_CALL nv_acpi_ddc_method(
+     acpi_handle lcd_dev_handle  = NULL;
+ 
+     if (!nv_acpi_get_device_handle(nv, &dev_handle))
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+ 
+     if (!dev_handle)
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+ 
+     status = acpi_bus_get_device(dev_handle, &device);
+ 
+     if (ACPI_FAILURE(status) || !device)
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+ 
+     if (!NV_MAY_SLEEP())
+     {
+@@ -1224,7 +1231,7 @@ RM_STATUS NV_API_CALL nv_acpi_ddc_method(
+                   "NVRM: %s: invalid context!\n",
+                   __FUNCTION__);
+ #endif
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+     }
+ 
+     list_for_each_safe(node, next, &device->children) 
+@@ -1254,7 +1261,7 @@ RM_STATUS NV_API_CALL nv_acpi_ddc_method(
+     if (lcd_dev_handle == NULL)
+     {
+         nv_printf(NV_DBG_INFO, "NVRM: %s LCD not found\n", __FUNCTION__);
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+ 
+     // 
+@@ -1277,7 +1284,7 @@ RM_STATUS NV_API_CALL nv_acpi_ddc_method(
+                   "NVRM: %s: failed status: %08x \n",
+                   __FUNCTION__,
+                   status);
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+     else
+     {
+@@ -1293,19 +1300,19 @@ RM_STATUS NV_API_CALL nv_acpi_ddc_method(
+             else
+             {
+                 kfree(output.pointer);
+-                return RM_ERR_BUFFER_TOO_SMALL;
++                return NV_ERR_BUFFER_TOO_SMALL;
+             }
+         }
+     }
+  
+     kfree(output.pointer);
+-    return RM_OK;             
++    return NV_OK;             
+ }
+ 
+ /*
+  * This function executes a _ROM ACPI method.
+  */
+-RM_STATUS NV_API_CALL nv_acpi_rom_method(
++NV_STATUS NV_API_CALL nv_acpi_rom_method(
+     nv_state_t *nv,
+     NvU32 *pInData,
+     NvU32 *pOutData
+@@ -1320,10 +1327,10 @@ RM_STATUS NV_API_CALL nv_acpi_rom_method(
+     uint32_t offset, length;
+ 
+     if (!nv_acpi_get_device_handle(nv, &dev_handle))
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+ 
+     if (!dev_handle)
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+ 
+     if (!NV_MAY_SLEEP())
+     {
+@@ -1331,7 +1338,7 @@ RM_STATUS NV_API_CALL nv_acpi_rom_method(
+         nv_printf(NV_DBG_ERRORS,
+                   "NVRM: %s: invalid context!\n", __FUNCTION__);
+ #endif
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+     }
+ 
+     offset = pInData[0];
+@@ -1347,7 +1354,7 @@ RM_STATUS NV_API_CALL nv_acpi_rom_method(
+     {
+         nv_printf(NV_DBG_INFO,
+               "NVRM: %s: failed to evaluate _ROM method!\n", __FUNCTION__);
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+     else
+     {
+@@ -1363,18 +1370,18 @@ RM_STATUS NV_API_CALL nv_acpi_rom_method(
+             nv_printf(NV_DBG_INFO,
+                   "NVRM: %s: Invalid _ROM data\n", __FUNCTION__);
+             kfree(output.pointer);
+-            return RM_ERROR;
++            return NV_ERR_GENERIC;
+         }
+     }
+ 
+     kfree(output.pointer);
+-    return RM_OK;
++    return NV_OK;
+ }
+ 
+ /*
+  * This function executes a _DOD ACPI method.
+  */
+-RM_STATUS NV_API_CALL nv_acpi_dod_method(
++NV_STATUS NV_API_CALL nv_acpi_dod_method(
+     nv_state_t *nv,
+     NvU32      *pOutData,
+     NvU32      *pSize
+@@ -1387,10 +1394,10 @@ RM_STATUS NV_API_CALL nv_acpi_dod_method(
+     NvU32 i, count = (*pSize / sizeof(NvU32));
+ 
+     if (!nv_acpi_get_device_handle(nv, &dev_handle))
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+ 
+     if (!dev_handle)
+-        return RM_ERR_INVALID_ARGUMENT;
++        return NV_ERR_INVALID_ARGUMENT;
+ 
+     if (!NV_MAY_SLEEP())
+     {
+@@ -1398,7 +1405,7 @@ RM_STATUS NV_API_CALL nv_acpi_dod_method(
+         nv_printf(NV_DBG_ERRORS,
+               "NVRM: %s: invalid context!\n", __FUNCTION__);
+ #endif
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+     }
+ 
+     status = acpi_evaluate_object(dev_handle, "_DOD", NULL, &output);
+@@ -1407,7 +1414,7 @@ RM_STATUS NV_API_CALL nv_acpi_dod_method(
+     {
+         nv_printf(NV_DBG_INFO,
+               "NVRM: %s: failed to evaluate _DOD method!\n", __FUNCTION__);
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+     else
+     {
+@@ -1424,7 +1431,7 @@ RM_STATUS NV_API_CALL nv_acpi_dod_method(
+                     nv_printf(NV_DBG_INFO,
+                             "NVRM: %s: _DOD entry invalid!\n", __FUNCTION__);
+                     kfree(output.pointer);
+-                    return RM_ERROR;
++                    return NV_ERR_GENERIC;
+                 }
+ 
+                 pOutData[i] = dod->package.elements[i].integer.value;
+@@ -1436,18 +1443,18 @@ RM_STATUS NV_API_CALL nv_acpi_dod_method(
+             nv_printf(NV_DBG_INFO,
+                       "NVRM: %s: _DOD data too large!\n", __FUNCTION__);
+             kfree(output.pointer);
+-            return RM_ERROR;
++            return NV_ERR_GENERIC;
+         }
+     }
+ 
+     kfree(output.pointer);
+-    return RM_OK;
++    return NV_OK;
+ }
+ 
+ /*
+  * This function executes a WMMX ACPI method.
+  */
+-static RM_STATUS  nv_acpi_wmmx_method(
++static NV_STATUS  nv_acpi_wmmx_method(
+     NvU32 arg2,
+     NvU8  *outData,
+     NvU16 *outDataSize
+@@ -1460,7 +1467,7 @@ static RM_STATUS  nv_acpi_wmmx_method(
+     union acpi_object mmx_params[3];
+ 
+     if (!wmmx_handle)
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+ 
+     if (!NV_MAY_SLEEP())
+     {
+@@ -1468,7 +1475,7 @@ static RM_STATUS  nv_acpi_wmmx_method(
+         nv_printf(NV_DBG_ERRORS,
+             "NVRM: nv_acpi_wmmx_method: invalid context!\n");
+ #endif
+-        return RM_ERR_NOT_SUPPORTED;
++        return NV_ERR_NOT_SUPPORTED;
+     }
+ 
+    /* argument 0 and argument 1 are not used in WMMX method, passing 0 */
+@@ -1491,7 +1498,7 @@ static RM_STATUS  nv_acpi_wmmx_method(
+         nv_printf(NV_DBG_INFO,
+             "NVRM: nv_acpi_wmmx_method: failed to get WMMX data, "
+             "status 0x%x!\n", status);
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+ 
+     mmx = output.pointer;
+@@ -1507,7 +1514,7 @@ static RM_STATUS  nv_acpi_wmmx_method(
+             else
+             {
+                 kfree(output.pointer);
+-                return RM_ERR_BUFFER_TOO_SMALL;
++                return NV_ERR_BUFFER_TOO_SMALL;
+             }
+         }
+     }
+@@ -1516,11 +1523,11 @@ static RM_STATUS  nv_acpi_wmmx_method(
+         nv_printf(NV_DBG_ERRORS,
+                 "NVRM: nv_acpi_wmmx_method: WMMX data invalid.\n");
+         kfree(output.pointer);
+-        return RM_ERROR;
++        return NV_ERR_GENERIC;
+     }
+ 
+     kfree(output.pointer);
+-    return RM_OK;
++    return NV_OK;
+ }
+ 
+ #else // NV_LINUX_ACPI_EVENTS_SUPPORTED
+@@ -1545,7 +1552,7 @@ void NV_API_CALL nv_acpi_methods_uninit(void)
+     return;
+ }
+ 
+-RM_STATUS NV_API_CALL nv_acpi_method(
++NV_STATUS NV_API_CALL nv_acpi_method(
+     NvU32 acpi_method,
+     NvU32 function,
+     NvU32 subFunction,
+@@ -1556,10 +1563,10 @@ RM_STATUS NV_API_CALL nv_acpi_method(
+     NvU16 *outDataSize
+ )
+ {
+-    return RM_ERR_NOT_SUPPORTED;
++    return NV_ERR_NOT_SUPPORTED;
+ }
+ 
+-RM_STATUS NV_API_CALL nv_acpi_dsm_method(
++NV_STATUS NV_API_CALL nv_acpi_dsm_method(
+     nv_state_t *nv,
+     NvU8  *pAcpiDsmGuid,
+     NvU32 acpiDsmRev,
+@@ -1571,33 +1578,33 @@ RM_STATUS NV_API_CALL nv_acpi_dsm_method(
+     NvU16 *pSize
+ )
+ {
+-    return RM_ERR_NOT_SUPPORTED;
++    return NV_ERR_NOT_SUPPORTED;
+ }
+ 
+-RM_STATUS NV_API_CALL nv_acpi_ddc_method(
++NV_STATUS NV_API_CALL nv_acpi_ddc_method(
+     nv_state_t *nv,
+     void *pEdidBuffer,
+     NvU32 *pSize
+ )
+ {
+-    return RM_ERR_NOT_SUPPORTED;
++    return NV_ERR_NOT_SUPPORTED;
+ }
+ 
+-RM_STATUS NV_API_CALL nv_acpi_rom_method(
++NV_STATUS NV_API_CALL nv_acpi_rom_method(
+     nv_state_t *nv,
+     NvU32 *pInData,
+     NvU32 *pOutData
+ )
+ {
+-    return RM_ERR_NOT_SUPPORTED;
++    return NV_ERR_NOT_SUPPORTED;
+ }
+ 
+-RM_STATUS NV_API_CALL nv_acpi_dod_method(
++NV_STATUS NV_API_CALL nv_acpi_dod_method(
+     nv_state_t *nv,
+     NvU32      *pOutData,
+     NvU32      *pSize
+ )
+ {
+-    return RM_ERR_NOT_SUPPORTED;
++    return NV_ERR_NOT_SUPPORTED;
+ }
+ #endif
+-- 
+2.20.1
+
