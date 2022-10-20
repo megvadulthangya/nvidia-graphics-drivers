@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-16) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-16) unstable; urgency=medium
 
   * Backport nv_install_notifier changes from 418.30 and 470.141.03, acpi
     changes from 430.09, 510.85.02 and 515.65.01 to fix kernel module build
@@ -14,7 +14,7 @@ nvidia-graphics-drivers-legacy-340xx (340.108-16) UNRELEASED; urgency=medium
     (470.141.03-1).
   * Update lintian overrides.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 19 Oct 2022 18:49:20 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 20 Oct 2022 11:30:02 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.108-15) unstable; urgency=medium
 
