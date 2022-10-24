@@ -318,13 +318,19 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
-nvidia-graphics-drivers (470.141.03-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.141.03-3) unstable; urgency=medium
 
   * Backport get_task_ioprio changes from 510.85.02, acpi changes from
     510.85.02 and 515.65.01, drm_frambuffer.h changes from 515.76 to fix
     kernel module build for Linux 6.0.  (Closes: #1021974)
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 24 Oct 2022 18:00:40 +0200
+
+nvidia-graphics-drivers-tesla-470 (470.141.03-2) unstable; urgency=medium
+
+  * Rebuild as Tesla 470 driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Sep 2022 16:37:25 +0200
 
 nvidia-graphics-drivers (470.141.03-2) unstable; urgency=medium
 
@@ -917,7 +923,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers (460.106.00-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-8) UNRELEASED; urgency=medium
 
   * Backport get_task_ioprio changes from 510.85.02, acpi changes from
     510.85.02 and 515.65.01, drm_frambuffer.h changes from 515.76 to fix
@@ -1408,7 +1414,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers (450.203.03-2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.203.03-2) unstable; urgency=medium
 
   * Backport acpi changes from 510.85.02 and 515.65.01, drm_frambuffer.h
     changes from 515.76 to fix kernel module build for Linux 6.0.
@@ -2423,7 +2429,7 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
-nvidia-graphics-drivers (418.226.00-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-8) unstable; urgency=medium
 
   * Backport acpi changes from 430.09, 510.85.02 and 515.65.01,
     drm_frambuffer.h changes from 515.76 to fix kernel module build for
