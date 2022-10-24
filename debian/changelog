@@ -1,11 +1,12 @@
-nvidia-graphics-drivers-tesla (510.85.02-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (510.85.02-3) experimental; urgency=medium
 
   * Add nvidia-tesla-legacy-check package.
   * Prepare splitting out the gsp firmware.
   * Temporarily add wildcard Lintian overrides since ftp-master does not
     understand the current format.
+  * Upload to experimental.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 24 Oct 2022 22:49:16 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 25 Oct 2022 01:52:23 +0200
 
 nvidia-graphics-drivers-tesla (510.85.02-2) unstable; urgency=medium
 
