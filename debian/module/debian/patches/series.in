@@ -1,8 +1,8 @@
 # kernel support
 linux-2.6.34-dev_pm_info-runtime_auto.patch
 0009-backport-pci-dma-changes-from-470.129.06.patch
-0010-backport-nv-acpi.c-changes-from-515.65.01.patch
-0011-backport-drm_frambuffer.h-changes-from-515.76.patch
+0022-backport-acpi-changes-from-515.65.01.patch
+0023-backport-drm_frambuffer.h-changes-from-515.76.patch
 
 # build system updates
 bashisms.patch
