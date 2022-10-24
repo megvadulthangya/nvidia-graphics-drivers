@@ -97,6 +97,7 @@ The branch structure in the GIT repository
      * src:bumblebee            debian/rules
      * src:primus               debian/rules
      * src:primus-vk            debian/rules
+     * src:python-pynvml        debian/rules
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 26 Jan 2020 22:49:17 +0100
 

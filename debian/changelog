@@ -1,3 +1,12 @@
+nvidia-graphics-drivers-tesla-460 (460.106.00-8) UNRELEASED; urgency=medium
+
+  * Backport get_task_ioprio changes from 510.85.02, acpi changes from
+    510.85.02 and 515.65.01, drm_frambuffer.h changes from 515.76 to fix
+    kernel module build for Linux 6.0.
+  * Add support for unversioned Tesla packages (tesla 510.85.02-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 01 Nov 2021 11:23:02 +0100
+
 nvidia-graphics-drivers-tesla-460 (460.106.00-7) unstable; urgency=medium
 
   * Replace obsolete pci_*() functions with their dma_*() counterparts in
@@ -348,16 +357,16 @@ nvidia-graphics-drivers (460.27.04-1) experimental; urgency=medium
       VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO.
     - Increased the default size for new OpenGL/Vulkan Shader Disk Cache
       location to 1024MB. Note that caches with paths containing "/.nv/ will
-      continue to use the previous default of 128MB unless the size is manually
-      overridden. For more information see the "OpenGL Shader Disk Cache"
-      section in the "Specifying OpenGL Environment Variable Settings" chapter
-      of the README.
+      continue to use the previous default of 128MB unless the size is
+      manually overridden. For more information see the "OpenGL Shader Disk
+      Cache" section in the "Specifying OpenGL Environment Variable Settings"
+      chapter of the README.
     - Changed the default location for new OpenGL/Vulkan Shader Disk Caches.
-      If the location is not manually overridden and a cache is detected in the
-      previous default location, that location will be used instead of the new
-      default location. For more information see the "OpenGL Shader Disk Cache"
-      section in the "Specifying OpenGL Environment Variable Settings" chapter
-      of the README.
+      If the location is not manually overridden and a cache is detected in
+      the previous default location, that location will be used instead of the
+      new default location. For more information see the "OpenGL Shader Disk
+      Cache" section in the "Specifying OpenGL Environment Variable Settings"
+      chapter of the README.
     - Add support for the VK_EXT_shader_image_atomic_int64 extension.
     - Add support for the VK_KHR_copy_commands2 extension.
     - Allow importing cached memory via VK_EXT_external_memory_host.
@@ -400,8 +409,8 @@ nvidia-graphics-drivers (455.45.01-1) experimental; urgency=medium
   * New upstream short lived branch release 455.45.01 (2020-11-17).
     - Fixed an issue where Vulkan applications would fail to initialize if the
       connected X11 Server did not expose support for GLX.
-    - Fixed a bug in a Vulkan blending optimization that could produce incorrect
-      results. Some of the Vulkan titles affected by this bug were:
+    - Fixed a bug in a Vulkan blending optimization that could produce
+      incorrect results. Some of the Vulkan titles affected by this bug were:
       Life is Strange 2, Shadow of the Tomb Raider.
     - Fixed an issue that caused Vulkan swapchain creation to fail for
       full-screen windows when a G-SYNC monitor is connected.
@@ -443,7 +452,8 @@ nvidia-graphics-drivers (455.28-1) experimental; urgency=medium
 nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
   * New upstream beta 455.23.04 (2020-09-17).
-    - Added support for the following GPUs: GeForce RTX 3080, GeForce RTX 3090.
+    - Added support for the following GPUs: GeForce RTX 3080,
+      GeForce RTX 3090.
     - Fixed a bug that prevented 8K displays from being used in portrait
       orientation on Pascal and earlier GPUs.
     - Fixed a bug which caused excessive CPU usage in Vulkan applications
@@ -458,8 +468,8 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
       running on Wayland.
     - Fixed a bug that led to display corruption at some resolutions when
       using an NVIDIA-driven display as a PRIME Display Offload sink.
-    - Fixed a bug in a SPIR-V optimization that may cause conditional blocks to
-      not execute.
+    - Fixed a bug in a SPIR-V optimization that may cause conditional blocks
+      to not execute.
     - Fixed a bug where calls to vkGetRandROutputDisplayEXT with unexpected
       inputs would generate X11 protocol errors.
       (https://bugs.winehq.org/show_bug.cgi?id=49407)
@@ -491,6 +501,20 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
+
+nvidia-graphics-drivers-tesla-450 (450.203.03-2) unstable; urgency=medium
+
+  * Backport acpi changes from 510.85.02 and 515.65.01, drm_frambuffer.h
+    changes from 515.76 to fix kernel module build for Linux 6.0.
+  * Add support for unversioned Tesla packages (tesla 510.85.02-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 21 Oct 2022 01:56:00 +0200
+
+nvidia-graphics-drivers-tesla-450 (450.203.03-1~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 02 Sep 2022 09:58:52 +0200
 
 nvidia-graphics-drivers-tesla-450 (450.203.03-1) unstable; urgency=medium
 
@@ -654,8 +678,8 @@ nvidia-graphics-drivers-tesla-450 (450.119.03-1) unstable; urgency=medium
       candidates, where the NVIDIA kernel module failed to build with error
       "error: implicit declaration of function 'sys_close'".
     - Fixed a bug where calls to vkCreateDevice could fail on Ampere GPUs when
-      ray tracing extensions were enabled and the application was running within
-      the Steam Linux Runtime.
+      ray tracing extensions were enabled and the application was running
+      within the Steam Linux Runtime.
     - Fixed a regression that could cause display corruption when using
       a scaled resolution after resuming from power management suspend.
     - Fixed a bug that could intermittently cause NvFBC applications to fail
@@ -748,8 +772,8 @@ nvidia-graphics-drivers (450.66-1) unstable; urgency=medium
       EIZO Quadro MED-XN71, EIZO Quadro MED-XN72, EIZO Quadro MED-XN90,
       EIZO Quadro MED-XN91, EIZO Quadro MED-XN92, Matrox D-Series D1450,
       Matrox D-Series D1480
-    - Fixed triple buffering support of Vulkan X11 swapchains when applications
-      are syncing to vblank.
+    - Fixed triple buffering support of Vulkan X11 swapchains when
+      applications are syncing to vblank.
 
   [ Luca Boccassi ]
   * Update nv-readme.ids.
@@ -791,8 +815,8 @@ nvidia-graphics-drivers (450.57-1) experimental; urgency=medium
   * New upstream release 440 series.
     - Fixed a bug that could cause the X server to crash when using large
       cursor images with PRIME display offloading.
-    - Fixed an interaction problem with 5.4 and newer Linux kernels that caused
-      a performance regression when allocating system memory.
+    - Fixed an interaction problem with 5.4 and newer Linux kernels that
+      caused a performance regression when allocating system memory.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Jul 2020 16:33:11 +0200
 
@@ -870,8 +894,8 @@ nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
       NVIDIA Video Codec SDK.
       See: https://developer.nvidia.com/nvidia-video-codec-sdk
     - Implemented support for NVIDIA NGX. A new library, libnvidia-ngx.so, has
-      been added to support the new functionality. This new library is needed by
-      applications which link against any of the following SDKs:
+      been added to support the new functionality. This new library is needed
+      by applications which link against any of the following SDKs:
       NVIDIA DLSS SDK, NVIDIA NGX SDK.
     - Fixed a bug which caused Vulkan applications to leak file descriptors
       when destroying Vulkan instances.
@@ -908,11 +932,13 @@ nvidia-graphics-drivers (450.51-1) experimental; urgency=medium
       VDP_YCBCR_FORMAT_P010 and VDP_YCBCR_FORMAT_P016 for accessing 16-bit
       surfaces via VdpVideoSurfaceGetBitsYCbCr() and
       VdpVideoSurfacePutBitsYCbCr() in the NVIDIA VDPAU driver.
-    - Added support to create 16-bit video surfaces in the NVIDIA VDPAU driver.
+    - Added support to create 16-bit video surfaces in the NVIDIA VDPAU
+      driver.
     - Modified nvidia-persistenced and libnvidia-ml (NVML) to use libtirpc for
       communication instead of relying on the deprecated glibc RPC
       implementation.
-    - Enabled GPU screens by default on X.Org xserver version 1.20.7 and higher.
+    - Enabled GPU screens by default on X.Org xserver version 1.20.7 and
+      higher.
     - Fixed a bug where rendering in a separate user namespace (unshare -U)
       would show black window and produce Xid 13 errors.
   * New upstream release 445 series.
@@ -1491,6 +1517,15 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.226.00-8) unstable; urgency=medium
+
+  * Backport acpi changes from 430.09, 510.85.02 and 515.65.01,
+    drm_frambuffer.h changes from 515.76 to fix kernel module build for
+    Linux 6.0.
+  * Add support for unversioned Tesla packages (tesla 510.85.02-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 20 Oct 2022 17:05:18 +0200
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-7) unstable; urgency=medium
 
   * Backport nv_install_notifier and dma_resv_add_fence changes from
@@ -2048,11 +2083,12 @@ nvidia-graphics-drivers (418.43-1) experimental; urgency=medium
       can avoid the need for implicit surface structure conversion by
       the OpenGL implementation.
     - Added NVIDIA optical flow support.
-      A new library libnvidia-opticalflow.so is included in the driver package.
-      The NVIDIA optical flow library can be used for hardware-accelerated
-      computation of optical flow vectors and stereo disparity values.
-      The API header files, sample applications and documentation will be
-      available in a separate Optical Flow SDK package in Q1 2019.
+      A new library libnvidia-opticalflow.so is included in the driver
+      package.  The NVIDIA optical flow library can be used for
+      hardware-accelerated computation of optical flow vectors and stereo
+      disparity values. The API header files, sample applications and
+      documentation will be available in a separate Optical Flow SDK package
+      in Q1 2019.
       For more information and early access sign-up, refer to
         https://developer.nvidia.com/opticalflow-sdk
     - Removed libnvidia-wfb.so from the driver package.  This module was only
@@ -2110,13 +2146,13 @@ nvidia-graphics-drivers (415.27-1) experimental; urgency=medium
       "ModeValidation" X configuration option to reject non-EDID modes
       whose timings matched EDID modes.
     - Changed the NvEncCreateBitstreamBuffer API call in the NvEncodeAPI
-      library to return NV_ENC_ERR_UNIMPLEMENTED instead of NV_ENC_SUCCESS when
-      the encoder instance is configured to run in motion estimation-only mode.
-      As an indirect consequence of this change, users running the AppEncME
-      sample application from the Video Codec SDK prior to SDK version 8.2.16
-      will observe a segmentation fault due to bugs in the NvEncoder class. It
-      is recommended that users download the latest version of the SDK, where
-      these bugs have been fixed, from
+      library to return NV_ENC_ERR_UNIMPLEMENTED instead of NV_ENC_SUCCESS
+      when the encoder instance is configured to run in motion estimation-only
+      mode. As an indirect consequence of this change, users running the
+      AppEncME sample application from the Video Codec SDK prior to SDK
+      version 8.2.16 will observe a segmentation fault due to bugs in the
+      NvEncoder class. It is recommended that users download the latest
+      version of the SDK, where these bugs have been fixed, from
       https://developer.nvidia.com/nvidia-video-codec-sdk.
     - Fixed an OpenGL driver bug that caused the upper bounds of
       floating-point viewports, specified through the ARB_viewport_array
@@ -2124,14 +2160,15 @@ nvidia-graphics-drivers (415.27-1) experimental; urgency=medium
     - Added a new X configuration option "HardDPMS" which
       is disabled by default, but can be enabled to put displays to sleep with
       modesets rather than VESA DPMS. This may fix some displays that fail to
-      sleep when DPMS becomes active. "HardDPMS" will be enabled by default in a
-      future release.
+      sleep when DPMS becomes active. "HardDPMS" will be enabled by default in
+      a future release.
     - Raised the minimum supported X.Org xserver version to 1.5 (video driver
       ABI version 4).
-    - Enabled the NVreg_EnableBacklightHandler kernel module option by default.
-    - Removed the LinuxThreads version of the /usr/lib/libnvidia-tls.so library
-      and replaced it with the NPTL one that was previously installed in
-      /usr/lib/tls/. This fixes crashes on Debian systems when the
+    - Enabled the NVreg_EnableBacklightHandler kernel module option by
+      default.
+    - Removed the LinuxThreads version of the /usr/lib/libnvidia-tls.so
+      library and replaced it with the NPTL one that was previously installed
+      in /usr/lib/tls/. This fixes crashes on Debian systems when the
       /etc/ld.so.nohwcap file is present.
     - Changed the minimum required Linux kernel version from 2.6.9 to 2.6.32.
     - Fixed an OpenGL bug where conditional rendering (NV_conditional_render)
@@ -2227,14 +2264,14 @@ nvidia-graphics-drivers (410.78-1) experimental; urgency=medium
       __GL_SHOW_GRAPHICS_OSD environment variable, or the
       GLShowGraphicsOSD application profile.  See the README for more
       information.
-    - Added support for X11 RandR transformations on outputs where the NVIDIA X
-      driver is used as a synchronized RandR 1.4 output source (i.e., "PRIME
+    - Added support for X11 RandR transformations on outputs where the NVIDIA
+      X driver is used as a synchronized RandR 1.4 output source (i.e., "PRIME
       Sync").
     - Fixed a bug that caused OpenGL corruption on outputs where the NVIDIA X
       driver was used as an RandR 1.4 output source (i.e., "PRIME"), and the
       output sink required a software cursor.
-    - Fixed an X driver RandR output source (i.e., "PRIME") bug that could cause
-      a duplicate cursor to appear on such outputs.
+    - Fixed an X driver RandR output source (i.e., "PRIME") bug that could
+      cause a duplicate cursor to appear on such outputs.
     - Exposed EGL 1.5 in the EGL version string. This does not add
       any extra functionality to the EGL driver. All EGL 1.5 features
       were already supported through EGL 1.4 plus extensions.
@@ -2330,9 +2367,9 @@ nvidia-graphics-drivers (396.45-1) experimental; urgency=medium
     - Added support for the following GPU: TITAN V JHH Special Edition.
   * New upstream short lived branch release 396.24 (2018-05-02).
     - Fixed a regression that caused the current MetaMode's ViewPortIn and
-      ViewPortOut settings to be preserved across RandR modesets. The driver now
-      clears ViewPortIn and ViewPortOut when the mode is set through RandR,
-      restoring the behavior that existed prior to the regression.
+      ViewPortOut settings to be preserved across RandR modesets. The driver
+      now clears ViewPortIn and ViewPortOut when the mode is set through
+      RandR, restoring the behavior that existed prior to the regression.
     - Improved error reporting in the Vulkan driver if
       libnvidia-glvkspirv.so, the new Vulkan SPIR-V compiler added in
       396.18, cannot be found at run time.
@@ -2390,6 +2427,14 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.154-2) UNRELEASED; urgency=medium
+
+  * Backport nv_install_notifier changes from 418.30, acpi changes from
+    430.09, 510.85.02 and 515.65.01, drm_frambuffer.h changes from 515.76 to
+    fix kernel module build for Linux 6.0.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 20 Oct 2022 11:57:16 +0200
 
 nvidia-graphics-drivers (390.154-1) UNRELEASED; urgency=medium
 
@@ -2572,12 +2617,13 @@ nvidia-graphics-drivers (390.138-1) stretch; urgency=medium
     - Fixed a driver installation failure on Linux kernel 5.6 release
       candidates, where the NVIDIA kernel module failed to build with error
       "implicit declaration of function 'jiffies_to_timespec'".
-    - Fixed driver installation failure on Linux kernel 5.6 release candidates,
-      where the NVIDIA kernel module failed to build with error "passing
-      argument 4 of 'proc_create_data' from incompatible pointer type".
-    - Fixed driver installation failure on Linux kernel 5.6 release candidates,
-      where the NVIDIA kernel module failed to build with error "implicit
-      declaration of function 'ioremap_nocache'".  (Closes: #956458)
+    - Fixed driver installation failure on Linux kernel 5.6 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "passing argument 4 of 'proc_create_data' from incompatible pointer
+      type".
+    - Fixed driver installation failure on Linux kernel 5.6 release
+      candidates, where the NVIDIA kernel module failed to build with error
+      "implicit declaration of function 'ioremap_nocache'".  (Closes: #956458)
     - Fixed driver installation failure on Oracle Linux 7.7 systems, where the
       NVIDIA kernel module failed to build with error "unknown type name
       'vm_fault_t'".
@@ -2622,8 +2668,8 @@ nvidia-graphics-drivers (390.132-1) stretch; urgency=medium
   * New upstream legacy branch release 390.132 (2019-11-08).
     - Fixed kernel module build problems with Linux kernel 5.4.0 release
       candidates.
-    - Updated nvidia-bug-report.sh to collect information about X server crashes
-      from coredumpctl, when available.
+    - Updated nvidia-bug-report.sh to collect information about X server
+      crashes from coredumpctl, when available.
 
   [ Andreas Beckmann ]
   * Refresh patches.
@@ -2679,8 +2725,8 @@ nvidia-graphics-drivers (390.116-1) stretch; urgency=medium
     * Fixed CVE-2018-6260.  (Closes: #913467)
       https://nvidia.custhelp.com/app/answers/detail/a_id/4772
     - Fixed build failures which resulted in errors like "implicit declaration
-      of function drm_...", when building the NVIDIA DRM kernel module for Linux
-      kernel 5.0 release candidates.
+      of function drm_...", when building the NVIDIA DRM kernel module for
+      Linux kernel 5.0 release candidates.
     - Fixed a bug which could cause VK_KHR_external_semaphore_fd operations
       to fail.
     - Fixed a build failure, "implicit declaration of function
@@ -2688,15 +2734,15 @@ nvidia-graphics-drivers (390.116-1) stretch; urgency=medium
       kernel 4.20 release candidates.
     - Fixed a build failure, "unknown type name 'ipmi_user_t'", when building
       the NVIDIA kernel module for Linux kernel 4.20 release candidates.
-    - Fixed a bug that caused mode switches to fail when an SDI output board was
-      connected.
+    - Fixed a bug that caused mode switches to fail when an SDI output board
+      was connected.
     - Fixed a bug that could cause rendering corruption in Vulkan programs.
     - Fixed a bug that caused vkGetPhysicalDeviceDisplayPropertiesKHR() to
       occasionally return incorrect values for physicalResolution.
   * New upstream legacy branch release 367 series.
-    - Added a new kernel module parameter, NVreg_RestrictProfilingToAdminUsers,
-      to allow restricting the use of GPU performance counters to system
-      administrators only.
+    - Added a new kernel module parameter,
+      NVreg_RestrictProfilingToAdminUsers, to allow restricting the use of GPU
+      performance counters to system administrators only.
 
   [ Luca Boccassi ]
   * Drop kmem_cache_create_usercopy.patch, drm-mode.patch,
@@ -2989,8 +3035,8 @@ nvidia-graphics-drivers (390.25-1) experimental; urgency=medium
       working normally when running multiple X screens with emulated overlays.
     - Added support for the following GPUs: GeForce GTX 1060 5GB, Quadro P620.
     - Fixed a regression introduced in 390.12 that caused occasional hangs and
-      hard lockup messages in the system log when screen transformations are in
-      use.
+      hard lockup messages in the system log when screen transformations are
+      in use.
     * (Closes: #872988)
 
   [ Luca Boccassi ]
@@ -3097,8 +3143,8 @@ nvidia-graphics-drivers (387.34-1) experimental; urgency=medium
   * New upstream short lived branch release 387.34 (2017-11-24).
     (Closes: #881164)
     - Fixed a bug that caused Vulkan X11 swapchains to fail on GPUs without a
-      display engine, such as some Tesla-branded graphics cards and some Optimus
-      laptops.
+      display engine, such as some Tesla-branded graphics cards and some
+      Optimus laptops.
     - Fixed a bug that caused fullscreen Vulkan applications to hang on some
       Kepler GPUs, such as the GeForce GTX 680.
     - Fixed a bug where the G-SYNC indicator was reporting "normal" instead
@@ -3106,24 +3152,25 @@ nvidia-graphics-drivers (387.34-1) experimental; urgency=medium
   * New upstream short lived branch release 387.22 (2017-10-30).
     - Fixed a regression that could cause driver errors when setting modes
       that include DisplayPort Multi-Stream Transport devices.
-    - Added an nvidia.ko kernel module parameter, NVreg_EnableBacklightHandler,
-      which can be used to enable experimental handling of laptop backlight
-      brightness through /sys/class/backlight/. This handler overrides the
-      ACPI-based one provided by the video.ko kernel module.
-      NVreg_EnableBacklightHandler is disabled by default.
+    - Added an nvidia.ko kernel module parameter,
+      NVreg_EnableBacklightHandler, which can be used to enable experimental
+      handling of laptop backlight brightness through /sys/class/backlight/.
+      This handler overrides the ACPI-based one provided by the video.ko
+      kernel module.  NVreg_EnableBacklightHandler is disabled by default.
     - Added G-SYNC to all supported Vulkan swapchains for Maxwell and up.
       G-SYNC is enabled by default when using G-SYNC-ready monitors.  For
-      direct-to-display swapchains, an application profile with "GLGSYNCAllowed"
-      setting set to 'false' can be used to disable this feature:
+      direct-to-display swapchains, an application profile with
+      "GLGSYNCAllowed" setting set to 'false' can be used to disable this
+      feature:
         {
           "rules" : [
             { "pattern" : [], "profile" : [ "GLGSYNCAllowed", false ] }
           ]
         }
   * New upstream beta 387.12 (2017-10-03).
-    - Fixed a regression that caused some display connectors on some GPUs to not
-      report a connected HDMI or DisplayPort audio device even if the connected
-      monitor supports audio.
+    - Fixed a regression that caused some display connectors on some GPUs to
+      not report a connected HDMI or DisplayPort audio device even if the
+      connected monitor supports audio.
     - Fixed a race condition that could lead to crashes when OpenGL programs
       manipulated vertex buffer objects from multiple threads simultaneously.
     - Improved performance of fullscreen Vulkan applications using X11
@@ -3139,9 +3186,9 @@ nvidia-graphics-drivers (387.34-1) experimental; urgency=medium
       incapable of driving the current mode in RGB 4:4:4.  See the
       description in the "Programming Modes" appendix for details.
     - Added framebuffer console hot plug handling to nvidia-modeset.
-      Note that hot plugging is only handled when nvidia-modeset is initialized;
-      for example, when Xorg or nvidia-persistenced is running or when
-      nvidia-drm is loaded with the "modeset=1" parameter.
+      Note that hot plugging is only handled when nvidia-modeset is
+      initialized; for example, when Xorg or nvidia-persistenced is running or
+      when nvidia-drm is loaded with the "modeset=1" parameter.
     - Added an "AllowGSYNC" MetaMode attribute that can be used to disable
       G-SYNC completely. This can be use to allow enabling features that are
       incompatible with G-SYNC, such as Ultra Low Motion Blur or Frame Lock.
@@ -3187,8 +3234,8 @@ nvidia-graphics-drivers (384.130-1) stretch; urgency=medium
       https://nvidia.custhelp.com/app/answers/detail/a_id/4649
       (Closes: #894338)
     - Improved compatibility with recent Linux kernels.
-    - Fixed a string concatenation bug that caused libGL to accidentally try to
-      create the directory "$HOME.nv" rather than "$HOME/.nv" in some cases
+    - Fixed a string concatenation bug that caused libGL to accidentally try
+      to create the directory "$HOME.nv" rather than "$HOME/.nv" in some cases
       where /tmp isn't accessible.  (Closes: #888028)
     - Increased the version numbers of the GLVND libGL, libGLESv1_CM,
       libGLESv2, and libEGL libraries, to prevent concurrently installed
@@ -3445,12 +3492,12 @@ nvidia-graphics-drivers (381.22-1) experimental; urgency=medium
     - Improved compatibility with recent kernels.
     - Fixed a bug that caused applications to crash in some situations when
       calling glXMakeCurrent while OpenGL threaded optimizations were enabled.
-      This frequently occurred when Steam was attempting to make a video appear
-      full-screen.
+      This frequently occurred when Steam was attempting to make a video
+      appear full-screen.
     - Fixed a bug that caused VDPAU applications to use the blit presentation
       queue when a previous VDPAU application didn't shut down cleanly.
-    - Fixed hangs and crashes that could occur when an OpenGL context is created
-      while the system is out of available memory.
+    - Fixed hangs and crashes that could occur when an OpenGL context is
+      created while the system is out of available memory.
     - Fixed a bug that caused corruption when OpenGL windows were moved or
       resized.
     - Fixed a bug that caused X screens that use Option "UseDisplayDevice"
@@ -3499,7 +3546,8 @@ nvidia-graphics-drivers (378.13-2) experimental; urgency=medium
   * Merge changes from 375.82-1.
 
   [ Luca Boccassi ]
-  * Add fatal-signal.patch to fix kernel module build for Linux 4.11 and newer.
+  * Add fatal-signal.patch to fix kernel module build for Linux 4.11 and
+    newer.
   * Add kref-refcount.patch, drm-encoder.patch, drm-unload.patch,
     drm-helper-mode.patch and drm-vma-fault.patch to fix kernel module build
     for Linux 4.11 and newer.  (Closes: #870677)
@@ -3517,8 +3565,8 @@ nvidia-graphics-drivers (378.13-1) experimental; urgency=medium
     - Updated the X driver to ignore any Virtual Reality Head Mounted
       Displays (HMDs).  See the "AllowHMD" X configuration option in the
       README for details.
-    - The driver will now advertise GLX FBConfigs with no depth bits on depth 30
-      X screens.
+    - The driver will now advertise GLX FBConfigs with no depth bits on depth
+      30 X screens.
     - Added support in nvidia-settings to view configured PRIME displays. To
       enable PRIME displays, see "Offloading Graphics Display with RandR 1.4"
       in the README.
@@ -3531,12 +3579,12 @@ nvidia-graphics-drivers (378.13-1) experimental; urgency=medium
     - Added support for the following Vulkan extensions: VK_KHR_display,
       VK_KHR_display_swapchain.
     - Enabled OpenGL threaded optimizations by default in the driver. Refer to
-      the "Threaded Optimizations" section in the "Specifying OpenGL Environment
-      Variable Settings" chapter of the README for details.  These optimizations
-      will self-disable when they are degrading performance.  As a result,
-      performance should be unchanged for many applications, and increased for
-      those that benefit from threaded optimizations and were not already
-      forcing them enabled.
+      the "Threaded Optimizations" section in the "Specifying OpenGL
+      Environment Variable Settings" chapter of the README for details.  These
+      optimizations will self-disable when they are degrading performance.  As
+      a result, performance should be unchanged for many applications, and
+      increased for those that benefit from threaded optimizations and were
+      not already forcing them enabled.
 
   [ Luca Boccassi ]
   * Refresh nvidia-drm-master-dev.patch for 378.09 to remove fuzz
@@ -3687,8 +3735,8 @@ nvidia-graphics-drivers (375.82-1) unstable; urgency=high
     - Added support for the following GPUs: GeForce GTX 1080 with Max-Q
       Design, GeForce GTX 1070 with Max-Q Design,
       GeForce GTX 1060 with Max-Q Design.
-    - Fixed a bug that could cause intermittent kernel panics when running with
-      PRIME Sync.
+    - Fixed a bug that could cause intermittent kernel panics when running
+      with PRIME Sync.
     - Fixed a bug that caused a kernel panic when hotplugging HDMI displays
       on some Zotac mini PCs.
 
@@ -3745,15 +3793,15 @@ nvidia-graphics-drivers (375.66-1) unstable; urgency=medium
       on some notebooks with DisplayPort internal panels.
     - Added support for the following GPUs: GeForce GTX 1080 Ti, Quadro M520,
       TITAN Xp, Quadro P3000.
-    - Fixed a bug that left HDMI and DisplayPort audio muted after a framebuffer
-      console mode was restored. For some displays, this caused the display to
-      remain blank.
+    - Fixed a bug that left HDMI and DisplayPort audio muted after a
+      framebuffer console mode was restored. For some displays, this caused
+      the display to remain blank.
     - Fixed a bug that caused audio over DisplayPort to stop working when the
-      monitor was unplugged and plugged back in or woken from DPMS power-saving
-      mode.
+      monitor was unplugged and plugged back in or woken from DPMS
+      power-saving mode.
     - Restored support for the following GPU: GRID K520.
-    - Fixed a regression that caused corruption in certain applications, such as
-      window border shadows in Unity, after resuming from suspend.
+    - Fixed a regression that caused corruption in certain applications, such
+      as window border shadows in Unity, after resuming from suspend.
     - Fixed a bug that could cause some applications to crash when
       running with PRIME Sync.
     - Fixed a bug that prevented PRIME Sync from working on notebooks
@@ -3887,11 +3935,11 @@ nvidia-graphics-drivers (375.20-1) experimental; urgency=medium
       GeForce GTX 1050 Ti, Quadro M620, Quadro M5000 SE, Tesla P100-PCIE-12GB,
       Tesla P100-PCIE-16GB, Tesla P100-SXM2-16GB, Tesla P4.
     - Fixed a bug that prevented G-SYNC from working on notebook displays.
-    - Fixed a bug that caused DisplayPort multi-stream devices to go blank after
-      the console is restored.
-    - Fixed a bug that caused a kernel crash when starting X for the second time
-      when more than one DisplayPort multi-stream device is connected to a
-      single DisplayPort connector via a branch device.
+    - Fixed a bug that caused DisplayPort multi-stream devices to go blank
+      after the console is restored.
+    - Fixed a bug that caused a kernel crash when starting X for the second
+      time when more than one DisplayPort multi-stream device is connected to
+      a single DisplayPort connector via a branch device.
   * New upstream beta 375.10 (2016-10-20).
     - Added new X configuration options:
         ForceCompositionPipeline
@@ -3916,7 +3964,8 @@ nvidia-graphics-drivers (375.20-1) experimental; urgency=medium
   * nvidia-drm-master-dev.patch: refresh, fails to apply on 375.10.
   * Update nv-readme.ids
   * nvidia-user-pages.patch: drop, fixed upstream.
-  * Add support for the xorg-video-abi-23 in the xserver-xorg-video-nvidia package.
+  * Add support for the xorg-video-abi-23 in the xserver-xorg-video-nvidia
+    package.
   * Ship non-glvnd EGL library in the libegl1-nvidia packages.
 
  -- Luca Boccassi <luca.boccassi@gmail.com>  Sun, 27 Nov 2016 12:14:53 +0000
@@ -3983,8 +4032,8 @@ nvidia-graphics-drivers (367.57-1) unstable; urgency=medium
       resuming correctly from ACPI S3/S4 sleep/hibernate states.
     - Added support for the following GPUs: Quadro P6000, Tesla P40,
       Quadro P5000.
-    - Added support for NVIDIA 3D Vision 2 Stereo on Linux. This IR emitter can
-      be used with stereo mode "10" set in the X configuration file.
+    - Added support for NVIDIA 3D Vision 2 Stereo on Linux. This IR emitter
+      can be used with stereo mode "10" set in the X configuration file.
 
   [ Luca Boccassi ]
   * Update nv-readme.ids.
@@ -4056,7 +4105,8 @@ nvidia-graphics-drivers (367.35-1) experimental; urgency=medium
     - Added support for VDPAU Feature Set H to the NVIDIA VDPAU driver.
       GPUs with VDPAU Feature Set H are capable of hardware-accelerated
       decoding of 8192x8192 (8k) H.265/HEVC video streams.
-    - Added support for the following GPUs: GeForce GTX 1080, GeForce GTX 1070.
+    - Added support for the following GPUs: GeForce GTX 1080,
+      GeForce GTX 1070.
     - Fixed a bug that caused the X server to sometimes skip displaying Vulkan
       frames when the Composite extension is enabled.
   * New upstream beta 367.18 (2016-05-19).
@@ -4076,8 +4126,8 @@ nvidia-graphics-drivers (367.35-1) experimental; urgency=medium
       non-G-SYNC monitor is connected while G-SYNC is active.
     - Fixed a bug that caused "nvidia-modeset: ERROR: GPU:0: Activating G-SYNC
       failed" to be printed to the system log if a G-SYNC monitor is connected
-      and stereo is enabled in xorg.conf on a configuration that doesn't support
-      it.
+      and stereo is enabled in xorg.conf on a configuration that doesn't
+      support it.
     - Added the NV_robustness_video_memory_purge OpenGL extension, which
       allows applications to know when a mode switching or power event
       purged the contents of FBOs and buffer objects residing in video memory.
@@ -4085,8 +4135,8 @@ nvidia-graphics-drivers (367.35-1) experimental; urgency=medium
       from sleep or hot-re-plug.
   * New upstream release 361 series.
     - Added support for querying clock values on Pascal GPUs.
-    - Fixed a bug that could lead to a system crash if there was a peer-to-peer
-      mapping still active during CUDA context teardown.
+    - Fixed a bug that could lead to a system crash if there was a
+      peer-to-peer mapping still active during CUDA context teardown.
 
   [ Luca Boccassi ]
   * Update nv-readme.ids
@@ -4151,11 +4201,12 @@ nvidia-graphics-drivers (364.19-1) experimental; urgency=medium
     - Improved X colormap precision from 8 significant bits to 11 on GeForce
       GPUs.  Quadro GPUs already used 11 bits of precision.
     - Added a new RandR property, CscMatrix, which specifies a 3x4 color-space
-      conversion matrix.  The matrix is applied after the X colormap and before
+      conversion matrix. The matrix is applied after the X colormap and before
       the gamma ramp.  This property is available on GF119 and newer GPUs.
     - Improved handling of the X gamma ramp on GF119 and newer GPUs.  On these
       GPUs, the RandR gamma ramp is always 1024 entries and now applies to the
-      cursor and VDPAU or workstation overlays in addition to the X root window.
+      cursor and VDPAU or workstation overlays in addition to the X root
+      window.
     - Reworked how the NVIDIA driver registers with the Linux
       kernel's DRM subsystem for PRIME support.  As a result, PRIME
       support requires Linux kernel version 3.13 or newer (previously,
@@ -4347,13 +4398,13 @@ nvidia-graphics-drivers (358.16-1) experimental; urgency=medium
       driven by the same GPU.
     - Fixed a regression from 358.09 that caused G-SYNC monitors configured to
       use 3D Vision stereo to go blank and report an unsupported signal.
-    - Fixed a regression from 358.09 that caused OpenGL applications that failed
-      to negotiate permission to perform glXSwapBuffers via flipping to stop
-      updating the screen.  This was triggered on Fedora 22 where the SELinux
-      system policy prevents gnome-shell from communicating with the X server.
-      Now, OpenGL applications that fail to negotiate flipping will fall back to
-      glXSwapBuffers via blitting.
-      See https://bugzilla.redhat.com/show_bug.cgi?id=1271401 for more details.
+    - Fixed a regression from 358.09 that caused OpenGL applications that
+      failed to negotiate permission to perform glXSwapBuffers via flipping to
+      stop updating the screen.  This was triggered on Fedora 22 where the
+      SELinux system policy prevents gnome-shell from communicating with the X
+      server.  Now, OpenGL applications that fail to negotiate flipping will
+      fall back to glXSwapBuffers via blitting.  See
+      https://bugzilla.redhat.com/show_bug.cgi?id=1271401 for more details.
   * New upstream beta 358.09 (2015-10-12).
     - Fixed a regression that reduced OpenGL performance on headless X
       server configurations.
@@ -4826,9 +4877,9 @@ nvidia-graphics-drivers (352.21-1) experimental; urgency=medium
     - Added GLX Protocol support for the following OpenGL extensions:
       GL_ARB_copy_buffer
       GL_ARB_texture_buffer_object
-    - Fixed a bug that caused a kernel crash if SLI Mosaic and G-SYNC were used
-      at the same time on a configuration with more display devices connected to
-      one GPU than another.
+    - Fixed a bug that caused a kernel crash if SLI Mosaic and G-SYNC were
+      used at the same time on a configuration with more display devices
+      connected to one GPU than another.
   * New upstream beta 352.09 (2015-05-18).
     - Added the ability to configure the swapping behavior for quad-buffered
       stereo visuals. The driver can be configured to independently swap
@@ -4842,9 +4893,9 @@ nvidia-graphics-drivers (352.21-1) experimental; urgency=medium
     - Fixed a bug that caused GLX_EXT_framebuffer_sRGB to incorrectly report
       sRGB support in 30 bit-per-pixel framebuffer configurations.
     - Added support for G-SYNC with sync-to-vblank disabled. This allows
-      applications to use G-SYNC to eliminate tearing for frame rates below the
-      monitor's maximum refresh rate but allow tearing above the maximum refresh
-      rate in order to minimize latency.
+      applications to use G-SYNC to eliminate tearing for frame rates below
+      the monitor's maximum refresh rate but allow tearing above the maximum
+      refresh rate in order to minimize latency.
       When G-SYNC is active and sync-to-vblank is enabled, the frame rate is
       limited to the monitor's maximum refresh rate.
     - GLSL gl_Fog.scale is now +infinity when gl_Fog.end equals gl_Fog.start.
@@ -5005,10 +5056,10 @@ nvidia-graphics-drivers (346.59-1) experimental; urgency=medium
       forcefully terminating X, on some GPUs with multiple DisplayPort
       monitors attached. This bug also subsequently prevented X from being
       started following the failed console restoration.
-    - Fixed a bug that caused the ACPI hotkey mask to be set incorrectly on some
-      laptops even when the EnableACPIHotkeys option is disabled.
+    - Fixed a bug that caused the ACPI hotkey mask to be set incorrectly on
+      some laptops even when the EnableACPIHotkeys option is disabled.
     - Disabled the EnableACPIHotkeys option by default.  This option is now
-      considered deprecated and will be removed in a future driver release.  On
+      considered deprecated and will be removed in a future driver release. On
       modern Linux systems, display change hotkey events are delivered to the
       desktop environment as key press events, and the desktop environment
       handles the display change by issuing requests through the X Resize and
@@ -5024,7 +5075,8 @@ nvidia-graphics-drivers (346.59-1) experimental; urgency=medium
       4:2:0 compression. These modes are not currently supported.
     - Fixed a bug that caused an incorrect DisplayPort link configuration
       to be displayed after a hotplug or unplug.
-    - Added support for the following GPUs: GeForce GTX 970M, GeForce GTX 980M.
+    - Added support for the following GPUs: GeForce GTX 970M,
+      GeForce GTX 980M.
     - Added support for decoding VP8 video streams using the NVCUVID API
       on GPUs with VP8 hardware decode support.
     - Added support for the following EGL extensions: EGL_EXT_device_base,
@@ -5116,10 +5168,11 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
   * New upstream beta 343.13 (2014-08-06).
     - Added a new attribute to the NV-CONTROL API to query the current
       utilization of the video decode engine.
-    - Worked around a Unigine Heaven 3.0 shader bug which could cause corruption
-      when tessellation is enabled by implementing an application profile that
-      uses the "GLIgnoreGLSLExtReqs" setting.  See the documentation for the
-      __GL_IGNORE_GLSL_EXT_REQS environment variable for more details.
+    - Worked around a Unigine Heaven 3.0 shader bug which could cause
+      corruption when tessellation is enabled by implementing an application
+      profile that uses the "GLIgnoreGLSLExtReqs" setting.  See the
+      documentation for the __GL_IGNORE_GLSL_EXT_REQS environment variable for
+      more details.
     - Fixed a memory leak when destroying EGL surfaces.
     - Added support for multiple simultaneous EGL displays.
     - Removed support for G8x, G9x, and GT2xx GPUs, and motherboard
@@ -5141,6 +5194,10 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
+
+  * Backport nv_install_notifier changes from 418.30 and 470.141.03, acpi
+    changes from 430.09, 510.85.02 and 515.65.01 to fix kernel module build
+    for Linux 6.0.
 
   * Backport pci/dma and acpi_bus_get_device changes from 470.129.06 to fix
     kernel module build for Linux 5.18.
@@ -5205,11 +5262,12 @@ nvidia-graphics-drivers (340.108-1) UNRELEASED; urgency=medium
       of the DRIVER_PRIME flag in recent Linux kernel versions.
     - Updated nvidia-bug-report.sh to search the systemd journal for
       gdm-x-session logs.
-    - Fixed a build failure, "too many arguments to function 'get_user_pages'",
-      when building the NVIDIA kernel module for Linux kernel v4.4.168.
-    - Fixed a build failure, "implicit declaration of function do_gettimeofday",
-      when building the NVIDIA kernel module for Linux kernel 5.0 release
-      candidates.
+    - Fixed a build failure, "too many arguments to function
+      'get_user_pages'", when building the NVIDIA kernel module for Linux
+      kernel v4.4.168.
+    - Fixed a build failure, "implicit declaration of function
+      do_gettimeofday", when building the NVIDIA kernel module for Linux
+      kernel 5.0 release candidates.
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
@@ -5950,8 +6008,8 @@ nvidia-graphics-drivers (340.32-1) unstable; urgency=medium
       video streams utilizing range remapping on Maxwell GPUs.
     - Fixed a "black window" bug in Ubuntu 14.04 when using the Xinerama
       and Composite extensions.
-    - Fixed a bug that caused the screen's contents to be shifted downward when
-      a G-SYNC monitor is unplugged and replaced by a non-G-SYNC monitor.
+    - Fixed a bug that caused the screen's contents to be shifted downward
+      when a G-SYNC monitor is unplugged and replaced by a non-G-SYNC monitor.
     - Fixed a bug that prevented G-SYNC from working when a G-SYNC monitor
       was unplugged and plugged back in without a modeset.
 
@@ -5995,14 +6053,14 @@ nvidia-graphics-drivers (340.24-1) unstable; urgency=medium
       GLAllowFXAAUsage application profile key. See the README for details.
     - Fixed a bug where indirect rendering could become corrupted on
       system configurations that disallow writing to executable memory.
-    - Added initial support for G-SYNC monitors.  Additional details and system
-      requirements can be found at:
+    - Added initial support for G-SYNC monitors.  Additional details and
+      system requirements can be found at:
         https://www.geforce.com/hardware/technology/g-sync
     - Improved support for running the NVIDIA driver in configurations where
       writing to executable memory is disallowed.  Driver optimizations that
-      require writing to executable memory can be forcefully disabled using the
-      new __GL_WRITE_TEXT_SECTION environment variable.  See the README for more
-      details.
+      require writing to executable memory can be forcefully disabled using
+      the new __GL_WRITE_TEXT_SECTION environment variable.  See the README
+      for more details.
     - Fixed an X driver bug that caused gamma ramp updates of the green
       channel at depth 15, on some recent GPUs, to be ignored.
   * New upstream short lived branch release 337.25 (2014-05-30).
@@ -6061,8 +6119,8 @@ nvidia-graphics-drivers (337.19-1) experimental; urgency=medium
       X configuration option for more details.
     - Added support for the following GPUs: GeForce 830M, GeForce 840M,
       GeForce 845M, GeForce GTX 850M.
-    - Renamed the RandR output property _GUID to GUID now that it is an official
-      property documented in randrproto.txt:
+    - Renamed the RandR output property _GUID to GUID now that it is an
+      official property documented in randrproto.txt:
         https://cgit.freedesktop.org/xorg/proto/randrproto/commit/?id=19fc4c5a72eb9919d720ad66734029d9f8e313b1
     - Reduced CPU utilization and GPU memory utilization of the NVIDIA
       EGL driver.
@@ -6080,8 +6138,8 @@ nvidia-graphics-drivers (337.19-1) experimental; urgency=medium
       details, see the extension specification:
         http://www.opengl.org/registry/specs/NV/glx_delay_before_swap.txt
     - Report correct buffer sizes for RGB GLX visuals, GLXFBConfigs, and
-      EGLConfigs.  Previously, RGB10 and RGB8 formats were reported as having 32
-      bits, and RGB5 formats were reported as having 16 bits.  Now they are
+      EGLConfigs.  Previously, RGB10 and RGB8 formats were reported as having
+      32 bits, and RGB5 formats were reported as having 16 bits.  Now they are
       correctly reported as 30, 24, and 15 bit formats respectively as
       required by the GLX and EGL specifications.
     * Improved compatibility with recent Linux kernels.
@@ -6146,8 +6204,8 @@ nvidia-graphics-drivers (334.21-1) experimental; urgency=medium
     - Changed the driver's default behavior to stop deleting RandR 1.2 outputs
       corresponding to unused DisplayPort 1.2 devices.  Deleting these outputs
       can confuse some applications.  Added a new option,
-      DeleteUnusedDP12Displays, which can be used to turn this behavior back on.
-      This option can be enabled by running
+      DeleteUnusedDP12Displays, which can be used to turn this behavior back
+      on. This option can be enabled by running
         sudo nvidia-xconfig --delete-unused-dp12-displays
     - Improved support for the __GL_SYNC_DISPLAY_DEVICE and
       VDPAU_NVIDIA_SYNC_DISPLAY_DEVICE environment variables in certain
@@ -6201,8 +6259,8 @@ nvidia-graphics-drivers (331.104-1) UNRELEASED; urgency=medium
       GPU serial number, when available, in error messages written to the
       system log.
     - Added support for the following GPU: GeForce GT 730.
-    - Fixed a bug that caused blank screens when transforming or rotating displays
-      in an SLI Mosaic layout.
+    - Fixed a bug that caused blank screens when transforming or rotating
+      displays in an SLI Mosaic layout.
     - Fixed a bug that corrupted certain software rendering on 32-bit systems.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 12 Oct 2014 02:40:55 +0200
@@ -6215,12 +6273,13 @@ nvidia-graphics-drivers (331.79-1) unstable; urgency=medium
     - Fixed a bug that caused BadRRCrtc or BadRROutput errors for big-endian
       X11 clients making certain XRandR requests.
     - Fixed a bug that corrupted certain software rendering, notably the
-      stippled text used to represent disabled entries in xterm's pop-up menus.
+      stippled text used to represent disabled entries in xterm's pop-up
+      menus.
   * conftest.h: Implement new conftest.sh function console_lock (331.79).
   * uvm-symvers.patch: New patch to fix the missing Module.symvers from
     nvidia.ko build while building nvidia-uvm.ko.
     (Closes: #747366, #745715, #746643, #746455)
-  * nvidia-driver: Ship new files /usr/share/nvidia/{monitoring.conf, pci.ids}.
+  * nvidia-driver: Ship new files /usr/share/nvidia/{monitoring.conf,pci.ids}.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 23 May 2014 12:45:22 +0200
 
@@ -6240,8 +6299,8 @@ nvidia-graphics-drivers (331.67-1) unstable; urgency=medium
     - Added support for the following GPUs: GeForce GT 705, GeForce GT 720,
       GeForce GTX 860M, GeForce GTX 870M, GeForce GTX 880M.
     - Fixed a bug that causes some X clients to be disconnected from the X
-      server when the screen is resized while RandR 1.4 display offloading is in
-      use.
+      server when the screen is resized while RandR 1.4 display offloading is
+      in use.
     - Fixed a bug that could cause display corruption when resuming from
       suspend on systems using RandR 1.4 display offloading with recent
       Linux kernels.
@@ -6415,8 +6474,8 @@ nvidia-graphics-drivers (331.13-1) experimental; urgency=low
     - Added a new NV-CONTROL attribute, NV_CTRL_BACKLIGHT_BRIGHTNESS,
       for controlling backlight brightness.
     - Fixed a bug that caused DisplayPort 1.2 multi-stream devices to stop
-      working if they were unplugged and plugged back in while they were active
-      in the current MetaMode.
+      working if they were unplugged and plugged back in while they were
+      active in the current MetaMode.
     - Added support for multiple NVIDIA kernel modules. This feature allows
       users to assign different GPUs in the system to different NVIDIA kernel
       modules, potentially reducing the software overhead of coordinating
@@ -6624,8 +6683,8 @@ nvidia-graphics-drivers (319.60-1) unstable; urgency=low
     - Fixed a bug that could cause OpenGL applications to crash during the
       initialization of new threads.
     - Fixed a bug that caused the X server to fail to start on certain laptops
-      when the boot display was on an external DisplayPort monitor, for example
-      if the laptop was booted while the lid was closed.
+      when the boot display was on an external DisplayPort monitor, for
+      example if the laptop was booted while the lid was closed.
     - Added support for the following GPU: GeForce GTX 760 Ti OEM.
   * Update nv-readme.ids.
   * Update symbols control files.
@@ -6637,13 +6696,14 @@ nvidia-graphics-drivers (319.60-1) unstable; urgency=low
 nvidia-graphics-drivers (319.49-1) UNRELEASED; urgency=low
 
   * New upstream long lived branch release 319.49 (2013-08-20).
-    - Fixed a bug that caused DisplayPort monitors connected to Quadro FX 3800,
-      4800, or 5800 to remain off after DPMS.
-    - Added the NVIDIA OpenGL-based Inband Frame Readback (NvIFROpenGL) library
-      to the Linux driver package. This library provides a high performance,
-      low latency interface to capture and optionally encode an individual
-      OpenGL framebuffer. NvIFROpenGL captures pixels rendered by OpenGL only
-      and is ideally suited to application capture and remote access.
+    - Fixed a bug that caused DisplayPort monitors connected to Quadro FX
+      3800, 4800, or 5800 to remain off after DPMS.
+    - Added the NVIDIA OpenGL-based Inband Frame Readback (NvIFROpenGL)
+      library to the Linux driver package. This library provides a high
+      performance, low latency interface to capture and optionally encode an
+      individual OpenGL framebuffer. NvIFROpenGL captures pixels rendered by
+      OpenGL only and is ideally suited to application capture and remote
+      access.
     - Fixed a bug that caused applications using CUDA-GL interoperability to
       crash when run on X servers with Xinerama enabled.
     - Fixed a bug that could prevent some double-bit ECC errors from being
@@ -6701,8 +6761,8 @@ nvidia-graphics-drivers (319.32-1) experimental; urgency=low
     - Fixed a performance regression in MEDINA 8.2.
     - Fixed a bug that caused the OpenGL driver to hang sometimes when running
       the SpeedTree Modeler application.
-    - Fixed a bug that could cause an OpenGL application to crash if it creates
-      and destroys multiple threads.
+    - Fixed a bug that could cause an OpenGL application to crash if it
+      creates and destroys multiple threads.
     - Fixed a bug that caused corrupted window content in some cases when
       moving GLX windows with antialiasing enabled.
     - Fixed a bug that caused DisplayPort devices that failed link training to
@@ -6713,8 +6773,8 @@ nvidia-graphics-drivers (319.32-1) experimental; urgency=low
     - Added support for the following GPUs: GeForce 710A, GeForce 720M.
     - On Kepler-based GPUs, improved the appearance of the tearing that occurs
       when using RandR 1.4's Source Output capability.  While tearing is still
-      expected, the tears should now appear as horizontal lines rather than more
-      noticeable checkerboard or triangular shapes.
+      expected, the tears should now appear as horizontal lines rather than
+      more noticeable checkerboard or triangular shapes.
   * New upstream long lived branch release 319.23 (2013-05-23).
     - Fixed a regression that could cause X to crash when querying GPU
       information through NV-CONTROL on multi-GPU systems where some
@@ -7014,8 +7074,8 @@ nvidia-graphics-drivers (310.14-1) experimental; urgency=low
 
   * New upstream beta 310.14 (2012-10-15).
     - Implemented workarounds for two Adobe Flash bugs by applying libvdpau
-      commit ca9e637c61e80145f0625a590c91429db67d0a40 to the version of libvdpau
-      shipped with the NVIDIA driver.
+      commit ca9e637c61e80145f0625a590c91429db67d0a40 to the version of
+      libvdpau shipped with the NVIDIA driver.
     - Fixed an issue which affected the performance of moving windows of VDPAU
       applications when run in some composite managers.
     - Added unofficial GLX protocol support (i.e., for GLX indirect rendering)
@@ -7188,8 +7248,8 @@ nvidia-graphics-drivers (304.123-1) UNRELEASED; urgency=medium
     - Added support for X.org xserver ABI 18 (xorg-server 1.16).
     - Fixed a bug that caused corruption or blank screens on monitors that use
       EDID version 1.3 or older when they are connected via DisplayPort on
-      graphics boards that use external DisplayPort encoders, such as the Quadro
-      FX 4800.
+      graphics boards that use external DisplayPort encoders, such as the
+      Quadro FX 4800.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 28 Sep 2014 20:46:10 +0200
 
@@ -7457,9 +7517,9 @@ nvidia-graphics-drivers (304.84-1) unstable; urgency=low
       an RandR 1.0 rotation (e.g., `xrandr --orientation left`) after
       unplugging the last connected monitor.
     - Added support for X.org xserver ABI 14 (xorg-server 1.14).
-    - Fixed font rendering performance and corruption problems on X servers with
-      back-ported support for the new glyph cache functionality added to Pixman
-      0.27.
+    - Fixed font rendering performance and corruption problems on X servers
+      with back-ported support for the new glyph cache functionality added to
+      Pixman 0.27.
     - Fixed a potential X server crash during initialization, when a
       graphics card with a TV connector has no TV connected.
     - Added a new X configuration option, "UseHotplugEvents", to allow the
@@ -7545,11 +7605,11 @@ nvidia-graphics-drivers (304.64-1) unstable; urgency=low
 nvidia-graphics-drivers (304.60-1) unstable; urgency=low
 
   * New upstream long lived branch release 304.60 (2012-10-18).
-    - Fixed a bug that caused the EIZO FlexScan SX2762W monitor to remain blank
-      when connected via DisplayPort.
-    - Fixed a bug that caused applications to stop rendering or the X server to
-      hang in Xinerama configurations when windows were moved, resized, mapped,
-      or unmapped.
+    - Fixed a bug that caused the EIZO FlexScan SX2762W monitor to remain
+      blank when connected via DisplayPort.
+    - Fixed a bug that caused applications to stop rendering or the X server
+      to hang in Xinerama configurations when windows were moved, resized,
+      mapped, or unmapped.
     - Fixed a bug that caused poor OpenGL performance on GeForce 6 and 7 PCI
       cards.
     - Fixed a bug that caused the X server to crash if a display was put into
@@ -7698,9 +7758,9 @@ nvidia-graphics-drivers (304.37-1) unstable; urgency=low
       being applied.
     - Fixed a bug that caused frequent hangs or crashes on some systems.
       (Closes: #686092, #667684)
-    - Fixed a bug that would cause corruption and performance issues in certain
-      OpenGL applications such as Amnesia: The Dark Descent on GeForce 6 and 7
-      GPUs.
+    - Fixed a bug that would cause corruption and performance issues in
+      certain OpenGL applications such as Amnesia: The Dark Descent on GeForce
+      6 and 7 GPUs.
   * New upstream release 295 series.
     * CVE-2012-4225  (Closes: 684781)
     - Implemented hotfix for a privilege escalation vulnerability reported on
@@ -7725,12 +7785,12 @@ nvidia-graphics-drivers (304.37-1) unstable; urgency=low
 nvidia-graphics-drivers (304.32-1) experimental; urgency=low
 
   * New upstream beta 304.32 (2012-08-03).
-    - Fixed a bug that caused applications that use DirectColor visuals, such as
-      Enemy Territory: Quake Wars and Braid, to appear in shades of blue instead
-      of the correct colors.  (Closes: #683758)
+    - Fixed a bug that caused applications that use DirectColor visuals, such
+      as Enemy Territory: Quake Wars and Braid, to appear in shades of blue
+      instead of the correct colors.  (Closes: #683758)
     - Modified handling of RRSetScreenSize requests to ignore requests that
-      do not actually resize the screen.  This reduces screen flicker in certain
-      cases when using GNOME.
+      do not actually resize the screen.  This reduces screen flicker in
+      certain cases when using GNOME.
 
   [ Andreas Beckmann ]
   * debian/rules: get-orig-source: Make --pasv overridable.
@@ -7849,8 +7909,8 @@ nvidia-graphics-drivers (304.22-1) experimental; urgency=low
       when changing to a different Linux kernel. See the README and the
       nvidia-installer help text for the "--dkms" option.
     - Added RandR output properties _ConnectorLocation, ConnectorNumber,
-      ConnectorType, EDID, _GUID, and SignalFormat.  See the README for details
-      on these properties.
+      ConnectorType, EDID, _GUID, and SignalFormat.  See the README for
+      details on these properties.
     - Extended support for Base Mosaic to all G80+ SLI configurations with up
       to three displays.
     - Fixed a bug that caused some monitors to fail to wake from DPMS suspend
@@ -7922,10 +7982,10 @@ nvidia-graphics-drivers (302.17-1) experimental; urgency=low
       or transformation is applied to a display device (either through
       RandR or through the MetaMode syntax); panning would previously be
       ignored in that case.
-    - Added an "EDID" property to RandR 1.2 outputs.  This property contains the
-      binary contents of the connected monitor's extended display identification
-      data, which allows applications such as the GNOME display properties
-      dialog to query information about it.
+    - Added an "EDID" property to RandR 1.2 outputs.  This property contains
+      the binary contents of the connected monitor's extended display
+      identification data, which allows applications such as the GNOME display
+      properties dialog to query information about it.
     - Fixed a bug that caused audio over HDMI to not work on some GPUs
       after querying the RandR configuration (e.g., `xrandr -q`).
     - Added the "nvidiaXineramaInfo" X configuration option to report
@@ -8168,8 +8228,8 @@ nvidia-graphics-drivers (295.33-1) unstable; urgency=low
     - Fixed a bug that caused DisplayPort audio to stop working after monitors
       are hotplugged on GeForce GT 520.
     - Improved compatibility with recent Linux kernels.
-    - Fixed a behavior change that prevented ConnectedMonitor from being usable
-      with DisplayPort connectors.
+    - Fixed a behavior change that prevented ConnectedMonitor from being
+      usable with DisplayPort connectors.
     - Marked the GVO Clone mode NV-CONTROL attributes:
         NV_CTRL_GVO_DISPLAY_X_SCREEN
         NV_CTRL_GVO_X_SCREEN_PAN_X
@@ -8186,8 +8246,8 @@ nvidia-graphics-drivers (295.33-1) unstable; urgency=low
       infrared emitter built inside the panel itself.
     - Fixed a bug that caused OpenGL applications to crash with some libc
       versions, such as eglibc 2.15.  (Closes: #660189)
-    - Fixed a bug that caused HDMI audio to stop working on AppleTV devices when
-      an X server was started.
+    - Fixed a bug that caused HDMI audio to stop working on AppleTV devices
+      when an X server was started.
   * Add missing upstream changelog entries in 295.20 and earlier releases.
   * Update nv-readme.ids.
   * Update symbols control files.
@@ -8258,9 +8318,9 @@ nvidia-graphics-drivers (295.09-1) experimental; urgency=low
   * New upstream long-lived branch release 275.43 (2011-12-14).
     - Fixed a bug that would cause Firefox to abort on pages with Flash when
       layers acceleration was force-enabled on Linux and Solaris.
-    - Fixed a bug that caused a crash when glDrawArrays was used with a non-VBO
-      vertex attribute array to draw on a Xinerama screen other than screen 0
-      using an indirect GLX context.
+    - Fixed a bug that caused a crash when glDrawArrays was used with a
+      non-VBO vertex attribute array to draw on a Xinerama screen other than
+      screen 0 using an indirect GLX context.
   * Upload to experimental.
   * Refresh use-nv-kernel.o.ARCH.patch.
   * Update symbols control files.
@@ -8287,8 +8347,8 @@ nvidia-graphics-drivers (290.10-1) unstable; urgency=low
       swapped between X screens when restarting the X server.
     - Fixed a bug that could result in line flickering in full-scene anti-
       aliasing contexts.
-    - Fixed a bug that caused the physical dimensions of rotated monitors to be
-      reported incorrectly.
+    - Fixed a bug that caused the physical dimensions of rotated monitors to
+      be reported incorrectly.
     - Add support for the pre-VBO DrawArrays command in the server-side GLX
       driver module.  The NVIDIA client-side GLX implementation never sends
       this command, but the server needs to support it for compatibility with
@@ -8297,9 +8357,9 @@ nvidia-graphics-drivers (290.10-1) unstable; urgency=low
       memory on GeForce 6 and 7 series GPUs while using composited
       desktops.  (Closes: #646975)
   * New upstream release 275 series.
-    - Fixed a bug that caused a crash when glDrawArrays was used with a non-VBO
-      vertex attribute array to draw on a Xinerama screen other than screen 0
-      using an indirect GLX context.
+    - Fixed a bug that caused a crash when glDrawArrays was used with a
+      non-VBO vertex attribute array to draw on a Xinerama screen other than
+      screen 0 using an indirect GLX context.
   * Upload to unstable.
   * Update lintian overrides.
   * debian/copyright: Update to dep5.mdwn?revision=202.
@@ -8328,23 +8388,23 @@ nvidia-graphics-drivers (290.03-1) experimental; urgency=low
     - Fixed issues in VDPAU that prevented allocating and displaying extremely
       large VdpOutputSurfaces.
     - Added support for limiting heap allocations in the OpenGL driver through
-      the use of the __GL_HEAP_ALLOC_LIMIT environment variable.  See the README
-      for further details.
-    - Added an "Accel" option to the X driver to allow disabling its use of the
-      graphics processing hardware.  This is useful when other components, such
-      as CUDA, require exclusive use of the GPU's processing cores.
+      the use of the __GL_HEAP_ALLOC_LIMIT environment variable.  See the
+      README for further details.
+    - Added an "Accel" option to the X driver to allow disabling its use of
+      the graphics processing hardware.  This is useful when other components,
+      such as CUDA, require exclusive use of the GPU's processing cores.
     - Modified how the OpenGL driver allocates executable memory so it may
-      continue to function properly if /tmp is mounted noexec. As some fallback
-      allocation methods may be prohibited under SELinux policy, the driver now
-      supports detection of this policy as well as manual override of this
-      detection via the __GL_SELINUX_BOOLEANS environment variable.
+      continue to function properly if /tmp is mounted noexec. As some
+      fallback allocation methods may be prohibited under SELinux policy, the
+      driver now supports detection of this policy as well as manual override
+      of this detection via the __GL_SELINUX_BOOLEANS environment variable.
     - Fixed a bug that caused various GLSL built-in uniforms to not
       be updated properly when calling glPopAttrib.
     - Improved performance by caching compiled OpenGL shaders to disk. Added a
       "GLShaderDiskCache" option to the X driver to enable/disable this
-      feature. Added the __GL_SHADER_DISK_CACHE and __GL_SHADER_DISK_CACHE_PATH
-      environment variables for further configuration. See the README for
-      further details.
+      feature. Added the __GL_SHADER_DISK_CACHE and
+      __GL_SHADER_DISK_CACHE_PATH environment variables for further
+      configuration. See the README for further details.
   * New upstream long-lived branch release 275.36 (2011-11-04).
     - Added support for the following GPU: GeForce 510.
     - Fixed a bug that caused trapezoid and triangle rendering to be very slow
@@ -8360,12 +8420,12 @@ nvidia-graphics-drivers (290.03-1) experimental; urgency=low
 nvidia-graphics-drivers (285.05.09-1) experimental; urgency=low
 
   * New upstream beta 285.05.09 (2011-10-03).
-    - Fixed a bug causing a Linux kernel BUG when retrieving CPU information on
-      some systems.
+    - Fixed a bug causing a Linux kernel BUG when retrieving CPU information
+      on some systems.
     - Fixed a bug causing some applications to hang on exit.
     - Fixed a bug causing flickering in some GPU/display combinations.
-    - Fixed a bug that could result in poor OpenGL performance after hotplugging
-      a monitor.
+    - Fixed a bug that could result in poor OpenGL performance after
+      hotplugging a monitor.
     - Added support for the following GPU: GeForce GT 520MX.
     - Fixed a bug causing possible text corruption when recovering from GPU
       errors.
@@ -8402,8 +8462,8 @@ nvidia-graphics-drivers (285.03-1) experimental; urgency=low
   * New upstream beta 285.03 (2011-08-17).
     - Fixed a bug causing corruption of images which are 2047 pixels wide.
     - Improved performance of the RENDER extension on Fermi-based GPUs.
-    - Fixed a bug causing the X server to crash after a VT-switch while running
-      an OpenGL stereo application which is a member of a swap group.
+    - Fixed a bug causing the X server to crash after a VT-switch while
+      running an OpenGL stereo application which is a member of a swap group.
   * Upload to experimental.
   * Refresh use-nv-kernel.o.ARCH.patch.
   * Update symbols control files.
@@ -8588,15 +8648,15 @@ nvidia-graphics-drivers (275.19-1) unstable; urgency=low
 
   [ Andreas Beckmann ]
   * New upstream release 275.19 (2011-07-15).
-    - Fix memory error and abort reported by glibc when running the application
-      FieldView from Intelligent Light.
+    - Fix memory error and abort reported by glibc when running the
+      application FieldView from Intelligent Light.
     - Fixed an OpenGL driver bug that caused an application crash when running
       Altair HyperMesh.
     - Fixed a performance problem when switching between stereo and monoscopic
       rendering in the application Smoke.
     - Fixed poor X driver handling of pixmap out of memory scenarios.
-    - Fixed an interrupt handling deficiency that could lead to performance and
-      stability problems when many NVIDIA GPUs shared few IRQs.
+    - Fixed an interrupt handling deficiency that could lead to performance
+      and stability problems when many NVIDIA GPUs shared few IRQs.
     - Added support for the following GPUs: GeForce GT 540M.
     - Fixed bugs in the VDPAU presentation queue that could cause GPU errors
       and hangs when destroying a presentation queue. This happens when
@@ -8655,8 +8715,9 @@ nvidia-graphics-drivers (275.09.07-3) experimental; urgency=low
     into a version specific directory /usr/lib/nvidia/{current,legacy-*}:
     libGL.so.1, libglx.so, nvidia_drv.so, libnvidia-cfg.so.1,
     libXvMCNVIDIA.so.1, libXvMCNVIDIA_dynamic.so.1, nvidia-bug-report.sh.
-  * The 'nvidia' alternative (set up by package nvidia-alternative{,-legacy-*})
-    handles creation of appropriate symlinks in /usr/lib/nvidia.
+  * The 'nvidia' alternative (set up by package
+    nvidia-alternative{,-legacy-*}) handles creation of appropriate symlinks
+    in /usr/lib/nvidia.
   * The 'glx' alternative (set up by package glx-alternative-nvidia) handles
     creation of appropriate symlinks in /usr/lib, /usr/lib/xorg, etc.
   * Update bug-script to list files in the new private directory as well as in
@@ -8723,9 +8784,9 @@ nvidia-graphics-drivers (275.09.07-1) unstable; urgency=low
     - Add Pre-Depends: nvidia-installer-cleanup to nvidia-kernel-dkms.
     - Let nvidia-opencl-icd{,-ia32} depend on libnvidia-compiler{,-ia32},
       OpenCL code usually requires compilation at runtime.  (Closes: #629808)
-    - Temporarily add versioned Breaks: libgl1-mesa-glx (>= 7.10.2-4~), we need
-      to rework the diversions for cooperation with multiarch enabled MESA
-      libraries.
+    - Temporarily add versioned Breaks: libgl1-mesa-glx (>= 7.10.2-4~), we
+      need to rework the diversions for cooperation with multiarch enabled
+      MESA libraries.
 
  -- Andreas Beckmann <debian@abeckmann.de>  Wed, 15 Jun 2011 17:13:16 +0200
 
@@ -8747,7 +8808,7 @@ nvidia-graphics-drivers (275.09.04-1) experimental; urgency=low
       with slow CPUs.
   * Upload to experimental.
   * Update symbols control files.
-  * Add linux3.patch to make the module build for Linux 3.0.  (Closes: #628925)
+  * Add linux3.patch to make the module build for Linux 3.0. (Closes: #628925)
 
   [ Russ Allbery ]
   * Add DM-Upload-Allowed: yes to debian/control.
@@ -8770,10 +8831,10 @@ nvidia-graphics-drivers (275.09-1) experimental; urgency=low
     - Added GLX protocol support (i.e., for GLX
       indirect rendering) for the following OpenGL extension:
       GL_NV_register_combiners2
-    - Fixed a bug that caused the pop-out and external DVI displays to go blank
-      on Lenovo ThinkPad W701 laptops.
-    - Fixed a bug that caused corruption on the menus in OpenOffice.org when the
-      screen is rotated.
+    - Fixed a bug that caused the pop-out and external DVI displays to go
+      blank on Lenovo ThinkPad W701 laptops.
+    - Fixed a bug that caused corruption on the menus in OpenOffice.org when
+      the screen is rotated.
     - Improved performance of certain memory allocations.
     - Fixed a bug that caused Java 2D widgets to disappear when Java is
       configured to render using FBOs.
@@ -8909,16 +8970,17 @@ nvidia-graphics-drivers (270.30-1) experimental; urgency=low
     - Added a new X configuration option "3DVisionDisplayType" to specify
       the display type when NVIDIA 3D Vision is enabled with a non
       3D Vision ready display.
-    - Fixed several bugs relating to hardware-accelerated gradients, which were
-      causing visual corruption in some of the default Ubuntu GNOME themes.
+    - Fixed several bugs relating to hardware-accelerated gradients, which
+      were causing visual corruption in some of the default Ubuntu GNOME
+      themes.
   * New upstream beta 265 series.
     - Modified colormap updates to no longer be synchronized to vblank.  This
       allows applications to send XStoreColor and XStoreColors requests faster
       than the screen's refresh rate.
       This behavior can be controlled by a new NV-CONTROL attribute,
       NV_CONTROL_SYNC_LUT_UPDATES.  By default, LUT updates are not
-      synchronized.  This may cause flickering in some applications that use the
-      colormap to perform animation, such as xpilot running on a depth 8 X
+      synchronized.  This may cause flickering in some applications that use
+      the colormap to perform animation, such as xpilot running on a depth 8 X
       screen.  If you experience flickering, try running
           nvidia-settings -a [gpu:0]/SynchronousPaletteUpdates=1
   * Upload to experimental.
@@ -9208,8 +9270,9 @@ nvidia-graphics-drivers (195.36.31-92) UNRELEASED; urgency=low
     libXvMCNVIDIA.so.1, libXvMCNVIDIA_dynamic.so.1, nvidia-bug-report.sh.
   * Do the same with libnvidia-tls.so.1, tls/libnvidia-tls.so.1 and
     libGLcore.so.1 which are only supplied by the legacy packages.
-  * The 'nvidia' alternative (set up by package nvidia-alternative{,-legacy-*})
-    handles creation of appropriate symlinks in /usr/lib/nvidia.
+  * The 'nvidia' alternative (set up by package
+    nvidia-alternative{,-legacy-*}) handles creation of appropriate symlinks
+    in /usr/lib/nvidia.
   * The 'glx' alternative (set up by package glx-alternative-nvidia) handles
     creation of appropriate symlinks in /usr/lib, /usr/lib/xorg, etc.
   * Convert the Conflicts: *-legacy-*, fglrx-* to versioned Breaks: as the
@@ -9971,7 +10034,8 @@ nvidia-graphics-drivers (190.53-2) unstable; urgency=low
   [ Andres Mejia ]
   * Fix dependencies for nvidia-libvdpau1 and nvidia-libvdpau1-ia32. (closes:
     #566691)
-  * Ensure NVIDIA driver packages are in source tree before attempting to build.
+  * Ensure NVIDIA driver packages are in source tree before attempting to
+    build.
   * Fix deprecated use of '<' to '<<' in package relationships.
   * Start using the most recent debhelper compat version.
   * Bump Standards-Version to 3.8.3.
@@ -10103,7 +10167,8 @@ nvidia-graphics-drivers (185.18.14-1) unstable; urgency=low
 
   [ Harald Dunkel ]
   * create empty patches.h
-  * new nvidia-libvdpau, nvidia-libvdpau-ia32, nvidia-libvdpau-dev: (closes: #519792)
+  * new nvidia-libvdpau, nvidia-libvdpau-ia32, nvidia-libvdpau-dev:
+    (closes: #519792)
 
  -- Randall Donald <rdonald@debian.org>  Wed, 10 Jun 2009 15:35:55 -0700
 
@@ -10977,7 +11042,8 @@ nvidia-graphics-drivers (1.0.4496-3) experimental; urgency=low
   * Move nvidia-glx dependancy on nvidia-kernel-source to a recommends.
   * Fix part of gcc 3.3.1 detection that I missed last time. (closes: #205871)
   * Update nvidia-kernel-source.README.Debian to reflect 2.4.21-4-k7.
-  * Add preliminary 2.6 support. See README.Debian for details (closes: #203369, #193379)
+  * Add preliminary 2.6 support. See README.Debian for details
+    (closes: #203369, #193379)
   * Include CONFIG_APM_MODULE patch file in nvidia-kernel-source.
   * Upload to experimental due to diversion changes and preliminary 2.6
     support

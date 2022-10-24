@@ -14,6 +14,10 @@
 0015-backport-drm_mode_config_has_allow_fb_modifiers-from.patch
 0016-backport-nv_install_notifier-changes-from-470.141.03.patch
 0017-backport-dma_resv_add_fence-changes-from-450.203.03.patch
+0020-backport-get_task_ioprio-changes-from-510.85.02.patch
+0021-backport-acpi-changes-from-510.85.02.patch
+0022-backport-acpi-changes-from-515.65.01.patch
+0023-backport-drm_frambuffer.h-changes-from-515.76.patch
 
 # build system updates
 bashisms.patch
