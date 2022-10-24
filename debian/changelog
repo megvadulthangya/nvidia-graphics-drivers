@@ -1,11 +1,11 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-8) unstable; urgency=medium
 
   * Backport get_task_ioprio changes from 510.85.02, acpi changes from
     510.85.02 and 515.65.01, drm_frambuffer.h changes from 515.76 to fix
     kernel module build for Linux 6.0.
   * Add support for unversioned Tesla packages (tesla 510.85.02-1).
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 01 Nov 2021 11:23:02 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 24 Oct 2022 12:19:58 +0200
 
 nvidia-graphics-drivers-tesla-460 (460.106.00-7) unstable; urgency=medium
 
