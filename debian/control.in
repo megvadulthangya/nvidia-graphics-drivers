@@ -1204,3 +1204,20 @@ Description: NVIDIA GPU detection utility
  nvidia-tesla-510-driver, nvidia-tesla-470-driver,
  nvidia-tesla-450-driver, nvidia-tesla-418-driver,
  or nvidia-legacy-390xx-driver) for installation.
+
+Package: firmware-nvidia-gsp
+Section: non-free/kernel
+Architecture: amd64 arm64
+Depends:
+ ${misc:Depends}
+Description: NVIDIA GSP firmware
+ This is a dummy empty package to prepare splitting out the GSP firmware.
+
+Package: firmware-${nvidia}-gsp
+Section: non-free/kernel
+Architecture: amd64 arm64
+Depends:
+ ${misc:Depends}
+Description: NVIDIA GSP firmware${nvidia:VariantDesc}
+ This is a dummy empty package to prepare splitting out the GSP firmware.
+ ${nvidia:VariantDesc}
