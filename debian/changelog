@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla (510.85.02-3) UNRELEASED; urgency=medium
+
+  * Add nvidia-tesla-legacy-check package.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 24 Oct 2022 22:49:16 +0200
+
 nvidia-graphics-drivers-tesla (510.85.02-2) unstable; urgency=medium
 
   * Drop wildcard Lintian overrides again.

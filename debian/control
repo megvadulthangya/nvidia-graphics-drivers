@@ -225,6 +225,22 @@ Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
  See /usr/share/doc/${nvidia}-driver/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
+Package: nvidia-tesla-legacy-check
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: foreign
+Pre-Depends:
+ debconf | debconf-2.0,
+ pciutils,
+ nvidia-installer-cleanup (>= 20151021),
+Depends:
+ ${misc:Depends}
+Description: check for NVIDIA GPUs requiring a legacy driver${nvidia:VariantDesc}
+ This package checks whether the system contains NVIDIA GPUs that are no longer
+ supported by the main driver line and require a legacy driver.
+ .
+ If such hardware is present, a (preseedable) debconf question will be asked to
+ confirm the installation of the current driver line.
+
 Package: nvidia-tesla-driver-bin
 Section: non-free/x11
 Architecture: amd64 arm64 ppc64el
