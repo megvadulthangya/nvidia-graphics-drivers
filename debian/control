@@ -892,20 +892,3 @@ Description: NVIDIA OpenCL installable client driver (ICD)${nvidia:VariantDesc}
  .
  This package provides the NVIDIA installable client driver (ICD) for OpenCL
  which supports NVIDIA GPUs. This ICD supports OpenCL 1.x only.
-
-Package: firmware-nvidia-gsp
-Section: non-free/kernel
-Architecture: amd64 arm64
-Depends:
- ${misc:Depends}
-Description: NVIDIA GSP firmware
- This is a dummy empty package to prepare splitting out the GSP firmware.
-
-Package: firmware-nvidia-tesla-gsp
-Section: non-free/kernel
-Architecture: amd64 arm64
-Depends:
- ${misc:Depends}
-Description: NVIDIA GSP firmware${nvidia:VariantDesc}
- This is a dummy empty package to prepare splitting out the GSP firmware.
- ${nvidia:VariantDesc}
