@@ -97,6 +97,24 @@ Description: allows the selection of NVIDIA as GLX provider${nvidia:VariantDesc}
  In order to install the NVIDIA driver and libraries, install the
  ${nvidia}-driver package instead.
 
+Package: firmware-${nvidia}-gsp
+Section: non-free/kernel
+Architecture: amd64 ${arch:arm64} #${arch:ppc64el}
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Provides:
+ firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}],
+ firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
+Conflicts:
+ firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
+Description: NVIDIA GSP firmware${nvidia:VariantDesc}
+ The GPU System Processor (GSP) was first introduced in the Turing
+ architecture and supports accelerating tasks traditionally performed
+ by the driver on the CPU.
+ .
+ This package provides the firmware to drive the GSP.
+
 Package: ${nvidia}-kernel-support
 Section: non-free/kernel
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
@@ -110,10 +128,6 @@ Depends:
 Provides:
  nvidia-kernel-support-any,
  ${nvidia}-kernel-support--v1,
- firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}],
- firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
-Conflicts:
- firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
 Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server

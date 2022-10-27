@@ -73,6 +73,7 @@ libdir			?= usr/lib/$(DEB_HOST_MULTIARCH)
 nvidia_private		 = nvidia/$(current)
 
 CONTROL_PREFIXES	 = nvidia
+CONTROL_PREFIXES	+= firmware-nvidia-gsp
 CONTROL_PREFIXES	+= libnvidia
 CONTROL_PREFIXES	+= libgl1-nvidia
 CONTROL_PREFIXES	+= libglx-nvidia0

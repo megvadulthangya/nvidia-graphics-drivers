@@ -1,6 +1,4 @@
-#!/usr/bin/dh-exec --with=filter
 debian/nvidia-load.conf			etc/#PRIVATE#/
 debian/nvidia-modprobe.conf		etc/#PRIVATE#/
 debian/nvidia-options.conf		etc/#PRIVATE#/
 debian/nvidia-blacklists-nouveau.conf	etc/#PRIVATE#/
-firmware/gsp.bin			lib/firmware/nvidia/#VERSION#/	[amd64 arm64]

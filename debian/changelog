@@ -1,8 +1,15 @@
 nvidia-graphics-drivers-tesla (510.85.02-4) UNRELEASED; urgency=medium
 
+  * Split firmware-nvidia-tesla-gsp from nvidia-tesla-kernel-support.
   * Drop wildcard Lintian overrides again.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 27 Oct 2022 11:30:33 +0200
+
+nvidia-graphics-drivers (510.85.02-6) unstable; urgency=medium
+
+  * Split firmware-nvidia-gsp from nvidia-kernel-support.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 27 Oct 2022 10:29:39 +0200
 
 nvidia-graphics-drivers-tesla (510.85.02-3) experimental; urgency=medium
 
