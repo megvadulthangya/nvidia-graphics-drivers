@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla (510.85.02-4) UNRELEASED; urgency=medium
+
+  * Drop wildcard Lintian overrides again.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 27 Oct 2022 11:30:33 +0200
+
 nvidia-graphics-drivers-tesla (510.85.02-3) experimental; urgency=medium
 
   * Add nvidia-tesla-legacy-check package.
