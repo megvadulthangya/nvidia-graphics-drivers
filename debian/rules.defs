@@ -4,6 +4,7 @@ NVIDIA_TESLA		 = yes
 #NVIDIA_TESLA		 = $(TESLA_MAJOR)
 #NVIDIA_LEGACY		 =
 #WATCH_VERSION		 =
+GIT_BRANCH		 = $(variant)/$(version_major)
 
 NVIDIA_LEGACY_CHECK	 = ${nvidia}-legacy-check (>= 495) [amd64 arm64 ppc64el]
 
