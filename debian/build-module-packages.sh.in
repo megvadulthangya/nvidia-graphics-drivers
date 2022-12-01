@@ -27,7 +27,7 @@ for k in $(ls -dvr1 /lib/modules/*/build 2>/dev/null | cut -d/ -f4) ; do
 	slenrek="$k $slenrek"
 done
 
-modules=#NVIDIA#-kernel
+modules=#NVIDIA-KERNEL#
 
 module-assistant clean $modules
 for k in $kernels ; do

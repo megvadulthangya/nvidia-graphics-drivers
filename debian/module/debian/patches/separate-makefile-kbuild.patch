@@ -67,7 +67,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
 @@ -181,6 +205,9 @@ KBUILD_PARAMS += KBUILD_VERBOSE=$(NV_VER
  KBUILD_PARAMS += -C $(KERNEL_SOURCES) M=$(PWD)
- KBUILD_PARAMS += ARCH=$(ARCH)
+ KBUILD_PARAMS += ARCH=$(nvkARCH)
  
 +# End of Makefile section
 +endif

@@ -11,7 +11,7 @@ PACKAGE_VERSION="#MODULE_VERSION#"
 AUTOINSTALL=yes
 PATCH=(#MODULE_PATCHES#)
 
-MAKE[0]="unset ARCH; env NV_VERBOSE=1 \
+MAKE[0]="env NV_VERBOSE=1 \
     make ${parallel_jobs+-j$parallel_jobs} modules KERNEL_UNAME=${kernelver}"
 CLEAN="make KERNEL_UNAME=${kernelver} clean"
 

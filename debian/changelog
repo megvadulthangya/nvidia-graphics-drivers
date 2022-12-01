@@ -1,3 +1,15 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-17) UNRELEASED; urgency=medium
+
+  * Update o_binary patch to fix kernel module build for Linux 6.1.
+  * Backport acpi changes from 390.157, replacing earlier backports.
+  * Rename the internally used ARCH variable which might clash on externally
+    set values.
+  * Rename "legacy" variables to more generic "variant" (440.44-2).
+  * Use substitutions for ${nvidia-kernel} and friends (510.108.03-1).
+  * Try to compile a kernel module at package build time (510.108.03-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 01 Dec 2022 02:12:37 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.108-16) unstable; urgency=medium
 
   * Backport nv_install_notifier changes from 418.30 and 470.141.03, acpi

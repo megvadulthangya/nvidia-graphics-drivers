@@ -2,8 +2,10 @@
 
 export NV_VERBOSE := 1
 
-MODULE_BASENAME	 = #MODULE#
-MODSRCPKG	 = #NVIDIA#-kernel-source
+MODULE		 = #MODULE#
+MODSRCPKG	 = $(PACKAGE)-source
+
+PACKAGE		 = #NVIDIA-KERNEL#
 
 CFLAGS = -Wall -g
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
@@ -42,11 +44,11 @@ build-arch: build-stamp
 build-indep:
 build-stamp: configure-stamp
 	dh_quilt_patch
-	unset ARCH; $(MAKE) $(J_FLAG) modules $(KERNEL_SPEC)
-#HAS_UVM#	unset ARCH; $(MAKE) $(J_FLAG) -C uvm modules $(KERNEL_SPEC) KBUILD_EXTMOD=$(CURDIR)/uvm
-ifneq (nvidia,$(MODULE_BASENAME))
-	mv nvidia.ko $(MODULE_BASENAME).ko
-#HAS_UVM#	mv uvm/nvidia-uvm.ko uvm/$(MODULE_BASENAME)-uvm.ko
+	$(MAKE) $(J_FLAG) modules $(KERNEL_SPEC)
+#HAS_UVM#	$(MAKE) $(J_FLAG) -C uvm modules $(KERNEL_SPEC) KBUILD_EXTMOD=$(CURDIR)/uvm
+ifneq (nvidia,$(MODULE))
+	mv nvidia.ko $(MODULE).ko
+#HAS_UVM#	mv uvm/nvidia-uvm.ko uvm/$(MODULE)-uvm.ko
 endif
 	touch $@
 
@@ -73,9 +75,12 @@ binary-arch: build-stamp
 	dh_installdeb
 	dh_gencontrol -- -v`cat debian/VERSION` \
 		-V'built-using:kernel=$(call get_built_using,linux-headers-$(KVERS))' \
-		-V'built-using:module=$(call get_built_using,$(MODSRCPKG))'
+		-V'built-using:module=$(call get_built_using,$(MODSRCPKG))' \
+		-Vnvidia:Models="`cat debian/control.models`"
 	dh_md5sums
 	dh_builddeb --destdir=$(KPKG_DEST_DIR)
+	dpkg --info $(KPKG_DEST_DIR)/$(PACKAGE)-$(KVERS)_`cat debian/VERSION`_*.deb
+	dpkg --contents $(KPKG_DEST_DIR)/$(PACKAGE)-$(KVERS)_`cat debian/VERSION`_*.deb
 
 clean:
 	test -f debian/control || sed 's/#KVERS#/$(KVERS)/g' debian/control.template > debian/control

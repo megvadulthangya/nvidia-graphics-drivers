@@ -1,0 +1,35 @@
+Author: Andreas Beckmann <anbe@debian.org>
+Description: rename the ARCH variable
+ the NVIDIA build systems reacts very fragile if this contains confusing
+ values from different sources
+
+--- a/nvidia-modules-common.mk
++++ b/nvidia-modules-common.mk
+@@ -86,15 +86,15 @@ CC ?= cc
+ HOST_CC ?= $(CC)
+ LD ?= ld
+ 
+-ifndef ARCH
+- ARCH := $(shell uname -m | sed -e 's/i.86/i386/' \
++ifndef nvkARCH
++ nvkARCH := $(shell uname -m | sed -e 's/i.86/i386/' \
+  -e 's/armv[0-7]\w\+/arm/' \
+  -e 's/aarch64/arm64/' \
+  -e 's/ppc64le/powerpc/' \
+  )
+ endif
+ 
+-CONFTEST := /bin/sh $(src)/conftest.sh "$(CC)" "$(HOST_CC)" $(ARCH) $(KERNEL_SOURCES) $(KERNEL_OUTPUT)
++CONFTEST := /bin/sh $(src)/conftest.sh "$(strip $(CC))" "$(strip $(HOST_CC))" $(nvkARCH) $(KERNEL_SOURCES) $(KERNEL_OUTPUT)
+ 
+ KERNEL_UNAME ?= $(shell $(CONFTEST) get_uname)
+ MODULE_ROOT := /lib/modules/$(KERNEL_UNAME)/kernel/drivers
+@@ -179,7 +179,7 @@ endif
+ 
+ KBUILD_PARAMS += KBUILD_VERBOSE=$(NV_VERBOSE)
+ KBUILD_PARAMS += -C $(KERNEL_SOURCES) M=$(PWD)
+-KBUILD_PARAMS += ARCH=$(ARCH)
++KBUILD_PARAMS += ARCH=$(nvkARCH)
+ 
+ #
+ # NVIDIA sanity checks.

@@ -4,6 +4,7 @@ Architecture: amd64 i386 armhf
 Depends:
  nvidia-legacy-340xx-kernel-source,
  module-assistant,
+ linux-doc,
 # amd64
  linux-headers-amd64 [amd64],
  linux-headers-cloud-amd64 [amd64],

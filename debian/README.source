@@ -27,30 +27,34 @@ The branch structure in the GIT repository
     304xx/jessie        EoL   jessie              304xx/master
     304xx/master        EoL   stretch,sid
     340                 EoL   jessie              340-stretch
-    340-stretch         EoL   (stretch,sid)       390, 340xx/master
-    340xx/master        EoL   stretch,buster,sid
+    340-stretch         EoL   (stretch,sid)       390, 340xx/main
+    340xx/main          EoL   stretch,buster,sid
     390                       stretch             390-buster
-    390-buster                (buster)            418, 390xx/master
-    390xx/master              buster,sid
-    418                       buster              418-bullseye
-    418-bullseye              (bullseye)          450, 418-tesla
-    418-tesla                 (bullseye)          450-tesla, tesla-418/master
-    tesla-418/master          bullseye,sid        tesla-450/master
+    390-buster                (buster)            418, 390xx/main
+    390xx/main                buster,bullseye,sid
+    418                 EoL   buster              418-bullseye
+    418-bullseye        EoL   (bullseye)          450, 418-tesla
+    418-tesla           EoL   (bullseye)          450-tesla, tesla-418/main
+    tesla-418/main            bullseye,sid        tesla-450/main
     450                       (bullseye)          460, 450-tesla
-    450-tesla                 (bullseye)          460-tesla, tesla-450/master
-    tesla-450/master          bullseye,sid        tesla-460/master
-    460                       (bullseye)          master, 460-tesla
-    460-tesla                 (bullseye)          tesla-460/master
-    tesla-460/master          bullseye,sid
-    master                    sid                 YYY
-    YYY                       experimental        ZZZ, (master)
-    ZZZ                       experimental        (master)
+    450-tesla                 (bullseye)          460-tesla, tesla-450/main
+    tesla-450/main            bullseye,sid        tesla-460/main
+    460                 EoL   (bullseye)          470, 460-tesla
+    460-tesla           EoL   (bullseye)          470-tesla, tesla-460/main
+    tesla-460/main      EoL   (bullseye),(sid)    tesla-470/main, tesla-460/transition-470
+    tesla-460/transition-470  bullseye,sid
+    470                       (bullseye)          510, 470-tesla
+    470-tesla                 (bullseye)          510-tesla, tesla-470/main
+    tesla-470/main            bullseye,sid        tesla-510/main
+    main                      sid                 YYY
+    YYY                       experimental        ZZZ, (main)
+    ZZZ                       experimental        (main)
     *-backports               *-backports
     ABCxx/*-backports         *-backports
     tesla-ABC/*-backports     *-backports
 
     New upstream releases (XXX.yy) are always imported into the XXX branch.
-    If this branch does not yet exist, fork it from ZZZ or master (but do
+    If this branch does not yet exist, fork it from ZZZ or main (but do
     not adjust the debian-branch in gbp.conf for non-persistent branches).
 
     Try to avoid creating XXX-$testing (and ABCxx/$testing) branches as

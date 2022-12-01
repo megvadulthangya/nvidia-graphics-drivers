@@ -1,9 +1,10 @@
-Test-Command: sh /usr/share/doc/#NVIDIA#-kernel-source/build-module-packages.sh
+Test-Command: sh /usr/share/doc/#NVIDIA-KERNEL#-source/build-module-packages.sh
 Features: test-name=module-assistant-autopkgtest
 Architecture: #AUTOPKGTEST_ARCH_LIST#
 Depends:
- #NVIDIA#-kernel-source,
+ #NVIDIA-KERNEL#-source,
  module-assistant,
+ linux-doc,
 # amd64
  linux-headers-amd64 [amd64],
  linux-headers-cloud-amd64 [amd64],

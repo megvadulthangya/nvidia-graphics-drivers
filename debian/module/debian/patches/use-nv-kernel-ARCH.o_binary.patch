@@ -20,7 +20,7 @@ Description: Select the correct nv-kernel.o blob for the target architecture
  ifdef NV_BUILD_MODULE_INSTANCES
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -154,8 +154,11 @@ MOD_SIGN_CMD ?= $(KERNEL_SOURCES)/script
+@@ -154,8 +154,13 @@ MOD_SIGN_CMD ?= $(KERNEL_SOURCES)/script
  # to satisfy KBUILD requirements and to support NVIDIA specifics.
  #
  
@@ -29,8 +29,18 @@ Description: Select the correct nv-kernel.o blob for the target architecture
 +quiet_cmd_symlink = SYMLINK $@
 + cmd_symlink = ln -sf $< $@
 +
++ifneq (,$(CORE_OBJS))
 +$(obj)/$(CORE_OBJS): $(src)/$(CORE_OBJS-y)_binary
 +	$(call if_changed,symlink)
++endif
  
  $(obj)/$(VERSION_HEADER):
  	$(NVQ)echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
+@@ -377,6 +382,7 @@ clean:
+ 	$(NVQ)$(RM) -f conftest*.c conftest.h
+ 	$(NVQ)$(RM) -rf conftest
+ 	$(NVQ)$(RM) -rf Module*.symvers .tmp_versions modules.order
++	$(NVQ)$(RM) -f $(CORE_OBJS) .*.d
+ 
+ #
+ # This target just prints the kernel module filename (for use by the
