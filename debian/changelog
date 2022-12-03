@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-17) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-17) unstable; urgency=medium
 
   * Update o_binary patch to fix kernel module build for Linux 6.1.
   * Backport acpi changes from 390.157, replacing earlier backports.
@@ -8,7 +8,7 @@ nvidia-graphics-drivers-legacy-340xx (340.108-17) UNRELEASED; urgency=medium
   * Use substitutions for ${nvidia-kernel} and friends (510.108.03-1).
   * Try to compile a kernel module at package build time (510.108.03-1).
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 01 Dec 2022 02:12:37 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 03 Dec 2022 11:12:50 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.108-16) unstable; urgency=medium
 
