@@ -4,6 +4,7 @@ Architecture: amd64 arm64 ppc64el
 Depends:
  nvidia-tesla-460-kernel-source,
  module-assistant,
+ linux-doc,
 # amd64
  linux-headers-amd64 [amd64],
  linux-headers-cloud-amd64 [amd64],

@@ -1,4 +1,4 @@
-debian/nvidia-load.conf			etc/#PRIVATE#/
-debian/nvidia-modprobe.conf		etc/#PRIVATE#/
-debian/nvidia-options.conf		etc/#PRIVATE#/
-debian/nvidia-blacklists-nouveau.conf	etc/#PRIVATE#/
+debian/nvidia-load.conf			etc/nvidia/#MODULE_CURRENT#/
+debian/nvidia-modprobe.conf		etc/nvidia/#MODULE_CURRENT#/
+debian/nvidia-options.conf		etc/nvidia/#MODULE_CURRENT#/
+debian/nvidia-blacklists-nouveau.conf	etc/nvidia/#MODULE_CURRENT#/

@@ -1,17 +1,70 @@
-From ce3b3dfbf7c00be1677df364ef347efb341b4275 Mon Sep 17 00:00:00 2001
+From ee0b6a3c9b3ff76aac1820beec4faf6d35d1a017 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
-Date: Mon, 17 Oct 2022 03:03:00 +0200
-Subject: [PATCH] backport acpi changes from 515.65.01
+Date: Mon, 5 Dec 2022 01:16:25 +0100
+Subject: [PATCH] backport acpi changes from 470.161.03
 
 ---
- nvidia/nv-acpi.c | 65 +++++++++++++-----------------------------------
- 1 file changed, 17 insertions(+), 48 deletions(-)
+ nvidia/nv-acpi.c | 84 +++++++++++++++---------------------------------
+ 1 file changed, 26 insertions(+), 58 deletions(-)
 
 diff --git a/nvidia/nv-acpi.c b/nvidia/nv-acpi.c
-index d1a8539..2022502 100644
+index 5b2fe92..884efbd 100644
 --- a/nvidia/nv-acpi.c
 +++ b/nvidia/nv-acpi.c
-@@ -864,12 +864,11 @@ NV_STATUS NV_API_CALL nv_acpi_ddc_method(
+@@ -238,9 +238,9 @@ static int nv_acpi_add(struct acpi_device *device)
+     union acpi_object control_argument_0 = { ACPI_TYPE_INTEGER };
+     struct acpi_object_list control_argument_list = { 0, NULL };
+     nvidia_stack_t *sp = NULL;
+-    struct list_head *node, *next;
+     unsigned long long device_id = 0;
+     int device_counter = 0;
++    acpi_handle handle = NULL;
+ 
+     status = nv_kmem_cache_alloc_stack(&sp);
+     if (status != 0)
+@@ -267,13 +267,12 @@ static int nv_acpi_add(struct acpi_device *device)
+ 
+     // grab handles to all the important nodes representing devices
+ 
+-    list_for_each_safe(node, next, &device->children)
++    do
+     {
+-        struct acpi_device *dev =
+-            list_entry(node, struct acpi_device, node);
+-
+-        if (!dev)
+-            continue;
++        status = acpi_get_next_object(ACPI_TYPE_DEVICE, device->handle,
++                                      handle, &handle);
++        if (ACPI_FAILURE(status) || (handle == NULL))
++            break;
+ 
+         if (device_counter == NV_MAXNUM_DISPLAY_DEVICES)
+         {
+@@ -284,7 +283,7 @@ static int nv_acpi_add(struct acpi_device *device)
+         }
+ 
+         status =
+-            acpi_evaluate_integer(dev->handle, "_ADR", NULL, &device_id);
++            acpi_evaluate_integer(handle, "_ADR", NULL, &device_id);
+         if (ACPI_FAILURE(status))
+             /* Couldnt query device_id for this device */
+             continue;
+@@ -303,11 +302,11 @@ static int nv_acpi_add(struct acpi_device *device)
+         }
+ 
+         pNvAcpiObject->pNvVideo[device_counter].dev_id = device_id;
+-        pNvAcpiObject->pNvVideo[device_counter].dev_handle = dev->handle;
++        pNvAcpiObject->pNvVideo[device_counter].dev_handle = handle;
+ 
+         device_counter++;
+ 
+-    }
++    } while (handle != NULL);
+ 
+     // arg 0, bits 1:0, 0 = enable events
+     control_argument_0.integer.type = ACPI_TYPE_INTEGER;
+@@ -1306,12 +1305,11 @@ NV_STATUS NV_API_CALL nv_acpi_ddc_method(
  )
  {
      acpi_status status;
@@ -25,7 +78,7 @@ index d1a8539..2022502 100644
  
      if (!nv_acpi_get_device_handle(nv, &dev_handle))
          return NV_ERR_NOT_SUPPORTED;
-@@ -877,15 +876,6 @@ NV_STATUS NV_API_CALL nv_acpi_ddc_method(
+@@ -1319,15 +1317,6 @@ NV_STATUS NV_API_CALL nv_acpi_ddc_method(
      if (!dev_handle)
          return NV_ERR_INVALID_ARGUMENT;
  
@@ -41,7 +94,7 @@ index d1a8539..2022502 100644
      if (!NV_MAY_SLEEP())
      {
  #if defined(DEBUG)
-@@ -896,16 +886,16 @@ NV_STATUS NV_API_CALL nv_acpi_ddc_method(
+@@ -1338,16 +1327,16 @@ NV_STATUS NV_API_CALL nv_acpi_ddc_method(
          return NV_ERR_NOT_SUPPORTED;
      }
  
@@ -64,7 +117,7 @@ index d1a8539..2022502 100644
          if (ACPI_FAILURE(status))
              /* Couldnt query device_id for this device */
              continue;
-@@ -915,16 +905,13 @@ NV_STATUS NV_API_CALL nv_acpi_ddc_method(
+@@ -1357,16 +1346,13 @@ NV_STATUS NV_API_CALL nv_acpi_ddc_method(
              case 0x0118:
              case 0x0400:
              case 0xA420:
@@ -82,7 +135,7 @@ index d1a8539..2022502 100644
      }
  
      if (lcd_dev_handle == NULL)
-@@ -1274,15 +1261,14 @@ NV_STATUS NV_API_CALL nv_acpi_mux_method(
+@@ -1716,15 +1702,14 @@ NV_STATUS NV_API_CALL nv_acpi_mux_method(
  )
  {
      acpi_status status;
@@ -99,7 +152,7 @@ index d1a8539..2022502 100644
  
      if ((strcmp(pMethodName, "MXDS") != 0)
          && (strcmp(pMethodName, "MXDM") != 0))
-@@ -1303,16 +1289,6 @@ NV_STATUS NV_API_CALL nv_acpi_mux_method(
+@@ -1745,16 +1730,6 @@ NV_STATUS NV_API_CALL nv_acpi_mux_method(
      if (!dev_handle)
          return NV_ERR_INVALID_ARGUMENT;
  
@@ -116,7 +169,7 @@ index d1a8539..2022502 100644
      if (!NV_MAY_SLEEP())
      {
  #if defined(DEBUG)
-@@ -1321,23 +1297,16 @@ NV_STATUS NV_API_CALL nv_acpi_mux_method(
+@@ -1763,23 +1738,16 @@ NV_STATUS NV_API_CALL nv_acpi_mux_method(
          return NV_ERR_NOT_SUPPORTED;
      }
  

@@ -16,6 +16,9 @@ Build-Depends:
  po-debconf,
  quilt,
  xz-utils,
+ linux-headers-amd64 [amd64] <!nocheck>,
+ linux-headers-arm64 [arm64] <!nocheck>,
+ linux-headers-powerpc64le [ppc64el] <!nocheck>,
  libglvnd-dev,
 Rules-Requires-Root: no
 Standards-Version: 4.6.1
@@ -95,7 +98,7 @@ Description: allows the selection of NVIDIA as GLX provider${nvidia:VariantDesc}
  In order to install the NVIDIA driver and libraries, install the
  ${nvidia}-driver package instead.
 
-Package: ${nvidia}-kernel-support
+Package: ${nvidia-kernel}-support
 Section: non-free/kernel
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: foreign
@@ -107,7 +110,7 @@ Depends:
  ${misc:Depends}
 Provides:
 # nvidia-kernel-support-any,
- ${nvidia}-kernel-support--v1,
+ ${nvidia-kernel}-support--v1,
 Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -115,7 +118,7 @@ Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  .
  This package provides supporting configuration for the kernel module.
 
-Package: ${nvidia}-kernel-dkms
+Package: ${nvidia-kernel}-dkms
 Section: non-free/kernel
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: foreign
@@ -123,13 +126,13 @@ Multi-Arch: foreign
 # nvidia-installer-cleanup,
 Depends:
  nvidia-tesla-470-kernel-dkms,
-# ${nvidia}-kernel-support--v1,
+# ${nvidia-kernel}-support--v1,
  ${misc:Depends}
 #Recommends:
 # ${nvidia}-driver (>= ${nvidia:Version})
 # | ${libcuda1} (>= ${nvidia:Version}),
 #Provides:
-# ${nvidia}-kernel-${nvidia:Version},
+# ${nvidia-kernel}-${nvidia:Version},
 Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  This package builds the NVIDIA binary kernel modules needed by
  ${nvidia}-driver, using DKMS.
@@ -143,14 +146,14 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  .
  ${nvidia:Models}
  .
- See /usr/share/doc/${nvidia}-kernel-dkms/README.txt.gz
+ See /usr/share/doc/${nvidia-kernel}-dkms/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
  .
  This package contains the blobs for building kernel modules for the
  ${nvidia:kmod:blob:archlist}.
  Building the kernel modules has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
-Package: ${nvidia}-kernel-source
+Package: ${nvidia-kernel}-source
 Section: non-free/kernel
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Depends:
@@ -160,7 +163,7 @@ Depends:
  ${misc:Depends}
 #Recommends:
 # module-assistant,
-# ${nvidia}-kernel-support--v1,
+# ${nvidia-kernel}-support--v1,
 #Suggests:
 # ${nvidia}-driver (>= ${nvidia:Version}),
 Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
@@ -172,13 +175,13 @@ Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
  for graphics cards using NVIDIA chip sets.
  .
- PLEASE read /usr/share/doc/${nvidia}-kernel-source/README.Debian.gz
+ PLEASE read /usr/share/doc/${nvidia-kernel}-source/README.Debian.gz
  for building information. If you want the kernel module to be automatically
- installed via DKMS, install ${nvidia}-kernel-dkms instead.
+ installed via DKMS, install ${nvidia-kernel}-dkms instead.
  .
  ${nvidia:Models}
  .
- See /usr/share/doc/${nvidia}-kernel-source/README.txt.gz
+ See /usr/share/doc/${nvidia-kernel}-source/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
  .
  This package contains the blobs for building kernel modules for the
@@ -1143,7 +1146,7 @@ Description: NVIDIA OpenCL installable client driver (ICD)${nvidia:VariantDesc}
  CPUs, GPUs and other processors.
  .
  This package provides the NVIDIA installable client driver (ICD) for OpenCL
- which supports NVIDIA GPUs. This ICD supports OpenCL 1.x only.
+ which supports NVIDIA GPUs.
 
 Package: nvidia-libopencl1
 Architecture: #i386 amd64 ${arch:arm64} ${arch:ppc64el}
@@ -1176,8 +1179,7 @@ Description: NVIDIA OpenCL ICD Loader library
  (ICD) that can be from any vendor. At least one ICD (and the corresponding
  hardware) is required to run OpenCL applications.
  .
- This package contains the ICD Loader library provided by NVIDIA. This library
- supports OpenCL 1.x and 2.0 only.
+ This package contains the ICD Loader library provided by NVIDIA.
 
 Package: nvidia-detect
 Section: non-free/x11
