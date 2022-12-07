@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-9) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-9) unstable; urgency=medium
 
   * Backport find_vma_intersection changes from 470.141.03 to fix kernel
     module build for Linux 6.1.
@@ -9,7 +9,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-9) UNRELEASED; urgency=medium
   * Use substitutions for ${nvidia-kernel} and friends (510.108.03-1).
   * Try to compile a kernel module at package build time (510.108.03-1).
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 05 Dec 2022 03:30:06 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Dec 2022 04:34:59 +0100
 
 nvidia-graphics-drivers-tesla-460 (460.106.00-8) unstable; urgency=medium
 
