@@ -50,37 +50,45 @@ The branch structure in the GIT repository
     304xx/jessie        EoL   jessie              304xx/master
     304xx/master        EoL   stretch,sid
     340                 EoL   jessie              340-stretch
-    340-stretch         EoL   (stretch,sid)       390, 340xx/master
-    340xx/master        EoL   stretch,buster,sid
+    340-stretch         EoL   (stretch,sid)       390, 340xx/main
+    340xx/main          EoL   stretch,buster,sid
     390                       stretch             390-buster
-    390-buster                (buster)            418, 390xx/master
-    390xx/master              buster,bullseye,sid
+    390-buster                (buster)            418, 390xx/main
+    390xx/main                buster,bullseye,sid
     418                 EoL   buster              418-bullseye
     418-bullseye        EoL   (bullseye)          450, 418-tesla
-    418-tesla           EoL   (bullseye)          450-tesla, tesla-418/master
-    tesla-418/master          bullseye,sid        tesla-450/master
+    418-tesla           EoL   (bullseye)          450-tesla, tesla-418/main
+    tesla-418/main      EoL   bullseye,sid        tesla-450/main
     450                       (bullseye)          460, 450-tesla
-    450-tesla                 (bullseye)          460-tesla, tesla-450/master
-    tesla-450/master          bullseye,sid        tesla-460/master
+    450-tesla                 (bullseye)          460-tesla, tesla-450/main
+    tesla-450/main            bullseye,sid        tesla-460/main
     460                 EoL   (bullseye)          470, 460-tesla
-    460-tesla           EoL   (bullseye)          470-tesla, tesla-460/master
-    tesla-460/master    EoL   (bullseye),(sid)    tesla-470/master, tesla-460/transition-470
+    460-tesla           EoL   (bullseye)          470-tesla, tesla-460/main
+    tesla-460/main      EoL   (bullseye),(sid)    tesla-470/main, tesla-460/transition-470
     tesla-460/transition-470  bullseye,sid
-    470                       (bullseye)          510, 470-tesla
-    470-tesla                 (bullseye)          510-tesla, tesla-470/master
-    tesla-470/master          bullseye,sid        tesla-510/master
-    510                       (bookworm)          master, 510-tesla
-    510-tesla                 (bookworm)          tesla-510/master
-    tesla-510/master          bookworm,sid
-    master                    sid                 YYY
-    YYY                       experimental        ZZZ, (master)
-    ZZZ                       experimental        (master)
+    470                       bullseye            510, 470-tesla
+    470-tesla                 (bullseye)          510-tesla, tesla-470/main
+    tesla-470/main            bullseye,sid        tesla-510/main
+    510                       (bookworm)          515, 510-tesla
+    510-tesla                 (bookworm)          515-tesla, tesla-510/main, tesla/main
+    tesla-510/main            (bookworm),(sid)    tesla-510/transition
+    tesla-510/transition      bookworm,sid
+    515                       (bookworm)          main, 515-tesla
+    515-tesla                 (bookworm)          tesla/main
+    525                       (bookworm)          main
+    main                      sid                 YYY
+    tesla/main                sid
+    YYY                       experimental        ZZZ, (main)
+    ZZZ                       experimental        (main)
+    ZZZ-tesla                 (experimental)      tesla/experimental
+    tesla/experimental        experimental        (tesla/main)
     *-backports               *-backports
     ABCxx/*-backports         *-backports
     tesla-ABC/*-backports     *-backports
+    tesla/*-backports         *-backports
 
     New upstream releases (XXX.yy) are always imported into the XXX branch.
-    If this branch does not yet exist, fork it from ZZZ or master (but do
+    If this branch does not yet exist, fork it from ZZZ or main (but do
     not adjust the debian-branch in gbp.conf for non-persistent branches).
 
     Try to avoid creating XXX-$testing (and ABCxx/$testing) branches as

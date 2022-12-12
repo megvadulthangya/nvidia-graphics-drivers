@@ -4,13 +4,12 @@
 
 export NV_VERBOSE := 1
 
-MODULE		 = #NVIDIA#
-MODSRCPKG	 = $(MODULE)-kernel-source
-MODULE_BASENAME	 = #MODULE#
+MODULE		 = #MODULE#
+MODSRCPKG	 = $(PACKAGE)-source
 
 # The following variable is required by module-assistant:
 #   PACKAGE: modules binary package prefix (as in debian/control.modules.in)
-PACKAGE		 = $(MODULE)-kernel
+PACKAGE		 = #NVIDIA-KERNEL#
 
 MA_DIR		?= /usr/share/modass
 include $(MA_DIR)/include/generic.make
@@ -39,13 +38,13 @@ binary-modules: kdist_config
 	dh_installdirs
 # Build and install the module.
 	dh_quilt_patch
-	unset ARCH; $(MAKE) $(MAKE_J_FLAG) modules $(KERNEL_SPEC)
-ifneq (nvidia,$(MODULE_BASENAME))
-	mv nvidia.ko $(MODULE_BASENAME).ko
-	mv nvidia-modeset.ko $(MODULE_BASENAME)-modeset.ko
-	mv nvidia-drm.ko $(MODULE_BASENAME)-drm.ko
-	mv nvidia-uvm.ko $(MODULE_BASENAME)-uvm.ko
-	mv nvidia-peermem.ko $(MODULE_BASENAME)-peermem.ko
+	$(MAKE) $(MAKE_J_FLAG) modules $(KERNEL_SPEC)
+ifneq (nvidia,$(MODULE))
+	mv nvidia.ko $(MODULE).ko
+	mv nvidia-modeset.ko $(MODULE)-modeset.ko
+	mv nvidia-drm.ko $(MODULE)-drm.ko
+	mv nvidia-uvm.ko $(MODULE)-uvm.ko
+	mv nvidia-peermem.ko $(MODULE)-peermem.ko
 endif
 # Build the package.
 	dh_install
@@ -64,9 +63,12 @@ endif
 	dh_installdeb
 	dh_gencontrol -- -v$(VERSION) \
 		-V'built-using:kernel=$(call get_built_using,linux-headers-$(KVERS))' \
-		-V'built-using:module=$(call get_built_using,$(MODSRCPKG))'
+		-V'built-using:module=$(call get_built_using,$(MODSRCPKG))' \
+		-Vnvidia:Models="`cat debian/control.models`"
 	dh_md5sums
 	dh_builddeb --destdir=$(DEB_DESTDIR)
+	dpkg --info $(KPKG_DEST_DIR)/$(PACKAGE)-$(KVERS)_$(VERSION)_*.deb
+	dpkg --contents $(KPKG_DEST_DIR)/$(PACKAGE)-$(KVERS)_$(VERSION)_*.deb
 
 kdist_clean:
 	test -f debian/control || sed -r 's/(##|#|_)KVERS\1/$(KVERS)/g' debian/control.modules.in > debian/control

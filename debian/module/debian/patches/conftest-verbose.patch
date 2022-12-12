@@ -29,7 +29,7 @@ Description: dump the generated conftest headers
  endef
  
  #
-@@ -169,13 +181,17 @@ $(eval $(call NV_GENERATE_COMPILE_TEST_H
+@@ -169,9 +181,11 @@ $(eval $(call NV_GENERATE_COMPILE_TEST_H
  $(eval $(call NV_GENERATE_COMPILE_TEST_HEADER,symbols,$(NV_CONFTEST_SYMBOL_COMPILE_TESTS)))
  $(eval $(call NV_GENERATE_COMPILE_TEST_HEADER,types,$(NV_CONFTEST_TYPE_COMPILE_TESTS)))
  
@@ -40,10 +40,21 @@ Description: dump the generated conftest headers
 +	@echo " CONFTEST $(notdir $@):"
 +	@cat $@
  
--$(obj)/conftest/headers.h: $(NV_CONFTEST_SCRIPT)
-+$(obj)/conftest/headers.h: $(NV_CONFTEST_SCRIPT) conftest-verbose
- 	@mkdir -p $(obj)/conftest
- 	@$(NV_CONFTEST_CMD) test_kernel_headers '$(NV_CONFTEST_CFLAGS)' > $@
+ 
+ # Each of these headers is checked for presence with a test #include; a
+@@ -264,7 +278,7 @@ NV_HEADER_PRESENCE_PART = $(addprefix $(
+ 
+ # Define a rule to check the header $(1).
+ define NV_HEADER_PRESENCE_CHECK
+- $$(call NV_HEADER_PRESENCE_PART,$(1)): $$(NV_CONFTEST_SCRIPT)
++ $$(call NV_HEADER_PRESENCE_PART,$(1)): $$(NV_CONFTEST_SCRIPT) conftest-verbose
+ 	@mkdir -p $$(dir $$@)
+ 	@$$(NV_CONFTEST_CMD) test_kernel_header '$$(NV_CONFTEST_CFLAGS)' '$(1)' > $$@
+ endef
+@@ -275,6 +289,8 @@ $(foreach header,$(NV_HEADER_PRESENCE_TE
+ # Concatenate all of the parts into headers.h.
+ $(obj)/conftest/headers.h: $(call NV_HEADER_PRESENCE_PART,$(NV_HEADER_PRESENCE_TESTS))
+ 	@cat $^ > $@
 +	@echo " CONFTEST $(notdir $@):"
 +	@cat $@
  

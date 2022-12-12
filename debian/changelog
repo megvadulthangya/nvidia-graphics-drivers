@@ -1,3 +1,32 @@
+nvidia-graphics-drivers-tesla (510.108.03-1) UNRELEASED; urgency=medium
+
+  * Rebuild as Tesla driver.
+    (Closes: #1025287)
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Dec 2022 00:42:39 +0100
+
+nvidia-graphics-drivers (510.108.03-1) unstable; urgency=medium
+
+  * New upstream production branch release 510.108.03 (2022-11-22).
+    * Fixed CVE-2022-34670, CVE-2022-34674, CVE-2022-34675, CVE-2022-34677,
+      CVE-2022-34679, CVE-2022-34680, CVE-2022-34682, CVE-2022-34684,
+      CVE-2022-42254, CVE-2022-42255, CVE-2022-42256, CVE-2022-42257,
+      CVE-2022-42258, CVE-2022-42259, CVE-2022-42260, CVE-2022-42261,
+      CVE-2022-42262, CVE-2022-42263, CVE-2022-42264.  (Closes: #1025279)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5415
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update nv-readme.ids.
+  * Add missing #includes to fix kernel module build for ppc64el.
+  * Rename the internally used ARCH variable which might clash on externally
+    set values.
+  * Use substitutions for ${nvidia-kernel} and friends.
+  * Try to compile a kernel module at package build time.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 10 Dec 2022 03:43:21 +0100
+
 nvidia-graphics-drivers-tesla (510.85.02-4) unstable; urgency=medium
 
   * Split firmware-nvidia-tesla-gsp from nvidia-tesla-kernel-support.
@@ -342,11 +371,60 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
+nvidia-graphics-drivers (470.161.03-1) UNRELEASED; urgency=medium
+
+  * New upstream production branch release 470.161.03 (2022-11-22).
+    * Fixed CVE-2022-34670, CVE-2022-34674, CVE-2022-34675, CVE-2022-34677,
+      CVE-2022-34679, CVE-2022-34680, CVE-2022-34682, CVE-2022-42254,
+      CVE-2022-42255, CVE-2022-42256, CVE-2022-42257, CVE-2022-42258,
+      CVE-2022-42259, CVE-2022-42260, CVE-2022-42261, CVE-2022-42262,
+      CVE-2022-42263, CVE-2022-42264.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5415
+    - Fixed a bug that caused the Xorg server to crash if an NvFBC capture
+      session is started while video memory is full.
+    * Improved compatibility with recent Linux kernels.
+  * New upstream Tesla release (amd64 only) 470.141.10 (2022-10-19).
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Add missing #includes to fix kernel module build for ppc64el.
+  * Rename the internally used ARCH variable which might clash on externally
+    set values.
+  * Use substitutions for ${nvidia-kernel} and friends (510.108.03-1).
+  * Try to compile a kernel module at package build time (510.108.03-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 08 Dec 2022 15:18:42 +0100
+
+nvidia-graphics-drivers (470.161.03-1) bullseye; urgency=medium
+
+  * New upstream production branch release 470.161.03 (2022-11-22).
+    * Fixed CVE-2022-34670, CVE-2022-34674, CVE-2022-34675, CVE-2022-34677,
+      CVE-2022-34679, CVE-2022-34680, CVE-2022-34682, CVE-2022-42254,
+      CVE-2022-42255, CVE-2022-42256, CVE-2022-42257, CVE-2022-42258,
+      CVE-2022-42259, CVE-2022-42260, CVE-2022-42261, CVE-2022-42262,
+      CVE-2022-42263, CVE-2022-42264.  (Closes: #1025279)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5415
+    - Fixed a bug that caused the Xorg server to crash if an NvFBC capture
+      session is started while video memory is full.
+    * Improved compatibility with recent Linux kernels.  (Closes: #1024852)
+  * New upstream Tesla release (amd64 only) 470.141.10 (2022-10-19).
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Add missing #includes to fix kernel module build for ppc64el.
+  * Rename the internally used ARCH variable which might clash on externally
+    set values.
+  * Use substitutions for ${nvidia-kernel} and friends (510.108.03-1).
+  * Try to compile a kernel module at package build time (510.108.03-1).
+  * Upload to bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 10 Dec 2022 00:52:57 +0100
+
 nvidia-graphics-drivers-tesla-470 (470.141.03-3) unstable; urgency=medium
 
   * Backport get_task_ioprio changes from 510.85.02, acpi changes from
     510.85.02 and 515.65.01, drm_frambuffer.h changes from 515.76 to fix
-    kernel module build for Linux 6.0.  (Closes: #1021974)
+    kernel module build for Linux 6.0.  (Closes: #1021974, #1022738)
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 24 Oct 2022 18:00:40 +0200
 
@@ -947,6 +1025,19 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
+nvidia-graphics-drivers (460.106.00-9) UNRELEASED; urgency=medium
+
+  * Backport find_vma_intersection changes from 470.141.03 to fix kernel
+    module build for Linux 6.1.
+  * Backport acpi changes from 470.161.03, replacing earlier backports.
+  * Add missing #includes to fix kernel module build for ppc64el.
+  * Rename the internally used ARCH variable which might clash on externally
+    set values.
+  * Use substitutions for ${nvidia-kernel} and friends (510.108.03-1).
+  * Try to compile a kernel module at package build time (510.108.03-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Dec 2022 04:34:59 +0100
+
 nvidia-graphics-drivers-tesla-460 (460.106.00-8) UNRELEASED; urgency=medium
 
   * Backport get_task_ioprio changes from 510.85.02, acpi changes from
@@ -1437,6 +1528,30 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
+
+nvidia-graphics-drivers (450.216.04-1) UNRELEASED; urgency=medium
+
+  * New upstream Tesla release 450.203.03 (2022-11-22).
+    * Fixed CVE-2022-34670, CVE-2022-34674, CVE-2022-34675, CVE-2022-34677,
+      CVE-2022-34679, CVE-2022-34680, CVE-2022-34682, CVE-2022-42254,
+      CVE-2022-42256, CVE-2022-42257, CVE-2022-42258, CVE-2022-42259,
+      CVE-2022-42260, CVE-2022-42261, CVE-2022-42262, CVE-2022-42263,
+      CVE-2022-42264.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5415
+    - Improved performance on GPUs which are experiencing a high number
+      of correctable ECC memory errors.
+    * Improved compatibility with recent Linux kernels.
+  * New upstream Tesla release (amd64 only) 450.203.08 (2022-10-19).
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Add missing #includes to fix kernel module build for ppc64el.
+  * Rename the internally used ARCH variable which might clash on externally
+    set values.
+  * Use substitutions for ${nvidia-kernel} and friends (510.108.03-1).
+  * Try to compile a kernel module at package build time (510.108.03-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 06 Dec 2022 02:54:57 +0100
 
 nvidia-graphics-drivers-tesla-450 (450.203.03-2) unstable; urgency=medium
 
@@ -2453,6 +2568,19 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers (418.226.00-9) UNRELEASED; urgency=medium
+
+  * Backport find_vma_intersection changes from 450.203.08 to fix kernel
+    module build for Linux 6.1.
+  * Backport acpi changes from 390.157, replacing earlier backports.
+  * Add missing #includes to fix kernel module build for ppc64el.
+  * Rename the internally used ARCH variable which might clash on externally
+    set values.
+  * Use substitutions for ${nvidia-kernel} and friends (510.108.03-1).
+  * Try to compile a kernel module at package build time (510.108.03-1).
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 05 Dec 2022 02:32:10 +0100
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-8) unstable; urgency=medium
 
   * Backport acpi changes from 430.09, 510.85.02 and 515.65.01,
@@ -3363,6 +3491,21 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.157-1) UNRELEASED; urgency=medium
+
+  * New upstream legacy branch release 390.157 (2022-11-22).
+    * Fixed CVE-2022-34670, CVE-2022-34674, CVE-2022-34675, CVE-2022-34677,
+      CVE-2022-34680, CVE-2022-42257, CVE-2022-42258, CVE-2022-42259.
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5415
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Rename the internally used ARCH variable which might clash on externally
+    set values.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 03 Dec 2022 22:17:01 +0100
 
 nvidia-graphics-drivers (390.154-2) UNRELEASED; urgency=medium
 
@@ -6130,6 +6273,11 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
+
+  * Update o_binary patch to fix kernel module build for Linux 6.1.
+  * Backport acpi changes from 390.157, replacing earlier backports.
+  * Rename the internally used ARCH variable which might clash on externally
+    set values.
 
   * Backport nv_install_notifier changes from 418.30 and 470.141.03, acpi
     changes from 430.09, 510.85.02 and 515.65.01 to fix kernel module build

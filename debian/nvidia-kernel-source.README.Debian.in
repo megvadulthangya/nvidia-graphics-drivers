@@ -18,8 +18,8 @@ KERNEL MODULE INSTRUCTIONS:
   * DKMS will take care of building a new module whenever the driver
     or your kernel headers are updated.
   * Install the linux-headers-* (meta-)package matching your kernel.
-  * Install the package #NVIDIA#-kernel-dkms instead of
-    #NVIDIA#-kernel-source.
+  * Install the package #NVIDIA-KERNEL#-dkms instead of
+    #NVIDIA-KERNEL#-source.
 
  METHOD #2: manually, using module-assistant
 
@@ -27,7 +27,7 @@ KERNEL MODULE INSTRUCTIONS:
     corresponding linux-headers-KVERS package.
   * Run this command every time your kernel or the driver was updated:
 
-        module-assistant auto-install #NVIDIA#
+        module-assistant auto-install #NVIDIA-KERNEL#
 
   * For more information on module-assistant, see its man page and package
     documentation.
@@ -51,7 +51,7 @@ do 'rmmod nvidia' to remove the module from memory.
 
 
 For any news on this package check
-https://bugs.debian.org/#NVIDIA#-kernel-source
+https://bugs.debian.org/#NVIDIA-KERNEL#-source
 
 
  -- Russ Allbery <rra@debian.org>, Sat, 25 Sep 2010 23:30:28 -0700
