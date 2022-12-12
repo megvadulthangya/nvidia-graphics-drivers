@@ -16,8 +16,8 @@ define REPORT_WITH
 	libgl1-glvnd-$(nvidia)-glx:any
 	xserver-xorg-video-$(nvidia)
 	$(nvidia)-alternative
-	$(nvidia)-kernel-dkms
-	$(nvidia)-kernel-source
+	$(nvidia-kernel)-dkms
+	$(nvidia-kernel)-source
 	glx-alternative-nvidia
 	xserver-xorg-video-intel
 endef
@@ -25,8 +25,8 @@ endef
 define PACKAGE_STATUS
 	$(nvidia)-driver
 	nvidia-glx$(-variant)
-	$(nvidia)-kernel-dkms
-	$(nvidia)-kernel-source
+	$(nvidia-kernel)-dkms
+	$(nvidia-kernel)-source
 	nvidia-kernel-support-any
 	nvidia-driver-any
 	nvidia-glx-any

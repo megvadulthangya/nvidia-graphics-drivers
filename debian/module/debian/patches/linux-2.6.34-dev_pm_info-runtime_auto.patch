@@ -2,7 +2,7 @@ Description: dev->power.runtime_auto was not yet in v2.6.32
 
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -3560,12 +3560,14 @@ compile_test() {
+@@ -3457,12 +3457,14 @@ compile_test() {
              # d30d819dc8310 in v3.19 (2014-11-27).
              # Rather than attempt to select the appropriate CONFIG option,
              # simply check if this member is present.

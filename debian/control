@@ -8,7 +8,7 @@ Uploaders:
  Andreas Beckmann <anbe@debian.org>,
  Luca Boccassi <bluca@debian.org>,
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
-Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b tesla-510/master
+Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b tesla-510/main
 Build-Depends:
  debhelper-compat (= 13),
 Build-Depends-Arch:
@@ -21,6 +21,9 @@ Build-Depends-Arch:
  po-debconf,
  quilt,
  xz-utils,
+ linux-headers-amd64 [amd64] <!nocheck>,
+ linux-headers-arm64 [arm64] <!nocheck>,
+ linux-headers-powerpc64le [ppc64el] <!nocheck>,
  libglvnd-dev,
 Rules-Requires-Root: no
 Standards-Version: 4.6.1
@@ -98,6 +101,24 @@ Description: allows the selection of NVIDIA as GLX provider${nvidia:VariantDesc}
  In order to install the NVIDIA driver and libraries, install the
  ${nvidia}-driver package instead.
 
+Package: firmware-nvidia-tesla-510-gsp
+Section: non-free/kernel
+Architecture: amd64 arm64
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Provides:
+ firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}],
+ firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
+Conflicts:
+ firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
+Description: NVIDIA GSP firmware${nvidia:VariantDesc}
+ The GPU System Processor (GSP) was first introduced in the Turing
+ architecture and supports accelerating tasks traditionally performed
+ by the driver on the CPU.
+ .
+ This package provides the firmware to drive the GSP.
+
 Package: nvidia-tesla-510-kernel-support
 Section: non-free/kernel
 Architecture: amd64 arm64 ppc64el
@@ -110,11 +131,7 @@ Depends:
  ${misc:Depends}
 Provides:
  nvidia-kernel-support-any,
- ${nvidia}-kernel-support--v1,
- firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}],
- firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
-Conflicts:
- firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
+ ${nvidia-kernel}-support--v1,
 Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -130,13 +147,13 @@ Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
  firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
- ${nvidia}-kernel-support--v1,
+ ${nvidia-kernel}-support--v1,
  ${misc:Depends}
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version})
  | ${libcuda1} (>= ${nvidia:Version}),
 Provides:
- ${nvidia}-kernel-${nvidia:Version},
+ ${nvidia-kernel}-${nvidia:Version},
 Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  This package builds the NVIDIA binary kernel modules needed by
  ${nvidia}-driver, using DKMS.
@@ -150,7 +167,7 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  .
  ${nvidia:Models}
  .
- See /usr/share/doc/${nvidia}-kernel-dkms/README.txt.gz
+ See /usr/share/doc/${nvidia-kernel}-dkms/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
  .
  This package contains the blobs for building kernel modules for the
@@ -162,12 +179,12 @@ Section: non-free/kernel
 Architecture: amd64 arm64 ppc64el
 Depends:
  debhelper-compat (= ${nvidia:debhelper-compat}),
+ module-assistant,
  quilt,
  ${misc:Depends}
 Recommends:
- module-assistant,
  firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
- ${nvidia}-kernel-support--v1,
+ ${nvidia-kernel}-support--v1,
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
@@ -179,13 +196,13 @@ Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
  for graphics cards using NVIDIA chip sets.
  .
- PLEASE read /usr/share/doc/${nvidia}-kernel-source/README.Debian.gz
+ PLEASE read /usr/share/doc/${nvidia-kernel}-source/README.Debian.gz
  for building information. If you want the kernel module to be automatically
- installed via DKMS, install ${nvidia}-kernel-dkms instead.
+ installed via DKMS, install ${nvidia-kernel}-dkms instead.
  .
  ${nvidia:Models}
  .
- See /usr/share/doc/${nvidia}-kernel-source/README.txt.gz
+ See /usr/share/doc/${nvidia-kernel}-source/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
  .
  This package contains the blobs for building kernel modules for the
@@ -861,4 +878,4 @@ Description: NVIDIA OpenCL installable client driver (ICD)${nvidia:VariantDesc}
  CPUs, GPUs and other processors.
  .
  This package provides the NVIDIA installable client driver (ICD) for OpenCL
- which supports NVIDIA GPUs. This ICD supports OpenCL 1.x only.
+ which supports NVIDIA GPUs.

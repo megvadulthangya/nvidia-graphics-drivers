@@ -76,10 +76,10 @@ if [ "$1" = "triggered" ]; then
 	conf_slaves="
 		$(add_multiarch_slave /usr/lib nvidia/ libnvidia-cfg.so.1 /usr/lib #PRIVATE#/)
 		$(add_slave /etc/nvidia/nvidia-drm-outputclass.conf nvidia-drm-outputclass.conf /etc/#PRIVATE#/nvidia-drm-outputclass.conf)
-		$(add_slave /etc/nvidia/nvidia-blacklists-nouveau.conf nvidia-blacklists-nouveau.conf /etc/#PRIVATE#/nvidia-blacklists-nouveau.conf)
-		$(add_slave /etc/nvidia/nvidia-modprobe.conf nvidia-modprobe.conf /etc/#PRIVATE#/nvidia-modprobe.conf)
-		$(add_slave /etc/modprobe.d/nvidia-options.conf nvidia-options.conf /etc/#PRIVATE#/nvidia-options.conf)
-		$(add_slave /etc/nvidia/nvidia-load.conf nvidia-load.conf /etc/#PRIVATE#/nvidia-load.conf)
+		$(add_slave /etc/nvidia/nvidia-blacklists-nouveau.conf nvidia-blacklists-nouveau.conf /etc/nvidia/#MODULE_CURRENT#/nvidia-blacklists-nouveau.conf)
+		$(add_slave /etc/nvidia/nvidia-modprobe.conf nvidia-modprobe.conf /etc/nvidia/#MODULE_CURRENT#/nvidia-modprobe.conf)
+		$(add_slave /etc/modprobe.d/nvidia-options.conf nvidia-options.conf /etc/nvidia/#MODULE_CURRENT#/nvidia-options.conf)
+		$(add_slave /etc/nvidia/nvidia-load.conf nvidia-load.conf /etc/nvidia/#MODULE_CURRENT#/nvidia-load.conf)
 "
 	libnvidia_ml_so_slave=
 	if [ -f /usr/include/nvml.h ]; then

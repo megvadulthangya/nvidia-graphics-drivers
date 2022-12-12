@@ -19,6 +19,9 @@ Build-Depends-Arch:
  po-debconf,
  quilt,
  xz-utils,
+ linux-headers-amd64 [amd64] <!nocheck>,
+ linux-headers-arm64 [arm64] <!nocheck>,
+ linux-headers-powerpc64le [ppc64el] <!nocheck>,
  libglvnd-dev,
 Rules-Requires-Root: no
 Standards-Version: 4.6.1
@@ -97,7 +100,25 @@ Description: allows the selection of NVIDIA as GLX provider${nvidia:VariantDesc}
  In order to install the NVIDIA driver and libraries, install the
  ${nvidia}-driver package instead.
 
-Package: ${nvidia}-kernel-support
+Package: firmware-${nvidia}-gsp
+Section: non-free/kernel
+Architecture: amd64 ${arch:arm64} #${arch:ppc64el}
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Provides:
+ firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}],
+ firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
+Conflicts:
+ firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
+Description: NVIDIA GSP firmware${nvidia:VariantDesc}
+ The GPU System Processor (GSP) was first introduced in the Turing
+ architecture and supports accelerating tasks traditionally performed
+ by the driver on the CPU.
+ .
+ This package provides the firmware to drive the GSP.
+
+Package: ${nvidia-kernel}-support
 Section: non-free/kernel
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: foreign
@@ -109,11 +130,7 @@ Depends:
  ${misc:Depends}
 Provides:
  nvidia-kernel-support-any,
- ${nvidia}-kernel-support--v1,
- firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}],
- firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
-Conflicts:
- firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
+ ${nvidia-kernel}-support--v1,
 Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -121,7 +138,7 @@ Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  .
  This package provides supporting configuration for the kernel module.
 
-Package: ${nvidia}-kernel-dkms
+Package: ${nvidia-kernel}-dkms
 Section: non-free/kernel
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: foreign
@@ -129,13 +146,13 @@ Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
  firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
- ${nvidia}-kernel-support--v1,
+ ${nvidia-kernel}-support--v1,
  ${misc:Depends}
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version})
  | ${libcuda1} (>= ${nvidia:Version}),
 Provides:
- ${nvidia}-kernel-${nvidia:Version},
+ ${nvidia-kernel}-${nvidia:Version},
 Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  This package builds the NVIDIA binary kernel modules needed by
  ${nvidia}-driver, using DKMS.
@@ -149,24 +166,24 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  .
  ${nvidia:Models}
  .
- See /usr/share/doc/${nvidia}-kernel-dkms/README.txt.gz
+ See /usr/share/doc/${nvidia-kernel}-dkms/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
  .
  This package contains the blobs for building kernel modules for the
  ${nvidia:kmod:blob:archlist}.
  Building the kernel modules has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
-Package: ${nvidia}-kernel-source
+Package: ${nvidia-kernel}-source
 Section: non-free/kernel
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Depends:
  debhelper-compat (= ${nvidia:debhelper-compat}),
+ module-assistant,
  quilt,
  ${misc:Depends}
 Recommends:
- module-assistant,
  firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:arches:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:arches:gsp}],
- ${nvidia}-kernel-support--v1,
+ ${nvidia-kernel}-support--v1,
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
 Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
@@ -178,13 +195,13 @@ Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
  for graphics cards using NVIDIA chip sets.
  .
- PLEASE read /usr/share/doc/${nvidia}-kernel-source/README.Debian.gz
+ PLEASE read /usr/share/doc/${nvidia-kernel}-source/README.Debian.gz
  for building information. If you want the kernel module to be automatically
- installed via DKMS, install ${nvidia}-kernel-dkms instead.
+ installed via DKMS, install ${nvidia-kernel}-dkms instead.
  .
  ${nvidia:Models}
  .
- See /usr/share/doc/${nvidia}-kernel-source/README.txt.gz
+ See /usr/share/doc/${nvidia-kernel}-source/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
  .
  This package contains the blobs for building kernel modules for the
@@ -224,7 +241,7 @@ Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
  See /usr/share/doc/${nvidia}-driver/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-Package: nvidia-legacy-check
+Package: ${nvidia}-legacy-check
 Architecture: #amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: foreign
 Pre-Depends:
@@ -233,7 +250,7 @@ Pre-Depends:
  nvidia-installer-cleanup (>= 20151021),
 Depends:
  ${misc:Depends}
-Description: check for NVIDIA GPUs requiring a legacy driver
+Description: check for NVIDIA GPUs requiring a legacy driver${nvidia:VariantDesc}
  This package checks whether the system contains NVIDIA GPUs that are no longer
  supported by the main driver line and require a legacy driver.
  .
@@ -634,11 +651,7 @@ Depends:
 Suggests:
  libegl-${nvidia-}0 [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
  | libegl-nvidia-tesla0 [i386 amd64 arm64 ppc64el]
- | libegl-nvidia-tesla-510-0 [i386 amd64 arm64 ppc64el]
  | libegl-nvidia-tesla-470-0 [i386 amd64 arm64 ppc64el]
- | libegl-nvidia-tesla-450-0 [i386 amd64 arm64 ppc64el]
- | libegl-nvidia-tesla-418-0 [i386 amd64 ppc64el]
- | libegl-nvidia-legacy-390xx0 [i386 amd64 armhf],
 Description: NVIDIA binary EGL driver - common files
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
  for use with other graphics libraries, such as OpenGL|ES.
@@ -706,11 +719,7 @@ Depends:
 Suggests:
  ${nvidia}-vulkan-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
  | nvidia-tesla-vulkan-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-510-vulkan-icd [i386 amd64 arm64 ppc64el]
  | nvidia-tesla-470-vulkan-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-450-vulkan-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-418-vulkan-icd [i386 amd64 ppc64el]
- | nvidia-legacy-390xx-vulkan-icd [i386 amd64],
 Conflicts:
  libgl1-${nvidia}-glx,
  libgl1-nvidia-tesla-418-glx,
@@ -1120,11 +1129,7 @@ Depends:
 Suggests:
  ${nvidia}-opencl-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
  | nvidia-tesla-opencl-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-510-opencl-icd [i386 amd64 arm64 ppc64el]
  | nvidia-tesla-470-opencl-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-450-opencl-icd [i386 amd64 arm64 ppc64el]
- | nvidia-tesla-418-opencl-icd [i386 amd64 ppc64el]
- | nvidia-legacy-390xx-opencl-icd [i386 amd64],
 Description: NVIDIA OpenCL driver - common files
  OpenCL (Open Computing Language) is a multivendor open standard for
  general-purpose parallel programming of heterogeneous systems that include
@@ -1155,7 +1160,7 @@ Description: NVIDIA OpenCL installable client driver (ICD)${nvidia:VariantDesc}
  CPUs, GPUs and other processors.
  .
  This package provides the NVIDIA installable client driver (ICD) for OpenCL
- which supports NVIDIA GPUs. This ICD supports OpenCL 1.x only.
+ which supports NVIDIA GPUs.
 
 Package: nvidia-libopencl1
 Architecture: #i386 amd64 ${arch:arm64} ${arch:ppc64el}
@@ -1188,8 +1193,7 @@ Description: NVIDIA OpenCL ICD Loader library
  (ICD) that can be from any vendor. At least one ICD (and the corresponding
  hardware) is required to run OpenCL applications.
  .
- This package contains the ICD Loader library provided by NVIDIA. This library
- supports OpenCL 1.x and 2.0 only.
+ This package contains the ICD Loader library provided by NVIDIA.
 
 Package: nvidia-detect
 Section: non-free/x11
@@ -1201,6 +1205,4 @@ Description: NVIDIA GPU detection utility
  The 'nvidia-detect' script in this package checks for an NVIDIA GPU in the
  system and recommends one of the non-free accelerated driver meta-packages
  (nvidia-driver, nvidia-tesla-driver,
- nvidia-tesla-510-driver, nvidia-tesla-470-driver,
- nvidia-tesla-450-driver, nvidia-tesla-418-driver,
- or nvidia-legacy-390xx-driver) for installation.
+ or nvidia-tesla-470-driver) for installation.
