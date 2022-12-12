@@ -8,7 +8,9 @@ install nvidia-uvm modprobe nvidia ; modprobe -i #MODULE#-uvm $CMDLINE_OPTS
 
 install nvidia-peermem modprobe nvidia ; modprobe -i #MODULE#-peermem $CMDLINE_OPTS
 
-remove nvidia modprobe -r -i #UNLOAD_MODULES#
+# unloading needs the internal names (i.e. upstream's names, not our renamed files)
+
+remove nvidia modprobe -r -i nvidia-drm nvidia-modeset nvidia-peermem nvidia-uvm nvidia
 
 remove nvidia-modeset modprobe -r -i nvidia-drm nvidia-modeset
 
