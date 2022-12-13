@@ -242,7 +242,7 @@ Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
  for a complete list of supported GPUs and PCI IDs.
 
 Package: ${nvidia}-legacy-check
-Architecture: #amd64 ${arch:arm64} ${arch:ppc64el}
+Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: foreign
 Pre-Depends:
  debconf | debconf-2.0,

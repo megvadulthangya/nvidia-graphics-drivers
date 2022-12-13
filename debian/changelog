@@ -3,7 +3,7 @@ nvidia-graphics-drivers-tesla-510 (510.108.03-1) UNRELEASED; urgency=medium
   * Rebuild as Tesla 510 driver.
     (Closes: #1025286, #1025382)
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 12 Dec 2022 15:22:52 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Dec 2022 00:15:54 +0100
 
 nvidia-graphics-drivers (510.108.03-1) unstable; urgency=medium
 
