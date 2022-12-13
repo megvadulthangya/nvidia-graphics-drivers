@@ -1,9 +1,9 @@
-nvidia-graphics-drivers-tesla (510.108.03-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (510.108.03-1) unstable; urgency=medium
 
   * Rebuild as Tesla driver.
     (Closes: #1025287)
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Dec 2022 00:42:39 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Dec 2022 11:13:15 +0100
 
 nvidia-graphics-drivers-tesla-510 (510.108.03-1) UNRELEASED; urgency=medium
 
