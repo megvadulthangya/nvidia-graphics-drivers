@@ -1,8 +1,8 @@
-Test-Command: env BUILD_EXCLUSIVE_CONFIG="!CONFIG_PREEMPT_RT" /usr/share/modass/module-assistant-autopkgtest nvidia-kernel
+Test-Command: env BUILD_EXCLUSIVE_CONFIG="!CONFIG_PREEMPT_RT" /usr/share/modass/module-assistant-autopkgtest nvidia-tesla-kernel
 Features: test-name=m-a-autopkgtest
 Architecture: amd64 arm64 ppc64el
 Depends:
- nvidia-kernel-source,
+ nvidia-tesla-kernel-source,
  module-assistant-autopkgtest,
  linux-doc,
 Restrictions:
