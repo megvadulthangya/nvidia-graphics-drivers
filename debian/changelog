@@ -1,8 +1,9 @@
-nvidia-graphics-drivers-tesla (515.48.07-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (515.48.07-1) experimental; urgency=medium
 
   * Rebuild as Tesla driver.
+  * Upload to experimental.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 14 Dec 2022 14:10:07 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Dec 2022 00:50:05 +0100
 
 nvidia-graphics-drivers (515.48.07-2) experimental; urgency=medium
 
