@@ -3,7 +3,7 @@ bashisms.patch
 
 # kernel support
 linux-2.6.34-dev_pm_info-runtime_auto.patch
-0009-backport-pci-dma-changes-from-470.129.06.patch
+0010-backport-pci-dma-changes-for-ppc64el.patch
 ppc64el.patch
 
 # build system updates
