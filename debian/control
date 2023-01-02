@@ -26,7 +26,7 @@ Build-Depends-Arch:
  linux-headers-powerpc64le [ppc64el] <!nocheck>,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.6.1
+Standards-Version: 4.6.2
 Homepage: https://www.nvidia.com
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
