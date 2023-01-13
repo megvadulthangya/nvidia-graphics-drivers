@@ -4,6 +4,7 @@ bashisms.patch
 # kernel support
 linux-2.6.34-dev_pm_info-runtime_auto.patch
 0010-backport-pci-dma-changes-for-ppc64el.patch
+0022-backport-drm_connector_has_override_edid-changes-fro.patch
 ppc64el.patch
 
 # build system updates
@@ -11,6 +12,4 @@ fragile-ARCH.patch
 use-kbuild-compiler.patch
 use-kbuild-flags.patch
 conftest-verbose.patch
-nvidia-use-ARCH.o_binary.patch
-nvidia-modeset-use-ARCH.o_binary.patch
 conftest-prefer-arch-headers.patch

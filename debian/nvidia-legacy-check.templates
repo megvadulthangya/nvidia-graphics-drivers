@@ -18,6 +18,9 @@ Type: boolean
 Default: false
 #flag:translate!:3
 #flag:comment:1
+# Translators, please only translate this file in src:nvidia-graphics-drivers.
+# From there it will be merged into all other src:nvidia-graphics-drivers-*
+# packages.
 # Translators, do not translate the ${substitution} ${variables}.
 # ${vendor} will be substituted with 'NVIDIA' or 'Fglrx' (without quotes, of
 # course), ${free_name} will become 'Nouveau' or 'Radeon' (no quotes, again)
