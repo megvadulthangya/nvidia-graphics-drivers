@@ -1,3 +1,20 @@
+nvidia-graphics-drivers-tesla (510.108.03-3) UNRELEASED; urgency=medium
+
+  * Rebuild as Tesla driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 14 Jan 2023 00:48:06 +0100
+
+nvidia-graphics-drivers (510.108.03-3) unstable; urgency=medium
+
+  * Backport drm_connector_has_override_edid changes from 525.78.01 to fix
+    kernel module build for Linux 6.2.  (Closes: #1027790)
+  * Drop support for building modules for non-native kernel architectures.
+  * nvidia-alternative: Access kmod config files over a versioned symlink.
+  * New Brazilian Portuguese (pt_BR) debconf translations by Paulo Henrique de
+    Lima Santana.  (Closes: #1028259)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 13 Jan 2023 22:20:56 +0100
+
 nvidia-graphics-drivers-tesla (510.108.03-2) unstable; urgency=medium
 
   * Rebuild as Tesla driver.
@@ -6308,6 +6325,9 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
+
+  * Support acpi_op_remove callback returning void to fix kernel module build
+    for Linux 6.2.
 
   * Update o_binary patch to fix kernel module build for Linux 6.1.
   * Backport acpi changes from 390.157, replacing earlier backports.

@@ -20,7 +20,6 @@ NVIDIA_LEGACY_CHECK	?=
 NVIDIA_SETTINGS		?= nvidia-settings$(-variant)
 ARCH_CANDIDATES		?= amd64 i386 armhf arm64 ppc64el
 ARCH_LIST		?= amd64
-BLOB_ARCH_LIST		?= $(strip $(DEB_HOST_ARCH) $(ARCH_DEPS_$(DEB_HOST_ARCH)))
 NO_DRIVER_ARCH_LIST	?=
 NO_AUTOPKGTEST_ARCH_LIST?=
 NO_GSP_ARCH_LIST	?=
@@ -116,6 +115,11 @@ comma		 = ,
 xorg_depends	 = $(foreach abi, $(XORG_ABI_LIST), xorg-video-abi-$(abi) |)
 xorg_depends	+= $(comma) xserver-xorg-core $(XORG_BOUND)
 xorg_provides	 = xorg-driver-video
+
+deps_nvidia_kmod_binary	 = $${nvidia-kernel}-dkms (= $${binary:Version})                [$${nvidia:archlist:driver}] |
+deps_nvidia_kmod_binary	+= $${nvidia-kernel}-$${nvidia:Version}                         [$${nvidia:archlist:driver}] |
+deps_nvidia_kmod_source	 = $${nvidia-kernel}-dkms (>= $${nvidia:Version})               [$${nvidia:archlist:driver}] |
+deps_nvidia_kmod_source	+= $${nvidia-kernel}-source (>= $${nvidia:Version})             [$${nvidia:archlist:driver}] |
 
 
 .PHONY: autogen prepare patch
@@ -240,13 +244,6 @@ ifneq (,$(has_driver))
 	# binary packages.
 	cp -al build/NVIDIA_Changelog build/kernel/
 
-	# We may need nv-kernel.o for several architectures to accomodate
-	# all kernel flavors.
-	$(RM) build/kernel/nvidia/nv-kernel.o_binary
-	$(foreach a,$(BLOB_ARCH_LIST),cp -al NVIDIA-Linux-$a/kernel/nvidia/nv-kernel.o_binary build/kernel/nvidia/nv-kernel-$a.o_binary ;)
-	$(RM) build/kernel/nvidia-modeset/nv-modeset-kernel.o_binary
-	$(foreach a,$(BLOB_ARCH_LIST),cp -al NVIDIA-Linux-$a/kernel/nvidia-modeset/nv-modeset-kernel.o_binary build/kernel/nvidia-modeset/nv-modeset-kernel-$a.o_binary ;)
-
 	# Fix permissions.
 	chmod -R a-sx,u=rwX,go=rX build/kernel
 endif
@@ -319,12 +316,11 @@ override_dh_gencontrol:
 		-V'nvidia-settings=$(NVIDIA_SETTINGS)' \
 		-V'nvidia:debhelper-compat=$(debhelper_compat)' \
 		$(foreach a,$(ARCH_CANDIDATES),-V'arch:$a=$(filter $a,$(DRIVER_ARCH_LIST))') \
-		-V'nvidia:arch:has-driver=$(if $(has_driver),,!)$(DEB_HOST_ARCH)' \
-		-V'nvidia:arches:gsp=$(GSP_ARCH_LIST)' \
-		-V'nvidia:kmod:binary=$${nvidia-kernel}-dkms (= $${binary:Version}) [$${nvidia:arch:has-driver}] | $${nvidia-kernel}-$${nvidia:Version} [$${nvidia:arch:has-driver}]' \
-		-V'nvidia:kmod:source=$${nvidia-kernel}-dkms (>= $${nvidia:Version}) [$${nvidia:arch:has-driver}] | $${nvidia-kernel}-source (>= $${nvidia:Version}) [$${nvidia:arch:has-driver}]' \
+		-V'nvidia:archlist:driver=$(DRIVER_ARCH_LIST)' \
+		-V'nvidia:archlist:gsp=$(GSP_ARCH_LIST)' \
+		-V'nvidia:kmod:binary=$(deps_nvidia_kmod_binary)' \
+		-V'nvidia:kmod:source=$(deps_nvidia_kmod_source)' \
 		-V'nvidia:kmod:tested:Linux=$(strip $(or $(LINUX_KMOD_TESTED_$(DEB_HOST_ARCH)),$(LINUX_KMOD_TESTED),???))' \
-		-V'nvidia:kmod:blob:archlist=$(subst $(space),$(comma)$(space),$(BLOB_ARCH_LIST)) architecture$(if $(filter 1,$(words $(BLOB_ARCH_LIST))),,s)' \
 		-Vnvidia:kmod:Description="`cat debian/control.kmod`" \
 		-Vnvidia:Models="`cat debian/control.models`"
 
