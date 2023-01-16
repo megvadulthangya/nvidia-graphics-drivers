@@ -87,6 +87,12 @@ nvidia-graphics-drivers (515.48.07-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 02 Nov 2022 18:49:54 +0100
 
+nvidia-graphics-drivers-tesla (510.108.03-3) unstable; urgency=medium
+
+  * Rebuild as Tesla driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 14 Jan 2023 03:26:47 +0100
+
 nvidia-graphics-drivers (510.108.03-3) unstable; urgency=medium
 
   * Backport drm_connector_has_override_edid changes from 525.78.01 to fix
@@ -97,6 +103,12 @@ nvidia-graphics-drivers (510.108.03-3) unstable; urgency=medium
     Lima Santana.  (Closes: #1028259)
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 13 Jan 2023 22:20:56 +0100
+
+nvidia-graphics-drivers-tesla (510.108.03-2) unstable; urgency=medium
+
+  * Rebuild as Tesla driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 02 Jan 2023 13:22:04 +0100
 
 nvidia-graphics-drivers (510.108.03-2) unstable; urgency=medium
 
