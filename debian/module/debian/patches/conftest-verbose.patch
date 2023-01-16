@@ -34,14 +34,14 @@ Description: dump the generated conftest headers
  $(eval $(call NV_GENERATE_COMPILE_TEST_HEADER,types,$(NV_CONFTEST_TYPE_COMPILE_TESTS)))
  
 -$(obj)/conftest/patches.h: $(NV_CONFTEST_SCRIPT)
-+$(obj)/conftest/patches.h: $(NV_CONFTEST_SCRIPT) conftest-verbose
++$(obj)/conftest/patches.h: $(NV_CONFTEST_SCRIPT) | conftest-verbose
  	@mkdir -p $(obj)/conftest
  	@$(NV_CONFTEST_CMD) patch_check > $@
 +	@echo " CONFTEST $(notdir $@):"
 +	@cat $@
  
 -$(obj)/conftest/headers.h: $(NV_CONFTEST_SCRIPT)
-+$(obj)/conftest/headers.h: $(NV_CONFTEST_SCRIPT) conftest-verbose
++$(obj)/conftest/headers.h: $(NV_CONFTEST_SCRIPT) | conftest-verbose
  	@mkdir -p $(obj)/conftest
  	@$(NV_CONFTEST_CMD) test_kernel_headers '$(NV_CONFTEST_CFLAGS)' > $@
 +	@echo " CONFTEST $(notdir $@):"
@@ -49,21 +49,28 @@ Description: dump the generated conftest headers
  
  clean-dirs := $(obj)/conftest
  
-@@ -233,7 +249,7 @@ BUILD_SANITY_CHECKS = \
+@@ -232,7 +248,8 @@ BUILD_SANITY_CHECKS = \
+ 
  .PHONY: $(BUILD_SANITY_CHECKS)
  
- $(BUILD_SANITY_CHECKS):
--	@$(NV_CONFTEST_CMD) $@ full_output
-+	$(NV_CONFTEST_CMD) $@ full_output
+-$(BUILD_SANITY_CHECKS):
++$(BUILD_SANITY_CHECKS): | conftest-verbose
++	@echo " CONFTEST: $(notdir $@)"
+ 	@$(NV_CONFTEST_CMD) $@ full_output
  
  # Perform all sanity checks before generating the conftest headers
+@@ -241,11 +258,13 @@ $(NV_CONFTEST_HEADERS): | $(BUILD_SANITY
  
-@@ -243,7 +259,7 @@ $(NV_CONFTEST_HEADERS): | $(BUILD_SANITY
+ # Make the conftest headers depend on the kernel version string
  
- $(obj)/conftest/uts_release: NV_GENERATE_UTS_RELEASE
+-$(obj)/conftest/uts_release: NV_GENERATE_UTS_RELEASE
++$(obj)/conftest/uts_release: NV_GENERATE_UTS_RELEASE | conftest-verbose
  	@mkdir -p $(dir $@)
--	@NV_UTS_RELEASE="// Kernel version: `$(NV_CONFTEST_CMD) compile_tests '$(NV_CONFTEST_CFLAGS)' uts_release`"; \
-+	NV_UTS_RELEASE="// Kernel version: `$(NV_CONFTEST_CMD) compile_tests '$(NV_CONFTEST_CFLAGS)' uts_release`"; \
+ 	@NV_UTS_RELEASE="// Kernel version: `$(NV_CONFTEST_CMD) compile_tests '$(NV_CONFTEST_CFLAGS)' uts_release`"; \
  	if ! [ -f "$@" ] || [ "$$NV_UTS_RELEASE" != "`cat $@`" ]; \
  	then echo "$$NV_UTS_RELEASE" > $@; fi
++	@echo " CONFTEST $(notdir $@):"
++	@cat $@
+ 
+ .PHONY: NV_GENERATE_UTS_RELEASE
  

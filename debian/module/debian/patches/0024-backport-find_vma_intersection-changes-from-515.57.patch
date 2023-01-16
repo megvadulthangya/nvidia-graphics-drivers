@@ -1,7 +1,7 @@
-From 7ec21f7e9309a743cb6523c271af5116b7e406ce Mon Sep 17 00:00:00 2001
+From c96ca0d19af0cc29a509b66df41142c2c1d08e53 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 12 Nov 2022 10:06:31 +0100
-Subject: [PATCH] backport find_vma_intersection changes from 515.76
+Subject: [PATCH] backport find_vma_intersection changes from 515.57
 
 ---
  nvidia-uvm/uvm_migrate_pageable.c  | 9 +++++++--

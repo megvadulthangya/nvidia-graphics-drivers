@@ -1,6 +1,7 @@
 etc/modprobe.d
 etc/nvidia
-usr/lib/#PRIVATE#
+usr/lib/nvidia/#CURRENT#
+usr/lib/nvidia/#CURRENT#-open
 #LIBDIR#/gbm
 #LIBDIR#/nvidia
 #LIBDIR#/vdpau

@@ -68,27 +68,31 @@ The branch structure in the GIT repository
     tesla-460/transition-470  bullseye,sid
     470                       bullseye            510, 470-tesla
     470-tesla                 (bullseye)          510-tesla, tesla-470/main
-    tesla-470/main            bullseye,sid        tesla-510/main
-    510                       (bookworm)          515, 510-tesla
-    510-tesla                 (bookworm)          515-tesla, tesla-510/main, tesla/main
-    tesla-510/main            (bookworm),(sid)    tesla-510/transition
-    tesla-510/transition      bookworm,sid
-    515                       (bookworm)          main, 515-tesla
-    515-tesla                 (bookworm)          tesla/main
-    525                       (bookworm)          main
+    tesla-470/main            bullseye,bookworm,sid tesla-510/main
+    510                       (bookworm),sid      515, 510-tesla
+    510-tesla                 (bookworm)          515-tesla, tesla-510/main
+    tesla-510/main            (bookworm),(sid)    tesla/510, tesla-510/transition
+    tesla-510/transition      sid
+    tesla/510                 (bookworm),sid      tesla/515
+    515                       (bookworm),sid      525, 515-tesla
+    515-tesla                 (bookworm)          525-tesla, tesla/515
+    tesla/515                 (bookworm),sid      tesla/525
+    525                       (bookworm),sid      YYY, 525-tesla
+    525-tesla                 (bookworm)          ZZZ-tesla, tesla/525
+    tesla/525                 (bookworm),sid      tesla/ZZZ
     main                      sid                 YYY
     tesla/main                sid
     YYY                       experimental        ZZZ, (main)
     ZZZ                       experimental        (main)
-    ZZZ-tesla                 (experimental)      tesla/experimental
-    tesla/experimental        experimental        (tesla/main)
+    ZZZ-tesla                 (experimental)      tesla/ZZZ
+    tesla/ZZZ                 experimental        (tesla/main)
     *-backports               *-backports
     ABCxx/*-backports         *-backports
     tesla-ABC/*-backports     *-backports
     tesla/*-backports         *-backports
 
-    New upstream releases (XXX.yy) are always imported into the XXX branch.
-    If this branch does not yet exist, fork it from ZZZ or main (but do
+    New upstream releases (XXX.yy[.zz]) are always imported into the XXX
+    branch. If this branch does not yet exist, fork it from ZZZ (but do
     not adjust the debian-branch in gbp.conf for non-persistent branches).
 
     Try to avoid creating XXX-$testing (and ABCxx/$testing) branches as
@@ -96,7 +100,7 @@ The branch structure in the GIT repository
     currently used used for both stable and sid.
 
     Minor updates, fixes and features should always go to the oldest branch
-    where they are applicable, i.e. 390-stretch (or 390) in most cases.
+    where they are applicable, i.e. 340-stretch (or 390) in most cases.
 
     The following packages have hardcoded lists of alternative dependencies
     that need to be updated whenever the list of supported driver packages
@@ -107,7 +111,7 @@ The branch structure in the GIT repository
      * src:primus-vk            debian/rules
      * src:python-pynvml        debian/rules
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 26 Jan 2020 22:49:17 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 19 Dec 2022 17:16:30 +0100
 
 
 Importing a New Upstream Release
@@ -135,6 +139,8 @@ Importing a New Upstream Release
     * Add the new *.orig*.tar.gz to a new <version> subdirectory in the
       git repository ../tarballs-nvidia-graphics-drivers, i.e.
       git@salsa.debian.org:nvidia-team/tarballs-nvidia-graphics-drivers.git
+
+          debian/rules commit-current-tarballs
 
 
 Building and Uploading

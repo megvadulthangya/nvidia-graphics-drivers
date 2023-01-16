@@ -1,3 +1,20 @@
+nvidia-graphics-drivers-tesla (515.48.07-2) UNRELEASED; urgency=medium
+
+  * Rebuild as Tesla driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 16 Jan 2023 12:16:34 +0100
+
+nvidia-graphics-drivers (515.48.07-3) experimental; urgency=medium
+
+  * Merge changes from 510.108.03-3.
+  * Extract nv-readme-open.ids from README.
+  * nvidia-detect: Report GPUs that can be used with the open kernel module.
+  * Allow nvidia-open-kernel-dkms as alternative to nvidia-kernel-dkms.
+  * nvidia-alternative: Register another alternative if
+    nvidia-open-kernel-dkms is available.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 15 Jan 2023 02:46:43 +0100
+
 nvidia-graphics-drivers-tesla (515.48.07-1) experimental; urgency=medium
 
   * Rebuild as Tesla driver.
@@ -8,8 +25,8 @@ nvidia-graphics-drivers-tesla (515.48.07-1) experimental; urgency=medium
 nvidia-graphics-drivers (515.48.07-2) experimental; urgency=medium
 
   * Merge changes from 510.108.03-1.
-  * Backport find_vma_intersection and num_registered_fb changes from 515.76
-    to fix kernel module build for Linux 6.1.
+  * Backport find_vma_intersection from 515.57 and num_registered_fb changes
+    from 515.76 to fix kernel module build for Linux 6.1.
   * libcuda1: Add Provides: libcuda-11.7-1{,-i386}.
   * Put the kernel module patches under Expat license.
 
@@ -69,6 +86,27 @@ nvidia-graphics-drivers (515.48.07-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 02 Nov 2022 18:49:54 +0100
+
+nvidia-graphics-drivers (510.108.03-3) unstable; urgency=medium
+
+  * Backport drm_connector_has_override_edid changes from 525.78.01 to fix
+    kernel module build for Linux 6.2.  (Closes: #1027790)
+  * Drop support for building modules for non-native kernel architectures.
+  * nvidia-alternative: Access kmod config files over a versioned symlink.
+  * New Brazilian Portuguese (pt_BR) debconf translations by Paulo Henrique de
+    Lima Santana.  (Closes: #1028259)
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 13 Jan 2023 22:20:56 +0100
+
+nvidia-graphics-drivers (510.108.03-2) unstable; urgency=medium
+
+  * nvidia-detect: Drop support for stretch(-lts) (EoL).
+  * nvidia-detect: Add support for Tesla drivers.
+  * nvidia-detect: Restrict support to driver series in bookworm.
+  * Stop building the nvidia-nonglvnd-vulkan-common package.
+  * Bump Standards-Version to 4.6.2. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 02 Jan 2023 11:11:15 +0100
 
 nvidia-graphics-drivers-tesla (510.108.03-1) unstable; urgency=medium
 
@@ -6364,6 +6402,9 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
+
+  * Support acpi_op_remove callback returning void to fix kernel module build
+    for Linux 6.2.
 
   * Update o_binary patch to fix kernel module build for Linux 6.1.
   * Backport acpi changes from 390.157, replacing earlier backports.

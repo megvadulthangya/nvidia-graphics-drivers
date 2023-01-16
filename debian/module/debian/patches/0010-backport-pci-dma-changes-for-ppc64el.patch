@@ -1,7 +1,7 @@
 From 676b4a2e9e5d34518b8f608e633f02420684daa5 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 20 Jun 2022 10:14:54 +0200
-Subject: [PATCH] backport pci/dma changes from 470.129.06
+Subject: [PATCH] backport pci/dma changes for ppc64el
 
 ---
  nvidia/nv.c | 16 ++++++++--------
