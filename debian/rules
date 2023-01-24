@@ -91,7 +91,7 @@ RENAMED_CONTROL	 = $(foreach f,$(RENAME_CONTROL),$(call applyprefixrenamelist,$f
 
 TEMPLATE_DIRS	 = debian
 TEMPLATE_DIRS	+= debian/module/debian
-TEMPLATE_DIRS	+= debian/module/debian/patches
+TEMPLATE_DIRS	+= debian/patches/module
 TEMPLATE_DIRS	+= debian/detect
 TEMPLATE_DIRS	+= debian/tests
 TEMPLATES	:= $(wildcard $(addsuffix /*.in,$(TEMPLATE_DIRS)))
@@ -171,6 +171,7 @@ unpack-stamp: $(patsubst %,NVIDIA-Linux-%,$(ARCH_LIST))
 	ln -s NVIDIA-Linux-$(DEB_HOST_ARCH) NVIDIA-Linux
 ifneq (,$(has_driver))
 	QUILT_PATCHES=debian/patches QUILT_SERIES=series-postunpack quilt --quiltrc /dev/null push -a || test $$? = 2
+	# bashism is used on a few architectures only
 	sed -i 's/==/=/g' NVIDIA-Linux/nvidia-bug-report.sh
 endif
 	ls -al
@@ -261,6 +262,9 @@ endif
 ifneq (,$(has_driver))
 	gzip -9fn build/nvidia-smi.1
 
+	# Apply the kernel module patches.
+	cd build/kernel && QUILT_PATCHES=../../debian/patches/module quilt --quiltrc /dev/null push -a || test $$? = 2
+
 	# This copy of the changelog is going to be installed into the module
 	# binary packages.
 	cp -al build/NVIDIA_Changelog build/kernel/
@@ -276,6 +280,7 @@ override_dh_auto_build: build-stamp
 override_dh_auto_install:
 	$(RM) -r debian/tmp
 	cp -al build/ debian/tmp
+	$(RM) -r debian/tmp/kernel/.pc
 
 module_source_pkg	 = debian/$(nvidia-kernel)-source
 module_source_txz	 = $(module_source_pkg)/usr/src/$(nvidia-kernel).tar.xz
@@ -296,7 +301,7 @@ pack-module-source:
 kernel-source-tree: build-stamp $(AUTOGEN)
 	$(RM) -r $@
 	cp -a build/kernel $@
-	cd $@ && QUILT_PATCHES=../debian/module/debian/patches quilt --quiltrc /dev/null push -a || test $$? = 2
+	cd $@ && QUILT_PATCHES=../debian/patches/module quilt --quiltrc /dev/null push -a || test $$? = 2
 
 ifneq (,$(has_driver))
 execute_after_dh_install: pack-module-source
@@ -384,13 +389,8 @@ override_dh_strip_nondeterminism:
 	-e 's{#ARCH_LIST#}{$(DRIVER_ARCH_LIST)}g;' \
 	-e 's{#AUTOPKGTEST_ARCH_LIST#}{$(AUTOPKGTEST_ARCH_LIST)}g;' \
 	-e 's{#GSP_ARCH_LIST#}{$(GSP_ARCH_LIST)}g;' \
-	$(EXTRA_SUBSTITUTIONS) \
 	< $< > $@
 	chmod --reference=$< $@
-
-debian/module/debian/patches/series: EXTRA_SUBSTITUTIONS =
-debian/nvidia-kernel-dkms.dkms: debian/module/debian/patches/series
-debian/nvidia-kernel-dkms.dkms: EXTRA_SUBSTITUTIONS += -e 's{\#MODULE_PATCHES\#}{$(patsubst %,%,$(shell grep -v ^\# debian/module/debian/patches/series))}g;'
 
 debian/module/debian/control.modules.in: debian/control debian/module/debian/control.modules.in.binary
 	sed -n '/^#/d; 0,/^$$/p' $< > $@

@@ -1,3 +1,37 @@
+nvidia-graphics-drivers-tesla (515.65.01-1) UNRELEASED; urgency=medium
+
+  * Rebuild as Tesla driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 24 Jan 2023 16:57:26 +0100
+
+nvidia-graphics-drivers (515.65.01-1) experimental; urgency=medium
+
+  * New upstream production branch release 515.65.01 (2022-08-02).
+    - Fixed a bug that caused the X server to hang when VT-switching with
+      stereo enabled.
+    - Fixed an issue that caused OpenGL applications to be unresponsive in SLI
+      Mosaic mode with no monitors enabled on the primary GPU.
+    * Improved compatibility with recent Linux kernels.
+  * New upstream production branch release 515.57 (2022-06-28).
+    - Fixed a bug that could cause some graphics applications to crash when
+      they are started while nvidia-drm.ko is not loaded.
+    - Fixed an issue where NvFBC could return an incorrect frame if a capture
+      request timed out.
+    - Fixed an issue where NvFBC direct capture would wait for multiple queued
+      frames to finish rendering, instead of returning the next rendered
+      frame.
+    - Added support for NvFBC direct capture to composite the mouse cursor
+      onto frames.
+    - Fixed an issue where Vulkan direct to display could not drive more than
+      4 displays from a single VkInstance.
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Apply kernel module patches at package build time.
+  * Add versioned Provides: nvidia-kernel-dkms-any.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 24 Jan 2023 15:28:09 +0100
+
 nvidia-graphics-drivers-tesla (515.48.07-2) experimental; urgency=medium
 
   * Rebuild as Tesla driver.

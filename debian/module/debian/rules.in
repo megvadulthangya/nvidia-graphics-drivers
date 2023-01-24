@@ -37,7 +37,6 @@ binary-modules: kdist_config
 	dh_prep
 	dh_installdirs
 # Build and install the module.
-	dh_quilt_patch
 	$(MAKE) $(MAKE_J_FLAG) modules $(KERNEL_SPEC)
 ifneq (nvidia,$(MODULE))
 	mv nvidia.ko $(MODULE).ko
@@ -74,7 +73,6 @@ kdist_clean:
 	test -f debian/control || sed -r 's/(##|#|_)KVERS\1/$(KVERS)/g' debian/control.modules.in > debian/control
 	dh_testdir
 	$(MAKE) clean $(KERNEL_SPEC)
-	dh_quilt_unpatch || quilt --quiltrc /dev/null pop -af
 	dh_clean $(patsubst %.modules.in,%,$(wildcard debian/*.modules.in))
 
 .PHONY: kdist_config binary-modules kdist_clean

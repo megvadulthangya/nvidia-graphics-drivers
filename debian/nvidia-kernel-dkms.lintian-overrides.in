@@ -3,6 +3,3 @@ unstripped-binary-or-object
 
 # The NVIDIA license does not allow any form of modification.
 spelling-error-in-binary
-
-# This is patched at module build time.
-bash-term-in-posix-shell '[ "`cat /proc/xen/capabilities`" ==' [usr/src/#MODULE#-#VERSION#/conftest.sh:*]

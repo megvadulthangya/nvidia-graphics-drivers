@@ -40,7 +40,7 @@ Copyright: © 2008-2011 Filipus Klutiero <chealer@gmail.com>
            © 2011-2022 Andreas Beckmann <anbe@debian.org>
 License: GPL-2.0+
 
-Files: debian/module/debian/patches/* debian/patches/*
+Files: debian/patches/*
 Copyright:
  (c) 1993-2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 License: Expat
