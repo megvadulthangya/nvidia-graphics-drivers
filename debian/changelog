@@ -1,8 +1,9 @@
-nvidia-graphics-drivers-tesla (515.86.01-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (515.86.01-1) unstable; urgency=medium
 
   * Rebuild as Tesla driver.
+  * Upload to unstable.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 27 Jan 2023 13:14:45 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 27 Jan 2023 18:39:16 +0100
 
 nvidia-graphics-drivers (515.86.01-1) unstable; urgency=medium
 
