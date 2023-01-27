@@ -3,6 +3,9 @@
 PACKAGE_NAME="#MODULE#"
 PACKAGE_VERSION="#VERSION#"
 
+# Only kernels from 3.10 onwards are supported.
+BUILD_EXCLUSIVE_KERNEL="^(3\.[1-9][0-9]|[4-9]\.)"
+
 # The NVIDIA driver does not support real-time kernels.
 BUILD_EXCLUSIVE_CONFIG="!CONFIG_PREEMPT_RT !CONFIG_PREEMPT_RT_FULL"
 

@@ -18,6 +18,10 @@ define REPORT_WITH
 	$(nvidia)-alternative
 	$(nvidia-kernel)-dkms
 	$(nvidia-kernel)-source
+	nvidia-open-kernel-dkms
+	nvidia-open-kernel-source
+	$(nvidia)-open-kernel-dkms
+	$(nvidia)-open-kernel-source
 	glx-alternative-nvidia
 	xserver-xorg-video-intel
 endef
@@ -27,6 +31,10 @@ define PACKAGE_STATUS
 	nvidia-glx$(-variant)
 	$(nvidia-kernel)-dkms
 	$(nvidia-kernel)-source
+	nvidia-open-kernel-dkms
+	nvidia-open-kernel-source
+	$(nvidia)-open-kernel-dkms
+	$(nvidia)-open-kernel-source
 	nvidia-kernel-dkms-any
 	nvidia-open-kernel-dkms-any
 	nvidia-kernel-support-any

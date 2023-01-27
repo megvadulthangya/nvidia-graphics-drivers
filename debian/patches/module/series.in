@@ -5,8 +5,6 @@ bashisms.patch
 0001-bump-minimum-supported-kernel-version-to-3.10.patch
 0002-conftest.sh-remove-empty-lines-from-uts_release-outp.patch
 0010-backport-pci-dma-changes-for-ppc64el.patch
-0023-backport-drm_frambuffer.h-changes-from-515.76.patch
-0025-backport-num_registered_fb-changes-from-515.76.patch
 0022-backport-drm_connector_has_override_edid-changes-fro.patch
 ppc64el.patch
 

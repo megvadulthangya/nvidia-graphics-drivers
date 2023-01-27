@@ -69,6 +69,7 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceGetEnforcedPowerLimit@Base 331
  nvmlDeviceGetFBCSessions@Base 410
  nvmlDeviceGetFBCStats@Base 410
+ nvmlDeviceGetFanControlPolicy_v2@Base 515.86.01
  nvmlDeviceGetFanSpeed@Base 270
  nvmlDeviceGetFanSpeed_v2@Base 418
  nvmlDeviceGetFieldValues@Base 384
@@ -166,6 +167,7 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceGetSupportedMemoryClocks@Base 304
  nvmlDeviceGetSupportedPerformanceStates@Base 515
  nvmlDeviceGetSupportedVgpus@Base 361.42
+ nvmlDeviceGetTargetFanSpeed@Base 515.86.01
  nvmlDeviceGetTemperature@Base 270
  nvmlDeviceGetTemperatureThreshold@Base 340
  nvmlDeviceGetThermalSettings@Base 515
@@ -204,6 +206,7 @@ libnvidia-ml.so.1 #PACKAGE# #MINVER# | libnvidia-ml.so.1 #MINVER#
  nvmlDeviceSetDefaultFanSpeed_v2@Base 515
  nvmlDeviceSetDriverModel@Base 270
  nvmlDeviceSetEccMode@Base 270
+ nvmlDeviceSetFanControlPolicy@Base 515.86.01
  nvmlDeviceSetFanSpeed_v2@Base 515
  nvmlDeviceSetGpcClkVfOffset@Base 515
  nvmlDeviceSetGpuLockedClocks@Base 410
