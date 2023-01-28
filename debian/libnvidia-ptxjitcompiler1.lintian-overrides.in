@@ -5,6 +5,7 @@ spelling-error-in-binary
 [!arm64]: hardening-no-fortify-functions
 
 # Use wildcard instead of exact path substitution, this is a M-A: same package.
+embedded-library
 embedded-library zlib [usr/lib*/libnvidia-ptxjitcompiler.so.#VERSION#]
 
 # Lintian and debhelper disagree w.r.t. a library in a private directory.
