@@ -1,4 +1,4 @@
-Test-Command: env BUILD_EXCLUSIVE_CONFIG="!CONFIG_PREEMPT_RT" /usr/share/modass/module-assistant-autopkgtest #NVIDIA-KERNEL#
+Test-Command: env BUILD_EXCLUSIVE_CONFIG="!CONFIG_PREEMPT_RT !CONFIG_PREEMPT_RT_FULL" /usr/share/modass/module-assistant-autopkgtest #NVIDIA-KERNEL#
 Features: test-name=m-a-autopkgtest
 Architecture: #AUTOPKGTEST_ARCH_LIST#
 Depends:

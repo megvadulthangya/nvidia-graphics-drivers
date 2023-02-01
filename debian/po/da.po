@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nvidia-graphics-drivers\n"
 "Report-Msgid-Bugs-To: nvidia-graphics-drivers@packages.debian.org\n"
-"POT-Creation-Date: 2016-02-12 01:57+0100\n"
+"POT-Creation-Date: 2023-01-09 15:40+0100\n"
 "PO-Revision-Date: 2016-07-09 17:30+01:00\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
@@ -18,6 +18,9 @@ msgstr ""
 
 #. Type: boolean
 #. Description
+#. Translators, please only translate this file in src:nvidia-graphics-drivers.
+#. From there it will be merged into all other src:nvidia-graphics-drivers-*
+#. packages.
 #. Translators, do not translate the ${substitution} ${variables}.
 #. ${vendor} will be substituted with 'NVIDIA' or 'Fglrx' (without quotes, of
 #. course), ${free_name} will become 'Nouveau' or 'Radeon' (no quotes, again)
@@ -58,7 +61,8 @@ msgstr ""
 msgid ""
 "Use the update-glx command to switch between different installed drivers."
 msgstr ""
-"Brug kommandoen update-glx til at skifte mellem forskellige installerede drivere."
+"Brug kommandoen update-glx til at skifte mellem forskellige installerede "
+"drivere."
 
 #. Type: boolean
 #. Description
