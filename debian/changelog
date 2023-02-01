@@ -1,6 +1,7 @@
 nvidia-graphics-drivers-tesla-510 (510.108.03-2) UNRELEASED; urgency=medium
 
   * Rebuild as Tesla 510 driver.
+  * -source: Restore quilt dependency.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 01 Feb 2023 15:16:36 +0100
 

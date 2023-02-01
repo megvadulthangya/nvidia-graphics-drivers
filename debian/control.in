@@ -181,7 +181,7 @@ Depends:
  nvidia-tesla-kernel-source,
 # debhelper-compat (= ${nvidia:debhelper-compat}),
 # module-assistant,
-# quilt,
+ quilt,
  ${misc:Depends}
 #Recommends:
 # firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:archlist:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:archlist:gsp}],

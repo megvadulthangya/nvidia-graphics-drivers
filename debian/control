@@ -132,6 +132,7 @@ Section: non-free/kernel
 Architecture: amd64 arm64 ppc64el
 Depends:
  nvidia-tesla-kernel-source,
+ quilt,
  ${misc:Depends}
 Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
  This package provides the source for the NVIDIA binary kernel modules
