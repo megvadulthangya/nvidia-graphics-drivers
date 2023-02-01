@@ -166,6 +166,7 @@ unpack-stamp: $(patsubst %,NVIDIA-Linux-%,$(ARCH_LIST))
 	ln -s NVIDIA-Linux-$(DEB_HOST_ARCH) NVIDIA-Linux
 ifneq (,$(has_driver))
 	QUILT_PATCHES=debian/patches QUILT_SERIES=series-postunpack quilt --quiltrc /dev/null push -a || test $$? = 2
+	# bashism is used on a few architectures only
 	sed -i 's/==/=/g' NVIDIA-Linux/nvidia-bug-report.sh
 endif
 	ls -al
