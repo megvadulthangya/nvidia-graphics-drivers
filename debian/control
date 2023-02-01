@@ -154,6 +154,7 @@ Recommends:
  | ${libcuda1} (>= ${nvidia:Version}),
 Provides:
  ${nvidia-kernel}-${nvidia:Version},
+ nvidia-kernel-dkms-any (= ${nvidia:Version}),
 Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  This package builds the NVIDIA binary kernel modules needed by
  ${nvidia}-driver, using DKMS.
