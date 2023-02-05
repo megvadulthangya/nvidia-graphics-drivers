@@ -1,8 +1,9 @@
-nvidia-graphics-drivers-tesla (525.60.13-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.60.13-1) experimental; urgency=medium
 
   * Rebuild as Tesla driver.
+  * Upload to experimental.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 05 Feb 2023 21:26:22 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 05 Feb 2023 22:02:59 +0100
 
 nvidia-graphics-drivers (525.60.13-1) experimental; urgency=medium
 
