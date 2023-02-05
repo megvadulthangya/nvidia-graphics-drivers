@@ -58,6 +58,13 @@ nvidia-cuda-mps-server
 nvidia-powerd
 nvidia-dbus.conf
 
+# shipped unversioned by src:nvidia-graphics-drivers
+10_nvidia.json
+nvidia_icd.json
+nvidia_layers.json
+nvidia.icd
+libOpenCL.so.1.0.0
+
 # not shipped
 
 nvidia-ngx-updater
