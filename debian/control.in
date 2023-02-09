@@ -909,6 +909,8 @@ Provides:
  libcuda-11.5-1,
  libcuda-11.6-1,
  libcuda-11.7-1,
+ libcuda-11.8-1,
+ libcuda-12.0-1,
 Homepage: https://www.nvidia.com/CUDA
 Description: NVIDIA CUDA Driver Library${nvidia:VariantDesc}
  The Compute Unified Device Architecture (CUDA) enables NVIDIA

@@ -1,3 +1,38 @@
+nvidia-graphics-drivers-tesla (525.85.12-1) UNRELEASED; urgency=medium
+
+  * Rebuild as Tesla driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 09 Feb 2023 14:20:12 +0100
+
+nvidia-graphics-drivers (525.85.12-1) unstable; urgency=medium
+
+  * New upstream production branch release 525.85.12 (2023-01-30).
+  * New upstream production branch release 525.85.05 (2023-01-19).
+    - Improved the reliability of suspend and resume on UEFI systems
+      when using certain display panels.
+    - Fixed a bug that could cause VK_ERROR_DEVICE_LOST when using
+      VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT to allocate
+      memory.
+  * New upstream production branch release 525.78.01 (2023-01-05).
+    - Fixed a regression that prevented the G-SYNC/G-SYNC Compatible Visual
+      Indicator from being displayed when running Vulkan X11 applications.
+    - Fixed a bug where usage of VK_KHR_present_id could cause applications to
+      crash with Xid 32 errors.
+    - Fixed excess CPU usage in hybrid graphics configurations where an
+      external display is connected to an NVIDIA discrete GPU and configured
+      as a PRIME Display Offload sink (also known as "Reverse Prime").
+  * New upstream release 470 series.
+    - Disabled Fixed Rate Link (FRL) when using passive DisplayPort
+      to HDMI dongles, which are incompatible with FRL.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update nv-readme.ids.  (Closes: #1028496)
+  * libcuda1: Add Provides: libcuda-12.0-1.
+  * Upload to unstable.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 09 Feb 2023 10:30:00 +0100
+
 nvidia-graphics-drivers-tesla (525.60.13-1) experimental; urgency=medium
 
   * Rebuild as Tesla driver.
@@ -22,6 +57,7 @@ nvidia-graphics-drivers (525.60.13-1) experimental; urgency=medium
       enabled.
 
   [ Andreas Beckmann ]
+  * Refresh patches.
   * Update nv-readme.ids.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 05 Feb 2023 14:07:07 +0100
@@ -49,6 +85,7 @@ nvidia-graphics-drivers (525.53-1) experimental; urgency=medium
 
 nvidia-graphics-drivers (520.56.06-2) unstable; urgency=medium
 
+  * libcuda1: Add Provides: libcuda-11.8-1.
   * Upload to unstable.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 02 Feb 2023 10:51:07 +0100

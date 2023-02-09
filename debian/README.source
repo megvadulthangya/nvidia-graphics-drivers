@@ -25,15 +25,16 @@ Upstream support timeframes
     173                         EoL
     304                 12/2017 EoL
     340                 12/2019 EoL
-    390                 12/2022
+    390                 12/2022 EoL
     Tesla 410                   EoL
     Tesla 418 (LTSB)    03/2022 EoL
     Tesla 440           11/2020 EoL
     Tesla 450 (LTSB)    07/2023
     Tesla 460 (PB)      01/2022 EoL
     Tesla 470 (LTSB)    07/2024
-    Tesla 510 (PB)      01/2023
+    Tesla 510 (PB)      01/2023 EoL
     Tesla 515 (PB)      05/2023
+    Tesla 525 (PB)      12/2023
 
 
 The branch structure in the GIT repository
