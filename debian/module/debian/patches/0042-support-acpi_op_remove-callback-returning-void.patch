@@ -1,0 +1,75 @@
+From a92a1efa54cf27edadc14cbcd948c974ce48b118 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Tue, 3 Jan 2023 21:20:42 +0100
+Subject: [PATCH] support acpi_op_remove callback returning void
+
+returns void instead of int since 6c0eb5ba3500f (in v6.2-rc1)
+---
+ conftest.sh | 18 ++++++++++++++++++
+ nv-acpi.c   |  6 ++++++
+ 2 files changed, 24 insertions(+)
+
+diff --git a/conftest.sh b/conftest.sh
+index 873c566..71fbbac 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -815,6 +815,24 @@ compile_test() {
+                 return
+             fi
+ 
++            echo "$CONFTEST_PREAMBLE
++            #include <linux/acpi.h>
++
++            acpi_op_remove conftest_op_remove_routine;
++
++            void conftest_acpi_device_ops_remove(struct acpi_device *device) {
++                return conftest_op_remove_routine(device);
++            }" > conftest$$.c
++
++            $CC $CFLAGS -c conftest$$.c > /dev/null 2>&1
++            rm -f conftest$$.c
++
++            if [ -f conftest$$.o ]; then
++                rm -f conftest$$.o
++                echo "#define NV_ACPI_DEVICE_OPS_REMOVE_ARGUMENT_COUNT -1" | append_conftest "types"
++                return
++            fi
++
+             CODE="
+             #include <linux/acpi.h>
+ 
+diff --git a/nv-acpi.c b/nv-acpi.c
+index 8bde56e..0895c6e 100644
+--- a/nv-acpi.c
++++ b/nv-acpi.c
+@@ -25,6 +25,8 @@ static int         nv_acpi_add             (struct acpi_device *);
+ 
+ #if !defined(NV_ACPI_DEVICE_OPS_REMOVE_ARGUMENT_COUNT) || (NV_ACPI_DEVICE_OPS_REMOVE_ARGUMENT_COUNT == 2)
+ static int         nv_acpi_remove_two_args(struct acpi_device *device, int type);
++#elif (NV_ACPI_DEVICE_OPS_REMOVE_ARGUMENT_COUNT == -1)
++static void        nv_acpi_remove_one_arg(struct acpi_device *device);
+ #else
+ static int         nv_acpi_remove_one_arg(struct acpi_device *device);
+ #endif
+@@ -297,6 +299,8 @@ static int nv_acpi_add(struct acpi_device *device)
+ 
+ #if !defined(NV_ACPI_DEVICE_OPS_REMOVE_ARGUMENT_COUNT) || (NV_ACPI_DEVICE_OPS_REMOVE_ARGUMENT_COUNT == 2)
+ static int nv_acpi_remove_two_args(struct acpi_device *device, int type)
++#elif (NV_ACPI_DEVICE_OPS_REMOVE_ARGUMENT_COUNT == -1)
++static void nv_acpi_remove_one_arg(struct acpi_device *device)
+ #else
+ static int nv_acpi_remove_one_arg(struct acpi_device *device)
+ #endif
+@@ -349,7 +353,9 @@ static int nv_acpi_remove_one_arg(struct acpi_device *device)
+         device->driver_data = NULL;
+     }
+ 
++#if !defined(NV_ACPI_DEVICE_OPS_REMOVE_ARGUMENT_COUNT) || (NV_ACPI_DEVICE_OPS_REMOVE_ARGUMENT_COUNT != -1)
+     return status;
++#endif
+ }
+ 
+ static void nv_acpi_event(acpi_handle handle, u32 event_type, void *data)
+-- 
+2.20.1
+

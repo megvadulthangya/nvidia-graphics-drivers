@@ -39,6 +39,7 @@ kernel-5.7.0-set-memory-array.patch
 0036-backport-pci-dma-changes-from-470.129.06.patch
 0040-backport-acpi_bus_get_device-changes-from-470.129.06.patch
 0041-backport-acpi-changes-from-390.157.patch
+0042-support-acpi_op_remove-callback-returning-void.patch
 
 # build system updates
 fragile-ARCH.patch

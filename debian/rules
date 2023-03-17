@@ -106,6 +106,11 @@ xorg_depends	 = $(foreach abi, $(XORG_ABI_LIST), xorg-video-abi-$(abi) |)
 xorg_depends	+= $(comma) xserver-xorg-core $(XORG_BOUND)
 xorg_provides	 = xorg-driver-video
 
+deps_nvidia_kmod_binary	 = $${nvidia-kernel}-dkms (= $${binary:Version}) |
+deps_nvidia_kmod_binary	+= $${nvidia-kernel}-$${nvidia:Version} |
+deps_nvidia_kmod_source	 = $${nvidia-kernel}-dkms (>= $${nvidia:Version}) |
+deps_nvidia_kmod_source	+= $${nvidia-kernel}-source (>= $${nvidia:Version}) |
+
 
 .PHONY: autogen prepare patch
 autogen: $(AUTOGEN)
@@ -128,6 +133,7 @@ unpack-stamp: $(patsubst %,NVIDIA-Linux-%,$(ARCH_LIST))
 	ln -s NVIDIA-Linux-$(DEB_HOST_ARCH) NVIDIA-Linux
 ifneq (,$(has_driver))
 	QUILT_PATCHES=debian/patches QUILT_SERIES=series-postunpack quilt --quiltrc /dev/null push -a || test $$? = 2
+	# bashism is used on a few architectures only
 	sed -i 's/==/=/g' NVIDIA-Linux/nvidia-bug-report.sh
 endif
 	ls -al
@@ -286,8 +292,8 @@ override_dh_gencontrol:
 		-V'nvidia:legacy-check=$(NVIDIA_LEGACY_CHECK)' \
 		-V'libcuda1=$(libcuda1)' \
 		-V'nvidia-settings=$(NVIDIA_SETTINGS)' \
-		-V'nvidia:kmod:binary=$${nvidia-kernel}-dkms (= $${binary:Version}) | $${nvidia-kernel}-$${nvidia:Version}' \
-		-V'nvidia:kmod:source=$${nvidia-kernel}-dkms (>= $${nvidia:Version}) | $${nvidia-kernel}-source (>= $${nvidia:Version})' \
+		-V'nvidia:kmod:binary=$(deps_nvidia_kmod_binary)' \
+		-V'nvidia:kmod:source=$(deps_nvidia_kmod_source)' \
 		-V'nvidia:kmod:tested:Linux=$(strip $(or $(LINUX_KMOD_TESTED_$(DEB_HOST_ARCH)),$(LINUX_KMOD_TESTED),???))' \
 		-V'nvidia:kmod:blob:archlist=$(subst $(space),$(comma)$(space),$(BLOB_ARCH_LIST)) architecture$(if $(filter 1,$(words $(BLOB_ARCH_LIST))),,s)' \
 		-Vnvidia:kmod:Description="`cat debian/control.kmod`" \
@@ -322,6 +328,7 @@ override_dh_strip_nondeterminism:
 	-e 's{#MAJOR#}{$(version_major)}g;' \
 	-e 's{#NVIDIA#}{$(nvidia)}g;' \
 	-e 's{#VARIANT#}{$(-variant)}g;' \
+	-e 's{#CURRENT#}{$(current)}g;' \
 	-e 's{#NVIDIA-KERNEL#}{$(nvidia-kernel)}g;' \
 	-e 's{#MODULE#}{$(module)}g;' \
 	-e 's{#MODULE_CURRENT#}{$(module-current)}g;' \

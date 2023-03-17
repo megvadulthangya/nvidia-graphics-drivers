@@ -26,6 +26,8 @@ define PACKAGE_STATUS
 	nvidia-glx$(-variant)
 	$(nvidia-kernel)-dkms
 	$(nvidia-kernel)-source
+	nvidia-kernel-dkms-any
+	nvidia-open-kernel-dkms-any
 	nvidia-kernel-support-any
 	nvidia-driver-any
 	nvidia-glx-any
