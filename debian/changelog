@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-18) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-18) unstable; urgency=medium
 
   * Support acpi_op_remove callback returning void to fix kernel module build
     for Linux 6.2.  (Closes: #1032891)
@@ -7,7 +7,7 @@ nvidia-graphics-drivers-legacy-340xx (340.108-18) UNRELEASED; urgency=medium
   * Add versioned Provides: nvidia-kernel-dkms-any (515.65.01-1).
   * Bump Standards-Version to 4.6.2. No changes needed.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 17 Mar 2023 18:53:18 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 17 Mar 2023 20:36:54 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.108-17) unstable; urgency=medium
 
