@@ -1,6 +1,8 @@
+# These object files are linked into kernel modules.
+unstripped-binary-or-object
+
 # The NVIDIA license does not allow any form of modification.
 spelling-error-in-binary
-unstripped-binary-or-object
 
 # This is patched at module build time.
 bash-term-in-posix-shell '[ "`cat /proc/xen/capabilities`" ==' [usr/src/#MODULE#-#VERSION#/conftest.sh:*]

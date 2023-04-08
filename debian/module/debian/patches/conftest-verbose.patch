@@ -34,14 +34,14 @@ Description: dump the generated conftest headers
  $(eval $(call NV_GENERATE_COMPILE_TEST_HEADER,types,$(NV_CONFTEST_TYPE_COMPILE_TESTS)))
  
 -$(obj)/conftest/patches.h: $(NV_CONFTEST_SCRIPT)
-+$(obj)/conftest/patches.h: $(NV_CONFTEST_SCRIPT) conftest-verbose
++$(obj)/conftest/patches.h: $(NV_CONFTEST_SCRIPT) | conftest-verbose
  	@mkdir -p $(obj)/conftest
  	@$(NV_CONFTEST_CMD) patch_check > $@
 +	@echo " CONFTEST $(notdir $@):"
 +	@cat $@
  
 -$(obj)/conftest/headers.h: $(NV_CONFTEST_SCRIPT)
-+$(obj)/conftest/headers.h: $(NV_CONFTEST_SCRIPT) conftest-verbose
++$(obj)/conftest/headers.h: $(NV_CONFTEST_SCRIPT) | conftest-verbose
  	@mkdir -p $(obj)/conftest
  	@$(NV_CONFTEST_CMD) test_kernel_headers '$(NV_CONFTEST_CFLAGS)' > $@
 +	@echo " CONFTEST $(notdir $@):"
@@ -49,3 +49,13 @@ Description: dump the generated conftest headers
  
  clean-dirs := $(obj)/conftest
  
+@@ -196,7 +212,8 @@ BUILD_SANITY_CHECKS = \
+ 
+ .PHONY: $(BUILD_SANITY_CHECKS)
+ 
+-$(BUILD_SANITY_CHECKS):
++$(BUILD_SANITY_CHECKS): | conftest-verbose
++	@echo " CONFTEST: $(notdir $@)"
+ 	@$(NV_CONFTEST_CMD) $@ full_output
+ 
+ # Perform all sanity checks before generating the conftest headers

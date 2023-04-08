@@ -21,7 +21,7 @@ Build-Depends:
  linux-headers-powerpc64le [ppc64el] <!nocheck>,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.6.1
+Standards-Version: 4.6.2
 Homepage: https://www.nvidia.com
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
@@ -133,6 +133,7 @@ Depends:
 # | ${libcuda1} (>= ${nvidia:Version}),
 #Provides:
 # ${nvidia-kernel}-${nvidia:Version},
+# nvidia-kernel-dkms-any (= ${nvidia:Version}),
 Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  This package builds the NVIDIA binary kernel modules needed by
  ${nvidia}-driver, using DKMS.
@@ -290,7 +291,7 @@ Depends:
 # libglx-${nvidia-}0 (= ${binary:Version}),
 # libgles-${nvidia-}1 (= ${binary:Version}),
 # libgles-${nvidia-}2 (= ${binary:Version}),
-# lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
+# lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:archlist:driver}],
 # lib${nvidia}-encode1 (= ${binary:Version}),
 # ${nvidia}-vulkan-icd (= ${binary:Version}),
 #Provides:
@@ -754,12 +755,16 @@ Suggests:
  | nvidia-tesla-418-nonglvnd-vulkan-icd [i386 amd64 ppc64el]
  | nvidia-legacy-390xx-nonglvnd-vulkan-icd [i386 amd64],
 Conflicts:
- libgl1-${nvidia}-glvnd-glx,
+ libgl1-nvidia-glvnd-glx,
+ libgl1-nvidia-tesla-glvnd-glx,
+ libgl1-nvidia-tesla-510-glvnd-glx,
+ libgl1-nvidia-tesla-470-glvnd-glx,
  libgl1-nvidia-tesla-460-glvnd-glx,
  libgl1-nvidia-tesla-450-glvnd-glx,
  libgl1-nvidia-tesla-440-glvnd-glx,
  libgl1-nvidia-tesla-418-glvnd-glx,
  libgl1-nvidia-legacy-390xx-glvnd-glx,
+ libgl1-${nvidia}-glvnd-glx,
  nvidia-vulkan-common,
 Description: NVIDIA Vulkan driver - common files (non-GLVND variant)
  Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
@@ -775,9 +780,9 @@ Pre-Depends:
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
- libnvidia-glvkspirv-${nvidia:Version}
+ libnvidia-glvkspirv-${nvidia:Version},
 Conflicts:
- libnvidia-glvkspirv-${nvidia:Version}
+ libnvidia-glvkspirv-${nvidia:Version},
 Description: NVIDIA binary Vulkan Spir-V compiler library${nvidia:VariantDesc}
  Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
  .
@@ -895,13 +900,13 @@ Depends:
  ${shlibs:Depends}, ${misc:Depends}
 #Recommends:
 # ${nvidia:kmod:binary},
-# ${nvidia}-smi [${nvidia:arch:has-driver}],
+# ${nvidia}-smi [${nvidia:archlist:driver}],
 ## help nvidia-persistenced by pre-selecting the correct provider for libnvidia-cfg1-any
-# lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:arch:has-driver}],
-# nvidia-persistenced [${nvidia:arch:has-driver}],
+# lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:archlist:driver}],
+# nvidia-persistenced [${nvidia:archlist:driver}],
 # ${libcuda1}:i386 (= ${binary:Version}) [amd64],
 #Suggests:
-# nvidia-cuda-mps [${nvidia:arch:has-driver}],
+# nvidia-cuda-mps [${nvidia:archlist:driver}],
 # ${nvidia:kmod:source},
 #Provides:
 # libcuda.so.1 (= ${nvidia:Version}),

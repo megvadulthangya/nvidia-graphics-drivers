@@ -13,7 +13,10 @@ ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
 else
     CFLAGS += -O2
 endif
-J_FLAG	?= $(if $(filter -j%,$(MAKEFLAGS)),,$(patsubst parallel=%,-j%,$(filter parallel=%,$(DEB_BUILD_OPTIONS))))
+
+get_built_using	?= $(subst (= ),,$(shell dpkg-query -f='$${source:Package} (= $${source:Version})' -W $1))
+
+MAKE_J_FLAG	?= $(if $(filter -j%,$(MAKEFLAGS)),,$(patsubst parallel=%,-j%,$(filter parallel=%,$(DEB_BUILD_OPTIONS))))
 
 # Find kernel build information.
 ifndef KSRC
@@ -44,16 +47,14 @@ build-arch: build-stamp
 build-indep:
 build-stamp: configure-stamp
 	dh_quilt_patch
-	$(MAKE) $(J_FLAG) modules $(KERNEL_SPEC)
+	$(MAKE) $(MAKE_J_FLAG) modules $(KERNEL_SPEC)
 ifneq (nvidia,$(MODULE))
 	mv nvidia.ko $(MODULE).ko
 	mv nvidia-modeset.ko $(MODULE)-modeset.ko
 	mv nvidia-drm.ko $(MODULE)-drm.ko
-#HAS_UVM#	mv nvidia-uvm.ko $(MODULE)-uvm.ko
+	mv nvidia-uvm.ko $(MODULE)-uvm.ko
 endif
 	touch $@
-
-get_built_using	?= $(subst (= ),,$(shell dpkg-query -f='$${source:Package} (= $${source:Version})' -W $1))
 
 binary: binary-arch binary-indep
 binary-indep:

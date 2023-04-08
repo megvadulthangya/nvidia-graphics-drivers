@@ -1,0 +1,97 @@
+From 7619898a49723597f9313a308d5417f3433da699 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Fri, 6 Jan 2023 14:21:15 +0100
+Subject: [PATCH] backport drm_connector_has_override_edid changes from
+ 525.78.01
+
+---
+ conftest.sh                       | 22 ++++++++++++++++++++++
+ nvidia-drm/nvidia-drm-connector.c |  5 +++++
+ nvidia-drm/nvidia-drm-drv.c       |  4 ----
+ nvidia-drm/nvidia-drm.Kbuild      |  1 +
+ 4 files changed, 28 insertions(+), 4 deletions(-)
+
+diff --git a/conftest.sh b/conftest.sh
+index 97efbd9..b88edf8 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -4690,6 +4690,28 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_GET_TASK_IOPRIO_PRESENT" "" "functions"
+         ;;
+ 
++        drm_connector_has_override_edid)
++            #
++            # Determine if 'struct drm_connector' has an 'override_edid' member.
++            #
++            # Removed by commit 90b575f52c6ab ("drm/edid: detach debugfs EDID
++            # override from EDID property update") in linux-next, expected in
++            # v6.2-rc1.
++            #
++            CODE="
++            #if defined(NV_DRM_DRM_CRTC_H_PRESENT)
++            #include <drm/drm_crtc.h>
++            #endif
++            #if defined(NV_DRM_DRM_CONNECTOR_H_PRESENT)
++            #include <drm/drm_connector.h>
++            #endif
++            int conftest_drm_connector_has_override_edid(void) {
++                return offsetof(struct drm_connector, override_edid);
++            }"
++
++            compile_check_conftest "$CODE" "NV_DRM_CONNECTOR_HAS_OVERRIDE_EDID" "" "types"
++        ;;
++
+         # When adding a new conftest entry, please use the correct format for
+         # specifying the relevant upstream Linux kernel commit.
+         #
+diff --git a/nvidia-drm/nvidia-drm-connector.c b/nvidia-drm/nvidia-drm-connector.c
+index 6fbcd63..fe838ef 100644
+--- a/nvidia-drm/nvidia-drm-connector.c
++++ b/nvidia-drm/nvidia-drm-connector.c
+@@ -42,6 +42,7 @@
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_edid.h>
+ 
+ static void nv_drm_connector_destroy(struct drm_connector *connector)
+ {
+@@ -98,7 +99,11 @@ __nv_drm_detect_encoder(struct NvKmsKapiDynamicDisplayParams *pDetectParams,
+             break;
+     }
+ 
++#if defined(NV_DRM_CONNECTOR_HAS_OVERRIDE_EDID)
+     if (connector->override_edid) {
++#else
++    if (drm_edid_override_connector_update(connector) > 0) {
++#endif
+         const struct drm_property_blob *edid = connector->edid_blob_ptr;
+ 
+         if (edid->length <= sizeof(pDetectParams->edid.buffer)) {
+diff --git a/nvidia-drm/nvidia-drm-drv.c b/nvidia-drm/nvidia-drm-drv.c
+index 6d6a078..7f50eff 100644
+--- a/nvidia-drm/nvidia-drm-drv.c
++++ b/nvidia-drm/nvidia-drm-drv.c
+@@ -240,10 +240,6 @@ nv_drm_init_mode_config(struct nv_drm_device *nv_dev,
+     dev->mode_config.preferred_depth = 24;
+     dev->mode_config.prefer_shadow = 1;
+ 
+-    /* Currently unused. Update when needed. */
+-
+-    dev->mode_config.fb_base = 0;
+-
+ #if defined(NV_DRM_CRTC_STATE_HAS_ASYNC_FLIP) || \
+     defined(NV_DRM_CRTC_STATE_HAS_PAGEFLIP_FLAGS)
+     dev->mode_config.async_page_flip = true;
+diff --git a/nvidia-drm/nvidia-drm.Kbuild b/nvidia-drm/nvidia-drm.Kbuild
+index e5106fa..3771ea2 100644
+--- a/nvidia-drm/nvidia-drm.Kbuild
++++ b/nvidia-drm/nvidia-drm.Kbuild
+@@ -113,3 +113,4 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += drm_plane_atomic_check_has_atomic_state_arg
+ NV_CONFTEST_TYPE_COMPILE_TESTS += drm_device_has_pdev
+ NV_CONFTEST_TYPE_COMPILE_TESTS += drm_mode_config_has_allow_fb_modifiers
+ NV_CONFTEST_TYPE_COMPILE_TESTS += dma_resv_add_fence
++NV_CONFTEST_TYPE_COMPILE_TESTS += drm_connector_has_override_edid
+-- 
+2.20.1
+

@@ -1,3 +1,19 @@
+nvidia-graphics-drivers-tesla-460 (460.106.00-10) UNRELEASED; urgency=medium
+
+  * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build
+    for Linux 6.2.
+  * Backport drm_connector_has_override_edid changes from 525.78.01 to fix
+    kernel module build for Linux 6.2.
+  * nvidia-tesla-460-alternative: Access kmod config files over a versioned
+    symlink (510.108.03-3).
+  * Add versioned Provides: nvidia-kernel-dkms-any (515.65.01-1).
+  * New Brazilian Portuguese (pt_BR) debconf translations by Paulo Henrique de
+    Lima Santana.  (Closes: #1028262)
+  * Updated Turkish (tr) debconf translations by Atila KOÇ. (Closes: #1033419)
+  * Bump Standards-Version to 4.6.2. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 08 Apr 2023 10:01:24 +0200
+
 nvidia-graphics-drivers-tesla-460 (460.106.00-9) unstable; urgency=medium
 
   * Backport find_vma_intersection changes from 470.141.03 to fix kernel
@@ -515,9 +531,38 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
+nvidia-graphics-drivers-tesla-450 (450.236.01-1) unstable; urgency=medium
+
+  * New upstream Tesla release 450.236.01 (2023-03-30).
+    * Fixed CVE-2023-0184, CVE-2023-0189, CVE-2023-0180, CVE-2023-0185,
+      CVE-2023-0198, CVE-2023-0199, CVE-2023-0188, CVE-2023-0190,
+      CVE-2023-0194, CVE-2023-0195, CVE-2023-0191.  (Closes: #1033778)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5452
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build
+    for Linux 6.2.
+  * nvidia-tesla-450-alternative: Access kmod config files over a versioned
+    symlink (510.108.03-3).
+  * Add versioned Provides: nvidia-kernel-dkms-any (515.65.01-1).
+  * New Brazilian Portuguese (pt_BR) debconf translations by Paulo Henrique de
+    Lima Santana.  (Closes: #1028265)
+  * Updated Turkish (tr) debconf translations by Atila KOÇ. (Closes: #1033544)
+  * Bump Standards-Version to 4.6.2. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 06 Apr 2023 09:17:36 +0200
+
+nvidia-graphics-drivers-tesla-450 (450.216.04-1~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 10 Dec 2022 01:53:07 +0100
+
 nvidia-graphics-drivers-tesla-450 (450.216.04-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.203.03 (2022-11-22).
+  * New upstream Tesla release 450.216.04 (2022-11-22).
     * Fixed CVE-2022-34670, CVE-2022-34674, CVE-2022-34675, CVE-2022-34677,
       CVE-2022-34679, CVE-2022-34680, CVE-2022-34682, CVE-2022-42254,
       CVE-2022-42256, CVE-2022-42257, CVE-2022-42258, CVE-2022-42259,
@@ -634,7 +679,7 @@ nvidia-graphics-drivers-tesla-450 (450.172.01-2) unstable; urgency=medium
 nvidia-graphics-drivers-tesla-450 (450.172.01-1) unstable; urgency=medium
 
   * New upstream Tesla release 450.172.01 (2022-01-31).
-    * Fixed CVE‑2022‑21813, CVE‑2022‑21814.  (Closes: #1004851)
+    * Fixed CVE-2022-21813, CVE-2022-21814.  (Closes: #1004851)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5312
     - Fixed a bug that caused nvidia-drm.ko to crash when loading with
       DRM-KMS enabled (modeset=1) on Linux v5.14.
@@ -1553,6 +1598,24 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
+
+nvidia-graphics-drivers-tesla-418 (418.226.00-10) unstable; urgency=medium
+
+  * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build
+    for Linux 6.2.
+  * Backport drm_connector_has_override_edid changes from 525.78.01 to fix
+    kernel module build for Linux 6.2.
+  * nvidia-tesla-418-alternative: Access kmod config files over a versioned
+    symlink (510.108.03-3).
+  * Add versioned Provides: nvidia-kernel-dkms-any (515.65.01-1).
+  * New Brazilian Portuguese (pt_BR) debconf translations by Paulo Henrique de
+    Lima Santana.  (Closes: #1028264)
+  * Updated Turkish (tr) debconf translations by Atila KOÇ. (Closes: #1033545)
+  * Bump Standards-Version to 4.6.2. No changes needed.
+  * Build the nvidia-nonglvnd-vulkan-common package from this source, only
+    needed by nvidia-{legacy-390xx,tesla-418}-nonglvnd-vulkan-icd.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 05 Apr 2023 10:00:34 +0200
 
 nvidia-graphics-drivers-tesla-418 (418.226.00-9) unstable; urgency=medium
 
@@ -2477,6 +2540,15 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.157-2) UNRELEASED; urgency=medium
+
+  * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build
+    for Linux 6.2.
+  * Backport drm_connector_has_override_edid changes from 525.78.01 to fix
+    kernel module build for Linux 6.2.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 04 Apr 2023 15:16:26 +0200
 
 nvidia-graphics-drivers (390.157-1) UNRELEASED; urgency=medium
 
@@ -5259,6 +5331,9 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
+
+  * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build
+    for Linux 6.2.
 
   * Update o_binary patch to fix kernel module build for Linux 6.1.
   * Backport acpi changes from 390.157, replacing earlier backports.

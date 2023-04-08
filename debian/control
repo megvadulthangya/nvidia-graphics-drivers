@@ -23,7 +23,7 @@ Build-Depends:
  linux-headers-powerpc64le [ppc64el] <!nocheck>,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.6.1
+Standards-Version: 4.6.2
 Homepage: https://www.nvidia.com
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
@@ -457,9 +457,9 @@ Pre-Depends:
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
- libnvidia-glvkspirv-${nvidia:Version}
+ libnvidia-glvkspirv-${nvidia:Version},
 Conflicts:
- libnvidia-glvkspirv-${nvidia:Version}
+ libnvidia-glvkspirv-${nvidia:Version},
 Description: NVIDIA binary Vulkan Spir-V compiler library${nvidia:VariantDesc}
  Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
  .

@@ -2,9 +2,8 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: NVIDIA Linux Display Drivers
 Upstream-Contact: NVIDIA Corporation <linux-bugs@nvidia.com>
 Source:
- https://download.nvidia.com/XFree86/Linux-x86/
  https://download.nvidia.com/XFree86/Linux-x86_64/
- https://download.nvidia.com/XFree86/Linux-32bit-ARM/
+ https://download.nvidia.com/XFree86/Linux-aarch64/
 Disclaimer:
  This package is not part of the GNU/Linux Debian distribution.  It is
  provided in the non-free archive area as a convenience to Debian users.
@@ -27,7 +26,7 @@ License: zlib/libpng
 Files: debian/*
 Copyright: 2001-2010 Randall Donald <rdonald@debian.org>
            2009-2010 Andres Mejia <mcitadel@gmail.com>
-           2009-2022 Andreas Beckmann <anbe@debian.org>
+           2009-2023 Andreas Beckmann <anbe@debian.org>
            2010-2011 Russ Allbery <rra@debian.org>
            2014-2015 Vincent Cheng <vcheng@debian.org>
            2015-2019 Luca Boccassi <bluca@debian.org>

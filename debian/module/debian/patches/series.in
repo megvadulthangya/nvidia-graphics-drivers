@@ -9,7 +9,8 @@ bashisms.patch
 0007-backport-linker-scripts-changes-from-510.60.02.patch
 0008-backport-mt_device_gre-changes-from-510.39.01.patch
 0009-backport-pci-dma-changes-from-470.129.06.patch
-#HAS_UVM#0010-backport-pci-dma-changes-from-470.129.06-uvm-part.patch
+0010-backport-pci-dma-changes-from-470.129.06-uvm-part.patch
+0010-backport-pci-dma-changes-for-ppc64el.patch
 0011-backport-iosys_map-changes-from-470.129.06.patch
 0012-backport-dma_set_coherent_mask-from-470.129.06.patch
 0013-backport-acpi_bus_get_device-changes-from-470.129.06.patch
@@ -20,6 +21,8 @@ bashisms.patch
 0018-backport-drm_frambuffer.h-changes-from-515.76.patch
 0019-backport-find_vma_intersection-changes-from-470.141..patch
 0020-backport-get_task_ioprio-changes-from-510.85.02.patch
+0021-backport-acpi_op_remove-changes-from-470.182.03.patch
+0022-backport-drm_connector_has_override_edid-changes-fro.patch
 ppc64el.patch
 
 # build system updates
