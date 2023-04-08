@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-10) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-10) unstable; urgency=medium
 
   * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build
     for Linux 6.2.
