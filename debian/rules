@@ -94,7 +94,7 @@ TEMPLATE_DIRS	+= debian/module/debian
 TEMPLATE_DIRS	+= debian/module/debian/patches
 TEMPLATE_DIRS	+= debian/detect
 TEMPLATE_DIRS	+= debian/tests
-TEMPLATES	:= $(wildcard $(addsuffix /*.in,$(TEMPLATE_DIRS)))
+TEMPLATES	:= $(filter-out %.modules.in,$(wildcard $(addsuffix /*.in,$(TEMPLATE_DIRS))))
 
 AUTOGEN		 = $(TEMPLATES:.in=)
 AUTOGEN		+= $(RENAMED_CONTROL:.in=)
@@ -182,6 +182,14 @@ nv-readme.ids: unpack-stamp
 		: "*** Supported PCI IDs have changed. See diff above. Aborting. ***"; \
 		exit 1 ; \
 	fi
+ifneq (,$(variant))
+	@set -e -x ; \
+	if ! cmp -s debian/detect/$(nvidia).ids $@ ; then \
+		diff -u debian/detect/$(nvidia).ids $@ || true ; \
+		: "*** Supported PCI IDs of the $(nvidia) variant have changed. See diff above. Aborting. ***"; \
+		exit 1 ; \
+	fi
+endif
 
 nvidia.ids: nv-readme.ids
 	cp $< $@
@@ -211,8 +219,7 @@ override_dh_auto_clean:
 	$(RM) LICENSE.txt LICENSE.tmp copyright.tmp
 	test ! -d debian/po || debconf-updatepo
 
-override_dh_clean:
-	dh_clean
+execute_after_dh_clean:
 	$(RM) $(AUTOCLEAN)
 	$(MAKE) -f debian/rules $(AUTOKEEP)
 # this will fail unless debian/control{,.md5sum} is up-to-date
