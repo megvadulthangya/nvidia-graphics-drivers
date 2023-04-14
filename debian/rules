@@ -94,7 +94,7 @@ TEMPLATE_DIRS	+= debian/module/debian
 TEMPLATE_DIRS	+= debian/patches/module
 TEMPLATE_DIRS	+= debian/detect
 TEMPLATE_DIRS	+= debian/tests
-TEMPLATES	:= $(wildcard $(addsuffix /*.in,$(TEMPLATE_DIRS)))
+TEMPLATES	:= $(filter-out %.modules.in,$(wildcard $(addsuffix /*.in,$(TEMPLATE_DIRS))))
 
 AUTOGEN		 = $(TEMPLATES:.in=)
 AUTOGEN		+= $(RENAMED_CONTROL:.in=)
@@ -187,6 +187,14 @@ nv-readme.ids: unpack-stamp
 		: "*** Supported PCI IDs have changed. See diff above. Aborting. ***"; \
 		exit 1 ; \
 	fi
+ifneq (,$(variant))
+	@set -e -x ; \
+	if ! cmp -s debian/detect/$(nvidia).ids $@ ; then \
+		diff -u debian/detect/$(nvidia).ids $@ || true ; \
+		: "*** Supported PCI IDs of the $(nvidia) variant have changed. See diff above. Aborting. ***"; \
+		exit 1 ; \
+	fi
+endif
 
 nv-readme-open.ids: unpack-stamp
 	sed -r -n '/^[0-9]+A?\. SUPPORTED GPUS/,/^Chapter/ s/^(.{41}|.{49}) ([0-9a-fA-F]{4})($$| .*)/10de\2/p' \
@@ -226,13 +234,13 @@ override_dh_auto_clean:
 	$(RM) -r $(foreach a,$(ARCH_LIST),NVIDIA-Linux-$a $(NVIDIA_DIRNAME_$a))
 	$(RM) -r build
 	$(RM) -r kernel-source-tree
+	$(RM) -r test-module-build
 	$(RM) nvidia.ids nv-readme.ids pci.ids.nvidia*
 	$(RM) nvidia-open.ids nv-readme-open.ids
 	$(RM) LICENSE.txt LICENSE.tmp copyright.tmp
 	test ! -d debian/po || debconf-updatepo
 
-override_dh_clean:
-	dh_clean
+execute_after_dh_clean:
 	$(RM) $(AUTOCLEAN)
 	$(MAKE) -f debian/rules $(AUTOKEEP)
 # this will fail unless debian/control{,.md5sum} is up-to-date
@@ -298,9 +306,10 @@ pack-module-source:
 	tar tfv $(module_source_txz)
 	$(RM) -r $(module_source_pkg)/usr/src/modules
 
-kernel-source-tree: build-stamp $(AUTOGEN)
+# only invoked manually
+kernel-source-tree: unpack-stamp
 	$(RM) -r $@
-	cp -a build/kernel $@
+	cp -a NVIDIA-Linux/kernel $@
 	cd $@ && QUILT_PATCHES=../debian/patches/module quilt --quiltrc /dev/null push -a || test $$? = 2
 
 ifneq (,$(has_driver))
@@ -310,8 +319,10 @@ execute_after_dh_install: pack-module-source
 # and a module can be built.
 override_dh_auto_test: J_FLAG ?= $(patsubst parallel=%,-j%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 override_dh_auto_test: TEST_KERNEL ?= $(shell ls -dvr1 /lib/modules/*/build 2>/dev/null | cut -d/ -f4 | head -n 1)
-override_dh_auto_test: kernel-source-tree
-	$(MAKE) $(J_FLAG) -C $< NV_VERBOSE=1 KERNEL_UNAME=$(TEST_KERNEL)
+override_dh_auto_test: build-stamp
+	$(RM) -r test-module-build
+	cp -a build/kernel test-module-build
+	$(MAKE) $(J_FLAG) -C test-module-build NV_VERBOSE=1 KERNEL_UNAME=$(TEST_KERNEL)
 endif
 
 override_dh_installchangelogs:

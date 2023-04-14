@@ -5,7 +5,6 @@ bashisms.patch
 0001-bump-minimum-supported-kernel-version-to-3.10.patch
 0002-conftest.sh-remove-empty-lines-from-uts_release-outp.patch
 0010-backport-pci-dma-changes-for-ppc64el.patch
-0022-backport-drm_connector_has_override_edid-changes-fro.patch
 ppc64el.patch
 
 # build system updates

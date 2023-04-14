@@ -1104,6 +1104,7 @@ Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${libcuda1} (= ${binary:Version}),
  lib${nvidia}-compiler (= ${binary:Version}) [!arm64 !ppc64el],
+ lib${nvidia}-nvvm4 (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Enhances:
  libopencl1,
