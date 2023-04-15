@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla (525.105.17-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.105.17-1) unstable; urgency=medium
 
   * New upstream production branch release 525.105.17 (2023-03-30).
     * Fixed CVE-2023-0184, CVE-2023-0189, CVE-2023-0180, CVE-2023-0183,
