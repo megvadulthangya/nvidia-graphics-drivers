@@ -53,9 +53,9 @@ The branch structure in the GIT repository
     340                 EoL   jessie              340-stretch
     340-stretch         EoL   (stretch,sid)       390, 340xx/main
     340xx/main          EoL   stretch,buster,sid
-    390                       stretch             390-buster
-    390-buster                (buster)            418, 390xx/main
-    390xx/main                buster,bullseye,sid
+    390                 EoL   stretch             390-buster
+    390-buster          EoL   (buster)            418, 390xx/main
+    390xx/main          EoL   buster,bullseye,sid
     418                 EoL   buster              418-bullseye
     418-bullseye        EoL   (bullseye)          450, 418-tesla
     418-tesla           EoL   (bullseye)          450-tesla, tesla-418/main
@@ -70,11 +70,11 @@ The branch structure in the GIT repository
     470                       bullseye            510, 470-tesla
     470-tesla                 (bullseye)          510-tesla, tesla-470/main
     tesla-470/main            bullseye,bookworm,sid tesla-510/main
-    510                       (bookworm),sid      515, 510-tesla
-    510-tesla                 (bookworm)          515-tesla, tesla-510/main
-    tesla-510/main            (bookworm),(sid)    tesla/510, tesla-510/transition
+    510                 EoL   (bookworm),sid      515, 510-tesla
+    510-tesla           EoL   (bookworm)          515-tesla, tesla-510/main
+    tesla-510/main      EoL   (bookworm),(sid)    tesla/510, tesla-510/transition
     tesla-510/transition      sid
-    tesla/510                 (bookworm),sid      tesla/515
+    tesla/510           EoL   (bookworm),sid      tesla/515
     515                       (bookworm),sid      525, 515-tesla
     515-tesla                 (bookworm)          525-tesla, tesla/515
     tesla/515                 (bookworm),sid      tesla/525

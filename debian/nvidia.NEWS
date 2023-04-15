@@ -1,3 +1,13 @@
+nvidia-graphics-drivers (525.89.02-1) unstable; urgency=medium
+
+  The firmware-nvidia-gsp package has been moved to the newly created
+  'non-free-firmware' archive area. This area needs to be enabled in
+  /etc/apt/sources.list (/etc/apt/sources.list.d/*.list) in addition to
+  'non-free' in order to upgrade to the 525 driver series.
+  https://www.debian.org/releases/bookworm/amd64/release-notes/ch-information.en.html#non-free-split
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 27 Feb 2023 01:27:21 +0100
+
 nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
   LEGACY GPUs: If you have a GRID K520, GeForce 710A,
