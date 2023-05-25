@@ -1,11 +1,11 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-19) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-19) unstable; urgency=medium
 
   * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
     kernel module build for Linux 6.3.  (Closes: #1036173)
   * libnvidia-tls.so.*: Use patchelf to add a dependency on libpthread.so.0.
     (Closes: #1031489)
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 25 May 2023 11:43:59 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 25 May 2023 15:56:16 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.108-18) unstable; urgency=medium
 
