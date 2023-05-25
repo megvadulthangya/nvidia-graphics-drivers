@@ -13,6 +13,7 @@ Build-Depends:
  dpkg-dev (>= 1.18.8),
  dh-dkms,
  libxext6,
+ patchelf,
  po-debconf,
  quilt,
  xz-utils,

@@ -214,6 +214,9 @@ endif
 	chmod -R a-sx,u=rwX,go=rX build/kernel
 endif
 
+	test ! -f build/libnvidia-tls.so.$(version) || patchelf --add-needed libpthread.so.0 build/libnvidia-tls.so.$(version)
+	test ! -f build/tls/libnvidia-tls.so.$(version) || patchelf --add-needed libpthread.so.0 build/tls/libnvidia-tls.so.$(version)
+
 	touch $@
 
 override_dh_auto_build: build-stamp
