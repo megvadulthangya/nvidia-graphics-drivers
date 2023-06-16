@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-tesla-460 (460.106.00-11) UNRELEASED; urgency=medium
+
+  * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
+    kernel module build for Linux 6.3.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 16 Jun 2023 12:59:21 +0200
+
 nvidia-graphics-drivers-tesla-460 (460.106.00-10) unstable; urgency=medium
 
   * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build
@@ -530,6 +537,19 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
+
+nvidia-graphics-drivers-tesla-450 (450.236.01-2) unstable; urgency=medium
+
+  * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
+    kernel module build for Linux 6.3.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 16 Jun 2023 10:54:54 +0200
+
+nvidia-graphics-drivers-tesla-450 (450.236.01-1~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 16 Apr 2023 22:01:49 +0200
 
 nvidia-graphics-drivers-tesla-450 (450.236.01-1) unstable; urgency=medium
 
@@ -1599,6 +1619,13 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.226.00-11) unstable; urgency=medium
+
+  * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
+    kernel module build for Linux 6.3.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Jun 2023 14:07:08 +0200
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-10) unstable; urgency=medium
 
   * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build
@@ -2540,6 +2567,13 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.157-3) UNRELEASED; urgency=medium
+
+  * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
+    kernel module build for Linux 6.3.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Jun 2023 10:01:34 +0200
 
 nvidia-graphics-drivers (390.157-2) UNRELEASED; urgency=medium
 
@@ -5331,6 +5365,9 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
+
+  * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
+    kernel module build for Linux 6.3.
 
   * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build
     for Linux 6.2.
