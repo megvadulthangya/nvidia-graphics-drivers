@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-11) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-11) unstable; urgency=medium
 
   * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
     kernel module build for Linux 6.3.
