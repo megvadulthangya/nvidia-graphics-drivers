@@ -1,0 +1,169 @@
+From fadadc171e36e743a1778ec6754f935b4db49fe1 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 24 May 2023 12:21:16 +0200
+Subject: [PATCH 1/2] backport vm_area_struct_has_const_vm_flags changes from
+ 525.105.17
+
+---
+ common/inc/nv-mm.h                      | 18 ++++++++++++++++++
+ conftest.sh                             | 19 +++++++++++++++++++
+ nvidia-drm/nvidia-drm-gem-user-memory.c |  6 +++---
+ nvidia-drm/nvidia-drm-gem.c             |  2 +-
+ nvidia-drm/nvidia-drm.Kbuild            |  1 +
+ nvidia/nv-mmap.c                        | 12 ++++++------
+ nvidia/nvidia.Kbuild                    |  1 +
+ 7 files changed, 49 insertions(+), 10 deletions(-)
+
+diff --git a/common/inc/nv-mm.h b/common/inc/nv-mm.h
+index 0b70f30..9ca6572 100644
+--- a/common/inc/nv-mm.h
++++ b/common/inc/nv-mm.h
+@@ -270,4 +270,22 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
+ #endif
+ }
+ 
++static inline void nv_vm_flags_set(struct vm_area_struct *vma, vm_flags_t flags)
++{
++#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
++    vm_flags_set(vma, flags);
++#else
++    vma->vm_flags |= flags;
++#endif
++}
++
++static inline void nv_vm_flags_clear(struct vm_area_struct *vma, vm_flags_t flags)
++{
++#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
++    vm_flags_clear(vma, flags);
++#else
++    vma->vm_flags &= ~flags;
++#endif
++}
++
+ #endif // __NV_MM_H__
+diff --git a/conftest.sh b/conftest.sh
+index 8d84085..4bde229 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -5327,6 +5327,25 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_DRM_CONNECTOR_HAS_OVERRIDE_EDID" "" "types"
+         ;;
+ 
++        vm_area_struct_has_const_vm_flags)
++            #
++            # Determine if the 'vm_area_struct' structure has
++            # const 'vm_flags'.
++            #
++            # A union of '__vm_flags' and 'const vm_flags' was added 
++            # by commit bc292ab00f6c ("mm: introduce vma->vm_flags
++            # wrapper functions") in mm-stable branch (2023-02-09)
++            # of the akpm/mm maintainer tree.
++            #
++            CODE="
++            #include <linux/mm_types.h>
++            int conftest_vm_area_struct_has_const_vm_flags(void) {
++                return offsetof(struct vm_area_struct, __vm_flags);
++            }"
++
++            compile_check_conftest "$CODE" "NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS" "" "types"
++        ;;
++
+         # When adding a new conftest entry, please use the correct format for
+         # specifying the relevant upstream Linux kernel commit.
+         #
+diff --git a/nvidia-drm/nvidia-drm-gem-user-memory.c b/nvidia-drm/nvidia-drm-gem-user-memory.c
+index 8824daa..6de9dd9 100644
+--- a/nvidia-drm/nvidia-drm-gem-user-memory.c
++++ b/nvidia-drm/nvidia-drm-gem-user-memory.c
+@@ -92,9 +92,9 @@ static int __nv_drm_gem_user_memory_mmap(struct nv_drm_gem_object *nv_gem,
+         return -EINVAL;
+     }
+ 
+-    vma->vm_flags &= ~VM_PFNMAP;
+-    vma->vm_flags &= ~VM_IO;
+-    vma->vm_flags |= VM_MIXEDMAP;
++    nv_vm_flags_clear(vma, VM_PFNMAP);
++    nv_vm_flags_clear(vma, VM_IO);
++    nv_vm_flags_set(vma, VM_MIXEDMAP);
+ 
+     return 0;
+ }
+diff --git a/nvidia-drm/nvidia-drm-gem.c b/nvidia-drm/nvidia-drm-gem.c
+index 92d61a6..00bbc1c 100644
+--- a/nvidia-drm/nvidia-drm-gem.c
++++ b/nvidia-drm/nvidia-drm-gem.c
+@@ -299,7 +299,7 @@ int nv_drm_mmap(struct file *file, struct vm_area_struct *vma)
+             ret = -EINVAL;
+             goto done;
+         }
+-        vma->vm_flags &= ~VM_MAYWRITE;
++        nv_vm_flags_clear(vma, VM_MAYWRITE);
+     }
+ #endif
+ 
+diff --git a/nvidia-drm/nvidia-drm.Kbuild b/nvidia-drm/nvidia-drm.Kbuild
+index 6e1c3dc..3ac45de 100644
+--- a/nvidia-drm/nvidia-drm.Kbuild
++++ b/nvidia-drm/nvidia-drm.Kbuild
+@@ -119,3 +119,4 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += dma_resv_add_fence
+ NV_CONFTEST_TYPE_COMPILE_TESTS += dma_resv_reserve_fences
+ NV_CONFTEST_TYPE_COMPILE_TESTS += reservation_object_reserve_shared_has_num_fences_arg
+ NV_CONFTEST_TYPE_COMPILE_TESTS += drm_connector_has_override_edid
++NV_CONFTEST_TYPE_COMPILE_TESTS += vm_area_struct_has_const_vm_flags
+diff --git a/nvidia/nv-mmap.c b/nvidia/nv-mmap.c
+index 85f6fae..89d5aef 100644
+--- a/nvidia/nv-mmap.c
++++ b/nvidia/nv-mmap.c
+@@ -460,7 +460,7 @@ static int nvidia_mmap_numa(
+     }
+ 
+     // Needed for the linux kernel for mapping compound pages
+-    vma->vm_flags |= VM_MIXEDMAP;
++    nv_vm_flags_set(vma, VM_MIXEDMAP);
+ 
+     for (i = 0, addr = mmap_context->page_array[0]; i < pages;
+          addr = mmap_context->page_array[++i], start += PAGE_SIZE)
+@@ -608,7 +608,7 @@ int nvidia_mmap_helper(
+         }
+         up(&nvl->mmap_lock);
+ 
+-        vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND;
++        nv_vm_flags_set(vma, VM_IO | VM_PFNMAP | VM_DONTEXPAND);
+     }
+     else
+     {
+@@ -675,15 +675,15 @@ int nvidia_mmap_helper(
+ 
+         NV_PRINT_AT(NV_DBG_MEMINFO, at);
+ 
+-        vma->vm_flags |= (VM_IO | VM_LOCKED | VM_RESERVED);
+-        vma->vm_flags |= (VM_DONTEXPAND | VM_DONTDUMP);
++        nv_vm_flags_set(vma, VM_IO | VM_LOCKED | VM_RESERVED);
++        nv_vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+     }
+ 
+     if ((prot & NV_PROTECT_WRITEABLE) == 0)
+     {
+         vma->vm_page_prot = NV_PGPROT_READ_ONLY(vma->vm_page_prot);
+-        vma->vm_flags &= ~VM_WRITE;
+-        vma->vm_flags &= ~VM_MAYWRITE;
++        nv_vm_flags_clear(vma, VM_WRITE);
++        nv_vm_flags_clear(vma, VM_MAYWRITE);
+     }
+ 
+     vma->vm_ops = &nv_vm_ops;
+diff --git a/nvidia/nvidia.Kbuild b/nvidia/nvidia.Kbuild
+index 6ca6aba..394683c 100644
+--- a/nvidia/nvidia.Kbuild
++++ b/nvidia/nvidia.Kbuild
+@@ -246,6 +246,7 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += pci_dev_has_ats_enabled
+ NV_CONFTEST_TYPE_COMPILE_TESTS += remove_memory_has_nid_arg
+ NV_CONFTEST_TYPE_COMPILE_TESTS += add_memory_driver_managed_has_mhp_flags_arg
+ NV_CONFTEST_TYPE_COMPILE_TESTS += num_registered_fb
++NV_CONFTEST_TYPE_COMPILE_TESTS += vm_area_struct_has_const_vm_flags
+ 
+ NV_CONFTEST_GENERIC_COMPILE_TESTS += dom0_kernel_present
+ NV_CONFTEST_GENERIC_COMPILE_TESTS += nvidia_vgpu_kvm_build
+-- 
+2.20.1
+
