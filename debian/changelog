@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-510 (510.108.03-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-510 (510.108.03-4) unstable; urgency=medium
 
   * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
     kernel module build for Linux 6.3.
