@@ -5,6 +5,9 @@ bashisms.patch
 linux-2.6.34-dev_pm_info-runtime_auto.patch
 0010-backport-pci-dma-changes-for-ppc64el.patch
 0022-backport-drm_connector_has_override_edid-changes-fro.patch
+0023-backport-vm_area_struct_has_const_vm_flags-changes-f.patch
+0024-backport-vm_area_struct_has_const_vm_flags-changes-f.patch
+0025-backport-drm_driver_has_dumb_destroy-changes-from-52.patch
 ppc64el.patch
 
 # build system updates
