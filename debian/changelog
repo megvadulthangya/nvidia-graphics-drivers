@@ -1137,14 +1137,14 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-12) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 16 Jun 2023 18:50:07 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-11) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-11) unstable; urgency=medium
 
   * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
     kernel module build for Linux 6.3.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 16 Jun 2023 12:59:21 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-10) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-10) unstable; urgency=medium
 
   * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build
     for Linux 6.2.
@@ -1160,7 +1160,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-10) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 08 Apr 2023 10:01:24 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-9) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-9) unstable; urgency=medium
 
   * Backport find_vma_intersection changes from 470.141.03 to fix kernel
     module build for Linux 6.1.
@@ -1173,7 +1173,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-9) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Dec 2022 04:34:59 +0100
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-8) unstable; urgency=medium
 
   * Backport get_task_ioprio changes from 510.85.02, acpi changes from
     510.85.02 and 515.65.01, drm_frambuffer.h changes from 515.76 to fix
@@ -1182,7 +1182,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-8) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 24 Oct 2022 12:19:58 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-7) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-7) unstable; urgency=medium
 
   * Replace obsolete pci_*() functions with their dma_*() counterparts in
     ppc64el specific code paths to fix kernel module build for ppc64el.
@@ -1200,7 +1200,13 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-7) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 07 Aug 2022 05:22:22 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-6) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-6~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Jul 2022 18:09:57 +0200
+
+nvidia-graphics-drivers-tesla-460 (460.106.00-6) unstable; urgency=medium
 
   * Backport pci/dma, iosys_map, dma_set_coherent_mask, acpi_bus_get_device,
     cc_mkdec and drm_mode_config_has_allow_fb_modifiers changes from
@@ -1210,7 +1216,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-6) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 24 Jun 2022 15:51:57 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-5) unstable; urgency=medium
 
   * Backport linker scripts changes from 510.60.02.
   * Refresh patches.
@@ -1218,7 +1224,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-5) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 23 May 2022 16:46:36 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-4) unstable; urgency=medium
 
   * Update 0003-fix-conftest-includes.patch to fix kernel module build for
     ppc64el.
@@ -1228,12 +1234,18 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-4) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 16 Apr 2022 17:54:31 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-3) unstable; urgency=medium
 
   * The Tesla 460 driver series has been declared as End-of-Life by
     NVIDIA. No further updates fixing security issues, critical bugs, or
     adding support for new Xorg or Linux releases will be issued.
     https://docs.nvidia.com/datacenter/tesla/drivers/
+
+  * Turn metapackages into transitional packages to aid switching to
+    nvidia-graphics-drivers-tesla-470.
+    (Closes: #1004852, #1005933, #1011145)
+  * Provide less virtual packages.
+  * Remove the Tesla 460 driver from the nvidia alternative.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Mar 2022 15:24:04 +0100
 
