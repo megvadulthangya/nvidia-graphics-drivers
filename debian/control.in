@@ -179,6 +179,9 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  for a complete list of supported GPUs and PCI IDs.
  .
  Building the kernel modules has been tested up to Linux ${nvidia:kmod:tested:Linux}.
+ .
+ Note: The new 'non-free-firmware' archive area has to be enabled in apt's
+ sources.list(.d/) in order to install firmware-${nvidia}-gsp.
 
 Package: ${nvidia-kernel}-source
 Section: non-free/kernel
