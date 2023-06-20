@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla (525.105.17-2) unstable; urgency=medium
+
+  * Rebuild as Tesla driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 21 Jun 2023 00:46:04 +0200
+
 nvidia-graphics-drivers (525.105.17-2) unstable; urgency=medium
 
   * Backport drm_driver_has_dumb_destroy changes from 525.116.03 to fix kernel
