@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla (525.125.06-1~deb12u1) bookworm; urgency=medium
+
+  * Rebuild for bookworm.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 12 Jul 2023 18:07:03 +0200
+
 nvidia-graphics-drivers-tesla (525.125.06-1) unstable; urgency=medium
 
   * New upstream production branch release 525.125.06 (2023-05-09).
