@@ -1,8 +1,8 @@
-From 0a52436bdc1cf7fedbd6ae6ad3321b54382676ce Mon Sep 17 00:00:00 2001
+From 65e501818bf77cbd58846546193ddb56c02ee08d Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
-Date: Wed, 24 May 2023 12:21:16 +0200
+Date: Tue, 27 Jun 2023 22:26:21 +0200
 Subject: [PATCH] backport vm_area_struct_has_const_vm_flags changes from
- 525.105.17
+ 470.199.02
 
 ---
  Makefile               |  1 +
@@ -57,34 +57,34 @@ index 56cfb88..57d5c82 100755
          # specifying the relevant upstream Linux kernel commit.
          #
 diff --git a/nv-linux.h b/nv-linux.h
-index 49c7973..2520d2d 100644
+index 49c7973..1c95b1e 100644
 --- a/nv-linux.h
 +++ b/nv-linux.h
 @@ -2276,4 +2276,26 @@ static inline NvU64 nv_node_end_pfn(int nid)
      #endif
  #endif
  
-+#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 0, 0)
-+typedef unsigned long vm_flags_t;
-+#endif
-+
++#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +static inline void nv_vm_flags_set(struct vm_area_struct *vma, vm_flags_t flags)
 +{
-+#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +    vm_flags_set(vma, flags);
-+#else
-+    vma->vm_flags |= flags;
-+#endif
 +}
 +
 +static inline void nv_vm_flags_clear(struct vm_area_struct *vma, vm_flags_t flags)
 +{
-+#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +    vm_flags_clear(vma, flags);
-+#else
-+    vma->vm_flags &= ~flags;
-+#endif
 +}
++#else
++static inline void nv_vm_flags_set(struct vm_area_struct *vma, unsigned long flags)
++{
++    vma->vm_flags |= flags;
++}
++
++static inline void nv_vm_flags_clear(struct vm_area_struct *vma, unsigned long flags)
++{
++    vma->vm_flags &= ~flags;
++}
++#endif
 +
  #endif  /* _NV_LINUX_H_ */
 diff --git a/nv-mmap.c b/nv-mmap.c

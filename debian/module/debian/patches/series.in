@@ -41,6 +41,10 @@ kernel-5.7.0-set-memory-array.patch
 0041-backport-acpi-changes-from-390.157.patch
 0042-backport-acpi_op_remove-changes-from-470.182.03.patch
 0043-backport-vm_area_struct_has_const_vm_flags-changes-f.patch
+0044-backport-get_user_pages-changes-from-418.30.patch
+0045-backport-get_user_pages-changes-from-520.56.06.patch
+0046-backport-get_user_pages-pin_user_pages-changes-from-.patch
+0047-backport-get_user_pages-vmas-parameter-changes-from-.patch
 
 # build system updates
 fragile-ARCH.patch
