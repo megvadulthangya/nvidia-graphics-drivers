@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-12) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-12) unstable; urgency=medium
 
   * Backport get_user_pages changes from 520.56.06, 525.53 and 535.86.05 to
     fix kernel module build for Linux 6.5.
