@@ -1,50 +1,48 @@
-From b3aee329056a05292059d552e0ed97ccc36bf919 Mon Sep 17 00:00:00 2001
+From 941d43cd584859be01744cad097a0c7e1f575f2e Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
-Date: Wed, 24 May 2023 12:21:16 +0200
-Subject: [PATCH 1/2] backport vm_area_struct_has_const_vm_flags changes from
- 525.105.17
+Date: Tue, 27 Jun 2023 22:26:21 +0200
+Subject: [PATCH] backport vm_area_struct_has_const_vm_flags changes from
+ 470.199.02
 
 ---
- common/inc/nv-mm.h                      | 24 ++++++++++++++++++++++++
+ common/inc/nv-mm.h                      | 22 ++++++++++++++++++++++
  conftest.sh                             | 19 +++++++++++++++++++
  nvidia-drm/nvidia-drm-gem-user-memory.c |  6 +++---
  nvidia-drm/nvidia-drm-gem.c             |  2 +-
  nvidia-drm/nvidia-drm.Kbuild            |  1 +
  nvidia/nv-mmap.c                        | 12 ++++++------
  nvidia/nvidia.Kbuild                    |  1 +
- 7 files changed, 55 insertions(+), 10 deletions(-)
+ 7 files changed, 53 insertions(+), 10 deletions(-)
 
 diff --git a/common/inc/nv-mm.h b/common/inc/nv-mm.h
-index 54f6f60..479ac13 100644
+index 54f6f60..46d09ca 100644
 --- a/common/inc/nv-mm.h
 +++ b/common/inc/nv-mm.h
-@@ -270,4 +270,28 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
+@@ -270,4 +270,26 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
  #endif
  }
  
-+#include <linux/version.h>
-+
-+#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 0, 0)
-+typedef unsigned long vm_flags_t;
-+#endif
-+
++#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +static inline void nv_vm_flags_set(struct vm_area_struct *vma, vm_flags_t flags)
 +{
-+#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +    vm_flags_set(vma, flags);
-+#else
-+    vma->vm_flags |= flags;
-+#endif
 +}
 +
 +static inline void nv_vm_flags_clear(struct vm_area_struct *vma, vm_flags_t flags)
 +{
-+#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +    vm_flags_clear(vma, flags);
-+#else
-+    vma->vm_flags &= ~flags;
-+#endif
 +}
++#else
++static inline void nv_vm_flags_set(struct vm_area_struct *vma, unsigned long flags)
++{
++    vma->vm_flags |= flags;
++}
++
++static inline void nv_vm_flags_clear(struct vm_area_struct *vma, unsigned long flags)
++{
++    vma->vm_flags &= ~flags;
++}
++#endif
 +
  #endif // __NV_MM_H__
 diff --git a/conftest.sh b/conftest.sh
