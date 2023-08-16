@@ -11,7 +11,7 @@ NVIDIA_LEGACY_CHECK	 = $${nvidia}-legacy-check (>= 495) [$${nvidia:archlist:driv
 XORG_ABI_LIST		 = 25 24 23 20 19 18 15 14 13 12 11 10 8 6.0
 XORG_BOUND		 = (<< 2:21.99)
 
-LINUX_KMOD_TESTED	 = 6.4
+LINUX_KMOD_TESTED	 = 6.5
 
 ARCH_LIST		 = amd64
 ARCH_LIST		+= i386

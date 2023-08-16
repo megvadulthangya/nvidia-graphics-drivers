@@ -70,5 +70,3 @@ libOpenCL.so.1.0.0
 nvidia-ngx-updater
 
 libEGL.so.#VERSION#
-
-libnvidia-compiler-next.so.#VERSION#
