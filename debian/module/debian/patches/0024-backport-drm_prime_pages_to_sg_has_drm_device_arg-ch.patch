@@ -1,4 +1,4 @@
-From a82ec3a34e741fcc3edb959c14d36b2d9d7550f6 Mon Sep 17 00:00:00 2001
+From 5c84ed63deaffa4690b2757ed39d24929226b0f9 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Tue, 15 Dec 2020 18:17:00 +0100
 Subject: [PATCH 24/34] backport drm_prime_pages_to_sg_has_drm_device_arg
@@ -23,10 +23,10 @@ index aba77a1..76161c4 100644
  #
  # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index d9f3603..187b30f 100755
+index 4279a99..aee26ab 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2410,6 +2410,30 @@ compile_test() {
+@@ -2414,6 +2414,30 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_VGA_TRYGET_PRESENT" "" "functions"
          ;;
  

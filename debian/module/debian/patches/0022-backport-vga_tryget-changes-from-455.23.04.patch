@@ -1,4 +1,4 @@
-From f96d7785f6dec67e73f938a08c24dfa38a2f1598 Mon Sep 17 00:00:00 2001
+From a16482e87281b0d645dc99f7f8040ed4a1f59fa4 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Fri, 2 Oct 2020 00:03:05 +0200
 Subject: [PATCH 22/34] backport vga_tryget changes from 455.23.04
@@ -22,10 +22,10 @@ index c3435c6..0d6c500 100644
  #
  # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index ecf34a7..507cc02 100755
+index 21f4e97..771cad8 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2370,6 +2370,22 @@ compile_test() {
+@@ -2374,6 +2374,22 @@ compile_test() {
  
          ;;
  

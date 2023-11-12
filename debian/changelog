@@ -1,7 +1,17 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-21) UNRELEASED; urgency=medium
+
+  * Revert backport of pin_user_pages changes.
+  * Backport drm/drm_device.h check needed by drm_device_has_pdev backport.
+  * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
+    module build for Linux 6.6.
+  * Refuse to load module if IBT is enabled.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 12 Nov 2023 22:13:04 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.108-20) unstable; urgency=medium
 
-  * Backport get_user_pages changes from 418.30, 520.56.06, 525.53 and
-    535.86.05 to fix kernel module build for Linux 6.5.
+  * Backport get_user_pages and pin_user_pages changes from 418.30, 520.56.06,
+    525.53 and 535.86.05 to fix kernel module build for Linux 6.5.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 21 Sep 2023 22:19:51 +0200
 
@@ -2851,7 +2861,7 @@ nvidia-graphics-drivers (304.37-1) unstable; urgency=low
       certain OpenGL applications such as Amnesia: The Dark Descent on GeForce
       6 and 7 GPUs.
   * New upstream release 295 series.
-    * CVE-2012-4225  (Closes: 684781)
+    * CVE-2012-4225  (Closes: #684781)
     - Implemented hotfix for a privilege escalation vulnerability reported on
       August 1, 2012.  For more details, see:
       https://nvidia.custhelp.com/app/answers/detail/a_id/3140

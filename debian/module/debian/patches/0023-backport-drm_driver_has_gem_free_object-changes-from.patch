@@ -1,4 +1,4 @@
-From 75319aaa699e879104713706c35926f2468a73c9 Mon Sep 17 00:00:00 2001
+From 02acda46b1c79cc5a705006182f5f8f36e6972ac Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 3 Oct 2020 00:58:27 +0200
 Subject: [PATCH 23/34] backport drm_driver_has_gem_free_object changes from
@@ -23,10 +23,10 @@ index 0d6c500..aba77a1 100644
  #
  # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index 507cc02..d9f3603 100755
+index 771cad8..4279a99 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2370,6 +2370,30 @@ compile_test() {
+@@ -2374,6 +2374,30 @@ compile_test() {
  
          ;;
  

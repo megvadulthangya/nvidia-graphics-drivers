@@ -1,4 +1,4 @@
-From 050adfbd9bab2432d307af82f80b0245def2712f Mon Sep 17 00:00:00 2001
+From 0f58ce3a457524b6f7cc8b0c2f51509d085c49cf Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Wed, 16 Feb 2022 16:56:45 +0100
 Subject: [PATCH] backport pde_data changes from 470.103.01
@@ -22,10 +22,10 @@ index 8b64faa..2963b91 100644
  	sg_table \
  	pm_vt_switch_required \
 diff --git a/conftest.sh b/conftest.sh
-index 6ea47a5..b198001 100755
+index ab1292a..bacb966 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -1576,6 +1576,23 @@ compile_test() {
+@@ -1581,6 +1581,23 @@ compile_test() {
  
  
          pde_data)
@@ -49,7 +49,7 @@ index 6ea47a5..b198001 100755
              #
              # Determine if the PDE_DATA() function is present.
              #
-@@ -1585,7 +1602,7 @@ compile_test() {
+@@ -1590,7 +1607,7 @@ compile_test() {
                  PDE_DATA();
              }"
  

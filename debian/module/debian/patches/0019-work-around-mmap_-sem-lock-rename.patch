@@ -1,4 +1,4 @@
-From 3d584a19fce5245197d64f3f17d9b5994af6cb14 Mon Sep 17 00:00:00 2001
+From a60fa60bc08ad99b68536a0a190a3e27d0318a74 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sat, 29 Aug 2020 00:23:41 +0200
 Subject: [PATCH 19/34] work around mmap_{sem=>lock} rename
@@ -22,10 +22,10 @@ index a022ffa..c3435c6 100644
  #
  # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index 1eb8008..7247a19 100755
+index bee85b8..de1f65a 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2314,6 +2314,24 @@ compile_test() {
+@@ -2318,6 +2318,24 @@ compile_test() {
  
          ;;
  

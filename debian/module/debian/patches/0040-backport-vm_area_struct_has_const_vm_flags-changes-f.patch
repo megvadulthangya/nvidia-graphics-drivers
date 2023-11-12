@@ -1,4 +1,4 @@
-From 65e501818bf77cbd58846546193ddb56c02ee08d Mon Sep 17 00:00:00 2001
+From 46316abb767bd38c8b633a0bdd4f0cb581dd2ea9 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Tue, 27 Jun 2023 22:26:21 +0200
 Subject: [PATCH] backport vm_area_struct_has_const_vm_flags changes from
@@ -27,10 +27,10 @@ index 7ce41f8..a17d609 100644
  #
  # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index 56cfb88..57d5c82 100755
+index b54d17e..b1b83d0 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2557,6 +2557,25 @@ compile_test() {
+@@ -2562,6 +2562,25 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_ACPI_BUS_GET_DEVICE_PRESENT" "" "functions"
          ;;
  

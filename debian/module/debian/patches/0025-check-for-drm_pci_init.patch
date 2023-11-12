@@ -1,4 +1,4 @@
-From 108cbd32fdb8507b6e1ec85a1005f57abe6e0977 Mon Sep 17 00:00:00 2001
+From 83eb3e79083fc708fa0b37cb2bf8e980cf80bb49 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Tue, 21 Dec 2021 12:53:39 +0100
 Subject: [PATCH 25/34] check for drm_pci_init()
@@ -22,10 +22,10 @@ index 76161c4..ac001ed 100644
  	timer_setup \
  	do_gettimeofday \
 diff --git a/conftest.sh b/conftest.sh
-index 187b30f..264bb2a 100755
+index aee26ab..5ef80bf 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2100,6 +2100,23 @@ compile_test() {
+@@ -2104,6 +2104,23 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DRM_DRIVER_UNLOAD_HAS_INT_RETURN_TYPE" "" "types"
          ;;
  

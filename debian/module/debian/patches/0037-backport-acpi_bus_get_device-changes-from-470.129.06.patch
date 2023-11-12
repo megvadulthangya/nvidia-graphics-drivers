@@ -1,4 +1,4 @@
-From 87c9f99ef67de2349167486ac8a6e2f3821dd2f4 Mon Sep 17 00:00:00 2001
+From 1251d4a23848ff46407275e1b603aa33bdbabb3d Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 20 Jun 2022 11:15:34 +0200
 Subject: [PATCH] backport acpi_bus_get_device changes from 470.129.06
@@ -22,10 +22,10 @@ index 2963b91..7ce41f8 100644
  #
  # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index b198001..873c566 100755
+index bacb966..92ba366 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2536,6 +2536,22 @@ compile_test() {
+@@ -2541,6 +2541,22 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DRM_DEVICE_HAS_AGP" "" "types"
          ;;
  

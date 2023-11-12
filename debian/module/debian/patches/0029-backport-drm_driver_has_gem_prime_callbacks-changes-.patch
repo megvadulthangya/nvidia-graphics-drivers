@@ -1,4 +1,4 @@
-From 24278c838f77a49cf0cd98b9580bf2cc2b0e4589 Mon Sep 17 00:00:00 2001
+From cf9de8d9bb784c6193f701f30c2955b40cf5c61b Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 20 Dec 2021 18:45:21 +0100
 Subject: [PATCH 29/34] backport drm_driver_has_gem_prime_callbacks changes
@@ -23,10 +23,10 @@ index ac001ed..8c0bfc2 100644
  #
  # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index b65ede5..425a067 100755
+index 2058cb6..0206074 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -1541,24 +1541,12 @@ compile_test() {
+@@ -1545,24 +1545,12 @@ compile_test() {
              #include <drm/drm_drv.h>
              #endif
  
@@ -51,7 +51,7 @@ index b65ede5..425a067 100755
                  /* 2013-10-02 1bb72532ac260a2d3982b40bdd4c936d779d0d16 */
                  (void)drm_dev_alloc;
  
-@@ -2452,6 +2440,37 @@ compile_test() {
+@@ -2456,6 +2444,37 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DRM_PRIME_PAGES_TO_SG_HAS_DRM_DEVICE_ARG" "" "types"
          ;;
  

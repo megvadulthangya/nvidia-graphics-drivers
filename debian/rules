@@ -6,6 +6,8 @@
 include /usr/share/dpkg/architecture.mk
 include /usr/share/dpkg/pkg-info.mk
 
+NVIDIA_RELEASE		 = $(DEB_VERSION_UPSTREAM)
+NVIDIA_MAJOR		 = $(firstword $(subst ., ,$(NVIDIA_RELEASE)))
 include debian/rules.defs
 NVIDIA_LEGACY		?=
 WATCH_VERSION		?= $(NVIDIA_LEGACY)
@@ -24,9 +26,8 @@ NO_DRIVER_ARCH_LIST	?=
 NO_AUTOPKGTEST_ARCH_LIST?=
 NO_UVM_ARCH_LIST	?=
 
-NVIDIA_RELEASE		 = $(DEB_VERSION_UPSTREAM)
 version			 = $(NVIDIA_RELEASE)
-version_major		 = $(firstword $(subst ., ,$(version)))
+version_major		 = $(NVIDIA_MAJOR)
 deb_version_after_jessie = $(DEB_VERSION_AFTER_jessie)
 variant			 = $(if $(NVIDIA_LEGACY),legacy-$(NVIDIA_LEGACY)xx)
 variant_description	 = $(if $(NVIDIA_LEGACY), ($(NVIDIA_LEGACY)xx legacy version))

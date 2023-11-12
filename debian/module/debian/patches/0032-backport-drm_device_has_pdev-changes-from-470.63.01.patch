@@ -1,4 +1,4 @@
-From fbb8d0e78a8e4a23588ed4956a6084a0a4b4aca6 Mon Sep 17 00:00:00 2001
+From f3e7ade48a0c0f7d7b97b52b4e66a5476ea697d0 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sun, 19 Sep 2021 15:19:46 +0200
 Subject: [PATCH 32/34] backport drm_device_has_pdev changes from 470.63.01
@@ -7,9 +7,9 @@ store the pci_dev pointer in dev->dev_private if dev->pdev is no longer
 available
 ---
  Makefile    |  1 +
- conftest.sh | 23 +++++++++++++++++++++++
+ conftest.sh | 24 ++++++++++++++++++++++++
  nv-drm.c    | 12 ++++++++++++
- 3 files changed, 36 insertions(+)
+ 3 files changed, 37 insertions(+)
 
 diff --git a/Makefile b/Makefile
 index 8c0bfc2..8b64faa 100644
@@ -24,10 +24,18 @@ index 8c0bfc2..8b64faa 100644
  #
  # CFLAGS dependent on the type of builds (e.g. single/muliple module, debug)
 diff --git a/conftest.sh b/conftest.sh
-index 425a067..07253b5 100755
+index 0206074..b7d295f 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -2471,6 +2471,29 @@ compile_test() {
+@@ -157,6 +157,7 @@ test_headers() {
+     FILES="$FILES drm/drm_pci.h"
+     FILES="$FILES drm/drm_legacy.h"
+     FILES="$FILES drm/drm_agpsupport.h"
++    FILES="$FILES drm/drm_device.h"
+     FILES="$FILES generated/autoconf.h"
+     FILES="$FILES generated/compile.h"
+     FILES="$FILES generated/utsrelease.h"
+@@ -2475,6 +2476,29 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DRM_DRIVER_HAS_GEM_PRIME_CALLBACKS" "" "types"
          ;;
  

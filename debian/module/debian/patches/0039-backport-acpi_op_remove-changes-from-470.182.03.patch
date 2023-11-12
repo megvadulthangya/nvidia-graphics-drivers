@@ -1,4 +1,4 @@
-From 40d1ff7da4d7e069e98ff1a9100317977a2ab6c9 Mon Sep 17 00:00:00 2001
+From 64bea939b0c18df91a2b550968d79cdc1852ec3a Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Fri, 7 Apr 2023 12:24:09 +0200
 Subject: [PATCH] backport acpi_op_remove changes from 470.182.03
@@ -9,10 +9,10 @@ Subject: [PATCH] backport acpi_op_remove changes from 470.182.03
  2 files changed, 18 insertions(+), 11 deletions(-)
 
 diff --git a/conftest.sh b/conftest.sh
-index 873c566..56cfb88 100755
+index 92ba366..b54d17e 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -796,6 +796,11 @@ compile_test() {
+@@ -801,6 +801,11 @@ compile_test() {
              # Determine the number of arguments to pass to the
              # 'acpi_op_remove' routine.
              #

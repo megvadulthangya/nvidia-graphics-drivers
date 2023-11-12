@@ -1,4 +1,4 @@
-From 10e1e217717ca249024a7b85d2e3bf7a3308f917 Mon Sep 17 00:00:00 2001
+From 529ee93c52b6e7ccc9b805dd44390c4e3c0ac0ad Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 20 Dec 2021 14:39:02 +0100
 Subject: [PATCH 34/34] backport stdarg.h changes from 470.82.00
@@ -13,17 +13,17 @@ Subject: [PATCH 34/34] backport stdarg.h changes from 470.82.00
  create mode 100644 nv_stdarg.h
 
 diff --git a/conftest.sh b/conftest.sh
-index aa25f7d..6ea47a5 100755
+index 826869f..ab1292a 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -177,6 +177,7 @@ test_headers() {
+@@ -178,6 +178,7 @@ test_headers() {
      FILES="$FILES linux/fence.h"
      FILES="$FILES linux/ktime.h"
      FILES="$FILES linux/file.h"
 +    FILES="$FILES linux/stdarg.h"
  
      FILES_ARCH="$FILES_ARCH asm/set_memory.h"
- 
+     FILES_ARCH="$FILES_ARCH asm/pgtable_types.h"
 diff --git a/nv.h b/nv.h
 index 40a13b5..d0b9bfe 100644
 --- a/nv.h
