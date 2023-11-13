@@ -1,12 +1,13 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-21) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-21) unstable; urgency=medium
 
   * Revert backport of pin_user_pages changes.
   * Backport drm/drm_device.h check needed by drm_device_has_pdev backport.
+    (Closes: #1009259)
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
     module build for Linux 6.6.
-  * Refuse to load module if IBT is enabled.
+  * Refuse to load module if IBT is enabled.  (Closes: #1052069)
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 12 Nov 2023 22:13:04 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 13 Nov 2023 03:33:49 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.108-20) unstable; urgency=medium
 
