@@ -1,42 +1,18 @@
-From 0f6bb48af6e936d047430ac30dab2ad02455f7b6 Mon Sep 17 00:00:00 2001
+From 3a40f00d068262f8cadd7ce53a830615330ecd8f Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sun, 6 Aug 2023 14:17:05 +0200
-Subject: [PATCH 4/4] backport get_user_pages vmas parameter changes from
- 535.86.05
+Subject: [PATCH] backport get_user_pages changes from 535.86.05
 
 ---
- common/inc/nv-mm.h |  57 ++++++++---
- conftest.sh        | 241 +++++++++++++++++++++++++++++++++++++--------
- 2 files changed, 243 insertions(+), 55 deletions(-)
+ common/inc/nv-mm.h |  33 ++++++++---
+ conftest.sh        | 140 ++++++++++++++++++++++++++++++++++-----------
+ 2 files changed, 130 insertions(+), 43 deletions(-)
 
 diff --git a/common/inc/nv-mm.h b/common/inc/nv-mm.h
-index 8e033cd..72f3aea 100644
+index c4efd11..d5290aa 100644
 --- a/common/inc/nv-mm.h
 +++ b/common/inc/nv-mm.h
-@@ -36,12 +36,21 @@ typedef int vm_fault_t;
-  * pin_user_pages() was added by commit eddb1c228f7951d399240
-  * ("mm/gup: introduce pin_user_pages*() and FOLL_PIN") in v5.6-rc1 (2020-01-30)
-  *
-+ * Removed vmas parameter from pin_user_pages() by commit 40896a02751
-+ * ("mm/gup: remove vmas parameter from pin_user_pages()")
-+ * in linux-next, expected in v6.5-rc1 (2023-05-17)
-+ *
-  */
- 
- #include <linux/mm.h>
- #include <linux/sched.h>
- #if defined(NV_PIN_USER_PAGES_PRESENT)
--    #define NV_PIN_USER_PAGES pin_user_pages
-+    #if defined(NV_PIN_USER_PAGES_HAS_ARGS_VMAS)
-+        #define NV_PIN_USER_PAGES pin_user_pages
-+    #else
-+        #define NV_PIN_USER_PAGES(start, nr_pages, gup_flags, pages, vmas) \
-+            pin_user_pages(start, nr_pages, gup_flags, pages)
-+    #endif // NV_PIN_USER_PAGES_HAS_ARGS_VMAS
-     #define NV_UNPIN_USER_PAGE unpin_user_page
- #else
-     #define NV_PIN_USER_PAGES NV_GET_USER_PAGES
-@@ -64,11 +73,18 @@ typedef int vm_fault_t;
+@@ -47,11 +47,18 @@ typedef int vm_fault_t;
   * commit 8e50b8b07f462ab4b91bc1491b1c91bd75e4ad40 which cherry-picked the
   * replacement of the write and force parameters with gup_flags
   *
@@ -56,7 +32,7 @@ index 8e033cd..72f3aea 100644
      #define NV_GET_USER_PAGES(start, nr_pages, flags, pages, vmas) \
          get_user_pages(current, current->mm, start, nr_pages, flags, pages, vmas)
  #else
-@@ -81,13 +97,13 @@ typedef int vm_fault_t;
+@@ -64,13 +71,13 @@ typedef int vm_fault_t;
          int write = flags & FOLL_WRITE;
          int force = flags & FOLL_FORCE;
  
@@ -73,33 +49,7 @@ index 8e033cd..72f3aea 100644
      }
  #endif // NV_GET_USER_PAGES_HAS_ARGS_FLAGS
  
-@@ -100,15 +116,22 @@ typedef int vm_fault_t;
-  * 64019a2e467a ("mm/gup: remove task_struct pointer for  all gup code")
-  * in v5.9-rc1 (2020-08-11). *
-  *
-+ * Removed unused vmas parameter from pin_user_pages_remote() by commit
-+ * 83bcc2e132("mm/gup: remove unused vmas parameter from pin_user_pages_remote()")
-+ * in linux-next, expected in v6.5-rc1 (2023-05-14)
-+ *
-  */
- 
- #if defined(NV_PIN_USER_PAGES_REMOTE_PRESENT)
--    #if defined (NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK)
-+    #if defined(NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK_VMAS)
-         #define NV_PIN_USER_PAGES_REMOTE(mm, start, nr_pages, flags, pages, vmas, locked) \
-             pin_user_pages_remote(NULL, mm, start, nr_pages, flags, pages, vmas, locked)
--    #else
-+    #elif defined(NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_VMAS)
-         #define NV_PIN_USER_PAGES_REMOTE pin_user_pages_remote
--    #endif // NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK
-+    #else
-+        #define NV_PIN_USER_PAGES_REMOTE(mm, start, nr_pages, flags, pages, vmas, locked) \
-+            pin_user_pages_remote(mm, start, nr_pages, flags, pages, locked)
-+    #endif // NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK_VMAS
- #else
-     #define NV_PIN_USER_PAGES_REMOTE NV_GET_USER_PAGES_REMOTE
- #endif // NV_PIN_USER_PAGES_REMOTE_PRESENT
-@@ -135,22 +158,30 @@ typedef int vm_fault_t;
+@@ -104,22 +111,30 @@ typedef int vm_fault_t;
   * commit 64019a2e467a ("mm/gup: remove task_struct pointer for
   * all gup code") in v5.9-rc1 (2020-08-11).
   *
@@ -133,7 +83,7 @@ index 8e033cd..72f3aea 100644
          static inline long NV_GET_USER_PAGES_REMOTE(struct mm_struct *mm,
                                                      unsigned long start,
                                                      unsigned long nr_pages,
-@@ -167,7 +198,7 @@ typedef int vm_fault_t;
+@@ -136,7 +151,7 @@ typedef int vm_fault_t;
          }
      #endif // NV_GET_USER_PAGES_REMOTE_HAS_ARGS_FLAGS_LOCKED
  #else
@@ -142,7 +92,7 @@ index 8e033cd..72f3aea 100644
          static inline long NV_GET_USER_PAGES_REMOTE(struct mm_struct *mm,
                                                      unsigned long start,
                                                      unsigned long nr_pages,
-@@ -185,7 +216,7 @@ typedef int vm_fault_t;
+@@ -154,7 +169,7 @@ typedef int vm_fault_t;
      #else
          #define NV_GET_USER_PAGES_REMOTE(mm, start, nr_pages, flags, pages, vmas, locked) \
              get_user_pages(NULL, mm, start, nr_pages, flags, pages, vmas)
@@ -152,7 +102,7 @@ index 8e033cd..72f3aea 100644
  
  /*
 diff --git a/conftest.sh b/conftest.sh
-index df45f06..04b17b0 100755
+index bee077f..668187e 100755
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -2566,6 +2566,10 @@ compile_test() {
@@ -258,10 +208,11 @@ index df45f06..04b17b0 100755
              if [ -f conftest$$.o ]; then
 -                set_get_user_pages_defines "NV_GET_USER_PAGES_HAS_ARGS_TSK_FLAGS"
 +                set_get_user_pages_defines "NV_GET_USER_PAGES_HAS_ARGS_TSK_FLAGS_VMAS"
-+                rm -f conftest$$.o
-+                return
-+            fi
-+
+                 rm -f conftest$$.o
+                 return
+             fi
+ 
+-            set_get_user_pages_defines "NV_GET_USER_PAGES_HAS_ARGS_TSK_WRITE_FORCE"
 +            # Conftest #4: gup doesn't accept a task_struct and mm_struct as 
 +            # its first arguments. check if get_user_pages() does not take
 +            # vmas argument.
@@ -281,11 +232,10 @@ index df45f06..04b17b0 100755
 +
 +            if [ -f conftest$$.o ]; then
 +                set_get_user_pages_defines "NV_GET_USER_PAGES_HAS_ARGS_FLAGS"
-                 rm -f conftest$$.o
-                 return
-             fi
- 
--            set_get_user_pages_defines "NV_GET_USER_PAGES_HAS_ARGS_TSK_WRITE_FORCE"
++                rm -f conftest$$.o
++                return
++            fi
++
 +            set_get_user_pages_defines "NV_GET_USER_PAGES_HAS_ARGS_TSK_WRITE_FORCE_VMAS"
  
              return
@@ -309,32 +259,32 @@ index df45f06..04b17b0 100755
 -                    echo "#define NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_WRITE_FORCE" | append_conftest "functions"
 +                if [ "$1" = "NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_WRITE_FORCE_VMAS" ]; then
 +                    echo "#define NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_WRITE_FORCE_VMAS" | append_conftest "functions"
-+                else
-+                    echo "#undef NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_WRITE_FORCE_VMAS" | append_conftest "functions"
-+                fi
-+
-+                if [ "$1" = "NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_VMAS" ]; then
-+                    echo "#define NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_VMAS" | append_conftest "functions"
                  else
 -                    echo "#undef NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_WRITE_FORCE" | append_conftest "functions"
-+                    echo "#undef NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_VMAS" | append_conftest "functions"
++                    echo "#undef NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_WRITE_FORCE_VMAS" | append_conftest "functions"
                  fi
  
 -                if [ "$1" = "NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS" ]; then
 -                    echo "#define NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS" | append_conftest "functions"
-+                if [ "$1" = "NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_LOCKED_VMAS" ]; then
-+                    echo "#define NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_LOCKED_VMAS" | append_conftest "functions"
++                if [ "$1" = "NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_VMAS" ]; then
++                    echo "#define NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_VMAS" | append_conftest "functions"
                  else
 -                    echo "#undef NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS" | append_conftest "functions"
-+                    echo "#undef NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_LOCKED_VMAS" | append_conftest "functions"
++                    echo "#undef NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_VMAS" | append_conftest "functions"
                  fi
  
 -                if [ "$1" = "NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_LOCKED" ]; then
 -                    echo "#define NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_LOCKED" | append_conftest "functions"
-+                if [ "$1" = "NV_GET_USER_PAGES_REMOTE_HAS_ARGS_FLAGS_LOCKED_VMAS" ]; then
-+                    echo "#define NV_GET_USER_PAGES_REMOTE_HAS_ARGS_FLAGS_LOCKED_VMAS" | append_conftest "functions"
++                if [ "$1" = "NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_LOCKED_VMAS" ]; then
++                    echo "#define NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_LOCKED_VMAS" | append_conftest "functions"
                  else
 -                    echo "#undef NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_LOCKED" | append_conftest "functions"
++                    echo "#undef NV_GET_USER_PAGES_REMOTE_HAS_ARGS_TSK_FLAGS_LOCKED_VMAS" | append_conftest "functions"
++                fi
++
++                if [ "$1" = "NV_GET_USER_PAGES_REMOTE_HAS_ARGS_FLAGS_LOCKED_VMAS" ]; then
++                    echo "#define NV_GET_USER_PAGES_REMOTE_HAS_ARGS_FLAGS_LOCKED_VMAS" | append_conftest "functions"
++                else
 +                    echo "#undef NV_GET_USER_PAGES_REMOTE_HAS_ARGS_FLAGS_LOCKED_VMAS" | append_conftest "functions"
                  fi
  
@@ -432,155 +382,6 @@ index df45f06..04b17b0 100755
              if [ -f conftest$$.o ]; then
                  set_get_user_pages_remote_defines "NV_GET_USER_PAGES_REMOTE_HAS_ARGS_FLAGS_LOCKED"
                  rm -f conftest$$.o
-             fi
-+
-         ;;
- 
-         pin_user_pages)
-@@ -2872,17 +2944,65 @@ compile_test() {
-             # pin_user_pages() was added by commit eddb1c228f7951d399240
-             # ("mm/gup: introduce pin_user_pages*() and FOLL_PIN") in
-             # v5.6-rc1 (2020-01-30)
-+            #
-+            # Removed vmas parameter from pin_user_pages() by commit
-+            # 40896a02751("mm/gup: remove vmas parameter from pin_user_pages()")
-+            # in linux-next, expected in v6.5-rc1
-+
-+            set_pin_user_pages_defines () {
-+                if [ "$1" = "" ]; then
-+                    echo "#undef NV_PIN_USER_PAGES_PRESENT" | append_conftest "functions"
-+                else
-+                    echo "#define NV_PIN_USER_PAGES_PRESENT" | append_conftest "functions"
-+                fi
-+
-+                if [ "$1" = "NV_PIN_USER_PAGES_HAS_ARGS_VMAS" ]; then
-+                    echo "#define NV_PIN_USER_PAGES_HAS_ARGS_VMAS" | append_conftest "functions"
-+                else
-+                    echo "#undef NV_PIN_USER_PAGES_HAS_ARGS_VMAS" | append_conftest "functions"
-+                fi
-+
-+            }
- 
-             # conftest #1: check if pin_user_pages() is available
-             # return if not available.
-+            # Fall through to conftest #2 if it is present
-             #
--            CODE="
-+            echo "$CONFTEST_PREAMBLE
-             #include <linux/mm.h>
-             void conftest_pin_user_pages(void) {
-                 pin_user_pages();
--            }"
-+            }" > conftest$$.c
-+
-+            $CC $CFLAGS -c conftest$$.c > /dev/null 2>&1
-+            rm -f conftest$$.c
-+
-+            if [ -f conftest$$.o ]; then
-+                set_pin_user_pages_defines ""
-+                rm -f conftest$$.o
-+                return
-+            fi
-+
-+            # conftest #2: Check if pin_user_pages() has vmas argument
-+            echo "$CONFTEST_PREAMBLE
-+            #include <linux/mm.h>
-+            long pin_user_pages(unsigned long start,
-+                                unsigned long nr_pages,
-+                    		    unsigned int gup_flags,
-+                                struct page **pages,
-+                    		    struct vm_area_struct **vmas) {
-+                return 0;
-+            }" > conftest$$.c
- 
--            compile_check_conftest "$CODE" "NV_PIN_USER_PAGES_PRESENT" "" "functions"
-+            $CC $CFLAGS -c conftest$$.c > /dev/null 2>&1
-+            rm -f conftest$$.c
-+
-+            if [ -f conftest$$.o ]; then
-+                set_pin_user_pages_defines "NV_PIN_USER_PAGES_HAS_ARGS_VMAS"
-+                rm -f conftest$$.o
-+            else
-+                set_pin_user_pages_defines "NV_PIN_USER_PAGES_PRESENT"
-+            fi
-         ;;
- 
-         pin_user_pages_remote)
-@@ -2895,6 +3015,10 @@ compile_test() {
-             # pin_user_pages_remote() removed 'tsk' parameter by
-             # commit 64019a2e467a ("mm/gup: remove task_struct pointer for
-             # all gup code") in v5.9-rc1 (2020-08-11).
-+            #
-+            # Removed unused vmas parameter from pin_user_pages_remote() by
-+            # commit 83bcc2e132 ("mm/gup: remove unused vmas parameter from
-+            # pin_user_pages_remote()") in linux-next, expected in v6.5-rc1
- 
-             #
-             # This function sets the NV_PIN_USER_PAGES_REMOTE_* macros as per
-@@ -2907,10 +3031,16 @@ compile_test() {
-                     echo "#define NV_PIN_USER_PAGES_REMOTE_PRESENT" | append_conftest "functions"
-                 fi
- 
--                if [ "$1" = "NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK" ]; then
--                    echo "#define NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK" | append_conftest "functions"
-+                if [ "$1" = "NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK_VMAS" ]; then
-+                    echo "#define NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK_VMAS" | append_conftest "functions"
-+                else
-+                    echo "#undef NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK_VMAS" | append_conftest "functions"
-+                fi
-+
-+                if [ "$1" = "NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_VMAS" ]; then
-+                    echo "#define NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_VMAS" | append_conftest "functions"
-                 else
--                    echo "#undef NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK" | append_conftest "functions"
-+                    echo "#undef NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_VMAS" | append_conftest "functions"
-                 fi
-             }
- 
-@@ -2933,7 +3063,11 @@ compile_test() {
-                 return
-             fi
- 
--            # conftest #2: Check if pin_user_pages_remote() has tsk argument
-+            # conftest #2: Check if pin_user_pages_remote() has tsk and
-+            # vmas argument
-+            # Return if these arguments are present else fall through to
-+            # conftest #3
-+
-             echo "$CONFTEST_PREAMBLE
-             #include <linux/mm.h>
-             long pin_user_pages_remote(struct task_struct *tsk,
-@@ -2951,11 +3085,34 @@ compile_test() {
-             rm -f conftest$$.c
- 
-             if [ -f conftest$$.o ]; then
--                set_pin_user_pages_remote_defines "NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK"
-+                set_pin_user_pages_remote_defines "NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_TSK_VMAS"
-+                rm -f conftest$$.o
-+                return
-+            fi
-+
-+            # conftest #3: Check if pin_user_pages_remote() has vmas argument
-+            echo "$CONFTEST_PREAMBLE
-+            #include <linux/mm.h>
-+            long pin_user_pages_remote(struct mm_struct *mm,
-+                                       unsigned long start,
-+                                       unsigned long nr_pages,
-+                                       unsigned int gup_flags,
-+                                       struct page **pages,
-+                                       struct vm_area_struct **vmas,
-+                                       int *locked) {
-+                return 0;
-+            }" > conftest$$.c
-+
-+            $CC $CFLAGS -c conftest$$.c > /dev/null 2>&1
-+            rm -f conftest$$.c
-+
-+            if [ -f conftest$$.o ]; then
-+                set_pin_user_pages_remote_defines "NV_PIN_USER_PAGES_REMOTE_HAS_ARGS_VMAS"
-                 rm -f conftest$$.o
-             else
-                 set_pin_user_pages_remote_defines "NV_PIN_USER_PAGES_REMOTE_PRESENT"
              fi
 +
          ;;

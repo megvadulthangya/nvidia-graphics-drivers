@@ -440,7 +440,7 @@ Recommends:
  lib${nvidia}-cbl (= ${binary:Version}) [!i386 !ppc64el],
  lib${nvidia}-rtcore (= ${binary:Version}) [!i386 !ppc64el],
 Suggests:
- vulkan-utils,
+ vulkan-tools,
 Conflicts:
  ${nvidia}-nonglvnd-vulkan-icd,
 Description: NVIDIA Vulkan installable client driver (ICD)${nvidia:VariantDesc}
