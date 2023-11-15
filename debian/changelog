@@ -908,7 +908,7 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
-nvidia-graphics-drivers (470.199.02-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.199.02-4) unstable; urgency=medium
 
   * Refuse to load module if IBT is enabled.  (Closes: #1052069)
   * Switch suggestion from obsolete vulkan-utils to vulkan-tools
@@ -916,7 +916,7 @@ nvidia-graphics-drivers (470.199.02-4) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 15 Nov 2023 09:41:22 +0100
 
-nvidia-graphics-drivers (470.199.02-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.199.02-3) unstable; urgency=medium
 
   * Revert backport of pin_user_pages changes.
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
@@ -1708,7 +1708,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers (460.106.00-13) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-13) UNRELEASED; urgency=medium
 
   * Revert backport of pin_user_pages changes.
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
@@ -2255,7 +2255,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers (450.248.02-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-3) unstable; urgency=medium
 
   * Revert backport of pin_user_pages changes.
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
@@ -3379,7 +3379,7 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
-nvidia-graphics-drivers (418.226.00-13) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-13) unstable; urgency=medium
 
   * Revert backport of pin_user_pages changes.
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
