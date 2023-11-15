@@ -2,3 +2,9 @@
 
 # To grant performance counter access to unprivileged users, uncomment the following line:
 #options #MODULE# NVreg_RestrictProfilingToAdminUsers=0
+
+# Uncomment to enable this power management feature:
+#options #MODULE# NVreg_PreserveVideoMemoryAllocations=1
+
+# Uncomment to enable this power management feature:
+#options #MODULE# NVreg_EnableS0ixPowerManagement=1
