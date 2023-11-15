@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla (525.125.06-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.125.06-3) unstable; urgency=medium
 
   * nvidia-suspend-common: New package for the systemd power management
     integration scripts.  (Closes: #1038006)
