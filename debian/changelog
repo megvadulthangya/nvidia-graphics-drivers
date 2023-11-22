@@ -558,6 +558,20 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
+nvidia-graphics-drivers-tesla-450 (450.248.02-4) unstable; urgency=medium
+
+  * The Tesla 450 driver series has been declared as End-of-Life by
+    NVIDIA. No further updates fixing security issues, critical bugs, or
+    adding support for new Xorg or Linux releases will be issued.
+    https://docs.nvidia.com/datacenter/tesla/drivers/
+
+  * Turn metapackages into transitional packages to aid switching to
+    nvidia-graphics-drivers-tesla-470.  (Closes: #1055140)
+  * Provide less virtual packages.
+  * Remove the Tesla 450 driver from the nvidia alternative.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Nov 2023 14:13:01 +0100
+
 nvidia-graphics-drivers-tesla-450 (450.248.02-3) unstable; urgency=medium
 
   * Revert backport of pin_user_pages changes.
