@@ -333,6 +333,9 @@ endif
 override_dh_installchangelogs:
 	dh_installchangelogs debian/tmp/NVIDIA_Changelog
 
+override_dh_installsystemd:
+	dh_installsystemd --no-stop-on-upgrade --no-restart-after-upgrade
+
 override_dh_bugfiles:
 	dh_bugfiles -A
 
