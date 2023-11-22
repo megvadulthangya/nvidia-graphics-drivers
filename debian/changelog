@@ -10,7 +10,7 @@ nvidia-graphics-drivers-tesla-450 (450.248.02-4) UNRELEASED; urgency=medium
   * Provide less virtual packages.
   * Remove the Tesla 450 driver from the nvidia alternative.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 14 Nov 2023 13:46:30 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Nov 2023 14:13:01 +0100
 
 nvidia-graphics-drivers-tesla-450 (450.248.02-3) unstable; urgency=medium
 
