@@ -1,7 +1,13 @@
+nvidia-graphics-drivers-tesla (525.147.05-3) UNRELEASED; urgency=medium
+
+  * nvidia-suspend-common: Do not start services on installation/upgrade.
+    (Closes: #1056384)
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 23 Nov 2023 11:50:38 +0100
+
 nvidia-graphics-drivers-tesla (525.147.05-2) unstable; urgency=medium
 
   * nvidia-suspend-common: Do not stop/restart services on upgrade.
-    (Closes: #1056384)
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Nov 2023 10:31:01 +0100
 
