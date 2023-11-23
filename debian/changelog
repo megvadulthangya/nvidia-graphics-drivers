@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla (525.147.05-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.147.05-3) unstable; urgency=medium
 
   * nvidia-suspend-common: Do not start services on installation/upgrade.
     (Closes: #1056384)
