@@ -1,8 +1,8 @@
-nvidia-graphics-drivers-tesla (525.147.05-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.147.05-4) unstable; urgency=medium
 
   * Rebuild as Tesla driver.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 03 Dec 2023 03:08:35 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 03 Dec 2023 04:49:39 +0100
 
 nvidia-graphics-drivers (525.147.05-4~deb12u1) bookworm; urgency=medium
 
