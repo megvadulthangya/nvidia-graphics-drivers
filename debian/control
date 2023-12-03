@@ -249,16 +249,6 @@ Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
  See /usr/share/doc/${nvidia}-driver/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-Package: nvidia-suspend-common
-Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
-Multi-Arch: foreign
-Depends:
- ${misc:Depends}
-Description: NVIDIA driver - systemd power management scripts
- This package provides the common files for the NVIDIA power management
- integration with systemd.
-
 Package: nvidia-tesla-legacy-check
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: foreign
