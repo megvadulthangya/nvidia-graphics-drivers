@@ -19,7 +19,7 @@ XORG_BOUND		?=
 LINUX_KMOD_VARIANT	?=
 LINUX_KMOD_TESTED	?=
 NVIDIA_LEGACY_CHECK	?=
-NVIDIA_SETTINGS		?= nvidia-settings$(-variant)
+NVIDIA_SETTINGS		?= nvidia-settings$(-variant) (>= $(NVIDIA_MAJOR))
 ARCH_CANDIDATES		?= amd64 i386 armhf arm64 ppc64el
 ARCH_LIST		?= amd64
 NO_DRIVER_ARCH_LIST	?=

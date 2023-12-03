@@ -230,7 +230,7 @@ Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
  ${nvidia}-vdpau-driver (>= ${nvidia:Version}),
  ${nvidia:kmod:binary},
- nvidia-suspend-common,
+# nvidia-suspend-common,
  ${nvidia-settings},
 Suggests:
  ${nvidia:kmod:source},
@@ -1038,7 +1038,7 @@ Description: NVENC Video Encoding runtime library${nvidia:VariantDesc}
  This package contains the nvidia-encode runtime library.
 
 Package: lib${nvidia}-fbc1
-Architecture: i386 amd64
+Architecture: i386 amd64 ${arch:arm64}
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
