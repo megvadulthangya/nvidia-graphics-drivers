@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-tesla (525.147.05-4~deb12u1) bookworm; urgency=medium
+
+  * Rebuild for bookworm.
+  * Do not yet build nvidia-suspend-common for bookworm.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 03 Dec 2023 11:24:36 +0100
+
 nvidia-graphics-drivers-tesla (525.147.05-4) unstable; urgency=medium
 
   * Rebuild as Tesla driver.
