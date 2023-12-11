@@ -164,6 +164,8 @@ nvidia-graphics-drivers-tesla-510 (510.85.02-1) unstable; urgency=medium
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update nv-readme.ids.
   * Re-enable autopkgtest on ppc64el, fixed in Linux 5.19.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 10 Aug 2022 07:24:37 +0200
@@ -223,6 +225,10 @@ nvidia-graphics-drivers-tesla-510 (510.73.08-1) experimental; urgency=medium
     - Added a new configuration option for NVIDIA NGX to allow disabling the DSO
       signature check. See the "NGX" chapter of the README for more information.
   * New upstream production branch release 510.68.02 (2022-04-26).
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update nv-readme.ids.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 25 May 2022 21:14:43 +0200
 
