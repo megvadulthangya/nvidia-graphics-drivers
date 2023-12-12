@@ -54,6 +54,8 @@ libOpenGL.so.0
 nvidia-cuda-mps-control
 nvidia-cuda-mps-control.1
 nvidia-cuda-mps-server
+
+# shipped in nvidia-powerd from src:nvidia-graphics-drivers
 nvidia-powerd
 nvidia-dbus.conf
 
