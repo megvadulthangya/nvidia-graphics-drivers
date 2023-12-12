@@ -43,30 +43,27 @@ The branch structure in the GIT repository
     The following branches exist in the git repository:
 
     branch                    upload to           merge into
-                              (compatible with)   (reintegrate into)
+    (obsolete branch)         (compatible with)   (reintegrate into)
 
-    {71,96,173}xx/*     EoL
-    304                 EoL   wheezy              304-jessie
-    304-jessie          EoL   (jessie)            304-stretch, 340, 304xx/jessie
-    304-stretch         EoL   (stretch)           340-stretch, 304xx/master
-    304xx/jessie        EoL   jessie              304xx/master
-    304xx/master        EoL   stretch,sid
-    340                 EoL   jessie              340-stretch
-    340-stretch         EoL   (stretch,sid)       390, 340xx/main
+    ({71,96,173}xx/*)   EoL
+    (304)               EoL   wheezy              304-jessie
+    (304-jessie)        EoL   (jessie)            304-stretch, 340-jessie, 304xx/jessie
+    (304-stretch)       EoL   (stretch)           340, 304xx/master
+    (304xx/jessie)      EoL   jessie              304xx/master
+    (304xx/master)      EoL   stretch,sid
+    (340-jessie)        EoL   jessie              340
+    340                 EoL   (stretch)           390, 340xx/main
     340xx/main          EoL   stretch,buster,sid
-    390                 EoL   stretch             390-buster
-    390-buster          EoL   (buster)            418, 390xx/main
+    (390-stretch)       EoL   stretch             390
+    390                 EoL   (buster)            418, 390xx/main
     390xx/main          EoL   buster,bullseye,sid
-    418                 EoL   buster              418-bullseye
-    418-bullseye        EoL   (bullseye)          450, 418-tesla
-    418-tesla           EoL   (bullseye)          450-tesla, tesla-418/main
+    (418-buster)        EoL   buster              418
+    418                 EoL   (bullseye)          450, tesla-418/main
     tesla-418/main      EoL   bullseye,sid        tesla-450/main
-    450                 EoL   (bullseye)          460, 450-tesla
-    450-tesla           EoL   (bullseye)          460-tesla, tesla-450/main
+    450                 EoL   (bullseye)          460, tesla-450/main
     tesla-450/main      EoL   (bullseye),(sid)    tesla-460/main, tesla-450/transition-470
     tesla-450/transition-470  bullseye,sid        tesla-460/transition-470
-    460                 EoL   (bullseye)          470, 460-tesla
-    460-tesla           EoL   (bullseye)          470-tesla, tesla-460/main
+    460                 EoL   (bullseye)          470-tesla, tesla-460/main
     tesla-460/main      EoL   (bullseye),(sid)    tesla-470/main, tesla-460/transition-470
     tesla-460/transition-470  bullseye,sid
     470                       bullseye            525, 470-tesla
