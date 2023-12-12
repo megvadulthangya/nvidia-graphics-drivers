@@ -739,7 +739,7 @@ Depends:
 Recommends:
  lib${nvidia}-rtcore (= ${binary:Version}) [!i386 !ppc64el],
 Suggests:
- vulkan-utils,
+ vulkan-tools,
 Enhances:
  libvulkan1,
 Provides:
@@ -1001,7 +1001,7 @@ Description: NVENC Video Encoding runtime library${nvidia:VariantDesc}
  This package contains the nvidia-encode runtime library.
 
 Package: lib${nvidia}-fbc1
-Architecture: i386 amd64
+Architecture: i386 amd64 ${arch:arm64}
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}

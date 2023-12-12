@@ -16,7 +16,8 @@ Files:
  amd64/*
  arm64/*
  ppc64el/*
-Copyright: 1993-2022 NVIDIA Corporation.  All rights reserved.
+Copyright:
+ 1993-2023 NVIDIA Corporation.  All rights reserved.
 License: NVIDIA-graphics-drivers
 
 Files: supported-gpus/supported-gpus.json
@@ -36,7 +37,7 @@ License: GPL-2.0+
 
 Files: debian/detect/nvidia-detect.in
 Copyright: © 2008-2011 Filipus Klutiero <chealer@gmail.com>
-           © 2011-2022 Andreas Beckmann <anbe@debian.org>
+           © 2011-2023 Andreas Beckmann <anbe@debian.org>
 License: GPL-2.0+
 
 Files: debian/patches/*
