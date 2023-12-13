@@ -231,6 +231,7 @@ Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
  ${nvidia}-vdpau-driver (>= ${nvidia:Version}),
  ${nvidia:kmod:binary},
+ nvidia-suspend-common,
  ${nvidia-settings},
 Suggests:
  ${nvidia:kmod:source},
