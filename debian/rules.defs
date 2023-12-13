@@ -4,7 +4,7 @@ NVIDIA_TESLA		 = yes
 #NVIDIA_TESLA		 = $(TESLA_MAJOR)
 #NVIDIA_LEGACY		 =
 #WATCH_VERSION		 = $(NVIDIA_MAJOR)
-GIT_BRANCH		 = $(variant)/$(version_major)
+GIT_BRANCH		 = $(variant)/$(NVIDIA_MAJOR)
 
 NVIDIA_LEGACY_CHECK	 = $${nvidia}-legacy-check (>= 495) [$${nvidia:archlist:driver}]
 
