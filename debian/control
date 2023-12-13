@@ -649,20 +649,6 @@ Description: NVIDIA Management Library (NVML) runtime library${nvidia:VariantDes
  .
  This package contains the nvidia-ml runtime library.
 
-Package: nvidia-powerd
-Section: non-free/utils
-Architecture: amd64
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA Dynamic Boost (daemon)
- The 'nvidia-powerd' daemon provides support for the NVIDIA Dynamic Boost
- feature on Linux platforms. Dynamic Boost is a system-wide power controller
- which manages GPU and CPU power, according to the workload on the system. By
- shifting power between the GPU and the CPU, Dynamic Boost can deliver more
- power to the component that would benefit most from it, without impacting the
- system's total thermal and electrical budgets. This optimizes overall system
- performance per watt.
-
 Package: libnvidia-tesla-cuda1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
