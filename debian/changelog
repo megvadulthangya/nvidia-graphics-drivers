@@ -360,6 +360,8 @@ nvidia-graphics-drivers-tesla-510 (510.85.02-1) unstable; urgency=medium
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update nv-readme.ids.
   * Re-enable autopkgtest on ppc64el, fixed in Linux 5.19.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 10 Aug 2022 07:24:37 +0200
@@ -419,6 +421,10 @@ nvidia-graphics-drivers-tesla-510 (510.73.08-1) experimental; urgency=medium
     - Added a new configuration option for NVIDIA NGX to allow disabling the DSO
       signature check. See the "NGX" chapter of the README for more information.
   * New upstream production branch release 510.68.02 (2022-04-26).
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update nv-readme.ids.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 25 May 2022 21:14:43 +0200
 
@@ -625,19 +631,45 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
-nvidia-graphics-drivers (470.223.02-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.223.02-3) UNRELEASED; urgency=medium
 
   * Build all unversioned packages from src:nvidia-graphics-drivers.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Dec 2023 18:33:57 +0100
 
-nvidia-graphics-drivers (470.223.02-2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.223.02-2~deb11u1) bullseye; urgency=medium
 
-  * Build libnvidia-fbc1 for arm64, too.  (Closes: #1057078)
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 03 Dec 2023 13:31:00 +0100
+
+nvidia-graphics-drivers-tesla-470 (470.223.02-2~deb12u1) bookworm; urgency=medium
+
+  * Rebuild for bookworm.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Dec 2023 23:46:17 +0100
+
+nvidia-graphics-drivers-tesla-470 (470.223.02-2) unstable; urgency=medium
+
+  * Build libnvidia-tesla-470-fbc1 for arm64, too.  (Closes: #1057078)
   * bug-control: Report information about more driver components.
   * nvidia-detect: Drop support for Tesla 450 drivers (EoL).
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 29 Nov 2023 14:58:15 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Dec 2023 13:45:17 +0100
+
+nvidia-graphics-drivers-tesla-470 (470.223.02-1) unstable; urgency=medium
+
+  * New upstream Tesla release 470.223.02 (2023-10-31).
+    * Fixed CVE-2023-31022.  (Closes: #1055142)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5491
+    - Fixed a bug which caused incorrect reporting of presentation
+      times when using the VK_NV_present_barrier Vulkan extension.
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Nov 2023 11:43:36 +0100
 
 nvidia-graphics-drivers (470.223.02-1) bullseye; urgency=medium
 
@@ -654,7 +686,7 @@ nvidia-graphics-drivers (470.223.02-1) bullseye; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 17 Nov 2023 17:38:12 +0100
 
-nvidia-graphics-drivers (470.199.02-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.199.02-4) unstable; urgency=medium
 
   * Refuse to load module if IBT is enabled.  (Closes: #1052069)
   * Switch suggestion from obsolete vulkan-utils to vulkan-tools
@@ -662,7 +694,7 @@ nvidia-graphics-drivers (470.199.02-4) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 15 Nov 2023 09:41:22 +0100
 
-nvidia-graphics-drivers (470.199.02-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.199.02-3) unstable; urgency=medium
 
   * Revert backport of pin_user_pages changes.
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
@@ -670,12 +702,36 @@ nvidia-graphics-drivers (470.199.02-3) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 03 Nov 2023 12:03:43 +0100
 
-nvidia-graphics-drivers (470.199.02-2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.199.02-2) unstable; urgency=medium
 
   * Backport get_user_pages and pin_user_pages changes from 520.56.06,
     525.53 and 535.86.05 to fix kernel module build for Linux 6.5.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Aug 2023 20:12:16 +0200
+
+nvidia-graphics-drivers-tesla-470 (470.199.02-1~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 10 Jul 2023 16:05:23 +0200
+
+nvidia-graphics-drivers-tesla-470 (470.199.02-1~deb12u1) bookworm; urgency=medium
+
+  * Rebuild for bookworm.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 10 Jul 2023 15:47:40 +0200
+
+nvidia-graphics-drivers-tesla-470 (470.199.02-1) unstable; urgency=medium
+
+  * New upstream Tesla release 470.199.02 (2023-06-26).
+    * Fixed CVE-2023-25515, CVE-2023-25516.  (Closes: #1039684)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5468
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 10 Jul 2023 15:06:22 +0200
 
 nvidia-graphics-drivers (470.199.02-1) bullseye; urgency=medium
 
@@ -707,7 +763,7 @@ nvidia-graphics-drivers-tesla-470 (470.182.03-1~deb11u1) bullseye; urgency=mediu
 
 nvidia-graphics-drivers-tesla-470 (470.182.03-1) unstable; urgency=medium
 
-  * New upstream production branch release 470.182.03 (2023-03-30).
+  * New upstream Tesla release 470.182.03 (2023-03-30).
     * Fixed CVE-2023-0184, CVE-2023-0189, CVE-2023-0180, CVE-2023-0185,
       CVE-2023-0187, CVE-2023-0198, CVE-2023-0199, CVE-2023-0188,
       CVE-2023-0190, CVE-2023-0194, CVE-2023-0195, CVE-2023-0191.
@@ -778,7 +834,7 @@ nvidia-graphics-drivers-tesla-470 (470.161.03-1~deb11u1) bullseye; urgency=mediu
 
 nvidia-graphics-drivers-tesla-470 (470.161.03-1) unstable; urgency=medium
 
-  * New upstream production branch release 470.161.03 (2022-11-22).
+  * New upstream Tesla release 470.161.03 (2022-11-22).
     * Fixed CVE-2022-34670, CVE-2022-34674, CVE-2022-34675, CVE-2022-34677,
       CVE-2022-34679, CVE-2022-34680, CVE-2022-34682, CVE-2022-42254,
       CVE-2022-42255, CVE-2022-42256, CVE-2022-42257, CVE-2022-42258,
@@ -1430,7 +1486,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers (460.106.00-13) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-13) UNRELEASED; urgency=medium
 
   * Revert backport of pin_user_pages changes.
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
@@ -1977,7 +2033,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers (450.248.02-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-4) UNRELEASED; urgency=medium
 
   * The Tesla 450 driver series has been declared as End-of-Life by
     NVIDIA. No further updates fixing security issues, critical bugs, or
@@ -1986,7 +2042,7 @@ nvidia-graphics-drivers (450.248.02-4) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Nov 2023 14:13:01 +0100
 
-nvidia-graphics-drivers (450.248.02-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-3) unstable; urgency=medium
 
   * Revert backport of pin_user_pages changes.
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
@@ -1997,14 +2053,20 @@ nvidia-graphics-drivers (450.248.02-3) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 14 Nov 2023 09:51:10 +0100
 
-nvidia-graphics-drivers (450.248.02-2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-2) unstable; urgency=medium
 
   * Backport get_user_pages and pin_user_pages changes from 520.56.06,
     525.53 and 535.86.05 to fix kernel module build for Linux 6.5.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 14 Aug 2023 23:37:02 +0200
 
-nvidia-graphics-drivers (450.248.02-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-1~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 10 Jul 2023 14:33:11 +0200
+
+nvidia-graphics-drivers-tesla-450 (450.248.02-1) unstable; urgency=medium
 
   * New upstream Tesla release 450.248.02 (2023-06-26).
     * Fixed CVE-2023-25515, CVE-2023-25516.  (Closes: #1039682)
@@ -2368,8 +2430,8 @@ nvidia-graphics-drivers (450.66-1) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Test that the patches can be applied to the module source.
-  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
-    while building kernel modules.
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules.
   * Simplify generating the -source and -dkms packages.
 
   [ Vincent Cheng ]
@@ -2411,8 +2473,8 @@ nvidia-graphics-drivers-tesla-450 (450.51.06-2) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Test that the patches can be applied to the module source (450.66-1).
-  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
-    while building kernel modules (450.66-1).
+  * nvidia-tesla-450-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules (450.66-1).
   * Simplify generating the -source and -dkms packages (450.66-1).
   * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
     to fix kernel module build for Linux 5.8.
@@ -2432,7 +2494,7 @@ nvidia-graphics-drivers-tesla-450 (450.51.06-1) unstable; urgency=medium
     - Add Provides: libnvidia-cfg.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
       the symbols file.
-  * There is no libnvidia-compiler on arm64 (450.57-3).
+  * There is no libnvidia-tesla-450-compiler on arm64 (450.57-3).
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 18 Aug 2020 23:20:53 +0200
@@ -2643,8 +2705,8 @@ nvidia-graphics-drivers-tesla-440 (440.95.01-2) unstable; urgency=medium
     - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
       the symbols file.
   * Test that the patches can be applied to the module source (450.66-1).
-  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
-    while building kernel modules (450.66-1).
+  * nvidia-tesla-440-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules (450.66-1).
   * Simplify generating the -source and -dkms packages (450.66-1).
   * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
     to fix kernel module build for Linux 5.8.
@@ -3104,7 +3166,7 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
-nvidia-graphics-drivers (418.226.00-13) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-13) unstable; urgency=medium
 
   * Revert backport of pin_user_pages changes.
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
@@ -3115,7 +3177,7 @@ nvidia-graphics-drivers (418.226.00-13) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 13 Nov 2023 13:27:57 +0100
 
-nvidia-graphics-drivers-tesla-418 (418.226.00-12) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-12) unstable; urgency=medium
 
   * Backport get_user_pages and pin_user_pages changes from 520.56.06,
     525.53 and 535.86.05 to fix kernel module build for Linux 6.5.
@@ -3388,8 +3450,8 @@ nvidia-graphics-drivers (418.181.07-1) buster; urgency=medium
     - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
       the symbols file.
   * Test that the patches can be applied to the module source (450.66-1).
-  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
-    while building kernel modules (450.66-1).
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules (450.66-1).
   * Simplify generating the -source and -dkms packages (450.66-1).
   * Bump watch file version to 4.
   * Bump Standards-Version to 4.5.1. No changes needed.
@@ -3433,8 +3495,8 @@ nvidia-graphics-drivers-tesla-418 (418.152.00-2) unstable; urgency=medium
     - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
       the symbols file.
   * Test that the patches can be applied to the module source (450.66-1).
-  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
-    while building kernel modules (450.66-1).
+  * nvidia-tesla-418-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules (450.66-1).
   * Simplify generating the -source and -dkms packages (450.66-1).
   * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
     to fix kernel module build for Linux 5.8.
@@ -3516,7 +3578,7 @@ nvidia-graphics-drivers-tesla-418 (418.116.00-3) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.116.00-2) experimental; urgency=medium
 
-  * Rename to *-tesla-418-*.
+  * Rename packages from *-tesla* to *-tesla-418*.
   * Add transitional nvidia-tesla-driver package.
   * Use separately packaged nvidia-settings-tesla-418.  (Closes: #948961)
   * Use substitution to keep Standards-Version in sync (430.64-5).
