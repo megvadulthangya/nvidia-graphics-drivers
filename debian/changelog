@@ -6,7 +6,10 @@ nvidia-graphics-drivers-tesla (525.147.05-5) UNRELEASED; urgency=medium
 
 nvidia-graphics-drivers (525.147.05-5) UNRELEASED; urgency=medium
 
+  * Switch src:nvidia-graphics-drivers to the Tesla driver series.
+  * Build for ppc64el.
   * Build all unversioned packages from src:nvidia-graphics-drivers.
+  * Enable nvidia-suspend-common.
   * nvidia-suspend-common: Depend on kbd for chvt.  (Closes: #1058081)
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 13 Dec 2023 00:02:11 +0100
@@ -847,7 +850,7 @@ nvidia-graphics-drivers (510.54-1) experimental; urgency=medium
     kernels, not supported upstream.
   * Declare Testsuite: autopkgtest-pkg-dkms.
   * Disable building nvidia-cuda-mps, will be built from
-    src:nvidia-graphics-drivers-tesla-${latest}.
+    src:nvidia-graphics-drivers-tesla-470.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 02 Mar 2022 12:00:52 +0100
 
@@ -1339,7 +1342,7 @@ nvidia-graphics-drivers (470.129.06-6) unstable; urgency=medium
 
   * Minor packaging sync and cleanup.
   * Disable building nvidia-cuda-mps, will be built from
-    src:nvidia-graphics-drivers-tesla-${latest}.
+    src:nvidia-graphics-drivers-tesla-470.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 03 Jul 2022 09:45:39 +0200
 
