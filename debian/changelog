@@ -1002,6 +1002,20 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
+nvidia-graphics-drivers-tesla-470 (470.223.02-3) UNRELEASED; urgency=medium
+
+  * Rebuild as Tesla 470 driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 13 Dec 2023 11:04:46 +0100
+
+nvidia-graphics-drivers (470.223.02-3) UNRELEASED; urgency=medium
+
+  * Switch src:nvidia-graphics-drivers to the Tesla 470 driver series.
+  * Build for ppc64el.
+  * Build all unversioned packages from src:nvidia-graphics-drivers.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Dec 2023 18:33:57 +0100
+
 nvidia-graphics-drivers-tesla-470 (470.223.02-2~deb11u1) bullseye; urgency=medium
 
   * Rebuild for bullseye.
@@ -1016,11 +1030,17 @@ nvidia-graphics-drivers-tesla-470 (470.223.02-2~deb12u1) bookworm; urgency=mediu
 
 nvidia-graphics-drivers-tesla-470 (470.223.02-2) unstable; urgency=medium
 
-  * Build libnvidia-tesla-470-fbc1 for arm64, too.  (Closes: #1057078)
+  * Rebuild as Tesla 470 driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Dec 2023 13:45:17 +0100
+
+nvidia-graphics-drivers (470.223.02-2) UNRELEASED; urgency=medium
+
+  * Build libnvidia-fbc1 for arm64, too.  (Closes: #1057078)
   * bug-control: Report information about more driver components.
   * nvidia-detect: Drop support for Tesla 450 drivers (EoL).
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Dec 2023 13:45:17 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 29 Nov 2023 14:58:15 +0100
 
 nvidia-graphics-drivers-tesla-470 (470.223.02-1) unstable; urgency=medium
 
