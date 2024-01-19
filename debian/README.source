@@ -69,18 +69,15 @@ The branch structure in the GIT repository
     470                       bullseye            525, tesla-470/main
     tesla-470/main            bullseye,bookworm,sid tesla/525
     525                       bookworm,sid        535, tesla/525
-    tesla/525                 bookworm,sid        tesla/535
-    535                       bookworm,sid        YYY, tesla/535
-    tesla/535                 bookworm,sid        tesla/ZZZ
+    tesla/525                 (bookworm),(sid)    tesla/transition
+    tesla/transition          bookworm,sid
+    535                       bookworm,sid        YYY
     main                      sid                 YYY
-    tesla/main                sid
     YYY                       experimental        ZZZ, (main)
     ZZZ                       experimental        (main)
-    tesla/ZZZ                 experimental        (tesla/main)
     *-backports               *-backports
     ABCxx/*-backports         *-backports
     tesla-ABC/*-backports     *-backports
-    tesla/*-backports         *-backports
 
     New upstream releases (XXX.yy[.zz]) are always imported into the XXX
     branch. If this branch does not yet exist, fork it from ZZZ (but do
