@@ -59,6 +59,7 @@ nvidia-cuda-mps-server
 # shipped in nvidia-powerd from src:nvidia-graphics-drivers
 nvidia-powerd
 nvidia-dbus.conf
+systemd/system/nvidia-powerd.service
 
 # shipped in nvidia-suspend-common from src:nvidia-graphics-drivers
 systemd/system/nvidia-suspend.service
