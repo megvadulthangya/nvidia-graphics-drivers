@@ -9,6 +9,7 @@ nvidia-graphics-drivers (525.147.05-5) unstable; urgency=medium
   * Switch src:nvidia-graphics-drivers to the Tesla driver series.
   * Build for ppc64el.
   * Build all unversioned packages from src:nvidia-graphics-drivers.
+  * nvidia-detect: Tesla and regular driver packages have been merged.
   * Enable nvidia-suspend-common.  (Closes: #1059581)
   * nvidia-suspend-common: Depend on kbd for chvt.  (Closes: #1058081)
   * New Romanian (ro) debconf translations by Remus-Gabriel Chelu.
