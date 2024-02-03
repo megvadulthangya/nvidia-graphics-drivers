@@ -1,10 +1,10 @@
-nvidia-graphics-drivers-tesla (525.147.05-6) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.147.05-6) unstable; urgency=medium
 
   The Tesla driver packages have been turned into transitional packages to
   automatically switch to the "current" driver packages (which are now built
   from the Tesla releases).
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 19 Jan 2024 23:42:04 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 04 Feb 2024 00:06:52 +0100
 
 nvidia-graphics-drivers (525.89.02-1) unstable; urgency=medium
 
