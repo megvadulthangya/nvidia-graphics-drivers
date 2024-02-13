@@ -19,11 +19,12 @@ XORG_BOUND		?=
 LINUX_KMOD_VARIANT	?=
 LINUX_KMOD_TESTED	?=
 NVIDIA_LEGACY_CHECK	?=
-NVIDIA_SETTINGS		?= nvidia-settings$(-variant)
+NVIDIA_SETTINGS		?= nvidia-settings$(-variant) (>= $(NVIDIA_MAJOR))
 ARCH_CANDIDATES		?= amd64 i386 armhf arm64 ppc64el
 ARCH_LIST		?= amd64
 BLOB_ARCH_LIST		?= $(strip $(DEB_HOST_ARCH) $(ARCH_DEPS_$(DEB_HOST_ARCH)))
 NO_DRIVER_ARCH_LIST	?=
+NO_TARBALL_ARCH_LIST	?=
 NO_AUTOPKGTEST_ARCH_LIST?=
 NO_VULKAN_ARCH_LIST	?=
 
@@ -57,6 +58,7 @@ debhelper_compat	:= $(shell sed -rn 's/.*debhelper-compat \(= ([0-9]+)\).*/\1/p'
 has_driver		 = $(filter $(DEB_HOST_ARCH),$(DRIVER_ARCH_LIST))
 has_vulkan		 = $(filter $(DEB_HOST_ARCH),$(filter-out $(NO_VULKAN_ARCH_LIST),$(ARCH_LIST)))
 DRIVER_ARCH_LIST	 = $(filter-out $(NO_DRIVER_ARCH_LIST),$(ARCH_LIST))
+TARBALL_ARCH_LIST	 = $(filter-out $(NO_TARBALL_ARCH_LIST),$(DRIVER_ARCH_LIST))
 AUTOPKGTEST_ARCH_LIST	 = $(filter-out $(NO_AUTOPKGTEST_ARCH_LIST),$(DRIVER_ARCH_LIST))
 
 # system libdir
@@ -162,8 +164,9 @@ NVIDIA-Linux-ppc64el: NVIDIA-Linux-amd64
 	cp -al $</*.json* $@
 endif
 
-# Unpack all architectures, we may need files from all of them.
-unpack-stamp: $(patsubst %,NVIDIA-Linux-%,$(ARCH_LIST))
+# Always unpack amd64, we need files from them.
+unpack-stamp: NVIDIA-Linux-amd64
+unpack-stamp: NVIDIA-Linux-$(DEB_HOST_ARCH)
 	$(if $(filter $(DEB_HOST_ARCH),$(ARCH_LIST)),,$(error Architecture $(DEB_HOST_ARCH) unsupported.))
 	dh_testdir
 	$(RM) NVIDIA-Linux
@@ -468,7 +471,7 @@ pci.ids.nvidia: /usr/share/misc/pci.ids
 	done > $@
 
 # only invoked manually
-file-lists: $(patsubst %,debian/files_$(NVIDIA_RELEASE)_%,$(DRIVER_ARCH_LIST))
+file-lists: $(patsubst %,debian/files_$(NVIDIA_RELEASE)_%,$(TARBALL_ARCH_LIST))
 debian/files_$(NVIDIA_RELEASE)_%: NVIDIA-Linux-%
 	(cd $< && find .) | sed 's/$(NVIDIA_RELEASE)/VERSION/g' | sort > $@
 
@@ -548,7 +551,7 @@ endif
 
 UPSTREAM_NAME		 = nvidia-graphics-drivers
 UPSTREAM_VERSION	 = $(NVIDIA_RELEASE)
-TARBALL_LIST		 = $(foreach a,empty $(DRIVER_ARCH_LIST),$(call get_tarball,$a))
+TARBALL_LIST		 = $(foreach a,empty $(TARBALL_ARCH_LIST),$(call get_tarball,$a))
 
 GIT			?= git
 TARBALL_REPOSITORY	 = https://salsa.debian.org/nvidia-team/tarballs-$(UPSTREAM_NAME).git

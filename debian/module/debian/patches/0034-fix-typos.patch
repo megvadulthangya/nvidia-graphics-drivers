@@ -1,0 +1,48 @@
+From f675338d04cd91948033c0cd0fe84b2fa833285c Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 31 Jan 2024 03:06:19 +0100
+Subject: [PATCH] fix typos
+
+---
+ nvidia-uvm/uvm.h                | 2 +-
+ nvidia-uvm/uvm_perf_thrashing.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/nvidia-uvm/uvm.h b/nvidia-uvm/uvm.h
+index 090ef95..0822390 100644
+--- a/nvidia-uvm/uvm.h
++++ b/nvidia-uvm/uvm.h
+@@ -1204,7 +1204,7 @@ NV_STATUS UvmCleanUpZombieResources(void);
+ // non-fault-capable HW engines.
+ //
+ // By default, all mappings to this VA range have read, write and atomic access
+-// and are uncached. This behavior can be overriden for GPUs by explicitly
++// and are uncached. This behavior can be overridden for GPUs by explicitly
+ // specifying the mapping and caching attributes through this API. At most one
+ // GPU may cache the allocation, in which case no other processor should write
+ // to it. These GPUs must have been registered via UvmRegisterGpu. These GPUs
+diff --git a/nvidia-uvm/uvm_perf_thrashing.c b/nvidia-uvm/uvm_perf_thrashing.c
+index 00add34..13025dd 100644
+--- a/nvidia-uvm/uvm_perf_thrashing.c
++++ b/nvidia-uvm/uvm_perf_thrashing.c
+@@ -319,7 +319,7 @@ module_param(uvm_perf_thrashing_max_resets,    uint, S_IRUGO);
+ unsigned uvm_perf_map_remote_on_native_atomics_fault = 0;
+ module_param(uvm_perf_map_remote_on_native_atomics_fault, uint, S_IRUGO);
+ 
+-// Global post-processed values of the module parameters. They can be overriden
++// Global post-processed values of the module parameters. They can be overridden
+ // per VA-space.
+ static bool g_uvm_perf_thrashing_enable;
+ static unsigned g_uvm_perf_thrashing_threshold;
+@@ -563,7 +563,7 @@ static void va_space_thrashing_info_init_params(va_space_thrashing_info_t *va_sp
+     va_space_thrashing->params.threshold     = g_uvm_perf_thrashing_threshold;
+     va_space_thrashing->params.pin_threshold = g_uvm_perf_thrashing_pin_threshold;
+ 
+-    // Default thrashing parameters are overriden for simulated/emulated GPUs
++    // Default thrashing parameters are overridden for simulated/emulated GPUs
+     if (g_uvm_global.num_simulated_devices > 0 &&
+         (g_uvm_perf_thrashing_lapse_usec == UVM_PERF_THRASHING_LAPSE_USEC_DEFAULT)) {
+         va_space_thrashing->params.lapse_ns  = UVM_PERF_THRASHING_LAPSE_USEC_DEFAULT_EMULATION * 1000;
+-- 
+2.20.1
+

@@ -33,6 +33,8 @@ bashisms.patch
 0031-backport-asm-page.h-changes-from-470.223.02.patch
 0032-backport-drm_gem_prime_handle_to_fd-changes-from-470.patch
 0033-refuse-to-load-legacy-module-if-IBT-is-enabled.patch
+0034-fix-typos.patch
+0035-fix-build-w-kernel-6.1.76-6.6.15-6.7.3.patch
 ppc64el.patch
 
 # build system updates
