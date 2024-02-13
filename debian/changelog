@@ -406,8 +406,8 @@ nvidia-graphics-drivers (450.66-1) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Test that the patches can be applied to the module source.
-  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
-    while building kernel modules.
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules.
   * Simplify generating the -source and -dkms packages.
 
   [ Vincent Cheng ]
@@ -449,8 +449,8 @@ nvidia-graphics-drivers-tesla-450 (450.51.06-2) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Test that the patches can be applied to the module source (450.66-1).
-  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
-    while building kernel modules (450.66-1).
+  * nvidia-tesla-450-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules (450.66-1).
   * Simplify generating the -source and -dkms packages (450.66-1).
   * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
     to fix kernel module build for Linux 5.8.
@@ -470,7 +470,7 @@ nvidia-graphics-drivers-tesla-450 (450.51.06-1) unstable; urgency=medium
     - Add Provides: libnvidia-cfg.so.1 (= ${nvidia:Version}).
     - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
       the symbols file.
-  * There is no libnvidia-compiler on arm64 (450.57-3).
+  * There is no libnvidia-tesla-450-compiler on arm64 (450.57-3).
   * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 18 Aug 2020 23:20:53 +0200
@@ -681,8 +681,8 @@ nvidia-graphics-drivers-tesla-440 (440.95.01-2) unstable; urgency=medium
     - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
       the symbols file.
   * Test that the patches can be applied to the module source (450.66-1).
-  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
-    while building kernel modules (450.66-1).
+  * nvidia-tesla-440-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules (450.66-1).
   * Simplify generating the -source and -dkms packages (450.66-1).
   * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
     to fix kernel module build for Linux 5.8.
@@ -1426,8 +1426,8 @@ nvidia-graphics-drivers (418.181.07-1) buster; urgency=medium
     - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
       the symbols file.
   * Test that the patches can be applied to the module source (450.66-1).
-  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
-    while building kernel modules (450.66-1).
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules (450.66-1).
   * Simplify generating the -source and -dkms packages (450.66-1).
   * Bump watch file version to 4.
   * Bump Standards-Version to 4.5.1. No changes needed.
@@ -1471,8 +1471,8 @@ nvidia-graphics-drivers-tesla-418 (418.152.00-2) unstable; urgency=medium
     - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
       the symbols file.
   * Test that the patches can be applied to the module source (450.66-1).
-  * nvidia-kernel-dkms: Ship with unapplied patches and apply the patches
-    while building kernel modules (450.66-1).
+  * nvidia-tesla-418-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules (450.66-1).
   * Simplify generating the -source and -dkms packages (450.66-1).
   * Backport nv_vmalloc and nv_mmap_* (mmap_{sem=>lock}) changes from 450.57
     to fix kernel module build for Linux 5.8.
@@ -1554,7 +1554,7 @@ nvidia-graphics-drivers-tesla-418 (418.116.00-3) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.116.00-2) experimental; urgency=medium
 
-  * Rename to *-tesla-418-*.
+  * Rename packages from *-tesla* to *-tesla-418*.
   * Add transitional nvidia-tesla-driver package.
   * Use separately packaged nvidia-settings-tesla-418.  (Closes: #948961)
   * Use substitution to keep Standards-Version in sync (430.64-5).
