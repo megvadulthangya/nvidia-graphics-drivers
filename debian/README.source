@@ -34,7 +34,7 @@ Upstream support timeframes
     Tesla 470 (LTSB)    07/2024
     Tesla 510 (PB)      01/2023 EoL
     Tesla 515 (PB)      05/2023 EoL
-    Tesla 525 (PB)      12/2023
+    Tesla 525 (PB)      12/2023 EoL
     Tesla 535 (LTSB)    06/2026
 
 
@@ -66,24 +66,17 @@ The branch structure in the GIT repository
     460                 EoL   (bullseye)          470, tesla-460/main
     tesla-460/main      EoL   (bullseye),(sid)    tesla-470/main, tesla-460/transition-470
     tesla-460/transition-470  bullseye,sid
-    470                       bullseye            525-tesla, tesla-470/main
+    470                       bullseye            525, tesla-470/main
     tesla-470/main            bullseye,bookworm,sid tesla/525
-    525                       bookworm,sid        535, 525-tesla
-    525-tesla                 (bookworm)          535-tesla, tesla/525
-    tesla/525                 bookworm,sid        tesla/535
-    535                       bookworm,sid        YYY, 535-tesla
-    535-tesla                 (bookworm)          ZZZ-tesla, tesla/535
-    tesla/535                 bookworm,sid        tesla/ZZZ
-    main                      sid                 YYY
-    tesla/main                sid
-    YYY                       experimental        ZZZ, (main)
-    ZZZ                       experimental        (main)
-    ZZZ-tesla                 (experimental)      tesla/ZZZ
-    tesla/ZZZ                 experimental        (tesla/main)
+    525                 EoL   bookworm,sid        535, tesla/525
+    tesla/525           EoL   (bookworm),(sid)    tesla/transition
+    tesla/transition          bookworm,sid
+    535                       bookworm,sid        YYY
+    YYY                       experimental        ZZZ
+    ZZZ                       experimental
     *-backports               *-backports
     ABCxx/*-backports         *-backports
     tesla-ABC/*-backports     *-backports
-    tesla/*-backports         *-backports
 
     New upstream releases (XXX.yy[.zz]) are always imported into the XXX
     branch. If this branch does not yet exist, fork it from ZZZ (but do
@@ -94,7 +87,7 @@ The branch structure in the GIT repository
     currently used used for both stable and sid.
 
     Minor updates, fixes and features should always go to the oldest branch
-    where they are applicable, i.e. 340-stretch (or 390) in most cases.
+    where they are applicable, i.e. 340 (or 390) in most cases.
 
     The following packages have hardcoded lists of alternative dependencies
     that need to be updated whenever the list of supported driver packages

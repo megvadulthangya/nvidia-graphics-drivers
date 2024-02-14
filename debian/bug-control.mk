@@ -51,12 +51,12 @@ define PACKAGE_STATUS
 	libnvidia-ml.so.1
 	nvidia-cuda-mps
 	nvidia-powerd
+	nvidia-modprobe
 	nvidia-settings$(-variant)
 	nvidia-xconfig
+	nvidia-persistenced
 	nvidia-support
 	nvidia-kernel-common
-	nvidia-modprobe
-	nvidia-persistenced
 	xserver-xorg
 	xserver-xorg-core
 	xserver-xorg-legacy
