@@ -1936,14 +1936,14 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-14) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-14) unstable; urgency=medium
 
   * Apply pfn_valid patch from gentoo to fix kernel module build for
     Linux 6.1.76, 6.6.15, 6.7.3, 6.8.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Feb 2024 14:49:02 +0100
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-13) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-13) unstable; urgency=medium
 
   * Revert backport of pin_user_pages changes.
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
@@ -1954,7 +1954,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-13) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 14 Nov 2023 17:03:30 +0100
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-12) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-12) unstable; urgency=medium
 
   * Backport get_user_pages and pin_user_pages changes from 520.56.06,
     525.53 and 535.86.05 to fix kernel module build for Linux 6.5.
@@ -2503,12 +2503,23 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-4) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-4~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Feb 2024 01:55:48 +0100
+
+nvidia-graphics-drivers-tesla-450 (450.248.02-4) unstable; urgency=medium
 
   * The Tesla 450 driver series has been declared as End-of-Life by
     NVIDIA. No further updates fixing security issues, critical bugs, or
     adding support for new Xorg or Linux releases will be issued.
     https://docs.nvidia.com/datacenter/tesla/drivers/
+
+  * Turn metapackages into transitional packages to aid switching to
+    nvidia-graphics-drivers-tesla-470.  (Closes: #1055140)
+  * Provide less virtual packages.
+  * Remove the Tesla 450 driver from the nvidia alternative.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Nov 2023 14:13:01 +0100
 
