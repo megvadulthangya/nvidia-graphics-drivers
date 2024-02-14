@@ -567,7 +567,7 @@ Pre-Depends:
  ${nvidia:legacy-check},
  ${misc:Pre-Depends}
 Depends:
- libnvidia-cuda1,
+ libcuda1,
  nvidia-support,
  ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-ptxjitcompiler1 (= ${binary:Version}),
