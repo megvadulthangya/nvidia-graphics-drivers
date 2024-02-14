@@ -751,6 +751,8 @@ nvidia-graphics-drivers-tesla (510.85.02-1) unstable; urgency=medium
     '-tesla'.
   * Build the nvidia-powerd package, but ship the insecure nvidia-dbus.conf as
     an example only.  (Closes: #1014283)
+  * Temporarily add wildcard Lintian overrides since ftp-master does not
+    understand the current format.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 10 Aug 2022 19:00:36 +0200
 
@@ -1032,6 +1034,20 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
+
+nvidia-graphics-drivers-tesla-470 (470.223.02-4~deb12u1) bookworm; urgency=medium
+
+  * Rebuild for bookworm.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Feb 2024 00:00:08 +0100
+
+nvidia-graphics-drivers-tesla-470 (470.223.02-4) unstable; urgency=medium
+
+  * Apply pfn_valid patch from gentoo to fix kernel module build for
+    Linux 6.1.76, 6.6.15, 6.7.3, 6.8.  (Closes: #1063361)
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 08 Feb 2024 14:23:21 +0100
 
 nvidia-graphics-drivers-tesla-470 (470.223.02-3) unstable; urgency=medium
 
@@ -1887,7 +1903,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers (460.106.00-14) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-14) UNRELEASED; urgency=medium
 
   * Apply pfn_valid patch from gentoo to fix kernel module build for
     Linux 6.1.76, 6.6.15, 6.7.3, 6.8.
