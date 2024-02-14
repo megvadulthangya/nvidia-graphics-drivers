@@ -441,6 +441,14 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
+nvidia-graphics-drivers (470.223.02-4) UNRELEASED; urgency=medium
+
+  * Apply pfn_valid patch from gentoo to fix kernel module build for
+    Linux 6.1.76, 6.6.15, 6.7.3, 6.8.
+  * Update lintian overrides.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 08 Feb 2024 14:23:21 +0100
+
 nvidia-graphics-drivers-tesla-470 (470.223.02-3) UNRELEASED; urgency=medium
 
   * Rebuild as Tesla 470 driver.
@@ -452,8 +460,9 @@ nvidia-graphics-drivers (470.223.02-3) UNRELEASED; urgency=medium
   * Switch src:nvidia-graphics-drivers to the Tesla 470 driver series.
   * Build for ppc64el.
   * Build all unversioned packages from src:nvidia-graphics-drivers.
+  * New Romanian (ro) debconf translations by Remus-Gabriel Chelu.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 12 Dec 2023 18:33:57 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 25 Jan 2024 19:48:07 +0100
 
 nvidia-graphics-drivers-tesla-470 (470.223.02-2~deb11u1) bullseye; urgency=medium
 
@@ -1310,6 +1319,13 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
+nvidia-graphics-drivers (460.106.00-14) UNRELEASED; urgency=medium
+
+  * Apply pfn_valid patch from gentoo to fix kernel module build for
+    Linux 6.1.76, 6.6.15, 6.7.3, 6.8.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 Feb 2024 14:49:02 +0100
+
 nvidia-graphics-drivers-tesla-460 (460.106.00-13) UNRELEASED; urgency=medium
 
   * Revert backport of pin_user_pages changes.
@@ -1454,6 +1470,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-1) unstable; urgency=medium
   * bug-script: Show the nvidia and glx alternatives (470.82.00-1).
   * nvidia-tesla-460-alternative: libnvidia-cfg.so.1 on its own is not
     sufficient to activate a nvidia alternative (470.82.00-1).
+    (Closes: #996595)
   * Fix bashisms in upstream scripts (470.82.00-1).
   * Drop the unusable leftover non-GLVND libegl1-nvidia-tesla-460 package
     (470.82.00-1).
