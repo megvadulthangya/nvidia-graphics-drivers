@@ -1,7 +1,15 @@
+nvidia-graphics-drivers-tesla (525.147.05-7~deb12u1) bookworm; urgency=medium
+
+  * Rebuild for bookworm.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Feb 2024 13:51:38 +0100
+
 nvidia-graphics-drivers-tesla (525.147.05-7) unstable; urgency=medium
 
   * Relax the dependencies on libnvidia*-glcore/libnvidia*-eglcore for the
     transitional packages.
+  * Apply pfn_valid patch from gentoo to fix kernel module build for
+    Linux 6.1.76, 6.6.15, 6.7.3, 6.8.  (Closes: #1063362)
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 14 Feb 2024 16:14:35 +0100
 
