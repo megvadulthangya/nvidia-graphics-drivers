@@ -16,8 +16,12 @@ define REPORT_WITH
 	libgl1-glvnd-$(nvidia)-glx:any
 	xserver-xorg-video-$(nvidia)
 	$(nvidia)-alternative
-	$(nvidia)-kernel-dkms
-	$(nvidia)-kernel-source
+	$(nvidia-kernel)-dkms
+	$(nvidia-kernel)-source
+	nvidia-open-kernel-dkms
+	nvidia-open-kernel-source
+	$(nvidia)-open-kernel-dkms
+	$(nvidia)-open-kernel-source
 	glx-alternative-nvidia
 	xserver-xorg-video-intel
 endef
@@ -25,8 +29,14 @@ endef
 define PACKAGE_STATUS
 	$(nvidia)-driver
 	nvidia-glx$(-variant)
-	$(nvidia)-kernel-dkms
-	$(nvidia)-kernel-source
+	$(nvidia-kernel)-dkms
+	$(nvidia-kernel)-source
+	nvidia-open-kernel-dkms
+	nvidia-open-kernel-source
+	$(nvidia)-open-kernel-dkms
+	$(nvidia)-open-kernel-source
+	nvidia-kernel-dkms-any
+	nvidia-open-kernel-dkms-any
 	nvidia-kernel-support-any
 	nvidia-driver-any
 	nvidia-glx-any
@@ -39,11 +49,15 @@ define PACKAGE_STATUS
 	libcuda1-any
 	libcuda.so.1
 	libnvidia-ml.so.1
-	nvidia-settings
+	nvidia-cuda-mps
+	nvidia-powerd
+	nvidia-suspend-common
+	nvidia-modprobe
+	nvidia-settings$(-variant)
 	nvidia-xconfig
+	nvidia-persistenced
 	nvidia-support
 	nvidia-kernel-common
-	nvidia-modprobe
 	xserver-xorg
 	xserver-xorg-core
 	xserver-xorg-legacy

@@ -2,9 +2,8 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: NVIDIA Linux Display Drivers
 Upstream-Contact: NVIDIA Corporation <linux-bugs@nvidia.com>
 Source:
- https://download.nvidia.com/XFree86/Linux-x86/
  https://download.nvidia.com/XFree86/Linux-x86_64/
- https://download.nvidia.com/XFree86/Linux-32bit-ARM/
+ https://download.nvidia.com/XFree86/Linux-aarch64/
 Disclaimer:
  This package is not part of the GNU/Linux Debian distribution.  It is
  provided in the non-free archive area as a convenience to Debian users.
@@ -16,7 +15,9 @@ Disclaimer:
 Files:
  amd64/*
  arm64/*
-Copyright: 1993-2022 NVIDIA Corporation.  All rights reserved.
+ ppc64el/*
+Copyright:
+ 1993-2023 NVIDIA Corporation.  All rights reserved.
 License: NVIDIA-graphics-drivers
 
 Files: supported-gpus/supported-gpus.json
@@ -26,7 +27,7 @@ License: zlib/libpng
 Files: debian/*
 Copyright: 2001-2010 Randall Donald <rdonald@debian.org>
            2009-2010 Andres Mejia <mcitadel@gmail.com>
-           2009-2022 Andreas Beckmann <anbe@debian.org>
+           2009-2024 Andreas Beckmann <anbe@debian.org>
            2010-2011 Russ Allbery <rra@debian.org>
            2014-2015 Vincent Cheng <vcheng@debian.org>
            2015-2019 Luca Boccassi <bluca@debian.org>
@@ -35,20 +36,18 @@ Copyright: 2001-2010 Randall Donald <rdonald@debian.org>
 License: GPL-2.0+
 
 Files: debian/detect/nvidia-detect.in
-Copyright: © 2008-2011 Filipus Klutiero <chealer@gmail.com>
-           © 2011-2022 Andreas Beckmann <anbe@debian.org>
+Copyright:
+ © 2008-2011 Filipus Klutiero <chealer@gmail.com>
+ © 2011-2024 Andreas Beckmann <anbe@debian.org>
 License: GPL-2.0+
 
-Files: debian/module/debian/patches/* debian/patches/*
-Copyright: no copyright notice, see License field
-License: anbe-public-domain
- The authors hereby relinquish any claim to any copyright that they may
- have in this work, whether granted under contract or by operation of law
- or international treaty, and hereby commit to the public, at large, that
- they shall not, at any time in the future, seek to enforce any copyright
- in this work against any person or entity, or prevent any person or
- entity from copying, publishing, distributing or creating derivative
- works of this work.
+Files: debian/patches/*
+Copyright:
+ (c) 1993-2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+License: Expat
+Comment:
+ Except where noted otherwise, the individual kernel module source files
+ (but not the blobs) are licensed as MIT (aka Expat).
 
 License: GPL-2.0+
  This package is free software; you can redistribute it and/or modify
@@ -66,6 +65,25 @@ License: GPL-2.0+
  .
  On Debian systems, the complete text of the GNU General Public
  License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the "Software"),
+ to deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included
+ in all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 License: NVIDIA-graphics-drivers
  License For Customer Use of NVIDIA Software

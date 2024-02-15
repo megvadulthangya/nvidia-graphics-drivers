@@ -1,5 +1,4 @@
 # The NVIDIA license does not allow any form of modification.
-embedded-library zlib usr/lib/#PRIVATE#/nvidia-debugdump
 hardening-no-bindnow
 hardening-no-fortify-functions
 hardening-no-pie

@@ -28,6 +28,7 @@ nvidia-settings.desktop
 nvidia-settings.png
 libnvidia-gtk2.so.#VERSION#
 libnvidia-gtk3.so.#VERSION#
+libnvidia-wayland-client.so.#VERSION#
 
 # built from src:nvidia-xconfig
 nvidia-xconfig
@@ -36,6 +37,10 @@ nvidia-xconfig.1
 # built from src:egl-wayland
 libnvidia-egl-wayland.so.1.*.*
 10_nvidia_wayland.json
+
+# built from src:nvidia-egl-gbm
+libnvidia-egl-gbm.so.1.1.*
+15_nvidia_gbm.json
 
 # built from src:libglvnd
 libEGL.so.1.1.0

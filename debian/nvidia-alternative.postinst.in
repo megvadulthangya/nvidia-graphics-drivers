@@ -51,18 +51,22 @@ if [ "$1" = "triggered" ]; then
 		$(add_multiarch_slave /usr/lib "" libGLESv2_nvidia.so.2 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libcuda.so.1 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libcuda.so /usr/lib #PRIVATE#/)
+		$(add_multiarch_slave /usr/lib "" libcudadebugger.so.1 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvcuvid.so.1 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvcuvid.so /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvidia-allocator.so.1 /usr/lib #PRIVATE#/)
+		$(add_multiarch_slave /usr/lib "" libnvidia-api.so.1 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvidia-encode.so.1 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvidia-fbc.so.1 /usr/lib #PRIVATE#/)
-		$(add_multiarch_slave /usr/lib "" libnvidia-ifr.so.1 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvidia-ml.so.1 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvidia-ngx.so.1 /usr/lib #PRIVATE#/)
+		$(add_multiarch_slave /usr/lib "" libnvidia-nvvm.so.4 /usr/lib #PRIVATE#/)
+		$(add_multiarch_slave /usr/lib "" libnvidia-nvvm.so.#VERSION# /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvidia-opencl.so.1 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvidia-opticalflow.so.1 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvidia-ptxjitcompiler.so.1 /usr/lib #PRIVATE#/)
 		$(add_multiarch_slave /usr/lib "" libnvoptix.so.1 /usr/lib #PRIVATE#/)
+		$(add_multiarch_slave /usr/lib gbm/ nvidia-drm_gbm.so /usr/lib #PRIVATE#/)
 		$(add_slave /usr/bin/nvidia-smi nvidia-smi /usr/lib/#PRIVATE#/nvidia-smi)
 		$(add_slave /usr/share/man/man1/nvidia-smi.1.gz nvidia-smi.1.gz /usr/lib/#PRIVATE#/nvidia-smi.1.gz)
 		$(add_slave /usr/lib/nvidia/nvidia-bug-report.sh nvidia-bug-report.sh /usr/lib/#PRIVATE#/nvidia-bug-report.sh)
@@ -76,21 +80,45 @@ if [ "$1" = "triggered" ]; then
 	conf_slaves="
 		$(add_multiarch_slave /usr/lib nvidia/ libnvidia-cfg.so.1 /usr/lib #PRIVATE#/)
 		$(add_slave /etc/nvidia/nvidia-drm-outputclass.conf nvidia-drm-outputclass.conf /etc/#PRIVATE#/nvidia-drm-outputclass.conf)
-		$(add_slave /etc/nvidia/nvidia-blacklists-nouveau.conf nvidia-blacklists-nouveau.conf /etc/#PRIVATE#/nvidia-blacklists-nouveau.conf)
-		$(add_slave /etc/nvidia/nvidia-modprobe.conf nvidia-modprobe.conf /etc/#PRIVATE#/nvidia-modprobe.conf)
-		$(add_slave /etc/modprobe.d/nvidia-options.conf nvidia-options.conf /etc/#PRIVATE#/nvidia-options.conf)
-		$(add_slave /etc/nvidia/nvidia-load.conf nvidia-load.conf /etc/#PRIVATE#/nvidia-load.conf)
+"
+	kmod_slaves="
+		$(add_slave /etc/nvidia/nvidia-blacklists-nouveau.conf nvidia-blacklists-nouveau.conf /etc/nvidia/#NVIDIA#-#VERSION#/nvidia-blacklists-nouveau.conf)
+		$(add_slave /etc/nvidia/nvidia-modprobe.conf nvidia-modprobe.conf /etc/nvidia/#NVIDIA#-#VERSION#/nvidia-modprobe.conf)
+		$(add_slave /etc/modprobe.d/nvidia-options.conf nvidia-options.conf /etc/nvidia/#NVIDIA#-#VERSION#/nvidia-options.conf)
+		$(add_slave /etc/nvidia/nvidia-load.conf nvidia-load.conf /etc/nvidia/#NVIDIA#-#VERSION#/nvidia-load.conf)
+"
+	kmod_open_slaves="
+		$(add_slave /etc/nvidia/nvidia-blacklists-nouveau.conf nvidia-blacklists-nouveau.conf /etc/nvidia/#VERSION#-open/nvidia-blacklists-nouveau.conf)
+		$(add_slave /etc/nvidia/nvidia-modprobe.conf nvidia-modprobe.conf /etc/nvidia/#VERSION#-open/nvidia-modprobe.conf)
+		$(add_slave /etc/modprobe.d/nvidia-options.conf nvidia-options.conf /etc/nvidia/#VERSION#-open/nvidia-options.conf)
+		$(add_slave /etc/nvidia/nvidia-load.conf nvidia-load.conf /etc/nvidia/#VERSION#-open/nvidia-load.conf)
 "
 	libnvidia_ml_so_slave=
 	if [ -f /usr/include/nvml.h ]; then
 		libnvidia_ml_so_slave="$(add_multiarch_slave /usr/lib "" libnvidia-ml.so /usr/lib #PRIVATE#/)"
 	fi
+	normal_alternative=0
+	open_alternative=0
 	if echo "$slaves" | grep -q "slave" ; then
-		update-alternatives --install /usr/lib/nvidia/nvidia nvidia /usr/lib/#PRIVATE# #MAJOR# $slaves $conf_slaves $libnvidia_ml_so_slave
-		# work around #916799 and re-register the alternative to clean-up leftover slaves
-		update-alternatives --install /usr/lib/nvidia/nvidia nvidia /usr/lib/#PRIVATE# #MAJOR# $slaves $conf_slaves $libnvidia_ml_so_slave
+		if echo "${kmod_slaves}" | grep -q "slave" ; then
+			normal_alternative=1
+		fi
+		if echo "${kmod_open_slaves}" | grep -q "slave" ; then
+			open_alternative=1
+		else
+			# fallback: normal alternative w/o kernel module
+			normal_alternative=1
+		fi
+	fi
+	if [ "$normal_alternative" = 1 ]; then
+		update-alternatives --install /usr/lib/nvidia/nvidia nvidia /usr/lib/nvidia/#CURRENT# #MAJOR# $slaves $conf_slaves $kmod_slaves $libnvidia_ml_so_slave
 	else
-		update-alternatives --remove nvidia /usr/lib/#PRIVATE#
+		update-alternatives --remove nvidia /usr/lib/nvidia/#CURRENT#
+	fi
+	if [ "$open_alternative" = 1 ]; then
+		update-alternatives --install /usr/lib/nvidia/nvidia nvidia /usr/lib/nvidia/#CURRENT#-open $((#MAJOR# - 1)) $slaves $conf_slaves $kmod_open_slaves $libnvidia_ml_so_slave
+	else
+		update-alternatives --remove nvidia /usr/lib/nvidia/#CURRENT#-open
 	fi
 
 	# activate the trigger selecting NVIDIA as GLX provider

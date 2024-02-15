@@ -20,7 +20,10 @@ libnvidia-ngx.so.1 #PACKAGE# #MINVER#
  NVSDK_NGX_VULKAN_GetParameters@Base 450
  NVSDK_NGX_VULKAN_GetScratchBufferSize@Base 450
  NVSDK_NGX_VULKAN_Init@Base 450
+ NVSDK_NGX_VULKAN_Init_Ext2@Base 520
  NVSDK_NGX_VULKAN_Init_Ext@Base 450
+ NVSDK_NGX_VULKAN_Init_ProjectID@Base 495
+ NVSDK_NGX_VULKAN_Init_ProjectID_Ext@Base 520
  NVSDK_NGX_VULKAN_ReleaseFeature@Base 450
  NVSDK_NGX_VULKAN_RequiredExtensions@Base 450
  NVSDK_NGX_VULKAN_Shutdown1@Base 470

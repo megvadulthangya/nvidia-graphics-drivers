@@ -4,7 +4,8 @@ set -e
 
 if [ "$1" = "remove" ] || [ "$1" = "deconfigure" ]; then
 
-	update-alternatives --remove nvidia /usr/lib/#PRIVATE#
+	update-alternatives --remove nvidia /usr/lib/nvidia/#CURRENT#-open
+	update-alternatives --remove nvidia /usr/lib/nvidia/#CURRENT#
 	dpkg-trigger --no-await register-glx-alternative-nvidia
 
 fi
