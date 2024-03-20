@@ -1,8 +1,8 @@
-nvidia-graphics-drivers (525.147.05-7~deb12u1~bpo11+2) UNRELEASED; urgency=medium
+nvidia-graphics-drivers (525.147.05-7~deb12u1~bpo11+2) bullseye-backports; urgency=medium
 
   * Move firmware-nvidia-gsp back to non-free.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 20 Mar 2024 11:53:40 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 20 Mar 2024 14:58:09 +0100
 
 nvidia-graphics-drivers (525.147.05-7~deb12u1~bpo11+1) bullseye-backports; urgency=medium
 
