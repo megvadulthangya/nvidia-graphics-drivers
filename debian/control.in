@@ -108,7 +108,7 @@ Description: allows the selection of NVIDIA as GLX provider${nvidia:VariantDesc}
  ${nvidia}-driver package instead.
 
 Package: firmware-${nvidia}-gsp
-Section: non-free-firmware/kernel
+Section: non-free/kernel
 Architecture: amd64 ${arch:arm64} #${arch:ppc64el}
 Multi-Arch: foreign
 Depends:
