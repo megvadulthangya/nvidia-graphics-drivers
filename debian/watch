@@ -7,7 +7,7 @@ version=4
 # https://us.download.nvidia.com/tesla/450.51.05/NVIDIA-Linux-aarch64-450.51.05.run
 
 opts=component=amd64 \
-https://download.nvidia.com/XFree86/Linux-x86_64/(525(?:\.[\d\.\-]+)?)/NVIDIA-Linux-x86_64-(\d[\d\.\-]*)\.run
+https://download.nvidia.com/XFree86/Linux-x86_64/(535(?:\.[\d\.\-]+)?)/NVIDIA-Linux-x86_64-(\d[\d\.\-]*)\.run
 
 opts=searchmode=plain \
-https://docs.nvidia.com/datacenter/tesla/index.html Version.(525(?:\.[\d\.\-]+)?)
+https://docs.nvidia.com/datacenter/tesla/index.html Version.(535(?:\.[\d\.\-]+)?)

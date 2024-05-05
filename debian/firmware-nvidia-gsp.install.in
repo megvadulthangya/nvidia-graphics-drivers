@@ -1,1 +1,2 @@
 firmware/gsp*.bin	lib/firmware/nvidia/#VERSION#/
+RIM_GH100PROD.swidtag	usr/share/nvidia/rim/#VERSION#/

@@ -1,0 +1,2 @@
+libnvidia-pkcs11-openssl3.so.#VERSION# #PACKAGE# #MINVER#
+ C_GetFunctionList@Base 535

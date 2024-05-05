@@ -123,11 +123,11 @@ xorg_provides	 = xorg-driver-video
 
 deps_nvidia_kmod_binary	 = $${nvidia-kernel}-dkms (= $${binary:Version})                [$${nvidia:archlist:driver}] |
 deps_nvidia_kmod_binary	+= $${nvidia-kernel}-$${nvidia:Version}                         [$${nvidia:archlist:driver}] |
-deps_nvidia_kmod_binary	+= $${nvidia}-open-kernel-$${nvidia:Version}                    [$${nvidia:archlist:driver}] |
+#deps_nvidia_kmod_binary	+= $${nvidia}-open-kernel-$${nvidia:Version}                    [$${nvidia:archlist:driver}] |
 deps_nvidia_kmod_binary	+= nvidia-open-kernel-$${nvidia:Version}                        [$${nvidia:archlist:driver}] |
 deps_nvidia_kmod_source	 = $${nvidia-kernel}-dkms (>= $${nvidia:Version})               [$${nvidia:archlist:driver}] |
 deps_nvidia_kmod_source	+= $${nvidia-kernel}-source (>= $${nvidia:Version})             [$${nvidia:archlist:driver}] |
-deps_nvidia_kmod_source	+= $${nvidia}-open-kernel-source (>= $${nvidia:Version})        [$${nvidia:archlist:driver}] |
+#deps_nvidia_kmod_source	+= $${nvidia}-open-kernel-source (>= $${nvidia:Version})        [$${nvidia:archlist:driver}] |
 deps_nvidia_kmod_source	+= nvidia-open-kernel-source (>= $${nvidia:Version})            [$${nvidia:archlist:driver}] |
 
 
@@ -310,7 +310,7 @@ pack-module-source:
 		--sort=name \
 		--mtime='@$(SOURCE_DATE_EPOCH)' \
 		--clamp-mtime \
-		modules | xz -9 > $(module_source_txz)
+		modules | xz -T1 -9 > $(module_source_txz)
 	tar tfv $(module_source_txz)
 	$(RM) -r $(module_source_pkg)/usr/src/modules
 
@@ -377,14 +377,19 @@ debian/substvars:
 	echo 'nvidia:VariantDesc=$(variant_description)' > $@
 	echo 'nvidia:VariantDescShort=$(variant_description_short)' >> $@
 
-# Do not run dh_strip here.  The NVIDIA license says:
+# Do not run dh_strip here. The NVIDIA Driver License Agreement says:
 #
-#     2.1.2 Linux/FreeBSD Exception.  Notwithstanding the foregoing terms of
-#     Section 2.1.1, SOFTWARE designed exclusively for use on the Linux or
-#     FreeBSD operating systems, or other operating systems derived from the
-#     source code to these operating systems, may be copied and
-#     redistributed, provided that the binary files thereof are not modified
-#     in any way (except for unzipping of compressed files).
+#   1. License.
+#
+#   1.1 Subject to the terms of this Agreement, NVIDIA grants you a non-exclusive,
+#   revocable, non-transferable and non-sublicensable (except as expressly provided
+#   in this Agreement) license to:
+#   ...
+#   d. Distribute the SOFTWARE provided for use with operating systems distributed
+#   under the terms of an OSI-approved open source license as listed by the Open
+#   Source Initiative at http://opensource.org, provided that (i) the binary files
+#   thereof are not modified in any way (except for uncompressing of compressed
+#   files) and (ii) this Agreement is provided to each SOFTWARE recipient.
 #
 # Stripping the binary modules would constitute modifying the binary files
 # in a way other than unzipping of compressed files.
@@ -542,7 +547,7 @@ get-orig-source-pack/%: get-orig-source-files/%
 	    touch $(call get_tarball,$*) -r $(call get_origdir,$*).stamp
 	mv get-orig-source/$(call get_tarball,$*) .
 
-get-orig-source-files/empty: get-orig-source-prepare/empty $(foreach a,$(DRIVER_ARCH_LIST),get-orig-source-pack/$a)
+get-orig-source-files/empty: get-orig-source-prepare/empty $(foreach a,$(TARBALL_ARCH_LIST),get-orig-source-pack/$a)
 	touch get-orig-source/$(call get_origdir,empty).stamp -r $$(ls -tr $(foreach a,$(DRIVER_ARCH_LIST),$(call get_tarball,$a)) | tail -n 1)
 
 .PHONY: get-orig-source

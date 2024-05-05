@@ -18,3 +18,12 @@ Depends:
  nvidia-detect,
 Restrictions:
  superficial,
+
+Test-Command: true
+Features: test-name=full-install
+Architecture: amd64 arm64 ppc64el
+Depends:
+ nvidia-driver-full,
+ linux-headers-generic,
+Restrictions:
+ superficial,

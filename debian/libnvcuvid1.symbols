@@ -1,5 +1,13 @@
 libnvcuvid.so.1 #PACKAGE# #MINVER#
 * Build-Depends-Package: #PACKAGE#
+ (arch=!arm64 !ppc64el)NvToolCreateInterface@Base 535
+ (arch=!arm64 !ppc64el)NvToolDestroyInterface@Base 535
+ (arch=!arm64 !ppc64el)NvToolGetApiFunctionCount@Base 535
+ (arch=!arm64 !ppc64el)NvToolGetApiID@Base 535
+ (arch=!arm64 !ppc64el)NvToolGetApiNames@Base 535
+ (arch=!arm64 !ppc64el)NvToolGetInterface@Base 535
+ (arch=!arm64 !ppc64el)NvToolSetApiID@Base 535
+ (arch=!arm64 !ppc64el)NvToolSetInterface@Base 535
  __std_1U4S4U_X02@Base 310
  __std_2U4S4U_X08@Base 387
  __std_4U4S4U_X04@Base 415

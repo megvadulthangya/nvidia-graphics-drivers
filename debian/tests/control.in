@@ -18,3 +18,12 @@ Depends:
  nvidia-detect,
 Restrictions:
  superficial,
+
+Test-Command: true
+Features: test-name=full-install
+Architecture: #AUTOPKGTEST_ARCH_LIST#
+Depends:
+ #NVIDIA#-driver-full,
+ linux-headers-generic,
+Restrictions:
+ superficial,

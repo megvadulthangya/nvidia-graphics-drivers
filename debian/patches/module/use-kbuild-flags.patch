@@ -13,7 +13,7 @@ Description: use KBUILD_CFLAGS and (KBUILD_)LDFLAGS
 
 --- a/Kbuild
 +++ b/Kbuild
-@@ -144,6 +144,12 @@ NV_CONFTEST_CMD := /bin/sh $(NV_CONFTEST
+@@ -152,6 +152,12 @@ NV_CONFTEST_CMD := /bin/sh $(NV_CONFTEST
  NV_CFLAGS_FROM_CONFTEST := $(shell $(NV_CONFTEST_CMD) build_cflags)
  
  NV_CONFTEST_CFLAGS = $(NV_CFLAGS_FROM_CONFTEST) $(EXTRA_CFLAGS) -fno-pie

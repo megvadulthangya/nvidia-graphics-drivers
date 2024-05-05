@@ -18,6 +18,7 @@ Build-Depends-Arch:
  po-debconf,
  quilt,
  xz-utils,
+ zstd,
  linux-headers-amd64 [amd64] <!nocheck>,
  linux-headers-arm64 [arm64] <!nocheck>,
  linux-headers-powerpc64le [ppc64el] <!nocheck>,
@@ -66,6 +67,37 @@ Description: NVIDIA metapackage${nvidia:VariantDesc}
  for a complete list of supported GPUs and PCI IDs.
  .
  Building the kernel module has been tested up to Linux ${nvidia:kmod:tested:Linux}.
+
+Package: ${nvidia}-driver-full
+Section: non-free/x11
+Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
+Depends:
+ ${nvidia}-driver (= ${binary:Version}),
+ libgles-${nvidia-}1 (= ${binary:Version}),
+ libgles-${nvidia-}2 (= ${binary:Version}),
+ lib${nvidia}-cfg1 (= ${binary:Version}),
+ lib${nvidia}-encode1 (= ${binary:Version}),
+ ${nvidia}-vulkan-icd (= ${binary:Version}),
+ lib${nvidia}-allocator1 (= ${binary:Version}),
+ lib${nvidia}-rtcore (= ${binary:Version}) [amd64 ${arch:arm64}],
+ ${nvidia}-smi (= ${binary:Version}),
+ lib${nvidia-if-variant}cudadebugger1 (= ${binary:Version}),
+ lib${nvidia}-fbc1 (= ${binary:Version}) [amd64 ${arch:arm64}],
+ lib${nvidia-if-variant}nvoptix1 (= ${binary:Version}) [amd64 ${arch:arm64}],
+ lib${nvidia}-opticalflow1 (= ${binary:Version}),
+ lib${nvidia}-ngx1 (= ${binary:Version}) [amd64],
+ lib${nvidia}-api1 (= ${binary:Version}),
+ ${nvidia}-opencl-icd (= ${binary:Version}),
+ nvidia-powerd (= ${binary:Version}) [amd64],
+ nvidia-cuda-mps (= ${binary:Version}),
+ nvidia-suspend-common (= ${binary:Version}),
+ nvidia-settings,
+ nvidia-persistenced,
+ ${misc:Depends}
+Description: NVIDIA metapackage (all components)${nvidia:VariantDesc}
+ This metapackage depends on all components of the NVIDIA binary driver and
+ libraries that provide optimized hardware acceleration of
+ OpenGL/GLX/EGL/GLES/Vulkan applications via a direct-rendering X Server.
 
 Package: ${nvidia}-alternative
 Architecture: i386 amd64 ${arch:arm64} ${arch:ppc64el}
@@ -228,6 +260,7 @@ Depends:
 Recommends:
  ${nvidia}-driver (>= ${nvidia:Version}),
  ${nvidia}-vdpau-driver (>= ${nvidia:Version}),
+ ${nvidia}-vulkan-icd (>= ${nvidia:Version}),
  ${nvidia:kmod:binary},
  nvidia-suspend-common,
  ${nvidia-settings},
@@ -310,7 +343,8 @@ Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:VariantDesc}
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
  for graphics cards using NVIDIA chip sets.
  .
- This package contains the libnvidia-cfg.so.1 runtime library.
+ This package contains the private libnvidia-cfg runtime library
+ which is used by other driver components.
 
 Package: ${nvidia}-driver-libs
 Architecture: i386 amd64 ${arch:arm64} ${arch:ppc64el}
@@ -476,6 +510,7 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
+ lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
  libnvidia-glcore-${nvidia:Version},
@@ -643,6 +678,7 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
+ lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
  libnvidia-eglcore-${nvidia:Version},
@@ -753,7 +789,6 @@ Depends:
  nvidia-vulkan-common,
  libvulkan1 (>= 1.0.42),
  libglx-${nvidia-}0 (= ${binary:Version}),
- lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${misc:Depends}
 Recommends:
  lib${nvidia}-rtcore (= ${binary:Version}) [!i386 !ppc64el],
@@ -889,6 +924,7 @@ Depends:
  nvidia-support,
  ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-ptxjitcompiler1 (= ${binary:Version}),
+ lib${nvidia}-pkcs11-openssl3 (= ${binary:Version}) [amd64],
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia:kmod:binary},
@@ -930,6 +966,8 @@ Provides:
  libcuda-11.7-1,
  libcuda-11.8-1,
  libcuda-12.0-1,
+ libcuda-12.1-1,
+ libcuda-12.2-1,
 Homepage: https://www.nvidia.com/CUDA
 Description: NVIDIA CUDA Driver Library${nvidia:VariantDesc}
  The Compute Unified Device Architecture (CUDA) enables NVIDIA
@@ -944,11 +982,30 @@ Description: NVIDIA CUDA Driver Library${nvidia:VariantDesc}
  .
  ${nvidia:kmod:Description}
 
+Package: lib${nvidia}-pkcs11-openssl3
+Architecture: amd64
+Multi-Arch: same
+Depends:
+ ${nvidia}-alternative (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Provides:
+ libnvidia-pkcs11-openssl3-${nvidia:Version},
+Conflicts:
+ libnvidia-pkcs11-openssl3-${nvidia:Version},
+Homepage: https://www.nvidia.com/CUDA
+Description: NVIDIA PKCS #11 Library (OpenSSL 3)${nvidia:VariantDesc}
+ The Compute Unified Device Architecture (CUDA) enables NVIDIA
+ graphics processing units (GPUs) to be used for massively parallel
+ general purpose computation.
+ .
+ This package contains the NVIDIA PKCS #11 library with OpenSSL 3 backend.
+
 Package: lib${nvidia-if-variant}cudadebugger1
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: same
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
+ ${libcuda1} (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Homepage: https://www.nvidia.com/CUDA
 Description: NVIDIA CUDA Debugger Library${nvidia:VariantDesc}
@@ -957,24 +1014,6 @@ Description: NVIDIA CUDA Debugger Library${nvidia:VariantDesc}
  general purpose computation.
  .
  This package contains the CUDA Debugger library for Pascal and later GPUs.
-
-Package: lib${nvidia}-compiler
-Architecture: i386 amd64
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-compiler-${nvidia:Version},
-Conflicts:
- libnvidia-compiler-${nvidia:Version},
-Description: NVIDIA runtime compiler library${nvidia:VariantDesc}
- The Compute Unified Device Architecture (CUDA) enables NVIDIA
- graphics processing units (GPUs) to be used for massively parallel
- general purpose computation.
- .
- This package contains the runtime compiler library.
 
 Package: lib${nvidia}-ptxjitcompiler1
 Architecture: i386 amd64 ${arch:arm64} ${arch:ppc64el}
@@ -1095,7 +1134,8 @@ Description: NVIDIA allocator runtime library${nvidia:VariantDesc}
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
  for graphics cards using NVIDIA chip sets.
  .
- This package contains the private nvidia-allocator runtime library.
+ This package contains the private nvidia-allocator runtime library
+ which is used by other driver components.
 
 Package: lib${nvidia}-ngx1
 Architecture: amd64
@@ -1119,12 +1159,10 @@ Pre-Depends:
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA API runtime library${nvidia:VariantDescShort}
- The NVIDIA binary driver provides optimized hardware acceleration of
- OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
- for graphics cards using NVIDIA chip sets.
+Description: NVAPI runtime library${nvidia:VariantDescShort}
+ NVAPI provides an interface for managing properties of GPUs.
  .
- This package contains the NVIDIA API runtime library.
+ This package contains the NVAPI runtime library.
 
 Package: nvidia-opencl-common
 Architecture: i386 amd64 arm64 ppc64el
@@ -1152,7 +1190,6 @@ Depends:
  ocl-icd-libopencl1 | nvidia-libopencl1 | libopencl1,
  ${nvidia}-alternative (= ${binary:Version}),
  ${libcuda1} (= ${binary:Version}),
- lib${nvidia}-compiler (= ${binary:Version}) [!arm64 !ppc64el],
  lib${nvidia}-nvvm4 (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Enhances:

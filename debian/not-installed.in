@@ -56,3 +56,5 @@ libOpenGL.so.0
 nvidia-ngx-updater
 
 libEGL.so.#VERSION#
+
+libnvidia-pkcs11.so.#VERSION#
