@@ -57,4 +57,4 @@ nvidia-ngx-updater
 
 libEGL.so.#VERSION#
 
-libnvidia-pkcs11.so.#VERSION#
+libnvidia-pkcs11-openssl3.so.#VERSION#
