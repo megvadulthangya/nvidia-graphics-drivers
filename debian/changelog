@@ -1,10 +1,10 @@
-nvidia-graphics-drivers (535.161.08-2~deb12u1~bpo11+1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers (535.161.08-2~deb12u1~bpo11+1) bullseye-backports; urgency=medium
 
   * Rebuild for bullseye-backports.
   * libnvidia-pkcs11-openssl3: Ship the library built against OpenSSL 1.1
     (instead of OpenSSL 3), but don't change the package name.
 
- -- Andreas Beckmann <anbe@debian.org>  Sun, 05 May 2024 23:28:18 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 06 May 2024 00:44:38 +0200
 
 nvidia-graphics-drivers (535.161.08-2~deb12u1) bookworm; urgency=medium
 
