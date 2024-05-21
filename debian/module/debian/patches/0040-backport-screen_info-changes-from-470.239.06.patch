@@ -1,0 +1,78 @@
+From 6bfe55e64a28f7030a3d2317f8ed558ce78fa1f0 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Mon, 4 Mar 2024 22:48:44 +0100
+Subject: [PATCH] backport screen_info changes from 470.239.06
+
+---
+ common/inc/nv-linux.h | 2 ++
+ conftest.sh           | 4 ++--
+ nvidia/nvidia.Kbuild  | 1 +
+ nvidia/os-interface.c | 5 ++++-
+ 4 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
+index 7eba67e..8aafc12 100644
+--- a/common/inc/nv-linux.h
++++ b/common/inc/nv-linux.h
+@@ -1968,4 +1968,6 @@ static inline NvU32 nv_default_irq_flags(nv_state_t *nv)
+ 
+ NvS32 nv_request_soc_irq(nv_linux_state_t *, NvU32, nv_soc_irq_type_t, NvU32, NvU32);
+ 
++#define NV_CHECK_EXPORT_SYMBOL(symbol)  (NV_IS_EXPORT_SYMBOL_PRESENT_##symbol && \
++                                         !NV_IS_EXPORT_SYMBOL_GPL_##symbol)
+ #endif  /* _NV_LINUX_H_ */
+diff --git a/conftest.sh b/conftest.sh
+index c07ba37..6d01bd1 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -313,7 +313,7 @@ export_symbol_present_conftest() {
+     SYMBOL="$1"
+     TAB='	'
+ 
+-    if grep -e "${TAB}${SYMBOL}${TAB}.*${TAB}EXPORT_SYMBOL.*\$" \
++    if grep -e "${TAB}${SYMBOL}${TAB}.*${TAB}EXPORT_SYMBOL\(_GPL\)\?\s*\$" \
+                "$OUTPUT/Module.symvers" >/dev/null 2>&1; then
+         echo "#define NV_IS_EXPORT_SYMBOL_PRESENT_$SYMBOL 1" |
+             append_conftest "symbols"
+@@ -334,7 +334,7 @@ export_symbol_gpl_conftest() {
+     SYMBOL="$1"
+     TAB='	'
+ 
+-    if grep -e "${TAB}${SYMBOL}${TAB}.*${TAB}EXPORT_\(UNUSED_\)*SYMBOL_GPL\$" \
++    if grep -e "${TAB}${SYMBOL}${TAB}.*${TAB}EXPORT_\(UNUSED_\)*SYMBOL_GPL\s*\$" \
+                "$OUTPUT/Module.symvers" >/dev/null 2>&1; then
+         echo "#define NV_IS_EXPORT_SYMBOL_GPL_$SYMBOL 1" |
+             append_conftest "symbols"
+diff --git a/nvidia/nvidia.Kbuild b/nvidia/nvidia.Kbuild
+index 1b98d85..3787454 100644
+--- a/nvidia/nvidia.Kbuild
++++ b/nvidia/nvidia.Kbuild
+@@ -171,6 +171,7 @@ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_close_fd
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_get_unused_fd
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_get_unused_fd_flags
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_screen_info
++NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_gpl_screen_info
+ 
+ NV_CONFTEST_TYPE_COMPILE_TESTS += acpi_op_remove
+ NV_CONFTEST_TYPE_COMPILE_TESTS += outer_flush_all
+diff --git a/nvidia/os-interface.c b/nvidia/os-interface.c
+index f6ead53..dd81881 100644
+--- a/nvidia/os-interface.c
++++ b/nvidia/os-interface.c
+@@ -1265,9 +1265,12 @@ void NV_API_CALL os_get_screen_info(
+      * SYSFB_SIMPLEFB registers a dummy framebuffer which does not contain the
+      * information required by os_get_screen_info(), therefore you need to
+      * fall back onto the screen_info structure.
++     *
++     * After commit b8466fe82b79 ("efi: move screen_info into efi init code")
++     * in v6.7, 'screen_info' is exported as GPL licensed symbol for ARM64.
+      */
+ 
+-#if NV_IS_EXPORT_SYMBOL_PRESENT_screen_info
++#if NV_CHECK_EXPORT_SYMBOL(screen_info)
+     //
+     // If there is not a framebuffer console, return 0 size.
+     //
+-- 
+2.20.1
+

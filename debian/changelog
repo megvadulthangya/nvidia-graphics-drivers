@@ -1,3 +1,17 @@
+nvidia-graphics-drivers-tesla-450 (450.248.02-5) UNRELEASED; urgency=medium
+
+  * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
+    kernel module build for Linux 6.8.
+  * Backport screen_info changes from 470.182.03 and 470.239.06 to fix kernel
+    module build for Linux 6.7 on arm64.
+  * New Romanian (ro) debconf translations by Remus-Gabriel Chelu.
+  * xserver-xorg-video-nvidia: Recommend nvidia-vulkan-icd.
+  * Move the libnvidia-glvkspirv dependency to libnvidia-(e)glcore.
+    (Cf. #1064194)
+  * Bump Standards-Version to 4.7.0. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 21 May 2024 10:58:38 +0200
+
 nvidia-graphics-drivers-tesla-450 (450.248.02-4~deb11u1) bullseye; urgency=medium
 
   * Rebuild for bullseye.
@@ -44,7 +58,7 @@ nvidia-graphics-drivers-tesla-450 (450.248.02-1~deb11u1) bullseye; urgency=mediu
 
 nvidia-graphics-drivers-tesla-450 (450.248.02-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.248.02 (2023-06-26).
+  * New upstream Tesla branch release 450.248.02 (2023-06-26).
     * Fixed CVE-2023-25515, CVE-2023-25516.  (Closes: #1039682)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5468
     * Improved compatibility with recent Linux kernels.
@@ -76,7 +90,7 @@ nvidia-graphics-drivers-tesla-450 (450.236.01-1~deb11u1) bullseye; urgency=mediu
 
 nvidia-graphics-drivers-tesla-450 (450.236.01-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.236.01 (2023-03-30).
+  * New upstream Tesla branch release 450.236.01 (2023-03-30).
     * Fixed CVE-2023-0184, CVE-2023-0189, CVE-2023-0180, CVE-2023-0185,
       CVE-2023-0198, CVE-2023-0199, CVE-2023-0188, CVE-2023-0190,
       CVE-2023-0194, CVE-2023-0195, CVE-2023-0191.  (Closes: #1033778)
@@ -105,7 +119,7 @@ nvidia-graphics-drivers-tesla-450 (450.216.04-1~deb11u1) bullseye; urgency=mediu
 
 nvidia-graphics-drivers-tesla-450 (450.216.04-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.216.04 (2022-11-22).
+  * New upstream Tesla branch release 450.216.04 (2022-11-22).
     * Fixed CVE-2022-34670, CVE-2022-34674, CVE-2022-34675, CVE-2022-34677,
       CVE-2022-34679, CVE-2022-34680, CVE-2022-34682, CVE-2022-42254,
       CVE-2022-42256, CVE-2022-42257, CVE-2022-42258, CVE-2022-42259,
@@ -115,7 +129,7 @@ nvidia-graphics-drivers-tesla-450 (450.216.04-1) unstable; urgency=medium
     - Improved performance on GPUs which are experiencing a high number
       of correctable ECC memory errors.
     * Improved compatibility with recent Linux kernels.
-  * New upstream Tesla release (amd64 only) 450.203.08 (2022-10-19).
+  * New upstream Tesla branch release (amd64 only) 450.203.08 (2022-10-19).
 
   [ Andreas Beckmann ]
   * Refresh patches.
@@ -143,7 +157,7 @@ nvidia-graphics-drivers-tesla-450 (450.203.03-1~deb11u1) bullseye; urgency=mediu
 
 nvidia-graphics-drivers-tesla-450 (450.203.03-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.203.03 (2022-08-02).
+  * New upstream Tesla branch release 450.203.03 (2022-08-02).
     * Fixed CVE-2022-31607, CVE-2022-31608, CVE-2022-31615. (Closes: #1016618)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5383
     * Improved compatibility with recent Linux kernels.
@@ -181,7 +195,7 @@ nvidia-graphics-drivers-tesla-450 (450.191.01-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-450 (450.191.01-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.191.01 (2022-05-16).
+  * New upstream Tesla branch release 450.191.01 (2022-05-16).
     * Fixed CVE-2022-28181, CVE-2022-28185, CVE-2022-28192. (Closes: #1011144)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5353
 
@@ -221,7 +235,7 @@ nvidia-graphics-drivers-tesla-450 (450.172.01-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-450 (450.172.01-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.172.01 (2022-01-31).
+  * New upstream Tesla branch release 450.172.01 (2022-01-31).
     * Fixed CVE-2022-21813, CVE-2022-21814.  (Closes: #1004851)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5312
     - Fixed a bug that caused nvidia-drm.ko to crash when loading with
@@ -239,7 +253,7 @@ nvidia-graphics-drivers-tesla-450 (450.172.01-1) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-450 (450.156.00-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.156.00 (2021-10-26).
+  * New upstream Tesla branch release 450.156.00 (2021-10-26).
     - Fixed a bug that could cause the /proc/driver/nvidia/suspend power
       management interface to fail to preserve and restore video memory
       allocations when the NVreg_TemporaryFilePath module parameter for
@@ -271,7 +285,7 @@ nvidia-graphics-drivers-tesla-450 (450.142.00-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-450 (450.142.00-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.142.00 (2021-07-20).
+  * New upstream Tesla branch release 450.142.00 (2021-07-20).
     * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.  (Closes: #991356)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5211
     - Fixed a bug that could result in blank displays when driving multiple
@@ -290,13 +304,13 @@ nvidia-graphics-drivers-tesla-450 (450.142.00-1) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-450 (450.119.04-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.119.04 (2021-05-04).
+  * New upstream Tesla branch release 450.119.04 (2021-05-04).
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 20 May 2021 13:53:07 +0200
 
 nvidia-graphics-drivers-tesla-450 (450.119.03-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.119.03 (2021-04-19).
+  * New upstream production and Tesla branch release 450.119.03 (2021-04-19).
     * Fixed CVE-2021-1076, CVE-2021-1077.  (Closes: #987221)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5172
     - Fixed a driver installation failure on Linux kernel 5.11 release
@@ -323,7 +337,7 @@ nvidia-graphics-drivers-tesla-450 (450.102.04-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-450 (450.102.04-1) unstable; urgency=medium
 
-  * New upstream long lived branch release 450.102.04 (2021-01-07).
+  * New upstream long lived and Tesla branch release 450.102.04 (2021-01-07).
     * Fixed CVE-2021-1052, CVE-2021-1053, CVE-2021-1056.  (Closes: #979675)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5142
     - Fixed the X driver's composition pipeline (used, e.g., for X desktop
@@ -375,7 +389,7 @@ nvidia-graphics-drivers-tesla-450 (450.80.02-1) unstable; urgency=medium
 
 nvidia-graphics-drivers (450.80.02-1) unstable; urgency=medium
 
-  * New upstream long lived branch release 450.80.02 (2020-09-30).
+  * New upstream long lived and Tesla branch release 450.80.02 (2020-09-30).
     - Added support for the following GPUs: A100-PCIE-40GB,
       A100 Graphics Device, DGX Display, GeForce MX450.
     * Improved compatibility with recent Linux kernels.
@@ -462,7 +476,7 @@ nvidia-graphics-drivers-tesla-450 (450.51.06-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-450 (450.51.06-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.51.06 (2020-07-28).
+  * New upstream Tesla branch release 450.51.06 (2020-07-28).
 
   [ Andreas Beckmann ]
   * Allow alternative libnvidia-{tesla,legacy}-*-cfg1 packages to substitute
@@ -477,7 +491,7 @@ nvidia-graphics-drivers-tesla-450 (450.51.06-1) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-450 (450.51.05-1) unstable; urgency=medium
 
-  * New upstream Tesla release 450.51.05 (2020-07-07).
+  * New upstream Tesla branch release 450.51.05 (2020-07-07).
 
   [ Andreas Beckmann ]
   * Fork as new source package, rename everything to include '-tesla-450'.
@@ -632,7 +646,7 @@ nvidia-graphics-drivers-tesla-440 (440.118.02-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-440 (440.118.02-1) unstable; urgency=medium
 
-  * New upstream Tesla release 440.118.02 (2020-09-30).
+  * New upstream Tesla branch release 440.118.02 (2020-09-30).
     - Fixed a bug that could cause the X server to crash when using large
       cursor images with PRIME display offloading.
     - Fixed a bug where a Vulkan application under PRIME render
@@ -694,7 +708,7 @@ nvidia-graphics-drivers-tesla-440 (440.95.01-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-440 (440.95.01-1) unstable; urgency=medium
 
-  * New upstream Tesla release 440.95.01 (2020-06-24).
+  * New upstream Tesla branch release 440.95.01 (2020-06-24).
     * Fixed CVE-2020-5963, CVE-2020-5967.  (Closes: #963766)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5031
     - Added support for the following GPUs: GeForce GTX 1650 Ti,
@@ -743,7 +757,7 @@ nvidia-graphics-drivers (440.82-1) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-440 (440.64.00-1) unstable; urgency=medium
 
-  * New upstream Tesla release 440.64.00 (2020-03-10).
+  * New upstream Tesla branch release 440.64.00 (2020-03-10).
 
   [ Andreas Beckmann ]
   * Fork as new source package, rename everything to include '-tesla-440'.
@@ -833,7 +847,7 @@ nvidia-graphics-drivers (440.36-1) experimental; urgency=medium
   * New upstream long lived branch release 440.36 (2019-11-22).
     - Fixed graphical corruption that can occur when using
       glslang SPIR-V Generator Version <= 2.
-  * New upstream Tesla release 440.33.01 (2019-11-19).
+  * New upstream Tesla branch release 440.33.01 (2019-11-19).
 
   [ Andreas Beckmann ]
   * Update symbols files.
@@ -1142,6 +1156,18 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.226.00-14) unstable; urgency=medium
+
+  * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
+    kernel module build for Linux 6.8.
+  * New Romanian (ro) debconf translations by Remus-Gabriel Chelu.
+  * xserver-xorg-video-nvidia: Recommend nvidia-vulkan-icd.
+  * Move the libnvidia-glvkspirv dependency to libnvidia-(e)glcore.
+    (Cf. #1064194)
+  * Bump Standards-Version to 4.7.0. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 20 May 2024 23:57:56 +0200
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-13) unstable; urgency=medium
 
   * Revert backport of pin_user_pages changes.
@@ -1311,7 +1337,7 @@ nvidia-graphics-drivers-tesla-418 (418.226.00-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.226.00-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.226.00 (2021-10-26).
+  * New upstream Tesla branch release 418.226.00 (2021-10-26).
 
   [ Andreas Beckmann ]
   * bug-script: Show the nvidia and glx alternatives (470.82.00-1).
@@ -1336,7 +1362,7 @@ nvidia-graphics-drivers-tesla-418 (418.211.00-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.211.00-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.211.00 (2021-07-20).
+  * New upstream Tesla branch release 418.211.00 (2021-07-20).
     * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.  (Closes: #991354)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5211
 
@@ -1353,7 +1379,7 @@ nvidia-graphics-drivers-tesla-418 (418.211.00-1) unstable; urgency=medium
 
 nvidia-graphics-drivers (418.211.00-1) buster; urgency=medium
 
-  * New upstream Tesla release 418.211.00 (2021-07-20).
+  * New upstream Tesla branch release 418.211.00 (2021-07-20).
     * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.  (Closes: #991351)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5211
 
@@ -1371,7 +1397,7 @@ nvidia-graphics-drivers (418.211.00-1) buster; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.197.02-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.197.02 (2021-04-19).
+  * New upstream Tesla branch release 418.197.02 (2021-04-19).
     * Fixed CVE-2021-1076.  (Closes: #987219)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5172
 
@@ -1379,7 +1405,7 @@ nvidia-graphics-drivers-tesla-418 (418.197.02-1) unstable; urgency=medium
 
 nvidia-graphics-drivers (418.197.02-1) buster; urgency=medium
 
-  * New upstream Tesla release 418.197.02 (2021-04-19).
+  * New upstream Tesla branch release 418.197.02 (2021-04-19).
     * Fixed CVE-2021-1076.  (Closes: #987216)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5172
 
@@ -1401,7 +1427,7 @@ nvidia-graphics-drivers-tesla-418 (418.181.07-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.181.07-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.181.07 (2021-01-19).
+  * New upstream Tesla branch release 418.181.07 (2021-01-19).
     * Fixed CVE-2021-1056.  (Closes: #979673)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5142
     * Improved compatibility with recent Linux kernels.
@@ -1413,7 +1439,7 @@ nvidia-graphics-drivers-tesla-418 (418.181.07-1) unstable; urgency=medium
 
 nvidia-graphics-drivers (418.181.07-1) buster; urgency=medium
 
-  * New upstream Tesla release 418.181.07 (2021-01-19).
+  * New upstream Tesla branch release 418.181.07 (2021-01-19).
     * Fixed CVE-2021-1056.  (Closes: #979670)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5142
     * Improved compatibility with recent Linux kernels.
@@ -1449,7 +1475,7 @@ nvidia-graphics-drivers-tesla-418 (418.165.02-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.165.02-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.165.02 (2020-09-30).
+  * New upstream Tesla branch release 418.165.02 (2020-09-30).
 
   [ Andreas Beckmann ]
   * Backport get_user_pages_remote, vga_tryget, smp_read_barrier_depends,
@@ -1484,7 +1510,7 @@ nvidia-graphics-drivers-tesla-418 (418.152.00-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.152.00-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.152.00 (2020-06-24).
+  * New upstream Tesla branch release 418.152.00 (2020-06-24).
     * Fixed CVE-2020-5963, CVE-2020-5967.  (Closes: #963766)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5031
 
@@ -1496,7 +1522,7 @@ nvidia-graphics-drivers-tesla-418 (418.152.00-1) unstable; urgency=medium
 
 nvidia-graphics-drivers (418.152.00-1) buster; urgency=medium
 
-  * New upstream Tesla release 418.152.00 (2020-06-24).
+  * New upstream Tesla branch release 418.152.00 (2020-06-24).
     * Fixed CVE-2020-5963, CVE-2020-5967.  (Closes: #963766)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5031
 
@@ -1541,7 +1567,7 @@ nvidia-graphics-drivers-tesla-418 (418.126.02-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.126.02-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.126.02 (2020-02-28).
+  * New upstream Tesla branch release 418.126.02 (2020-02-28).
     - Added support for the following GPU: Quadro T2000 with Max-Q Design.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 16 Mar 2020 10:59:07 +0100
@@ -1568,7 +1594,7 @@ nvidia-graphics-drivers-tesla-418 (418.116.00-2) experimental; urgency=medium
 
 nvidia-graphics-drivers-tesla (418.116.00-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.116.00 (2019-12-09).
+  * New upstream Tesla branch release 418.116.00 (2019-12-09).
 
   [ Andreas Beckmann ]
   * Allow alternative libnvidia-{tesla,legacy}-*-cuda1 packages to substitute
@@ -1657,8 +1683,8 @@ nvidia-graphics-drivers-tesla (418.87.01-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla (418.87.01-1) experimental; urgency=medium
 
-  * New upstream Tesla release 418.87.01 (2019-10-03).
-  * New upstream Tesla release 418.87.00 (2019-08-13).
+  * New upstream Tesla branch release 418.87.01 (2019-10-03).
+  * New upstream Tesla branch release 418.87.00 (2019-08-13).
     - Added support for the following GPUs: Quadro P520, Quadro RTX 3000,
       Quadro RTX 3000 with Max-Q Design, Quadro RTX 4000 with Max-Q Design,
       Quadro RTX 5000 with Max-Q Design, Quadro T1000, Quadro T2000.
@@ -1686,6 +1712,7 @@ nvidia-graphics-drivers (418.74-1) unstable; urgency=medium
     - Added support for the following GPUs: Quadro P2200, GeForce GTX 1650,
       GeForce GTX 1650 with Max-Q Design,
       GeForce GTX 1660 Ti with Max-Q Design.
+  * New upstream Tesla branch release 418.67 (2019-05-07).
 
   [ Andreas Beckmann ]
   * Update nv-readme.ids.
@@ -1734,6 +1761,7 @@ nvidia-graphics-drivers (418.43-1) experimental; urgency=medium
       Vulkan titles. This bug was particularly prevalent on DXVK titles.
     - Fixed a bug that caused vkCmdPushConstants to generate Xid 13 messages
       when executed with VK_SHADER_STAGE_ALL on a compute queue.
+  * New upstream Tesla branch release 418.40.04 (2019-03-25).
   * New upstream beta 418.30 (2019-01-30).
     - Added initial support for G-SYNC Compatible monitors.  See the README
       for details.
@@ -1866,6 +1894,12 @@ nvidia-graphics-drivers (415.27-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 11 Feb 2019 21:53:12 +0100
 
+nvidia-graphics-drivers (410.129-1) unstable; urgency=medium
+
+  * New upstream Tesla branch release 410.129 (2019-09-04).
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 05 Sep 2019 00:00:00 +0100
+
 nvidia-graphics-drivers (410.104-3) unstable; urgency=medium
 
   * [i386 armhf]: Reinstate nvidia-smi as a transitional package depending on
@@ -1886,7 +1920,7 @@ nvidia-graphics-drivers (410.104-2) unstable; urgency=medium
 
 nvidia-graphics-drivers (410.104-1) unstable; urgency=medium
 
-  * New upstream long lived branch release 410.104 (2019-02-22).
+  * New upstream long lived and Tesla branch release 410.104 (2019-02-22).
     * Fixed CVE-2018-6260.  (Closes: #913467)
       https://nvidia.custhelp.com/app/answers/detail/a_id/4772
     - Added support for the following GPU: Tesla V100-SXM3-32GB-H.
@@ -1915,6 +1949,7 @@ nvidia-graphics-drivers (410.93-1) experimental; urgency=medium
     - Fixed a bug that could prevent display detection from working on
       displays connected to some notebook docking stations.
     - Added support for the following GPU: Quadro RTX 8000.
+  * New upstream Tesla branch release 410.79 (2018-12-03).
 
   [ Andreas Beckmann ]
   * Merge changes from 390.87-6.
@@ -1934,6 +1969,7 @@ nvidia-graphics-drivers (410.78-1) experimental; urgency=medium
       legacy VGA mode when using a DisplayPort Multi-Stream link.
     - Added support for the following GPUs: Quadro RTX 4000, Tesla T4.
   * New upstream long lived branch release 410.73 (2018-10-25).
+  * New upstream Tesla branch release 410.72 (2018-10-29).
   * New upstream long lived branch release 410.66 (2018-10-16).
     - Added a USB-C display connector type identifier, such that a display
       connected using Turing's USB-C connector will be named, e.g., "USB-C-0"
@@ -2110,6 +2146,13 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.157-7) UNRELEASED; urgency=medium
+
+  * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
+    kernel module build for Linux 6.8.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 20 May 2024 14:46:16 +0200
 
 nvidia-graphics-drivers (390.157-6) UNRELEASED; urgency=medium
 
@@ -4262,7 +4305,8 @@ nvidia-graphics-drivers (355.11-2) experimental; urgency=medium
 
 nvidia-graphics-drivers (355.11-1) experimental; urgency=medium
 
-  * New upstream release 355.11 (2015-08-31). (Closes: #804547)
+  * New upstream short lived branch release 355.11 (2015-08-31).
+    (Closes: #804547)
     - Fixed a bug that could cause GPU exceptions when using glReadPixels()
       on the depth or stencil buffers of multisample windows while resizing
       or moving the windows.
@@ -4574,7 +4618,8 @@ nvidia-graphics-drivers (352.41-1) experimental; urgency=medium
 
 nvidia-graphics-drivers (352.30-1) experimental; urgency=medium
 
-  * New upstream release 352.30 (2015-07-28). (Closes: #794075)
+  * New upstream long lived branch release 352.30 (2015-07-28).
+    (Closes: #794075)
     - Fixed a bug that caused poor video post-processing performance
       in VDPAU when operating on a large number of video streams
       simultaneously.
@@ -4608,7 +4653,8 @@ nvidia-graphics-drivers (352.21-2) experimental; urgency=medium
 
 nvidia-graphics-drivers (352.21-1) experimental; urgency=medium
 
-  * New upstream release 352.21 (2015-06-15). (Closes: #793079)
+  * New upstream long lived branch release 352.21 (2015-06-15).
+    (Closes: #793079)
     - Fixed a bug that caused the kernel to report errors when unmapping
       DMA allocations on kernels with CONFIG_DEBUG_DMA_API enabled.
     - Added GLX Protocol support for the following OpenGL extensions:
@@ -4670,7 +4716,7 @@ nvidia-graphics-drivers (349.16-2) unstable; urgency=medium
 
 nvidia-graphics-drivers (349.16-1) unstable; urgency=low
 
-  * New upstream short-lived branch release 349.16 (2015-04-14).
+  * New upstream short lived branch release 349.16 (2015-04-14).
   * New upstream beta 349.12 (2015-03-25).
     - Added support for G-SYNC monitors when used together with non-G-SYNC
       monitors.  When G-SYNC is enabled, non-G-SYNC monitors will display with
@@ -4710,14 +4756,14 @@ nvidia-graphics-drivers (349.16-1) unstable; urgency=low
 
 nvidia-graphics-drivers (346.96-1) unstable; urgency=low
 
-  * New upstream release 346.96 (2015-09-01).  (Closes: #811349)
+  * New upstream long lived branch release 346.96 (2015-09-01).  (Closes: #811349)
     * Fixed CVE-2015-5950: Memory corruption due to an unsanitized pointer.
       https://nvidia.custhelp.com/app/answers/detail/a_id/3763
       (Closes: #800566)
     - Added support for the following GPU: Tesla K80.
-  * New upstream release 346.87 (2015-07-21).
+  * New upstream long lived branch release 346.87 (2015-07-21).
     - Added support for the following GPU: GeForce 910M.
-  * New upstream release 346.82 (2015-06-23).
+  * New upstream long lived branch release 346.82 (2015-06-23).
     - Added support for the following GPUs: Tesla K40t, GeForce 720A,
       GeForce 920A, GeForce 930A, GeForce 940A, GeForce GTX 950A,
       GeForce GTX 980 Ti.
@@ -4737,7 +4783,7 @@ nvidia-graphics-drivers (346.96-1) unstable; urgency=low
 
 nvidia-graphics-drivers (346.72-1) experimental; urgency=medium
 
-  * New upstream release 346.72 (2015-05-12).
+  * New upstream long lived branch release 346.72 (2015-05-12).
     - Added support for the following GPU: GeForce GPU.
     - Fixed a bug causing loss of stereo synchronization in certain Quadro
       Sync framelock configurations.
@@ -4760,7 +4806,7 @@ nvidia-graphics-drivers (346.72-1) experimental; urgency=medium
 
 nvidia-graphics-drivers (346.59-1) experimental; urgency=medium
 
-  * New upstream release 346.59 (2015-04-07).  (Closes: #775742)
+  * New upstream long lived branch release 346.59 (2015-04-07).  (Closes: #775742)
     - Fixed a bug that caused corruption when switching display modes in some
       applications that use transform feedback.
     - Added support for the following GPUs: Quadro K1200, Quadro M6000,
@@ -4770,7 +4816,7 @@ nvidia-graphics-drivers (346.59-1) experimental; urgency=medium
       attachments cleared using glClearTexImage().
     - Fixed a bug that artificially limited the maximum pixel clock on
       displays in some SLI Mosaic configurations.
-  * New upstream release 346.47 (2015-02-24).
+  * New upstream long lived branch release 346.47 (2015-02-24).
     - Fixed a bug that could cause quad-buffered stereo applications to
       crash when disabling displays.
     - Fixed a bug that could cause rendering corruption in GLX clients using
@@ -4784,7 +4830,7 @@ nvidia-graphics-drivers (346.59-1) experimental; urgency=medium
       GeForce GTX 960, GeForce GTX 965M.
     - Fixed a bug that caused DisplayPort audio to stop working after monitors
       are hotplugged.
-  * New upstream release 346.35 (2015-01-16).
+  * New upstream long lived branch release 346.35 (2015-01-16).
     - Added support for the following GPUs: GeForce 800A, GeForce 800M.
     - Updated the NVIDIA X driver to reject frame packed interlaced HDMI 3D
       modes during mode validation. These modes were being validated by the
@@ -6705,7 +6751,7 @@ nvidia-graphics-drivers (313.18-2) experimental; urgency=low
 
 nvidia-graphics-drivers (313.18-1) experimental; urgency=low
 
-  * New upstream release 313.18 (2013-01-15).
+  * New upstream short lived branch release 313.18 (2013-01-15).
     - Added support in NV-CONTROL and in nvidia-settings for changing the
       Double Precision performance boost mode on supported GPUs.
     - Fixed several OpenGL driver bugs related to stencil-only framebuffer
@@ -6813,7 +6859,7 @@ nvidia-graphics-drivers (310.40-1) UNRELEASED; urgency=low
 
 nvidia-graphics-drivers (310.19-1) experimental; urgency=low
 
-  * New upstream release 310.19 (2012-11-13).
+  * New upstream long lived branch release 310.19 (2012-11-13).
   * Merge changes from 304.64-4.
   * Drop kernel-3.7.patch, fixed upstream.
   * Fix debian/module/debian/kernel-version to cope with $KSRC/linux/version.h
@@ -7723,7 +7769,7 @@ nvidia-graphics-drivers (302.17-2) unstable; urgency=low
 
 nvidia-graphics-drivers (302.17-1) experimental; urgency=low
 
-  * New upstream release 302.17 (2012-06-15).
+  * New upstream short lived branch release 302.17 (2012-06-15).
     - Made nvidiaXineramaInfoOrder consistent with the RRSetOutputPrimary
       and RRGetOutputPrimary RandR requests: changes to either
       nvidiaXineramaInfoOrder or RandR OutputPrimary will be reflected in
