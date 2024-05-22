@@ -1,0 +1,58 @@
+From 9fdf6ac9666320f986c6e35eae5ae5dbaf184b9c Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Tue, 5 Mar 2024 05:42:16 +0100
+Subject: [PATCH] backport screen_info changes from 470.182.03
+
+---
+ nvidia/nvidia.Kbuild  |  2 +-
+ nvidia/os-interface.c | 14 ++++++++++++++
+ 2 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/nvidia/nvidia.Kbuild b/nvidia/nvidia.Kbuild
+index 91f1516..65b86be 100644
+--- a/nvidia/nvidia.Kbuild
++++ b/nvidia/nvidia.Kbuild
+@@ -176,7 +176,6 @@ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present___close_fd
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_close_fd
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_get_unused_fd
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_get_unused_fd_flags
+-NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_screen_info
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_nvhost_get_default_device
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_nvhost_syncpt_unit_interface_get_byte_offset
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_nvhost_syncpt_unit_interface_get_aperture
+@@ -186,6 +185,7 @@ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_tegra_dce_client_ip
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_dram_clk_to_mc_clk
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_get_dram_num_channels
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_tegra_dram_types
++NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_screen_info
+ 
+ NV_CONFTEST_TYPE_COMPILE_TESTS += acpi_op_remove
+ NV_CONFTEST_TYPE_COMPILE_TESTS += outer_flush_all
+diff --git a/nvidia/os-interface.c b/nvidia/os-interface.c
+index 95cf0e1..6c38f0f 100644
+--- a/nvidia/os-interface.c
++++ b/nvidia/os-interface.c
+@@ -1119,6 +1119,20 @@ void NV_API_CALL os_get_screen_info(
+     NvU16 *pFbPitch
+ )
+ {
++    /*
++     * If the screen info is not found in the registered FBs then fallback
++     * to the screen_info structure.
++     *
++     * The SYSFB_SIMPLEFB option, if enabled, marks VGA/VBE/EFI framebuffers as
++     * generic framebuffers so the new generic system-framebuffer drivers can
++     * be used instead. DRM_SIMPLEDRM drives the generic system-framebuffers
++     * device created by SYSFB_SIMPLEFB.
++     *
++     * SYSFB_SIMPLEFB registers a dummy framebuffer which does not contain the
++     * information required by os_get_screen_info(), therefore you need to
++     * fall back onto the screen_info structure.
++     */
++
+ #if NV_IS_EXPORT_SYMBOL_PRESENT_screen_info
+     //
+     // If there is not a framebuffer console, return 0 size.
+-- 
+2.20.1
+

@@ -23,7 +23,7 @@ Build-Depends:
  linux-headers-powerpc64le [ppc64el] <!nocheck>,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.6.2
+Standards-Version: 4.7.0
 Homepage: https://www.nvidia.com
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
@@ -278,6 +278,7 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
+ lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
  libnvidia-glcore-${nvidia:Version},
@@ -367,6 +368,7 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
+ lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Provides:
  libnvidia-eglcore-${nvidia:Version},
@@ -434,7 +436,6 @@ Depends:
  nvidia-vulkan-common,
  libvulkan1 (>= 1.0.42),
  libglx-${nvidia-}0 (= ${binary:Version}),
- lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${misc:Depends}
 Recommends:
  lib${nvidia}-cbl (= ${binary:Version}) [!i386 !ppc64el],

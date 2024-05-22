@@ -13,16 +13,20 @@ Description: use KBUILD_CFLAGS and (KBUILD_)LDFLAGS
 
 --- a/Kbuild
 +++ b/Kbuild
-@@ -108,6 +108,12 @@ NV_CONFTEST_CMD := /bin/sh $(NV_CONFTEST
+@@ -108,6 +108,16 @@ NV_CONFTEST_CMD := /bin/sh $(NV_CONFTEST
  NV_CFLAGS_FROM_CONFTEST := $(shell $(NV_CONFTEST_CMD) build_cflags)
  
  NV_CONFTEST_CFLAGS = $(NV_CFLAGS_FROM_CONFTEST) $(EXTRA_CFLAGS) -fno-pie
 +NV_CONFTEST_CFLAGS += \
 +	$(patsubst -DARM64_ASM_ARCH=%,-DARM64_ASM_ARCH="%",\
-+	$(filter-out -Werror% $(GCC_PLUGINS_CFLAGS),\
++	$(filter-out $(GCC_PLUGINS_CFLAGS),\
 +	$(KBUILD_CFLAGS)\
 +	)\
 +	)
++NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=implicit-function-declaration,)
++NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=incompatible-pointer-types,)
++NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=return-type,)
++NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=strict-prototypes,)
  
  NV_CONFTEST_COMPILE_TEST_HEADERS := $(obj)/conftest/macros.h
  NV_CONFTEST_COMPILE_TEST_HEADERS += $(obj)/conftest/functions.h
