@@ -579,7 +579,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-5) unstable; urgency=medium
 
   * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
     kernel module build for Linux 6.8.
