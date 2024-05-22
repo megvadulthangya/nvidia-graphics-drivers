@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-15) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-15) unstable; urgency=medium
 
   * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
     kernel module build for Linux 6.8.
