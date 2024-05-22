@@ -998,8 +998,9 @@ nvidia-graphics-drivers (460.106.00-15) UNRELEASED; urgency=medium
   * xserver-xorg-video-nvidia: Recommend nvidia-vulkan-icd.
   * Move the libnvidia-glvkspirv dependency to libnvidia-(e)glcore.
     (Cf. #1064194)
+  * Bump Standards-Version to 4.7.0. No changes needed.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 01 Mar 2024 12:27:48 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 22 May 2024 02:37:04 +0200
 
 nvidia-graphics-drivers (460.106.00-14) UNRELEASED; urgency=medium
 
@@ -1523,8 +1524,9 @@ nvidia-graphics-drivers (450.248.02-5) UNRELEASED; urgency=medium
   * xserver-xorg-video-nvidia: Recommend nvidia-vulkan-icd.
   * Move the libnvidia-glvkspirv dependency to libnvidia-(e)glcore.
     (Cf. #1064194)
+  * Bump Standards-Version to 4.7.0. No changes needed.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 01 Mar 2024 12:20:43 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 21 May 2024 10:58:38 +0200
 
 nvidia-graphics-drivers (450.248.02-4) UNRELEASED; urgency=medium
 
@@ -2606,8 +2608,9 @@ nvidia-graphics-drivers (418.226.00-14) UNRELEASED; urgency=medium
   * xserver-xorg-video-nvidia: Recommend nvidia-vulkan-icd.
   * Move the libnvidia-glvkspirv dependency to libnvidia-(e)glcore.
     (Cf. #1064194)
+  * Bump Standards-Version to 4.7.0. No changes needed.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 20 Jan 2024 02:28:08 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 20 May 2024 23:57:56 +0200
 
 nvidia-graphics-drivers (418.226.00-13) UNRELEASED; urgency=medium
 
@@ -3507,7 +3510,7 @@ nvidia-graphics-drivers (390.157-7) UNRELEASED; urgency=medium
   * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
     kernel module build for Linux 6.8.
 
- -- Andreas Beckmann <anbe@debian.org>  Mon, 04 Mar 2024 22:05:12 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 20 May 2024 14:46:16 +0200
 
 nvidia-graphics-drivers (390.157-6) UNRELEASED; urgency=medium
 
