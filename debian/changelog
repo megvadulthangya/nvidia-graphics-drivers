@@ -441,6 +441,20 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
+nvidia-graphics-drivers-tesla-470 (470.256.02-1) unstable; urgency=medium
+
+  * New upstream LTS and Tesla branch release 470.256.02 (2024-06-04).
+    * Fixed CVE-2024-0090, CVE-2024-0092.  (Closes: #1072798)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5551
+    - Fixed a bug that could cause the X server to crash when graphics
+      applications requested single-buffered drawables while certain
+      features (such as Vulkan sharpening) are enabled.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 10 Jun 2024 10:33:16 +0200
+
 nvidia-graphics-drivers (470.256.02-1) bullseye; urgency=medium
 
   * New upstream LTS and Tesla branch release 470.256.02 (2024-06-04).
@@ -458,6 +472,31 @@ nvidia-graphics-drivers (470.256.02-1) bullseye; urgency=medium
   * Bump Standards-Version to 4.7.0. No changes needed.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 09 Jun 2024 09:55:50 +0200
+
+nvidia-graphics-drivers-tesla-470 (470.239.06-1~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 24 Apr 2024 05:18:12 +0200
+
+nvidia-graphics-drivers-tesla-470 (470.239.06-1~deb12u1) bookworm; urgency=medium
+
+  * Rebuild for bookworm.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 03 Mar 2024 22:10:45 +0100
+
+nvidia-graphics-drivers-tesla-470 (470.239.06-1) unstable; urgency=medium
+
+  * New upstream LTS and Tesla branch release 470.239.06 (2024-02-22).
+    * Fixed CVE-2024-0074, CVE-2024-0078, CVE-2022-42265.  (Closes: #1064989)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5520
+    - Minor bug fixes and improvements
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 28 Feb 2024 02:22:39 +0100
 
 nvidia-graphics-drivers (470.239.06-1) bullseye; urgency=medium
 
@@ -493,6 +532,15 @@ nvidia-graphics-drivers-tesla-470 (470.223.02-3) unstable; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 25 Jan 2024 19:48:07 +0100
 
+nvidia-graphics-drivers (470.223.02-3) UNRELEASED; urgency=medium
+
+  * Switch src:nvidia-graphics-drivers to the Tesla 470 driver series.
+  * Build for ppc64el.
+  * Build all unversioned packages from src:nvidia-graphics-drivers.
+  * New Romanian (ro) debconf translations by Remus-Gabriel Chelu.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 25 Jan 2024 19:48:07 +0100
+
 nvidia-graphics-drivers-tesla-470 (470.223.02-2~deb11u1) bullseye; urgency=medium
 
   * Rebuild for bullseye.
@@ -507,14 +555,13 @@ nvidia-graphics-drivers-tesla-470 (470.223.02-2~deb12u1) bookworm; urgency=mediu
 
 nvidia-graphics-drivers-tesla-470 (470.223.02-2) unstable; urgency=medium
 
-  * Build libnvidia-tesla-470-fbc1 for arm64, too.  (Closes: #1057078)
-  * bug-control: Report information about more driver components.
+  * Rebuild as Tesla 470 driver.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 02 Dec 2023 13:45:17 +0100
 
 nvidia-graphics-drivers (470.223.02-2) bullseye; urgency=medium
 
-  * Build libnvidia-tesla-470-fbc1 for arm64, too.  (Closes: #1057078)
+  * Build libnvidia-fbc1 for arm64, too.  (Closes: #1057078)
   * bug-control: Report information about more driver components.
   * nvidia-detect: Drop support for Tesla 450 drivers (EoL).
   * *-common: Drop alternative Suggests on EoL Tesla 450 packages that have
@@ -524,7 +571,7 @@ nvidia-graphics-drivers (470.223.02-2) bullseye; urgency=medium
 
 nvidia-graphics-drivers-tesla-470 (470.223.02-1) unstable; urgency=medium
 
-  * New upstream Tesla release 470.223.02 (2023-10-31).
+  * New upstream LTS and Tesla branch release 470.223.02 (2023-10-31).
     * Fixed CVE-2023-31022.  (Closes: #1055142)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5491
     - Fixed a bug which caused incorrect reporting of presentation
@@ -588,7 +635,7 @@ nvidia-graphics-drivers-tesla-470 (470.199.02-1~deb12u1) bookworm; urgency=mediu
 
 nvidia-graphics-drivers-tesla-470 (470.199.02-1) unstable; urgency=medium
 
-  * New upstream Tesla release 470.199.02 (2023-06-26).
+  * New upstream LTS and Tesla branch release 470.199.02 (2023-06-26).
     * Fixed CVE-2023-25515, CVE-2023-25516.  (Closes: #1039684)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5468
     * Improved compatibility with recent Linux kernels.
@@ -628,12 +675,18 @@ nvidia-graphics-drivers-tesla-470 (470.182.03-1~deb11u1) bullseye; urgency=mediu
 
 nvidia-graphics-drivers-tesla-470 (470.182.03-1) unstable; urgency=medium
 
-  * New upstream Tesla release 470.182.03 (2023-03-30).
+  * New upstream LTS and Tesla branch release 470.182.03 (2023-03-30).
     * Fixed CVE-2023-0184, CVE-2023-0189, CVE-2023-0180, CVE-2023-0185,
       CVE-2023-0187, CVE-2023-0198, CVE-2023-0199, CVE-2023-0188,
       CVE-2023-0190, CVE-2023-0194, CVE-2023-0195, CVE-2023-0191.
       https://nvidia.custhelp.com/app/answers/detail/a_id/5452
       (Closes: #1033780)
+    - Fixed a bug that could cause fullscreen PRIME Render Offload
+      applications and/or X to crash when an NVIDIA GPU is driving
+      multiple displays with Reverse PRIME.
+    - Added support for console restoration when using simpledrm.
+    - Disabled Fixed Rate Link (FRL) when using passive DisplayPort
+      to HDMI dongles, which are incompatible with FRL.
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
@@ -699,7 +752,7 @@ nvidia-graphics-drivers-tesla-470 (470.161.03-1~deb11u1) bullseye; urgency=mediu
 
 nvidia-graphics-drivers-tesla-470 (470.161.03-1) unstable; urgency=medium
 
-  * New upstream Tesla release 470.161.03 (2022-11-22).
+  * New upstream LTS and Tesla branch release 470.161.03 (2022-11-22).
     * Fixed CVE-2022-34670, CVE-2022-34674, CVE-2022-34675, CVE-2022-34677,
       CVE-2022-34679, CVE-2022-34680, CVE-2022-34682, CVE-2022-42254,
       CVE-2022-42255, CVE-2022-42256, CVE-2022-42257, CVE-2022-42258,
@@ -709,7 +762,7 @@ nvidia-graphics-drivers-tesla-470 (470.161.03-1) unstable; urgency=medium
     - Fixed a bug that caused the Xorg server to crash if an NvFBC capture
       session is started while video memory is full.
     * Improved compatibility with recent Linux kernels.
-  * New upstream Tesla release (amd64 only) 470.141.10 (2022-10-19).
+  * New upstream Tesla branch release (amd64 only) 470.141.10 (2022-10-19).
 
   [ Andreas Beckmann ]
   * Refresh patches.
@@ -777,10 +830,13 @@ nvidia-graphics-drivers-tesla-470 (470.141.03-1~deb11u1) bullseye; urgency=mediu
 
 nvidia-graphics-drivers-tesla-470 (470.141.03-1) unstable; urgency=medium
 
-  * New upstream Tesla release 470.141.03 (2022-08-02).
+  * New upstream LTS and Tesla branch release 470.141.03 (2022-08-02).
     * Fixed CVE-2022-31607, CVE-2022-31608, CVE-2022-31615. (Closes: #1016620)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5383
     - Added support for the following GPU: GeForce RTX 3050 OEM.
+    - Fixed an issue where HDMI audio output was not working in some cases,
+      especially with high display refresh rates (120Hz, 100Hz, etc.) using
+      Fixed Rate Link (FRL) transmission mode.
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
@@ -897,7 +953,7 @@ nvidia-graphics-drivers (470.129.06-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-470 (470.129.06-1) unstable; urgency=medium
 
-  * New upstream Tesla release 470.129.06 (2022-05-16).
+  * New upstream LTS and Tesla branch release 470.129.06 (2022-05-16).
     * Fixed CVE-2022-28181, CVE-2022-28183, CVE-2022-28184, CVE-2022-28185,
       CVE-2022-28191, CVE-2022-28192.  (Closes: #1011146)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5353
@@ -1351,7 +1407,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers (460.106.00-15) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-15) UNRELEASED; urgency=medium
 
   * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
     kernel module build for Linux 6.8.
@@ -1539,7 +1595,7 @@ nvidia-graphics-drivers-tesla-460 (460.91.03-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-460 (460.91.03-1) unstable; urgency=medium
 
-  * New upstream production branch release 460.91.03 (2021-07-20).
+  * New upstream production and Tesla branch release 460.91.03 (2021-07-20).
     * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.  (Closes: #991357)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5211
     - Added support for the following GPUs: GeForce RTX 3070 Ti, CMP 50HX.
@@ -1609,7 +1665,7 @@ nvidia-graphics-drivers (460.80-1) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-460 (460.73.01-1) unstable; urgency=medium
 
-  * New upstream production branch release 460.73.01 (2021-04-14).
+  * New upstream production and Tesla branch release 460.73.01 (2021-04-14).
     * Fixed CVE-2021-1076, CVE-2021-1077.  (Closes: #987222)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5172
     - Added support for the following GPUs: A10, A10G, A30, PG506-232,
@@ -1920,7 +1976,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers (450.248.02-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-5) UNRELEASED; urgency=medium
 
   * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
     kernel module build for Linux 6.8.
@@ -3067,7 +3123,7 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
-nvidia-graphics-drivers (418.226.00-14) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-14) unstable; urgency=medium
 
   * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
     kernel module build for Linux 6.8.
@@ -3273,7 +3329,7 @@ nvidia-graphics-drivers-tesla-418 (418.211.00-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.211.00-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.211.00 (2021-07-20).
+  * New upstream Tesla branch release 418.211.00 (2021-07-20).
     * Fixed CVE-2021-1093, CVE-2021-1094, CVE-2021-1095.  (Closes: #991354)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5211
 
@@ -3308,7 +3364,7 @@ nvidia-graphics-drivers (418.211.00-1) buster; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.197.02-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.197.02 (2021-04-19).
+  * New upstream Tesla branch release 418.197.02 (2021-04-19).
     * Fixed CVE-2021-1076.  (Closes: #987219)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5172
 
@@ -3338,7 +3394,7 @@ nvidia-graphics-drivers-tesla-418 (418.181.07-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.181.07-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.181.07 (2021-01-19).
+  * New upstream Tesla branch release 418.181.07 (2021-01-19).
     * Fixed CVE-2021-1056.  (Closes: #979673)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5142
     * Improved compatibility with recent Linux kernels.
@@ -3421,7 +3477,7 @@ nvidia-graphics-drivers-tesla-418 (418.152.00-2) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.152.00-1) unstable; urgency=medium
 
-  * New upstream Tesla release 418.152.00 (2020-06-24).
+  * New upstream Tesla branch release 418.152.00 (2020-06-24).
     * Fixed CVE-2020-5963, CVE-2020-5967.  (Closes: #963766)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5031
 
