@@ -4,13 +4,24 @@ bashisms.patch
 # kernel support
 0001-bump-minimum-supported-kernel-version-to-3.10.patch
 0002-conftest.sh-remove-empty-lines-from-uts_release-outp.patch
-0010-backport-pci-dma-changes-for-ppc64el.patch
+0010-backport-pci-dma-changes-for-ppc64el-from-470.223.02.patch
 0023-backport-vm_area_struct_has_const_vm_flags-changes-f.patch
 0024-backport-vm_area_struct_has_const_vm_flags-changes-f.patch
 0025-backport-drm_driver_has_dumb_destroy-changes-from-52.patch
+0026-add-missing-includes-to-fix-module-build-for-ppc64el.patch
+0027-backport-get_user_pages-changes-from-520.56.06.patch
+0028-backport-get_user_pages-changes-from-525.53.patch
+0029-backport-get_user_pages-changes-from-525.53-uvm-part.patch
+0030-backport-get_user_pages-changes-from-535.86.05.patch
+0031-backport-asm-page.h-changes-from-470.223.02.patch
+0032-backport-drm_gem_prime_handle_to_fd-changes-from-470.patch
+0033-refuse-to-load-legacy-module-if-IBT-is-enabled.patch
 0034-fix-typos.patch
-0035-fix-build-w-kernel-6.1.76-6.6.15-6.7.3.patch
-ppc64el.patch
+0035-backport-nv_request_msix_irq-fixes-from-470.239.06.patch
+0036-backport-pfn_valid-changes-in-nv-mmap.c-from-470.239.patch
+0037-fix-build-w-kernel-6.1.76-6.6.15-6.7.3.patch
+0038-backport-drm_unlocked_ioctl_flag_present-changes-fro.patch
+0040-backport-screen_info-changes-from-470.239.06.patch
 
 # build system updates
 fragile-ARCH.patch

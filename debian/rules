@@ -121,11 +121,11 @@ xorg_provides	 = xorg-driver-video
 
 deps_nvidia_kmod_binary	 = $${nvidia-kernel}-dkms (= $${binary:Version})                [$${nvidia:archlist:driver}] |
 deps_nvidia_kmod_binary	+= $${nvidia-kernel}-$${nvidia:Version}                         [$${nvidia:archlist:driver}] |
-deps_nvidia_kmod_binary	+= $${nvidia}-open-kernel-$${nvidia:Version}                    [$${nvidia:archlist:driver}] |
+#deps_nvidia_kmod_binary	+= $${nvidia}-open-kernel-$${nvidia:Version}                    [$${nvidia:archlist:driver}] |
 deps_nvidia_kmod_binary	+= nvidia-open-kernel-$${nvidia:Version}                        [$${nvidia:archlist:driver}] |
 deps_nvidia_kmod_source	 = $${nvidia-kernel}-dkms (>= $${nvidia:Version})               [$${nvidia:archlist:driver}] |
 deps_nvidia_kmod_source	+= $${nvidia-kernel}-source (>= $${nvidia:Version})             [$${nvidia:archlist:driver}] |
-deps_nvidia_kmod_source	+= $${nvidia}-open-kernel-source (>= $${nvidia:Version})        [$${nvidia:archlist:driver}] |
+#deps_nvidia_kmod_source	+= $${nvidia}-open-kernel-source (>= $${nvidia:Version})        [$${nvidia:archlist:driver}] |
 deps_nvidia_kmod_source	+= nvidia-open-kernel-source (>= $${nvidia:Version})            [$${nvidia:archlist:driver}] |
 
 
@@ -308,12 +308,12 @@ pack-module-source:
 		--sort=name \
 		--mtime='@$(SOURCE_DATE_EPOCH)' \
 		--clamp-mtime \
-		modules | xz -9 > $(module_source_txz)
+		modules | xz -T1 -9 > $(module_source_txz)
 	tar tfv $(module_source_txz)
 	$(RM) -r $(module_source_pkg)/usr/src/modules
 
 # only invoked manually
-kernel-source-tree: unpack-stamp
+kernel-source-tree: unpack-stamp $(AUTOGEN)
 	$(RM) -r $@
 	cp -a NVIDIA-Linux/kernel $@
 	cd $@ && QUILT_PATCHES=../debian/patches/module quilt --quiltrc /dev/null push -a || test $$? = 2
@@ -537,7 +537,7 @@ get-orig-source-pack/%: get-orig-source-files/%
 	    touch $(call get_tarball,$*) -r $(call get_origdir,$*).stamp
 	mv get-orig-source/$(call get_tarball,$*) .
 
-get-orig-source-files/empty: get-orig-source-prepare/empty $(foreach a,$(DRIVER_ARCH_LIST),get-orig-source-pack/$a)
+get-orig-source-files/empty: get-orig-source-prepare/empty $(foreach a,$(TARBALL_ARCH_LIST),get-orig-source-pack/$a)
 	touch get-orig-source/$(call get_origdir,empty).stamp -r $$(ls -tr $(foreach a,$(DRIVER_ARCH_LIST),$(call get_tarball,$a)) | tail -n 1)
 
 .PHONY: get-orig-source

@@ -1,0 +1,30 @@
+From 5d5ba8c3cf58a9fea414e23041d5dcca0916d258 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sun, 20 Nov 2022 05:18:47 +0100
+Subject: [PATCH] add missing #includes to fix module build for ppc64el
+
+---
+ nvidia/nvlink_common.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/nvidia/nvlink_common.h b/nvidia/nvlink_common.h
+index 1543d6f..6aa1ef3 100644
+--- a/nvidia/nvlink_common.h
++++ b/nvidia/nvlink_common.h
+@@ -28,6 +28,13 @@
+ extern "C" {
+ #endif
+ 
++#if defined(NV_ASM_PROM_H_PRESENT)
++#if defined(NV_LINUX_OF_H_PRESENT)
++#include <linux/of.h>
++#endif
++#include <asm/prom.h>
++#endif
++
+ #include "nvtypes.h"
+ #include "nvCpuUuid.h"
+ #include "nvlink_errors.h"
+-- 
+2.20.1
+

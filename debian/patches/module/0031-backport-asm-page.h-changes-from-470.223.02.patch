@@ -1,0 +1,69 @@
+From 005ae5d02f56ec6c3a571f2faf2ca55c34a240f9 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 1 Nov 2023 10:30:50 +0100
+Subject: [PATCH] backport asm/page.h changes from 470.223.02
+
+---
+ Kbuild      |  1 +
+ conftest.sh | 12 ++++++++++++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/Kbuild b/Kbuild
+index 07e3e9d..b7592fb 100644
+--- a/Kbuild
++++ b/Kbuild
+@@ -265,6 +265,7 @@ NV_HEADER_PRESENCE_TESTS = \
+  asm/opal-api.h \
+  sound/hdaudio.h \
+  asm/pgtable_types.h \
++ asm/page.h \
+  linux/stringhash.h \
+  linux/dma-map-ops.h \
+  rdma/peer_mem.h \
+diff --git a/conftest.sh b/conftest.sh
+index 96a70c4..cca2312 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -449,6 +449,9 @@ compile_test() {
+             #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
+             #include <asm/pgtable_types.h>
+             #endif
++            #if defined(NV_ASM_PAGE_H_PRESENT)
++            #include <asm/page.h>
++            #endif
+             #include <asm/set_memory.h>
+             #else
+             #include <asm/cacheflush.h>
+@@ -471,6 +474,9 @@ compile_test() {
+             #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
+             #include <asm/pgtable_types.h>
+             #endif
++            #if defined(NV_ASM_PAGE_H_PRESENT)
++            #include <asm/page.h>
++            #endif
+             #include <asm/set_memory.h>
+             #else
+             #include <asm/cacheflush.h>
+@@ -528,6 +534,9 @@ compile_test() {
+             #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
+             #include <asm/pgtable_types.h>
+             #endif
++            #if defined(NV_ASM_PAGE_H_PRESENT)
++            #include <asm/page.h>
++            #endif
+             #include <asm/set_memory.h>
+             #else
+             #include <asm/cacheflush.h>
+@@ -555,6 +564,9 @@ compile_test() {
+             #if defined(NV_ASM_PGTABLE_TYPES_H_PRESENT)
+             #include <asm/pgtable_types.h>
+             #endif
++            #if defined(NV_ASM_PAGE_H_PRESENT)
++            #include <asm/page.h>
++            #endif
+             #include <asm/set_memory.h>
+             #else
+             #include <asm/cacheflush.h>
+-- 
+2.20.1
+

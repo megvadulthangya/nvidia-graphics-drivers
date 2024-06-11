@@ -1,0 +1,92 @@
+From 069fc2d83cb2dbfb9a951f4ec0e7ab4db8de9830 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sun, 6 Aug 2023 17:18:58 +0200
+Subject: [PATCH] backport get_user_pages changes from 525.53 (uvm part)
+
+---
+ nvidia-uvm/uvm.c                   | 4 +---
+ nvidia-uvm/uvm_populate_pageable.c | 4 ++--
+ nvidia-uvm/uvm_tools.c             | 2 +-
+ nvidia-uvm/uvm_va_space_mm.c       | 3 +--
+ 4 files changed, 5 insertions(+), 8 deletions(-)
+
+diff --git a/nvidia-uvm/uvm.c b/nvidia-uvm/uvm.c
+index 954cf77..7c955f8 100644
+--- a/nvidia-uvm/uvm.c
++++ b/nvidia-uvm/uvm.c
+@@ -986,8 +986,6 @@ bool uvm_file_is_nvidia_uvm(struct file *filp)
+ NV_STATUS uvm_test_register_unload_state_buffer(UVM_TEST_REGISTER_UNLOAD_STATE_BUFFER_PARAMS *params, struct file *filp)
+ {
+     long ret;
+-    int write = 1;
+-    int force = 0;
+     struct page *page;
+     NV_STATUS status = NV_OK;
+ 
+@@ -998,7 +996,7 @@ NV_STATUS uvm_test_register_unload_state_buffer(UVM_TEST_REGISTER_UNLOAD_STATE_B
+     // are not used because unload_state_buf may be a managed memory pointer and
+     // therefore a locking assertion from the CPU fault handler could be fired.
+     nv_mmap_read_lock(current->mm);
+-    ret = NV_GET_USER_PAGES(params->unload_state_buf, 1, write, force, &page, NULL);
++    ret = NV_GET_USER_PAGES(params->unload_state_buf, 1, FOLL_WRITE, &page, NULL);
+     nv_mmap_read_unlock(current->mm);
+ 
+     if (ret < 0)
+diff --git a/nvidia-uvm/uvm_populate_pageable.c b/nvidia-uvm/uvm_populate_pageable.c
+index 8651150..10a4ccd 100644
+--- a/nvidia-uvm/uvm_populate_pageable.c
++++ b/nvidia-uvm/uvm_populate_pageable.c
+@@ -54,7 +54,7 @@ NV_STATUS uvm_populate_pageable_vma(struct vm_area_struct *vma,
+ {
+     unsigned long vma_num_pages;
+     unsigned long outer = start + length;
+-    const bool is_writable = is_write_populate(vma, populate_permissions);
++    unsigned int gup_flags = ((vma->vm_flags) & VM_WRITE) ? FOLL_WRITE : 0;
+     struct mm_struct *mm = vma->vm_mm;
+     unsigned long vm_flags = vma->vm_flags;
+     bool uvm_managed_vma;
+@@ -97,7 +97,7 @@ NV_STATUS uvm_populate_pageable_vma(struct vm_area_struct *vma,
+     if (uvm_managed_vma)
+         uvm_record_unlock_mmap_lock_read(mm);
+ 
+-    ret = NV_GET_USER_PAGES_REMOTE(NULL, mm, start, vma_num_pages, is_writable, 0, pages, NULL);
++    ret = NV_GET_USER_PAGES(start, vma_num_pages, gup_flags, NULL, NULL);
+ 
+     if (uvm_managed_vma)
+         uvm_record_lock_mmap_lock_read(mm);
+diff --git a/nvidia-uvm/uvm_tools.c b/nvidia-uvm/uvm_tools.c
+index 9363de8..b7af6a8 100644
+--- a/nvidia-uvm/uvm_tools.c
++++ b/nvidia-uvm/uvm_tools.c
+@@ -262,7 +262,7 @@ static NV_STATUS map_user_pages(NvU64 user_va, NvU64 size, void **addr, struct p
+     }
+ 
+     nv_mmap_read_lock(current->mm);
+-    ret = NV_GET_USER_PAGES(user_va, num_pages, 1, 0, *pages, vmas);
++    ret = NV_GET_USER_PAGES(user_va, num_pages, FOLL_WRITE, *pages, vmas);
+     nv_mmap_read_unlock(current->mm);
+     if (ret != num_pages) {
+         status = NV_ERR_INVALID_ARGUMENT;
+diff --git a/nvidia-uvm/uvm_va_space_mm.c b/nvidia-uvm/uvm_va_space_mm.c
+index 5b63d3b..12a43f6 100644
+--- a/nvidia-uvm/uvm_va_space_mm.c
++++ b/nvidia-uvm/uvm_va_space_mm.c
+@@ -587,14 +587,13 @@ static void uvm_va_space_mm_shutdown(uvm_va_space_t *va_space)
+ static NV_STATUS mm_read64(struct mm_struct *mm, NvU64 addr, NvU64 *val)
+ {
+     long ret;
+-    int write = 0, force = 0;
+     struct page *page;
+     NvU64 *mapping;
+ 
+     UVM_ASSERT(IS_ALIGNED(addr, sizeof(*val)));
+ 
+     uvm_down_read_mmap_lock(mm);
+-    ret = NV_GET_USER_PAGES_REMOTE(NULL, mm, (unsigned long)addr, 1, write, force, &page, NULL);
++    ret = NV_GET_USER_PAGES_REMOTE(mm, (unsigned long)addr, 1, 0, &page, NULL, NULL);
+     uvm_up_read_mmap_lock(mm);
+ 
+     if (ret < 0)
+-- 
+2.20.1
+
