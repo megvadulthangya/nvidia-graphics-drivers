@@ -1,11 +1,12 @@
-From 75c517abc0b1302f724a170342f62297714605b2 Mon Sep 17 00:00:00 2001
+From 1e175567293a6e96e31e767b49433e0ddac021d4 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Wed, 31 Jan 2024 03:06:19 +0100
 Subject: [PATCH] fix typos
 
 ---
  nvidia-uvm/uvm_perf_thrashing.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ nvidia/nv.c                     | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/nvidia-uvm/uvm_perf_thrashing.c b/nvidia-uvm/uvm_perf_thrashing.c
 index 5fcf35c..651d54e 100644
@@ -29,6 +30,19 @@ index 5fcf35c..651d54e 100644
      if (g_uvm_global.num_simulated_devices > 0 &&
          (g_uvm_perf_thrashing_lapse_usec == UVM_PERF_THRASHING_LAPSE_USEC_DEFAULT)) {
          va_space_thrashing->params.lapse_ns  = UVM_PERF_THRASHING_LAPSE_USEC_DEFAULT_EMULATION * 1000;
+diff --git a/nvidia/nv.c b/nvidia/nv.c
+index 32aee94..04ca2f8 100644
+--- a/nvidia/nv.c
++++ b/nvidia/nv.c
+@@ -4471,7 +4471,7 @@ NvU64 NV_API_CALL nv_get_dma_start_address(
+      * Otherwise, the DMA start address only needs to be set once, and it
+      * won't change afterward. Just return the cached value if asked again,
+      * to avoid the kernel printing redundant messages to the kernel
+-     * log when we call pci_set_dma_mask().
++     * log when we call dma_set_mask().
+      */
+     if ((nv_tce_bypass_mode == NV_TCE_BYPASS_MODE_DISABLE) ||
+         (nvl->tce_bypass_enabled))
 -- 
 2.20.1
 

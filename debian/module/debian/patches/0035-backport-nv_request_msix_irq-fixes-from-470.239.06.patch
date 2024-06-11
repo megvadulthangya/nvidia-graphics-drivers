@@ -1,0 +1,25 @@
+From 9bba9aff7c47512e7b6c40c079f753fde0aa010c Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sun, 25 Feb 2024 09:40:43 +0100
+Subject: [PATCH] backport nv_request_msix_irq() fixes from 470.239.06
+
+---
+ nvidia/nv-msi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/nvidia/nv-msi.c b/nvidia/nv-msi.c
+index 7efaeb4..a3b72ef 100644
+--- a/nvidia/nv-msi.c
++++ b/nvidia/nv-msi.c
+@@ -158,7 +158,7 @@ NvS32 NV_API_CALL nv_request_msix_irq(nv_linux_state_t *nvl)
+         {
+             for( j = 0; j < i; j++)
+             {
+-                free_irq(nvl->msix_entries[i].vector, (void *)nvl);
++                free_irq(nvl->msix_entries[j].vector, (void *)nvl);
+             }
+             break;
+         }
+-- 
+2.20.1
+

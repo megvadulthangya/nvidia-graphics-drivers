@@ -1,5 +1,14 @@
-Description: dev->power.runtime_auto was not yet in v2.6.32
+From a4f1c3137143a779ee7340e30001ab1a6e304d46 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Tue, 27 Apr 2021 16:23:06 +0200
+Subject: [PATCH] some power management features were not yet in Linux 2.6.32
 
+---
+ conftest.sh | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/conftest.sh b/conftest.sh
+index c854510..98af501 100755
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -3457,12 +3457,14 @@ compile_test() {
@@ -17,3 +26,6 @@ Description: dev->power.runtime_auto was not yet in v2.6.32
              }"
  
              compile_check_conftest "$CODE" "NV_PM_RUNTIME_AVAILABLE" "" "generic"
+-- 
+2.20.1
+

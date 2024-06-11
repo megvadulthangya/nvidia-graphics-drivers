@@ -1,25 +1,16 @@
-From 66eeae5245f3961ddec4e71728376feb0a77765d Mon Sep 17 00:00:00 2001
+From 7dbff9d067a5a50afac2004492e0aeefb7c89ece Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
-Date: Mon, 20 Jun 2022 10:14:54 +0200
-Subject: [PATCH] backport pci/dma changes for ppc64el
+Date: Thu, 2 Nov 2023 15:57:00 +0100
+Subject: [PATCH] backport pci/dma changes for ppc64el from 470.223.02
 
 ---
- nvidia/nv.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ nvidia/nv.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/nvidia/nv.c b/nvidia/nv.c
-index 1728386..5fa50cc 100644
+index 1728386..e405d2e 100644
 --- a/nvidia/nv.c
 +++ b/nvidia/nv.c
-@@ -4464,7 +4464,7 @@ NvU64 NV_API_CALL nv_get_dma_start_address(
-      * Otherwise, the DMA start address only needs to be set once, and it
-      * won't change afterward. Just return the cached value if asked again,
-      * to avoid the kernel printing redundant messages to the kernel
--     * log when we call pci_set_dma_mask().
-+     * log when we call dma_set_mask().
-      */
-     if ((nv_tce_bypass_mode == NV_TCE_BYPASS_MODE_DISABLE) ||
-         (nvl->tce_bypass_enabled))
 @@ -4514,19 +4514,19 @@ NvU64 NV_API_CALL nv_get_dma_start_address(
       * as the starting address for all DMA mappings.
       */
