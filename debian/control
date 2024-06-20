@@ -26,7 +26,7 @@ Build-Depends-Arch:
  linux-headers-powerpc64le [ppc64el] <!nocheck>,
  libglvnd-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.6.2
+Standards-Version: 4.7.0
 Homepage: https://www.nvidia.com
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
@@ -49,7 +49,7 @@ Depends:
 Recommends:
  ${nvidia-settings},
  lib${nvidia}-cfg1 (= ${binary:Version}),
- nvidia-persistenced,
+ nvidia-persistenced (>= ${nvidia:Version:major}),
 Suggests:
  ${nvidia:kmod:source},
 Provides:
@@ -454,6 +454,7 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
+ libnvidia-egl-wayland1,
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA binary EGL library${nvidia:VariantDesc}
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
@@ -775,7 +776,7 @@ Recommends:
  ${nvidia:kmod:binary},
  ${nvidia}-smi [${nvidia:archlist:driver}],
  lib${nvidia}-cfg1 (= ${binary:Version}) [${nvidia:archlist:driver}],
- nvidia-persistenced [${nvidia:archlist:driver}],
+ nvidia-persistenced (>= ${nvidia:Version:major}) [${nvidia:archlist:driver}],
  ${libcuda1}:i386 (= ${binary:Version}) [amd64],
 Suggests:
  nvidia-cuda-mps [${nvidia:archlist:driver}],

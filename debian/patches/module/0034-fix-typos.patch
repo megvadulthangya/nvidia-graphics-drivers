@@ -1,4 +1,4 @@
-From 73d99e0834961ad70a90963d42a8a1d8d225e87d Mon Sep 17 00:00:00 2001
+From 7c6f49a47ddff074f6926997f2d37f57396fd2fb Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Wed, 31 Jan 2024 03:06:19 +0100
 Subject: [PATCH] fix typos
@@ -31,10 +31,10 @@ index ee5eef4..3032615 100644
          (g_uvm_perf_thrashing_lapse_usec == UVM_PERF_THRASHING_LAPSE_USEC_DEFAULT)) {
          va_space_thrashing->params.lapse_ns  = UVM_PERF_THRASHING_LAPSE_USEC_DEFAULT_EMULATION * 1000;
 diff --git a/nvidia/nv.c b/nvidia/nv.c
-index 5a43c52..592a228 100644
+index 76d1ef3..4fc7966 100644
 --- a/nvidia/nv.c
 +++ b/nvidia/nv.c
-@@ -4485,7 +4485,7 @@ NvU64 NV_API_CALL nv_get_dma_start_address(
+@@ -4489,7 +4489,7 @@ NvU64 NV_API_CALL nv_get_dma_start_address(
       * Otherwise, the DMA start address only needs to be set once, and it
       * won't change afterward. Just return the cached value if asked again,
       * to avoid the kernel printing redundant messages to the kernel

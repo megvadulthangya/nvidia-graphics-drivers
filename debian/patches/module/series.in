@@ -8,7 +8,7 @@ bashisms.patch
 
 # build system updates
 fragile-ARCH.patch
+conftest-verbose.patch
 use-kbuild-compiler.patch
 use-kbuild-flags.patch
-conftest-verbose.patch
 conftest-prefer-arch-headers.patch
