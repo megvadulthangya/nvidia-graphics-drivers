@@ -3,7 +3,7 @@ Description: dump the generated conftest headers
 
 --- a/Kbuild
 +++ b/Kbuild
-@@ -130,6 +130,16 @@ NV_CONFTEST_HEADERS += $(obj)/conftest/h
+@@ -120,6 +120,16 @@ NV_CONFTEST_HEADERS += $(obj)/conftest/h
  NV_CONFTEST_HEADERS += $(NV_CONFTEST_COMPILE_TEST_HEADERS)
  
  
@@ -20,7 +20,7 @@ Description: dump the generated conftest headers
  #
  # Generate a header file for a single conftest compile test. Each compile test
  # header depends on conftest.sh, as well as the generated conftest/headers.h
-@@ -154,6 +164,8 @@ define NV_GENERATE_COMPILE_TEST_HEADER
+@@ -144,6 +154,8 @@ define NV_GENERATE_COMPILE_TEST_HEADER
  	@mkdir -p $(obj)/conftest
  	@# concatenate /dev/null to prevent cat from hanging when $$^ is empty
  	@cat $$^ /dev/null > $$@
@@ -29,7 +29,7 @@ Description: dump the generated conftest headers
  endef
  
  #
-@@ -173,9 +185,11 @@ $(eval $(call NV_GENERATE_COMPILE_TEST_H
+@@ -163,9 +175,11 @@ $(eval $(call NV_GENERATE_COMPILE_TEST_H
  $(eval $(call NV_GENERATE_COMPILE_TEST_HEADER,symbols,$(NV_CONFTEST_SYMBOL_COMPILE_TESTS)))
  $(eval $(call NV_GENERATE_COMPILE_TEST_HEADER,types,$(NV_CONFTEST_TYPE_COMPILE_TESTS)))
  
@@ -42,7 +42,7 @@ Description: dump the generated conftest headers
  
  
  # Each of these headers is checked for presence with a test #include; a
-@@ -246,8 +260,9 @@ NV_HEADER_PRESENCE_PART = $(addprefix $(
+@@ -236,8 +250,9 @@ NV_HEADER_PRESENCE_PART = $(addprefix $(
  
  # Define a rule to check the header $(1).
  define NV_HEADER_PRESENCE_CHECK
@@ -53,7 +53,7 @@ Description: dump the generated conftest headers
  	@$$(NV_CONFTEST_CMD) test_kernel_header '$$(NV_CONFTEST_CFLAGS)' '$(1)' > $$@
  endef
  
-@@ -257,6 +272,8 @@ $(foreach header,$(NV_HEADER_PRESENCE_TE
+@@ -247,6 +262,8 @@ $(foreach header,$(NV_HEADER_PRESENCE_TE
  # Concatenate all of the parts into headers.h.
  $(obj)/conftest/headers.h: $(call NV_HEADER_PRESENCE_PART,$(NV_HEADER_PRESENCE_TESTS))
  	@cat $^ > $@
@@ -62,7 +62,7 @@ Description: dump the generated conftest headers
  
  clean-dirs := $(obj)/conftest
  
-@@ -277,7 +294,8 @@ BUILD_SANITY_CHECKS = \
+@@ -267,7 +284,8 @@ BUILD_SANITY_CHECKS = \
  
  .PHONY: $(BUILD_SANITY_CHECKS)
  
