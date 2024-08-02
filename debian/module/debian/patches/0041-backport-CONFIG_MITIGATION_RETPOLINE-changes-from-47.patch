@@ -1,0 +1,47 @@
+From aae7a225828ed8f2fbc304f5e4cc7d81067d985e Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 19 Jun 2024 10:33:15 +0200
+Subject: [PATCH] backport CONFIG_MITIGATION_RETPOLINE changes from 470.256.02
+
+---
+ nvidia-modeset/nvidia-modeset-linux.c | 6 +++++-
+ nvidia/nv.c                           | 6 +++++-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/nvidia-modeset/nvidia-modeset-linux.c b/nvidia-modeset/nvidia-modeset-linux.c
+index b0b5ded..fda582a 100644
+--- a/nvidia-modeset/nvidia-modeset-linux.c
++++ b/nvidia-modeset/nvidia-modeset-linux.c
+@@ -43,7 +43,11 @@
+ #include <linux/sched/signal.h>
+ #endif
+ 
+-#if !defined(CONFIG_RETPOLINE)
++/*
++ * Commit aefb2f2e619b ("x86/bugs: Rename CONFIG_RETPOLINE =>
++ * CONFIG_MITIGATION_RETPOLINE) in v6.8 renamed CONFIG_RETPOLINE.
++ */
++#if !defined(CONFIG_RETPOLINE) && !defined(CONFIG_MITIGATION_RETPOLINE)
+ #include "nv-retpoline.h"
+ #endif
+ 
+diff --git a/nvidia/nv.c b/nvidia/nv.c
+index b3271be..9dd17d1 100644
+--- a/nvidia/nv.c
++++ b/nvidia/nv.c
+@@ -34,7 +34,11 @@
+ #include "nv-pat.h"
+ #include "nvlink_caps.h"
+ 
+-#if !defined(CONFIG_RETPOLINE)
++/*
++ * Commit aefb2f2e619b ("x86/bugs: Rename CONFIG_RETPOLINE =>
++ * CONFIG_MITIGATION_RETPOLINE) in v6.8 renamed CONFIG_RETPOLINE.
++ */
++#if !defined(CONFIG_RETPOLINE) && !defined(CONFIG_MITIGATION_RETPOLINE)
+ #include "nv-retpoline.h"
+ #endif
+ 
+-- 
+2.20.1
+
