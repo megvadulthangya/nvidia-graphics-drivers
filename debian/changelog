@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-16) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-16) unstable; urgency=medium
 
   * Backport CONFIG_MITIGATION_RETPOLINE changes from 470.256.02.
   * Backport follow_pfn changes from 550.90.07 to fix kernel module build for
