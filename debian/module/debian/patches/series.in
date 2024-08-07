@@ -22,6 +22,7 @@ bashisms.patch
 0040-backport-screen_info-changes-from-470.239.06.patch
 0041-backport-CONFIG_MITIGATION_RETPOLINE-changes-from-47.patch
 0043-backport-follow_pfn-changes-from-550.90.07.patch
+0044-use-pfn_valid-variant-with-rcu_read_-un-lock_sched.patch
 
 # build system updates
 fragile-ARCH.patch
