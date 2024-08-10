@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-17) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-17) unstable; urgency=medium
 
   * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
     Linux 5.10 from 5.10.210 onwards to avoid using GPL symbols.
