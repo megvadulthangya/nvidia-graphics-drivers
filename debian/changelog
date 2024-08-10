@@ -595,7 +595,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-7) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-7) unstable; urgency=medium
 
   * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
     Linux 5.10 from 5.10.210 onwards to avoid using GPL symbols.
