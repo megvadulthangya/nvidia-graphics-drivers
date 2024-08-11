@@ -312,6 +312,9 @@ override_dh_shlibdeps:
 	dh_shlibdeps -l/$(libdir)/$(nvidia_private)
 	test -z "$$(ls debian/*.substvars 2>/dev/null)" || sed -r -i 's/libnvidia-(e?glcore)-$(version)/lib$(nvidia)-\1 (= $${binary:Version})/g' debian/*.substvars
 
+execute_before_dh_installdeb:
+	! command -v dh_movetousr >/dev/null || dh_movetousr
+
 override_dh_gencontrol:
 	dh_gencontrol -- \
 		-V'nvidia:Version=$(version)' \
