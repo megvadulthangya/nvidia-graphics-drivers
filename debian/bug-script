@@ -155,4 +155,8 @@ echo "OpenCL ICDs:"
 grep -H . /etc/OpenCL/vendors/* 2>/dev/null
 echo
 
+echo "APT sources:"
+apt-cache policy
+echo
+
 exit 0
