@@ -7,13 +7,18 @@ bashisms.patch
 0034-fix-typos.patch
 0035-backport-nv_request_msix_irq-fixes-from-470.239.06.patch
 0036-backport-pfn_valid-changes-in-nv-mmap.c-from-470.239.patch
-0037-fix-build-w-kernel-6.1.76-6.6.15-6.7.3.patch
+0037-import-pfn_valid-w-o-GPL-rcu_read_lock-unlock-from-v.patch
 0038-backport-drm_unlocked_ioctl_flag_present-changes-fro.patch
 0040-backport-screen_info-changes-from-470.239.06.patch
+0041-backport-CONFIG_MITIGATION_RETPOLINE-changes-from-47.patch
+0042-Log-an-error-message-when-nv_mem_client_init-fails-d.patch
+0043-backport-follow_pfn-changes-from-550.90.07.patch
+0044-fix-build-w-kernel-6.1.76-6.6.15-6.7.3.patch
+0045-wrap-virt_addr_valid-to-use-nv_pfn_valid-on-ppc64el.patch
 
 # build system updates
 fragile-ARCH.patch
+conftest-verbose.patch
 use-kbuild-compiler.patch
 use-kbuild-flags.patch
-conftest-verbose.patch
 conftest-prefer-arch-headers.patch
