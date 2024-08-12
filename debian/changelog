@@ -1088,10 +1088,10 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
-nvidia-graphics-drivers (470.256.02-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.256.02-3) unstable; urgency=medium
 
   * Use dh_movetousr (if available) to relocate the firmware to /usr where
-    needed.  (Closes: #1073744)
+    needed.  (Closes: #1073682)
   * Log an error message if nvidia-peermem refuses to load because it was
     built without IB peer memory symbols present.  (Closes: #1074350)
   * Backport follow_pfn changes from 550.90.07 to fix kernel module build for
@@ -1100,6 +1100,12 @@ nvidia-graphics-drivers (470.256.02-3) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 03 Aug 2024 14:35:11 +0200
 
+nvidia-graphics-drivers-tesla-470 (470.256.02-1~deb11u2) bullseye; urgency=medium
+
+  * Rebuild as Tesla 470 driver for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 24 Jun 2024 10:58:46 +0200
+
 nvidia-graphics-drivers (470.256.02-2) bullseye; urgency=medium
 
   * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
@@ -1107,6 +1113,18 @@ nvidia-graphics-drivers (470.256.02-2) bullseye; urgency=medium
   * Upload to bullseye.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 24 Jun 2024 09:13:50 +0200
+
+nvidia-graphics-drivers-tesla-470 (470.256.02-1~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 19 Jun 2024 13:19:12 +0200
+
+nvidia-graphics-drivers-tesla-470 (470.256.02-1~deb12u1) bookworm; urgency=medium
+
+  * Rebuild for bookworm.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 17 Jun 2024 23:06:22 +0200
 
 nvidia-graphics-drivers-tesla-470 (470.256.02-1) unstable; urgency=medium
 
@@ -2076,14 +2094,14 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers (460.106.00-17) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-17) UNRELEASED; urgency=medium
 
   * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
     Linux 5.10 from 5.10.210 onwards to avoid using GPL symbols.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 10 Aug 2024 11:25:07 +0200
 
-nvidia-graphics-drivers (460.106.00-16) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-16) UNRELEASED; urgency=medium
 
   * Backport CONFIG_MITIGATION_RETPOLINE changes from 470.256.02.
   * Backport follow_pfn changes from 550.90.07 to fix kernel module build for
@@ -2662,14 +2680,14 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers (450.248.02-7) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-7) UNRELEASED; urgency=medium
 
   * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
     Linux 5.10 from 5.10.210 onwards to avoid using GPL symbols.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Aug 2024 14:37:06 +0200
 
-nvidia-graphics-drivers (450.248.02-6) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-6) UNRELEASED; urgency=medium
 
   * Backport CONFIG_MITIGATION_RETPOLINE changes from 470.256.02.
   * Backport follow_pfn changes from 550.90.07 to fix kernel module build for
@@ -3826,7 +3844,7 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
-nvidia-graphics-drivers (418.226.00-16) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-16) unstable; urgency=medium
 
   * Backport pfn_valid changes in nv-mmap.c from 470.239.06.
   * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
@@ -3834,7 +3852,7 @@ nvidia-graphics-drivers (418.226.00-16) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 04 Aug 2024 15:23:24 +0200
 
-nvidia-graphics-drivers (418.226.00-15) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-15) unstable; urgency=medium
 
   * Backport CONFIG_MITIGATION_RETPOLINE changes from 470.256.02.
   * Backport follow_pfn changes from 550.90.07 to fix kernel module build for
@@ -3937,6 +3955,15 @@ nvidia-graphics-drivers-tesla-418 (418.226.00-7) unstable; urgency=medium
     (470.141.03-1).
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 06 Aug 2022 18:27:25 +0200
+
+nvidia-graphics-drivers-tesla-418 (418.226.00-6~deb11u2) bullseye; urgency=medium
+
+  * Cherry-pick ppc64el changes from 418.226.00-16.
+  * Backport pfn_valid changes in nv-mmap.c from 470.239.06.
+  * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
+    Linux 5.10 from 5.10.210 onwards to avoid using GPL symbols.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Aug 2024 10:20:11 +0200
 
 nvidia-graphics-drivers-tesla-418 (418.226.00-6~deb11u1) bullseye; urgency=medium
 
