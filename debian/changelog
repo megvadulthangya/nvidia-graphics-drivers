@@ -20,6 +20,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-15) unstable; urgency=medium
     kernel module build for Linux 6.8.
   * Backport screen_info changes from 470.182.03 and 470.239.06 to fix kernel
     module build for Linux 6.7 on arm64.
+  * Backport pfn_valid changes in nv-mmap.c from 470.239.06.
   * xserver-xorg-video-nvidia: Recommend nvidia-vulkan-icd.
   * Move the libnvidia-glvkspirv dependency to libnvidia-(e)glcore.
     (Cf. #1064194)
