@@ -1,0 +1,54 @@
+From 80f0f0925ed12fcf57a2ba2e69ac44b6004976d9 Mon Sep 17 00:00:00 2001
+From: Ionen Wolkens <ionen@gentoo.org>
+Date: Thu, 1 Feb 2024 14:58:45 -0500
+Subject: [PATCH] fix build w/ kernel 6.1.76+6.6.15+6.7.3
+
+linux-6.1.76, 6.6.15, and 6.7.3 have modified the non-ARCH-specific
+pfn_valid() to use __rcu_read_lock/unlock[1] that is marked GPL and
+cannot be used here[2][3][4] unless using the open source variant.
+
+As a workaround, use the v6.8-rc3 implementation for all kernels
+having only the first patch until NVIDIA makes a fixed release
+(that no longer will be using pfn_valid[5]).
+
+The os-mlock.c changes from 470.239.06 that get rid of calling
+pfn_valid() are not backportable since they contain an API change
+of os_lookup_user_io_memory() which is used by the blob.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/include/linux/mmzone.h?h=v6.7.3&id=3a01daace71b521563c38bbbf874e14c3e58adb7
+[2] https://bugs.gentoo.org/923456
+[3] https://forums.developer.nvidia.com/t/280908
+[4] https://github.com/NVIDIA/open-gpu-kernel-modules/issues/594
+[5] https://github.com/NVIDIA/open-gpu-kernel-modules/issues/594#issuecomment-1916197641
+
+Bug-Debian: https://bugs.debian.org/1062932
+Origin: gentoo, https://github.com/gentoo/gentoo/blob/c64caf53/x11-drivers/nvidia-drivers/files/nvidia-drivers-470.223.02-gpl-pfn_valid.patch
+---
+ nvidia/os-mlock.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/nvidia/os-mlock.c b/nvidia/os-mlock.c
+index ea5e287..096f38c 100644
+--- a/nvidia/os-mlock.c
++++ b/nvidia/os-mlock.c
+@@ -113,7 +113,7 @@ static NV_STATUS get_io_pages(struct vm_area_struct *vma,
+     for (i = 0; i < page_count; i++)
+     {
+         if ((nv_follow_pfn(vma, (start + (i * PAGE_SIZE)), &pfn) < 0) ||
+-            (!pfn_valid(pfn)))
++            (!nv_pfn_valid(pfn)))
+         {
+             rmStatus = NV_ERR_INVALID_ADDRESS;
+             break;
+@@ -187,7 +187,7 @@ NV_STATUS NV_API_CALL os_lookup_user_io_memory(
+         goto done;
+     }
+ 
+-    if (pfn_valid(pfn))
++    if (nv_pfn_valid(pfn))
+     {
+         rmStatus = get_io_pages(vma, start, page_count, (struct page **)result_array);
+         if (rmStatus == NV_OK)
+-- 
+2.20.1
+
