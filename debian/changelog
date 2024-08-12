@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla (525.147.05-11) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.147.05-11) unstable; urgency=medium
 
   * Use dh_movetousr (if available) to relocate the firmware to /usr where
     needed.  (Closes: #1073757)
