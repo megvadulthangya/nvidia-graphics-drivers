@@ -2135,14 +2135,20 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-17) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-17~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 12 Aug 2024 03:33:44 +0200
+
+nvidia-graphics-drivers-tesla-460 (460.106.00-17) unstable; urgency=medium
 
   * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
     Linux 5.10 from 5.10.210 onwards to avoid using GPL symbols.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 10 Aug 2024 11:25:07 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-16) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-16) unstable; urgency=medium
 
   * Backport CONFIG_MITIGATION_RETPOLINE changes from 470.256.02.
   * Backport follow_pfn changes from 550.90.07 to fix kernel module build for
@@ -2151,7 +2157,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-16) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 02 Aug 2024 14:54:53 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-15) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-15) unstable; urgency=medium
 
   * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
     kernel module build for Linux 6.8.
@@ -2733,14 +2739,20 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-7) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-7~deb11u1) bullseye; urgency=medium
+
+  * Rebuild for bullseye.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 12 Aug 2024 03:21:19 +0200
+
+nvidia-graphics-drivers-tesla-450 (450.248.02-7) unstable; urgency=medium
 
   * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
     Linux 5.10 from 5.10.210 onwards to avoid using GPL symbols.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Aug 2024 14:37:06 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-6) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-6) unstable; urgency=medium
 
   * Backport CONFIG_MITIGATION_RETPOLINE changes from 470.256.02.
   * Backport follow_pfn changes from 550.90.07 to fix kernel module build for
@@ -2749,7 +2761,7 @@ nvidia-graphics-drivers-tesla-450 (450.248.02-6) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 31 Jul 2024 22:59:02 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-5) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-5) unstable; urgency=medium
 
   * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
     kernel module build for Linux 6.8.
