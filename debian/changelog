@@ -1,3 +1,9 @@
+nvidia-graphics-drivers (535.183.06-1~bpo12+1) bookworm-backports; urgency=medium
+
+  * Rebuild for bookworm-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 06 Sep 2024 21:41:22 +0200
+
 nvidia-graphics-drivers (535.183.06-1) unstable; urgency=medium
 
   * New upstream Tesla branch release 535.183.06 (2024-07-09).
