@@ -241,7 +241,7 @@ override_dh_install:
 		--sort=name \
 		--mtime='@$(SOURCE_DATE_EPOCH)' \
 		--clamp-mtime \
-		modules | xz -9 > $(module_source_txz)
+		modules | xz -T1 -9 > $(module_source_txz)
 	tar tfv $(module_source_txz)
 	$(RM) -r $(module_source_pkg)/usr/src/modules
 endif

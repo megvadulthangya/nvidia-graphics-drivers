@@ -20,3 +20,19 @@ Description: use KBUILD_CFLAGS
  }
  
  CONFTEST_PREAMBLE="#include \"conftest.h\"
+--- a/nvidia-modules-common.mk
++++ b/nvidia-modules-common.mk
+@@ -108,7 +108,12 @@ ifndef nvkARCH
+  )
+ endif
+ 
+-CONFTEST := /bin/sh $(src)/conftest.sh "$(strip $(CC))" "$(strip $(HOST_CC))" $(nvkARCH) $(KERNEL_SOURCES) $(KERNEL_OUTPUT)
++NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=implicit-function-declaration,)
++NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=incompatible-pointer-types,)
++NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=return-type,)
++NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=strict-prototypes,)
++
++CONFTEST := /bin/sh $(src)/conftest.sh "$(strip $(CC) $(NV_CONFTEST_CFLAGS))" "$(strip $(HOST_CC))" $(nvkARCH) $(KERNEL_SOURCES) $(KERNEL_OUTPUT)
+ 
+ MODULE_ROOT := /lib/modules/$(KERNEL_UNAME)/kernel/drivers
+ 
