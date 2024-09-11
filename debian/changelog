@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-22) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-22) unstable; urgency=medium
 
   * Inject -Wno-error=implicit-function-declaration etc. into conftest to fix
     kernel module build with gcc-14.
@@ -6,7 +6,7 @@ nvidia-graphics-drivers-legacy-340xx (340.108-22) UNRELEASED; urgency=medium
   * Bump Standards-Version to 4.7.0. No changes needed.
   * Move udev rules to /usr.  (Closes: #1073628)
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 18 Jun 2024 12:46:39 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 11 Sep 2024 09:20:18 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.108-21) unstable; urgency=medium
 
