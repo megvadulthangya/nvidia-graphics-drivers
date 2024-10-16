@@ -9,6 +9,9 @@ Uploaders:
  Luca Boccassi <bluca@debian.org>,
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
 Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b tesla-450/transition-470
+Homepage: https://www.nvidia.com
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
  dh-sequence-dkms,
@@ -22,9 +25,6 @@ Build-Depends:
  linux-headers-arm64 [arm64] <!nocheck>,
  linux-headers-powerpc64le [ppc64el] <!nocheck>,
  libglvnd-dev,
-Rules-Requires-Root: no
-Standards-Version: 4.7.0
-Homepage: https://www.nvidia.com
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
 
@@ -58,9 +58,6 @@ Pre-Depends:
 Depends:
  glx-alternative-nvidia (>= 1.2),
  ${misc:Depends}
-Provides:
- nvidia-alternative-any,
- ${nvidia}-alternative--kmod-alias,
 Conflicts:
  libglvnd0-nvidia,
  libopengl0-glvnd-nvidia,
@@ -69,6 +66,9 @@ Conflicts:
  libegl1-glvnd-nvidia,
  libgles1-glvnd-nvidia,
  libgles2-glvnd-nvidia,
+Provides:
+ nvidia-alternative-any,
+ ${nvidia}-alternative--kmod-alias,
 Description: allows the selection of NVIDIA as GLX provider${nvidia:VariantDesc}
  In setups with several NVIDIA driver versions installed (e.g. current and
  legacy) this metapackage registers an alternative to allow easy switching
@@ -181,9 +181,9 @@ Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia}-driver,
-Provides:
- nvidia-driver-bin-${nvidia:Version},
 Conflicts:
+ nvidia-driver-bin-${nvidia:Version},
+Provides:
  nvidia-driver-bin-${nvidia:Version},
 Description: NVIDIA driver support binaries${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
@@ -280,9 +280,9 @@ Pre-Depends:
 Depends:
  lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-glcore-${nvidia:Version},
 Conflicts:
+ libnvidia-glcore-${nvidia:Version},
+Provides:
  libnvidia-glcore-${nvidia:Version},
 Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
@@ -370,9 +370,9 @@ Pre-Depends:
 Depends:
  lib${nvidia}-glvkspirv (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-eglcore-${nvidia:Version},
 Conflicts:
+ libnvidia-eglcore-${nvidia:Version},
+Provides:
  libnvidia-eglcore-${nvidia:Version},
 Description: NVIDIA binary EGL core libraries${nvidia:VariantDesc}
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
@@ -457,9 +457,9 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-glvkspirv-${nvidia:Version},
 Conflicts:
+ libnvidia-glvkspirv-${nvidia:Version},
+Provides:
  libnvidia-glvkspirv-${nvidia:Version},
 Description: NVIDIA binary Vulkan Spir-V compiler library${nvidia:VariantDesc}
  Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
@@ -477,9 +477,9 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-cbl-${nvidia:Version},
 Conflicts:
+ libnvidia-cbl-${nvidia:Version},
+Provides:
  libnvidia-cbl-${nvidia:Version},
 Description: NVIDIA binary Vulkan ray tracing (cbl) library${nvidia:VariantDesc}
  Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
@@ -497,9 +497,9 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-rtcore-${nvidia:Version},
 Conflicts:
+ libnvidia-rtcore-${nvidia:Version},
+Provides:
  libnvidia-rtcore-${nvidia:Version},
 Description: NVIDIA binary Vulkan ray tracing (rtcore) library${nvidia:VariantDesc}
  Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
@@ -574,9 +574,9 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-compiler-${nvidia:Version},
 Conflicts:
+ libnvidia-compiler-${nvidia:Version},
+Provides:
  libnvidia-compiler-${nvidia:Version},
 Description: NVIDIA runtime compiler library${nvidia:VariantDesc}
  The Compute Unified Device Architecture (CUDA) enables NVIDIA

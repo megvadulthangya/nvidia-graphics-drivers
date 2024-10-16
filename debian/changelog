@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-tesla-450 (450.248.02-8) UNRELEASED; urgency=medium
+
+  * ppc64el: Simplify virt_addr_valid changes.
+  * Ensure macro virt_addr_valid() gets called with a void* argument.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Oct 2024 00:17:11 +0200
+
 nvidia-graphics-drivers-tesla-450 (450.248.02-7~deb11u1) bullseye; urgency=medium
 
   * Rebuild for bullseye.
@@ -5034,6 +5041,11 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Oct 2014 19:04:58 +0200
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
+
+  * Ensure macro virt_addr_valid() gets called with a void* argument.
+
+  * Inject -Wno-error=implicit-function-declaration etc. into conftest to fix
+    kernel module build with gcc-14.
 
   * Revert backport of pin_user_pages changes.
   * Backport drm/drm_device.h check needed by drm_device_has_pdev backport.

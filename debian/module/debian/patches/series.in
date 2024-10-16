@@ -23,7 +23,8 @@ bashisms.patch
 0040-backport-screen_info-changes-from-470.239.06.patch
 0041-backport-CONFIG_MITIGATION_RETPOLINE-changes-from-47.patch
 0043-backport-follow_pfn-changes-from-550.90.07.patch
-0045-wrap-virt_addr_valid-to-use-nv_pfn_valid-on-ppc64el.patch
+0045-let-the-virt_addr_valid-macro-use-nv_pfn_valid-on-pp.patch
+0046-virt_addr_valid-wants-a-void-argument.patch
 
 # build system updates
 fragile-ARCH.patch
