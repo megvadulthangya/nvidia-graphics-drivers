@@ -31,11 +31,12 @@ Upstream support timeframes
     Tesla 440 (PB)      11/2020 EoL
     Tesla 450 (LTSB)    07/2023 EoL
     Tesla 460 (PB)      01/2022 EoL
-    Tesla 470 (LTSB)    07/2024
+    Tesla 470 (LTSB)    07/2024 EoL
     Tesla 510 (PB)      01/2023 EoL
     Tesla 515 (PB)      05/2023 EoL
     Tesla 525 (PB)      12/2023 EoL
     Tesla 535 (LTSB)    06/2026
+    Tesla 550 (PB)      02/2025
 
 
 The branch structure in the GIT repository
@@ -66,16 +67,17 @@ The branch structure in the GIT repository
     460                 EoL   (bullseye)          470, tesla-460/main
     tesla-460/main      EoL   (bullseye),(sid)    tesla-470/main, tesla-460/transition-470
     tesla-460/transition-470  bullseye,sid        tesla/transition
-    470                       bullseye            525, tesla-470/main
-    tesla-470/main            bullseye,bookworm,sid tesla/525
+    470                 EoL   bullseye            525, tesla-470/main
+    tesla-470/main      EoL   bullseye,bookworm,sid tesla/525, tesla-535/main
     525                 EoL   bookworm,sid        535, tesla/525
     tesla/525           EoL   (bookworm),(sid)    tesla/transition
     tesla/transition          bookworm,sid
-    535                       bookworm,sid        YYY
+    535                       bookworm,sid        tesla-535/main
+    tesla-535/main            trixie,sid
+    550                       trixie,sid          YYY
     YYY                       experimental        ZZZ
     ZZZ                       experimental
     *-backports               *-backports
-    ABCxx/*-backports         *-backports
     tesla-ABC/*-backports     *-backports
 
     New upstream releases (XXX.yy[.zz]) are always imported into the XXX
