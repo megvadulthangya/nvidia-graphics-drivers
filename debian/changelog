@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-450 (450.248.02-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-8) unstable; urgency=medium
 
   * ppc64el: Simplify virt_addr_valid changes.
   * Ensure macro virt_addr_valid() gets called with a void* argument.
