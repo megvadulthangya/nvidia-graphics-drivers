@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla (525.147.05-12) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.147.05-12) unstable; urgency=medium
 
   * ppc64el: Simplify using nv_pfn_valid() in virt_addr_valid().
   * Backport nv_get_kern_phys_address() changes from 555.42.02.
