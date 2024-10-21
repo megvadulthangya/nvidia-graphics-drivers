@@ -2154,7 +2154,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-18) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-18) unstable; urgency=medium
 
   * ppc64el: Simplify using nv_pfn_valid() in virt_addr_valid().
   * Backport nv_get_kern_phys_address() changes from 555.42.02.
@@ -2765,7 +2765,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-8) unstable; urgency=medium
 
   * ppc64el: Simplify using nv_pfn_valid() in virt_addr_valid().
   * Backport nv_get_kern_phys_address() changes from 555.42.02.
