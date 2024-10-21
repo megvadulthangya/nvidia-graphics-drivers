@@ -96,7 +96,6 @@ RENAMED_CONTROL	 = $(foreach f,$(RENAME_CONTROL),$(call applyprefixrenamelist,$f
 
 TEMPLATE_DIRS	 = debian
 TEMPLATE_DIRS	+= debian/module/debian
-TEMPLATE_DIRS	+= debian/patches/module
 TEMPLATE_DIRS	+= debian/detect
 TEMPLATE_DIRS	+= debian/tests
 TEMPLATES	:= $(filter-out %.modules.in,$(wildcard $(addsuffix /*.in,$(TEMPLATE_DIRS))))
