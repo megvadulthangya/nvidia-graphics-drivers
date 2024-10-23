@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla-470 (470.256.02-4~bpo12+1) bookworm-backports; urgency=medium
+
+  * Rebuild for bookworm-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 23 Oct 2024 09:53:20 +0200
+
 nvidia-graphics-drivers-tesla-470 (470.256.02-4) unstable; urgency=medium
 
   * The Tesla 470 driver series has been declared as End-of-Life by
