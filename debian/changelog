@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla-535 (535.216.01-1) UNRELEASED; urgency=medium
+
+  * Fork as new source package, rename everything to include '-tesla-535'.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 30 Oct 2024 16:40:28 +0100
+
 nvidia-graphics-drivers (535.216.01-1) unstable; urgency=medium
 
   * New upstream LTS and Tesla branch release 535.216.01 (2024-10-22).
