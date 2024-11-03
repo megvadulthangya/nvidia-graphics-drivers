@@ -22,7 +22,7 @@ Description: use KBUILD_CFLAGS
  CONFTEST_PREAMBLE="#include \"conftest.h\"
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -108,7 +108,12 @@ ifndef nvkARCH
+@@ -109,7 +109,12 @@ ifndef nvkARCH
   )
  endif
  

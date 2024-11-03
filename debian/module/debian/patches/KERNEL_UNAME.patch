@@ -28,7 +28,7 @@ Description: allow usage of KERNEL_UNAME as in 340.xx onwards
   ifeq ($(KERNEL_SOURCES), $(KERNEL_MODLIB)/source)
   KERNEL_OUTPUT := $(KERNEL_MODLIB)/build
   KBUILD_PARAMS := KBUILD_OUTPUT=$(KERNEL_OUTPUT)
-@@ -111,7 +110,6 @@ endif
+@@ -112,7 +111,6 @@ endif
  
  CONFTEST := /bin/sh $(src)/conftest.sh "$(strip $(CC))" "$(strip $(HOST_CC))" $(nvkARCH) $(KERNEL_SOURCES) $(KERNEL_OUTPUT)
  

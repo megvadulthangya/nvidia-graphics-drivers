@@ -8,6 +8,9 @@ Uploaders:
  Luca Boccassi <bluca@debian.org>,
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
 Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b 340xx/main
+Homepage: https://www.nvidia.com
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
 Build-Depends:
  debhelper (>= 10),
  dpkg-dev (>= 1.18.8),
@@ -20,9 +23,6 @@ Build-Depends:
  linux-headers-amd64 [amd64] <!nocheck>,
  linux-headers-686 [i386] <!nocheck>,
  linux-headers-armmp [armhf] <!nocheck>,
-Rules-Requires-Root: no
-Standards-Version: 4.7.0
-Homepage: https://www.nvidia.com
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
 
@@ -103,13 +103,13 @@ Depends:
  nvidia-kernel-common (>= 20151021),
  nvidia-modprobe,
  ${misc:Depends}
-Provides:
- nvidia-kernel-support-any,
- ${nvidia-kernel}-support--v1,
 Breaks:
  glx-alternative-nvidia (<< 0.6.91),
 Replaces:
  glx-alternative-nvidia (<< 0.6.91),
+Provides:
+ nvidia-kernel-support-any,
+ ${nvidia-kernel}-support--v1,
 Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -209,13 +209,13 @@ Recommends:
  ${nvidia-settings},
 Suggests:
  ${nvidia:kmod:source},
-Provides:
- xserver-xorg-video-nvidia-any,
- ${nvidia:xorgProvides},
 Breaks:
  glx-alternative-nvidia (<< 0.6.91),
 Replaces:
  glx-alternative-nvidia (<< 0.6.91),
+Provides:
+ xserver-xorg-video-nvidia-any,
+ ${nvidia:xorgProvides},
 Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -237,9 +237,9 @@ Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Recommends:
  ${nvidia}-driver,
-Provides:
- nvidia-driver-bin-${nvidia:Version},
 Conflicts:
+ nvidia-driver-bin-${nvidia:Version},
+Provides:
  nvidia-driver-bin-${nvidia:Version},
 Description: NVIDIA driver support binaries${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
@@ -257,13 +257,13 @@ Pre-Depends:
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-cfg.so.1 (= ${nvidia:Version}),
- libnvidia-cfg1-any,
 Breaks:
  libgl1-${nvidia}-glx (<< 340.96-8~),
 Replaces:
  libgl1-${nvidia}-glx (<< 340.96-8~),
+Provides:
+ libnvidia-cfg.so.1 (= ${nvidia:Version}),
+ libnvidia-cfg1-any,
 Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -346,8 +346,6 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-glcore-${nvidia:Version},
 Conflicts:
  libnvidia-glcore-${nvidia:Version},
  libgl1-nvidia-glx-${nvidia:Version},
@@ -355,6 +353,8 @@ Breaks:
  libgl1-${nvidia}-glx (<< 340.96-8~),
 Replaces:
  libgl1-${nvidia}-glx (<< 340.96-8~),
+Provides:
+ libnvidia-glcore-${nvidia:Version},
 Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:VariantDesc}
  The NVIDIA binary driver provides optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
@@ -437,9 +437,9 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-eglcore-${nvidia:Version},
 Conflicts:
+ libnvidia-eglcore-${nvidia:Version},
+Provides:
  libnvidia-eglcore-${nvidia:Version},
 Description: NVIDIA binary EGL core libraries${nvidia:VariantDesc}
  EGL provides a platform-agnostic mechanism for creating rendering surfaces
@@ -590,9 +590,9 @@ Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
-Provides:
- libnvidia-compiler-${nvidia:Version},
 Conflicts:
+ libnvidia-compiler-${nvidia:Version},
+Provides:
  libnvidia-compiler-${nvidia:Version},
 Description: NVIDIA runtime compiler library${nvidia:VariantDesc}
  The Compute Unified Device Architecture (CUDA) enables NVIDIA

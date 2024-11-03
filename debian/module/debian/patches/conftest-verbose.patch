@@ -3,12 +3,13 @@ Description: dump the generated conftest headers
 
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -165,20 +165,36 @@ $(obj)/$(CORE_OBJS):
+@@ -166,20 +166,37 @@ $(obj)/$(CORE_OBJS):
  $(obj)/$(VERSION_HEADER):
  	@echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
  
 +.PHONY: conftest-verbose
 +conftest-verbose:
++	uname -a
 +	@echo 'CONFTEST=$(CONFTEST)'
 +	@echo 'CONFTEST_CFLAGS=$(CONFTEST_CFLAGS)'
 +	@echo 'KBUILD_CFLAGS=$(KBUILD_CFLAGS)'
@@ -42,7 +43,7 @@ Description: dump the generated conftest headers
  
  MODULE_GLUE_TARGETS = $(addprefix $(obj)/,$(MODULE_GLUE_OBJS))
  
-@@ -234,8 +250,9 @@ BUILD_SANITY_CHECKS = \
+@@ -235,8 +252,9 @@ BUILD_SANITY_CHECKS = \
  
  SKIP_SANITY_CHECKS	 =
  

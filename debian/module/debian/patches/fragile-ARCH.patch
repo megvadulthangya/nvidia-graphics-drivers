@@ -5,7 +5,7 @@ Description: rename the ARCH variable
 
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -86,15 +86,15 @@ CC ?= cc
+@@ -86,15 +86,16 @@ CC ?= cc
  HOST_CC ?= $(CC)
  LD ?= ld
  
@@ -14,6 +14,7 @@ Description: rename the ARCH variable
 +ifndef nvkARCH
 + nvkARCH := $(shell uname -m | sed -e 's/i.86/i386/' \
   -e 's/armv[0-7]\w\+/arm/' \
++ -e 's/armv8\w\+/arm/' \
   -e 's/aarch64/arm64/' \
   -e 's/ppc64le/powerpc/' \
   )
@@ -24,7 +25,7 @@ Description: rename the ARCH variable
  
  KERNEL_UNAME ?= $(shell $(CONFTEST) get_uname)
  MODULE_ROOT := /lib/modules/$(KERNEL_UNAME)/kernel/drivers
-@@ -179,7 +179,7 @@ endif
+@@ -179,7 +180,7 @@ endif
  
  KBUILD_PARAMS += KBUILD_VERBOSE=$(NV_VERBOSE)
  KBUILD_PARAMS += -C $(KERNEL_SOURCES) M=$(PWD)
