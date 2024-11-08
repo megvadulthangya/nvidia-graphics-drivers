@@ -1,6 +1,6 @@
 # NOTE: This file is generated from debian/control.in. To regenerate,
 # run `make -f debian/rules debian/control'.
-Source: nvidia-graphics-drivers
+Source: nvidia-graphics-drivers-tesla
 Section: non-free/libs
 Priority: optional
 Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
@@ -31,7 +31,7 @@ Build-Depends-Arch:
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
 
-Package: nvidia-driver
+Package: nvidia-tesla-driver
 Section: non-free/x11
 Architecture: amd64 arm64 ppc64el
 Pre-Depends:
@@ -100,7 +100,7 @@ Description: NVIDIA metapackage (all components)${nvidia:VariantDesc}
  libraries that provide optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES/Vulkan applications via a direct-rendering X Server.
 
-Package: nvidia-alternative
+Package: nvidia-tesla-alternative
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: foreign
 Pre-Depends:
@@ -140,7 +140,7 @@ Description: allows the selection of NVIDIA as GLX provider${nvidia:VariantDesc}
  In order to install the NVIDIA driver and libraries, install the
  ${nvidia}-driver package instead.
 
-Package: firmware-nvidia-gsp
+Package: firmware-nvidia-tesla-gsp
 Section: non-free-firmware/kernel
 Architecture: amd64 arm64
 Multi-Arch: foreign
@@ -158,7 +158,7 @@ Description: NVIDIA GSP firmware${nvidia:VariantDesc}
  .
  This package provides the firmware to drive the GSP.
 
-Package: nvidia-kernel-support
+Package: nvidia-tesla-kernel-support
 Section: non-free/kernel
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: foreign
@@ -178,7 +178,7 @@ Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
  .
  This package provides supporting configuration for the kernel module.
 
-Package: nvidia-kernel-dkms
+Package: nvidia-tesla-kernel-dkms
 Section: non-free/kernel
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: foreign
@@ -215,7 +215,7 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
  Note: The new 'non-free-firmware' archive area has to be enabled in apt's
  sources.list(.d/) in order to install firmware-${nvidia}-gsp.
 
-Package: nvidia-kernel-source
+Package: nvidia-tesla-kernel-source
 Section: non-free/kernel
 Architecture: amd64 arm64 ppc64el
 Depends:
@@ -247,7 +247,7 @@ Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
  .
  Building the kernel modules has been tested up to Linux ${nvidia:kmod:tested:Linux}.
 
-Package: xserver-xorg-video-nvidia
+Package: xserver-xorg-video-nvidia-tesla
 Section: non-free/x11
 Architecture: amd64 arm64 ppc64el
 Pre-Depends:
@@ -282,18 +282,7 @@ Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
  See /usr/share/doc/${nvidia}-driver/README.txt.gz
  for a complete list of supported GPUs and PCI IDs.
 
-Package: nvidia-suspend-common
-Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
-Multi-Arch: foreign
-Depends:
- kbd,
- ${misc:Depends}
-Description: NVIDIA driver - systemd power management scripts
- This package provides the common files for the NVIDIA power management
- integration with systemd.
-
-Package: nvidia-legacy-check
+Package: nvidia-tesla-legacy-check
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: foreign
 Pre-Depends:
@@ -309,7 +298,7 @@ Description: check for NVIDIA GPUs requiring a legacy driver${nvidia:VariantDesc
  If such hardware is present, a (preseedable) debconf question will be asked to
  confirm the installation of the current driver line.
 
-Package: nvidia-driver-bin
+Package: nvidia-tesla-driver-bin
 Section: non-free/x11
 Architecture: amd64 arm64 ppc64el
 Depends:
@@ -328,7 +317,7 @@ Description: NVIDIA driver support binaries${nvidia:VariantDesc}
  .
  This package contains supporting binaries for the driver.
 
-Package: libnvidia-cfg1
+Package: libnvidia-tesla-cfg1
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -347,7 +336,7 @@ Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:VariantDesc}
  This package contains the private libnvidia-cfg runtime library
  which is used by other driver components.
 
-Package: nvidia-driver-libs
+Package: nvidia-tesla-driver-libs
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Depends:
@@ -384,7 +373,7 @@ Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES libraries)${nvidia:VariantD
  that provide optimized hardware acceleration of
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server.
 
-Package: libglx-nvidia0
+Package: libglx-nvidia-tesla0
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -406,7 +395,7 @@ Description: NVIDIA binary GLX library${nvidia:VariantDesc}
  This package contains the driver specific binary GLX implementation by NVIDIA
  that is accessed via GLVND.
 
-Package: libgl1-nvidia-glvnd-glx
+Package: libgl1-nvidia-tesla-glvnd-glx
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Depends:
@@ -427,7 +416,7 @@ Description: NVIDIA binary OpenGL/GLX library (GLVND variant)${nvidia:VariantDes
  This metapackage depends on the NVIDIA binary OpenGL/GLX implementation using
  GLVND and the corresponding GLVND loader library.
 
-Package: libnvidia-glcore
+Package: libnvidia-tesla-glcore
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -447,7 +436,7 @@ Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:VariantDesc}
  This package contains the private core libraries used by the NVIDIA
  implementation of OpenGL and GLX.
 
-Package: libegl-nvidia0
+Package: libegl-nvidia-tesla0
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -467,7 +456,7 @@ Description: NVIDIA binary EGL library${nvidia:VariantDesc}
  This package contains the driver specific binary EGL implementation provided
  by NVIDIA that is accessed via GLVND.
 
-Package: libgles-nvidia1
+Package: libgles-nvidia-tesla1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -492,7 +481,7 @@ Description: NVIDIA binary OpenGL|ES 1.x library${nvidia:VariantDesc}
  This package contains the driver specific binary OpenGL|ES 1.x implementation
  by NVIDIA that is accessed via GLVND.
 
-Package: libgles-nvidia2
+Package: libgles-nvidia-tesla2
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -518,7 +507,7 @@ Description: NVIDIA binary OpenGL|ES 2.x library${nvidia:VariantDesc}
  This package contains the driver specific binary OpenGL|ES 2.x implementation
  by NVIDIA that is accessed via GLVND.
 
-Package: libnvidia-eglcore
+Package: libnvidia-tesla-eglcore
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -542,22 +531,7 @@ Description: NVIDIA binary EGL core libraries${nvidia:VariantDesc}
  This package contains the private core libraries used by the NVIDIA
  implementation of EGL and OpenGL|ES.
 
-Package: nvidia-egl-common
-Architecture: i386 amd64 arm64 ppc64el armhf
-Multi-Arch: foreign
-Depends:
- ${misc:Depends}
-Suggests:
- libegl-${nvidia-}0 [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
- | libegl-nvidia-tesla-470-0 [i386 amd64 arm64 ppc64el]
-Description: NVIDIA binary EGL driver - common files
- EGL provides a platform-agnostic mechanism for creating rendering surfaces
- for use with other graphics libraries, such as OpenGL|ES.
- .
- This package provides the common files for the NVIDIA installable client
- driver (ICD) for EGL via GLVND.
-
-Package: nvidia-egl-icd
+Package: nvidia-tesla-egl-icd
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Depends:
@@ -577,7 +551,7 @@ Description: NVIDIA EGL installable client driver (ICD)
  This metapackage provides the NVIDIA installable client driver (ICD) for
  EGL via GLVND which supports NVIDIA GPUs.
 
-Package: nvidia-vdpau-driver
+Package: nvidia-tesla-vdpau-driver
 Section: non-free/video
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
@@ -609,26 +583,7 @@ Description: Video Decode and Presentation API for Unix - NVIDIA driver${nvidia:
  .
  ${nvidia:kmod:Description}
 
-Package: nvidia-vulkan-common
-Architecture: i386 amd64 arm64 ppc64el
-Multi-Arch: foreign
-Depends:
- ${misc:Depends}
-Suggests:
- ${nvidia}-vulkan-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
- | nvidia-tesla-470-vulkan-icd [i386 amd64 arm64 ppc64el]
-Conflicts:
- libgl1-${nvidia}-glx,
- libgl1-nvidia-tesla-418-glx,
- libgl1-nvidia-legacy-390xx-glx,
- nvidia-nonglvnd-vulkan-common,
-Description: NVIDIA Vulkan driver - common files
- Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
- .
- This package provides the common files for the NVIDIA installable client
- driver (ICD) for Vulkan (GLVND variant).
-
-Package: nvidia-vulkan-icd
+Package: nvidia-tesla-vulkan-icd
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Depends:
@@ -653,7 +608,7 @@ Description: NVIDIA Vulkan installable client driver (ICD)${nvidia:VariantDesc}
  This metapackage provides the NVIDIA installable client driver (ICD) for
  Vulkan (GLVND variant) which supports NVIDIA GPUs.
 
-Package: libnvidia-glvkspirv
+Package: libnvidia-tesla-glvkspirv
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -673,7 +628,7 @@ Description: NVIDIA binary Vulkan Spir-V compiler library${nvidia:VariantDesc}
  This package contains the private Spir-V compiler libraries used by the
  NVIDIA implementation of Vulkan.
 
-Package: libnvidia-rtcore
+Package: libnvidia-tesla-rtcore
 Architecture: amd64 arm64
 Multi-Arch: same
 Pre-Depends:
@@ -693,7 +648,7 @@ Description: NVIDIA binary Vulkan ray tracing (rtcore) library${nvidia:VariantDe
  This package contains the private rtcore library used by the NVIDIA
  implementation of Vulkan.
 
-Package: nvidia-smi
+Package: nvidia-tesla-smi
 Section: non-free/utils
 Architecture: amd64 arm64 ppc64el
 Depends:
@@ -712,7 +667,7 @@ Description: NVIDIA System Management Interface${nvidia:VariantDesc}
  See the output from the --help command line option for supported models and
  further information.
 
-Package: libnvidia-ml1
+Package: libnvidia-tesla-ml1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -729,38 +684,7 @@ Description: NVIDIA Management Library (NVML) runtime library${nvidia:VariantDes
  .
  This package contains the nvidia-ml runtime library.
 
-Package: nvidia-powerd
-Section: non-free/utils
-Architecture: amd64
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA Dynamic Boost (daemon)
- The 'nvidia-powerd' daemon provides support for the NVIDIA Dynamic Boost
- feature on Linux platforms. Dynamic Boost is a system-wide power controller
- which manages GPU and CPU power, according to the workload on the system. By
- shifting power between the GPU and the CPU, Dynamic Boost can deliver more
- power to the component that would benefit most from it, without impacting the
- system's total thermal and electrical budgets. This optimizes overall system
- performance per watt.
-
-Package: nvidia-cuda-mps
-Section: non-free/utils
-Architecture: amd64 arm64 ppc64el
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA CUDA Multi Process Service (MPS)
- The Compute Unified Device Architecture (CUDA) enables NVIDIA
- graphics processing units (GPUs) to be used for massively parallel
- general purpose computation.
- .
- CUDA MPS is a feature that allows multiple CUDA processes to share a single
- GPU context. CUDA MPS should be transparent to CUDA programs.
- .
- CUDA MPS requires a device that supports Unified Virtual Address (UVA) and
- has compute capability SM 3.5 or higher.
- Pre-CUDA 4.0 APIs are not supported under CUDA MPS.
-
-Package: libcuda1
+Package: libnvidia-tesla-cuda1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -845,7 +769,7 @@ Description: NVIDIA PKCS #11 Library (OpenSSL 3)${nvidia:VariantDesc}
  .
  This package contains the NVIDIA PKCS #11 library with OpenSSL 3 backend.
 
-Package: libcudadebugger1
+Package: libnvidia-tesla-cudadebugger1
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: same
 Depends:
@@ -860,7 +784,7 @@ Description: NVIDIA CUDA Debugger Library${nvidia:VariantDesc}
  .
  This package contains the CUDA Debugger library for Pascal and later GPUs.
 
-Package: libnvidia-ptxjitcompiler1
+Package: libnvidia-tesla-ptxjitcompiler1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -874,7 +798,7 @@ Description: NVIDIA PTX JIT Compiler library${nvidia:VariantDesc}
  .
  This package contains the runtime PTX JIT Compiler library.
 
-Package: libnvidia-nvvm4
+Package: libnvidia-tesla-nvvm4
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -888,7 +812,7 @@ Description: NVIDIA NVVM Compiler library${nvidia:VariantDesc}
  .
  This package contains the NVVM Compiler library.
 
-Package: libnvcuvid1
+Package: libnvidia-tesla-nvcuvid1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -906,7 +830,7 @@ Description: NVIDIA CUDA Video Decoder runtime library${nvidia:VariantDesc}
  .
  This package contains the nvcuvid runtime library.
 
-Package: libnvidia-encode1
+Package: libnvidia-tesla-encode1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -919,7 +843,7 @@ Description: NVENC Video Encoding runtime library${nvidia:VariantDesc}
  .
  This package contains the nvidia-encode runtime library.
 
-Package: libnvidia-fbc1
+Package: libnvidia-tesla-fbc1
 Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
@@ -935,7 +859,7 @@ Description: NVIDIA OpenGL-based Framebuffer Capture runtime library${nvidia:Var
  .
  This package contains the NvFBCOpenGL runtime library.
 
-Package: libnvoptix1
+Package: libnvidia-tesla-nvoptix1
 Architecture: amd64 arm64
 Multi-Arch: same
 Pre-Depends:
@@ -951,7 +875,7 @@ Description: NVIDIA implementation of the OptiX ray tracing engine${nvidia:Varia
  implementation for NVIDIA CUDA.
  It is used by liboptix.so.* coming with applications using the OptiX API.
 
-Package: libnvidia-opticalflow1
+Package: libnvidia-tesla-opticalflow1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -965,7 +889,7 @@ Description: NVIDIA Optical Flow runtime library${nvidia:VariantDesc}
  .
  This package contains the Optical Flow runtime library.
 
-Package: libnvidia-allocator1
+Package: libnvidia-tesla-allocator1
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -982,7 +906,7 @@ Description: NVIDIA allocator runtime library${nvidia:VariantDesc}
  This package contains the private nvidia-allocator runtime library
  which is used by other driver components.
 
-Package: libnvidia-ngx1
+Package: libnvidia-tesla-ngx1
 Architecture: amd64
 Multi-Arch: same
 Pre-Depends:
@@ -996,7 +920,7 @@ Description: NVIDIA NGX runtime library${nvidia:VariantDescShort}
  .
  This package contains the NVIDIA NGX runtime library.
 
-Package: libnvidia-api1
+Package: libnvidia-tesla-api1
 Architecture: amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -1009,23 +933,7 @@ Description: NVAPI runtime library${nvidia:VariantDescShort}
  .
  This package contains the NVAPI runtime library.
 
-Package: nvidia-opencl-common
-Architecture: i386 amd64 arm64 ppc64el
-Multi-Arch: foreign
-Depends:
- ${misc:Depends}
-Suggests:
- ${nvidia}-opencl-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
- | nvidia-tesla-470-opencl-icd [i386 amd64 arm64 ppc64el]
-Description: NVIDIA OpenCL driver - common files
- OpenCL (Open Computing Language) is a multivendor open standard for
- general-purpose parallel programming of heterogeneous systems that include
- CPUs, GPUs and other processors.
- .
- This package provides the common files for the NVIDIA installable client
- driver (ICD) for OpenCL.
-
-Package: nvidia-opencl-icd
+Package: nvidia-tesla-opencl-icd
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
 Pre-Depends:
@@ -1048,48 +956,3 @@ Description: NVIDIA OpenCL installable client driver (ICD)${nvidia:VariantDesc}
  .
  This package provides the NVIDIA installable client driver (ICD) for OpenCL
  which supports NVIDIA GPUs.
-
-Package: nvidia-libopencl1
-Architecture: i386 amd64 arm64 ppc64el
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Recommends:
- ${nvidia}-opencl-icd | opencl-icd,
-Conflicts:
- libopencl1,
-Replaces:
- libopencl1,
-Provides:
- libopencl1,
- libopencl-1.1-1,
- libopencl-1.2-1,
- libopencl-2.0-1,
- libopencl-2.1-1,
- libopencl-2.2-1,
- libopencl-3.0-1,
-Description: NVIDIA OpenCL ICD Loader library
- OpenCL (Open Computing Language) is a multivendor open standard for
- general-purpose parallel programming of heterogeneous systems that include
- CPUs, GPUs and other processors.
- .
- The OpenCL installable client driver loader (ICD Loader) acts as a dispatcher
- between an OpenCL application and one (or more) installable client drivers
- (ICD) that can be from any vendor. At least one ICD (and the corresponding
- hardware) is required to run OpenCL applications.
- .
- This package contains the ICD Loader library provided by NVIDIA.
-
-Package: nvidia-detect
-Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
-Depends:
- pciutils,
- ${misc:Depends}
-Description: NVIDIA GPU detection utility
- The 'nvidia-detect' script in this package checks for an NVIDIA GPU in the
- system and recommends one of the non-free accelerated driver meta-packages
- (nvidia-driver,
- or nvidia-tesla-470-driver) for installation.

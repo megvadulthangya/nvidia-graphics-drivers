@@ -283,7 +283,7 @@ Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
 
 Package: nvidia-suspend-common
 Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
+Architecture: #amd64 arm64 ppc64el
 Multi-Arch: foreign
 Depends:
  kbd,
@@ -698,7 +698,7 @@ Description: NVIDIA binary EGL core libraries${nvidia:VariantDesc}
  implementation of EGL and OpenGL|ES.
 
 Package: nvidia-egl-common
-Architecture: i386 amd64 arm64 ppc64el armhf
+Architecture: #i386 amd64 arm64 ppc64el armhf
 Multi-Arch: foreign
 Depends:
  ${misc:Depends}
@@ -765,7 +765,7 @@ Description: Video Decode and Presentation API for Unix - NVIDIA driver${nvidia:
  ${nvidia:kmod:Description}
 
 Package: nvidia-vulkan-common
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: #i386 amd64 arm64 ppc64el
 Multi-Arch: foreign
 Depends:
  ${misc:Depends}
@@ -886,7 +886,7 @@ Description: NVIDIA Management Library (NVML) runtime library${nvidia:VariantDes
 
 Package: nvidia-powerd
 Section: non-free/utils
-Architecture: amd64
+Architecture: #amd64
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA Dynamic Boost (daemon)
@@ -900,7 +900,7 @@ Description: NVIDIA Dynamic Boost (daemon)
 
 Package: nvidia-cuda-mps
 Section: non-free/utils
-Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
+Architecture: #amd64 ${arch:arm64} ${arch:ppc64el}
 Depends:
  ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA CUDA Multi Process Service (MPS)
@@ -1166,7 +1166,7 @@ Description: NVAPI runtime library${nvidia:VariantDescShort}
  This package contains the NVAPI runtime library.
 
 Package: nvidia-opencl-common
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: #i386 amd64 arm64 ppc64el
 Multi-Arch: foreign
 Depends:
  ${misc:Depends}
@@ -1206,7 +1206,7 @@ Description: NVIDIA OpenCL installable client driver (ICD)${nvidia:VariantDesc}
  which supports NVIDIA GPUs.
 
 Package: nvidia-libopencl1
-Architecture: i386 amd64 ${arch:arm64} ${arch:ppc64el}
+Architecture: #i386 amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -1240,7 +1240,7 @@ Description: NVIDIA OpenCL ICD Loader library
 
 Package: nvidia-detect
 Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
+Architecture: #amd64 arm64 ppc64el
 Depends:
  pciutils,
  ${misc:Depends}
