@@ -49,9 +49,12 @@ buildfix_kernel_5.2.patch
 0046-backport-drm_gem_prime_handle_to_fd-changes-from-470.patch
 0047-refuse-to-load-legacy-module-if-IBT-is-enabled.patch
 0048-backport-nv_get_kern_phys_address-changes-from-555.4.patch
+0049-fix-more-warnings.patch
+#HAS_UVM#0050-fix-more-uvm-warnings.patch
+0051-build-without-Wsign-compare.patch
+0052-backport-cmd_symlink-changes-from-550.142.patch
 
 # build system updates
-fragile-ARCH.patch
 separate-makefile-kbuild.patch
 KERNEL_UNAME.patch
 use-kbuild-compiler.patch
@@ -68,3 +71,4 @@ conftest-include-guard.patch
 # armhf support
 ignore_xen_on_arm.patch
 arm-outer-sync.patch
+armhf-on-arm64-kernel.patch

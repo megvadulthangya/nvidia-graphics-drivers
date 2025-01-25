@@ -21,7 +21,6 @@ Build-Depends:
  quilt,
  xz-utils,
  linux-headers-amd64 [amd64] <!nocheck>,
- linux-headers-686 [i386] <!nocheck>,
  linux-headers-armmp [armhf] <!nocheck>,
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
@@ -158,10 +157,10 @@ Section: non-free/kernel
 Architecture: i386 amd64 armhf
 Depends:
  debhelper (>= 10),
+ module-assistant,
  quilt,
  ${misc:Depends}
 Recommends:
- module-assistant,
  ${nvidia-kernel}-support--v1,
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),

@@ -20,15 +20,12 @@ Description: Select the correct nv-kernel.o blob for the target architecture
  ifdef NV_BUILD_MODULE_INSTANCES
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -160,8 +160,13 @@ MOD_SIGN_CMD ?= $(KERNEL_SOURCES)/script
- # to satisfy KBUILD requirements and to support NVIDIA specifics.
- #
+@@ -172,8 +172,10 @@ MOD_SIGN_CMD ?= $(KERNEL_SOURCES)/script
+ quiet_cmd_symlink = SYMLINK $@
+  cmd_symlink = ln -sf $(abspath $<) $@
  
 -$(obj)/$(CORE_OBJS):
 -	$(NVQ)cp $(src)/$(CORE_OBJS) $(obj)/$(CORE_OBJS)
-+quiet_cmd_symlink = SYMLINK $@
-+ cmd_symlink = ln -sf $< $@
-+
 +ifneq (,$(CORE_OBJS))
 +$(obj)/$(CORE_OBJS): $(src)/$(CORE_OBJS-y)_binary
 +	$(call if_changed,symlink)
@@ -36,7 +33,7 @@ Description: Select the correct nv-kernel.o blob for the target architecture
  
  $(obj)/$(VERSION_HEADER):
  	$(NVQ)echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
-@@ -384,6 +389,7 @@ clean:
+@@ -396,6 +398,7 @@ clean:
  	$(NVQ)$(RM) -f conftest*.c conftest.h
  	$(NVQ)$(RM) -rf conftest
  	$(NVQ)$(RM) -rf Module*.symvers .tmp_versions modules.order

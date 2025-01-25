@@ -3,7 +3,7 @@ Description: dump the generated conftest headers
 
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -166,20 +166,37 @@ $(obj)/$(CORE_OBJS):
+@@ -178,20 +178,37 @@ $(obj)/$(CORE_OBJS):
  $(obj)/$(VERSION_HEADER):
  	@echo \#define NV_COMPILER \"`$(CC) -v 2>&1 | tail -n 1`\" > $@
  
@@ -43,7 +43,7 @@ Description: dump the generated conftest headers
  
  MODULE_GLUE_TARGETS = $(addprefix $(obj)/,$(MODULE_GLUE_OBJS))
  
-@@ -235,8 +252,9 @@ BUILD_SANITY_CHECKS = \
+@@ -247,8 +264,9 @@ BUILD_SANITY_CHECKS = \
  
  SKIP_SANITY_CHECKS	 =
  

@@ -258,9 +258,9 @@ override_dh_auto_test: J_FLAG ?= $(patsubst parallel=%,-j%,$(filter parallel=%,$
 override_dh_auto_test: TEST_KERNEL ?= $(shell ls -dvr1 /lib/modules/*/build 2>/dev/null | cut -d/ -f4 | head -n 1)
 override_dh_auto_test: kernel-source-tree
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	cd $< && $(MAKE) $(J_FLAG) NV_VERBOSE=1 KERNEL_UNAME=$(TEST_KERNEL)
+	$(if $(TEST_KERNEL),cd $< && $(MAKE) $(J_FLAG) NV_VERBOSE=1 KERNEL_UNAME=$(TEST_KERNEL))
 ifneq (,$(has_uvm))
-	cd $< && $(MAKE) $(J_FLAG) -C uvm NV_VERBOSE=1 KERNEL_UNAME=$(TEST_KERNEL) KBUILD_EXTMOD=$$(pwd)/uvm
+	$(if $(TEST_KERNEL),cd $< && $(MAKE) $(J_FLAG) -C uvm NV_VERBOSE=1 KERNEL_UNAME=$(TEST_KERNEL) KBUILD_EXTMOD=$$(pwd)/uvm)
 endif
 endif
 endif
