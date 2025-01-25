@@ -1,9 +1,9 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-24) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-24) unstable; urgency=medium
 
   * Fix warnings during module build.
   * Do not test building modules for the removed i386 kernels.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 25 Jan 2025 11:29:32 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 25 Jan 2025 21:08:39 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.108-23) unstable; urgency=medium
 
