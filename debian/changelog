@@ -1,7 +1,17 @@
+nvidia-graphics-drivers-tesla-450 (450.248.02-9) UNRELEASED; urgency=medium
+
+  * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
+    module build for Linux 6.12.  (Closes: #1090250)
+  * Backport warning fixes from 510.39.01, 535.146.02,
+    535.216.01, 535.230.02, 560.28.03 and 565.57.01.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 02 Feb 2025 22:25:56 +0100
+
 nvidia-graphics-drivers-tesla-450 (450.248.02-8) unstable; urgency=medium
 
-  * ppc64el: Simplify virt_addr_valid changes.
-  * Ensure macro virt_addr_valid() gets called with a void* argument.
+  * Simplify using nv_pfn_valid() in virt_addr_valid() on ppc64el.
+  * Backport nv_get_kern_phys_address() changes from 555.42.02 to fix kernel
+    module build with gcc-14 on arm*.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Oct 2024 00:17:11 +0200
 
@@ -13,8 +23,9 @@ nvidia-graphics-drivers-tesla-450 (450.248.02-7~deb11u1) bullseye; urgency=mediu
 
 nvidia-graphics-drivers-tesla-450 (450.248.02-7) unstable; urgency=medium
 
-  * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
-    Linux 5.10 from 5.10.210 onwards to avoid using GPL symbols.
+  * Use pfn_valid() variant with rcu_read_{,un}lock_sched() from Linux 6.8-rc3
+    in virt_addr_valid() for Linux 5.10.210 - 5.10.999 to avoid using GPL
+    symbols on ppc64el.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Aug 2024 14:37:06 +0200
 
@@ -33,7 +44,7 @@ nvidia-graphics-drivers-tesla-450 (450.248.02-5) unstable; urgency=medium
     kernel module build for Linux 6.8.
   * Backport screen_info changes from 470.182.03 and 470.239.06 to fix kernel
     module build for Linux 6.7 on arm64.
-  * Backport pfn_valid changes in nv-mmap.c from 470.239.06.
+  * Backport pfn_valid() usage removal in nv-mmap.c from 470.239.06.
   * New Romanian (ro) debconf translations by Remus-Gabriel Chelu.
   * xserver-xorg-video-nvidia: Recommend nvidia-vulkan-icd.
   * Move the libnvidia-glvkspirv dependency to libnvidia-(e)glcore.
@@ -1186,11 +1197,24 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.226.00-17) unstable; urgency=medium
+
+  * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
+    module build for Linux 6.12.  (Closes: #1090248)
+  * Backport warning fixes from 430.09, 435.17, 510.39.01, 535.146.02,
+    535.216.01, 535.230.02, 560.28.03 and 565.57.01.
+  * Simplify using nv_pfn_valid() in virt_addr_valid() on ppc64el.
+  * Backport nv_get_kern_phys_address() changes from 555.42.02 to fix kernel
+    module build with gcc-14 on arm*.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 28 Jan 2025 22:16:33 +0100
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-16) unstable; urgency=medium
 
-  * Backport pfn_valid changes in nv-mmap.c from 470.239.06.
-  * ppc64el: Use pfn_valid() variant with rcu_read_{,un}lock_sched() for
-    Linux 5.10 from 5.10.210 onwards to avoid using GPL symbols.
+  * Backport pfn_valid() usage removal in nv-mmap.c from 470.239.06.
+  * Use pfn_valid() variant with rcu_read_{,un}lock_sched() from Linux 6.8-rc3
+    in virt_addr_valid() for Linux 5.10.210 - 5.10.999 to avoid using GPL
+    symbols on ppc64el.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 04 Aug 2024 15:23:24 +0200
 
@@ -2202,6 +2226,28 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.157-11) UNRELEASED; urgency=medium
+
+  * Do not test building modules for the removed i386 kernels.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 25 Jan 2025 21:43:00 +0100
+
+nvidia-graphics-drivers (390.157-10) UNRELEASED; urgency=medium
+
+  * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
+    module build for Linux 6.12.
+  * Backport warning fixes from 396.18, 415.13, 418.30, 430.09, 435.17,
+    510.39.01, 535.146.02, 535.216.01 and 560.28.03.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 21 Dec 2024 22:50:00 +0100
+
+nvidia-graphics-drivers (390.157-9) UNRELEASED; urgency=medium
+
+  * Backport nv_get_kern_phys_address() changes from 555.42.02 to fix kernel
+    module build with gcc-14 on arm*.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 04 Nov 2024 09:16:04 +0100
 
 nvidia-graphics-drivers (390.157-8) UNRELEASED; urgency=medium
 
@@ -5042,7 +5088,13 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
 
-  * Ensure macro virt_addr_valid() gets called with a void* argument.
+  * Fix warnings during module build.
+  * Do not test building modules for the removed i386 kernels.
+
+  * Backport nv_get_kern_phys_address() changes from 555.42.02 to fix kernel
+    module build with gcc-14 on arm*.
+  * Work around architecture misdetection when building the kernel modules in
+    an armhf environment on an arm64 host.
 
   * Inject -Wno-error=implicit-function-declaration etc. into conftest to fix
     kernel module build with gcc-14.

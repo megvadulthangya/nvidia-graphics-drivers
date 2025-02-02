@@ -1,7 +1,7 @@
 Author: Paul Szabo <paul.szabo@sydney.edu.au>
 Author: Andreas Beckmann <anbe@debian.org>
 Description: prefer arch headers over common headers
-Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=933309
+Bug-Debian: https://bugs.debian.org/933309
 
 --- a/conftest.sh
 +++ b/conftest.sh

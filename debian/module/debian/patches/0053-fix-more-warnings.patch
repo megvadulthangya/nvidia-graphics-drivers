@@ -1,0 +1,81 @@
+From 446bd171b1faedcd85280ef9b1de6aa255f19657 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sun, 8 Dec 2024 22:13:22 +0100
+Subject: [PATCH] fix more warnings
+
+---
+ common/inc/nv-linux.h                 | 8 ++++++++
+ nvidia-modeset/nvidia-modeset-linux.c | 1 +
+ nvidia/nv-mmap.c                      | 1 +
+ 3 files changed, 10 insertions(+)
+
+diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
+index 04d47c4e..6e76d334 100644
+--- a/common/inc/nv-linux.h
++++ b/common/inc/nv-linux.h
+@@ -552,7 +552,9 @@ static inline void *nv_ioremap_cache(NvU64 phys, NvU64 size)
+ #if defined(NV_IOREMAP_CACHE_PRESENT)
+     void *ptr = ioremap_cache(phys, size);
+     if (ptr)
++    {
+         NV_MEMDBG_ADD(ptr, size);
++    }
+     return ptr;
+ #elif defined(NVCPU_PPC64LE)
+     //
+@@ -614,14 +616,18 @@ static NvBool nv_numa_node_has_memory(int node_id)
+     { \
+         (ptr) = kmalloc(size, NV_GFP_KERNEL); \
+         if (ptr) \
++        { \
+             NV_MEMDBG_ADD(ptr, size); \
++        } \
+     }
+ 
+ #define NV_KMALLOC_ATOMIC(ptr, size) \
+     { \
+         (ptr) = kmalloc(size, NV_GFP_ATOMIC); \
+         if (ptr) \
++        { \
+             NV_MEMDBG_ADD(ptr, size); \
++        } \
+     }
+ 
+ #if defined(__GFP_RETRY_MAYFAIL)
+@@ -636,7 +642,9 @@ static NvBool nv_numa_node_has_memory(int node_id)
+     { \
+         (ptr) = kmalloc(size, NV_GFP_NO_OOM); \
+         if (ptr) \
++        { \
+             NV_MEMDBG_ADD(ptr, size); \
++        } \
+     }
+ 
+ #define NV_KFREE(ptr, size) \
+diff --git a/nvidia-modeset/nvidia-modeset-linux.c b/nvidia-modeset/nvidia-modeset-linux.c
+index b86574c5..c19ab900 100644
+--- a/nvidia-modeset/nvidia-modeset-linux.c
++++ b/nvidia-modeset/nvidia-modeset-linux.c
+@@ -881,6 +881,7 @@ failed:
+     return NULL;
+ }
+ 
++static
+ void NVKMS_API_CALL nvkms_close_common(struct nvkms_per_open *popen)
+ {
+     /*
+diff --git a/nvidia/nv-mmap.c b/nvidia/nv-mmap.c
+index 2c05e7db..d0db1a84 100644
+--- a/nvidia/nv-mmap.c
++++ b/nvidia/nv-mmap.c
+@@ -352,6 +352,7 @@ int nv_encode_caching(
+         case NV_MEMORY_CACHED:
+             if (NV_ALLOW_CACHING(memory_type))
+                 break;
++            __attribute__((__fallthrough__));
+         default:
+             nv_printf(NV_DBG_ERRORS,
+                 "NVRM: VM: cache type %d not supported for memory type %d!\n",
+-- 
+2.39.5
+

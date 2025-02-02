@@ -1,0 +1,42 @@
+From b8fe52b0ddc5d1d91fd9644202327de9ec0e229b Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Fri, 24 Jan 2025 12:37:14 +0100
+Subject: [PATCH] backport LD_SCRIPT changes from 535.230.02
+
+---
+ Makefile | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 8ba80130..51a777e8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -59,3 +59,13 @@ else
+     )
+   endif
++
++  KERNEL_ARCH = $(ARCH)
++
++  ifneq ($(filter $(ARCH),i386 x86_64),)
++    KERNEL_ARCH = x86
++  else
++    ifeq ($(filter $(ARCH),arm64 powerpc),)
++        $(error Unsupported architecture $(ARCH))
++    endif
++  endif
+ 
+@@ -98,8 +108,9 @@ else
+   # module symbols on which the Linux kernel's module resolution is dependent
+   # and hence must be used whenever present.
+ 
+-  LD_SCRIPT ?= $(KERNEL_SOURCES)/scripts/module-common.lds      \
+-               $(KERNEL_SOURCES)/arch/$(ARCH)/kernel/module.lds \
++  LD_SCRIPT ?= $(KERNEL_SOURCES)/scripts/module-common.lds             \
++               $(KERNEL_SOURCES)/arch/$(KERNEL_ARCH)/kernel/module.lds \
++               $(KERNEL_OUTPUT)/arch/$(KERNEL_ARCH)/module.lds         \
+                $(KERNEL_OUTPUT)/scripts/module.lds
+   NV_MODULE_COMMON_SCRIPTS := $(foreach s, $(wildcard $(LD_SCRIPT)), -T $(s))
+ 
+-- 
+2.39.5
+

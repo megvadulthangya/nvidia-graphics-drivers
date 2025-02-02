@@ -1,0 +1,50 @@
+From 64448c762eddd9cff0e56e23c980d90b45eed1f7 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Tue, 10 Dec 2024 20:08:50 +0100
+Subject: [PATCH] fix more uvm warnings
+
+---
+ nvidia-uvm/uvm8_channel_test.c | 1 -
+ nvidia-uvm/uvm8_gpu.c          | 1 +
+ nvidia-uvm/uvm8_tools.c        | 1 +
+ 3 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/nvidia-uvm/uvm8_channel_test.c b/nvidia-uvm/uvm8_channel_test.c
+index 0d6405f2..7507f325 100644
+--- a/nvidia-uvm/uvm8_channel_test.c
++++ b/nvidia-uvm/uvm8_channel_test.c
+@@ -158,7 +158,6 @@ done:
+ 
+ static NV_STATUS test_unexpected_completed_values(uvm_va_space_t *va_space)
+ {
+-    NV_STATUS status;
+     uvm_gpu_t *gpu;
+ 
+     for_each_va_space_gpu(gpu, va_space) {
+diff --git a/nvidia-uvm/uvm8_gpu.c b/nvidia-uvm/uvm8_gpu.c
+index 3adf4971..215b52e5 100644
+--- a/nvidia-uvm/uvm8_gpu.c
++++ b/nvidia-uvm/uvm8_gpu.c
+@@ -1768,6 +1768,7 @@ uvm_gpu_t *uvm_gpu_get_by_uuid(const NvProcessorUuid *gpu_uuid)
+ }
+ 
+ 
++static
+ uvm_gpu_t *uvm_gpu_get_by_uuid_and_swizz_id_locked(const NvProcessorUuid *gpu_uuid, NvU32 swizz_id)
+ {
+     uvm_parent_gpu_t *parent_gpu = uvm_parent_gpu_get_by_uuid(gpu_uuid);
+diff --git a/nvidia-uvm/uvm8_tools.c b/nvidia-uvm/uvm8_tools.c
+index b044abfb..74816139 100644
+--- a/nvidia-uvm/uvm8_tools.c
++++ b/nvidia-uvm/uvm8_tools.c
+@@ -35,6 +35,7 @@
+ #include "uvm8_range_group.h"
+ #include "uvm8_mem.h"
+ #include "nv_speculation_barrier.h"
++#include "uvm8_tools_init.h"
+ 
+ // We limit the number of times a page can be retained by the kernel
+ // to prevent the user from maliciously passing UVM tools the same page
+-- 
+2.39.5
+

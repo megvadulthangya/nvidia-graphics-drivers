@@ -1,4 +1,4 @@
-From b49697663d28ef35ad1e2ab14be448003615c207 Mon Sep 17 00:00:00 2001
+From 4ea2e1b5e3541827eca655555367637db0c46a56 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sun, 13 Oct 2024 08:52:51 +0200
 Subject: [PATCH] let the virt_addr_valid() macro use nv_pfn_valid() on ppc64el
@@ -8,10 +8,10 @@ Subject: [PATCH] let the virt_addr_valid() macro use nv_pfn_valid() on ppc64el
  1 file changed, 5 insertions(+)
 
 diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
-index 24dece6..b783a7c 100644
+index b364145..c1f242e 100644
 --- a/common/inc/nv-linux.h
 +++ b/common/inc/nv-linux.h
-@@ -1997,6 +1997,11 @@ static inline int nv_pfn_valid(unsigned long pfn)
+@@ -1990,6 +1990,11 @@ static inline int nv_pfn_valid(unsigned long pfn)
          return ret;
  }
  
