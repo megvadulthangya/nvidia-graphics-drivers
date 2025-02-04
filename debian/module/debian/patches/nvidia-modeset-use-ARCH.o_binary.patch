@@ -14,4 +14,4 @@ Description: select the correct nv-modeset-kernel.o blob for the target architec
 +NVIDIA_MODESET_BINARY_OBJECT := $(src)/nvidia-modeset/$(NVIDIA_MODESET_BINARY_OBJECT-y)
  NVIDIA_MODESET_BINARY_OBJECT_O := nvidia-modeset/nv-modeset-kernel.o
  
- quiet_cmd_symlink = SYMLINK $@
+ targets += $(NVIDIA_MODESET_BINARY_OBJECT_O)

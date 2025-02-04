@@ -68,11 +68,11 @@ The branch structure in the GIT repository
     tesla-460/main      EoL   (bullseye),(sid)    tesla-470/main, tesla-460/transition-470
     tesla-460/transition-470  bullseye,sid        tesla/transition
     470                 EoL   bullseye            525, tesla-470/main
-    tesla-470/main      EoL   bullseye,bookworm,sid tesla/525, tesla-535/main
+    tesla-470/main      EoL   bullseye,bookworm,sid tesla/525
     525                 EoL   bookworm,sid        535, tesla/525
-    tesla/525           EoL   (bookworm),(sid)    tesla/transition
+    tesla/525           EoL   (bookworm),(sid)    tesla-535/main, tesla/transition
     tesla/transition          bookworm,sid
-    535                       bookworm,sid        tesla-535/main
+    535                       bookworm,sid        550, tesla-535/main
     tesla-535/main            trixie,sid
     550                       trixie,sid          YYY
     YYY                       experimental        ZZZ

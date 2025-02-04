@@ -16,4 +16,4 @@ Description: Select the correct nv-kernel.o blob for the target architecture
 +NVIDIA_BINARY_OBJECT := $(src)/nvidia/$(NVIDIA_BINARY_OBJECT-y)
  NVIDIA_BINARY_OBJECT_O := nvidia/nv-kernel.o
  
- quiet_cmd_symlink = SYMLINK $@
+ targets += $(NVIDIA_BINARY_OBJECT_O)

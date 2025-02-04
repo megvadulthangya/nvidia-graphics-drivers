@@ -160,10 +160,10 @@ Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Depends:
  nvidia-tesla-470-kernel-source,
 # debhelper-compat (= ${nvidia:debhelper-compat}),
+# module-assistant,
 # quilt,
  ${misc:Depends}
 #Recommends:
-# module-assistant,
 # ${nvidia-kernel}-support--v1,
 #Suggests:
 # ${nvidia}-driver (>= ${nvidia:Version}),

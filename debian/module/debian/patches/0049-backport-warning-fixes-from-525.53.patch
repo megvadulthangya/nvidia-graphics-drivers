@@ -1,0 +1,24 @@
+From 00f7396f0be1766b0ce86ea39a2e2dbdf5533aac Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sat, 14 Dec 2024 23:42:16 +0100
+Subject: [PATCH] backport warning fixes from 525.53
+
+---
+ nvidia-drm/nvidia-drm-modeset.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/nvidia-drm/nvidia-drm-modeset.c b/nvidia-drm/nvidia-drm-modeset.c
+index 83c635aa..6e0221f8 100644
+--- a/nvidia-drm/nvidia-drm-modeset.c
++++ b/nvidia-drm/nvidia-drm-modeset.c
+@@ -93,7 +93,6 @@ static bool __will_generate_flip_event(struct drm_crtc *crtc,
+         to_nv_crtc_state(new_crtc_state);
+     struct drm_plane_state *old_plane_state = NULL;
+     struct drm_plane *plane = NULL;
+-    struct drm_plane *primary_plane = crtc->primary;
+     bool primary_event = false;
+     bool overlay_event = false;
+     int i;
+-- 
+2.39.5
+
