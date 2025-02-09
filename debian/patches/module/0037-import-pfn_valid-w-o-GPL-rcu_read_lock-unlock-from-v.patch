@@ -1,4 +1,4 @@
-From 9e38875c414dd5338c2d3a6b6e9866d3e69b25c8 Mon Sep 17 00:00:00 2001
+From e627105e41059188abf684fa4e27a12a50d0615f Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Thu, 1 Feb 2024 14:58:45 -0500
 Subject: [PATCH] import pfn_valid() w/o GPL rcu_read_lock/unlock from v6.8-rc3
@@ -43,11 +43,11 @@ Origin: gentoo, https://github.com/gentoo/gentoo/blob/c64caf53/x11-drivers/nvidi
  1 file changed, 33 insertions(+)
 
 diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
-index 9f32e4e..a8e69ea 100644
+index 9f32e4e3..a4a88434 100644
 --- a/common/inc/nv-linux.h
 +++ b/common/inc/nv-linux.h
-@@ -1998,4 +1998,37 @@ typedef enum
- #include <linux/clk-provider.h>
+@@ -1900,6 +1900,39 @@ static inline NvU32 nv_default_irq_flags(nv_state_t *nv)
+     #define NV_GET_UNUSED_FD_FLAGS(flags)  (-1)
  #endif
  
 +#if (!defined(CONFIG_HAVE_ARCH_PFN_VALID)) && \
@@ -83,7 +83,9 @@ index 9f32e4e..a8e69ea 100644
 +#  define nv_pfn_valid pfn_valid
 +#endif
 +
- #endif  /* _NV_LINUX_H_ */
+ #define MODULE_BASE_NAME "nvidia"
+ #define MODULE_INSTANCE_NUMBER 0
+ #define MODULE_INSTANCE_STRING ""
 -- 
-2.20.1
+2.39.5
 

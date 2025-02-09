@@ -2,7 +2,7 @@ Package: #NVIDIA-KERNEL#-#KVERS#
 Section: non-free/kernel
 Architecture: #ARCH_LIST#
 Depends:
- firmware-#NVIDIA#-gsp (= #VERSION#) [#GSP_ARCH_LIST#] | firmware-nvidia-gsp-#VERSION# [#GSP_ARCH_LIST#],
+ firmware-#NVIDIA#-gsp (= #VERSION#) [!ppc64el] | firmware-nvidia-gsp-#VERSION# [!ppc64el],
  #NVIDIA-KERNEL#-support--v1,
 Recommends:
  linux-image-#KVERS#,

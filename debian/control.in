@@ -110,15 +110,15 @@ Description: allows the selection of NVIDIA as GLX provider${nvidia:VariantDesc}
 
 Package: firmware-${nvidia}-gsp
 Section: non-free-firmware/kernel
-Architecture: amd64 ${arch:arm64} #${arch:ppc64el}
+Architecture: amd64 ${arch:arm64}
 Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Conflicts:
- firmware-nvidia-gsp-${nvidia:Version} [${nvidia:archlist:gsp}],
+ firmware-nvidia-gsp-${nvidia:Version},
 Provides:
-# firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:archlist:gsp}],
- firmware-nvidia-gsp-${nvidia:Version} [${nvidia:archlist:gsp}],
+# firmware-${nvidia}-gsp (= ${nvidia:Version}),
+ firmware-nvidia-gsp-${nvidia:Version},
 Description: NVIDIA GSP firmware${nvidia:VariantDesc}
  The GPU System Processor (GSP) was first introduced in the Turing
  architecture and supports accelerating tasks traditionally performed
@@ -154,7 +154,7 @@ Multi-Arch: foreign
 # nvidia-installer-cleanup,
 Depends:
  nvidia-kernel-dkms,
-# firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:archlist:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:archlist:gsp}],
+# firmware-${nvidia}-gsp (= ${nvidia:Version}) [!ppc64el] | firmware-nvidia-gsp-${nvidia:Version} [!ppc64el],
 # ${nvidia-kernel}-support--v1,
  ${misc:Depends}
 #Recommends:
@@ -193,7 +193,7 @@ Depends:
 # module-assistant,
  ${misc:Depends}
 #Recommends:
-# firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:archlist:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:archlist:gsp}],
+# firmware-${nvidia}-gsp (= ${nvidia:Version}) [!ppc64el] | firmware-nvidia-gsp-${nvidia:Version} [!ppc64el],
 # ${nvidia-kernel}-support--v1,
 #Suggests:
 # ${nvidia}-driver (>= ${nvidia:Version}),

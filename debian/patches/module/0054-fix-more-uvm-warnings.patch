@@ -1,0 +1,37 @@
+From 2d028ea6241de78f8127851ede422b76741f129e Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Tue, 10 Dec 2024 20:08:50 +0100
+Subject: [PATCH] fix more uvm warnings
+
+---
+ nvidia-uvm/uvm_gpu.c   | 1 +
+ nvidia-uvm/uvm_tools.c | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/nvidia-uvm/uvm_gpu.c b/nvidia-uvm/uvm_gpu.c
+index ecf5d02b..2aeb3573 100644
+--- a/nvidia-uvm/uvm_gpu.c
++++ b/nvidia-uvm/uvm_gpu.c
+@@ -1795,6 +1795,7 @@ uvm_gpu_t *uvm_gpu_get_by_uuid(const NvProcessorUuid *gpu_uuid)
+     return uvm_gpu_get_by_uuid_locked(gpu_uuid);
+ }
+ 
++static
+ uvm_gpu_t *uvm_gpu_get_by_parent_and_swizz_id_locked(uvm_parent_gpu_t *parent_gpu, NvU32 swizz_id)
+ {
+     uvm_gpu_t *gpu;
+diff --git a/nvidia-uvm/uvm_tools.c b/nvidia-uvm/uvm_tools.c
+index ea7179db..afe89fdc 100644
+--- a/nvidia-uvm/uvm_tools.c
++++ b/nvidia-uvm/uvm_tools.c
+@@ -35,6 +35,7 @@
+ #include "uvm_range_group.h"
+ #include "uvm_mem.h"
+ #include "nv_speculation_barrier.h"
++#include "uvm_tools_init.h"
+ 
+ // We limit the number of times a page can be retained by the kernel
+ // to prevent the user from maliciously passing UVM tools the same page
+-- 
+2.39.5
+

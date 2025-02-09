@@ -10,7 +10,7 @@ NVIDIA_LEGACY_CHECK	 = $${nvidia}-legacy-check (>= 495) [$${nvidia:archlist:driv
 XORG_ABI_LIST		 = 25 24 23 20 19 18 15 14 13 12 11 10 8 6.0
 XORG_BOUND		 = (<< 2:21.99)
 
-LINUX_KMOD_TESTED	 = 6.11
+LINUX_KMOD_TESTED	 = 6.13
 
 ARCH_LIST		 = amd64
 ARCH_LIST		+= i386
@@ -21,7 +21,6 @@ NO_DRIVER_ARCH_LIST	 = i386 armhf
 ifeq (,$(TESLA_MAJOR))
 NO_TARBALL_ARCH_LIST	 = ppc64el
 endif
-NO_GSP_ARCH_LIST	 = ppc64el
 
 NVIDIA_DIRNAME_amd64	 = NVIDIA-Linux-x86_64-${NVIDIA_RELEASE}
 NVIDIA_DIRNAME_arm64	 = NVIDIA-Linux-aarch64-${NVIDIA_RELEASE}
@@ -38,5 +37,4 @@ HTTPURL_ARCHDIR_arm64	 = Linux-aarch64
 HTTPURL_ARCHDIR_ppc64el	 =
 else
 HTTPURL_PREFIX		 = https://us.download.nvidia.com/tesla
-#HTTPURL_VERDIR		 = $(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(NVIDIA_RELEASE))))
 endif
