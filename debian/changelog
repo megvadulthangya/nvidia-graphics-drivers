@@ -2180,7 +2180,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-19) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-19) unstable; urgency=medium
 
   * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
     module build for Linux 6.12.  (Closes: #1090251)
@@ -2804,7 +2804,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-9) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-9) unstable; urgency=medium
 
   * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
     module build for Linux 6.12.  (Closes: #1090250)
