@@ -25,7 +25,6 @@ ARCH_LIST		?= amd64
 NO_DRIVER_ARCH_LIST	?=
 NO_TARBALL_ARCH_LIST	?=
 NO_AUTOPKGTEST_ARCH_LIST?=
-NO_GSP_ARCH_LIST	?=
 
 version			 = $(NVIDIA_RELEASE)
 version_major		 = $(NVIDIA_MAJOR)
@@ -58,7 +57,6 @@ has_driver		 = $(filter $(DEB_HOST_ARCH),$(DRIVER_ARCH_LIST))
 DRIVER_ARCH_LIST	 = $(filter-out $(NO_DRIVER_ARCH_LIST),$(ARCH_LIST))
 TARBALL_ARCH_LIST	 = $(filter-out $(NO_TARBALL_ARCH_LIST),$(DRIVER_ARCH_LIST))
 AUTOPKGTEST_ARCH_LIST	 = $(filter-out $(NO_AUTOPKGTEST_ARCH_LIST),$(DRIVER_ARCH_LIST))
-GSP_ARCH_LIST		 = $(filter-out $(NO_GSP_ARCH_LIST),$(DRIVER_ARCH_LIST))
 
 # system libdir
 libdir			?= usr/lib/$(DEB_HOST_MULTIARCH)
@@ -304,14 +302,14 @@ pack-module-source:
 	find $(module_source_pkg) \( -name '*.binary' -o -name '*.in' -not -name '*.modules.in' \) -print -delete
 	tar c \
 		-C $(module_source_pkg)/usr/src \
-		--owner=root --group=root \
+		--numeric-owner --owner=0 --group=0 \
 		--mode=a=rX,u+w \
 		--sort=name \
 		--mtime='@$(SOURCE_DATE_EPOCH)' \
 		--clamp-mtime \
+		--remove-files \
 		modules | xz -T1 -9 > $(module_source_txz)
 	tar tfv $(module_source_txz)
-	$(RM) -r $(module_source_pkg)/usr/src/modules
 
 # only invoked manually
 kernel-source-tree: unpack-stamp $(AUTOGEN)
@@ -367,7 +365,6 @@ override_dh_gencontrol:
 		-V'nvidia:debhelper-compat=$(debhelper_compat)' \
 		$(foreach a,$(ARCH_CANDIDATES),-V'arch:$a=$(filter $a,$(DRIVER_ARCH_LIST))') \
 		-V'nvidia:archlist:driver=$(DRIVER_ARCH_LIST)' \
-		-V'nvidia:archlist:gsp=$(GSP_ARCH_LIST)' \
 		-V'nvidia:kmod:binary=$(deps_nvidia_kmod_binary)' \
 		-V'nvidia:kmod:source=$(deps_nvidia_kmod_source)' \
 		-V'nvidia:kmod:tested:Linux=$(strip $(or $(LINUX_KMOD_TESTED_$(DEB_HOST_ARCH)),$(LINUX_KMOD_TESTED),???))' \
@@ -412,7 +409,6 @@ override_dh_strip_nondeterminism:
 	-e 's{#PRIVATE#}{$(nvidia_private)}g;' \
 	-e 's{#ARCH_LIST#}{$(DRIVER_ARCH_LIST)}g;' \
 	-e 's{#AUTOPKGTEST_ARCH_LIST#}{$(AUTOPKGTEST_ARCH_LIST)}g;' \
-	-e 's{#GSP_ARCH_LIST#}{$(GSP_ARCH_LIST)}g;' \
 	< $< > $@
 	chmod --reference=$< $@
 

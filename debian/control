@@ -115,10 +115,10 @@ Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Conflicts:
- firmware-nvidia-gsp-${nvidia:Version} [${nvidia:archlist:gsp}],
+ firmware-nvidia-gsp-${nvidia:Version},
 Provides:
- firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:archlist:gsp}],
- firmware-nvidia-gsp-${nvidia:Version} [${nvidia:archlist:gsp}],
+ firmware-${nvidia}-gsp (= ${nvidia:Version}),
+ firmware-nvidia-gsp-${nvidia:Version},
 Description: NVIDIA GSP firmware${nvidia:VariantDesc}
  The GPU System Processor (GSP) was first introduced in the Turing
  architecture and supports accelerating tasks traditionally performed
@@ -153,7 +153,7 @@ Multi-Arch: foreign
 Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
- firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:archlist:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:archlist:gsp}],
+ firmware-${nvidia}-gsp (= ${nvidia:Version}) [!ppc64el] | firmware-nvidia-gsp-${nvidia:Version} [!ppc64el],
  ${nvidia-kernel}-support--v1,
  ${misc:Depends}
 Recommends:
@@ -191,7 +191,7 @@ Depends:
  module-assistant,
  ${misc:Depends}
 Recommends:
- firmware-${nvidia}-gsp (= ${nvidia:Version}) [${nvidia:archlist:gsp}] | firmware-nvidia-gsp-${nvidia:Version} [${nvidia:archlist:gsp}],
+ firmware-${nvidia}-gsp (= ${nvidia:Version}) [!ppc64el] | firmware-nvidia-gsp-${nvidia:Version} [!ppc64el],
  ${nvidia-kernel}-support--v1,
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),

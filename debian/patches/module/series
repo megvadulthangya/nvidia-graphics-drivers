@@ -16,9 +16,20 @@ bashisms.patch
 0044-fix-build-w-kernel-6.1.76-6.6.15-6.7.3.patch
 0045-let-the-virt_addr_valid-macro-use-nv_pfn_valid-on-pp.patch
 0046-backport-nv_get_kern_phys_address-changes-from-555.4.patch
+0047-backport-drm_output_poll_changed-changes-from-535.21.patch
+0048-backport-cmd_symlink-changes-from-550.142.patch
+0050-backport-uvm-warning-fixes-from-535.146.02.patch
+0051-backport-warning-fixes-from-535.216.01.patch
+0052-backport-uvm-warning-fixes-from-560.28.03.patch
+0053-fix-more-warnings.patch
+0054-fix-more-uvm-warnings.patch
+0055-backport-file_operations_fop_unsigned_offset_present.patch
+0056-backport-LD_SCRIPT-changes-from-535.230.02.patch
+0057-backport-uvm-fixes-from-535.230.02.patch
+0058-backport-warning-fixes-from-565.57.01.patch
+0059-backport-uvm-warning-fixes-from-550.90.07.patch
 
 # build system updates
-fragile-ARCH.patch
 conftest-verbose.patch
 use-kbuild-compiler.patch
 use-kbuild-flags.patch
