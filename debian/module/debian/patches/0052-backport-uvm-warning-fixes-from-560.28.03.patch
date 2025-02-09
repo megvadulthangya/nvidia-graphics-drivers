@@ -1,0 +1,126 @@
+From d85ac7b0ffacdad88d2c269987c158fb0ad5dffd Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sun, 8 Dec 2024 22:54:59 +0100
+Subject: [PATCH] backport uvm warning fixes from 560.28.03
+
+---
+ nvidia-uvm/uvm_maxwell_mmu.c         |  1 +
+ nvidia-uvm/uvm_migrate_pageable.c    |  4 ++++
+ nvidia-uvm/uvm_page_tree_test.c      |  2 +-
+ nvidia-uvm/uvm_pascal_fault_buffer.c |  7 -------
+ nvidia-uvm/uvm_pascal_mmu.c          |  1 +
+ nvidia-uvm/uvm_pmm_test.c            | 10 +++++-----
+ 6 files changed, 12 insertions(+), 13 deletions(-)
+
+diff --git a/nvidia-uvm/uvm_maxwell_mmu.c b/nvidia-uvm/uvm_maxwell_mmu.c
+index 4f3e0555..7af804aa 100644
+--- a/nvidia-uvm/uvm_maxwell_mmu.c
++++ b/nvidia-uvm/uvm_maxwell_mmu.c
+@@ -38,6 +38,7 @@
+ #include "uvm_forward_decl.h"
+ #include "uvm_gpu.h"
+ #include "uvm_mmu.h"
++#include "uvm_hal.h"
+ #include "uvm_push_macros.h"
+ #include "hwref/maxwell/gm107/dev_mmu.h"
+ 
+diff --git a/nvidia-uvm/uvm_migrate_pageable.c b/nvidia-uvm/uvm_migrate_pageable.c
+index d06de712..ed339022 100644
+--- a/nvidia-uvm/uvm_migrate_pageable.c
++++ b/nvidia-uvm/uvm_migrate_pageable.c
+@@ -546,6 +546,7 @@ void uvm_migrate_vma_alloc_and_copy(struct migrate_vma *args, migrate_vma_state_
+         state->status = tracker_status;
+ }
+ 
++#if defined(CONFIG_MIGRATE_VMA_HELPER)
+ void uvm_migrate_vma_alloc_and_copy_helper(struct vm_area_struct *vma,
+                                 const unsigned long *src,
+                                 unsigned long *dst,
+@@ -564,6 +565,7 @@ void uvm_migrate_vma_alloc_and_copy_helper(struct vm_area_struct *vma,
+ 
+     uvm_migrate_vma_alloc_and_copy(&args, (migrate_vma_state_t *) private);
+ }
++#endif
+ 
+ void uvm_migrate_vma_finalize_and_map(struct migrate_vma *args, migrate_vma_state_t *state)
+ {
+@@ -635,6 +637,7 @@ void uvm_migrate_vma_finalize_and_map(struct migrate_vma *args, migrate_vma_stat
+     UVM_ASSERT(!bitmap_intersects(state->populate_pages_mask, state->allocation_failed_mask, state->num_pages));
+ }
+ 
++#if defined(CONFIG_MIGRATE_VMA_HELPER)
+ void uvm_migrate_vma_finalize_and_map_helper(struct vm_area_struct *vma,
+                                              const unsigned long *src,
+                                              const unsigned long *dst,
+@@ -653,6 +656,7 @@ void uvm_migrate_vma_finalize_and_map_helper(struct vm_area_struct *vma,
+ 
+     uvm_migrate_vma_finalize_and_map(&args, (migrate_vma_state_t *) private);
+ }
++#endif
+ 
+ static NV_STATUS nv_migrate_vma(struct migrate_vma *args, migrate_vma_state_t *state)
+ {
+diff --git a/nvidia-uvm/uvm_page_tree_test.c b/nvidia-uvm/uvm_page_tree_test.c
+index 8547ec01..dcf3d7e7 100644
+--- a/nvidia-uvm/uvm_page_tree_test.c
++++ b/nvidia-uvm/uvm_page_tree_test.c
+@@ -1468,7 +1468,7 @@ static uvm_mmu_page_table_alloc_t fake_table_alloc(uvm_aperture_t aperture, NvU6
+ // Queries the supported page sizes of the GPU(uvm_gpu_t) and fills the
+ // page_sizes array up to MAX_NUM_PAGE_SIZE. Returns the number of elements in
+ // page_sizes;
+-size_t get_page_sizes(uvm_gpu_t *gpu, NvU32 *page_sizes)
++static size_t get_page_sizes(uvm_gpu_t *gpu, NvU32 *page_sizes)
+ {
+     unsigned long page_size_log2;
+     unsigned long page_sizes_bitvec;
+diff --git a/nvidia-uvm/uvm_pascal_fault_buffer.c b/nvidia-uvm/uvm_pascal_fault_buffer.c
+index 020f5ce1..ee7d9e39 100644
+--- a/nvidia-uvm/uvm_pascal_fault_buffer.c
++++ b/nvidia-uvm/uvm_pascal_fault_buffer.c
+@@ -292,10 +292,3 @@ NvU32 uvm_hal_pascal_fault_buffer_entry_size(uvm_parent_gpu_t *parent_gpu)
+ {
+     return NVB069_FAULT_BUF_SIZE;
+ }
+-
+-void uvm_hal_pascal_fault_buffer_parse_non_replayable_entry_unsupported(uvm_parent_gpu_t *parent_gpu,
+-                                                                        void *fault_packet,
+-                                                                        uvm_fault_buffer_entry_t *buffer_entry)
+-{
+-    UVM_ASSERT_MSG(false, "fault_buffer_parse_non_replayable_entry called on Pascal GPU\n");
+-}
+diff --git a/nvidia-uvm/uvm_pascal_mmu.c b/nvidia-uvm/uvm_pascal_mmu.c
+index 8b17319e..46724e23 100644
+--- a/nvidia-uvm/uvm_pascal_mmu.c
++++ b/nvidia-uvm/uvm_pascal_mmu.c
+@@ -36,6 +36,7 @@
+ #include "uvm_global.h"
+ #include "uvm_gpu.h"
+ #include "uvm_mmu.h"
++#include "uvm_hal.h"
+ #include "uvm_push_macros.h"
+ #include "uvm_pascal_fault_buffer.h"
+ #include "hwref/pascal/gp100/dev_fault.h"
+diff --git a/nvidia-uvm/uvm_pmm_test.c b/nvidia-uvm/uvm_pmm_test.c
+index 5a85291c..56453ce3 100644
+--- a/nvidia-uvm/uvm_pmm_test.c
++++ b/nvidia-uvm/uvm_pmm_test.c
+@@ -883,11 +883,11 @@ NV_STATUS uvm_test_pmm_check_leak(UVM_TEST_PMM_CHECK_LEAK_PARAMS *params, struct
+     return status;
+ }
+ 
+-NV_STATUS __test_pmm_async_alloc_type(uvm_va_space_t *va_space,
+-                                      uvm_gpu_t *gpu,
+-                                      size_t num_chunks,
+-                                      uvm_pmm_gpu_memory_type_t mem_type,
+-                                      size_t work_iterations)
++static NV_STATUS __test_pmm_async_alloc_type(uvm_va_space_t *va_space,
++                                             uvm_gpu_t *gpu,
++                                             size_t num_chunks,
++                                             uvm_pmm_gpu_memory_type_t mem_type,
++                                             size_t work_iterations)
+ {
+     NV_STATUS status;
+     NV_STATUS tracker_status = NV_OK;
+-- 
+2.39.5
+

@@ -1,0 +1,49 @@
+From 7be04cf8b63482dd68d280f044b858a4ec35f27f Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sat, 14 Dec 2024 23:42:16 +0100
+Subject: [PATCH] backport warning fixes from 525.53
+
+---
+ nvidia-drm/nvidia-drm-crtc.c    | 4 ----
+ nvidia-drm/nvidia-drm-modeset.c | 3 ---
+ 2 files changed, 7 deletions(-)
+
+diff --git a/nvidia-drm/nvidia-drm-crtc.c b/nvidia-drm/nvidia-drm-crtc.c
+index 2f457e9a..7adedbcd 100644
+--- a/nvidia-drm/nvidia-drm-crtc.c
++++ b/nvidia-drm/nvidia-drm-crtc.c
+@@ -77,9 +77,6 @@ cursor_plane_req_config_update(struct drm_plane *plane,
+ {
+     struct nv_drm_plane *nv_plane = to_nv_plane(plane);
+     struct NvKmsKapiCursorRequestedConfig old_config = *req_config;
+-    struct nv_drm_device *nv_dev = to_nv_device(plane->dev);
+-    struct nv_drm_plane_state *nv_drm_plane_state =
+-        to_nv_drm_plane_state(plane_state);
+ 
+     if (plane_state->fb == NULL) {
+         cursor_req_config_disable(req_config);
+@@ -179,7 +176,6 @@ plane_req_config_update(struct drm_plane *plane,
+     struct nv_drm_device *nv_dev = to_nv_device(plane->dev);
+     struct nv_drm_plane_state *nv_drm_plane_state =
+         to_nv_drm_plane_state(plane_state);
+-    int ret = 0;
+ 
+     if (plane_state->fb == NULL) {
+         plane_req_config_disable(req_config);
+diff --git a/nvidia-drm/nvidia-drm-modeset.c b/nvidia-drm/nvidia-drm-modeset.c
+index 9132af9a..935f5569 100644
+--- a/nvidia-drm/nvidia-drm-modeset.c
++++ b/nvidia-drm/nvidia-drm-modeset.c
+@@ -93,9 +93,6 @@ static bool __will_generate_flip_event(struct drm_crtc *crtc,
+         to_nv_crtc_state(new_crtc_state);
+     struct drm_plane_state *old_plane_state = NULL;
+     struct drm_plane *plane = NULL;
+-    struct drm_plane *primary_plane = crtc->primary;
+-    bool primary_event = false;
+-    bool overlay_event = false;
+     int i;
+ 
+     if (!old_crtc_state->active  && !new_crtc_state->active) {
+-- 
+2.39.5
+
