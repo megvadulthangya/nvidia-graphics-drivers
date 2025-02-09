@@ -1,0 +1,301 @@
+From f7d9537ff3be034100a46934edf195c7f7d01a95 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sun, 8 Dec 2024 03:20:30 +0100
+Subject: [PATCH] backport warning fixes from 535.216.01
+
+---
+ common/inc/nv-linux.h                 | 10 ++++++++++
+ nvidia-modeset/nv-kthread-q.c         |  2 +-
+ nvidia-modeset/nvidia-modeset-linux.c |  3 ++-
+ nvidia-uvm/nv-kthread-q-selftest.c    |  2 +-
+ nvidia-uvm/nv-kthread-q.c             |  2 +-
+ nvidia/linux_nvswitch.c               |  3 ++-
+ nvidia/nv-caps.c                      |  2 +-
+ nvidia/nv-dma.c                       |  4 ++--
+ nvidia/nv-ibmnpu.c                    |  2 +-
+ nvidia/nv-kthread-q.c                 |  2 +-
+ nvidia/nv-mmap.c                      |  4 ++--
+ nvidia/nv-procfs.c                    |  2 +-
+ nvidia/nv.c                           |  6 ------
+ nvidia/nvlink_linux.c                 |  1 +
+ nvidia/os-interface.c                 |  2 +-
+ 15 files changed, 27 insertions(+), 20 deletions(-)
+
+diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
+index 80b94234..a611530f 100644
+--- a/common/inc/nv-linux.h
++++ b/common/inc/nv-linux.h
+@@ -517,7 +517,9 @@ static inline void *nv_vmalloc(unsigned long size)
+     void *ptr = __vmalloc(size, GFP_KERNEL);
+ #endif
+     if (ptr)
++    {
+         NV_MEMDBG_ADD(ptr, size);
++    }
+     return ptr;
+ }
+ 
+@@ -531,7 +533,9 @@ static inline void *nv_ioremap(NvU64 phys, NvU64 size)
+ {
+     void *ptr = ioremap(phys, size);
+     if (ptr)
++    {
+         NV_MEMDBG_ADD(ptr, size);
++    }
+     return ptr;
+ }
+ 
+@@ -563,7 +567,9 @@ static inline void *nv_ioremap_cache(NvU64 phys, NvU64 size)
+     //
+     void *ptr = ioremap_prot(phys, size, pgprot_val(PAGE_KERNEL));
+     if (ptr)
++    {
+         NV_MEMDBG_ADD(ptr, size);
++    }
+     return ptr;
+ #else
+     return nv_ioremap(phys, size);
+@@ -575,7 +581,9 @@ static inline void *nv_ioremap_wc(NvU64 phys, NvU64 size)
+ #if defined(NV_IOREMAP_WC_PRESENT)
+     void *ptr = ioremap_wc(phys, size);
+     if (ptr)
++    {
+         NV_MEMDBG_ADD(ptr, size);
++    }
+     return ptr;
+ #else
+     return nv_ioremap_nocache(phys, size);
+@@ -683,7 +691,9 @@ static inline NvUPtr nv_vmap(struct page **pages, NvU32 page_count,
+     /* All memory cached in PPC64LE; can't honor 'cached' input. */
+     ptr = vmap(pages, page_count, VM_MAP, prot);
+     if (ptr)
++    {
+         NV_MEMDBG_ADD(ptr, page_count * PAGE_SIZE);
++    }
+     return (NvUPtr)ptr;
+ }
+ 
+diff --git a/nvidia-modeset/nv-kthread-q.c b/nvidia-modeset/nv-kthread-q.c
+index 5a95f4a4..7103da82 100644
+--- a/nvidia-modeset/nv-kthread-q.c
++++ b/nvidia-modeset/nv-kthread-q.c
+@@ -177,7 +177,7 @@ static struct task_struct *thread_create_on_node(int (*threadfn)(void *data),
+ {
+ 
+     unsigned i, j;
+-    const static unsigned attempts = 3;
++    static const unsigned attempts = 3;
+     struct task_struct *thread[3];
+ 
+     for (i = 0;; i++) {
+diff --git a/nvidia-modeset/nvidia-modeset-linux.c b/nvidia-modeset/nvidia-modeset-linux.c
+index 844676f4..22862cdb 100644
+--- a/nvidia-modeset/nvidia-modeset-linux.c
++++ b/nvidia-modeset/nvidia-modeset-linux.c
+@@ -1142,7 +1142,7 @@ static void nvkms_kapi_event_kthread_q_callback(void *arg)
+     nvKmsKapiHandleEventQueueChange(device);
+ }
+ 
+-struct nvkms_per_open *nvkms_open_common(enum NvKmsClientType type,
++static struct nvkms_per_open *nvkms_open_common(enum NvKmsClientType type,
+                                          struct NvKmsKapiDevice *device,
+                                          int *status)
+ {
+@@ -1257,6 +1257,7 @@ static void nvkms_close_popen(struct nvkms_per_open *popen)
+     }
+ }
+ 
++static
+ int nvkms_ioctl_common
+ (
+     struct nvkms_per_open *popen,
+diff --git a/nvidia-uvm/nv-kthread-q-selftest.c b/nvidia-uvm/nv-kthread-q-selftest.c
+index bb67754e..306e3b92 100644
+--- a/nvidia-uvm/nv-kthread-q-selftest.c
++++ b/nvidia-uvm/nv-kthread-q-selftest.c
+@@ -81,7 +81,7 @@
+ #define NUM_Q_ITEMS_IN_MULTITHREAD_TEST (NUM_TEST_Q_ITEMS * NUM_TEST_KTHREADS)
+ 
+ // This exists in order to have a function to place a breakpoint on:
+-void on_nvq_assert(void)
++static void on_nvq_assert(void)
+ {
+     (void)NULL;
+ }
+diff --git a/nvidia-uvm/nv-kthread-q.c b/nvidia-uvm/nv-kthread-q.c
+index 5a95f4a4..7103da82 100644
+--- a/nvidia-uvm/nv-kthread-q.c
++++ b/nvidia-uvm/nv-kthread-q.c
+@@ -177,7 +177,7 @@ static struct task_struct *thread_create_on_node(int (*threadfn)(void *data),
+ {
+ 
+     unsigned i, j;
+-    const static unsigned attempts = 3;
++    static const unsigned attempts = 3;
+     struct task_struct *thread[3];
+ 
+     for (i = 0;; i++) {
+diff --git a/nvidia/linux_nvswitch.c b/nvidia/linux_nvswitch.c
+index 081d4474..26ea32cb 100644
+--- a/nvidia/linux_nvswitch.c
++++ b/nvidia/linux_nvswitch.c
+@@ -31,6 +31,7 @@
+ #include "nvCpuUuid.h"
+ #include "nv-time.h"
+ #include "nvlink_caps.h"
++#include "nvlink_proto.h"
+ 
+ #include <linux/module.h>
+ #include <linux/interrupt.h>
+@@ -49,7 +50,7 @@
+ 
+ #include "ioctl_nvswitch.h"
+ 
+-const static struct
++static const struct
+ {
+     NvlStatus status;
+     int err;
+diff --git a/nvidia/nv-caps.c b/nvidia/nv-caps.c
+index 673f8493..6f6ea5bb 100644
+--- a/nvidia/nv-caps.c
++++ b/nvidia/nv-caps.c
+@@ -241,7 +241,7 @@ static void nv_cap_procfs_exit(void)
+     nv_cap_procfs_dir = NULL;
+ }
+ 
+-int nv_cap_procfs_init(void)
++static int nv_cap_procfs_init(void)
+ {
+     nv_cap_procfs_dir = NV_CREATE_PROC_DIR(NV_CAP_PROCFS_DIR, NULL);
+     if (nv_cap_procfs_dir == NULL)
+diff --git a/nvidia/nv-dma.c b/nvidia/nv-dma.c
+index 201d3b76..4da22f4e 100644
+--- a/nvidia/nv-dma.c
++++ b/nvidia/nv-dma.c
+@@ -291,7 +291,7 @@ void nv_destroy_dma_map_scatterlist(nv_dma_map_t *dma_map)
+     os_free_mem(dma_map->mapping.discontig.submaps);
+ }
+ 
+-void nv_load_dma_map_scatterlist(
++static void nv_load_dma_map_scatterlist(
+     nv_dma_map_t *dma_map,
+     NvU64 *va_array
+ )
+@@ -487,7 +487,7 @@ NV_STATUS NV_API_CALL nv_dma_map_sgt(
+     return status;
+ }
+ 
+-NV_STATUS NV_API_CALL nv_dma_unmap_sgt(
++static NV_STATUS NV_API_CALL nv_dma_unmap_sgt(
+     nv_dma_device_t *dma_dev,
+     void           **priv
+ )
+diff --git a/nvidia/nv-ibmnpu.c b/nvidia/nv-ibmnpu.c
+index fcf5dc45..388f002e 100644
+--- a/nvidia/nv-ibmnpu.c
++++ b/nvidia/nv-ibmnpu.c
+@@ -25,9 +25,9 @@
+  * nv-ibmnpu.c - interface with the ibmnpu (IBM NVLink Processing Unit) "module"
+  */
+ #include "nv-linux.h"
++#include "nv-ibmnpu.h"
+ 
+ #if defined(NVCPU_PPC64LE)
+-#include "nv-ibmnpu.h"
+ #include "nv-rsync.h"
+ 
+ /*
+diff --git a/nvidia/nv-kthread-q.c b/nvidia/nv-kthread-q.c
+index 5a95f4a4..7103da82 100644
+--- a/nvidia/nv-kthread-q.c
++++ b/nvidia/nv-kthread-q.c
+@@ -177,7 +177,7 @@ static struct task_struct *thread_create_on_node(int (*threadfn)(void *data),
+ {
+ 
+     unsigned i, j;
+-    const static unsigned attempts = 3;
++    static const unsigned attempts = 3;
+     struct task_struct *thread[3];
+ 
+     for (i = 0;; i++) {
+diff --git a/nvidia/nv-mmap.c b/nvidia/nv-mmap.c
+index b8f835fc..0ac08b6d 100644
+--- a/nvidia/nv-mmap.c
++++ b/nvidia/nv-mmap.c
+@@ -371,7 +371,7 @@ int nv_encode_caching(
+     return 0;
+ }
+ 
+-int static nvidia_mmap_peer_io(
++static int nvidia_mmap_peer_io(
+     struct vm_area_struct *vma,
+     nv_alloc_t *at,
+     NvU64 page_index,
+@@ -392,7 +392,7 @@ int static nvidia_mmap_peer_io(
+     return ret;
+ }
+ 
+-int static nvidia_mmap_sysmem(
++static int nvidia_mmap_sysmem(
+     struct vm_area_struct *vma,
+     nv_alloc_t *at,
+     NvU64 page_index,
+diff --git a/nvidia/nv-procfs.c b/nvidia/nv-procfs.c
+index 01009907..d4bf5af7 100644
+--- a/nvidia/nv-procfs.c
++++ b/nvidia/nv-procfs.c
+@@ -710,7 +710,7 @@ static nv_proc_ops_t nv_procfs_suspend_fops = {
+ /*
+  * Forwards error to nv_log_error which exposes data to vendor callback
+  */
+-void
++static void
+ exercise_error_forwarding_va(
+     nv_state_t *nv,
+     NvU32 err,
+diff --git a/nvidia/nv.c b/nvidia/nv.c
+index 1fe0a5fb..0a9802d8 100644
+--- a/nvidia/nv.c
++++ b/nvidia/nv.c
+@@ -1210,12 +1210,6 @@ static int validate_numa_start_state(nv_linux_state_t *nvl)
+     return rc;
+ }
+ 
+-NV_STATUS NV_API_CALL nv_get_num_dpaux_instances(nv_state_t *nv, NvU32 *num_instances)
+-{
+-    *num_instances = nv->num_dpaux_instance;
+-    return NV_OK;
+-}
+-
+ void NV_API_CALL
+ nv_schedule_uvm_isr(nv_state_t *nv)
+ {
+diff --git a/nvidia/nvlink_linux.c b/nvidia/nvlink_linux.c
+index e8fd25f2..a9c66a60 100644
+--- a/nvidia/nvlink_linux.c
++++ b/nvidia/nvlink_linux.c
+@@ -27,6 +27,7 @@
+ #include "nvlink_linux.h"
+ #include "nvlink_errors.h"
+ #include "nvlink_export.h"
++#include "nvlink_proto.h"
+ #include "nv-linux.h"
+ #include "nv-procfs.h"
+ #include "nv-time.h"
+diff --git a/nvidia/os-interface.c b/nvidia/os-interface.c
+index 9350c1d4..1db3af08 100644
+--- a/nvidia/os-interface.c
++++ b/nvidia/os-interface.c
+@@ -296,7 +296,7 @@ NvS32 NV_API_CALL os_string_compare(const char *str1, const char *str2)
+     return strcmp(str1, str2);
+ }
+ 
+-void *os_mem_copy_custom(
++static void *os_mem_copy_custom(
+     void       *dstPtr,
+     const void *srcPtr,
+     NvU32       length
+-- 
+2.39.5
+
