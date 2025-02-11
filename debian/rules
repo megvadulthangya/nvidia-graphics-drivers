@@ -289,14 +289,14 @@ pack-module-source:
 	find $(module_source_pkg) \( -name '*.binary' -o -name '*.in' -not -name '*.modules.in' \) -print -delete
 	tar c \
 		-C $(module_source_pkg)/usr/src \
-		--owner=root --group=root \
+		--numeric-owner --owner=0 --group=0 \
 		--mode=a=rX,u+w \
 		--sort=name \
 		--mtime='@$(SOURCE_DATE_EPOCH)' \
 		--clamp-mtime \
+		--remove-files \
 		modules | xz -T1 -9 > $(module_source_txz)
 	tar tfv $(module_source_txz)
-	$(RM) -r $(module_source_pkg)/usr/src/modules
 
 kernel-source-tree: build-stamp $(AUTOGEN)
 	$(RM) -r $@

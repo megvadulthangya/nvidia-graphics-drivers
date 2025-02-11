@@ -7,7 +7,7 @@ Description: let Kbuild set the compiler version
 
 --- a/Makefile
 +++ b/Makefile
-@@ -77,8 +77,8 @@ else
+@@ -87,8 +87,8 @@ else
  
    .PHONY: modules module clean clean_conftest modules_install
    modules clean modules_install:
@@ -20,7 +20,7 @@ Description: let Kbuild set the compiler version
  	      ./split-object-file.sh $$module.ko; \
 --- a/Kbuild
 +++ b/Kbuild
-@@ -103,7 +103,7 @@ NV_CONFTEST_SCRIPT := $(src)/conftest.sh
+@@ -117,7 +117,7 @@ NV_CONFTEST_SCRIPT := $(src)/conftest.sh
  NV_CONFTEST_HEADER := $(obj)/conftest/headers.h
  
  NV_CONFTEST_CMD := /bin/sh $(NV_CONFTEST_SCRIPT) \

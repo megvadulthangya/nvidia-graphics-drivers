@@ -1,4 +1,4 @@
-From 8ab6949372810eb4ea617b1c0ad42c07eec6c624 Mon Sep 17 00:00:00 2001
+From b459a16515766b157b4b0b29102cece1eacf2a12 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Thu, 1 Feb 2024 14:58:45 -0500
 Subject: [PATCH] import pfn_valid() w/o GPL rcu_read_lock/unlock from v6.8-rc3
@@ -43,12 +43,12 @@ Origin: gentoo, https://github.com/gentoo/gentoo/blob/c64caf53/x11-drivers/nvidi
  1 file changed, 33 insertions(+)
 
 diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
-index e095a89..a17fb08 100644
+index e095a89..7f93fd0 100644
 --- a/common/inc/nv-linux.h
 +++ b/common/inc/nv-linux.h
-@@ -2014,6 +2014,39 @@ static inline void nv_mutex_destroy(struct mutex *lock)
- 
- }
+@@ -1987,6 +1987,39 @@ static inline NvU32 nv_default_irq_flags(nv_state_t *nv)
+     #define NV_SET_CLOSE_ON_EXEC(fd, fdt) __set_bit(fd, fdt->close_on_exec)
+ #endif
  
 +#if (!defined(CONFIG_HAVE_ARCH_PFN_VALID)) && \
 +        ((LINUX_VERSION_CODE == KERNEL_VERSION(6,7,3)) || \
@@ -83,9 +83,9 @@ index e095a89..a17fb08 100644
 +#  define nv_pfn_valid pfn_valid
 +#endif
 +
- #define NV_CHECK_EXPORT_SYMBOL(symbol)  (NV_IS_EXPORT_SYMBOL_PRESENT_##symbol && \
-                                          !NV_IS_EXPORT_SYMBOL_GPL_##symbol)
- #endif  /* _NV_LINUX_H_ */
+ #define MODULE_BASE_NAME "nvidia"
+ #define MODULE_INSTANCE_NUMBER 0
+ #define MODULE_INSTANCE_STRING ""
 -- 
-2.20.1
+2.39.5
 

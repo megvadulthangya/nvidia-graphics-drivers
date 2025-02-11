@@ -1,0 +1,48 @@
+From c88f8389be4ad58f71e496e63464761cd97d2e4a Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sat, 14 Dec 2024 23:42:16 +0100
+Subject: [PATCH] backport warning fixes from 525.53
+
+---
+ nvidia-drm/nvidia-drm-crtc.c    | 3 ++-
+ nvidia-drm/nvidia-drm-modeset.c | 1 -
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/nvidia-drm/nvidia-drm-crtc.c b/nvidia-drm/nvidia-drm-crtc.c
+index 20a31589..33bdef05 100644
+--- a/nvidia-drm/nvidia-drm-crtc.c
++++ b/nvidia-drm/nvidia-drm-crtc.c
+@@ -86,7 +86,6 @@ plane_req_config_update(struct drm_plane *plane,
+     struct nv_drm_device *nv_dev = to_nv_device(plane->dev);
+     struct nv_drm_plane_state *nv_drm_plane_state =
+         to_nv_drm_plane_state(plane_state);
+-    int ret = 0;
+ 
+     if (plane_state->fb == NULL) {
+         plane_req_config_disable(req_config);
+@@ -368,8 +367,10 @@ static int nv_drm_plane_atomic_set_property(
+     uint64_t val)
+ {
+     struct nv_drm_device *nv_dev = to_nv_device(plane->dev);
++#if defined(NV_LINUX_NVHOST_H_PRESENT) && defined(CONFIG_TEGRA_GRHOST)
+     struct nv_drm_plane_state *nv_drm_plane_state =
+         to_nv_drm_plane_state(state);
++#endif
+ 
+     if (property == nv_dev->nv_out_fence_property) {
+ #if defined(NV_LINUX_NVHOST_H_PRESENT) && defined(CONFIG_TEGRA_GRHOST)
+diff --git a/nvidia-drm/nvidia-drm-modeset.c b/nvidia-drm/nvidia-drm-modeset.c
+index 123a1266..ccfdc0c7 100644
+--- a/nvidia-drm/nvidia-drm-modeset.c
++++ b/nvidia-drm/nvidia-drm-modeset.c
+@@ -93,7 +93,6 @@ static bool __will_generate_flip_event(struct drm_crtc *crtc,
+         to_nv_crtc_state(new_crtc_state);
+     struct drm_plane_state *old_plane_state = NULL;
+     struct drm_plane *plane = NULL;
+-    struct drm_plane *primary_plane = crtc->primary;
+     bool primary_event = false;
+     bool overlay_event = false;
+     int i;
+-- 
+2.39.5
+
