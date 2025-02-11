@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla-470 (470.256.02-5~bpo12+1) bookworm-backports; urgency=medium
+
+  * Rebuild for bookworm-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 11 Feb 2025 12:39:17 +0100
+
 nvidia-graphics-drivers-tesla-470 (470.256.02-5) unstable; urgency=medium
 
   * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
