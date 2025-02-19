@@ -1,8 +1,8 @@
-nvidia-graphics-drivers-tesla-535 (535.216.03-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-535 (535.216.03-1) unstable; urgency=medium
 
   * Rebuild as Tesla 535 driver.
 
- -- Andreas Beckmann <anbe@debian.org>  Wed, 19 Feb 2025 00:52:20 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 19 Feb 2025 12:46:25 +0100
 
 nvidia-graphics-drivers (535.216.03-2) unstable; urgency=medium
 
