@@ -29,6 +29,15 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
+nvidia-graphics-drivers (470.256.02-4) unstable; urgency=medium
+
+  The Tesla 470 driver series has been declared as End-of-Life by
+  NVIDIA. No further updates fixing security issues, critical bugs, or
+  adding support for new Xorg or Linux releases will be issued.
+  https://docs.nvidia.com/datacenter/tesla/drivers/
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 17 Oct 2024 10:22:53 +0200
+
 nvidia-graphics-drivers (460.106.00-3) unstable; urgency=medium
 
   The Tesla 460 driver series has been declared as End-of-Life by
