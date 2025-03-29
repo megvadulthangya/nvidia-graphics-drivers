@@ -8,7 +8,7 @@ Uploaders:
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
 Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git${Vcs-Git:Branch}
 Homepage: https://www.nvidia.com
-Standards-Version: 4.7.0
+Standards-Version: 4.7.2
 Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
@@ -728,10 +728,10 @@ Depends:
  nvidia-vulkan-common,
  libvulkan1 (>= 1.0.42),
  libglx-${nvidia-}0 (= ${binary:Version}),
+ lib${nvidia}-rtcore (= ${binary:Version}) [!i386 !ppc64el],
  ${misc:Depends}
 Recommends:
  lib${nvidia}-cbl (= ${binary:Version}) [!i386 !ppc64el],
- lib${nvidia}-rtcore (= ${binary:Version}) [!i386 !ppc64el],
 Suggests:
  vulkan-tools,
 #Enhances:
