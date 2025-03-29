@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-20) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-20) unstable; urgency=medium
 
   * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
     build for Linux 6.14.
