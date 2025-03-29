@@ -1,4 +1,4 @@
-From 446bd171b1faedcd85280ef9b1de6aa255f19657 Mon Sep 17 00:00:00 2001
+From 1216b3a4ee072ba48998b3e053f8c2eb93cde587 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sun, 8 Dec 2024 22:13:22 +0100
 Subject: [PATCH] fix more warnings
@@ -6,8 +6,10 @@ Subject: [PATCH] fix more warnings
 ---
  common/inc/nv-linux.h                 | 8 ++++++++
  nvidia-modeset/nvidia-modeset-linux.c | 1 +
+ nvidia/nv-frontend.c                  | 2 --
+ nvidia/nv-frontend.h                  | 3 +++
  nvidia/nv-mmap.c                      | 1 +
- 3 files changed, 10 insertions(+)
+ 5 files changed, 13 insertions(+), 2 deletions(-)
 
 diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
 index 04d47c4e..6e76d334 100644
@@ -53,7 +55,7 @@ index 04d47c4e..6e76d334 100644
  
  #define NV_KFREE(ptr, size) \
 diff --git a/nvidia-modeset/nvidia-modeset-linux.c b/nvidia-modeset/nvidia-modeset-linux.c
-index b86574c5..c19ab900 100644
+index ad117b9b..4b43401f 100644
 --- a/nvidia-modeset/nvidia-modeset-linux.c
 +++ b/nvidia-modeset/nvidia-modeset-linux.c
 @@ -881,6 +881,7 @@ failed:
@@ -64,6 +66,31 @@ index b86574c5..c19ab900 100644
  void NVKMS_API_CALL nvkms_close_common(struct nvkms_per_open *popen)
  {
      /*
+diff --git a/nvidia/nv-frontend.c b/nvidia/nv-frontend.c
+index 45d91b38..2004e65b 100644
+--- a/nvidia/nv-frontend.c
++++ b/nvidia/nv-frontend.c
+@@ -36,8 +36,6 @@ struct semaphore nv_module_table_lock;
+ // minor number table
+ nvidia_module_t *nv_minor_num_table[NV_FRONTEND_CONTROL_DEVICE_MINOR_MAX + 1];
+ 
+-int nvidia_init_module(void);
+-void nvidia_exit_module(void);
+ 
+ /* EXPORTS to Linux Kernel */
+ 
+diff --git a/nvidia/nv-frontend.h b/nvidia/nv-frontend.h
+index 38d81382..d125a131 100644
+--- a/nvidia/nv-frontend.h
++++ b/nvidia/nv-frontend.h
+@@ -31,4 +31,7 @@
+ int nvidia_frontend_add_device(nvidia_module_t *, nv_linux_state_t *);
+ int nvidia_frontend_remove_device(nvidia_module_t *, nv_linux_state_t *);
+ 
++int nvidia_init_module(void);
++void nvidia_exit_module(void);
++
+ #endif
 diff --git a/nvidia/nv-mmap.c b/nvidia/nv-mmap.c
 index 2c05e7db..d0db1a84 100644
 --- a/nvidia/nv-mmap.c
