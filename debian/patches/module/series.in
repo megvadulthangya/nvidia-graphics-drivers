@@ -41,6 +41,7 @@ bashisms.patch
 0057-backport-uvm-fixes-from-535.230.02.patch
 0058-backport-warning-fixes-from-565.57.01.patch
 0059-backport-uvm-warning-fixes-from-550.90.07.patch
+0064-backport-drm_driver_has_date-from-570.124.04.patch
 
 # build system updates
 conftest-verbose.patch
