@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla (525.147.05-14) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.147.05-14) unstable; urgency=medium
 
   * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
     build for Linux 6.14.
