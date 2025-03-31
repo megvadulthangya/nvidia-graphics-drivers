@@ -10,7 +10,7 @@ Uploaders:
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
 Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b tesla/525
 Homepage: https://www.nvidia.com
-Standards-Version: 4.7.0
+Standards-Version: 4.7.2
 Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
@@ -88,8 +88,8 @@ Conflicts:
  libgles2-glvnd-nvidia,
  nvidia-legacy-304xx-alternative,
  nvidia-legacy-340xx-alternative,
- nvidia-legacy-390xx-alternative,
- nvidia-tesla-418-alternative,
+ nvidia-legacy-390xx-alternative (<< 390.157-2~),
+ nvidia-tesla-418-alternative (<< 418.226.00-7~),
  nvidia-tesla-450-alternative,
  nvidia-tesla-460-alternative,
  nvidia-tesla-510-alternative,
@@ -556,9 +556,8 @@ Depends:
  nvidia-vulkan-common,
  libvulkan1 (>= 1.0.42),
  libglx-${nvidia-}0 (= ${binary:Version}),
- ${misc:Depends}
-Recommends:
  lib${nvidia}-rtcore (= ${binary:Version}) [!i386 !ppc64el],
+ ${misc:Depends}
 Suggests:
  vulkan-tools,
 Enhances:

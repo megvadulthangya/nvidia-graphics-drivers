@@ -1,5 +1,16 @@
+nvidia-graphics-drivers-tesla (525.147.05-14) UNRELEASED; urgency=medium
+
+  * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
+    build for Linux 6.14.
+  * nvidia-vulkan-icd: Promote libnvidia-rtcore to Depends.
+  * Bump Standards-Version to 4.7.2. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 31 Mar 2025 18:17:15 +0200
+
 nvidia-graphics-drivers-tesla (525.147.05-13) UNRELEASED; urgency=medium
 
+  * Backport cmd_symlink changes from 550.142 to fix kernel module build for
+    Linux 6.13.
   * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
     module build for Linux 6.12.  (Closes: #1090254)
   * Backport file_operations_fop_unsigned_offset_present changes from
@@ -1108,8 +1119,19 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
+nvidia-graphics-drivers (470.256.02-6) UNRELEASED; urgency=medium
+
+  * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
+    build for Linux 6.14.
+  * nvidia-vulkan-icd: Promote libnvidia-rtcore to Depends.
+  * Bump Standards-Version to 4.7.2. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 30 Mar 2025 17:42:11 +0200
+
 nvidia-graphics-drivers-tesla-470 (470.256.02-5) unstable; urgency=medium
 
+  * Backport cmd_symlink changes from 550.142 to fix kernel module build for
+    Linux 6.13.
   * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
     module build for Linux 6.12.  (Closes: #1089964, #1090252, #1091193)
   * Backport file_operations_fop_unsigned_offset_present changes from
@@ -2139,12 +2161,23 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-19) UNRELEASED; urgency=medium
+nvidia-graphics-drivers (460.106.00-20) UNRELEASED; urgency=medium
 
-  * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
-    module build for Linux 6.12.  (Closes: #1090251)
+  * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
+    build for Linux 6.14.
   * Backport file_operations_fop_unsigned_offset_present changes from
     535.230.02.
+  * nvidia-vulkan-icd: Promote libnvidia-rtcore to Depends.
+  * Bump Standards-Version to 4.7.2. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 29 Mar 2025 23:55:37 +0100
+
+nvidia-graphics-drivers-tesla-460 (460.106.00-19) UNRELEASED; urgency=medium
+
+  * Backport cmd_symlink changes from 550.142 to fix kernel module build for
+    Linux 6.13.
+  * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
+    module build for Linux 6.12.  (Closes: #1090251)
   * Backport warning fixes from 510.39.01, 525.53, 535.146.02,
     535.216.01, 535.230.02, 550.90.07, 560.28.03 and 565.57.01.
 
@@ -2745,12 +2778,23 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-9) UNRELEASED; urgency=medium
+nvidia-graphics-drivers (450.248.02-10) UNRELEASED; urgency=medium
 
-  * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
-    module build for Linux 6.12.  (Closes: #1090250)
+  * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
+    build for Linux 6.14.
   * Backport file_operations_fop_unsigned_offset_present changes from
     535.230.02.
+  * nvidia-vulkan-icd: Promote libnvidia-rtcore to Depends.
+  * Bump Standards-Version to 4.7.2. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 29 Mar 2025 18:37:39 +0100
+
+nvidia-graphics-drivers-tesla-450 (450.248.02-9) UNRELEASED; urgency=medium
+
+  * Backport cmd_symlink changes from 550.142 to fix kernel module build for
+    Linux 6.13.
+  * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
+    module build for Linux 6.12.  (Closes: #1090250)
   * Backport warning fixes from 510.39.01, 535.146.02,
     535.216.01, 535.230.02, 560.28.03 and 565.57.01.
 
@@ -3929,12 +3973,23 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
-nvidia-graphics-drivers-tesla-418 (418.226.00-17) unstable; urgency=medium
+nvidia-graphics-drivers (418.226.00-18) UNRELEASED; urgency=medium
 
-  * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
-    module build for Linux 6.12.  (Closes: #1090248)
+  * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
+    build for Linux 6.14.
   * Backport file_operations_fop_unsigned_offset_present changes from
     535.230.02.
+  * nvidia-vulkan-icd: Promote libnvidia-rtcore to Depends.
+  * Bump Standards-Version to 4.7.2. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 29 Mar 2025 13:11:18 +0100
+
+nvidia-graphics-drivers-tesla-418 (418.226.00-17) unstable; urgency=medium
+
+  * Backport cmd_symlink changes from 550.142 to fix kernel module build for
+    Linux 6.13.
+  * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
+    module build for Linux 6.12.  (Closes: #1090248)
   * Backport warning fixes from 430.09, 435.17, 510.39.01, 535.146.02,
     535.216.01, 535.230.02, 560.28.03 and 565.57.01.
   * Simplify using nv_pfn_valid() in virt_addr_valid() on ppc64el.
@@ -4961,6 +5016,16 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
 
+nvidia-graphics-drivers (390.157-12) UNRELEASED; urgency=medium
+
+  * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
+    build for Linux 6.14.
+  * Backport file_operations_fop_unsigned_offset_present changes from
+    535.230.02.
+  * Bump Standards-Version to 4.7.2. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 29 Mar 2025 09:53:19 +0100
+
 nvidia-graphics-drivers (390.157-11) UNRELEASED; urgency=medium
 
   * Do not test building modules for the removed i386 kernels.
@@ -4969,10 +5034,10 @@ nvidia-graphics-drivers (390.157-11) UNRELEASED; urgency=medium
 
 nvidia-graphics-drivers (390.157-10) UNRELEASED; urgency=medium
 
+  * Backport cmd_symlink changes from 550.142 to fix kernel module build for
+    Linux 6.13.
   * Backport drm_output_poll_changed changes from 535.216.01 to fix kernel
     module build for Linux 6.12.
-  * Backport file_operations_fop_unsigned_offset_present changes from
-    535.230.02.
   * Backport warning fixes from 396.18, 415.13, 418.30, 430.09, 435.17,
     510.39.01, 535.146.02, 535.216.01 and 560.28.03.
 
@@ -4990,6 +5055,7 @@ nvidia-graphics-drivers (390.157-8) UNRELEASED; urgency=medium
   * Backport CONFIG_MITIGATION_RETPOLINE changes from 470.256.02.
   * Backport follow_pfn changes from 550.90.07 to fix kernel module build for
     Linux 6.10.
+  * bug-script: Report 'apt-cache policy' (535.183.06-1).
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 26 Jul 2024 22:29:09 +0200
 
@@ -4997,6 +5063,7 @@ nvidia-graphics-drivers (390.157-7) UNRELEASED; urgency=medium
 
   * Backport drm_unlocked_ioctl_flag_present changes from 470.239.06 to fix
     kernel module build for Linux 6.8.
+  * Bump Standards-Version to 4.7.0. No changes needed.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 May 2024 14:46:16 +0200
 
@@ -5006,6 +5073,8 @@ nvidia-graphics-drivers (390.157-6) UNRELEASED; urgency=medium
   * Backport drm_gem_prime_handle_to_fd changes from 470.223.02 to fix kernel
     module build for Linux 6.6.
   * Refuse to load module if IBT is enabled.
+  * Switch suggestion from obsolete vulkan-utils to vulkan-tools
+    (525.125.06-3).
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 13 Nov 2023 10:01:19 +0100
 
@@ -5036,6 +5105,10 @@ nvidia-graphics-drivers (390.157-2) UNRELEASED; urgency=medium
     for Linux 6.2.
   * Backport drm_connector_has_override_edid changes from 525.78.01 to fix
     kernel module build for Linux 6.2.
+  * nvidia-alternative: Access kmod config files over a versioned
+    symlink (510.108.03-3).
+  * Add versioned Provides: nvidia-kernel-dkms-any (515.65.01-1).
+  * Bump Standards-Version to 4.6.2. No changes needed.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 04 Apr 2023 15:16:26 +0200
 
@@ -5051,6 +5124,8 @@ nvidia-graphics-drivers (390.157-1) UNRELEASED; urgency=medium
   * Refresh patches.
   * Rename the internally used ARCH variable which might clash on externally
     set values.
+  * Use substitutions for ${nvidia-kernel} and friends (510.108.03-1).
+  * Try to compile a kernel module at package build time (510.108.03-1).
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 03 Dec 2022 22:17:01 +0100
 
@@ -5071,6 +5146,16 @@ nvidia-graphics-drivers (390.154-1) UNRELEASED; urgency=medium
 
   [ Andreas Beckmann ]
   * Refresh patches.
+  * Minor packaging sync and cleanup (470.129.06-6).
+  * Drop references to kernel-package and make-kpkg, gone since stretch
+    (470.141.03-1).
+  * Overhaul build-module-packages.sh (470.141.03-1).
+  * Add module-assistant based autopkgtest for the *-source package
+    (470.141.03-1).
+  * Simplify changelog management for the *-source package (470.141.03-1).
+  * Copy the Source stanza from d/control to the module control file
+    (470.141.03-1).
+  * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 04 Aug 2022 11:32:14 +0200
 
@@ -5078,6 +5163,8 @@ nvidia-graphics-drivers (390.151-2) UNRELEASED; urgency=medium
 
   * Backport pci/dma changes from 470.129.06 to fix kernel module build for
     Linux 5.18.
+  * Switch to B-D: dh-dkms.
+  * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 22 Jun 2022 02:56:26 +0200
 
@@ -5098,6 +5185,7 @@ nvidia-graphics-drivers (390.151-1) UNRELEASED; urgency=medium
   * Refresh patches.
   * Work around architecture misdetection when building the kernel modules in
     an armhf environment on an arm64 host.  (Closes: #1010230)
+  * Bump Standards-Version to 4.6.1. No changes needed.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 19 May 2022 12:07:44 +0200
 
@@ -5132,6 +5220,16 @@ nvidia-graphics-drivers (390.147-1) UNRELEASED; urgency=medium
 
   [ Andreas Beckmann ]
   * Refresh patches.
+  * bug-script: Show the nvidia and glx alternatives (470.82.00-1).
+  * nvidia-alternative: libnvidia-cfg.so.1 on its own is not
+    sufficient to activate a nvidia alternative (470.82.00-1).
+  * Fix bashisms in upstream scripts (470.82.00-1).
+  * libegl1-mesa is a transitional package since buster (470.82.00-1).
+  * nvidia-kernel-support: Provide
+    /etc/modprobe.d/nvidia-options.conf as a template taking into account the
+    module renaming. This is a slave alternative of the nvidia alternative
+    (470.86-1).
+  * Update lintian overrides.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 31 Dec 2021 09:31:35 +0100
 
@@ -5139,6 +5237,9 @@ nvidia-graphics-drivers (390.144-2) UNRELEASED; urgency=medium
 
   * Backport drm_device_has_pdev and set_current_state changes from 470.63.01
     to fix kernel module build for Linux 5.14.
+  * Generate tight dependencies on libnvidia*-glcore/libnvidia*-eglcore
+    (470.57.02-3).
+  * Bump Standards-Version to 4.6.0. No changes needed.
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 20 Sep 2021 21:13:35 +0200
 
@@ -5162,6 +5263,12 @@ nvidia-graphics-drivers (390.144-1) UNRELEASED; urgency=medium
 
   [ Andreas Beckmann ]
   * Refresh patches.
+  * nvidia-driver-libs: Add Recommends:
+    libnvidia-encode1 (460.91.03-1).
+  * debian/gen-control.pl: Support substitutions in the Vcs-Git field
+    (460.91.03-1).
+  * Compute and substitute the Git branch instead of hardcoding it
+    (460.91.03-1).
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 21 Jul 2021 18:15:32 +0200
 
@@ -5177,6 +5284,13 @@ nvidia-graphics-drivers (390.143-1) UNRELEASED; urgency=medium
       "fatal error: asm/kmap_types.h: No such file or directory".
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 20 Apr 2021 02:04:19 +0200
+
+nvidia-graphics-drivers (390.141-3) UNRELEASED; urgency=medium
+
+  * nvidia-alternative: Add libnvidia-ml.so slave alternative if
+    libnvidia-ml-dev is installed (460.56-2).
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 13 Mar 2021 22:39:29 +0100
 
 nvidia-graphics-drivers (390.141-1) UNRELEASED; urgency=medium
 
@@ -5202,6 +5316,8 @@ nvidia-graphics-drivers (390.138-4) UNRELEASED; urgency=medium
 
   * Backport drm_prime_pages_to_sg_has_drm_device_arg and get_dma_ops changes
     from 455.45.01 to fix kernel module build for Linux 5.10.
+  * Bump watch file version to 4.
+  * Bump Standards-Version to 4.5.1. No changes needed.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 16 Dec 2020 00:28:48 +0100
 
@@ -5216,10 +5332,23 @@ nvidia-graphics-drivers (390.138-3) UNRELEASED; urgency=medium
 
 nvidia-graphics-drivers (390.138-2) UNRELEASED; urgency=medium
 
+  [ Andreas Beckmann ]
+  * Allow alternative libnvidia-{tesla,legacy}-*-cfg1 packages to substitute
+    libnvidia-cfg1 in third-party packages (450.57-2).
+    - Add Provides: libnvidia-cfg.so.1 (= ${nvidia:Version}).
+    - Generate alternative versioned dependency on libnvidia-cfg.so.1 through
+      the symbols file.
+  * Test that the patches can be applied to the module source (450.66-1).
+  * nvidia-kernel-dkms: Ship with unapplied patches and apply the
+    patches while building kernel modules (450.66-1).
+  * Simplify generating the -source and -dkms packages (450.66-1).
   * Backport nv_vmalloc changes from 450.57
     and work around mmap_{sem=>lock} rename
     to fix kernel module build for Linux 5.8.
   * Update lintian overrides.
+
+  [ Vincent Cheng ]
+  * Remove myself from Uploaders.
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 01 Sep 2020 00:58:11 +0200
 
@@ -5283,6 +5412,10 @@ nvidia-graphics-drivers (390.132-3) UNRELEASED; urgency=medium
 
 nvidia-graphics-drivers (390.132-2) UNRELEASED; urgency=medium
 
+  [ Andreas Beckmann ]
+  * bug-control: Report information about more (virtual) packages (440.64-2).
+  * Update lintian overrides.
+
   [ Luca Boccassi ]
   * Import drmP.patch from Fedora to fix kernel module build failure for
     Linux 5.5 and newer.
@@ -5334,6 +5467,9 @@ nvidia-graphics-drivers (390.129-1) UNRELEASED; urgency=medium
     - Improved nvidia-bug-report.sh to grab the output of the `vulkaninfo`
       command when it is available.
     * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Bump Standards-Version to 4.4.0. No changes needed.
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 07 Aug 2019 11:14:49 +0200
 
@@ -7824,8 +7960,13 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
 
-  * Fix warnings during module build.
+  * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
+    build for Linux 6.14.
+
   * Do not test building modules for the removed i386 kernels.
+  * Backport cmd_symlink changes from 550.142 to fix kernel module build for
+    Linux 6.13.
+  * Fix warnings during module build.
 
   * Backport nv_get_kern_phys_address() changes from 555.42.02 to fix kernel
     module build with gcc-14 on arm*.
