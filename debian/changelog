@@ -1,7 +1,17 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-25) UNRELEASED; urgency=medium
+
+  * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
+    build for Linux 6.14.
+  * Bump Standards-Version to 4.7.2. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 09 Apr 2025 12:31:22 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.108-24) unstable; urgency=medium
 
-  * Fix warnings during module build.
   * Do not test building modules for the removed i386 kernels.
+  * Backport cmd_symlink changes from 550.142 to fix kernel module build for
+    Linux 6.13.
+  * Fix warnings during module build.
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 Jan 2025 21:08:39 +0100
 

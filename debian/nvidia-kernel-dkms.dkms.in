@@ -13,7 +13,7 @@ PATCH=(#MODULE_PATCHES#)
 
 MAKE[0]="env NV_VERBOSE=1 \
     make ${parallel_jobs+-j$parallel_jobs} modules KERNEL_UNAME=${kernelver}"
-CLEAN="make KERNEL_UNAME=${kernelver} clean"
+CLEAN="true"
 
 #HAS_UVM#MAKE[0]+="; env NV_VERBOSE=1 \
 #HAS_UVM#    make ${parallel_jobs+-j$parallel_jobs} -C uvm modules KERNEL_UNAME=${kernelver} KBUILD_EXTMOD=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build/uvm"

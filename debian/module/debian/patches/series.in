@@ -53,6 +53,7 @@ buildfix_kernel_5.2.patch
 #HAS_UVM#0050-fix-more-uvm-warnings.patch
 0051-build-without-Wsign-compare.patch
 0052-backport-cmd_symlink-changes-from-550.142.patch
+0064-backport-drm_driver_has_date-from-570.124.04.patch
 
 # build system updates
 separate-makefile-kbuild.patch
