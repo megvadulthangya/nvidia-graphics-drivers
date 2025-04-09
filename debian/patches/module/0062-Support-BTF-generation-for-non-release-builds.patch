@@ -1,0 +1,155 @@
+From b0a7cee62ccf788de76e6603db5e3e56dcf8cecc Mon Sep 17 00:00:00 2001
+From: Rahul Rameshbabu <rrameshbabu@nvidia.com>
+Date: Fri, 3 Jan 2025 13:13:31 -0800
+Subject: [PATCH] Support BTF generation for non-release builds
+
+Generating BTF has a number of benefits for developers such as live debug of
+running code without the need to instrument the codebase at compile time or
+being able to mutate code execution paths arbitrarily through kfuncs. These
+benefits can be used by both our internal developers and company-external
+consumers of the open kernel modules wishing to utilize BTF information for
+debugging the NVIDIA kernel modules. An added benefit to this change is that
+the debug/develop drivers will work out of the box on distributions that do
+BTF generation of their kernel images and ship the BTF information in their
+base kernel package.
+
+NVKMS builds kernel components with C++ linkage for its DisplayPort
+library. This leads to C++ DWARF tags being included in the debuginfo of
+nvidia-modeset.ko. When the linux kernel source directory includes a copy
+of vmlinux with BTF information generated, any modules built against that
+kernel will require generating BTF information as a target. pahole is used
+for BTF information generation. While pahole does support a number of
+languages in theory, a number of DWARF tags are not handled by the utility
+aside for the C language DWARF tags. This leads to the BTF information
+generation target failing for nvidia-modeset.ko due to the C++ dplib DWARF
+symbols contained in the module. This failure leads to general NVIDIA
+driver installation failures through the NVIDIA installer path.
+
+Using PAHOLE="pahole --lang_exclude=c++,rust" will not work since the
+kernel build system will append a "--lang_exclude=rust" later in the
+invocation. pahole overwrites previous flags with conflicting flags passed
+later in the invocation. Instead, use awk to wrap the pahole invocation to
+manipulate the arguments. awk is already a build system requirement for the
+linux kernel, so no new dependencies are added. If "--lang_exclude=rust" is
+present in the invocation, convert the flag to "--lang_exclude=c++,rust".
+The workaround is designed to enable both closed and open kernel module
+builds to succeed when BTF generation is enabled. However, the BTF
+generated for the proprietary kernel module builds is limited in comparison
+to the open kernel module builds, due to more complex DWARF expression
+handling issues in the proprietary builds.
+
+Cannot use a GNU Make multiline variable to store the awk program due to
+the multiline variable causing issues with the sed command used to generate
+Makefiles from Makefile.template.
+  /bin/sh: -c: line 2: unexpected EOF while looking for matching `"'
+  make-4.3[3]: *** [Makefile:150: modules] Error 2
+  make-4.3[2]: *** [/home/binary-eater/Documents/graphics/bugfix_main/drivers/resman/arch/nvalloc/unix/kernel-interface.nvmk:593: build-kernel-modules] Error 2
+  make-4.3[1]: *** [/home/binary-eater/Documents/graphics/bugfix_main/drivers/resman/unix.nvmk:331: kernel-interface.submake.build] Error 2
+  make-4.3: *** [/home/binary-eater/Documents/graphics/bugfix_main/drivers/common/build/nvCommonRules.nvmk:197: resman.build] Error 2
+
+Example kfuncs available from generated BTF:
+  sudo bpftrace -l '*prime*'
+  kfunc:nvidia_drm:__nv_drm_gem_nvkms_memory_prime_get_sg_table
+  kfunc:nvidia_drm:__nv_drm_gem_nvkms_prime_dup
+  kfunc:nvidia_drm:__nv_drm_gem_nvkms_prime_vmap
+  kfunc:nvidia_drm:__nv_drm_gem_nvkms_prime_vunmap
+  kfunc:nvidia_drm:__nv_drm_gem_user_memory_prime_get_sg_table
+  kfunc:nvidia_drm:__nv_drm_gem_user_memory_prime_vmap
+  kfunc:nvidia_drm:__nv_drm_gem_user_memory_prime_vunmap
+  kfunc:nvidia_drm:__nv_drm_prime_fence_context_destroy
+  kfunc:nvidia_drm:nv_drm_gem_prime_fence_attach_ioctl
+  kfunc:nvidia_drm:nv_drm_gem_prime_fence_event
+  kfunc:nvidia_drm:nv_drm_gem_prime_fence_op_enable_signaling
+  kfunc:nvidia_drm:nv_drm_gem_prime_fence_op_get_timeline_name
+  kfunc:nvidia_drm:nv_drm_gem_prime_fence_op_release
+  kfunc:nvidia_drm:nv_drm_gem_prime_fence_op_wait
+  kfunc:nvidia_drm:nv_drm_gem_prime_force_fence_signal
+  kfunc:nvidia_drm:nv_drm_gem_prime_get_sg_table
+  kfunc:nvidia_drm:nv_drm_gem_prime_import
+  kfunc:nvidia_drm:nv_drm_gem_prime_import_sg_table
+  kfunc:nvidia_drm:nv_drm_gem_prime_vmap
+  kfunc:nvidia_drm:nv_drm_gem_prime_vunmap
+  kfunc:nvidia_drm:nv_drm_prime_fence_context_create_ioctl
+  <omitted remaining output>
+  sudo bpftrace -l '*nvkms*'
+  kfunc:nvidia_modeset:nvkms_alloc
+  kfunc:nvidia_modeset:nvkms_alloc_ref_ptr
+  kfunc:nvidia_modeset:nvkms_alloc_timer
+  kfunc:nvidia_modeset:nvkms_alloc_timer_with_ref_ptr
+  kfunc:nvidia_modeset:nvkms_allow_write_combining
+  kfunc:nvidia_modeset:nvkms_call_rm
+  kfunc:nvidia_modeset:nvkms_close
+  kfunc:nvidia_modeset:nvkms_close_from_kapi
+  kfunc:nvidia_modeset:nvkms_close_gpu
+  kfunc:nvidia_modeset:nvkms_close_pm_unlocked
+  kfunc:nvidia_modeset:nvkms_config_file_open
+  kfunc:nvidia_modeset:nvkms_copyin
+  kfunc:nvidia_modeset:nvkms_copyout
+  kfunc:nvidia_modeset:nvkms_debug_force_color_space
+  kfunc:nvidia_modeset:nvkms_dec_ref
+  kfunc:nvidia_modeset:nvkms_disable_hdmi_frl
+  <omitted remaining output>
+
+Example of limited kfuncs available from kernel module builds lacking BTF:
+  sudo bpftrace -l '*nvkms*'
+  <no kfunc related output produced>
+
+Signed-off-by: Rahul Rameshbabu <rrameshbabu@nvidia.com>
+
+Ignore c++11 in addition to c++.
+
+Origin: other, https://github.com/NVIDIA/open-gpu-kernel-modules/issues/756
+Origin: other, https://github.com/Binary-Eater/open-gpu-kernel-modules/commit/854449a7b76cdb4ad17919a1c8a662a4ff5b943d
+---
+ Makefile | 28 +++++++++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 82776aa7..4b0d6019 100644
+--- a/Makefile
++++ b/Makefile
+@@ -55,6 +55,31 @@ else
+   CC ?= cc
+   LD ?= ld
+   OBJDUMP ?= objdump
++  AWK ?= awk
++  # Bake the following awk program in a string. The program is needed to add C++
++  # to the languages excluded from BTF generation.
++  #
++  # Also, unconditionally return success (0) from the awk program, rather than
++  # propagating pahole's return status (with 'exit system(pahole_cmd)'), to
++  # workaround an DW_TAG_rvalue_reference_type error in
++  # kernel/nvidia-modeset.ko.
++  #
++  # BEGIN {
++  #     pahole_cmd = "pahole"
++  #     for (i = 1; i < ARGC; i++) {
++  #         if (ARGV[i] ~ /--lang_exclude=/) {
++  #             pahole_cmd = pahole_cmd sprintf(" %s,c++,c++11", ARGV[i])
++  #         } else {
++  #             pahole_cmd = pahole_cmd sprintf(" %s", ARGV[i])
++  #         }
++  #     }
++  #     system(pahole_cmd)
++  # }
++  PAHOLE_AWK_PROGRAM = BEGIN { pahole_cmd = \"pahole\"; for (i = 1; i < ARGC; i++) { if (ARGV[i] ~ /--lang_exclude=/) { pahole_cmd = pahole_cmd sprintf(\" %s,c++,c++11\", ARGV[i]); } else { pahole_cmd = pahole_cmd sprintf(\" %s\", ARGV[i]); } } system(pahole_cmd); }
++  # If scripts/pahole-flags.sh is not present in the kernel tree, add PAHOLE and
++  # PAHOLE_AWK_PROGRAM assignments to PAHOLE_VARIABLES; otherwise assign the
++  # empty string to PAHOLE_VARIABLES.
++  PAHOLE_VARIABLES=$(if $(wildcard $(KERNEL_SOURCES)/scripts/pahole-flags.sh),,"PAHOLE=$(AWK) '$(PAHOLE_AWK_PROGRAM)'")
+ 
+   ifndef ARCH
+     ARCH := $(shell uname -m | sed -e 's/i.86/i386/' \
+@@ -93,7 +118,8 @@ else
+ 
+   .PHONY: modules module clean clean_conftest modules_install
+   modules clean modules_install:
+-	@$(MAKE) "LD=$(LD)" "CC=$(CC)" "OBJDUMP=$(OBJDUMP)" $(KBUILD_PARAMS) $@
++	@$(MAKE) "LD=$(LD)" "CC=$(CC)" "OBJDUMP=$(OBJDUMP)" \
++	  $(PAHOLE_VARIABLES) $(KBUILD_PARAMS) $@
+ 	@if [ "$@" = "modules" ]; then \
+ 	  for module in $(NV_KERNEL_MODULES); do \
+ 	    if [ -x split-object-file.sh ]; then \
+-- 
+2.39.5
+

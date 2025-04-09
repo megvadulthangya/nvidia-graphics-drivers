@@ -8,7 +8,7 @@ Uploaders:
 Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
 Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git${Vcs-Git:Branch}
 Homepage: https://www.nvidia.com
-Standards-Version: 4.7.0
+Standards-Version: 4.7.2
 Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),

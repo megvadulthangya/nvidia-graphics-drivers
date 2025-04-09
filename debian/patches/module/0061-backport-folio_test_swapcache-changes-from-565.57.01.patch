@@ -1,0 +1,52 @@
+From db4baf565b49378b2d8296f493b420398b6a8bfa Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Sat, 15 Mar 2025 11:22:03 +0100
+Subject: [PATCH] backport folio_test_swapcache changes from 565.57.01
+
+---
+ conftest.sh                  | 16 ++++++++++++++++
+ nvidia-uvm/nvidia-uvm.Kbuild |  1 +
+ 2 files changed, 17 insertions(+)
+
+diff --git a/conftest.sh b/conftest.sh
+index ac68c360..2e66fc24 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -6547,6 +6547,22 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_DRM_UNLOCKED_IOCTL_FLAG_PRESENT" "" "types"
+         ;;
+ 
++    folio_test_swapcache)
++            #
++            # Determine if the folio_test_swapcache() function is present.
++            #
++            # folio_test_swapcache() was exported by commit d389a4a811551 ("mm:
++            # Add folio flag manipulation functions") in v5.16.
++            #
++            CODE="
++            #include <linux/page-flags.h>
++            void conftest_folio_test_swapcache(void) {
++                folio_test_swapcache();
++            }"
++
++            compile_check_conftest "$CODE" "NV_FOLIO_TEST_SWAPCACHE_PRESENT" "" "functions"
++        ;;
++
+         # When adding a new conftest entry, please use the correct format for
+         # specifying the relevant upstream Linux kernel commit.
+         #
+diff --git a/nvidia-uvm/nvidia-uvm.Kbuild b/nvidia-uvm/nvidia-uvm.Kbuild
+index a38de216..a847e9eb 100644
+--- a/nvidia-uvm/nvidia-uvm.Kbuild
++++ b/nvidia-uvm/nvidia-uvm.Kbuild
+@@ -86,6 +86,7 @@ NV_CONFTEST_FUNCTION_COMPILE_TESTS += mmget_not_zero
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += mmgrab
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += iommu_sva_bind_device_has_drvdata_arg
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += vm_fault_to_errno
++NV_CONFTEST_FUNCTION_COMPILE_TESTS += folio_test_swapcache
+ 
+ NV_CONFTEST_TYPE_COMPILE_TESTS += backing_dev_info
+ NV_CONFTEST_TYPE_COMPILE_TESTS += mm_context_t
+-- 
+2.39.5
+

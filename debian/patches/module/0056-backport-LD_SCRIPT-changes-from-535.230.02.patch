@@ -11,8 +11,7 @@ diff --git a/Makefile b/Makefile
 index a88b2f22..82776aa7 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -64,3 +64,13 @@ else
-     )
+@@ -65,2 +65,12 @@ else
    endif
 +
 +  KERNEL_ARCH = $(ARCH)

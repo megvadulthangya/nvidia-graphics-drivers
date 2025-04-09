@@ -7,13 +7,14 @@ Description: let Kbuild set the compiler version
 
 --- a/Makefile
 +++ b/Makefile
-@@ -93,8 +93,8 @@ else
+@@ -118,9 +118,9 @@ else
  
    .PHONY: modules module clean clean_conftest modules_install
    modules clean modules_install:
--	@$(MAKE) "LD=$(LD)" "CC=$(CC)" "OBJDUMP=$(OBJDUMP)" $(KBUILD_PARAMS) $@
+-	@$(MAKE) "LD=$(LD)" "CC=$(CC)" "OBJDUMP=$(OBJDUMP)" \
++	$(MAKE) \
+ 	  $(PAHOLE_VARIABLES) $(KBUILD_PARAMS) $@
 -	@if [ "$@" = "modules" ]; then \
-+	$(MAKE) $(KBUILD_PARAMS) $@
 +	@set -x; if [ "$@" = "modules" ]; then \
  	  for module in $(NV_KERNEL_MODULES); do \
  	    if [ -x split-object-file.sh ]; then \
