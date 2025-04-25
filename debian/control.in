@@ -295,7 +295,7 @@ Description: NVIDIA driver - systemd power management scripts
  integration with systemd.
 
 Package: ${nvidia}-legacy-check
-Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
+Architecture: #amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: foreign
 Pre-Depends:
  debconf | debconf-2.0,
