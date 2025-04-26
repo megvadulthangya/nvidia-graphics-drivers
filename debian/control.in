@@ -285,7 +285,7 @@ Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
 
 Package: nvidia-suspend-common
 Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
+Architecture: #amd64 arm64 ppc64el
 Multi-Arch: foreign
 Depends:
  kbd,

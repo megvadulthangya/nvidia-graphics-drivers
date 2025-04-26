@@ -57,6 +57,7 @@ nvidia-cuda-mps-control.1
 nvidia-cuda-mps-server
 
 # shipped in nvidia-powerd from src:nvidia-graphics-drivers
+dlsnetparams.csv
 nvidia-powerd
 nvidia-dbus.conf
 systemd/system/nvidia-powerd.service
