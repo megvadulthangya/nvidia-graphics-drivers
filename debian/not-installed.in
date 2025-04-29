@@ -51,6 +51,30 @@ libGLX.so.0
 libGLdispatch.so.0
 libOpenGL.so.0
 
+# shipped in nvidia-cuda-mps from src:nvidia-graphics-drivers
+nvidia-cuda-mps-control
+nvidia-cuda-mps-control.1
+nvidia-cuda-mps-server
+
+# shipped in nvidia-powerd from src:nvidia-graphics-drivers
+nvidia-powerd
+nvidia-dbus.conf
+systemd/system/nvidia-powerd.service
+
+# shipped in nvidia-suspend-common from src:nvidia-graphics-drivers
+systemd/system/nvidia-suspend.service
+systemd/system/nvidia-hibernate.service
+systemd/system/nvidia-resume.service
+systemd/system-sleep/nvidia
+systemd/nvidia-sleep.sh
+
+# shipped unversioned by src:nvidia-graphics-drivers
+10_nvidia.json
+nvidia_icd.json
+nvidia_layers.json
+nvidia.icd
+libOpenCL.so.1.0.0
+
 # not shipped
 
 nvidia-ngx-updater

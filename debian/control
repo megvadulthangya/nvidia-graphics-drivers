@@ -563,21 +563,6 @@ Description: NVIDIA binary EGL core libraries${nvidia:VariantDesc}
  This package contains the private core libraries used by the NVIDIA
  implementation of EGL and OpenGL|ES.
 
-Package: nvidia-egl-common
-Architecture: i386 amd64 arm64 ppc64el armhf
-Multi-Arch: foreign
-Depends:
- ${misc:Depends}
-Suggests:
- libegl-${nvidia-}0 [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
- | libegl-nvidia-tesla-535-0 [i386 amd64 arm64 ppc64el]
-Description: NVIDIA binary EGL driver - common files
- EGL provides a platform-agnostic mechanism for creating rendering surfaces
- for use with other graphics libraries, such as OpenGL|ES.
- .
- This package provides the common files for the NVIDIA installable client
- driver (ICD) for EGL via GLVND.
-
 Package: nvidia-egl-icd
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
@@ -629,25 +614,6 @@ Description: Video Decode and Presentation API for Unix - NVIDIA driver${nvidia:
  for more information.
  .
  ${nvidia:kmod:Description}
-
-Package: nvidia-vulkan-common
-Architecture: i386 amd64 arm64 ppc64el
-Multi-Arch: foreign
-Depends:
- ${misc:Depends}
-Suggests:
- ${nvidia}-vulkan-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
- | nvidia-tesla-535-vulkan-icd [i386 amd64 arm64 ppc64el]
-Conflicts:
- libgl1-${nvidia}-glx,
- libgl1-nvidia-tesla-418-glx,
- libgl1-nvidia-legacy-390xx-glx,
- nvidia-nonglvnd-vulkan-common,
-Description: NVIDIA Vulkan driver - common files
- Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
- .
- This package provides the common files for the NVIDIA installable client
- driver (ICD) for Vulkan (GLVND variant).
 
 Package: nvidia-vulkan-icd
 Architecture: i386 amd64 arm64 ppc64el
@@ -748,37 +714,6 @@ Description: NVIDIA Management Library (NVML) runtime library${nvidia:VariantDes
  It provides a direct access to the queries and commands exposed via nvidia-smi.
  .
  This package contains the nvidia-ml runtime library.
-
-Package: nvidia-powerd
-Section: non-free/utils
-Architecture: amd64 arm64
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA Dynamic Boost (daemon)
- The 'nvidia-powerd' daemon provides support for the NVIDIA Dynamic Boost
- feature on Linux platforms. Dynamic Boost is a system-wide power controller
- which manages GPU and CPU power, according to the workload on the system. By
- shifting power between the GPU and the CPU, Dynamic Boost can deliver more
- power to the component that would benefit most from it, without impacting the
- system's total thermal and electrical budgets. This optimizes overall system
- performance per watt.
-
-Package: nvidia-cuda-mps
-Section: non-free/utils
-Architecture: amd64 arm64 ppc64el
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Description: NVIDIA CUDA Multi Process Service (MPS)
- The Compute Unified Device Architecture (CUDA) enables NVIDIA
- graphics processing units (GPUs) to be used for massively parallel
- general purpose computation.
- .
- CUDA MPS is a feature that allows multiple CUDA processes to share a single
- GPU context. CUDA MPS should be transparent to CUDA programs.
- .
- CUDA MPS requires a device that supports Unified Virtual Address (UVA) and
- has compute capability SM 3.5 or higher.
- Pre-CUDA 4.0 APIs are not supported under CUDA MPS.
 
 Package: libcuda1
 Architecture: i386 amd64 arm64 ppc64el
@@ -1031,22 +966,6 @@ Description: NVAPI runtime library${nvidia:VariantDescShort}
  .
  This package contains the NVAPI runtime library.
 
-Package: nvidia-opencl-common
-Architecture: i386 amd64 arm64 ppc64el
-Multi-Arch: foreign
-Depends:
- ${misc:Depends}
-Suggests:
- ${nvidia}-opencl-icd [i386 amd64 ${arch:arm64} ${arch:ppc64el}]
- | nvidia-tesla-535-opencl-icd [i386 amd64 arm64 ppc64el]
-Description: NVIDIA OpenCL driver - common files
- OpenCL (Open Computing Language) is a multivendor open standard for
- general-purpose parallel programming of heterogeneous systems that include
- CPUs, GPUs and other processors.
- .
- This package provides the common files for the NVIDIA installable client
- driver (ICD) for OpenCL.
-
 Package: nvidia-opencl-icd
 Architecture: i386 amd64 arm64 ppc64el
 Multi-Arch: same
@@ -1070,47 +989,3 @@ Description: NVIDIA OpenCL installable client driver (ICD)${nvidia:VariantDesc}
  .
  This package provides the NVIDIA installable client driver (ICD) for OpenCL
  which supports NVIDIA GPUs.
-
-Package: nvidia-libopencl1
-Architecture: i386 amd64 arm64 ppc64el
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${shlibs:Depends}, ${misc:Depends}
-Recommends:
- ${nvidia}-opencl-icd | opencl-icd,
-Conflicts:
- libopencl1,
-Replaces:
- libopencl1,
-Provides:
- libopencl1,
- libopencl-1.1-1,
- libopencl-1.2-1,
- libopencl-2.0-1,
- libopencl-2.1-1,
- libopencl-2.2-1,
- libopencl-3.0-1,
-Description: NVIDIA OpenCL ICD Loader library
- OpenCL (Open Computing Language) is a multivendor open standard for
- general-purpose parallel programming of heterogeneous systems that include
- CPUs, GPUs and other processors.
- .
- The OpenCL installable client driver loader (ICD Loader) acts as a dispatcher
- between an OpenCL application and one (or more) installable client drivers
- (ICD) that can be from any vendor. At least one ICD (and the corresponding
- hardware) is required to run OpenCL applications.
- .
- This package contains the ICD Loader library provided by NVIDIA.
-
-Package: nvidia-detect
-Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
-Depends:
- pciutils,
- ${misc:Depends}
-Description: NVIDIA GPU detection utility
- The 'nvidia-detect' script in this package checks for an NVIDIA GPU in the
- system and recommends one of the non-free accelerated driver meta-packages
- (nvidia-driver or nvidia-tesla-535-driver) for installation.
