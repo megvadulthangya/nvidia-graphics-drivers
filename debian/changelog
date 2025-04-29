@@ -1,8 +1,9 @@
-nvidia-graphics-drivers-tesla-550 (550.54.15-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-550 (550.54.15-1) unstable; urgency=medium
 
   * Fork as new source package, rename everything to include '-tesla-550'.
+  * Upload to unstable.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 25 Apr 2025 09:13:57 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 29 Apr 2025 18:35:04 +0200
 
 nvidia-graphics-drivers (550.54.15-1) experimental; urgency=medium
 
