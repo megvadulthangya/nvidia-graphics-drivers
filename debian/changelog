@@ -5,6 +5,7 @@ nvidia-graphics-drivers-tesla-535 (535.216.03-3~deb12u1) UNRELEASED; urgency=med
     supports the ppc64el architecture. Nvidia has discontinued ppc64el support
     and further updates of src:nvidia-graphics-drivers will therefore drop the
     ppc64el driver.
+  * Do not build for i386 or arm64.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 08 May 2025 23:58:05 +0200
 
