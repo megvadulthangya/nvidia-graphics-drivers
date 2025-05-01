@@ -35,7 +35,8 @@ Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 # nvidia-installer-cleanup,
 # ${nvidia:legacy-check},
 Depends:
- nvidia-driver,
+ nvidia-driver [!ppc64el],
+ nvidia-tesla-535-driver [ppc64el],
 # ${nvidia}-driver-libs (= ${binary:Version}),
 # ${nvidia}-driver-bin (= ${binary:Version}),
 # xserver-xorg-video-${nvidia} (= ${binary:Version}),
@@ -153,7 +154,8 @@ Multi-Arch: foreign
 #Pre-Depends:
 # nvidia-installer-cleanup,
 Depends:
- nvidia-kernel-dkms,
+ nvidia-kernel-dkms [!ppc64el],
+ nvidia-tesla-535-kernel-dkms [ppc64el],
 # firmware-${nvidia}-gsp (= ${nvidia:Version}) [!ppc64el] | firmware-nvidia-gsp-${nvidia:Version} [!ppc64el],
 # ${nvidia-kernel}-support--v1,
  ${misc:Depends}
@@ -188,7 +190,8 @@ Package: ${nvidia-kernel}-source
 Section: non-free/kernel
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Depends:
- nvidia-kernel-source,
+ nvidia-kernel-source [!ppc64el],
+ nvidia-tesla-535-kernel-source [ppc64el],
 # debhelper-compat (= ${nvidia:debhelper-compat}),
 # module-assistant,
  ${misc:Depends}
@@ -224,7 +227,8 @@ Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 # nvidia-installer-cleanup,
 # ${nvidia:legacy-check},
 Depends:
- xserver-xorg-video-nvidia,
+ xserver-xorg-video-nvidia [!ppc64el],
+ xserver-xorg-video-nvidia-tesla-535 [ppc64el],
  ${nvidia}-alternative (= ${binary:Version}),
 # nvidia-support,
 # ${nvidia:xorgDepends},
@@ -305,7 +309,8 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
 Depends:
- libnvidia-cfg1,
+ libnvidia-cfg1 [!ppc64el],
+ libnvidia-tesla-535-cfg1 [ppc64el],
  ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 #Provides:
@@ -322,7 +327,8 @@ Package: ${nvidia}-driver-libs
 Architecture: i386 amd64 ${arch:arm64} ${arch:ppc64el}
 Multi-Arch: same
 Depends:
- nvidia-driver-libs,
+ nvidia-driver-libs [!ppc64el],
+ nvidia-tesla-535-driver-libs [ppc64el],
 # libgl1-${nvidia}-glvnd-glx (= ${binary:Version}),
 # ${nvidia}-egl-icd (= ${binary:Version}),
  ${misc:Depends}
@@ -823,7 +829,8 @@ Package: ${nvidia}-smi
 Section: non-free/utils
 Architecture: amd64 ${arch:arm64} ${arch:ppc64el}
 Depends:
- nvidia-smi,
+ nvidia-smi [!ppc64el],
+ nvidia-tesla-535-smi [ppc64el],
  ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-ml1 (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
@@ -894,7 +901,8 @@ Pre-Depends:
  ${nvidia:legacy-check},
  ${misc:Pre-Depends}
 Depends:
- libcuda1,
+ libcuda1 [!ppc64el],
+ libnvidia-tesla-535-cuda1 [ppc64el],
  nvidia-support,
  ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-ptxjitcompiler1 (= ${binary:Version}),

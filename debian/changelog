@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-tesla (525.147.05-15) UNRELEASED; urgency=medium
+
+  * Transition to packages from src:nvidia-graphics-drivers-tesla-535 on
+    ppc64el.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 01 May 2025 09:30:25 +0200
+
 nvidia-graphics-drivers-tesla (525.147.05-14) unstable; urgency=medium
 
   * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
