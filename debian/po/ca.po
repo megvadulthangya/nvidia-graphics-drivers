@@ -1,24 +1,20 @@
-# French translation for nvidia-driver debconf templates.
-# Copyright (C) 2009-2019 Debian French l10n team <debian-l10n-french@lists.debian.org>
-# This file is distributed under the same license as the nvidia-driver package.
+# Catalan translation of nvidia-graphics-drivers's debconf messages
+# This file is distributed under the same license as the nvidia-graphics-drivers package.
+# poc senderi <pocsenderi@protonmail.com>, 2025.
 #
-# Translators:
-# Christian Perrier <bubulle@debian.org>, 2009, 2012, 2014.
-# Quentin Lejard <q.lejard@valde.fr>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: nvidia-graphics-drivers\n"
 "Report-Msgid-Bugs-To: nvidia-graphics-drivers@packages.debian.org\n"
 "POT-Creation-Date: 2023-01-09 15:40+0100\n"
-"PO-Revision-Date: 2019-01-15 19:27+0100\n"
-"Last-Translator: Quentin LEJARD <q.lejard@valde.fr>\n"
-"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
-"Language: fr\n"
+"PO-Revision-Date: 2025-04-08 18:26+0200\n"
+"Last-Translator: poc senderi <pocsenderi@protonmail.com>\n"
+"Language-Team: Catalan <debian-l10n-catalan@lists.debian.org>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. Type: boolean
 #. Description
@@ -32,7 +28,8 @@ msgstr ""
 #: ../nvidia-legacy-check.templates:3001
 msgid "Install ${vendor} driver despite unsupported graphics card?"
 msgstr ""
-"Faut-il installer le pilote ${vendor} avec une carte graphique non gérée ?"
+"Voleu instal·lar el controlador ${vendor} malgrat que la targeta gràfica no "
+"sigui compatible?"
 
 #. Type: boolean
 #. Description
@@ -43,10 +40,10 @@ msgid ""
 "instance to drive some other card - but the card with the following chipset "
 "won't be usable:"
 msgstr ""
-"La carte graphique de cette machine n'est plus gérée par le pilote ${vendor} "
-"(paquet ${driver}). Vous pouvez préférer garder le paquet installé (par "
-"exemple pour piloter une autre carte), mais dans ce cas, la carte graphique "
-"suivante ne sera pas utilisable :"
+"Aquest sistema té una targeta gràfica que ja no és gestionada pel "
+"controlador ${vendor} (paquet ${driver}). És possible que vulgueu mantenir "
+"el paquet instal·lat (per usar alguna altra targeta, per exemple) però la "
+"targeta amb el següent «chipset» no es pot utilitzar:"
 
 #. Type: boolean
 #. Description
@@ -55,9 +52,9 @@ msgid ""
 "The above card requires either the non-free legacy ${vendor} driver (package "
 "${legacy_driver}) or the free ${free_name} driver (package ${free_driver})."
 msgstr ""
-"Cette carte a besoin soit du pilote constructeur ${vendor}, non libre, "
-"fourni par le paquet ${legacy_driver} ou du pilote libre ${free_name} fourni "
-"par le paquet ${free_driver}."
+"La targeta anterior requereix o bé el controlador no lliure de ${vendor} "
+"(paquet ${legacy_driver}) o el controlador lliure de ${free_name} (paquet "
+"${free_driver})."
 
 #. Type: boolean
 #. Description
@@ -65,8 +62,8 @@ msgstr ""
 msgid ""
 "Use the update-glx command to switch between different installed drivers."
 msgstr ""
-"Utilisez la commande update-glx afin de choisir parmi les pilotes "
-"déja installés."
+"Utilitzeu l'ordre «update-glx» per a canviar entre els diferents "
+"controladors instal·lats."
 
 #. Type: boolean
 #. Description
@@ -75,6 +72,5 @@ msgid ""
 "Before the ${free_name} driver can be used you must remove ${vendor} "
 "configuration from xorg.conf (and xorg.conf.d/)."
 msgstr ""
-"Avant de pouvoir utiliser le pilote ${free_name}, il est nécessaire de "
-"supprimer la configuration de ${vendor} dans le fichier xorg.conf (ou dans "
-"un des fichiers de xorg.conf.d/)."
+"Abans que es pugui utilitzar el controlador ${free_name}, heu d'eliminar la "
+"configuració ${vendor} del «xorg.conf» (i «xorg.conf.d/»)."

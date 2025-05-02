@@ -89,8 +89,9 @@ Depends:
  lib${nvidia}-api1 (= ${binary:Version}),
  ${nvidia}-opencl-icd (= ${binary:Version}),
  nvidia-powerd [amd64],
- nvidia-cuda-mps,
+ nvidia-cuda-mps [!ppc64el],
  nvidia-suspend-common,
+ nvidia-detect [!ppc64el],
  ${nvidia-settings},
  nvidia-persistenced,
  ${misc:Depends}

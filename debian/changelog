@@ -1,3 +1,17 @@
+nvidia-graphics-drivers-tesla-535 (535.216.03-3) UNRELEASED; urgency=medium
+
+  * Rebuild as Tesla 535 driver.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 02 May 2025 09:42:41 +0200
+
+nvidia-graphics-drivers (535.216.03-4) unstable; urgency=medium
+
+  * nvidia-driver-full: Relax nvidia-cuda-mps dependency on ppc64el.
+  * New Catalan (ca) debconf translations by poc senderi.
+  * Updated French (fr) debconf translations by Sylvestre Ledru.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 02 May 2025 09:28:24 +0200
+
 nvidia-graphics-drivers-tesla-535 (535.216.03-2) unstable; urgency=medium
 
   * Rebuild as Tesla 535 driver.
@@ -129,7 +143,7 @@ nvidia-graphics-drivers (535.183.01-1) unstable; urgency=medium
 
 nvidia-graphics-drivers (535.161.08-3) unstable; urgency=medium
 
-  * Add systemd drop-in configuration files setting
+  * nvidia-suspend-common: Add systemd drop-in configuration files setting
     - SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false and
     - SYSTEMD_HOME_LOCK_FREEZE_SESSION=false
     needed from systemd 256 onwards.  (Closes: #1072722)
