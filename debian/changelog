@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla-550 (550.54.15-2) UNRELEASED; urgency=medium
+
+  * nvidia-driver-full: Relax nvidia-cuda-mps dependency on ppc64el.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 03 May 2025 08:41:55 +0200
+
 nvidia-graphics-drivers-tesla-550 (550.54.15-1) unstable; urgency=medium
 
   * Fork as new source package, rename everything to include '-tesla-550'.
