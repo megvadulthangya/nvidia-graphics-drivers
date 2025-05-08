@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-535 (535.216.03-3~deb12u1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-535 (535.216.03-3~deb12u1) bookworm; urgency=medium
 
   * Rebuild for bookworm.
   * This is a fork of the last driver release from the 535 series that still
@@ -9,7 +9,7 @@ nvidia-graphics-drivers-tesla-535 (535.216.03-3~deb12u1) UNRELEASED; urgency=med
   * Drop nvidia-settings-tesla-535 dependency, won't be backported to
     bookworm.
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 08 May 2025 23:58:05 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 09 May 2025 01:30:22 +0200
 
 nvidia-graphics-drivers-tesla-535 (535.216.03-3) unstable; urgency=medium
 
