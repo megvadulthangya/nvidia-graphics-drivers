@@ -152,6 +152,7 @@ NVIDIA-Linux-ppc64el: NVIDIA-Linux-amd64
 	mkdir $@
 	cp -al $</*.icd $@
 	cp -al $</*.json* $@
+	cp -al $</systemd/ $@
 endif
 
 # Always unpack amd64, we need files from them.

@@ -1,4 +1,4 @@
-From b0a7cee62ccf788de76e6603db5e3e56dcf8cecc Mon Sep 17 00:00:00 2001
+From d70daaaafa22f244641c0b2010ed89de7da2102f Mon Sep 17 00:00:00 2001
 From: Rahul Rameshbabu <rrameshbabu@nvidia.com>
 Date: Fri, 3 Jan 2025 13:13:31 -0800
 Subject: [PATCH] Support BTF generation for non-release builds
@@ -105,10 +105,10 @@ Origin: other, https://github.com/Binary-Eater/open-gpu-kernel-modules/commit/85
  1 file changed, 27 insertions(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index 82776aa7..4b0d6019 100644
+index 72672c2a..40a9792e 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -55,6 +55,31 @@ else
+@@ -71,6 +71,31 @@ else
    CC ?= cc
    LD ?= ld
    OBJDUMP ?= objdump
@@ -140,7 +140,7 @@ index 82776aa7..4b0d6019 100644
  
    ifndef ARCH
      ARCH := $(shell uname -m | sed -e 's/i.86/i386/' \
-@@ -93,7 +118,8 @@ else
+@@ -109,7 +134,8 @@ else
  
    .PHONY: modules module clean clean_conftest modules_install
    modules clean modules_install:

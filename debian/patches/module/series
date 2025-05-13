@@ -5,24 +5,15 @@ bashisms.patch
 0001-bump-minimum-supported-kernel-version-to-3.10.patch
 0002-conftest.sh-remove-empty-lines-from-uts_release-outp.patch
 0034-fix-typos.patch
-0037-import-pfn_valid-w-o-GPL-rcu_read_lock-unlock-from-v.patch
 0042-Log-an-error-message-when-nv_mem_client_init-fails-d.patch
-0045-let-the-virt_addr_valid-macro-use-nv_pfn_valid-on-pp.patch
 0046-backport-nv_get_kern_phys_address-changes-from-555.4.patch
-0048-backport-cmd_symlink-changes-from-550.142.patch
 0052-backport-uvm-warning-fixes-from-560.28.03.patch
 0053-fix-more-warnings.patch
 0054-fix-more-uvm-warnings.patch
-0055-backport-file_operations_fop_unsigned_offset_present.patch
-0056-backport-LD_SCRIPT-changes-from-535.230.02.patch
-0057-backport-uvm-fixes-from-535.230.02.patch
 0058-backport-warning-fixes-from-565.57.01.patch
 0059-backport-uvm-warning-fixes-from-550.90.07.patch
 0060-backport-module_import_ns_takes_string_literal-chang.patch
-0061-backport-folio_test_swapcache-changes-from-565.57.01.patch
 0062-Support-BTF-generation-for-non-release-builds.patch
-0063-backport-crypto_akcipher_verify-changes-from-550.144.patch
-0064-backport-drm_driver_has_date-from-570.124.04.patch
 
 # build system updates
 conftest-verbose.patch

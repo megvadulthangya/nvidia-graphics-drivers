@@ -26,14 +26,13 @@ Build-Depends-Arch:
  zstd,
  linux-headers-amd64 [amd64] <!nocheck>,
  linux-headers-arm64 [arm64] <!nocheck>,
- linux-headers-powerpc64le [ppc64el] <!nocheck>,
  libglvnd-dev,
 Testsuite: autopkgtest-pkg-dkms
 XS-Autobuild: yes
 
 Package: nvidia-tesla-535-driver
 Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Pre-Depends:
  nvidia-installer-cleanup,
  ${nvidia:legacy-check},
@@ -71,7 +70,7 @@ Description: NVIDIA metapackage${nvidia:VariantDesc}
 
 Package: nvidia-tesla-535-driver-full
 Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Depends:
  ${nvidia}-driver (= ${binary:Version}),
  libgles-${nvidia-}1 (= ${binary:Version}),
@@ -80,11 +79,11 @@ Depends:
  lib${nvidia}-encode1 (= ${binary:Version}),
  ${nvidia}-vulkan-icd (= ${binary:Version}),
  lib${nvidia}-allocator1 (= ${binary:Version}),
- lib${nvidia}-rtcore (= ${binary:Version}) [!i386 !ppc64el],
+ lib${nvidia}-rtcore (= ${binary:Version}) [!i386],
  ${nvidia}-smi (= ${binary:Version}),
  lib${nvidia-if-variant}cudadebugger1 (= ${binary:Version}),
- lib${nvidia}-fbc1 (= ${binary:Version}) [!ppc64el],
- lib${nvidia-if-variant}nvoptix1 (= ${binary:Version}) [!i386 !ppc64el],
+ lib${nvidia}-fbc1 (= ${binary:Version}),
+ lib${nvidia-if-variant}nvoptix1 (= ${binary:Version}) [!i386],
  lib${nvidia}-opticalflow1 (= ${binary:Version}),
  lib${nvidia}-ngx1 (= ${binary:Version}) [amd64],
  lib${nvidia}-api1 (= ${binary:Version}),
@@ -102,7 +101,7 @@ Description: NVIDIA metapackage (all components)${nvidia:VariantDesc}
  OpenGL/GLX/EGL/GLES/Vulkan applications via a direct-rendering X Server.
 
 Package: nvidia-tesla-535-alternative
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: foreign
 Pre-Depends:
  dpkg (>= 1.17.21),
@@ -161,7 +160,7 @@ Description: NVIDIA GSP firmware${nvidia:VariantDesc}
 
 Package: nvidia-tesla-535-kernel-support
 Section: non-free/kernel
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Multi-Arch: foreign
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
@@ -181,12 +180,12 @@ Description: NVIDIA binary kernel module support files${nvidia:VariantDesc}
 
 Package: nvidia-tesla-535-kernel-dkms
 Section: non-free/kernel
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Multi-Arch: foreign
 Pre-Depends:
  nvidia-installer-cleanup,
 Depends:
- firmware-${nvidia}-gsp (= ${nvidia:Version}) [!ppc64el] | firmware-nvidia-gsp-${nvidia:Version} [!ppc64el],
+ firmware-${nvidia}-gsp (= ${nvidia:Version}) | firmware-nvidia-gsp-${nvidia:Version},
  ${nvidia-kernel}-support--v1,
  ${misc:Depends}
 Recommends:
@@ -218,13 +217,13 @@ Description: NVIDIA binary kernel module DKMS source${nvidia:VariantDesc}
 
 Package: nvidia-tesla-535-kernel-source
 Section: non-free/kernel
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Depends:
  debhelper-compat (= ${nvidia:debhelper-compat}),
  module-assistant,
  ${misc:Depends}
 Recommends:
- firmware-${nvidia}-gsp (= ${nvidia:Version}) [!ppc64el] | firmware-nvidia-gsp-${nvidia:Version} [!ppc64el],
+ firmware-${nvidia}-gsp (= ${nvidia:Version}) | firmware-nvidia-gsp-${nvidia:Version},
  ${nvidia-kernel}-support--v1,
 Suggests:
  ${nvidia}-driver (>= ${nvidia:Version}),
@@ -250,7 +249,7 @@ Description: NVIDIA binary kernel module source${nvidia:VariantDesc}
 
 Package: xserver-xorg-video-nvidia-tesla-535
 Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Pre-Depends:
  nvidia-installer-cleanup,
  ${nvidia:legacy-check},
@@ -285,7 +284,7 @@ Description: NVIDIA binary Xorg driver${nvidia:VariantDesc}
 
 Package: nvidia-tesla-535-driver-bin
 Section: non-free/x11
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  ${shlibs:Depends}, ${misc:Depends}
@@ -303,7 +302,7 @@ Description: NVIDIA driver support binaries${nvidia:VariantDesc}
  This package contains supporting binaries for the driver.
 
 Package: libnvidia-tesla-535-cfg1
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -322,7 +321,7 @@ Description: NVIDIA binary OpenGL/GLX configuration library${nvidia:VariantDesc}
  which is used by other driver components.
 
 Package: nvidia-tesla-535-driver-libs
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Depends:
  libgl1-${nvidia}-glvnd-glx (= ${binary:Version}),
@@ -359,7 +358,7 @@ Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES libraries)${nvidia:VariantD
  OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server.
 
 Package: libglx-nvidia-tesla-535-0
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -381,7 +380,7 @@ Description: NVIDIA binary GLX library${nvidia:VariantDesc}
  that is accessed via GLVND.
 
 Package: libgl1-nvidia-tesla-535-glvnd-glx
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Depends:
  libgl1 (>= 0.2.999) | libgl1-glvnd-nvidia-glx,
@@ -402,7 +401,7 @@ Description: NVIDIA binary OpenGL/GLX library (GLVND variant)${nvidia:VariantDes
  GLVND and the corresponding GLVND loader library.
 
 Package: libnvidia-tesla-535-glcore
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -422,7 +421,7 @@ Description: NVIDIA binary OpenGL/GLX core libraries${nvidia:VariantDesc}
  implementation of OpenGL and GLX.
 
 Package: libegl-nvidia-tesla-535-0
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -442,7 +441,7 @@ Description: NVIDIA binary EGL library${nvidia:VariantDesc}
  by NVIDIA that is accessed via GLVND.
 
 Package: libgles-nvidia-tesla-535-1
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -467,7 +466,7 @@ Description: NVIDIA binary OpenGL|ES 1.x library${nvidia:VariantDesc}
  by NVIDIA that is accessed via GLVND.
 
 Package: libgles-nvidia-tesla-535-2
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -493,7 +492,7 @@ Description: NVIDIA binary OpenGL|ES 2.x library${nvidia:VariantDesc}
  by NVIDIA that is accessed via GLVND.
 
 Package: libnvidia-tesla-535-eglcore
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -517,7 +516,7 @@ Description: NVIDIA binary EGL core libraries${nvidia:VariantDesc}
  implementation of EGL and OpenGL|ES.
 
 Package: nvidia-tesla-535-egl-icd
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Depends:
  nvidia-egl-common,
@@ -538,7 +537,7 @@ Description: NVIDIA EGL installable client driver (ICD)
 
 Package: nvidia-tesla-535-vdpau-driver
 Section: non-free/video
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  nvidia-installer-cleanup,
@@ -569,13 +568,13 @@ Description: Video Decode and Presentation API for Unix - NVIDIA driver${nvidia:
  ${nvidia:kmod:Description}
 
 Package: nvidia-tesla-535-vulkan-icd
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Depends:
  nvidia-vulkan-common,
  libvulkan1 (>= 1.0.42),
  libglx-${nvidia-}0 (= ${binary:Version}),
- lib${nvidia}-rtcore (= ${binary:Version}) [!i386 !ppc64el],
+ lib${nvidia}-rtcore (= ${binary:Version}) [!i386],
  ${misc:Depends}
 Suggests:
  vulkan-tools,
@@ -593,7 +592,7 @@ Description: NVIDIA Vulkan installable client driver (ICD)${nvidia:VariantDesc}
  Vulkan (GLVND variant) which supports NVIDIA GPUs.
 
 Package: libnvidia-tesla-535-glvkspirv
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -634,7 +633,7 @@ Description: NVIDIA binary Vulkan ray tracing (rtcore) library${nvidia:VariantDe
 
 Package: nvidia-tesla-535-smi
 Section: non-free/utils
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
  lib${nvidia}-ml1 (= ${binary:Version}),
@@ -652,7 +651,7 @@ Description: NVIDIA System Management Interface${nvidia:VariantDesc}
  further information.
 
 Package: libnvidia-tesla-535-ml1
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -669,7 +668,7 @@ Description: NVIDIA Management Library (NVML) runtime library${nvidia:VariantDes
  This package contains the nvidia-ml runtime library.
 
 Package: libnvidia-tesla-535-cuda1
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${nvidia:legacy-check},
@@ -754,7 +753,7 @@ Description: NVIDIA PKCS #11 Library (OpenSSL 3)${nvidia:VariantDesc}
  This package contains the NVIDIA PKCS #11 library with OpenSSL 3 backend.
 
 Package: libnvidia-tesla-535-cudadebugger1
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Multi-Arch: same
 Depends:
  ${nvidia}-alternative (= ${binary:Version}),
@@ -769,7 +768,7 @@ Description: NVIDIA CUDA Debugger Library${nvidia:VariantDesc}
  This package contains the CUDA Debugger library for Pascal and later GPUs.
 
 Package: libnvidia-tesla-535-ptxjitcompiler1
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -783,7 +782,7 @@ Description: NVIDIA PTX JIT Compiler library${nvidia:VariantDesc}
  This package contains the runtime PTX JIT Compiler library.
 
 Package: libnvidia-tesla-535-nvvm4
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -797,7 +796,7 @@ Description: NVIDIA NVVM Compiler library${nvidia:VariantDesc}
  This package contains the NVVM Compiler library.
 
 Package: libnvidia-tesla-535-nvcuvid1
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -815,7 +814,7 @@ Description: NVIDIA CUDA Video Decoder runtime library${nvidia:VariantDesc}
  This package contains the nvcuvid runtime library.
 
 Package: libnvidia-tesla-535-encode1
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -860,7 +859,7 @@ Description: NVIDIA implementation of the OptiX ray tracing engine${nvidia:Varia
  It is used by liboptix.so.* coming with applications using the OptiX API.
 
 Package: libnvidia-tesla-535-opticalflow1
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -874,7 +873,7 @@ Description: NVIDIA Optical Flow runtime library${nvidia:VariantDesc}
  This package contains the Optical Flow runtime library.
 
 Package: libnvidia-tesla-535-allocator1
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -905,7 +904,7 @@ Description: NVIDIA NGX runtime library${nvidia:VariantDescShort}
  This package contains the NVIDIA NGX runtime library.
 
 Package: libnvidia-tesla-535-api1
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}
@@ -918,7 +917,7 @@ Description: NVAPI runtime library${nvidia:VariantDescShort}
  This package contains the NVAPI runtime library.
 
 Package: nvidia-tesla-535-opencl-icd
-Architecture: i386 amd64 arm64 ppc64el
+Architecture: i386 amd64 arm64
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends}

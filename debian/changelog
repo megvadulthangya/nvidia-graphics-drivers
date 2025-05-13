@@ -1,3 +1,55 @@
+nvidia-graphics-drivers-tesla-535 (535.247.01-1) UNRELEASED; urgency=medium
+
+  * New upstream LTS and Tesla branch release 535.247.01 (2025-04-17).
+    * Fixed CVE-2025-23244.  (Closes: #1104077)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5630
+  * New upstream LTS and Tesla branch release 535.230.02 (2025-01-16).
+    * Fixed CVE-2024-0150, CVE-2024-0147, CVE-2024-53869, CVE-2024-0131,
+      CVE-2024-0149.  (Closes: #1093917)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5614
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 13 May 2025 11:33:54 +0200
+
+nvidia-graphics-drivers (535.247.01-1~deb12u1) bookworm; urgency=medium
+
+  * Rebuild for bookworm.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 08 May 2025 22:59:00 +0200
+
+nvidia-graphics-drivers (535.247.01-1) unstable; urgency=medium
+
+  * New upstream LTS and Tesla branch release 535.247.01 (2025-04-17).
+    * Fixed CVE-2025-23244.  (Closes: #1104068)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5630
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 07 May 2025 18:46:38 +0200
+
+nvidia-graphics-drivers (535.230.02-1) unstable; urgency=medium
+
+  * New upstream LTS and Tesla branch release 535.230.02 (2025-01-16).
+    * Fixed CVE-2024-0150, CVE-2024-0147, CVE-2024-53869, CVE-2024-0131,
+      CVE-2024-0149.  (Closes: #1093908)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5614
+    - Updated the kernel module build process to use CONFIG_CC_VERSION_TEXT
+      from the Linux kernel's Kconfig to detect the compiler used to build
+      the kernel. This may help select the correct compiler on systems where
+      the kernel was built with a compiler other than the default one.
+    - Fixed a bug that prevented kernel modules linked using precompiled
+      kernel interface files from loading on recent Debian systems.
+    * Drop ppc64le driver.
+    * Improved compatibility with recent Linux kernels.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Stop building driver packages for ppc64el.
+  * Stop building nvidia-cuda-mps and nvidia-detect for ppc64el.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 02 May 2025 23:58:29 +0200
+
 nvidia-graphics-drivers-tesla-535 (535.216.03-3) unstable; urgency=medium
 
   * Rebuild as Tesla 535 driver.
@@ -76,6 +128,20 @@ nvidia-graphics-drivers (535.216.01-1) unstable; urgency=medium
   * New upstream LTS and Tesla branch release 535.216.01 (2024-10-22).
     * Fixed CVE-2024-0126.  (Closes: #1085968)
       https://nvidia.custhelp.com/app/answers/detail/a_id/5586
+    - In linux-next commit 446d0f4849b1, intended to be included in Linux
+      kernel 6.12, output_poll_changed is removed from struct
+      drm_mode_config_funcs. Do not implement the function pointer member
+      when not present to ensure the driver can compile with newer kernels.
+      Populating modes for DRM connectors during hotplug events will not be
+      supported with r535 and kernels containing the relevant commit.
+    - Fixed a bug that caused the nvidia-powerd service to fail on some
+      ADA notebooks with the error message "Error in getting the NvPCF
+      static configuration".
+    - Fixed a bug that could cause external displays to become frozen until
+      the next modeset when using PRIME Display Offloading with the NVIDIA
+      dGPU acting as the display offload sink.
+    - Fixed a bug that caused OpenGL triple buffering to behave like double
+      buffering.
     * Improved compatibility with recent Linux kernels.
 
   [ Andreas Beckmann ]
@@ -128,6 +194,15 @@ nvidia-graphics-drivers (535.183.01-1) unstable; urgency=medium
     - Fixed a bug that could cause additional X screens to claim displays
       that should have been assigned to a prior X screen based on the given X
       configuration.
+
+  [ Andreas Beckmann ]
+  * Refresh patches.
+  * Update nv-readme.ids.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 14 Jun 2024 11:20:01 +0200
+
+nvidia-graphics-drivers (535.179-1) UNRELEASED; urgency=medium
+
   * New upstream long term support branch release 535.179 (2024-05-09).
   * New upstream long term support branch release 535.171.04 (2024-03-21).
     - Fixed Xid error when playing Alan Wake 2 with ray tracing enabled.
@@ -139,7 +214,7 @@ nvidia-graphics-drivers (535.183.01-1) unstable; urgency=medium
   * Refresh patches.
   * Update nv-readme.ids.
 
- -- Andreas Beckmann <anbe@debian.org>  Fri, 14 Jun 2024 11:20:01 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 14 May 2024 09:03:28 +0200
 
 nvidia-graphics-drivers (535.161.08-3) unstable; urgency=medium
 
@@ -1673,6 +1748,8 @@ nvidia-graphics-drivers (470.256.02-1) bullseye; urgency=medium
     - Fixed a bug that could cause the X server to crash when graphics
       applications requested single-buffered drawables while certain
       features (such as Vulkan sharpening) are enabled.
+    - Fixed a bug that caused driver build failure when using separate
+      kernel source and output directories on Linux v6.6 and later.
 
   [ Andreas Beckmann ]
   * Refresh patches.

@@ -1,6 +1,6 @@
 # The NVIDIA license does not allow any form of modification.
 [i386]: binary-file-built-without-LFS-support
-[arm64 ppc64el]: elf-warning
+[arm64]: elf-warning
 embedded-library libzstd [usr/lib/*/libnvidia-glcore.so.#VERSION#]
 [i386]: specific-address-in-shared-library
 spelling-error-in-binary

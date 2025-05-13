@@ -1,6 +1,6 @@
 Test-Command: env BUILD_EXCLUSIVE_CONFIG="!CONFIG_PREEMPT_RT !CONFIG_PREEMPT_RT_FULL" /usr/share/modass/module-assistant-autopkgtest nvidia-tesla-535-kernel
 Features: test-name=m-a-autopkgtest
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Depends:
  nvidia-tesla-535-kernel-source,
  module-assistant-autopkgtest,
@@ -13,7 +13,7 @@ Restrictions:
 
 Test-Command: nvidia-detect && nvidia-detect 10DE1340 0000
 Features: test-name=nvidia-detect
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Depends:
  nvidia-detect,
 Restrictions:
@@ -21,7 +21,7 @@ Restrictions:
 
 Test-Command: true
 Features: test-name=full-install
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64
 Depends:
  nvidia-tesla-535-driver-full,
  linux-headers-generic,

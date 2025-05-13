@@ -9,7 +9,6 @@ libGLESv1_CM.so.1 libgles1 (>= 0.2.999)
  UnionExtensionStrings@Base 390.59
  __libGLInit@Base 460
  __libOpenGLFini@Base 460
- (arch=ppc64el)entry_generate_default_code@Base 390.59
  entry_get_patch_address@Base 440.118.02
 #MISSING: 440.118.02# entry_get_patch_addresses@Base 390.59
  entry_get_public@Base 390.59

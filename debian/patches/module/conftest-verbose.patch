@@ -43,7 +43,7 @@ Description: dump the generated conftest headers
  
  
  # Each of these headers is checked for presence with a test #include; a
-@@ -333,6 +348,7 @@ NV_HEADER_PRESENCE_PART = $(addprefix $(
+@@ -335,6 +350,7 @@ NV_HEADER_PRESENCE_PART = $(addprefix $(
  define NV_HEADER_PRESENCE_CHECK
   $$(call NV_HEADER_PRESENCE_PART,$(1)): $$(NV_CONFTEST_SCRIPT) $(obj)/conftest/uts_release
  	@mkdir -p $$(dir $$@)
@@ -51,7 +51,7 @@ Description: dump the generated conftest headers
  	@$$(NV_CONFTEST_CMD) test_kernel_header '$$(NV_CONFTEST_CFLAGS)' '$(1)' > $$@
  endef
  
-@@ -342,6 +358,8 @@ $(foreach header,$(NV_HEADER_PRESENCE_TE
+@@ -344,6 +360,8 @@ $(foreach header,$(NV_HEADER_PRESENCE_TE
  # Concatenate all of the parts into headers.h.
  $(obj)/conftest/headers.h: $(call NV_HEADER_PRESENCE_PART,$(NV_HEADER_PRESENCE_TESTS))
  	@cat $^ > $@
@@ -60,7 +60,7 @@ Description: dump the generated conftest headers
  
  clean-dirs := $(obj)/conftest
  
-@@ -362,7 +380,8 @@ BUILD_SANITY_CHECKS = \
+@@ -364,7 +382,8 @@ BUILD_SANITY_CHECKS = \
  
  .PHONY: $(BUILD_SANITY_CHECKS)
  
@@ -70,7 +70,7 @@ Description: dump the generated conftest headers
  	@$(NV_CONFTEST_CMD) $@ full_output
  
  # Perform all sanity checks before generating the conftest headers
-@@ -371,11 +390,13 @@ $(NV_CONFTEST_HEADERS): | $(BUILD_SANITY
+@@ -373,11 +392,13 @@ $(NV_CONFTEST_HEADERS): | $(BUILD_SANITY
  
  # Make the conftest headers depend on the kernel version string
  
