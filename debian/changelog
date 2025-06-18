@@ -643,7 +643,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-11) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-11) unstable; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
     drm_connector_helper_funcs_mode_valid_has_const_mode_arg changes from
