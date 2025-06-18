@@ -1,4 +1,4 @@
-From 7aa5e5550a317ea2ccd84050dcea4863c4d8c3d4 Mon Sep 17 00:00:00 2001
+From 0844d9e1deea2a404ef4e858bacc0f91532c050b Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sun, 8 Dec 2024 22:54:59 +0100
 Subject: [PATCH] backport uvm warning fixes from 560.28.03
@@ -7,7 +7,8 @@ Subject: [PATCH] backport uvm warning fixes from 560.28.03
  nvidia-uvm/uvm_kepler_mmu.c     | 1 +
  nvidia-uvm/uvm_page_tree_test.c | 2 +-
  nvidia-uvm/uvm_pascal_mmu.c     | 1 +
- 3 files changed, 3 insertions(+), 1 deletion(-)
+ nvidia-uvm/uvm_tools.c          | 1 +
+ 4 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/nvidia-uvm/uvm_kepler_mmu.c b/nvidia-uvm/uvm_kepler_mmu.c
 index e112d53b..4fbf7c93 100644
@@ -46,6 +47,18 @@ index d5e577fd..67e98116 100644
  #include "uvm_push_macros.h"
  #include "uvm_pascal_fault_buffer.h"
  #include "hwref/pascal/gp100/dev_fault.h"
+diff --git a/nvidia-uvm/uvm_tools.c b/nvidia-uvm/uvm_tools.c
+index eea2b081..16e41873 100644
+--- a/nvidia-uvm/uvm_tools.c
++++ b/nvidia-uvm/uvm_tools.c
+@@ -25,6 +25,7 @@
+ #include "uvm_gpu.h"
+ #include "uvm_hal.h"
+ #include "uvm_tools.h"
++#include "uvm_tools_init.h"
+ #include "uvm_va_space.h"
+ #include "uvm_api.h"
+ #include "uvm_hal_types.h"
 -- 
 2.39.5
 

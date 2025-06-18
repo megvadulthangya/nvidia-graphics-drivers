@@ -1,4 +1,4 @@
-From 61139e9624c4455926767dc745a72961aa50f688 Mon Sep 17 00:00:00 2001
+From 687da2236e5d7528229ab05ab853083cc052be25 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Thu, 27 Mar 2025 19:11:23 +0100
 Subject: [PATCH] backport drm_driver_has_date from 570.124.04
@@ -10,10 +10,10 @@ Subject: [PATCH] backport drm_driver_has_date from 570.124.04
  3 files changed, 28 insertions(+)
 
 diff --git a/conftest.sh b/conftest.sh
-index 36ed2b6a..0fc90c01 100755
+index 5cb67db6..20b84799 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -4978,6 +4978,30 @@ compile_test() {
+@@ -4983,6 +4983,30 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DRM_UNLOCKED_IOCTL_FLAG_PRESENT" "" "types"
          ;;
  

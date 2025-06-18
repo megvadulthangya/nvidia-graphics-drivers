@@ -20,7 +20,7 @@ Description: let Kbuild set the compiler version
  	      ./split-object-file.sh $$module.ko; \
 --- a/Kbuild
 +++ b/Kbuild
-@@ -117,7 +117,7 @@ NV_CONFTEST_SCRIPT := $(src)/conftest.sh
+@@ -111,7 +111,7 @@ NV_CONFTEST_SCRIPT := $(src)/conftest.sh
  NV_CONFTEST_HEADER := $(obj)/conftest/headers.h
  
  NV_CONFTEST_CMD := /bin/sh $(NV_CONFTEST_SCRIPT) \
