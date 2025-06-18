@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-21) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-21) unstable; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
     drm_connector_helper_funcs_mode_valid_has_const_mode_arg changes from
