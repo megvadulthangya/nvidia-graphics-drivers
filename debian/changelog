@@ -2235,7 +2235,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers-tesla-460 (460.106.00-21) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-21) unstable; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
     nv_vma_start_write changes from 570.169 and
@@ -2879,7 +2879,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers-tesla-450 (450.248.02-11) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-11) unstable; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
     nv_vma_start_write changes from 570.169 and
