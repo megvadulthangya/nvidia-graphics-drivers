@@ -1,15 +1,14 @@
-From 5af42565ef20eebbee1547065eba3a8710ed9026 Mon Sep 17 00:00:00 2001
+From 56ffb1660abe74f15d811ccadd06dbe251d47533 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sun, 8 Dec 2024 22:13:22 +0100
 Subject: [PATCH] fix more warnings
 
 ---
  common/inc/nv-linux.h | 10 ++++++++++
- common/inc/nv-proto.h |  2 +-
  nvidia/nv-frontend.c  |  2 --
  nvidia/nv-frontend.h  |  3 +++
  nvidia/nv-mmap.c      |  1 +
- 5 files changed, 15 insertions(+), 3 deletions(-)
+ 4 files changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
 index 6a46e3d3..9173ad18 100644
@@ -63,19 +62,6 @@ index 6a46e3d3..9173ad18 100644
      }
  
  #define NV_KFREE(ptr, size) \
-diff --git a/common/inc/nv-proto.h b/common/inc/nv-proto.h
-index 815107d2..b016e42e 100644
---- a/common/inc/nv-proto.h
-+++ b/common/inc/nv-proto.h
-@@ -43,7 +43,7 @@ void        nv_procfs_remove_gpu        (nv_linux_state_t *);
- 
- int         nvidia_mmap                 (struct file *, struct vm_area_struct *);
- int         nvidia_mmap_helper          (nv_state_t *, nv_linux_file_private_t *, nvidia_stack_t *, struct vm_area_struct *, void *);
--int         nv_encode_caching           (pgprot_t *, NvU32, NvU32);
-+int         nv_encode_caching           (pgprot_t *, NvU32, nv_memory_type_t);
- void        nv_revoke_gpu_mappings_locked(nv_state_t *);
- 
- NvUPtr      nv_vm_map_pages             (struct page **, NvU32, NvBool, NvBool);
 diff --git a/nvidia/nv-frontend.c b/nvidia/nv-frontend.c
 index eb7a2e08..0bdbe02a 100644
 --- a/nvidia/nv-frontend.c
