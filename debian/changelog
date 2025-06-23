@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla (525.147.05-16) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.147.05-16) unstable; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
     nv_vma_start_write changes from 570.169 and
