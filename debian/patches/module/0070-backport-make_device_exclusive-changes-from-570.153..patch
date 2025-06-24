@@ -1,0 +1,21 @@
+From ea01e1ad7adafbfc01e6bbafc79f5bafe75121a2 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Thu, 5 Jun 2025 22:03:50 +0200
+Subject: [PATCH] backport make_device_exclusive changes from 570.153.02
+
+---
+ nvidia-uvm/nvidia-uvm.Kbuild | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/nvidia-uvm/nvidia-uvm.Kbuild b/nvidia-uvm/nvidia-uvm.Kbuild
+index 65d8de65..174eb5a1 100644
+--- a/nvidia-uvm/nvidia-uvm.Kbuild
++++ b/nvidia-uvm/nvidia-uvm.Kbuild
+@@ -120,3 +120,4 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += mmu_interval_notifier
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_int_active_memcg
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_migrate_vma_setup
+ NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present___iowrite64_lo_hi
++NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_make_device_exclusive
+-- 
+2.39.5
+

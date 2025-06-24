@@ -1,0 +1,35 @@
+From 98283bb21531459a5b3240ea1629d6b5517b7516 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 28 May 2025 17:15:22 +0200
+Subject: [PATCH] backport drm_gem_object_vmap_has_map_arg changes from
+ 535.171.04
+
+---
+ conftest.sh | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/conftest.sh b/conftest.sh
+index 5c8cd7c6..a0bc4642 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -5168,11 +5168,15 @@ compile_test() {
+             # commit 49a3f51dfeee ("drm/gem: Use struct dma_buf_map in GEM
+             # vmap ops and convert GEM backends") in v5.11.
+             #
++            # Note that the 'map' argument type is changed from 'struct dma_buf_map'
++            # to 'struct iosys_map' by commit 7938f4218168 ("dma-buf-map: Rename
++            # to iosys-map) in v5.18.
++            #
+             CODE="
+             #include <drm/drm_gem.h>
+             int conftest_drm_gem_object_vmap_has_map_arg(
+-                    struct drm_gem_object *obj, struct dma_buf_map *map) {
+-                return obj->funcs->vmap(obj, map);
++                    struct drm_gem_object *obj) {
++                return obj->funcs->vmap(obj, NULL);
+             }"
+ 
+             compile_check_conftest "$CODE" "NV_DRM_GEM_OBJECT_VMAP_HAS_MAP_ARG" "" "types"
+-- 
+2.39.5
+

@@ -1,0 +1,66 @@
+From 10605666791b812b38186785086b2e8274b30cc9 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Thu, 5 Jun 2025 18:08:40 +0200
+Subject: [PATCH] backport page_pgmap changes from 570.153.02
+
+---
+ conftest.sh                  | 16 ++++++++++++++++
+ nvidia-uvm/nvidia-uvm.Kbuild |  1 +
+ nvidia-uvm/uvm_linux.h       |  4 ++++
+ 3 files changed, 21 insertions(+)
+
+diff --git a/conftest.sh b/conftest.sh
+index 3b180de2..09b0b601 100755
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -6861,6 +6861,22 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_DRM_UNLOCKED_IOCTL_FLAG_PRESENT" "" "types"
+         ;;
+ 
++        page_pgmap)
++            #
++            # Determine if the page_pgmap() function is present.
++            #
++            # Added by commit 82ba975e4c43 ("mm: allow compound zone device
++            # pages") in v6.14
++            #
++            CODE="
++            #include <linux/mmzone.h>
++            int conftest_page_pgmap(void) {
++                return page_pgmap();
++            }"
++
++            compile_check_conftest "$CODE" "NV_PAGE_PGMAP_PRESENT" "" "functions"
++        ;;
++
+     folio_test_swapcache)
+             #
+             # Determine if the folio_test_swapcache() function is present.
+diff --git a/nvidia-uvm/nvidia-uvm.Kbuild b/nvidia-uvm/nvidia-uvm.Kbuild
+index 87a35c8e..65d8de65 100644
+--- a/nvidia-uvm/nvidia-uvm.Kbuild
++++ b/nvidia-uvm/nvidia-uvm.Kbuild
+@@ -89,6 +89,7 @@ NV_CONFTEST_FUNCTION_COMPILE_TESTS += vm_fault_to_errno
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += find_next_bit_wrap
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += iommu_is_dma_domain
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += folio_test_swapcache
++NV_CONFTEST_FUNCTION_COMPILE_TESTS += page_pgmap
+ 
+ NV_CONFTEST_TYPE_COMPILE_TESTS += backing_dev_info
+ NV_CONFTEST_TYPE_COMPILE_TESTS += mm_context_t
+diff --git a/nvidia-uvm/uvm_linux.h b/nvidia-uvm/uvm_linux.h
+index 944fda64..5868f6c7 100644
+--- a/nvidia-uvm/uvm_linux.h
++++ b/nvidia-uvm/uvm_linux.h
+@@ -597,4 +597,8 @@ static inline pgprot_t uvm_pgprot_decrypted(pgprot_t prot)
+   #define page_to_virt(x)    __va(PFN_PHYS(page_to_pfn(x)))
+ #endif
+ 
++#ifndef NV_PAGE_PGMAP_PRESENT
++#define page_pgmap(page) (page)->pgmap
++#endif
++
+ #endif // _UVM_LINUX_H
+-- 
+2.39.5
+

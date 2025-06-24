@@ -96,9 +96,7 @@ Example of limited kfuncs available from kernel module builds lacking BTF:
 
 Signed-off-by: Rahul Rameshbabu <rrameshbabu@nvidia.com>
 
-Ignore c++11 in addition to c++.
-
-Origin: other, https://github.com/NVIDIA/open-gpu-kernel-modules/issues/756
+Bug: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/756
 Origin: other, https://github.com/Binary-Eater/open-gpu-kernel-modules/commit/854449a7b76cdb4ad17919a1c8a662a4ff5b943d
 ---
  Makefile | 28 +++++++++++++++++++++++++++-
@@ -125,14 +123,14 @@ index be69cbda..7161ba05 100644
 +  #     pahole_cmd = "pahole"
 +  #     for (i = 1; i < ARGC; i++) {
 +  #         if (ARGV[i] ~ /--lang_exclude=/) {
-+  #             pahole_cmd = pahole_cmd sprintf(" %s,c++,c++11", ARGV[i])
++  #             pahole_cmd = pahole_cmd sprintf(" %s,c++", ARGV[i])
 +  #         } else {
 +  #             pahole_cmd = pahole_cmd sprintf(" %s", ARGV[i])
 +  #         }
 +  #     }
 +  #     system(pahole_cmd)
 +  # }
-+  PAHOLE_AWK_PROGRAM = BEGIN { pahole_cmd = \"pahole\"; for (i = 1; i < ARGC; i++) { if (ARGV[i] ~ /--lang_exclude=/) { pahole_cmd = pahole_cmd sprintf(\" %s,c++,c++11\", ARGV[i]); } else { pahole_cmd = pahole_cmd sprintf(\" %s\", ARGV[i]); } } system(pahole_cmd); }
++  PAHOLE_AWK_PROGRAM = BEGIN { pahole_cmd = \"pahole\"; for (i = 1; i < ARGC; i++) { if (ARGV[i] ~ /--lang_exclude=/) { pahole_cmd = pahole_cmd sprintf(\" %s,c++\", ARGV[i]); } else { pahole_cmd = pahole_cmd sprintf(\" %s\", ARGV[i]); } } system(pahole_cmd); }
 +  # If scripts/pahole-flags.sh is not present in the kernel tree, add PAHOLE and
 +  # PAHOLE_AWK_PROGRAM assignments to PAHOLE_VARIABLES; otherwise assign the
 +  # empty string to PAHOLE_VARIABLES.

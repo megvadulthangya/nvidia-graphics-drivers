@@ -17,16 +17,25 @@ bashisms.patch
 0051-backport-warning-fixes-from-535.216.01.patch
 0052-backport-uvm-warning-fixes-from-560.28.03.patch
 0053-fix-more-warnings.patch
-0054-fix-more-uvm-warnings.patch
+0054-backport-warning-fixes-from-575.51.02.patch
 0055-backport-file_operations_fop_unsigned_offset_present.patch
 0056-backport-LD_SCRIPT-changes-from-535.230.02.patch
 0058-backport-warning-fixes-from-565.57.01.patch
 0059-backport-uvm-warning-fixes-from-550.90.07.patch
 0060-backport-module_import_ns_takes_string_literal-chang.patch
+0061-backport-drm_gem_object_vmap_has_map_arg-changes-fro.patch
 0061-backport-folio_test_swapcache-changes-from-565.57.01.patch
 0062-Support-BTF-generation-for-non-release-builds.patch
+0062-let-pahole-ignore-c-11-in-addition-to-c.patch
 0063-backport-crypto_akcipher_verify-changes-from-550.144.patch
 0064-backport-drm_driver_has_date-from-570.124.04.patch
+0065-backport-ccflags-y-changes-from-570.153.02.patch
+0066-backport-nv_timer_delete_sync-changes-from-570.153.0.patch
+0067-backport-drm_connector_helper_funcs_mode_valid_has_c.patch
+0068-backport-__iowrite64_lo_hi-changes-from-570.153.02.patch
+0069-backport-page_pgmap-changes-from-570.153.02.patch
+0070-backport-make_device_exclusive-changes-from-570.153..patch
+0071-backport-nv_vma_start_write-changes-from-570.169.patch
 
 # build system updates
 conftest-verbose.patch
