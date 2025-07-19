@@ -1,0 +1,34 @@
+From 6df42b1f5ac27cdd56517d4a1680809b682d1412 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Tue, 1 Apr 2025 14:47:51 +0200
+Subject: [PATCH] let pahole ignore c++11 in addition to c++
+
+Bug: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/756#issuecomment-2769237410
+---
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 0a1394e0..40a9792e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -84,14 +84,14 @@ else
+   #     pahole_cmd = "pahole"
+   #     for (i = 1; i < ARGC; i++) {
+   #         if (ARGV[i] ~ /--lang_exclude=/) {
+-  #             pahole_cmd = pahole_cmd sprintf(" %s,c++", ARGV[i])
++  #             pahole_cmd = pahole_cmd sprintf(" %s,c++,c++11", ARGV[i])
+   #         } else {
+   #             pahole_cmd = pahole_cmd sprintf(" %s", ARGV[i])
+   #         }
+   #     }
+   #     system(pahole_cmd)
+   # }
+-  PAHOLE_AWK_PROGRAM = BEGIN { pahole_cmd = \"pahole\"; for (i = 1; i < ARGC; i++) { if (ARGV[i] ~ /--lang_exclude=/) { pahole_cmd = pahole_cmd sprintf(\" %s,c++\", ARGV[i]); } else { pahole_cmd = pahole_cmd sprintf(\" %s\", ARGV[i]); } } system(pahole_cmd); }
++  PAHOLE_AWK_PROGRAM = BEGIN { pahole_cmd = \"pahole\"; for (i = 1; i < ARGC; i++) { if (ARGV[i] ~ /--lang_exclude=/) { pahole_cmd = pahole_cmd sprintf(\" %s,c++,c++11\", ARGV[i]); } else { pahole_cmd = pahole_cmd sprintf(\" %s\", ARGV[i]); } } system(pahole_cmd); }
+   # If scripts/pahole-flags.sh is not present in the kernel tree, add PAHOLE and
+   # PAHOLE_AWK_PROGRAM assignments to PAHOLE_VARIABLES; otherwise assign the
+   # empty string to PAHOLE_VARIABLES.
+-- 
+2.39.5
+

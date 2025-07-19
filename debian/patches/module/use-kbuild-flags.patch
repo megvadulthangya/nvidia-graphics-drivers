@@ -1,10 +1,6 @@
 Author: Andreas Beckmann <anbe@debian.org>
 Author: Tomas Janousek <tomi@nomi.cz>
 Description: use KBUILD_CFLAGS and (KBUILD_)LDFLAGS
- allows building a amd64 kernel module with i386 user space
- .
- skip -Werror=* since that breaks how conftest.sh detects stuff
- .
  skip $(GCC_PLUGINS_CFLAGS): fixes build failure when a kernel
  is built with CONFIG_GCC_PLUGINS, CONFIG_GCC_PLUGIN_STRUCTLEAK
  and CONFIG_GCC_PLUGIN_RANDSTRUCT -- Tomas Janousek
@@ -13,23 +9,33 @@ Description: use KBUILD_CFLAGS and (KBUILD_)LDFLAGS
 
 --- a/Kbuild
 +++ b/Kbuild
-@@ -168,6 +168,16 @@ NV_CFLAGS_FROM_CONFTEST := $(shell $(NV_
- NV_CONFTEST_CFLAGS = $(NV_CFLAGS_FROM_CONFTEST) $(EXTRA_CFLAGS) -fno-pie
- NV_CONFTEST_CFLAGS += $(call cc-disable-warning,pointer-sign)
- NV_CONFTEST_CFLAGS += $(call cc-option,-fshort-wchar,)
-+NV_CONFTEST_CFLAGS += \
+@@ -150,6 +150,15 @@ endif
+ CC ?= cc
+ LD ?= ld
+ 
++NV_REMOVE_KBUILD_CFLAGS = $(GCC_PLUGINS_CFLAGS)
++
++NV_CFLAGS_FROM_KBUILD = \
 +	$(patsubst -DARM64_ASM_ARCH=%,-DARM64_ASM_ARCH="%",\
-+	$(filter-out $(GCC_PLUGINS_CFLAGS),\
++	$(filter-out $(NV_REMOVE_KBUILD_CFLAGS),\
 +	$(KBUILD_CFLAGS)\
 +	)\
 +	)
-+NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=implicit-function-declaration,)
-+NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=incompatible-pointer-types,)
-+NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=return-type,)
-+NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=strict-prototypes,)
++
+ NV_CONFTEST_SCRIPT := $(src)/conftest.sh
+ NV_CONFTEST_HEADER := $(obj)/conftest/headers.h
  
- NV_CONFTEST_COMPILE_TEST_HEADERS := $(obj)/conftest/macros.h
- NV_CONFTEST_COMPILE_TEST_HEADERS += $(obj)/conftest/functions.h
+@@ -158,7 +167,9 @@ NV_CONFTEST_CMD := /bin/sh $(NV_CONFTEST
+ 
+ NV_CFLAGS_FROM_CONFTEST := $(shell $(NV_CONFTEST_CMD) build_cflags)
+ 
+-NV_CONFTEST_CFLAGS = $(NV_CFLAGS_FROM_CONFTEST) $(ccflags-y) -fno-pie
++NV_CONFTEST_CFLAGS =
++NV_CONFTEST_CFLAGS += $(NV_CFLAGS_FROM_KBUILD)
++NV_CONFTEST_CFLAGS += $(NV_CFLAGS_FROM_CONFTEST) $(ccflags-y) -fno-pie
+ NV_CONFTEST_CFLAGS += $(call cc-disable-warning,pointer-sign)
+ NV_CONFTEST_CFLAGS += $(call cc-option,-fshort-wchar,)
+ 
 --- a/nvidia/nvidia.Kbuild
 +++ b/nvidia/nvidia.Kbuild
 @@ -100,7 +100,7 @@ always += $(NVIDIA_INTERFACE)

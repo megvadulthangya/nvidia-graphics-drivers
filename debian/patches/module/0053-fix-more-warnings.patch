@@ -5,11 +5,9 @@ Subject: [PATCH] fix more warnings
 
 ---
  common/inc/nv-linux.h | 8 ++++++++
- common/inc/nv-proto.h | 2 +-
- nvidia/libspdm_aead.c | 2 ++
  nvidia/nv-frontend.c  | 2 --
  nvidia/nv-frontend.h  | 3 +++
- 5 files changed, 14 insertions(+), 3 deletions(-)
+ 3 files changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
 index 433e5587..54b2ce17 100644
@@ -53,39 +51,6 @@ index 433e5587..54b2ce17 100644
      }
  
  #define NV_KFREE(ptr, size) \
-diff --git a/common/inc/nv-proto.h b/common/inc/nv-proto.h
-index 815107d2..b016e42e 100644
---- a/common/inc/nv-proto.h
-+++ b/common/inc/nv-proto.h
-@@ -43,7 +43,7 @@ void        nv_procfs_remove_gpu        (nv_linux_state_t *);
- 
- int         nvidia_mmap                 (struct file *, struct vm_area_struct *);
- int         nvidia_mmap_helper          (nv_state_t *, nv_linux_file_private_t *, nvidia_stack_t *, struct vm_area_struct *, void *);
--int         nv_encode_caching           (pgprot_t *, NvU32, NvU32);
-+int         nv_encode_caching           (pgprot_t *, NvU32, nv_memory_type_t);
- void        nv_revoke_gpu_mappings_locked(nv_state_t *);
- 
- NvUPtr      nv_vm_map_pages             (struct page **, NvU32, NvBool, NvBool);
-diff --git a/nvidia/libspdm_aead.c b/nvidia/libspdm_aead.c
-index 3844da48..18d23ba2 100644
---- a/nvidia/libspdm_aead.c
-+++ b/nvidia/libspdm_aead.c
-@@ -38,6 +38,7 @@ struct lkca_aead_ctx
- };
- #endif
- 
-+static
- int libspdm_aead_prealloc(void **context, char const *alg)
- {
- #ifndef USE_LKCA
-@@ -168,6 +169,7 @@ static int lkca_aead_internal(struct crypto_aead *aead,
- }
- #endif
- 
-+static
- int libspdm_aead_prealloced(void *context,
-                             const uint8_t *key, size_t key_size,
-                             const uint8_t *iv, size_t iv_size,
 diff --git a/nvidia/nv-frontend.c b/nvidia/nv-frontend.c
 index eb7a2e08..0bdbe02a 100644
 --- a/nvidia/nv-frontend.c
