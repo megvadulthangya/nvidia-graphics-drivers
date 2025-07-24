@@ -1,3 +1,16 @@
+nvidia-graphics-drivers (535.261.03-1) UNRELEASED; urgency=medium
+
+  * New upstream LTS and Tesla branch release 535.261.03 (2025-07-17).
+    * Fixed CVE-2025-23279, CVE-2025-23286.  (Closes: #1109907)
+      https://nvidia.custhelp.com/app/answers/detail/a_id/5670
+    - Fixed a bug that could cause 32-bit x86 applications running on
+      recent builds of glibc to crash on dlopen().
+    - Fixed an issue that could cause render-offloaded applications using
+      KDE Frameworks 6 to crash.
+    * Improved compatibility with recent Linux kernels.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Jul 2025 01:26:54 +0200
+
 nvidia-graphics-drivers (535.247.01-2) UNRELEASED; urgency=medium
 
   [ Andreas Beckmann ]
