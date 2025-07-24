@@ -33,9 +33,9 @@ Description: use KBUILD_CFLAGS and (KBUILD_)LDFLAGS
 +NV_CONFTEST_CFLAGS =
 +NV_CONFTEST_CFLAGS += $(NV_CFLAGS_FROM_KBUILD)
 +NV_CONFTEST_CFLAGS += $(NV_CFLAGS_FROM_CONFTEST) $(ccflags-y) -fno-pie
+ NV_CONFTEST_CFLAGS += $(filter -std=%,$(KBUILD_CFLAGS))
  NV_CONFTEST_CFLAGS += $(call cc-disable-warning,pointer-sign)
  NV_CONFTEST_CFLAGS += $(call cc-option,-fshort-wchar,)
- 
 --- a/nvidia/nvidia.Kbuild
 +++ b/nvidia/nvidia.Kbuild
 @@ -100,7 +100,7 @@ always += $(NVIDIA_INTERFACE)
