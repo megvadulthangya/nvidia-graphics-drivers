@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-535 (535.261.03-1) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-535 (535.261.03-1) unstable; urgency=medium
 
   * New upstream LTS and Tesla branch release 535.261.03 (2025-07-17).
     * Fixed CVE-2025-23279, CVE-2025-23286.  (Closes: #1109916)
@@ -12,7 +12,7 @@ nvidia-graphics-drivers-tesla-535 (535.261.03-1) UNRELEASED; urgency=medium
   [ Andreas Beckmann ]
   * Refresh patches.
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Jul 2025 01:26:54 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 26 Jul 2025 10:17:42 +0200
 
 nvidia-graphics-drivers-tesla-535 (535.247.01-2) unstable; urgency=medium
 
