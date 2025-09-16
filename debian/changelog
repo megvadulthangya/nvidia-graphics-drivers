@@ -1,14 +1,14 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-26) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-26) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
     nv_vma_start_write changes from 570.169 and disable objtool usage to fix
-    kernel module build for Linux 6.15.
+    kernel module build for Linux 6.15.  (Closes: #1114234)
 
   [ Luca Boccassi ]
   * Remove myself from Uploaders.
 
- -- Andreas Beckmann <anbe@debian.org>  Tue, 16 Sep 2025 13:46:48 +0200
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 16 Sep 2025 22:12:34 +0200
 
 nvidia-graphics-drivers-legacy-340xx (340.108-25) unstable; urgency=medium
 
