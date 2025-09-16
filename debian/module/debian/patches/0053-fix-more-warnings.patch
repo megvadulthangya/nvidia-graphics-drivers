@@ -1,15 +1,17 @@
-From 7600dd4ca2b3734e9106b7628554d57187e8677b Mon Sep 17 00:00:00 2001
+From 1839524b706e80f7f7a023e4112ff5f2c89e3051 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sun, 8 Dec 2024 22:13:22 +0100
 Subject: [PATCH] fix more warnings
 
 ---
- nv-acpi.c   | 2 ++
- nv-dma.c    | 3 +++
- nv-drm.c    | 2 ++
- nv-mmap.c   | 1 +
- nv-procfs.c | 1 +
- 5 files changed, 9 insertions(+)
+ nv-acpi.c     | 2 ++
+ nv-dma.c      | 3 +++
+ nv-drm.c      | 2 ++
+ nv-frontend.c | 3 ---
+ nv-frontend.h | 3 +++
+ nv-mmap.c     | 1 +
+ nv-procfs.c   | 1 +
+ 7 files changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/nv-acpi.c b/nv-acpi.c
 index 550ea6f3..24e6717c 100644
@@ -67,6 +69,32 @@ index 9ff34c1e..e676287c 100644
  
  	DRM_DEBUG("\n");
  
+diff --git a/nv-frontend.c b/nv-frontend.c
+index 658140d7..03bf54e7 100644
+--- a/nv-frontend.c
++++ b/nv-frontend.c
+@@ -40,9 +40,6 @@ nvidia_module_t *nv_minor_num_table[NV_FRONTEND_CONTROL_DEVICE_MINOR_MAX + 1];
+ #if defined(CONFIG_PROC_FS)
+ static struct proc_dir_entry *nv_proc_topdir;
+ #endif
+-#else
+-int nvidia_init_module(void);
+-void nvidia_exit_module(void);
+ #endif
+ 
+ extern void nv_procfs_unregister_all(struct proc_dir_entry *entry);
+diff --git a/nv-frontend.h b/nv-frontend.h
+index 057ee504..7235d492 100644
+--- a/nv-frontend.h
++++ b/nv-frontend.h
+@@ -47,4 +47,7 @@ int nvidia_unregister_module(nvidia_module_t *);
+ int nvidia_frontend_add_device(nvidia_module_t *, nv_linux_state_t *);
+ int nvidia_frontend_remove_device(nvidia_module_t *, nv_linux_state_t *);
+ 
++int nvidia_init_module(void);
++void nvidia_exit_module(void);
++
+ #endif
 diff --git a/nv-mmap.c b/nv-mmap.c
 index 473d5fad..82ebaa2b 100644
 --- a/nv-mmap.c

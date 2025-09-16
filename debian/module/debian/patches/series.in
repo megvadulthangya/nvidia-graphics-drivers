@@ -49,11 +49,16 @@ buildfix_kernel_5.2.patch
 0046-backport-drm_gem_prime_handle_to_fd-changes-from-470.patch
 0047-refuse-to-load-legacy-module-if-IBT-is-enabled.patch
 0048-backport-nv_get_kern_phys_address-changes-from-555.4.patch
-0049-fix-more-warnings.patch
-#HAS_UVM#0050-fix-more-uvm-warnings.patch
 0051-build-without-Wsign-compare.patch
 0052-backport-cmd_symlink-changes-from-550.142.patch
+0053-fix-more-warnings.patch
+#HAS_UVM#0054-fix-more-uvm-warnings.patch
+0060-backport-build_cflags-changes-from-525.85.05.patch
 0064-backport-drm_driver_has_date-from-570.124.04.patch
+0065-backport-ccflags-y-changes-from-570.153.02.patch
+0066-backport-nv_timer_delete_sync-changes-from-570.153.0.patch
+0071-backport-nv_vma_start_write-changes-from-570.169.patch
+0072-disable-objtool-usage.patch
 
 # build system updates
 separate-makefile-kbuild.patch

@@ -20,7 +20,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # The precompiled kernel module build process requires a separation of the
  # closed source and open source object files.
-@@ -49,6 +56,9 @@ EXTRA_CFLAGS += -Wall -MD $(DEFINES) $(I
+@@ -49,6 +56,9 @@ ccflags-y += -Wall -MD $(DEFINES) $(INCL
  src ?= .
  obj ?= $(src)
  
@@ -52,7 +52,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # NVIDIA specific CFLAGS and #define's.
  #
-@@ -178,6 +196,12 @@ $(MODULE_GLUE_TARGETS): $(CONFTEST_HEADE
+@@ -179,6 +197,12 @@ $(MODULE_GLUE_TARGETS): $(CONFTEST_HEADE
  
  $(obj)/nv.o: $(obj)/$(VERSION_HEADER)
  
@@ -65,7 +65,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # KBUILD build parameters.
  #
-@@ -194,6 +218,9 @@ KBUILD_PARAMS += KBUILD_VERBOSE=$(NV_VER
+@@ -195,6 +219,9 @@ KBUILD_PARAMS += KBUILD_VERBOSE=$(NV_VER
  KBUILD_PARAMS += -C $(KERNEL_SOURCES) M=$(PWD)
  KBUILD_PARAMS += ARCH=$(ARCH)
  
@@ -75,7 +75,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # NVIDIA sanity checks.
  #
-@@ -204,6 +231,9 @@ suser-sanity-check:
+@@ -205,6 +232,9 @@ suser-sanity-check:
  rmmod-sanity-check:
  	@if ! $(CONFTEST) rmmod_sanity_check; then exit 1; fi
  
@@ -85,7 +85,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  BUILD_SANITY_CHECKS = \
  	cc_version_check \
  	rivafb_sanity_check \
-@@ -219,6 +249,12 @@ build-sanity-checks:
+@@ -220,6 +250,12 @@ build-sanity-checks:
  	 fi; \
  	done
  
@@ -98,7 +98,7 @@ Description: separate Makefile/Kbuild specific parts within Makefile
  #
  # BUILD_MODULE_RULE generates rules for building individual module targets.
  #
-@@ -343,3 +379,6 @@ clean:
+@@ -344,3 +380,6 @@ clean:
  
  print-module-filename:
  	@echo $(MODULE_OBJECT)

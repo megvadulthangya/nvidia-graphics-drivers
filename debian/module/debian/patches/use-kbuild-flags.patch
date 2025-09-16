@@ -5,11 +5,12 @@ Description: use KBUILD_CFLAGS
 
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -294,6 +294,14 @@ build_cflags() {
-             CFLAGS="$CFLAGS -DCC_HAVE_ASM_GOTO"
+@@ -261,7 +261,16 @@ build_cflags() {
          fi
      fi
-+
+ 
+-    CFLAGS="$BASE_CFLAGS $MACH_CFLAGS $OUTPUT_CFLAGS $AUTOCONF_CFLAGS"
++    CFLAGS=
 +    for flag in $KBUILD_CFLAGS
 +    do
 +        case $flag in
@@ -17,22 +18,19 @@ Description: use KBUILD_CFLAGS
 +            *)          CFLAGS="$CFLAGS $flag" ;;
 +        esac
 +    done
- }
++
++    CFLAGS="$CFLAGS $BASE_CFLAGS $MACH_CFLAGS $OUTPUT_CFLAGS $AUTOCONF_CFLAGS"
+     CFLAGS="$CFLAGS -I$HEADERS -I$HEADERS/uapi -I$OUTPUT/include/generated/uapi"
  
- CONFTEST_PREAMBLE="#include \"conftest.h\"
+     if [ "$ARCH" = "i386" -o "$ARCH" = "x86_64" ]; then
 --- a/nvidia-modules-common.mk
 +++ b/nvidia-modules-common.mk
-@@ -108,7 +108,12 @@ ifndef ARCH
+@@ -108,7 +108,7 @@ ifndef ARCH
   )
  endif
  
 -CONFTEST := /bin/sh $(src)/conftest.sh "$(CC)" "$(HOST_CC)" $(ARCH) $(KERNEL_SOURCES) $(KERNEL_OUTPUT)
-+NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=implicit-function-declaration,)
-+NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=incompatible-pointer-types,)
-+NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=return-type,)
-+NV_CONFTEST_CFLAGS += $(call cc-option,-Wno-error=strict-prototypes,)
-+
-+CONFTEST := /bin/sh $(src)/conftest.sh "$(strip $(CC) $(NV_CONFTEST_CFLAGS))" "$(strip $(HOST_CC))" $(ARCH) $(KERNEL_SOURCES) $(KERNEL_OUTPUT)
++CONFTEST := /bin/sh $(src)/conftest.sh "$(strip $(CC))" "$(strip $(HOST_CC))" $(ARCH) $(KERNEL_SOURCES) $(KERNEL_OUTPUT)
  
  MODULE_ROOT := /lib/modules/$(KERNEL_UNAME)/kernel/drivers
  
