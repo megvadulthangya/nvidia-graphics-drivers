@@ -16,7 +16,7 @@ Files:
  amd64/*
  arm64/*
 Copyright:
- 1993-2023 NVIDIA Corporation.  All rights reserved.
+ (c) 1993-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 License: NVIDIA-graphics-drivers
 
 Files: supported-gpus/supported-gpus.json
@@ -42,7 +42,7 @@ License: GPL-2.0+
 
 Files: debian/patches/*
 Copyright:
- (c) 1993-2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ (c) 1993-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 License: Expat
 Comment:
  Except where noted otherwise, the individual kernel module source files
