@@ -1,3 +1,15 @@
+nvidia-graphics-drivers-tesla-450 (450.248.02-12) UNRELEASED; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Backport drm_fb_create_takes_format_info changes from 535.274.02 to fix
+    kernel module build for Linux 6.17.
+  * Backport nv_vma_start_write changes from 570.169.
+
+  [ Luca Boccassi ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 05 Nov 2025 05:32:42 +0100
+
 nvidia-graphics-drivers-tesla-450 (450.248.02-11) unstable; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
@@ -1220,6 +1232,18 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.226.00-20) unstable; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Backport drm_fb_create_takes_format_info changes from 535.274.02 to fix
+    kernel module build for Linux 6.17.
+  * Backport nv_vma_start_write changes from 570.169.
+
+  [ Luca Boccassi ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 04 Nov 2025 00:05:30 +0100
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-19) unstable; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
@@ -2272,6 +2296,18 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
   * Upload to experimental.
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
+
+nvidia-graphics-drivers (390.157-14) UNRELEASED; urgency=medium
+
+  [ Andreas Beckmann ]
+  * Backport drm_fb_create_takes_format_info changes from 535.274.02 to fix
+    kernel module build for Linux 6.17.
+  * Backport nv_vma_start_write changes from 570.169.
+
+  [ Luca Boccassi ]
+  * Remove myself from Uploaders.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 03 Nov 2025 05:28:05 +0100
 
 nvidia-graphics-drivers (390.157-13) UNRELEASED; urgency=medium
 
@@ -5228,8 +5264,8 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
-    import tentative fix from CachyOS for avoiding calls to GPL-only symbol
-    __vma_start_write to fix kernel module build for Linux 6.15.
+    nv_vma_start_write changes from 570.169 and disable objtool usage to fix
+    kernel module build for Linux 6.15.
 
   * Backport drm_driver_has_date changes from 570.124.04 to fix kernel module
     build for Linux 6.14.
