@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-460 (460.106.00-22) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-22) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Backport drm_fb_create_takes_format_info changes from 535.274.02 to fix
