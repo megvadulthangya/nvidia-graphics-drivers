@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-tesla-535 (535.274.02-1~deb13u1) trixie; urgency=medium
+
+  * Rebuild for trixie.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 06 Nov 2025 23:06:50 +0100
+
 nvidia-graphics-drivers-tesla-535 (535.274.02-1) unstable; urgency=medium
 
   * New upstream LTS and Tesla branch release 535.274.02 (2025-09-30).
