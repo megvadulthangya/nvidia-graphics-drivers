@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-tesla-550 (550.54.15-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-550 (550.54.15-3) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Backport drm_fb_create_takes_format_info changes from 535.274.02 to fix
