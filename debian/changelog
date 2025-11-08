@@ -563,7 +563,7 @@ nvidia-graphics-drivers (530.30.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 13 Mar 2023 23:48:29 +0100
 
-nvidia-graphics-drivers (525.147.05-17) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.147.05-17) UNRELEASED; urgency=medium
 
   [ Andreas Beckmann ]
   * Backport drm_fb_create_takes_format_info changes from 535.274.02 to fix
@@ -574,7 +574,7 @@ nvidia-graphics-drivers (525.147.05-17) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 08 Nov 2025 00:28:28 +0100
 
-nvidia-graphics-drivers (525.147.05-16) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.147.05-16) UNRELEASED; urgency=medium
 
   * Backport drm_connector_helper_funcs_mode_valid_has_const_mode_arg changes
     from 550.163.01 and ccflags-y and nv_timer_delete_sync changes from
@@ -1704,7 +1704,7 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
-nvidia-graphics-drivers (470.256.02-8) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.256.02-8) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Backport drm_fb_create_takes_format_info changes from 535.274.02 to fix
@@ -1715,7 +1715,7 @@ nvidia-graphics-drivers (470.256.02-8) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 07 Nov 2025 00:33:41 +0100
 
-nvidia-graphics-drivers (470.256.02-7) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.256.02-7) unstable; urgency=medium
 
   * Backport drm_connector_helper_funcs_mode_valid_has_const_mode_arg changes
     from 550.163.01 and ccflags-y and nv_timer_delete_sync changes from
@@ -2768,7 +2768,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers (460.106.00-22) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-22) UNRELEASED; urgency=medium
 
   [ Andreas Beckmann ]
   * Backport drm_fb_create_takes_format_info changes from 535.274.02 to fix
@@ -2780,7 +2780,7 @@ nvidia-graphics-drivers (460.106.00-22) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 06 Nov 2025 20:44:40 +0100
 
-nvidia-graphics-drivers (460.106.00-21) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-21) UNRELEASED; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
     drm_connector_helper_funcs_mode_valid_has_const_mode_arg changes from
@@ -3407,7 +3407,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers (450.248.02-12) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-12) UNRELEASED; urgency=medium
 
   [ Andreas Beckmann ]
   * Backport drm_fb_create_takes_format_info changes from 535.274.02 to fix
@@ -3419,7 +3419,7 @@ nvidia-graphics-drivers (450.248.02-12) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Wed, 05 Nov 2025 05:32:42 +0100
 
-nvidia-graphics-drivers (450.248.02-11) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-11) UNRELEASED; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
     drm_connector_helper_funcs_mode_valid_has_const_mode_arg changes from
@@ -4624,7 +4624,7 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
-nvidia-graphics-drivers (418.226.00-20) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-20) unstable; urgency=medium
 
   [ Andreas Beckmann ]
   * Backport drm_fb_create_takes_format_info changes from 535.274.02 to fix
@@ -4636,7 +4636,7 @@ nvidia-graphics-drivers (418.226.00-20) UNRELEASED; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 04 Nov 2025 00:05:30 +0100
 
-nvidia-graphics-drivers (418.226.00-19) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-19) unstable; urgency=medium
 
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
     drm_connector_helper_funcs_mode_valid_has_const_mode_arg changes from
