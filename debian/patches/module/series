@@ -36,6 +36,8 @@ bashisms.patch
 0069-backport-page_pgmap-changes-from-570.153.02.patch
 0070-backport-make_device_exclusive-changes-from-570.153..patch
 0071-backport-nv_vma_start_write-changes-from-570.169.patch
+0072-backport-iommu_dev_enable_feature-changes-from-535.2.patch
+0074-backport-drm_fb_create_takes_format_info-changes-fro.patch
 
 # build system updates
 conftest-verbose.patch

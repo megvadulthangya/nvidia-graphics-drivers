@@ -249,7 +249,7 @@ fi
 		if [ -n "$PACKAGE" ] && [ "$PACKAGE" != "nvidia-tesla-470-driver" ] && [[ -n ${VERSIONS[470]} ]]; then
 			echo "Your card is also supported by the Tesla 470 drivers series."
 		fi
-	elif grep -q "trixie\|^13" /etc/debian_version
+	elif grep -q "trixie\|^13\|forky" /etc/debian_version
 	then
 		if [[ -n ${VERSIONS[999]} ]]; then
 			if [[ -n ${VERSIONS[666]} ]]; then
