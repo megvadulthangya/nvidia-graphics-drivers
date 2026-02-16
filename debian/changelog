@@ -1,11 +1,11 @@
-nvidia-graphics-drivers-legacy-340xx (340.108-27) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-340xx (340.108-27) unstable; urgency=medium
 
   * Backport drm_print.h changes from 570.211.01, nv_in_hardirq changes from
     580.119.02 and vma_flags_set_word changes from 580.126.09 to fix kernel
     module build for Linux 6.19.
   * Bump Standards-Version to 4.7.3. No changes needed.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 31 Jan 2026 12:18:27 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 16 Feb 2026 21:32:28 +0100
 
 nvidia-graphics-drivers-legacy-340xx (340.108-26) unstable; urgency=medium
 
