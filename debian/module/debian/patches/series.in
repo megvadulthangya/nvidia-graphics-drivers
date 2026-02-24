@@ -39,12 +39,24 @@ bashisms.patch
 0058-backport-warning-fixes-from-565.57.01.patch
 0060-backport-build_cflags-changes-from-525.85.05.patch
 0061-backport-drm_gem_object_vmap_has_map_arg-changes-fro.patch
+0063-backport-conftest.sh-comment-changes-from-515.48.07.patch
+0063-backport-conftest.sh-comment-changes-from-525.53.patch
+0063-backport-conftest.sh-comment-changes-from-545.23.06.patch
 0064-backport-drm_driver_has_date-from-570.124.04.patch
 0065-backport-ccflags-y-changes-from-570.153.02.patch
 0066-backport-nv_timer_delete_sync-changes-from-570.153.0.patch
 0067-backport-drm_connector_helper_funcs_mode_valid_has_c.patch
 0071-backport-nv_vma_start_write-changes-from-570.169.patch
 0074-backport-drm_fb_create_takes_format_info-changes-fro.patch
+0075-backport-drm_print.h-changes-from-570.211.01.patch
+0076-backport-nv_in_hardirq-changes-from-580.119.02.patch
+0077-backport-vma_flags_set_word-changes-from-580.126.09.patch
+0078-backport-vma_flags_set_word-changes-from-580.126.09-.patch
+0079-backport-dma_map_ops_has_map_phys-changes-from-580.1.patch
+0080-backport-for_each_-_plane_in_state-changes-from-580..patch
+0081-support-fallback-for-for_each_-_plane_in_state.patch
+0082-backport-for_each_-_crtc_in_state-changes-from-580.1.patch
+0083-support-fallback-for-for_each_-_crtc_in_state.patch
 
 # build system updates
 conftest-verbose.patch

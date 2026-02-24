@@ -1,0 +1,30 @@
+From 29e4258b236f635668221433dd81f6f1bf8952a5 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Tue, 27 Jan 2026 19:48:54 +0100
+Subject: [PATCH] backport vma_flags_set_word changes from 580.126.09 (uvm
+ part)
+
+---
+ nvidia-uvm/nvidia-uvm.Kbuild | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/nvidia-uvm/nvidia-uvm.Kbuild b/nvidia-uvm/nvidia-uvm.Kbuild
+index 71347842..048b6cfd 100644
+--- a/nvidia-uvm/nvidia-uvm.Kbuild
++++ b/nvidia-uvm/nvidia-uvm.Kbuild
+@@ -107,6 +107,7 @@ NV_CONFTEST_FUNCTION_COMPILE_TESTS += set_memory_uc
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += set_pages_uc
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += acpi_walk_namespace
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += ktime_get_raw_ts64
++NV_CONFTEST_FUNCTION_COMPILE_TESTS += vm_flags_set
+ 
+ NV_CONFTEST_TYPE_COMPILE_TESTS += outer_flush_all
+ NV_CONFTEST_TYPE_COMPILE_TESTS += file_operations
+@@ -127,4 +128,3 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += proc_ops
+ NV_CONFTEST_TYPE_COMPILE_TESTS += timeval
+ NV_CONFTEST_TYPE_COMPILE_TESTS += timespec64
+ NV_CONFTEST_TYPE_COMPILE_TESTS += mm_has_mmap_lock
+-NV_CONFTEST_TYPE_COMPILE_TESTS += vm_area_struct_has_const_vm_flags
+-- 
+2.39.5
+

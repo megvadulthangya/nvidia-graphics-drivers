@@ -1,0 +1,40 @@
+From 2a70e1729368f91bb6976c80dff0e65cc79502a3 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Tue, 27 Jan 2026 17:41:05 +0100
+Subject: [PATCH] backport drm_print.h changes from 570.211.01
+
+---
+ Kbuild                       | 1 +
+ nvidia-drm/nvidia-drm-priv.h | 4 ++++
+ 2 files changed, 5 insertions(+)
+
+diff --git a/Kbuild b/Kbuild
+index 13e979d3..1f374e38 100644
+--- a/Kbuild
++++ b/Kbuild
+@@ -182,6 +182,7 @@ NV_HEADER_PRESENCE_TESTS = \
+  acpi/video.h \
+  asm/system.h \
+  drm/drmP.h \
++ drm/drm_print.h \
+  drm/drm_auth.h \
+  drm/drm_gem.h \
+  drm/drm_crtc.h \
+diff --git a/nvidia-drm/nvidia-drm-priv.h b/nvidia-drm/nvidia-drm-priv.h
+index fce71539..532be65d 100644
+--- a/nvidia-drm/nvidia-drm-priv.h
++++ b/nvidia-drm/nvidia-drm-priv.h
+@@ -31,6 +31,10 @@
+ #include <drm/drmP.h>
+ #endif
+ 
++#if defined(NV_DRM_DRM_PRINT_H_PRESENT)
++#include <drm/drm_print.h>
++#endif
++
+ #if defined(NV_DRM_DRM_DEVICE_H_PRESENT)
+ #include <drm/drm_device.h>
+ #endif
+-- 
+2.39.5
+

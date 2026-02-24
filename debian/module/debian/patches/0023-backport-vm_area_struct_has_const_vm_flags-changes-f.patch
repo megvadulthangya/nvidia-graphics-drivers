@@ -1,51 +1,52 @@
-From a887b0c0b81c1d6739e3789f51a8a60514393e90 Mon Sep 17 00:00:00 2001
+From 549afff592902a1ded32b26cf119ae01a63c8da4 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
-Date: Tue, 27 Jun 2023 22:26:21 +0200
+Date: Thu, 29 Jan 2026 15:32:27 +0100
 Subject: [PATCH] backport vm_area_struct_has_const_vm_flags changes from
- 470.199.02
+ 525.105.17
 
 ---
- common/inc/nv-mm.h                      | 22 ++++++++++++++++++++++
+ common/inc/nv-mm.h                      | 23 +++++++++++++++++++++++
  conftest.sh                             | 19 +++++++++++++++++++
  nvidia-drm/nvidia-drm-gem-user-memory.c |  6 +++---
  nvidia-drm/nvidia-drm.Kbuild            |  1 +
  nvidia/nv-mmap.c                        | 12 ++++++------
  nvidia/nvidia.Kbuild                    |  1 +
- 6 files changed, 52 insertions(+), 9 deletions(-)
+ 6 files changed, 53 insertions(+), 9 deletions(-)
 
 diff --git a/common/inc/nv-mm.h b/common/inc/nv-mm.h
-index 54f6f60..46d09ca 100644
+index 54f6f60d..48929515 100644
 --- a/common/inc/nv-mm.h
 +++ b/common/inc/nv-mm.h
-@@ -270,4 +270,26 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
+@@ -270,4 +270,27 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
  #endif
  }
  
-+#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
++#include <linux/version.h>
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 0, 0)
++typedef unsigned long vm_flags_t;
++#endif
++
 +static inline void nv_vm_flags_set(struct vm_area_struct *vma, vm_flags_t flags)
 +{
++#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +    vm_flags_set(vma, flags);
++#else
++    vma->vm_flags |= flags;
++#endif
 +}
 +
 +static inline void nv_vm_flags_clear(struct vm_area_struct *vma, vm_flags_t flags)
 +{
++#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +    vm_flags_clear(vma, flags);
-+}
 +#else
-+static inline void nv_vm_flags_set(struct vm_area_struct *vma, unsigned long flags)
-+{
-+    vma->vm_flags |= flags;
-+}
-+
-+static inline void nv_vm_flags_clear(struct vm_area_struct *vma, unsigned long flags)
-+{
 +    vma->vm_flags &= ~flags;
-+}
 +#endif
++}
 +
  #endif // __NV_MM_H__
 diff --git a/conftest.sh b/conftest.sh
-index 173eb54..2a65e39 100755
+index 173eb54a..2a65e398 100755
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -4429,6 +4429,25 @@ compile_test() {
@@ -75,7 +76,7 @@ index 173eb54..2a65e39 100755
              #
              # Determine if the 'drm_driver' structure has a 'dumb_destroy'
 diff --git a/nvidia-drm/nvidia-drm-gem-user-memory.c b/nvidia-drm/nvidia-drm-gem-user-memory.c
-index 4229459..9f0b99e 100644
+index 42294590..9f0b99ef 100644
 --- a/nvidia-drm/nvidia-drm-gem-user-memory.c
 +++ b/nvidia-drm/nvidia-drm-gem-user-memory.c
 @@ -95,9 +95,9 @@ static bool __nv_drm_gem_user_memory_adjust_mmap_flags(
@@ -92,7 +93,7 @@ index 4229459..9f0b99e 100644
      return true;
  }
 diff --git a/nvidia-drm/nvidia-drm.Kbuild b/nvidia-drm/nvidia-drm.Kbuild
-index d520d4f..a5e2eed 100644
+index d520d4f8..a5e2eed0 100644
 --- a/nvidia-drm/nvidia-drm.Kbuild
 +++ b/nvidia-drm/nvidia-drm.Kbuild
 @@ -108,4 +108,5 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += dma_resv_add_fence
@@ -102,7 +103,7 @@ index d520d4f..a5e2eed 100644
 +NV_CONFTEST_TYPE_COMPILE_TESTS += vm_area_struct_has_const_vm_flags
  NV_CONFTEST_TYPE_COMPILE_TESTS += drm_driver_has_dumb_destroy
 diff --git a/nvidia/nv-mmap.c b/nvidia/nv-mmap.c
-index 0dc2396..c56b5c6 100644
+index 0dc23963..c56b5c6f 100644
 --- a/nvidia/nv-mmap.c
 +++ b/nvidia/nv-mmap.c
 @@ -450,7 +450,7 @@ static int nvidia_mmap_numa(
@@ -144,7 +145,7 @@ index 0dc2396..c56b5c6 100644
  
      vma->vm_ops = &nv_vm_ops;
 diff --git a/nvidia/nvidia.Kbuild b/nvidia/nvidia.Kbuild
-index 160c2f8..1b98d85 100644
+index 160c2f82..1b98d852 100644
 --- a/nvidia/nvidia.Kbuild
 +++ b/nvidia/nvidia.Kbuild
 @@ -198,6 +198,7 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += timeval
@@ -156,5 +157,5 @@ index 160c2f8..1b98d85 100644
  NV_CONFTEST_GENERIC_COMPILE_TESTS += dom0_kernel_present
  NV_CONFTEST_GENERIC_COMPILE_TESTS += nvidia_vgpu_kvm_build
 -- 
-2.20.1
+2.39.5
 
