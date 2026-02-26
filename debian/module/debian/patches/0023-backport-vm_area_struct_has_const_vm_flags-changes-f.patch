@@ -1,52 +1,53 @@
-From 941d43cd584859be01744cad097a0c7e1f575f2e Mon Sep 17 00:00:00 2001
+From 50a7c75fb6626d4a2c5aac30686c9214f071b11c Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
-Date: Tue, 27 Jun 2023 22:26:21 +0200
+Date: Thu, 29 Jan 2026 15:32:27 +0100
 Subject: [PATCH] backport vm_area_struct_has_const_vm_flags changes from
- 470.199.02
+ 525.105.17
 
 ---
- common/inc/nv-mm.h                      | 22 ++++++++++++++++++++++
+ common/inc/nv-mm.h                      | 23 +++++++++++++++++++++++
  conftest.sh                             | 19 +++++++++++++++++++
  nvidia-drm/nvidia-drm-gem-user-memory.c |  6 +++---
  nvidia-drm/nvidia-drm-gem.c             |  2 +-
  nvidia-drm/nvidia-drm.Kbuild            |  1 +
  nvidia/nv-mmap.c                        | 12 ++++++------
  nvidia/nvidia.Kbuild                    |  1 +
- 7 files changed, 53 insertions(+), 10 deletions(-)
+ 7 files changed, 54 insertions(+), 10 deletions(-)
 
 diff --git a/common/inc/nv-mm.h b/common/inc/nv-mm.h
-index 54f6f60..46d09ca 100644
+index 54f6f60d..48929515 100644
 --- a/common/inc/nv-mm.h
 +++ b/common/inc/nv-mm.h
-@@ -270,4 +270,26 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
+@@ -270,4 +270,27 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
  #endif
  }
  
-+#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
++#include <linux/version.h>
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 0, 0)
++typedef unsigned long vm_flags_t;
++#endif
++
 +static inline void nv_vm_flags_set(struct vm_area_struct *vma, vm_flags_t flags)
 +{
++#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +    vm_flags_set(vma, flags);
++#else
++    vma->vm_flags |= flags;
++#endif
 +}
 +
 +static inline void nv_vm_flags_clear(struct vm_area_struct *vma, vm_flags_t flags)
 +{
++#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +    vm_flags_clear(vma, flags);
-+}
 +#else
-+static inline void nv_vm_flags_set(struct vm_area_struct *vma, unsigned long flags)
-+{
-+    vma->vm_flags |= flags;
-+}
-+
-+static inline void nv_vm_flags_clear(struct vm_area_struct *vma, unsigned long flags)
-+{
 +    vma->vm_flags &= ~flags;
-+}
 +#endif
++}
 +
  #endif // __NV_MM_H__
 diff --git a/conftest.sh b/conftest.sh
-index b88edf8..6acde65 100755
+index b88edf8a..6acde65c 100755
 --- a/conftest.sh
 +++ b/conftest.sh
 @@ -4712,6 +4712,25 @@ compile_test() {
@@ -76,7 +77,7 @@ index b88edf8..6acde65 100755
          # specifying the relevant upstream Linux kernel commit.
          #
 diff --git a/nvidia-drm/nvidia-drm-gem-user-memory.c b/nvidia-drm/nvidia-drm-gem-user-memory.c
-index e554adc..e8fb196 100644
+index e554adc2..e8fb196d 100644
 --- a/nvidia-drm/nvidia-drm-gem-user-memory.c
 +++ b/nvidia-drm/nvidia-drm-gem-user-memory.c
 @@ -92,9 +92,9 @@ static int __nv_drm_gem_user_memory_mmap(struct nv_drm_gem_object *nv_gem,
@@ -93,7 +94,7 @@ index e554adc..e8fb196 100644
      return 0;
  }
 diff --git a/nvidia-drm/nvidia-drm-gem.c b/nvidia-drm/nvidia-drm-gem.c
-index e0850b5..f7b4b3f 100644
+index e0850b53..f7b4b3ff 100644
 --- a/nvidia-drm/nvidia-drm-gem.c
 +++ b/nvidia-drm/nvidia-drm-gem.c
 @@ -297,7 +297,7 @@ int nv_drm_mmap(struct file *file, struct vm_area_struct *vma)
@@ -106,7 +107,7 @@ index e0850b5..f7b4b3f 100644
  #endif
  
 diff --git a/nvidia-drm/nvidia-drm.Kbuild b/nvidia-drm/nvidia-drm.Kbuild
-index 3771ea2..e626fac 100644
+index 3771ea25..e626faca 100644
 --- a/nvidia-drm/nvidia-drm.Kbuild
 +++ b/nvidia-drm/nvidia-drm.Kbuild
 @@ -114,3 +114,4 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += drm_device_has_pdev
@@ -115,7 +116,7 @@ index 3771ea2..e626fac 100644
  NV_CONFTEST_TYPE_COMPILE_TESTS += drm_connector_has_override_edid
 +NV_CONFTEST_TYPE_COMPILE_TESTS += vm_area_struct_has_const_vm_flags
 diff --git a/nvidia/nv-mmap.c b/nvidia/nv-mmap.c
-index 4712d11..50da012 100644
+index 4712d111..50da0125 100644
 --- a/nvidia/nv-mmap.c
 +++ b/nvidia/nv-mmap.c
 @@ -421,7 +421,7 @@ static int nvidia_mmap_numa(
@@ -157,7 +158,7 @@ index 4712d11..50da012 100644
  
      vma->vm_ops = &nv_vm_ops;
 diff --git a/nvidia/nvidia.Kbuild b/nvidia/nvidia.Kbuild
-index e6ec783..91f1516 100644
+index e6ec783d..91f15162 100644
 --- a/nvidia/nvidia.Kbuild
 +++ b/nvidia/nvidia.Kbuild
 @@ -214,6 +214,7 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += acpi_fadt_low_power_s0
@@ -169,5 +170,5 @@ index e6ec783..91f1516 100644
  NV_CONFTEST_GENERIC_COMPILE_TESTS += dom0_kernel_present
  NV_CONFTEST_GENERIC_COMPILE_TESTS += nvidia_vgpu_kvm_build
 -- 
-2.20.1
+2.39.5
 

@@ -20,3 +20,4 @@ upstream-metadata-missing-repository
 
 # this package targets bullseye
 redundant-rules-requires-root-no-field
+redundant-priority-optional-field

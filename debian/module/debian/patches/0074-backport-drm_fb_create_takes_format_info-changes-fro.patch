@@ -1,4 +1,4 @@
-From 0eafc40719b0a14ff477d1fcdbf235b30e845b56 Mon Sep 17 00:00:00 2001
+From 43f230a712b074c2e17db72559ceb3738003db29 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Sun, 2 Nov 2025 08:18:20 +0100
 Subject: [PATCH] backport drm_fb_create_takes_format_info changes from
@@ -13,10 +13,10 @@ Subject: [PATCH] backport drm_fb_create_takes_format_info changes from
  5 files changed, 35 insertions(+)
 
 diff --git a/conftest.sh b/conftest.sh
-index 7d86ce1a..35255a1c 100755
+index 307bc4fd..aaf89298 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -3473,6 +3473,25 @@ compile_test() {
+@@ -3480,6 +3480,25 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DMA_BUF_OWNER_PRESENT" "" "types"
          ;;
  

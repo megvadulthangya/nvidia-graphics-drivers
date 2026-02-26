@@ -1,3 +1,13 @@
+nvidia-graphics-drivers-tesla-460 (460.106.00-23) UNRELEASED; urgency=medium
+
+  * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
+    nv_in_hardirq changes from 580.119.02 and vma_flags_set_word and
+    dma_map_ops_has_map_phys changes from 580.126.09 to fix kernel module
+    build for Linux 6.19.
+  * Bump Standards-Version to 4.7.3. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 26 Feb 2026 02:33:40 +0100
+
 nvidia-graphics-drivers-tesla-460 (460.106.00-22) unstable; urgency=medium
 
   [ Andreas Beckmann ]
@@ -117,7 +127,7 @@ nvidia-graphics-drivers-tesla-460 (460.106.00-12) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-460 (460.106.00-11) unstable; urgency=medium
 
-  * Backport vm_area_struct_has_const_vm_flags changes from 470.199.02 to fix
+  * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
     kernel module build for Linux 6.3.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 16 Jun 2023 12:59:21 +0200
@@ -655,6 +665,16 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
+nvidia-graphics-drivers-tesla-450 (450.248.02-13) UNRELEASED; urgency=medium
+
+  * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
+    nv_in_hardirq changes from 580.119.02 and vma_flags_set_word and
+    dma_map_ops_has_map_phys changes from 580.126.09 to fix kernel module
+    build for Linux 6.19.
+  * Bump Standards-Version to 4.7.3. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 24 Feb 2026 18:27:35 +0100
+
 nvidia-graphics-drivers-tesla-450 (450.248.02-12) unstable; urgency=medium
 
   [ Andreas Beckmann ]
@@ -810,7 +830,7 @@ nvidia-graphics-drivers-tesla-450 (450.236.01-3) UNRELEASED; urgency=medium
 
 nvidia-graphics-drivers-tesla-450 (450.236.01-2) unstable; urgency=medium
 
-  * Backport vm_area_struct_has_const_vm_flags changes from 470.199.02 to fix
+  * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
     kernel module build for Linux 6.3.
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 16 Jun 2023 10:54:54 +0200
@@ -1889,6 +1909,16 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
+nvidia-graphics-drivers-tesla-418 (418.226.00-21) unstable; urgency=medium
+
+  * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
+    nv_in_hardirq changes from 580.119.02 and vma_flags_set_word and
+    dma_map_ops_has_map_phys changes from 580.126.09 to fix kernel module
+    build for Linux 6.19.
+  * Bump Standards-Version to 4.7.3. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Feb 2026 14:26:47 +0100
+
 nvidia-graphics-drivers-tesla-418 (418.226.00-20) unstable; urgency=medium
 
   [ Andreas Beckmann ]
@@ -1988,7 +2018,7 @@ nvidia-graphics-drivers-tesla-418 (418.226.00-12) unstable; urgency=medium
 
 nvidia-graphics-drivers-tesla-418 (418.226.00-11) unstable; urgency=medium
 
-  * Backport vm_area_struct_has_const_vm_flags changes from 470.199.02 to fix
+  * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
     kernel module build for Linux 6.3.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Jun 2023 14:07:08 +0200
@@ -2954,6 +2984,16 @@ nvidia-graphics-drivers (396.18-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sun, 22 Apr 2018 13:59:45 +0200
 
+nvidia-graphics-drivers (390.157-15) UNRELEASED; urgency=medium
+
+  * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
+    nv_in_hardirq changes from 580.119.02 and vma_flags_set_word and
+    dma_map_ops_has_map_phys changes from 580.126.09 to fix kernel module
+    build for Linux 6.19.
+  * Bump Standards-Version to 4.7.3. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 17 Feb 2026 05:29:26 +0100
+
 nvidia-graphics-drivers (390.157-14) UNRELEASED; urgency=medium
 
   [ Andreas Beckmann ]
@@ -3054,7 +3094,7 @@ nvidia-graphics-drivers (390.157-4) UNRELEASED; urgency=medium
 
 nvidia-graphics-drivers (390.157-3) UNRELEASED; urgency=medium
 
-  * Backport vm_area_struct_has_const_vm_flags changes from 470.199.02 to fix
+  * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
     kernel module build for Linux 6.3.
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 15 Jun 2023 10:01:34 +0200
@@ -5920,6 +5960,10 @@ nvidia-graphics-drivers (343.22-1) experimental; urgency=medium
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
 
+  * Backport drm_print.h changes from 570.211.01, nv_in_hardirq changes from
+    580.119.02 and vma_flags_set_word changes from 580.126.09 to fix kernel
+    module build for Linux 6.19.
+
   * Backport ccflags-y and nv_timer_delete_sync changes from 570.153.02 and
     nv_vma_start_write changes from 570.169 and disable objtool usage to fix
     kernel module build for Linux 6.15.
@@ -5949,7 +5993,7 @@ nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
   * Backport get_user_pages and pin_user_pages changes from 418.30, 520.56.06,
     525.53 and 535.86.05 to fix kernel module build for Linux 6.5.
 
-  * Backport vm_area_struct_has_const_vm_flags changes from 470.199.02 to fix
+  * Backport vm_area_struct_has_const_vm_flags changes from 525.105.17 to fix
     kernel module build for Linux 6.3.
 
   * Backport acpi_op_remove changes from 470.182.03 to fix kernel module build

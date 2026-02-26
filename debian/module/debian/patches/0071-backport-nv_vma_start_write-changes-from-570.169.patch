@@ -4,17 +4,17 @@ Date: Thu, 19 Jun 2025 10:20:07 +0200
 Subject: [PATCH] backport nv_vma_start_write changes from 570.169
 
 ---
- common/inc/nv-mm.h           | 23 ++++++++++++
+ common/inc/nv-mm.h           | 23 +++++++++++-
  nvidia-drm/nvidia-drm.Kbuild |  1 +
  nvidia/nv-mmap.c             | 72 ++++++++++++++++++++++++++++++++++++
  nvidia/nvidia.Kbuild         |  1 +
- 4 files changed, 97 insertions(+)
+ 4 files changed, 95 insertions(+), 2 deletions(-)
 
 diff --git a/common/inc/nv-mm.h b/common/inc/nv-mm.h
-index d5290aae..59dcd70f 100644
+index 5d1834af..4e2a5236 100644
 --- a/common/inc/nv-mm.h
 +++ b/common/inc/nv-mm.h
-@@ -245,15 +245,38 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
+@@ -245,6 +245,19 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
  #endif
  }
  
@@ -31,28 +31,33 @@ index d5290aae..59dcd70f 100644
 +void nv_vma_start_write(struct vm_area_struct *);
 +#endif
 +
- #if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
+ #include <linux/version.h>
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(3, 0, 0)
+ typedef unsigned long vm_flags_t;
+@@ -252,7 +265,10 @@ typedef unsigned long vm_flags_t;
+ 
  static inline void nv_vm_flags_set(struct vm_area_struct *vma, vm_flags_t flags)
  {
+-#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +#if !NV_CAN_CALL_VMA_START_WRITE
 +    nv_vma_start_write(vma);
 +    ACCESS_PRIVATE(vma, __vm_flags) |= flags;
-+#else
++#elif defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
      vm_flags_set(vma, flags);
-+#endif
- }
+ #else
+     vma->vm_flags |= flags;
+@@ -261,7 +277,10 @@ static inline void nv_vm_flags_set(struct vm_area_struct *vma, vm_flags_t flags)
  
  static inline void nv_vm_flags_clear(struct vm_area_struct *vma, vm_flags_t flags)
  {
+-#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
 +#if !NV_CAN_CALL_VMA_START_WRITE
 +    nv_vma_start_write(vma);
 +    ACCESS_PRIVATE(vma, __vm_flags) &= ~flags;
-+#else
++#elif defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)
      vm_flags_clear(vma, flags);
-+#endif
- }
  #else
- static inline void nv_vm_flags_set(struct vm_area_struct *vma, unsigned long flags)
+     vma->vm_flags &= ~flags;
 diff --git a/nvidia-drm/nvidia-drm.Kbuild b/nvidia-drm/nvidia-drm.Kbuild
 index 3f8232ec..3c94263a 100644
 --- a/nvidia-drm/nvidia-drm.Kbuild
