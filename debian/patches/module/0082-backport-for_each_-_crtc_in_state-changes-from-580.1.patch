@@ -1,0 +1,103 @@
+From 5709726e1e1e15f36772495482633be260380f50 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 28 Jan 2026 15:48:26 +0100
+Subject: [PATCH 3/4] backport for_each_*_crtc_in_state changes from 580.119.02
+
+---
+ nvidia-drm/nvidia-drm-crtc.c    |  4 ++--
+ nvidia-drm/nvidia-drm-modeset.c | 21 +++++++--------------
+ 2 files changed, 9 insertions(+), 16 deletions(-)
+
+diff --git a/nvidia-drm/nvidia-drm-crtc.c b/nvidia-drm/nvidia-drm-crtc.c
+index 51d6324c..59512437 100644
+--- a/nvidia-drm/nvidia-drm-crtc.c
++++ b/nvidia-drm/nvidia-drm-crtc.c
+@@ -480,7 +480,7 @@ static int __nv_drm_cursor_atomic_check(struct drm_plane *plane,
+ 
+     WARN_ON(nv_plane->layer_idx != NVKMS_KAPI_LAYER_INVALID_IDX);
+ 
+-    nv_drm_for_each_crtc_in_state(plane_state->state, crtc, crtc_state, i) {
++    for_each_new_crtc_in_state(plane_state->state, crtc, crtc_state, i) {
+         struct nv_drm_crtc_state *nv_crtc_state = to_nv_crtc_state(crtc_state);
+         struct NvKmsKapiHeadRequestedConfig *head_req_config =
+             &nv_crtc_state->req_config;
+@@ -526,7 +526,7 @@ static int nv_drm_plane_atomic_check(struct drm_plane *plane,
+ 
+     WARN_ON(nv_plane->layer_idx == NVKMS_KAPI_LAYER_INVALID_IDX);
+ 
+-    nv_drm_for_each_crtc_in_state(plane_state->state, crtc, crtc_state, i) {
++    for_each_new_crtc_in_state(plane_state->state, crtc, crtc_state, i) {
+         struct nv_drm_crtc_state *nv_crtc_state = to_nv_crtc_state(crtc_state);
+         struct NvKmsKapiHeadRequestedConfig *head_req_config =
+             &nv_crtc_state->req_config;
+diff --git a/nvidia-drm/nvidia-drm-modeset.c b/nvidia-drm/nvidia-drm-modeset.c
+index 9c7de4bd..e13b77c9 100644
+--- a/nvidia-drm/nvidia-drm-modeset.c
++++ b/nvidia-drm/nvidia-drm-modeset.c
+@@ -237,21 +237,14 @@ nv_drm_atomic_apply_modeset_config(struct drm_device *dev,
+         &(to_nv_atomic_state(state)->config);
+     struct NvKmsKapiModeSetReplyConfig reply_config = { };
+     struct drm_crtc *crtc;
+-    struct drm_crtc_state *crtc_state;
++    struct drm_crtc_state *old_crtc_state, *new_crtc_state;
+     int i;
+     int ret;
+ 
+     memset(requested_config, 0, sizeof(*requested_config));
+ 
+     /* Loop over affected crtcs and construct NvKmsKapiRequestedModeSetConfig */
+-    nv_drm_for_each_crtc_in_state(state, crtc, crtc_state, i) {
+-        /*
+-         * When committing a state, the new state is already stored in
+-         * crtc->state. When checking a proposed state, the proposed state is
+-         * stored in crtc_state.
+-         */
+-        struct drm_crtc_state *new_crtc_state =
+-                               commit ? crtc->state : crtc_state;
++    for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
+         struct nv_drm_crtc *nv_crtc = to_nv_crtc(crtc);
+ 
+         requested_config->headRequestedConfig[nv_crtc->head] =
+@@ -260,7 +253,6 @@ nv_drm_atomic_apply_modeset_config(struct drm_device *dev,
+         requested_config->headsMask |= 1 << nv_crtc->head;
+ 
+         if (commit) {
+-            struct drm_crtc_state *old_crtc_state = crtc_state;
+             struct nv_drm_crtc_state *nv_new_crtc_state =
+                 to_nv_crtc_state(new_crtc_state);
+ 
+@@ -300,10 +292,11 @@ nv_drm_atomic_apply_modeset_config(struct drm_device *dev,
+     }
+ 
+     if (commit && nv_dev->supportsSyncpts) {
+-        nv_drm_for_each_crtc_in_state(state, crtc, crtc_state, i) {
++        /* commit is true so we check old state */
++        for_each_old_crtc_in_state(state, crtc, old_crtc_state, i) {
+             /*! loop over affected crtcs and get NvKmsKapiModeSetReplyConfig */
+             ret = __nv_drm_get_syncpt_data(
+-                      nv_dev, crtc, crtc_state, requested_config, &reply_config);
++                      nv_dev, crtc, old_crtc_state, requested_config, &reply_config);
+             if (ret != 0) {
+                 return ret;
+             }
+@@ -398,7 +391,7 @@ int nv_drm_atomic_commit(struct drm_device *dev,
+      * updates to complete.
+      */
+     if (nonblock) {
+-        nv_drm_for_each_crtc_in_state(state, crtc, crtc_state, i) {
++        for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
+             struct nv_drm_crtc *nv_crtc = to_nv_crtc(crtc);
+ 
+             /*
+@@ -472,7 +465,7 @@ int nv_drm_atomic_commit(struct drm_device *dev,
+         goto done;
+     }
+ 
+-    nv_drm_for_each_crtc_in_state(state, crtc, crtc_state, i) {
++    for_each_old_crtc_in_state(state, crtc, crtc_state, i) {
+         struct nv_drm_crtc *nv_crtc = to_nv_crtc(crtc);
+         struct nv_drm_crtc_state *nv_new_crtc_state =
+             to_nv_crtc_state(crtc->state);
+-- 
+2.39.5
+

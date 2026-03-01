@@ -1,4 +1,4 @@
-From 4b2553dd0ada77ff2a568a10e6d460a8dc34c523 Mon Sep 17 00:00:00 2001
+From fe8fc9453a268828e76b1f0e690c91e5bb2cec76 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 26 May 2025 13:46:43 +0200
 Subject: [PATCH] backport
@@ -12,10 +12,10 @@ Subject: [PATCH] backport
  3 files changed, 32 insertions(+)
 
 diff --git a/conftest.sh b/conftest.sh
-index 961d71ef..3319b8dc 100755
+index 6c42c2bc..7efeff00 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -5825,6 +5825,33 @@ compile_test() {
+@@ -5844,6 +5844,33 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DRM_DRIVER_HAS_DATE" "" "types"
          ;;
  
@@ -47,8 +47,8 @@ index 961d71ef..3319b8dc 100755
 +        ;;
 +
          # When adding a new conftest entry, please use the correct format for
-         # specifying the relevant upstream Linux kernel commit.
-         #
+         # specifying the relevant upstream Linux kernel commit.  Please
+         # avoid specifying -rc kernels, and only use SHAs that actually exist
 diff --git a/nvidia-drm/nvidia-drm-connector.c b/nvidia-drm/nvidia-drm-connector.c
 index 2b893c53..6e32c02f 100644
 --- a/nvidia-drm/nvidia-drm-connector.c

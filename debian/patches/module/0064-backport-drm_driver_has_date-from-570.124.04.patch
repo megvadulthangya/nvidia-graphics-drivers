@@ -1,4 +1,4 @@
-From 8659f5c0b847237309a248a367a28f441e21c5d4 Mon Sep 17 00:00:00 2001
+From 1be8d8cb51ce2a3a54ac06d76aed28b6da40f7a4 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Thu, 27 Mar 2025 19:11:23 +0100
 Subject: [PATCH] backport drm_driver_has_date from 570.124.04
@@ -10,10 +10,10 @@ Subject: [PATCH] backport drm_driver_has_date from 570.124.04
  3 files changed, 28 insertions(+)
 
 diff --git a/conftest.sh b/conftest.sh
-index 58699d29..961d71ef 100755
+index 4a27fd89..6c42c2bc 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -5801,6 +5801,30 @@ compile_test() {
+@@ -5820,6 +5820,30 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_DRM_UNLOCKED_IOCTL_FLAG_PRESENT" "" "types"
          ;;
  
@@ -42,8 +42,8 @@ index 58699d29..961d71ef 100755
 +        ;;
 +
          # When adding a new conftest entry, please use the correct format for
-         # specifying the relevant upstream Linux kernel commit.
-         #
+         # specifying the relevant upstream Linux kernel commit.  Please
+         # avoid specifying -rc kernels, and only use SHAs that actually exist
 diff --git a/nvidia-drm/nvidia-drm-drv.c b/nvidia-drm/nvidia-drm-drv.c
 index 6d792ed9..6bc04103 100644
 --- a/nvidia-drm/nvidia-drm-drv.c
