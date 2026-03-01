@@ -1,0 +1,64 @@
+From 5973a1f183a873c0727324f54785fb67a43d0901 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 28 Jan 2026 15:26:45 +0100
+Subject: [PATCH 1/4] backport for_each_*_plane_in_state changes from
+ 580.119.02
+
+---
+ nvidia-drm/nvidia-drm-helper.c  |  4 ++--
+ nvidia-drm/nvidia-drm-modeset.c | 10 +++++++---
+ 2 files changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/nvidia-drm/nvidia-drm-helper.c b/nvidia-drm/nvidia-drm-helper.c
+index 8fc86206..8c828da7 100644
+--- a/nvidia-drm/nvidia-drm-helper.c
++++ b/nvidia-drm/nvidia-drm-helper.c
+@@ -73,7 +73,7 @@ static void __nv_drm_framebuffer_put(struct drm_framebuffer *fb)
+  * drm_atomic_helper_disable_all() is copied from
+  * linux/drivers/gpu/drm/drm_atomic_helper.c and modified to use
+  * nv_drm_for_each_crtc instead of drm_for_each_crtc to loop over all crtcs,
+- * use nv_drm_for_each_*_in_state instead of for_each_connector_in_state to loop
++ * use for_each_new_*_in_state instead of for_each_connector_in_state to loop
+  * over all modeset object states, and use drm_atomic_state_free() if
+  * drm_atomic_state_put() is not available.
+  *
+@@ -154,7 +154,7 @@ int nv_drm_atomic_helper_disable_all(struct drm_device *dev,
+             goto free;
+     }
+ 
+-    nv_drm_for_each_plane_in_state(state, plane, plane_state, i) {
++    for_each_new_plane_in_state(state, plane, plane_state, i) {
+         ret = drm_atomic_set_crtc_for_plane(plane_state, NULL);
+         if (ret < 0)
+             goto free;
+diff --git a/nvidia-drm/nvidia-drm-modeset.c b/nvidia-drm/nvidia-drm-modeset.c
+index 4b601b08..ba64a3bb 100644
+--- a/nvidia-drm/nvidia-drm-modeset.c
++++ b/nvidia-drm/nvidia-drm-modeset.c
+@@ -103,8 +103,11 @@ static bool __will_generate_flip_event(struct drm_crtc *crtc,
+         return false;
+     }
+ 
+-    /* Find out whether primary & overlay flip done events will be generated. */
+-    nv_drm_for_each_plane_in_state(old_crtc_state->state,
++    /*
++     * Find out whether primary & overlay flip done events will be generated.
++     * Only called after drm_atomic_helper_swap_state, so we use old state.
++     */
++    for_each_old_plane_in_state(old_crtc_state->state,
+         plane, old_plane_state, i) {
+         if (old_plane_state->crtc != crtc) {
+            continue;
+@@ -172,7 +175,8 @@ static int __nv_drm_get_syncpt_data(
+ 
+     head_reply_config = &reply_config->headReplyConfig[nv_crtc->head];
+ 
+-    nv_drm_for_each_plane_in_state(old_crtc_state->state, plane, old_plane_state, i) {
++    /* Use old state because this is only called after drm_atomic_helper_swap_state */
++    for_each_old_plane_in_state(old_crtc_state->state, plane, old_plane_state, i) {
+         struct nv_drm_plane *nv_plane = to_nv_plane(plane);
+ 
+         if (plane->type == DRM_PLANE_TYPE_CURSOR || old_plane_state->crtc != crtc) {
+-- 
+2.39.5
+
