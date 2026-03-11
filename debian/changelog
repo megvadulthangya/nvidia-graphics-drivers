@@ -573,7 +573,7 @@ nvidia-graphics-drivers (530.30.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 13 Mar 2023 23:48:29 +0100
 
-nvidia-graphics-drivers (525.147.05-18) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla (525.147.05-18) UNRELEASED; urgency=medium
 
   * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
     nv_in_hardirq changes from 580.119.02 and vma_flags_set_word and
@@ -1724,7 +1724,7 @@ nvidia-graphics-drivers (495.44-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Fri, 05 Nov 2021 10:45:12 +0100
 
-nvidia-graphics-drivers (470.256.02-9) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-470 (470.256.02-9) unstable; urgency=medium
 
   * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
     nv_in_hardirq changes from 580.119.02 and vma_flags_set_word and
@@ -2798,7 +2798,7 @@ nvidia-graphics-drivers (465.24.02-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Tue, 27 Apr 2021 18:48:53 +0200
 
-nvidia-graphics-drivers (460.106.00-23) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-460 (460.106.00-23) UNRELEASED; urgency=medium
 
   * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
     nv_in_hardirq changes from 580.119.02 and vma_flags_set_word and
@@ -3447,7 +3447,7 @@ nvidia-graphics-drivers (455.23.04-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Thu, 24 Sep 2020 21:52:54 +0200
 
-nvidia-graphics-drivers (450.248.02-13) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-450 (450.248.02-13) UNRELEASED; urgency=medium
 
   * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
     nv_in_hardirq changes from 580.119.02 and vma_flags_set_word and
@@ -4674,7 +4674,7 @@ nvidia-graphics-drivers (430.14-1) experimental; urgency=medium
 
  -- Andreas Beckmann <anbe@debian.org>  Sat, 25 May 2019 13:49:09 +0200
 
-nvidia-graphics-drivers (418.226.00-21) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-tesla-418 (418.226.00-21) unstable; urgency=medium
 
   * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
     nv_in_hardirq changes from 580.119.02 and vma_flags_set_word and
