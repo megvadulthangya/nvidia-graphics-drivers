@@ -1,0 +1,86 @@
+From 9417f96a94c5ccc304832a6625297858f9de1756 Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Wed, 28 Jan 2026 15:40:39 +0100
+Subject: [PATCH 2/4] support fallback for for_each_*_plane_in_state
+
+---
+ nvidia-drm/nvidia-drm-helper.c  |  2 +-
+ nvidia-drm/nvidia-drm-helper.h  | 12 ++++++++++++
+ nvidia-drm/nvidia-drm-modeset.c |  4 ++--
+ 3 files changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/nvidia-drm/nvidia-drm-helper.c b/nvidia-drm/nvidia-drm-helper.c
+index 4c830fb0..953dacad 100644
+--- a/nvidia-drm/nvidia-drm-helper.c
++++ b/nvidia-drm/nvidia-drm-helper.c
+@@ -168,7 +168,7 @@ int nv_drm_atomic_helper_disable_all(struct drm_device *dev,
+             goto free;
+     }
+ 
+-    for_each_new_plane_in_state(state, plane, plane_state, i) {
++    nv_drm_for_each_new_plane_in_state(state, plane, plane_state, i) {
+         ret = drm_atomic_set_crtc_for_plane(plane_state, NULL);
+         if (ret < 0)
+             goto free;
+diff --git a/nvidia-drm/nvidia-drm-helper.h b/nvidia-drm/nvidia-drm-helper.h
+index 94d48db9..77883f89 100644
+--- a/nvidia-drm/nvidia-drm-helper.h
++++ b/nvidia-drm/nvidia-drm-helper.h
+@@ -240,6 +240,11 @@ int nv_drm_atomic_helper_disable_all(struct drm_device *dev,
+  * points to the new state, while afterwards it points to the old state. Due to
+  * this tricky confusion this macro is deprecated.
+  */
++#if defined(for_each_new_connector_in_state)
++#define nv_drm_for_each_connector_in_state(__state,                         \
++                                           connector, connector_state, __i) \
++    for_each_new_connector_in_state(__state, connector, connector_state, __i)
++#else
+ #if !defined(for_each_connector_in_state)
+ #define nv_drm_for_each_connector_in_state(__state,                         \
+                                            connector, connector_state, __i) \
+@@ -254,6 +259,7 @@ int nv_drm_atomic_helper_disable_all(struct drm_device *dev,
+                                            connector, connector_state, __i) \
+     for_each_connector_in_state(__state, connector, connector_state, __i)
+ #endif
++#endif
+ 
+ 
+ /**
+@@ -336,6 +342,12 @@ int nv_drm_atomic_helper_disable_all(struct drm_device *dev,
+     for_each_new_plane_in_state(__state, plane, new_plane_state, __i)
+ #endif
+ 
++#if defined(for_each_old_plane_in_state)
++#define nv_drm_for_each_old_plane_in_state for_each_old_plane_in_state
++#else
++#define nv_drm_for_each_old_plane_in_state nv_drm_for_each_plane_in_state
++#endif
++
+ static inline struct drm_connector *
+ nv_drm_connector_lookup(struct drm_device *dev, struct drm_file *filep,
+                         uint32_t id)
+diff --git a/nvidia-drm/nvidia-drm-modeset.c b/nvidia-drm/nvidia-drm-modeset.c
+index 704b4ed6..b7bef25f 100644
+--- a/nvidia-drm/nvidia-drm-modeset.c
++++ b/nvidia-drm/nvidia-drm-modeset.c
+@@ -107,7 +107,7 @@ static bool __will_generate_flip_event(struct drm_crtc *crtc,
+      * Find out whether primary & overlay flip done events will be generated.
+      * Only called after drm_atomic_helper_swap_state, so we use old state.
+      */
+-    for_each_old_plane_in_state(old_crtc_state->state,
++    nv_drm_for_each_old_plane_in_state(old_crtc_state->state,
+         plane, old_plane_state, i) {
+         if (old_plane_state->crtc != crtc) {
+            continue;
+@@ -176,7 +176,7 @@ static int __nv_drm_get_syncpt_data(
+     head_reply_config = &reply_config->headReplyConfig[nv_crtc->head];
+ 
+     /* Use old state because this is only called after drm_atomic_helper_swap_state */
+-    for_each_old_plane_in_state(old_crtc_state->state, plane, old_plane_state, i) {
++    nv_drm_for_each_old_plane_in_state(old_crtc_state->state, plane, old_plane_state, i) {
+         struct nv_drm_plane *nv_plane = to_nv_plane(plane);
+ 
+         if (plane->type == DRM_PLANE_TYPE_CURSOR || old_plane_state->crtc != crtc) {
+-- 
+2.39.5
+

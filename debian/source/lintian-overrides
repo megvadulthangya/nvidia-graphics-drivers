@@ -21,3 +21,4 @@ upstream-metadata-missing-repository
 
 # this package targets bookworm
 redundant-rules-requires-root-no-field
+redundant-priority-optional-field
