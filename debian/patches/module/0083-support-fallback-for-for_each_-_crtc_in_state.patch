@@ -1,4 +1,4 @@
-From 4bffbbcc29eea9857b8392b90e10105f13a6ce2a Mon Sep 17 00:00:00 2001
+From 1f71c8c09bebe8a0b8d28928bf172cac01db1195 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Wed, 28 Jan 2026 15:53:49 +0100
 Subject: [PATCH 4/4] support fallback for for_each_*_crtc_in_state
@@ -10,10 +10,10 @@ Subject: [PATCH 4/4] support fallback for for_each_*_crtc_in_state
  3 files changed, 27 insertions(+), 7 deletions(-)
 
 diff --git a/nvidia-drm/nvidia-drm-crtc.c b/nvidia-drm/nvidia-drm-crtc.c
-index f386d34c..6224cfbc 100644
+index 2c64bd6e..ae18aa6b 100644
 --- a/nvidia-drm/nvidia-drm-crtc.c
 +++ b/nvidia-drm/nvidia-drm-crtc.c
-@@ -563,7 +563,7 @@ static int __nv_drm_cursor_atomic_check(struct drm_plane *plane,
+@@ -559,7 +559,7 @@ static int __nv_drm_cursor_atomic_check(struct drm_plane *plane,
  
      WARN_ON(nv_plane->layer_idx != NVKMS_KAPI_LAYER_INVALID_IDX);
  
@@ -22,7 +22,7 @@ index f386d34c..6224cfbc 100644
          struct nv_drm_crtc_state *nv_crtc_state = to_nv_crtc_state(crtc_state);
          struct NvKmsKapiHeadRequestedConfig *head_req_config =
              &nv_crtc_state->req_config;
-@@ -609,7 +609,7 @@ static int nv_drm_plane_atomic_check(struct drm_plane *plane,
+@@ -605,7 +605,7 @@ static int nv_drm_plane_atomic_check(struct drm_plane *plane,
  
      WARN_ON(nv_plane->layer_idx == NVKMS_KAPI_LAYER_INVALID_IDX);
  
@@ -32,7 +32,7 @@ index f386d34c..6224cfbc 100644
          struct NvKmsKapiHeadRequestedConfig *head_req_config =
              &nv_crtc_state->req_config;
 diff --git a/nvidia-drm/nvidia-drm-helper.h b/nvidia-drm/nvidia-drm-helper.h
-index 77883f89..958326af 100644
+index 4b8143ce..56d80558 100644
 --- a/nvidia-drm/nvidia-drm-helper.h
 +++ b/nvidia-drm/nvidia-drm-helper.h
 @@ -287,6 +287,26 @@ int nv_drm_atomic_helper_disable_all(struct drm_device *dev,
@@ -63,7 +63,7 @@ index 77883f89..958326af 100644
   * nv_drm_for_each_plane_in_state - iterate over all planes in an atomic update
   * @__state: &struct drm_atomic_state pointer
 diff --git a/nvidia-drm/nvidia-drm-modeset.c b/nvidia-drm/nvidia-drm-modeset.c
-index 8697435e..c6488cd6 100644
+index 2b3c282d..6474ae80 100644
 --- a/nvidia-drm/nvidia-drm-modeset.c
 +++ b/nvidia-drm/nvidia-drm-modeset.c
 @@ -252,7 +252,7 @@ nv_drm_atomic_apply_modeset_config(struct drm_device *dev,

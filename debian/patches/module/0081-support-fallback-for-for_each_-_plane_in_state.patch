@@ -1,4 +1,4 @@
-From 9417f96a94c5ccc304832a6625297858f9de1756 Mon Sep 17 00:00:00 2001
+From bbd717cd64c6b39eac7d65b57604ab9f4983bf67 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Wed, 28 Jan 2026 15:40:39 +0100
 Subject: [PATCH 2/4] support fallback for for_each_*_plane_in_state
@@ -10,10 +10,10 @@ Subject: [PATCH 2/4] support fallback for for_each_*_plane_in_state
  3 files changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/nvidia-drm/nvidia-drm-helper.c b/nvidia-drm/nvidia-drm-helper.c
-index 4c830fb0..953dacad 100644
+index 2847c86f..9a87cc9c 100644
 --- a/nvidia-drm/nvidia-drm-helper.c
 +++ b/nvidia-drm/nvidia-drm-helper.c
-@@ -168,7 +168,7 @@ int nv_drm_atomic_helper_disable_all(struct drm_device *dev,
+@@ -167,7 +167,7 @@ int nv_drm_atomic_helper_disable_all(struct drm_device *dev,
              goto free;
      }
  
@@ -23,7 +23,7 @@ index 4c830fb0..953dacad 100644
          if (ret < 0)
              goto free;
 diff --git a/nvidia-drm/nvidia-drm-helper.h b/nvidia-drm/nvidia-drm-helper.h
-index 94d48db9..77883f89 100644
+index f6fdfd74..4b8143ce 100644
 --- a/nvidia-drm/nvidia-drm-helper.h
 +++ b/nvidia-drm/nvidia-drm-helper.h
 @@ -240,6 +240,11 @@ int nv_drm_atomic_helper_disable_all(struct drm_device *dev,
@@ -60,7 +60,7 @@ index 94d48db9..77883f89 100644
  nv_drm_connector_lookup(struct drm_device *dev, struct drm_file *filep,
                          uint32_t id)
 diff --git a/nvidia-drm/nvidia-drm-modeset.c b/nvidia-drm/nvidia-drm-modeset.c
-index 704b4ed6..b7bef25f 100644
+index a5a4a48e..f6462099 100644
 --- a/nvidia-drm/nvidia-drm-modeset.c
 +++ b/nvidia-drm/nvidia-drm-modeset.c
 @@ -107,7 +107,7 @@ static bool __will_generate_flip_event(struct drm_crtc *crtc,

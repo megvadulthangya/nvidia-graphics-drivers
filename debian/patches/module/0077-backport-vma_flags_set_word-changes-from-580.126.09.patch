@@ -1,4 +1,4 @@
-From 0d9d0c594ddc67463f19983d30dba0711dd7ff15 Mon Sep 17 00:00:00 2001
+From aedff5f6a8278351199c61168712b7c5eae7ac8f Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Tue, 27 Jan 2026 19:48:54 +0100
 Subject: [PATCH] backport vma_flags_set_word changes from 580.126.09
@@ -11,10 +11,10 @@ Subject: [PATCH] backport vma_flags_set_word changes from 580.126.09
  4 files changed, 53 insertions(+), 17 deletions(-)
 
 diff --git a/common/inc/nv-mm.h b/common/inc/nv-mm.h
-index 20fb3caa..4a26ecf3 100644
+index 4b8200fd..cc57ed84 100644
 --- a/common/inc/nv-mm.h
 +++ b/common/inc/nv-mm.h
-@@ -306,14 +306,33 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
+@@ -308,14 +308,33 @@ static inline struct rw_semaphore *nv_mmap_get_lock(struct mm_struct *mm)
   * Commit 45ad9f5290dc updated vma_start_write() to call __vma_start_write().
   */
  void nv_vma_start_write(struct vm_area_struct *);
@@ -51,7 +51,7 @@ index 20fb3caa..4a26ecf3 100644
      vm_flags_set(vma, flags);
  #else
      vma->vm_flags |= flags;
-@@ -323,9 +342,8 @@ static inline void nv_vm_flags_set(struct vm_area_struct *vma, vm_flags_t flags)
+@@ -325,9 +344,8 @@ static inline void nv_vm_flags_set(struct vm_area_struct *vma, vm_flags_t flags)
  static inline void nv_vm_flags_clear(struct vm_area_struct *vma, vm_flags_t flags)
  {
  #if !NV_CAN_CALL_VMA_START_WRITE
@@ -64,10 +64,10 @@ index 20fb3caa..4a26ecf3 100644
  #else
      vma->vm_flags &= ~flags;
 diff --git a/conftest.sh b/conftest.sh
-index 62d73df3..4e10f0f9 100755
+index ad8c523d..c994919d 100755
 --- a/conftest.sh
 +++ b/conftest.sh
-@@ -6425,22 +6425,39 @@ compile_test() {
+@@ -6478,22 +6478,39 @@ compile_test() {
              compile_check_conftest "$CODE" "NV_IOMMU_SVA_BIND_DEVICE_HAS_DRVDATA_ARG" "" "types"
          ;;
  
@@ -117,7 +117,7 @@ index 62d73df3..4e10f0f9 100755
  
          drm_driver_has_dumb_destroy)
 diff --git a/nvidia-drm/nvidia-drm-sources.mk b/nvidia-drm/nvidia-drm-sources.mk
-index 02a92442..f0fca19a 100644
+index 3b541223..3c2f2ecb 100644
 --- a/nvidia-drm/nvidia-drm-sources.mk
 +++ b/nvidia-drm/nvidia-drm-sources.mk
 @@ -73,6 +73,7 @@ NV_CONFTEST_FUNCTION_COMPILE_TESTS += drm_connector_attach_hdr_output_metadata_p
@@ -137,11 +137,11 @@ index 02a92442..f0fca19a 100644
  NV_CONFTEST_TYPE_COMPILE_TESTS += fence_ops_use_64bit_seqno
  NV_CONFTEST_TYPE_COMPILE_TESTS += drm_aperture_remove_conflicting_pci_framebuffers_has_driver_arg
 diff --git a/nvidia/nvidia.Kbuild b/nvidia/nvidia.Kbuild
-index 80c328eb..2a4131b9 100644
+index bce41f91..07339ae2 100644
 --- a/nvidia/nvidia.Kbuild
 +++ b/nvidia/nvidia.Kbuild
-@@ -194,6 +194,8 @@ NV_CONFTEST_FUNCTION_COMPILE_TESTS += mdev_set_iommu_device
- NV_CONFTEST_FUNCTION_COMPILE_TESTS += offline_and_remove_memory
+@@ -195,6 +195,8 @@ NV_CONFTEST_FUNCTION_COMPILE_TESTS += offline_and_remove_memory
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += stack_trace
  NV_CONFTEST_FUNCTION_COMPILE_TESTS += crypto_tfm_ctx_aligned
  NV_CONFTEST_FUNCTION_COMPILE_TESTS += module_import_ns_takes_string_literal
 +NV_CONFTEST_FUNCTION_COMPILE_TESTS += vma_flags_set_word
@@ -149,7 +149,7 @@ index 80c328eb..2a4131b9 100644
  
  NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_gpl_of_node_to_nid
  NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_gpl_sme_active
-@@ -254,7 +256,6 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += remove_memory_has_nid_arg
+@@ -257,7 +259,6 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += remove_memory_has_nid_arg
  NV_CONFTEST_TYPE_COMPILE_TESTS += add_memory_driver_managed_has_mhp_flags_arg
  NV_CONFTEST_TYPE_COMPILE_TESTS += num_registered_fb
  NV_CONFTEST_TYPE_COMPILE_TESTS += pci_driver_has_driver_managed_dma
