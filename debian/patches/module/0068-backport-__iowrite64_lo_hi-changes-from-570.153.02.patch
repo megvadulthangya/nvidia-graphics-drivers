@@ -18,10 +18,10 @@ index a31d0c5f..87a35c8e 100644
  NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present_migrate_vma_setup
 +NV_CONFTEST_SYMBOL_COMPILE_TESTS += is_export_symbol_present___iowrite64_lo_hi
 diff --git a/nvidia-uvm/uvm_ats_sva.c b/nvidia-uvm/uvm_ats_sva.c
-index d4b9e2c4..75bad496 100644
+index a1256f26..f33fab03 100644
 --- a/nvidia-uvm/uvm_ats_sva.c
 +++ b/nvidia-uvm/uvm_ats_sva.c
-@@ -139,7 +139,11 @@ NvU32 smmu_vcmdq_read32(void __iomem *smmu_cmdqv_base, int reg)
+@@ -139,7 +139,11 @@ static NvU32 smmu_vcmdq_read32(void __iomem *smmu_cmdqv_base, int reg)
  
  static void smmu_vcmdq_write64(void __iomem *smmu_cmdqv_base, int reg, NvU64 val)
  {

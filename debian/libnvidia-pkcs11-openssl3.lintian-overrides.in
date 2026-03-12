@@ -1,9 +1,6 @@
 # The NVIDIA license does not allow any form of modification.
 hardening-no-bindnow
 
-# Use wildcard instead of exact path substitution, this is a M-A: same package.
-library-not-linked-against-libc [usr/lib*/libnvidia-pkcs11-openssl3.so.#VERSION#]
-
 # The libnvidia-pkcs11-openssl3.so.* SONAME changes with every upstream
 # release.
 # These private libraries are only used (and usable) as plugins
