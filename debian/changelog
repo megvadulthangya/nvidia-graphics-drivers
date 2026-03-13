@@ -1,4 +1,4 @@
-nvidia-graphics-drivers (555.58.02-3) UNRELEASED; urgency=medium
+nvidia-graphics-drivers (555.58.02-3) experimental; urgency=medium
 
   * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
     nv_in_hardirq changes from 580.119.02 and vma_flags_set_word and
@@ -6,7 +6,7 @@ nvidia-graphics-drivers (555.58.02-3) UNRELEASED; urgency=medium
     build for Linux 6.19.
   * Bump Standards-Version to 4.7.3. No changes needed.
 
- -- Andreas Beckmann <anbe@debian.org>  Thu, 12 Mar 2026 01:23:37 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 13 Mar 2026 05:47:45 +0100
 
 nvidia-graphics-drivers (555.58.02-2) experimental; urgency=medium
 
