@@ -33,6 +33,11 @@ bashisms.patch
 0082-backport-for_each_-_crtc_in_state-changes-from-580.1.patch
 0083-support-fallback-for-for_each_-_crtc_in_state.patch
 
+# kernel 7.0 support
+0084-backport-vma-locking-changes-from-595.44.03.patch
+0085-fix-dma-fence-and-pahole-awk-shim-for-linux-7.0.patch
+0086-add-MODULE_DESCRIPTION.patch
+
 # build system updates
 conftest-verbose.patch
 use-kbuild-compiler.patch

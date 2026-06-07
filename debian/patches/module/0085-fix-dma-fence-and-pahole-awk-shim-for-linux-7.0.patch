@@ -1,0 +1,53 @@
+From 0000000000000000000000000000000000000002 Mon Sep 17 00:00:00 2001
+From: Dominique Belhachemi <domibel@debian.org>
+Date: Sun, 07 Jun 2026 10:50:36 -0400
+Subject: [PATCH] fix dma-fence void return and PAHOLE awk shim for Linux 7.0
+
+Kernel 7.0 changed dma_fence_signal() and dma_fence_signal_locked() from
+int to void.
+
+Kernel 7.0 replaced scripts/pahole-flags.sh with scripts/Makefile.btf
+and a new gen-btf.sh that invokes $PAHOLE directly.
+Maybe add it to 0062-Support-BTF-generation-for-non-release-builds.patch
+---
+--- a/Makefile	2026-06-06 15:22:14.734665167 -0400
++++ b/Makefile	2026-06-06 15:34:42.199977198 -0400
+@@ -95,6 +95,9 @@
+   # If scripts/pahole-flags.sh is not present in the kernel tree, add PAHOLE and
+   # PAHOLE_AWK_PROGRAM assignments to PAHOLE_VARIABLES; otherwise assign the
+   # empty string to PAHOLE_VARIABLES.
++  # Also check for scripts/Makefile.btf, which replaces pahole-flags.sh in 7.0+.
++  NV_KERNEL_PAHOLE_SCRIPT := $(or $(wildcard $(KERNEL_SOURCES)/scripts/pahole-flags.sh), \
++                                  $(wildcard $(KERNEL_SOURCES)/scripts/Makefile.btf))
+-  PAHOLE_VARIABLES=$(if $(wildcard $(KERNEL_SOURCES)/scripts/pahole-flags.sh),,"PAHOLE=$(AWK) '$(PAHOLE_AWK_PROGRAM)'")
++  PAHOLE_VARIABLES = $(if $(NV_KERNEL_PAHOLE_SCRIPT),,"PAHOLE=$(AWK) '$(PAHOLE_AWK_PROGRAM)'")
+ 
+   ifndef ARCH
+--- a/nvidia-drm/nvidia-dma-fence-helper.h	2025-04-08 08:08:05.000000000 -0400
++++ b/nvidia-drm/nvidia-dma-fence-helper.h	2026-06-06 15:34:42.196800051 -0400
+@@ -93,19 +93,19 @@
+ #endif
+ }
+
+-static inline int nv_dma_fence_signal(nv_dma_fence_t *fence) {
++static inline void nv_dma_fence_signal(nv_dma_fence_t *fence) {
+ #if defined(NV_LINUX_FENCE_H_PRESENT)
+-    return fence_signal(fence);
++    fence_signal(fence);
+ #else
+-    return dma_fence_signal(fence);
++    dma_fence_signal(fence);
+ #endif
+ }
+
+-static inline int nv_dma_fence_signal_locked(nv_dma_fence_t *fence) {
++static inline void nv_dma_fence_signal_locked(nv_dma_fence_t *fence) {
+ #if defined(NV_LINUX_FENCE_H_PRESENT)
+-    return fence_signal_locked(fence);
++    fence_signal_locked(fence);
+ #else
+-    return dma_fence_signal_locked(fence);
++    dma_fence_signal_locked(fence);
+ #endif
+ }
+

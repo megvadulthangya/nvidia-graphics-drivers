@@ -1,0 +1,50 @@
+From 0000000000000000000000000000000000000003 Mon Sep 17 00:00:00 2001
+From: Dominique Belhachemi <domibel@debian.org>
+Date: Sun, 07 Jun 2026 10:50:36 -0400
+Subject: [PATCH] add MODULE_DESCRIPTION to all kernel modules
+
+Forky uses CONFIG_MODULE_ALLOW_MISSING_MODULE_DESCRIPTION=n,
+causing modules without MODULE_DESCRIPTION to fail to load.
+
+Strings taken verbatim from open-gpu-kernel-modules 595.44.06:
+  https://github.com/NVIDIA/open-gpu-kernel-modules/commit/07dedd6f
+---
+--- a/nvidia/nv.c	2026-06-06 15:22:14.717161978 -0400
++++ b/nvidia/nv.c	2026-06-06 15:34:18.279603577 -0400
+@@ -113,6 +113,7 @@
+ #define RM_UNHANDLED_TIMEOUT_US          100000
+ 
+ MODULE_LICENSE("NVIDIA");
++MODULE_DESCRIPTION("NVIDIA core GPU kernel module");
+ 
+ MODULE_INFO(supported, "external");
+ MODULE_VERSION(NV_VERSION_STRING);
+--- a/nvidia-drm/nvidia-drm-linux.c	2025-04-08 08:08:01.000000000 -0400
++++ b/nvidia-drm/nvidia-drm-linux.c	2026-06-06 15:34:18.281194502 -0400
+@@ -61,6 +61,7 @@
+ module_exit(nv_linux_drm_exit);
+ 
+   MODULE_LICENSE("MIT");
++  MODULE_DESCRIPTION("NVIDIA DRM kernel module");
+ 
+ MODULE_INFO(supported, "external");
+ MODULE_VERSION(NV_VERSION_STRING);
+--- a/nvidia-modeset/nvidia-modeset-linux.c	2026-06-06 15:22:14.716848194 -0400
++++ b/nvidia-modeset/nvidia-modeset-linux.c	2026-06-06 15:34:18.282202308 -0400
+@@ -1843,6 +1843,7 @@
+ module_exit(nvkms_exit);
+ 
+   MODULE_LICENSE("NVIDIA");
++  MODULE_DESCRIPTION("NVIDIA modeset kernel module");
+ 
+ MODULE_INFO(supported, "external");
+ MODULE_VERSION(NV_VERSION_STRING);
+--- a/nvidia-uvm/uvm.c	2025-04-08 09:05:04.000000000 -0400
++++ b/nvidia-uvm/uvm.c	2026-06-06 15:34:18.283479730 -0400
+@@ -1193,5 +1193,6 @@
+ module_exit(uvm_exit_entry);
+ 
+ MODULE_LICENSE("Dual MIT/GPL");
++MODULE_DESCRIPTION("NVIDIA Unified Virtual Memory kernel module");
+ MODULE_INFO(supported, "external");
+ MODULE_VERSION(NV_VERSION_STRING);
