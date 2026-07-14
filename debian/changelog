@@ -1,3 +1,20 @@
+nvidia-graphics-drivers (550.163.01-5.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix kernel module build failures against Linux 7.0. (Closes: #1135362)
+  * Backport VMA locking changes from 595.44.03: rename VMA_LOCK_OFFSET to
+    VM_REFCNT_EXCLUDE_READERS_FLAG and add nv_is_vma_write_locked wrapper for
+    the dropped mm_lock_seq argument.
+  * Fix dma_fence_signal() and dma_fence_signal_locked() void return type for
+    Linux 7.0.
+  * Suppress PAHOLE awk shim when scripts/Makefile.btf is present: kernel 7.0
+    replaced pahole-flags.sh with gen-btf.sh, which invokes $PAHOLE in shell
+    context where the single-quoted awk program causes a parse error.
+  * Backport MODULE_DESCRIPTION additions from 595.44.06, required by
+    CONFIG_MODULE_ALLOW_MISSING_MODULE_DESCRIPTION=n in Forky.
+
+ -- Dominique Belhachemi <domibel@debian.org>  Thu, 11 Jun 2026 08:33:08 -0400
+
 nvidia-graphics-drivers (550.163.01-5) unstable; urgency=medium
 
   * Backport drm_print.h changes from 570.211.01, for_each_*_*_in_state and
