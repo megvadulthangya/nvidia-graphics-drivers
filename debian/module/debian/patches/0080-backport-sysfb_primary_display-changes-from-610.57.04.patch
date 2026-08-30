@@ -1,0 +1,108 @@
+From 4061b2850b65ec6fddb3d0f458be2353dd4697a6 Mon Sep 17 00:00:00 2001
+From: piernov <piernov@piernov.org>
+Date: Sun, 16 Aug 2026 23:21:31 +0200
+Subject: [PATCH] backport sysfb_primary_display changes from 610.57.04
+
+---
+ conftest.sh    |  1 +
+ nv-linux.h     |  9 +++++++++
+ nv.c           | 12 +++++++++++-
+ os-interface.c | 16 ++++++++++++----
+ 4 files changed, 33 insertions(+), 5 deletions(-)
+
+diff --git a/conftest.sh b/conftest.sh
+index 2328831..e0ea8f1 100644
+--- a/conftest.sh
++++ b/conftest.sh
+@@ -180,6 +180,7 @@ test_headers() {
+     FILES="$FILES linux/ktime.h"
+     FILES="$FILES linux/file.h"
+     FILES="$FILES linux/stdarg.h"
++    FILES="$FILES linux/sysfb.h"
+ 
+     FILES_ARCH="$FILES_ARCH asm/set_memory.h"
+     FILES_ARCH="$FILES_ARCH asm/pgtable_types.h"
+diff --git a/nv-linux.h b/nv-linux.h
+index e3a11bf..0c87871 100644
+--- a/nv-linux.h
++++ b/nv-linux.h
+@@ -171,6 +171,15 @@
+ #else
+ #include <linux/tty.h>              /* screen_info                      */
+ #endif
++#if defined(NV_LINUX_SYSFB_H_PRESENT)
++#include <linux/sysfb.h>            /* sysfb_primary_display            */
++#endif
++#endif
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(7, 0, 0)
++#define NV_IS_EXPORT_SYMBOL_PRESENT_sysfb_primary_display 1
++#else
++#define NV_IS_EXPORT_SYMBOL_PRESENT_sysfb_primary_display 0
+ #endif
+ 
+ #if !defined(CONFIG_PCI)
+diff --git a/nv.c b/nv.c
+index 7f84676..87f91f1 100644
+--- a/nv.c
++++ b/nv.c
+@@ -1225,6 +1225,10 @@ nvidia_open(
+ #if defined(NV_UVM_ENABLE) || defined(NV_UVM_NEXT_ENABLE)
+     NvU8 *uuid;    
+ #endif
++#if defined(NV_LINUX_SCREEN_INFO_H_PRESENT) || defined(NV_LINUX_SYSFB_H_PRESENT)
++    struct screen_info *sysfb_info;
++#endif
++
+     unsigned int i;
+     unsigned int k;
+ 
+@@ -1465,7 +1469,13 @@ nvidia_open(
+ #endif
+ #if !defined(NV_VMWARE) && \
+   (defined(NVCPU_X86) || defined(NVCPU_X86_64))
+-        if (nv->primary_vga && (screen_info.orig_video_isVGA != 0x01))
++#if NV_IS_EXPORT_SYMBOL_PRESENT_sysfb_primary_display
++        sysfb_info = &sysfb_primary_display.screen;
++#else
++        sysfb_info = &screen_info;
++#endif
++
++        if (nv->primary_vga && (sysfb_info->orig_video_isVGA != 0x01))
+         {
+             if (!nv_fbdev_failure_detected)
+             {
+diff --git a/os-interface.c b/os-interface.c
+index 445aa03..f8ad2b0 100644
+--- a/os-interface.c
++++ b/os-interface.c
+@@ -1146,14 +1146,22 @@ RM_STATUS NV_API_CALL os_get_efi_screen_info(
+ )
+ {
+ #if !defined(NV_VMWARE) && (defined(NVCPU_X86) || defined(NVCPU_X86_64))
++    struct screen_info *sysfb_info;
++
++#if NV_IS_EXPORT_SYMBOL_PRESENT_sysfb_primary_display
++    sysfb_info = &sysfb_primary_display.screen;
++#else
++    sysfb_info = &screen_info;
++#endif
++
+     if (NV_EFI_ENABLED())
+     {
+-        *pPhysicalAddress = screen_info.lfb_base;
++        *pPhysicalAddress = sysfb_info->lfb_base;
+ #if defined(VIDEO_CAPABILITY_64BIT_BASE)
+-        *pPhysicalAddress |= (NvU64)screen_info.ext_lfb_base << 32;
++        *pPhysicalAddress |= (NvU64)sysfb_info->ext_lfb_base << 32;
+ #endif
+-        *pHeight = screen_info.lfb_height;
+-        *pPitch = screen_info.lfb_linelength;
++        *pHeight = sysfb_info->lfb_height;
++        *pPitch = sysfb_info->lfb_linelength;
+         return RM_OK;
+     }
+ #endif
+-- 
+2.55.0
+
