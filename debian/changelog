@@ -1,3 +1,11 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-28) UNRELEASED; urgency=medium
+
+  * Backport nv_is_vma_write_locked changes from 595.58.03 and
+    sysfb_primary_display changes from 610.57.04 to fix kernel
+    module build for Linux 7.0.
+
+ -- piernov <piernov@piernov.org>  Sun, 30 Aug 2026 14:27:00 +0200
+
 nvidia-graphics-drivers-legacy-340xx (340.108-27) unstable; urgency=medium
 
   * Backport drm_print.h changes from 570.211.01, nv_in_hardirq changes from
