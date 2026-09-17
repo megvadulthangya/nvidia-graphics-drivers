@@ -111,6 +111,8 @@ source=("https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/${_pkg}.r
         'nvidia-340xx.rules'
         'series.resolved'
         # NOTE: Ezeket az XLibre már szállítja azonos tartalommal.
+        # Ha mégis vissza szeretnéd tenni, csak kommenteld ki az alábbi két sort,
+        # és a prepare() / package_nvidia-340xx-utils() megfelelő részeit.
         '10-nvidia.conf.in'
         '10-nvidia-modules.conf.in'
         '20-nvidia.conf'
@@ -118,8 +120,8 @@ source=("https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/${_pkg}.r
         "${_debian_patches[@]}"
 )
 
-# Fix fájlok: valós SHA256. A series.resolved és az összes patch: SKIP
-# (ezek gyakran változnak, updpkgsums-szel frissíthetők).
+# Fix fájlok: valós SHA256. A series.resolved és az összes patch: SKIP.
+# Új patch hozzáadásakor: futtasd az `updpkgsums`-et, és minden automatikusan frissül.
 sha256sums=('995d44fef587ff5284497a47a95d71adbee0c13020d615e940ac928f180f5b77'
             '9513f636c27d6ac06a3dd41f7761d2cf4fe8f1c91bb177fce3f333dd2b072713'
             '58cd86a93d72ffc017b2a2b92ff5a04ae5077499359507cb9917c7fc4bffcfef'
@@ -230,8 +232,12 @@ prepare() {
     #sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia.conf.in"
     #sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia-modules.conf.in"
 
-    # ---- Debian patch-sorozat alkalmazása a kernel/ könyvtárban ----
+    # ---- kernel/ könyvtár előkészítése ----
     cd kernel
+
+    # -----------------------------------------------------------------------
+    # 1. Debian patch-sorozat alkalmazása
+    # -----------------------------------------------------------------------
     echo ">>> Debian patch-sorozat alkalmazása (kernel/ könyvtárban)..."
 
     if [ ! -f "${srcdir}/series.resolved" ]; then
@@ -261,59 +267,62 @@ prepare() {
     echo ">>> Mind a $_n patch sikeresen alkalmazva."
 
     # -----------------------------------------------------------------------
-    # Debian build-stamp blob-előkészítés (use-nv-kernel-ARCH.o_binary.patch)
+    # 2. UVM conftest.sh helyettesítése a patchelt fő conftest.sh másolatával.
     #
-    # A Debian build a .run kibontása után az amd64 blobot átnevezi
-    # nv-kernel-amd64.o_binary-re:
-    #     mv kernel/nv-kernel.o kernel/nv-kernel-amd64.o_binary
-    # és törli az eredetit. A patchelt Makefile ezt várja:
-    #     CORE_OBJS-$(CONFIG_X86_64) += nv-kernel-amd64.o
-    #     $(obj)/$(CORE_OBJS): $(src)/$(CORE_OBJS-y)_binary
-    # Ha ezt kihagyjuk, a build "nv-kernel-amd64.o_binary not found" hibával
-    # elhasal.
+    # Az UVM saját, 2019-es conftest.sh-ja nem ismeri fel a modern kernel
+    # API-kat (kmem_cache_create 5 argumentummal, kuid_t, task_struct.euid),
+    # ezért `#error kmem_cache_create() conftest failed!`-dal elszáll.
+    #
+    # A Debian symlinket használ (ln -sf ../conftest.sh build/kernel/uvm), de
+    # ezt DKMS-en keresztül nem tudjuk megbízhatóan reprodukálni (a DKMS
+    # belső másolási lépései nem garantálják a symlink érvényben maradását
+    # a build tree-ben). Ezért TÉNYLEGES MÁSOLATOT készítünk, a patchek
+    # UTÁN, hogy a másolat már a patchelt tartalmat kapja.
+    # -----------------------------------------------------------------------
+    if [ -e uvm/conftest.sh ] && [ ! -L uvm/conftest.sh ]; then
+        rm -f uvm/conftest.sh
+    fi
+    cp -f conftest.sh uvm/conftest.sh
+
+    echo ">>> uvm/conftest.sh lecserélve a patchelt fő conftest.sh másolatára."
+    echo ">>> Ellenőrzés: hány 'NV_CONFTEST_H_' előfordulás van az UVM conftest.sh-ban:"
+    echo "    $(grep -c 'NV_CONFTEST_H_' uvm/conftest.sh || echo 0)"
+    echo ">>> (Várt érték: legalább 2 — ha 0, akkor a másolat NEM a patchelt verzió)"
+
+    # -----------------------------------------------------------------------
+    # 3. Debian build-stamp blob-előkészítés (use-nv-kernel-ARCH.o_binary.patch)
+    #
+    # A patchelt Makefile ezt várja:
+    #   CORE_OBJS-$(CONFIG_X86_64) += nv-kernel-amd64.o
+    #   $(obj)/$(CORE_OBJS): $(src)/$(CORE_OBJS-y)_binary
+    #
+    # MÁSOLATOT készítünk (nem mv-t), hogy a package_mhwd-nvidia-340xx()
+    # által olvasott kernel/nv-kernel.o is megmaradjon.
     # -----------------------------------------------------------------------
     if [ ! -f nv-kernel.o ]; then
         echo "!!! HIBA: hiányzik kernel/nv-kernel.o"
         exit 1
     fi
-    mv nv-kernel.o nv-kernel-amd64.o_binary
-    echo ">>> nv-kernel.o → nv-kernel-amd64.o_binary"
+    cp -f nv-kernel.o nv-kernel-amd64.o_binary
+    echo ">>> nv-kernel.o → nv-kernel-amd64.o_binary (másolat, az eredeti megmarad)"
 
     # -----------------------------------------------------------------------
-    # DKMS workaround: KERNELRELEASE semlegesítése a top-level make híváskor.
+    # 4. DKMS workaround: KERNELRELEASE semlegesítése a top-level make híváskor.
     #
     # A DKMS 3.x a top-level make híváskor beállítja a KERNELRELEASE-t:
     #   make -j2 KERNELRELEASE=6.x.y module KERNEL_UNAME=6.x.y
     #
     # A Debian patchelt nvidia-modules-common.mk a build logikát a
-    # KERNELRELEASE alapján kettéválasztja:
-    #   ifeq ($(KERNELRELEASE),)
-    #     modules: module
-    #     BUILD_MODULE_RULE = ...
-    #   endif
-    # Emiatt a BUILD_MODULE_RULE (és az nvidia.ko szabály) nem jön létre:
-    #   make: *** No rule to make target 'nvidia.ko', needed by 'module'. Stop.
+    # KERNELRELEASE alapján kettéválasztja. Ha M nincs beállítva (DKMS
+    # top-level hívás), ürítjük a KERNELRELEASE-t, így a Makefile-szekció
+    # (module, nvidia.ko, BUILD_MODULE_RULE) aktiválódik. A Kbuild belső
+    # hívásakor M be van állítva, ott minden marad.
     #
-    # Megoldás: a Makefile legelején, ha M nincs beállítva (DKMS top-level
-    # hívás), akkor a KERNELRELEASE-t ürítjük. A Kbuild belső hívásakor
-    # M be van állítva (KBUILD_PARAMS += -C ... M=$(PWD)), így ott a
-    # KERNELRELEASE érintetlen marad, és a Kbuild-szekció fut.
-    #
-    # Ez a 3 sor CSAK a Debian-féle Makefile-szekciót aktiválja, nem
-    # duplikálja. A Debian Makefile-szekció minden szükséges változót
-    # (KERNEL_SOURCES, KERNEL_OUTPUT, KBUILD_PARAMS, CONFTEST,
-    # BUILD_MODULE_RULE, modules: module) maga definiál.
+    # Ezt a log már validálta: a fő nvidia.ko sikeresen lefordult.
     # -----------------------------------------------------------------------
     {
         cat <<'EOF_HEADER'
 # --- DKMS workaround: KERNELRELEASE semlegesítése a top-level híváskor ---
-# A DKMS top-level make hívása beállítja a KERNELRELEASE-t, de az M
-# változót nem. A Debian patchelt nvidia-modules-common.mk a KERNELRELEASE
-# alapján dönti el, hogy a Makefile- vagy a Kbuild-szekciót futtatja.
-# Ha M nincs beállítva, DKMS top-level hívásban vagyunk: ürítjük a
-# KERNELRELEASE-t, így a Makefile-szekció (module, nvidia.ko,
-# BUILD_MODULE_RULE) aktiválódik. A Kbuild belső hívásakor M be van
-# állítva, ott minden marad.
 ifeq ($(M),)
   override KERNELRELEASE :=
 endif
@@ -324,10 +333,12 @@ EOF_HEADER
     mv Makefile.new Makefile
 
     echo ">>> DKMS workaround hozzáadva a kernel/Makefile tetejére."
-    echo ">>> Az első 15 sor:"
-    head -n 15 Makefile
+    echo ">>> Az első 10 sor:"
+    head -n 10 Makefile
 
-    # Prepare DKMS
+    # -----------------------------------------------------------------------
+    # 5. DKMS dkms.conf előkészítése
+    # -----------------------------------------------------------------------
     if ! grep -q "nvidia-uvm" dkms.conf; then
         cat uvm/dkms.conf.fragment >> dkms.conf
     fi
