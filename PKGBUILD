@@ -225,8 +225,9 @@ prepare() {
     cd "${_pkg}"
 
     # Prepare the Xorg config templates
-    sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia.conf.in"
-    sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia-modules.conf.in"
+    #commented out, couse test mashine has xlibre-xserver which already provides this files
+#    sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia.conf.in"
+#    sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia-modules.conf.in"
 
     # ---- Debian patch-sorozat alkalmazása a kernel/ könyvtárban ----
     cd kernel
@@ -396,8 +397,9 @@ package_nvidia-340xx-utils() {
     install -Dm644 NVIDIA_Changelog "${pkgdir}/usr/share/doc/nvidia/NVIDIA_Changelog"
     ln -s nvidia "${pkgdir}/usr/share/doc/nvidia-utils"
 
-    install -Dm644 "${srcdir}/10-nvidia.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia.conf"
-    install -Dm644 "${srcdir}/10-nvidia-modules.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia-modules.conf"
+#commented out couse in the test mashine has xlibre-xserver which already provide this files
+    #install -Dm644 "${srcdir}/10-nvidia.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia.conf"
+    #install -Dm644 "${srcdir}/10-nvidia-modules.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia-modules.conf"
 
     install -Dm644 "${srcdir}/20-nvidia.conf" "${pkgdir}/usr/share/nvidia-340xx/20-nvidia.conf"
 
