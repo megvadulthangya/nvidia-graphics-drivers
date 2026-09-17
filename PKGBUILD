@@ -118,7 +118,6 @@ source=("https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/${_pkg}.r
         "${_debian_patches[@]}"
 )
 
-# Ha bármelyik patch SHA256-ja eltér, futtasd: updpkgsums
 sha256sums=('995d44fef587ff5284497a47a95d71adbee0c13020d615e940ac928f180f5b77'
             '9513f636c27d6ac06a3dd41f7761d2cf4fe8f1c91bb177fce3f333dd2b072713'
             '58cd86a93d72ffc017b2a2b92ff5a04ae5077499359507cb9917c7fc4bffcfef'
@@ -259,12 +258,40 @@ prepare() {
 
     echo ">>> Mind a $_n patch sikeresen alkalmazva."
 
-    # Prepare DKMS
+    # -----------------------------------------------------------------------
+    # DKMS dkms.conf javítás
+    # -----------------------------------------------------------------------
+    # A patchelt nvidia-modules-common.mk szétválasztja a Makefile- és a
+    # Kbuild-fázist a $(KERNELRELEASE) változó alapján. A DKMS viszont a
+    # top-level make híváskor beállítja a KERNELRELEASE-t, ami miatt a
+    # BUILD_MODULE_RULE (és így az nvidia.ko szabály) nem jön létre:
+    #
+    #   make: *** No rule to make target 'nvidia.ko', needed by 'module'. Stop.
+    #
+    # A KERNELRELEASE-t Kbuild állítja be magától a belső hívásnál, ezért
+    # a top-level make-ből el kell távolítani.
+    #
+    # A minta: KERNELRELEASE=$kernelver  vagy  KERNELRELEASE=${kernelver}
+    # (a " ; " és a " karaktereket kizárjuk, hogy ne együnk túl sokat).
+    sed -i -E 's/[[:space:]]*KERNELRELEASE=[^[:space:]";]*//g' dkms.conf
+
+    # UVM blokk hozzáadása, ha még nincs
     if ! grep -q "nvidia-uvm" dkms.conf; then
         cat uvm/dkms.conf.fragment >> dkms.conf
     fi
-    sed -i "s/__JOBS/`nproc`/" dkms.conf
+
+    # párhuzamos fordfítás
+    sed -i "s/__JOBS/$(nproc)/" dkms.conf
+
+    # elavult DKMS direktíva nevek modernizálása
     sed -i -E 's/^([[:space:]]*)CLEAN/\1clean/' dkms.conf
+
+    # ---- diagnosztika: mutassuk meg a végleges dkms.conf-ot ----
+    echo ">>> Végleges dkms.conf:"
+    echo "----------------------------------------"
+    cat dkms.conf
+    echo "----------------------------------------"
+
     cd ..
 }
 
