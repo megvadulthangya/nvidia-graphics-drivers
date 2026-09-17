@@ -260,39 +260,67 @@ prepare() {
     echo ">>> Mind a $_n patch sikeresen alkalmazva."
 
     # -----------------------------------------------------------------------
-    # DKMS dkms.conf javítás
-    # -----------------------------------------------------------------------
-    # A patchelt nvidia-modules-common.mk szétválasztja a Makefile- és a
-    # Kbuild-fázist a $(KERNELRELEASE) változó alapján. A DKMS viszont a
-    # top-level make híváskor beállítja a KERNELRELEASE-t, ami miatt a
-    # BUILD_MODULE_RULE (és így az nvidia.ko szabály) nem jön létre:
+    # DKMS workaround: a DKMS 3.x a top-level make híváskor beállítja a
+    # KERNELRELEASE-t, ami miatt a Debian patchelt nvidia-modules-common.mk
+    # Makefile-szekciója (KERNEL_SOURCES, KERNEL_OUTPUT, CONFTEST,
+    # BUILD_MODULE_RULE, modules: module, all: install) nem jön létre.
     #
+    # A hivatalos hibaüzenet:
     #   make: *** No rule to make target 'nvidia.ko', needed by 'module'. Stop.
     #
-    # A KERNELRELEASE-t Kbuild állítja be magától a belső hívásnál, ezért
-    # a top-level make-ből el kell távolítani.
-    #
-    # A minta: KERNELRELEASE=$kernelver  vagy  KERNELRELEASE=${kernelver}
-    # (a " ; " és a " karaktereket kizárjuk, hogy ne együnk túl sokat).
-    sed -i -E 's/[[:space:]]*KERNELRELEASE=[^[:space:]";]*//g' dkms.conf
+    # A megoldás: a Makefile elejére beírjuk a szükséges változókat, a
+    # végére pedig a module/nvidia.ko célokat, közvetlenül a Kbuild-et
+    # hívva. A Kbuild belső hívásakor (KERNELRELEASE a kernel Makefile-től)
+    # a Debian patchek érvényesek, mert a saját wrappereink csak akkor
+    # aktívak, ha a KERNELRELEASE már a top-level hívásnál be van állítva.
+    # -----------------------------------------------------------------------
 
-    # UVM blokk hozzáadása, ha még nincs
+    # 1) A Makefile elejére: a KERNEL_SOURCES és társai definiálása
+    {
+        cat <<'EOF_HEADER'
+# --- DKMS workaround: header (a nvidia-modules-common.mk elé) ---
+# A DKMS 3.x a top-level make híváskor beállítja a KERNELRELEASE-t.
+# Emiatt a nvidia-modules-common.mk Makefile-szekciója nem fut le,
+# és a KERNEL_SOURCES / KERNEL_OUTPUT / CONFTEST változók definiálatlanok
+# maradnak. Itt pótoljuk őket.
+ifneq ($(KERNELRELEASE),)
+KERNEL_UNAME ?= $(shell uname -r)
+KERNEL_MODLIB := /lib/modules/$(KERNEL_UNAME)
+KERNEL_SOURCES := $(shell test -d $(KERNEL_MODLIB)/source && echo $(KERNEL_MODLIB)/source || echo $(KERNEL_MODLIB)/build)
+KERNEL_OUTPUT := $(KERNEL_SOURCES)
+endif
+# --- end DKMS workaround header ---
+EOF_HEADER
+        cat Makefile
+    } > Makefile.new
+    mv Makefile.new Makefile
+
+    # 2) A Makefile végére: a module és nvidia.ko célok
+    cat >> Makefile <<'EOF_TARGETS'
+
+# --- DKMS workaround: targets (a nvidia-modules-common.mk után) ---
+# A DKMS top-level hívásakor a BUILD_MODULE_RULE nem jön létre, ezért itt
+# definiáljuk a module és nvidia.ko célokat, közvetlenül a Kbuild-et hívva.
+ifneq ($(KERNELRELEASE),)
+modules: module
+module:
+    $(MAKE) -C $(KERNEL_SOURCES) M=$(PWD) modules
+$(MODULE_NAME).ko:
+    $(MAKE) -C $(KERNEL_SOURCES) M=$(PWD) modules
+endif
+# --- end DKMS workaround targets ---
+EOF_TARGETS
+
+    echo ">>> DKMS workaround hozzáadva a kernel/Makefile-hoz."
+    echo ">>> Az utolsó 15 sor:"
+    tail -n 15 Makefile
+
+    # Prepare DKMS
     if ! grep -q "nvidia-uvm" dkms.conf; then
         cat uvm/dkms.conf.fragment >> dkms.conf
     fi
-
-    # párhuzamos fordfítás
-    sed -i "s/__JOBS/$(nproc)/" dkms.conf
-
-    # elavult DKMS direktíva nevek modernizálása
+    sed -i "s/__JOBS/`nproc`/" dkms.conf
     sed -i -E 's/^([[:space:]]*)CLEAN/\1clean/' dkms.conf
-
-    # ---- diagnosztika: mutassuk meg a végleges dkms.conf-ot ----
-    echo ">>> Végleges dkms.conf:"
-    echo "----------------------------------------"
-    cat dkms.conf
-    echo "----------------------------------------"
-
     cd ..
 }
 
@@ -397,9 +425,9 @@ package_nvidia-340xx-utils() {
     install -Dm644 NVIDIA_Changelog "${pkgdir}/usr/share/doc/nvidia/NVIDIA_Changelog"
     ln -s nvidia "${pkgdir}/usr/share/doc/nvidia-utils"
 
-#commented out couse in the test mashine has xlibre-xserver which already provide this files
-    #install -Dm644 "${srcdir}/10-nvidia.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia.conf"
-    #install -Dm644 "${srcdir}/10-nvidia-modules.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia-modules.conf"
+#commented out, couse test mashine has xlibre-xserver which already provides this files
+#    install -Dm644 "${srcdir}/10-nvidia.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia.conf"
+#    install -Dm644 "${srcdir}/10-nvidia-modules.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia-modules.conf"
 
     install -Dm644 "${srcdir}/20-nvidia.conf" "${pkgdir}/usr/share/nvidia-340xx/20-nvidia.conf"
 
