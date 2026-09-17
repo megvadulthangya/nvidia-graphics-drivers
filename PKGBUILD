@@ -118,6 +118,8 @@ source=("https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/${_pkg}.r
         "${_debian_patches[@]}"
 )
 
+# Fix fájlok: valós SHA256. A series.resolved és az összes patch: SKIP
+# (ezek gyakran változnak, updpkgsums-szel frissíthetők).
 sha256sums=('995d44fef587ff5284497a47a95d71adbee0c13020d615e940ac928f180f5b77'
             '9513f636c27d6ac06a3dd41f7761d2cf4fe8f1c91bb177fce3f333dd2b072713'
             '58cd86a93d72ffc017b2a2b92ff5a04ae5077499359507cb9917c7fc4bffcfef'
@@ -225,9 +227,8 @@ prepare() {
     cd "${_pkg}"
 
     # Prepare the Xorg config templates
-    #commented out, couse test mashine has xlibre-xserver which already provides this files
-#    sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia.conf.in"
-#    sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia-modules.conf.in"
+    #sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia.conf.in"
+    #sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia-modules.conf.in"
 
     # ---- Debian patch-sorozat alkalmazása a kernel/ könyvtárban ----
     cd kernel
@@ -260,60 +261,71 @@ prepare() {
     echo ">>> Mind a $_n patch sikeresen alkalmazva."
 
     # -----------------------------------------------------------------------
-    # DKMS workaround: a DKMS 3.x a top-level make híváskor beállítja a
-    # KERNELRELEASE-t, ami miatt a Debian patchelt nvidia-modules-common.mk
-    # Makefile-szekciója (KERNEL_SOURCES, KERNEL_OUTPUT, CONFTEST,
-    # BUILD_MODULE_RULE, modules: module, all: install) nem jön létre.
+    # Debian build-stamp blob-előkészítés (use-nv-kernel-ARCH.o_binary.patch)
     #
-    # A hivatalos hibaüzenet:
+    # A Debian build a .run kibontása után az amd64 blobot átnevezi
+    # nv-kernel-amd64.o_binary-re:
+    #     mv kernel/nv-kernel.o kernel/nv-kernel-amd64.o_binary
+    # és törli az eredetit. A patchelt Makefile ezt várja:
+    #     CORE_OBJS-$(CONFIG_X86_64) += nv-kernel-amd64.o
+    #     $(obj)/$(CORE_OBJS): $(src)/$(CORE_OBJS-y)_binary
+    # Ha ezt kihagyjuk, a build "nv-kernel-amd64.o_binary not found" hibával
+    # elhasal.
+    # -----------------------------------------------------------------------
+    if [ ! -f nv-kernel.o ]; then
+        echo "!!! HIBA: hiányzik kernel/nv-kernel.o"
+        exit 1
+    fi
+    mv nv-kernel.o nv-kernel-amd64.o_binary
+    echo ">>> nv-kernel.o → nv-kernel-amd64.o_binary"
+
+    # -----------------------------------------------------------------------
+    # DKMS workaround: KERNELRELEASE semlegesítése a top-level make híváskor.
+    #
+    # A DKMS 3.x a top-level make híváskor beállítja a KERNELRELEASE-t:
+    #   make -j2 KERNELRELEASE=6.x.y module KERNEL_UNAME=6.x.y
+    #
+    # A Debian patchelt nvidia-modules-common.mk a build logikát a
+    # KERNELRELEASE alapján kettéválasztja:
+    #   ifeq ($(KERNELRELEASE),)
+    #     modules: module
+    #     BUILD_MODULE_RULE = ...
+    #   endif
+    # Emiatt a BUILD_MODULE_RULE (és az nvidia.ko szabály) nem jön létre:
     #   make: *** No rule to make target 'nvidia.ko', needed by 'module'. Stop.
     #
-    # A megoldás: a Makefile elejére beírjuk a szükséges változókat, a
-    # végére pedig a module/nvidia.ko célokat, közvetlenül a Kbuild-et
-    # hívva. A Kbuild belső hívásakor (KERNELRELEASE a kernel Makefile-től)
-    # a Debian patchek érvényesek, mert a saját wrappereink csak akkor
-    # aktívak, ha a KERNELRELEASE már a top-level hívásnál be van állítva.
+    # Megoldás: a Makefile legelején, ha M nincs beállítva (DKMS top-level
+    # hívás), akkor a KERNELRELEASE-t ürítjük. A Kbuild belső hívásakor
+    # M be van állítva (KBUILD_PARAMS += -C ... M=$(PWD)), így ott a
+    # KERNELRELEASE érintetlen marad, és a Kbuild-szekció fut.
+    #
+    # Ez a 3 sor CSAK a Debian-féle Makefile-szekciót aktiválja, nem
+    # duplikálja. A Debian Makefile-szekció minden szükséges változót
+    # (KERNEL_SOURCES, KERNEL_OUTPUT, KBUILD_PARAMS, CONFTEST,
+    # BUILD_MODULE_RULE, modules: module) maga definiál.
     # -----------------------------------------------------------------------
-
-    # 1) A Makefile elejére: a KERNEL_SOURCES és társai definiálása
     {
         cat <<'EOF_HEADER'
-# --- DKMS workaround: header (a nvidia-modules-common.mk elé) ---
-# A DKMS 3.x a top-level make híváskor beállítja a KERNELRELEASE-t.
-# Emiatt a nvidia-modules-common.mk Makefile-szekciója nem fut le,
-# és a KERNEL_SOURCES / KERNEL_OUTPUT / CONFTEST változók definiálatlanok
-# maradnak. Itt pótoljuk őket.
-ifneq ($(KERNELRELEASE),)
-KERNEL_UNAME ?= $(shell uname -r)
-KERNEL_MODLIB := /lib/modules/$(KERNEL_UNAME)
-KERNEL_SOURCES := $(shell test -d $(KERNEL_MODLIB)/source && echo $(KERNEL_MODLIB)/source || echo $(KERNEL_MODLIB)/build)
-KERNEL_OUTPUT := $(KERNEL_SOURCES)
+# --- DKMS workaround: KERNELRELEASE semlegesítése a top-level híváskor ---
+# A DKMS top-level make hívása beállítja a KERNELRELEASE-t, de az M
+# változót nem. A Debian patchelt nvidia-modules-common.mk a KERNELRELEASE
+# alapján dönti el, hogy a Makefile- vagy a Kbuild-szekciót futtatja.
+# Ha M nincs beállítva, DKMS top-level hívásban vagyunk: ürítjük a
+# KERNELRELEASE-t, így a Makefile-szekció (module, nvidia.ko,
+# BUILD_MODULE_RULE) aktiválódik. A Kbuild belső hívásakor M be van
+# állítva, ott minden marad.
+ifeq ($(M),)
+  override KERNELRELEASE :=
 endif
-# --- end DKMS workaround header ---
+# --- end DKMS workaround ---
 EOF_HEADER
         cat Makefile
     } > Makefile.new
     mv Makefile.new Makefile
 
-    # 2) A Makefile végére: a module és nvidia.ko célok
-    cat >> Makefile <<'EOF_TARGETS'
-
-# --- DKMS workaround: targets (a nvidia-modules-common.mk után) ---
-# A DKMS top-level hívásakor a BUILD_MODULE_RULE nem jön létre, ezért itt
-# definiáljuk a module és nvidia.ko célokat, közvetlenül a Kbuild-et hívva.
-ifneq ($(KERNELRELEASE),)
-modules: module
-module:
-    $(MAKE) -C $(KERNEL_SOURCES) M=$(PWD) modules
-$(MODULE_NAME).ko:
-    $(MAKE) -C $(KERNEL_SOURCES) M=$(PWD) modules
-endif
-# --- end DKMS workaround targets ---
-EOF_TARGETS
-
-    echo ">>> DKMS workaround hozzáadva a kernel/Makefile-hoz."
-    echo ">>> Az utolsó 15 sor:"
-    tail -n 15 Makefile
+    echo ">>> DKMS workaround hozzáadva a kernel/Makefile tetejére."
+    echo ">>> Az első 15 sor:"
+    head -n 15 Makefile
 
     # Prepare DKMS
     if ! grep -q "nvidia-uvm" dkms.conf; then
@@ -425,9 +437,8 @@ package_nvidia-340xx-utils() {
     install -Dm644 NVIDIA_Changelog "${pkgdir}/usr/share/doc/nvidia/NVIDIA_Changelog"
     ln -s nvidia "${pkgdir}/usr/share/doc/nvidia-utils"
 
-#commented out, couse test mashine has xlibre-xserver which already provides this files
-#    install -Dm644 "${srcdir}/10-nvidia.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia.conf"
-#    install -Dm644 "${srcdir}/10-nvidia-modules.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia-modules.conf"
+    #install -Dm644 "${srcdir}/10-nvidia.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia.conf"
+    #install -Dm644 "${srcdir}/10-nvidia-modules.conf.in" "${pkgdir}/usr/share/X11/xorg.conf.d/10-nvidia-modules.conf"
 
     install -Dm644 "${srcdir}/20-nvidia.conf" "${pkgdir}/usr/share/nvidia-340xx/20-nvidia.conf"
 
