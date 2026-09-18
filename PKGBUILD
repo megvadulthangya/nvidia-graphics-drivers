@@ -110,18 +110,12 @@ source=("https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/${_pkg}.r
         'nvidia-utils.sysusers'
         'nvidia-340xx.rules'
         'series.resolved'
-        # NOTE: Ezeket az XLibre már szállítja azonos tartalommal.
-        # Ha mégis vissza szeretnéd tenni, csak kommenteld ki az alábbi két sort,
-        # és a prepare() / package_nvidia-340xx-utils() megfelelő részeit.
         '10-nvidia.conf.in'
         '10-nvidia-modules.conf.in'
         '20-nvidia.conf'
-        # Debian patch-sorozat (81 db, a series.resolved-dal egyező sorrendben)
         "${_debian_patches[@]}"
 )
 
-# Fix fájlok: valós SHA256. A series.resolved és az összes patch: SKIP.
-# Új patch hozzáadásakor: futtasd az `updpkgsums`-et, és minden automatikusan frissül.
 sha256sums=('995d44fef587ff5284497a47a95d71adbee0c13020d615e940ac928f180f5b77'
             '9513f636c27d6ac06a3dd41f7761d2cf4fe8f1c91bb177fce3f333dd2b072713'
             '58cd86a93d72ffc017b2a2b92ff5a04ae5077499359507cb9917c7fc4bffcfef'
@@ -228,11 +222,9 @@ prepare() {
 
     cd "${_pkg}"
 
-    # Prepare the Xorg config templates
     #sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia.conf.in"
     #sed -i 's|/usr/libLIBDIRSUFFIX|/usr/lib|g' "${srcdir}/10-nvidia-modules.conf.in"
 
-    # ---- kernel/ könyvtár előkészítése ----
     cd kernel
 
     # -----------------------------------------------------------------------
@@ -267,17 +259,13 @@ prepare() {
     echo ">>> Mind a $_n patch sikeresen alkalmazva."
 
     # -----------------------------------------------------------------------
-    # 2. UVM conftest.sh helyettesítése a patchelt fő conftest.sh másolatával.
+    # 2. UVM conftest.sh lecserélése a patchelt fő conftest.sh másolatára.
     #
     # Az UVM saját, 2019-es conftest.sh-ja nem ismeri fel a modern kernel
-    # API-kat (kmem_cache_create 5 argumentummal, kuid_t, task_struct.euid),
-    # ezért `#error kmem_cache_create() conftest failed!`-dal elszáll.
-    #
-    # A Debian symlinket használ (ln -sf ../conftest.sh build/kernel/uvm), de
-    # ezt DKMS-en keresztül nem tudjuk megbízhatóan reprodukálni (a DKMS
-    # belső másolási lépései nem garantálják a symlink érvényben maradását
-    # a build tree-ben). Ezért TÉNYLEGES MÁSOLATOT készítünk, a patchek
-    # UTÁN, hogy a másolat már a patchelt tartalmat kapja.
+    # API-kat (kmem_cache_create 5 argumentummal, kuid_t, task_struct.euid).
+    # A Debian symlinket használ, de a DKMS belső másolásai miatt a symlink
+    # nem érvényesül megbízhatóan. Ezért TÉNYLEGES MÁSOLATOT készítünk,
+    # a patchek UTÁN, hogy a másolat már a patchelt tartalmat kapja.
     # -----------------------------------------------------------------------
     if [ -e uvm/conftest.sh ] && [ ! -L uvm/conftest.sh ]; then
         rm -f uvm/conftest.sh
@@ -285,26 +273,43 @@ prepare() {
     cp -f conftest.sh uvm/conftest.sh
 
     echo ">>> uvm/conftest.sh lecserélve a patchelt fő conftest.sh másolatára."
-    echo ">>> Ellenőrzés: hány 'NV_CONFTEST_H_' előfordulás van az UVM conftest.sh-ban:"
+    echo ">>> 'NV_CONFTEST_H_' előfordulások száma:"
     echo "    $(grep -c 'NV_CONFTEST_H_' uvm/conftest.sh || echo 0)"
-    echo ">>> (Várt érték: legalább 2 — ha 0, akkor a másolat NEM a patchelt verzió)"
 
     # -----------------------------------------------------------------------
-    # 3. Debian build-stamp blob-előkészítés (use-nv-kernel-ARCH.o_binary.patch)
+    # 3. Debian build-stamp blob-előkészítés.
     #
-    # A patchelt Makefile ezt várja:
-    #   CORE_OBJS-$(CONFIG_X86_64) += nv-kernel-amd64.o
-    #   $(obj)/$(CORE_OBJS): $(src)/$(CORE_OBJS-y)_binary
+    # A Debian build-stamp a következőt csinálja:
+    #     $(RM) build/kernel/nv-kernel.o
+    #     cp -al NVIDIA-Linux-$a/kernel/nv-kernel.o \
+    #              build/kernel/nv-kernel-$a.o_binary
     #
-    # MÁSOLATOT készítünk (nem mv-t), hogy a package_mhwd-nvidia-340xx()
-    # által olvasott kernel/nv-kernel.o is megmaradjon.
+    # Vagyis az eredeti nv-kernel.o-t ELTÁVOLÍTJA, és csak az
+    # arch-specifikus .o_binary marad. Ez azért kritikus, mert a
+    # use-nv-kernel-ARCH.o_binary.patch az alábbi szabályt hozza létre:
+    #
+    #     $(obj)/$(CORE_OBJS): $(src)/$(CORE_OBJS-y)_binary
+    #             $(call if_changed,symlink)
+    #
+    # Az if_changed csak akkor futtatja a receptet (és írja a
+    # .nv-kernel.o.cmd-t), ha a cél NEM létezik, VAGY a prerequisite
+    # újabb, VAGY a parancs eltér, VAGY FORCE van a prerequisite-ek
+    # között. Ha a target (nv-kernel.o) már létezik és nem elavult,
+    # a recept kimarad, és a .cmd fájl nem jön létre. A modpost
+    # fázisban ez a következőt okozza:
+    #     .nv-kernel.o.cmd: No such file or directory
+    #     make[2]: *** [scripts/Makefile.modpost:127: .../Module.symvers] Error 1
+    #
+    # Ezért a Debian mintájára az eredeti nv-kernel.o-t ELTÁVOLÍTJUK
+    # (mv-vel átnevezzük), így a DKMS build során a target hiányzik,
+    # és a recept garantáltan lefut.
     # -----------------------------------------------------------------------
     if [ ! -f nv-kernel.o ]; then
         echo "!!! HIBA: hiányzik kernel/nv-kernel.o"
         exit 1
     fi
-    cp -f nv-kernel.o nv-kernel-amd64.o_binary
-    echo ">>> nv-kernel.o → nv-kernel-amd64.o_binary (másolat, az eredeti megmarad)"
+    mv -f nv-kernel.o nv-kernel-amd64.o_binary
+    echo ">>> nv-kernel.o → nv-kernel-amd64.o_binary (átnevezve, Debian build-stamp szerint)"
 
     # -----------------------------------------------------------------------
     # 4. DKMS workaround: KERNELRELEASE semlegesítése a top-level make híváskor.
@@ -317,8 +322,6 @@ prepare() {
     # top-level hívás), ürítjük a KERNELRELEASE-t, így a Makefile-szekció
     # (module, nvidia.ko, BUILD_MODULE_RULE) aktiválódik. A Kbuild belső
     # hívásakor M be van állítva, ott minden marad.
-    #
-    # Ezt a log már validálta: a fő nvidia.ko sikeresen lefordult.
     # -----------------------------------------------------------------------
     {
         cat <<'EOF_HEADER'
@@ -333,8 +336,6 @@ EOF_HEADER
     mv Makefile.new Makefile
 
     echo ">>> DKMS workaround hozzáadva a kernel/Makefile tetejére."
-    echo ">>> Az első 10 sor:"
-    head -n 10 Makefile
 
     # -----------------------------------------------------------------------
     # 5. DKMS dkms.conf előkészítése
@@ -472,8 +473,12 @@ package_mhwd-nvidia-340xx() {
 
     install -d -m755 "${pkgdir}/var/lib/mhwd/ids/pci/"
 
+    # A Debian build-stamp mintájára az eredeti nv-kernel.o-t a prepare()
+    # átnevezte nv-kernel-amd64.o_binary-re. A blob tartalma azonos, így
+    # az mhwd-nvidia script ugyanúgy ki tudja olvasni belőle a támogatott
+    # PCI ID-kat.
     sh -e ${srcdir}/mhwd-nvidia \
         ${srcdir}/${_pkg}/README.txt \
-        ${srcdir}/${_pkg}/kernel/nv-kernel.o \
+        ${srcdir}/${_pkg}/kernel/nv-kernel-amd64.o_binary \
         > ${pkgdir}/var/lib/mhwd/ids/pci/nvidia-340xx.ids
 }
