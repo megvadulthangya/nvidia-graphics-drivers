@@ -1,10 +1,11 @@
-nvidia-graphics-drivers-legacy-390xx (390.157-16) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-390xx (390.157-16) unstable; urgency=medium
 
   * Backport drm_atomic_commit_struct_present changes from 580.173.02 and
     strncpy changes from 580.178.04 to fix kernel module build for Linux 7.2.
   * Backport is_vma_write_locked_has_mm_lock_seq_arg changes from 580.142,
     screen_info changes from 450.51 and 470.239.06 and dma_fence_signal
     changes from 535.309.01 to fix kernel module build for Linux 7.0.
+    (Closes: #1136771, #1135762)
 
  -- Andreas Beckmann <anbe@debian.org>  Mon, 28 Sep 2026 21:28:25 +0200
 
