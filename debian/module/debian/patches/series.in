@@ -69,6 +69,8 @@ do-div-cast.patch
 0087-backport-drm_atomic_commit_struct_present-changes-fr.patch
 0088-backport-strncpy-changes-from-580.178.04.patch
 #HAS_UVM#0089-backport-strncpy-changes-from-580.178.04-uvm-part.patch
+0090-backport-MODULE_DESCRIPTION-changes-from-580.159.03.patch
+#HAS_UVM#0091-backport-MODULE_DESCRIPTION-changes-from-580.159.03-.patch
 
 # build system updates
 conftest-verbose.patch
