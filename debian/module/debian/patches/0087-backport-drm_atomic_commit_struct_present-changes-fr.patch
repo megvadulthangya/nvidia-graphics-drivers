@@ -5,13 +5,13 @@ Subject: [PATCH] backport drm_atomic_commit_struct_present changes from
  580.173.02
 
 ---
- conftest.sh                     | 26 ++++++++++
- nvidia-drm/nvidia-drm-crtc.c    | 12 ++---
- nvidia-drm/nvidia-drm-helper.c  | 11 +++--
- nvidia-drm/nvidia-drm-helper.h  | 86 +++++++++++++++++++++++++++++++++
- nvidia-drm/nvidia-drm-modeset.c | 26 +++++-----
- nvidia-drm/nvidia-drm-modeset.h | 13 ++---
- nvidia-drm/nvidia-drm.Kbuild    |  1 +
+ conftest.sh                       | 26 ++++++++++
+ nvidia-drm/nvidia-drm-crtc.c      | 12 ++---
+ nvidia-drm/nvidia-drm-helper.c    | 11 +++--
+ nvidia-drm/nvidia-drm-helper.h    | 86 +++++++++++++++++++++++++++++++++
+ nvidia-drm/nvidia-drm-modeset.c   | 26 +++++-----
+ nvidia-drm/nvidia-drm-modeset.h   | 13 ++---
+ nvidia-drm/nvidia-drm.Kbuild      |  1 +
  7 files changed, 146 insertions(+), 29 deletions(-)
 
 diff --git a/conftest.sh b/conftest.sh
