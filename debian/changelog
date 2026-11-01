@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-28) UNRELEASED; urgency=medium
+
+  * Backport is_vma_write_locked_has_mm_lock_seq_arg changes from 580.142 and
+    screen_info changes from 450.51 to fix kernel module build for Linux 7.0.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 01 Nov 2026 09:26:30 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.108-27) unstable; urgency=medium
 
   * Backport drm_print.h changes from 570.211.01, nv_in_hardirq changes from
