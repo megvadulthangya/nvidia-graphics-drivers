@@ -138,6 +138,9 @@ nvidia-graphics-drivers (340.108-1~git4deb8jessie) UNRELEASED; urgency=medium
 
 nvidia-graphics-drivers (340.108-2) UNRELEASED; urgency=medium
 
+  * Backport acpi changes from 430.09 and 510.85.02 to fix kernel module build
+    for Linux 7.3.
+
   * Backport is_vma_write_locked_has_mm_lock_seq_arg changes from 580.142 and
     screen_info changes from 450.51 to fix kernel module build for Linux 7.0.
 
