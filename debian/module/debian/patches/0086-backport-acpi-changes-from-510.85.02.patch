@@ -1,20 +1,20 @@
-From 4513da8ac9430da2544ec4ad1afb60e88356de55 Mon Sep 17 00:00:00 2001
+From a70e2c47c4502c55b2570f1d6b153563ee4bb299 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Tue, 18 Oct 2022 22:32:41 +0200
 Subject: [PATCH] backport acpi changes from 510.85.02
 
 ---
- nv-linux.h |  11 --
- nv-proto.h |   3 -
- nv-acpi.c  | 433 -----------------------------------------------------
- nv.c       |  16 --
- 4 files changed, 463 deletions(-)
+ common/inc/nv-linux.h |  12 --
+ common/inc/nv-proto.h |   3 -
+ nvidia/nv-acpi.c      | 439 ------------------------------------------
+ nvidia/nv.c           |  16 --
+ 4 files changed, 470 deletions(-)
 
-diff --git a/nv-linux.h b/nv-linux.h
-index 27d9e537..3e91fc73 100644
---- a/nv-linux.h
-+++ b/nv-linux.h
-@@ -1762,23 +1762,12 @@ typedef struct nv_linux_state_s {
+diff --git a/common/inc/nv-linux.h b/common/inc/nv-linux.h
+index b39a6e1c..d3f2d2be 100644
+--- a/common/inc/nv-linux.h
++++ b/common/inc/nv-linux.h
+@@ -1650,24 +1650,12 @@ extern struct semaphore nv_linux_devices_lock;
   * and any other baggage we want to carry along
   *
   */
@@ -25,11 +25,12 @@ index 27d9e537..3e91fc73 100644
 -    acpi_handle dev_handle;
 -    int dev_id;
 -} nv_video_t;
- 
+-
  typedef struct
  {
-     nv_stack_t *sp;
+     nvidia_stack_t *sp;
      struct acpi_device *device;
+     struct acpi_handle *handle;
 -
 -    nv_video_t pNvVideo[NV_MAXNUM_DISPLAY_DEVICES];
 -
@@ -38,13 +39,13 @@ index 27d9e537..3e91fc73 100644
  } nv_acpi_t;
  
  #endif
-diff --git a/nv-proto.h b/nv-proto.h
-index bf1d9b66..020b5722 100644
---- a/nv-proto.h
-+++ b/nv-proto.h
-@@ -11,9 +11,6 @@
- #ifndef _NV_PROTO_H_
- #define _NV_PROTO_H_
+diff --git a/common/inc/nv-proto.h b/common/inc/nv-proto.h
+index 4bc6815c..d61134e6 100644
+--- a/common/inc/nv-proto.h
++++ b/common/inc/nv-proto.h
+@@ -13,9 +13,6 @@
+ 
+ #include "nv-misc.h"
  
 -int         nv_acpi_init                (void);
 -int         nv_acpi_uninit              (void);
@@ -52,13 +53,13 @@ index bf1d9b66..020b5722 100644
  #if !defined(NV_IRQ_HANDLER_T_PRESENT) || (NV_IRQ_HANDLER_T_ARGUMENT_COUNT == 3)
  irqreturn_t nv_gvi_kern_isr             (int, void *, struct pt_regs *);
  #else
-diff --git a/nv-acpi.c b/nv-acpi.c
-index b28911d4..110ba3f9 100644
---- a/nv-acpi.c
-+++ b/nv-acpi.c
-@@ -21,17 +21,6 @@ static RM_STATUS   nv_acpi_extract_buffer  (const union acpi_object *, void *, N
- static RM_STATUS   nv_acpi_extract_package (const union acpi_object *, void *, NvU32, NvU32 *);
- static RM_STATUS   nv_acpi_extract_object  (const union acpi_object *, void *, NvU32, NvU32 *);
+diff --git a/nvidia/nv-acpi.c b/nvidia/nv-acpi.c
+index ea7f8350..80d874bd 100644
+--- a/nvidia/nv-acpi.c
++++ b/nvidia/nv-acpi.c
+@@ -21,17 +21,6 @@ static NV_STATUS   nv_acpi_extract_buffer  (const union acpi_object *, void *, N
+ static NV_STATUS   nv_acpi_extract_package (const union acpi_object *, void *, NvU32, NvU32 *);
+ static NV_STATUS   nv_acpi_extract_object  (const union acpi_object *, void *, NvU32, NvU32 *);
  
 -static int         nv_acpi_add             (struct acpi_device *);
 -
@@ -72,11 +73,11 @@ index b28911d4..110ba3f9 100644
 -
 -static void        nv_acpi_event           (acpi_handle, u32, void *);
  static acpi_status nv_acpi_find_methods    (acpi_handle, u32, void *, void **);
- static RM_STATUS   nv_acpi_nvif_method     (NvU32, NvU32, void *, NvU16, NvU32 *, void *, NvU16 *);
+ static NV_STATUS   nv_acpi_nvif_method     (NvU32, NvU32, void *, NvU16, NvU32 *, void *, NvU16 *);
  
-@@ -39,34 +28,11 @@ static RM_STATUS   nv_acpi_wmmx_method     (NvU32, NvU8 *, NvU16 *);
- static RM_STATUS   nv_acpi_mxmi_method     (NvU8 *, NvU16 *);
- static RM_STATUS   nv_acpi_mxms_method     (NvU8 *, NvU16 *);
+@@ -39,34 +28,11 @@ static NV_STATUS   nv_acpi_wmmx_method     (NvU32, NvU8 *, NvU16 *);
+ static NV_STATUS   nv_acpi_mxmi_method     (NvU8 *, NvU16 *);
+ static NV_STATUS   nv_acpi_mxms_method     (NvU8 *, NvU16 *);
  
 -static const struct acpi_device_id nv_video_device_ids[] = {
 -    { 
@@ -109,9 +110,9 @@ index b28911d4..110ba3f9 100644
  static int nv_acpi_get_device_handle(nv_state_t *nv, acpi_handle *dev_handle)
  {
      nv_linux_state_t *nvl = NV_GET_NVL_FROM_NV_STATE(nv);
-@@ -82,348 +48,6 @@ static int nv_acpi_get_device_handle(nv_state_t *nv, acpi_handle *dev_handle)
+@@ -112,355 +78,6 @@ struct notifier_block acpi_nb = {
+ };
  #endif
- }
  
 -int nv_acpi_init(void)
 -{
@@ -120,22 +121,21 @@ index b28911d4..110ba3f9 100644
 -     * ACPI subsystem.
 -     */
 -    int status;
--    nv_stack_t *sp = NULL;
+-    nvidia_stack_t *sp = NULL;
 -    NvU32 acpi_event_config = 0;
--    RM_STATUS rmStatus;
--    
--    NV_KMEM_CACHE_ALLOC_STACK(sp);
--    if (sp == NULL)
+-    NV_STATUS rmStatus;
+-
+-    status = nv_kmem_cache_alloc_stack(&sp);
+-    if (status != 0)
 -    {
--        nv_printf(NV_DBG_ERRORS, "NVRM: failed to allocate stack!\n");
--        return -ENOMEM;
+-        return status;
 -    }
 -
 -    rmStatus = rm_read_registry_dword(sp, NULL, "NVreg",
 -                   NV_REG_REGISTER_FOR_ACPI_EVENTS, &acpi_event_config);
--    NV_KMEM_CACHE_FREE_STACK(sp);
--  
--    if ((rmStatus == RM_OK) && (acpi_event_config == 0))
+-    nv_kmem_cache_free_stack(sp);
+-
+-    if ((rmStatus == NV_OK) && (acpi_event_config == 0))
 -        return 0;
 -
 -    if (nv_acpi_driver != NULL)
@@ -143,7 +143,7 @@ index b28911d4..110ba3f9 100644
 -
 -    rmStatus = os_alloc_mem((void **)&nv_acpi_driver,
 -            sizeof(struct acpi_driver));
--    if (rmStatus != RM_OK)
+-    if (rmStatus != NV_OK)
 -        return -ENOMEM;
 -
 -    memcpy((void *)nv_acpi_driver, (void *)&nv_acpi_driver_template,
@@ -158,27 +158,35 @@ index b28911d4..110ba3f9 100644
 -        nv_acpi_driver = NULL;
 -    }
 -
+-#if defined(NV_REGISTER_ACPI_NOTIFER_PRESENT)
+-    register_acpi_notifier(&acpi_nb);
+-#endif
+-
 -    return status;
 -}
 -
 -int nv_acpi_uninit(void)
 -{
--    nv_stack_t *sp = NULL;
+-    nvidia_stack_t *sp = NULL;
 -    NvU32 acpi_event_config = 0;
--    RM_STATUS rmStatus;
--    
--    NV_KMEM_CACHE_ALLOC_STACK(sp);
--    if (sp == NULL)
+-    NV_STATUS rmStatus;
+-    int rc;
+-
+-#if defined(NV_REGISTER_ACPI_NOTIFER_PRESENT)
+-    unregister_acpi_notifier(&acpi_nb);
+-#endif
+-
+-    rc = nv_kmem_cache_alloc_stack(&sp);
+-    if (rc != 0)
 -    {
--        nv_printf(NV_DBG_ERRORS, "NVRM: failed to allocate stack!\n");
--        return -ENOMEM;
+-        return rc;
 -    }
 -
 -    rmStatus = rm_read_registry_dword(sp, NULL, "NVreg",
 -                   NV_REG_REGISTER_FOR_ACPI_EVENTS, &acpi_event_config);
--    NV_KMEM_CACHE_FREE_STACK(sp);
+-    nv_kmem_cache_free_stack(sp);
 -  
--    if ((rmStatus == RM_OK) && (acpi_event_config == 0))
+-    if ((rmStatus == NV_OK) && (acpi_event_config == 0))
 -        return 0;
 -
 -    if (nv_acpi_driver == NULL)
@@ -199,27 +207,26 @@ index b28911d4..110ba3f9 100644
 -     * on the display device.
 -     */
 -    int status = -1;
--    RM_STATUS rmStatus = RM_ERROR;
+-    NV_STATUS rmStatus = NV_ERR_GENERIC;
 -    nv_acpi_t *pNvAcpiObject = NULL;
 -    union acpi_object control_argument_0 = { ACPI_TYPE_INTEGER };
 -    struct acpi_object_list control_argument_list = { 0, NULL };
--    nv_stack_t *sp = NULL;
+-    nvidia_stack_t *sp = NULL;
 -    unsigned long long device_id = 0;
 -    int device_counter = 0;
 -    acpi_handle handle = NULL;
 -
--    NV_KMEM_CACHE_ALLOC_STACK(sp);
--    if (sp == NULL)
+-    status = nv_kmem_cache_alloc_stack(&sp);
+-    if (status != 0)
 -    {
--        nv_printf(NV_DBG_ERRORS, "NVRM: failed to allocate stack!\n");
--        return -ENOMEM;
+-        return status;
 -    }
 -
 -    // allocate data structure we need
 -    rmStatus = os_alloc_mem((void **) &pNvAcpiObject, sizeof(nv_acpi_t));
--    if (rmStatus != RM_OK)
+-    if (rmStatus != NV_OK)
 -    {
--        NV_KMEM_CACHE_FREE_STACK(sp);
+-        nv_kmem_cache_free_stack(sp);
 -        nv_printf(NV_DBG_ERRORS,
 -            "NVRM: nv_acpi_add: failed to allocate ACPI device management data!\n");
 -        return -ENOMEM;
@@ -359,7 +366,7 @@ index b28911d4..110ba3f9 100644
 -    }
 -    else
 -    {
--        NV_KMEM_CACHE_FREE_STACK(pNvAcpiObject->sp);
+-        nv_kmem_cache_free_stack(pNvAcpiObject->sp);
 -        os_free_mem((void *)pNvAcpiObject);
 -        module_put(THIS_MODULE);
 -        device->driver_data = NULL;
@@ -455,27 +462,27 @@ index b28911d4..110ba3f9 100644
 -    // once we are subscribed to ACPI events, we don't have to re-subscribe unless
 -    // unsubscribe.
 -}
- 
+-
  /* Do the necessary allocations and install notifier "handler" on the device-node "device" */
- static RM_STATUS nv_install_notifier(struct acpi_device *device, acpi_notify_handler handler)
-@@ -515,13 +139,6 @@ static void nv_uninstall_notifier(struct acpi_device *device, acpi_notify_handle
+ static NV_STATUS nv_install_notifier(struct acpi_handle *handle, acpi_notify_handler handler)
+ {        
+@@ -543,12 +160,6 @@ static void nv_uninstall_notifier(struct acpi_device *device, acpi_notify_handle
  
  void NV_API_CALL nv_acpi_methods_init(NvU32 *handlesPresent)
  {
 -#if defined(NV_ACPI_BUS_GET_DEVICE_PRESENT)
 -    struct acpi_device *device = NULL;
--    RM_STATUS rmStatus;
+-    NV_STATUS rmStatus;
 -    int retVal = -1;
 -#endif
--
 -
      if (!handlesPresent) // Caller passed us invalid pointer.
          return;
  
-@@ -535,28 +152,6 @@ void NV_API_CALL nv_acpi_methods_init(NvU32 *handlesPresent)
-     if (nvif_handle)
+@@ -561,28 +172,6 @@ void NV_API_CALL nv_acpi_methods_init(NvU32 *handlesPresent)
      {
          *handlesPresent = NV_ACPI_NVIF_HANDLE_PRESENT;
+ #if defined(NV_ACPI_BUS_GET_DEVICE_PRESENT)
 -        do
 -        {
 -            if (!nvif_parent_gpu_handle) /* unknown error */
@@ -493,15 +500,15 @@ index b28911d4..110ba3f9 100644
 -                           nodes' structures. So nothing more to be done */
 -            }
 -
--            rmStatus = nv_install_notifier(device, nv_acpi_event);
--            if (rmStatus != RM_OK)
+-            rmStatus = nv_install_notifier(device->handle, nv_acpi_event);
+-            if (rmStatus != NV_OK)
 -                nvif_parent_gpu_handle = NULL;
 -
 -        } while (0);
-     }
  #endif
+     }
  
-@@ -582,7 +177,6 @@ acpi_status nv_acpi_find_methods(
+@@ -608,7 +197,6 @@ acpi_status nv_acpi_find_methods(
      if (!acpi_get_handle(handle, "NVIF", &method_handle))
      {
          nvif_handle = method_handle;
@@ -509,7 +516,7 @@ index b28911d4..110ba3f9 100644
      }
  
      if (!acpi_get_handle(handle, "WMMX", &method_handle))
-@@ -605,27 +199,10 @@ acpi_status nv_acpi_find_methods(
+@@ -631,27 +219,10 @@ acpi_status nv_acpi_find_methods(
  
  void NV_API_CALL nv_acpi_methods_uninit(void)
  {
@@ -536,8 +543,8 @@ index b28911d4..110ba3f9 100644
 -    return;
  }
  
- static RM_STATUS nv_acpi_extract_integer(
-@@ -1487,16 +1064,6 @@ static RM_STATUS  nv_acpi_wmmx_method(
+ static NV_STATUS nv_acpi_extract_integer(
+@@ -1513,16 +1084,6 @@ static NV_STATUS  nv_acpi_wmmx_method(
  
  #else // NV_LINUX_ACPI_EVENTS_SUPPORTED
  
@@ -554,11 +561,11 @@ index b28911d4..110ba3f9 100644
  void NV_API_CALL nv_acpi_methods_init(NvU32 *handlePresent)
  {
      *handlePresent = 0;
-diff --git a/nv.c b/nv.c
-index 19310268..e15be2e9 100644
---- a/nv.c
-+++ b/nv.c
-@@ -1943,7 +1943,6 @@ nvidia_ctl_open(
+diff --git a/nvidia/nv.c b/nvidia/nv.c
+index fb8d0634..0f0c1eb5 100644
+--- a/nvidia/nv.c
++++ b/nvidia/nv.c
+@@ -2624,7 +2624,6 @@ nvidia_ctl_open(
      nv_linux_state_t *nvl = &nv_ctl_device;
      nv_state_t *nv = NV_STATE_PTR(nvl);
      nv_file_private_t *nvfp = NV_GET_FILE_PRIVATE(file);
@@ -566,7 +573,7 @@ index 19310268..e15be2e9 100644
  
      nv_printf(NV_DBG_INFO, "NVRM: nvidia_ctl_open\n");
  
-@@ -1957,13 +1956,6 @@ nvidia_ctl_open(
+@@ -2638,13 +2637,6 @@ nvidia_ctl_open(
          init_waitqueue_head(&nv_ctl_waitqueue);
  
          nv->flags |= (NV_FLAG_OPEN | NV_FLAG_CONTROL);
@@ -580,15 +587,15 @@ index 19310268..e15be2e9 100644
      }
  
      NV_ATOMIC_INC(nvl->usage_count);
-@@ -1987,7 +1979,6 @@ nvidia_ctl_close(
+@@ -2668,7 +2660,6 @@ nvidia_ctl_close(
      nv_state_t *nv = NV_STATE_PTR(nvl);
      nv_file_private_t *nvfp = NV_GET_FILE_PRIVATE(file);
-     nv_stack_t *sp = nvfp->sp;
+     nvidia_stack_t *sp = nvfp->sp;
 -    static int count = 0;
      unsigned int i;
  
      nv_printf(NV_DBG_INFO, "NVRM: nvidia_ctl_close\n");
-@@ -1996,13 +1987,6 @@ nvidia_ctl_close(
+@@ -2685,13 +2676,6 @@ nvidia_ctl_close(
      if (NV_ATOMIC_DEC_AND_TEST(nvl->usage_count))
      {
          nv->flags &= ~NV_FLAG_OPEN;

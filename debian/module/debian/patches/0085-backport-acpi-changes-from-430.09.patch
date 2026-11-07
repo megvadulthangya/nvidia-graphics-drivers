@@ -1,19 +1,19 @@
-From 8e48245b1cb779422d88468330667bd76a16a8df Mon Sep 17 00:00:00 2001
+From 0665096f1c1a35111db727a55ab6aab8dc8625f2 Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Wed, 19 Oct 2022 18:08:31 +0200
 Subject: [PATCH] backport acpi changes from 430.09
 
 ---
- nv-acpi.c | 48 +++---------------------------------------------
+ nvidia/nv-acpi.c | 48 +++---------------------------------------------
  1 file changed, 3 insertions(+), 45 deletions(-)
 
-diff --git a/nv-acpi.c b/nv-acpi.c
-index 24e6717c..b28911d4 100644
---- a/nv-acpi.c
-+++ b/nv-acpi.c
-@@ -39,11 +39,6 @@ static RM_STATUS   nv_acpi_wmmx_method     (NvU32, NvU8 *, NvU16 *);
- static RM_STATUS   nv_acpi_mxmi_method     (NvU8 *, NvU16 *);
- static RM_STATUS   nv_acpi_mxms_method     (NvU8 *, NvU16 *);
+diff --git a/nvidia/nv-acpi.c b/nvidia/nv-acpi.c
+index 5c7ac4a8..ea7f8350 100644
+--- a/nvidia/nv-acpi.c
++++ b/nvidia/nv-acpi.c
+@@ -39,11 +39,6 @@ static NV_STATUS   nv_acpi_wmmx_method     (NvU32, NvU8 *, NvU16 *);
+ static NV_STATUS   nv_acpi_mxmi_method     (NvU8 *, NvU16 *);
+ static NV_STATUS   nv_acpi_mxms_method     (NvU8 *, NvU16 *);
  
 -#if defined(NV_ACPI_DEVICE_OPS_HAS_MATCH)
 -static int         nv_acpi_match           (struct acpi_device *, struct acpi_driver *);
@@ -51,16 +51,16 @@ index 24e6717c..b28911d4 100644
      },
  };
  
-@@ -188,7 +173,7 @@ static int nv_acpi_add(struct acpi_device *device)
+@@ -225,7 +210,7 @@ static int nv_acpi_add(struct acpi_device *device)
      union acpi_object control_argument_0 = { ACPI_TYPE_INTEGER };
      struct acpi_object_list control_argument_list = { 0, NULL };
-     nv_stack_t *sp = NULL;
+     nvidia_stack_t *sp = NULL;
 -    nv_acpi_integer_t device_id = 0;
 +    unsigned long long device_id = 0;
      int device_counter = 0;
      acpi_handle handle = NULL;
  
-@@ -362,7 +347,7 @@ static void nv_acpi_event(acpi_handle handle, u32 event_type, void *data)
+@@ -398,7 +383,7 @@ static void nv_acpi_event(acpi_handle handle, u32 event_type, void *data)
       */
      nv_acpi_t *pNvAcpiObject = data;
      u32 event_val = 0;
@@ -69,7 +69,7 @@ index 24e6717c..b28911d4 100644
      int status = 0;
      int device_counter = 0;
  
-@@ -440,33 +425,6 @@ static void nv_acpi_event(acpi_handle handle, u32 event_type, void *data)
+@@ -476,33 +461,6 @@ static void nv_acpi_event(acpi_handle handle, u32 event_type, void *data)
      // unsubscribe.
  }
  
@@ -101,9 +101,9 @@ index 24e6717c..b28911d4 100644
 -#endif
 -
  /* Do the necessary allocations and install notifier "handler" on the device-node "device" */
- static RM_STATUS nv_install_notifier(struct acpi_device *device, acpi_notify_handler handler)
+ static NV_STATUS nv_install_notifier(struct acpi_handle *handle, acpi_notify_handler handler)
  {        
-@@ -1209,7 +1167,7 @@ RM_STATUS NV_API_CALL nv_acpi_ddc_method(
+@@ -1235,7 +1193,7 @@ NV_STATUS NV_API_CALL nv_acpi_ddc_method(
      union acpi_object *ddc;
      union acpi_object ddc_arg0 = { ACPI_TYPE_INTEGER };
      struct acpi_object_list input = { 1, &ddc_arg0 };
