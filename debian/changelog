@@ -1,4 +1,4 @@
-nvidia-graphics-drivers-legacy-390xx (390.157-17) UNRELEASED; urgency=medium
+nvidia-graphics-drivers-legacy-390xx (390.157-17) unstable; urgency=medium
 
   * Backport acpi changes from 430.09 and 510.85.02 to fix kernel module build
     for Linux 7.3.
