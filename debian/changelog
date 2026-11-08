@@ -2,8 +2,9 @@ nvidia-graphics-drivers (390.157-17) UNRELEASED; urgency=medium
 
   * Backport acpi changes from 430.09 and 510.85.02 to fix kernel module build
     for Linux 7.3.
+  * Backport MODULE_DESCRIPTION changes from 580.159.03.
 
- -- Andreas Beckmann <anbe@debian.org>  Sat, 07 Nov 2026 01:36:51 +0100
+ -- Andreas Beckmann <anbe@debian.org>  Sun, 08 Nov 2026 06:56:42 +0100
 
 nvidia-graphics-drivers (390.157-16) UNRELEASED; urgency=medium
 
