@@ -1,18 +1,18 @@
-From 6e3a9310848d62e80536af98d72f75757366bec0 Mon Sep 17 00:00:00 2001
+From b829ba3ff4c0b43f711fee37fbefef0c6d7f815d Mon Sep 17 00:00:00 2001
 From: Andreas Beckmann <anbe@debian.org>
 Date: Mon, 7 Sep 2026 22:44:04 +0200
 Subject: [PATCH] backport drm_atomic_commit_struct_present changes from
  580.173.02
 
 ---
- conftest.sh                     | 26 ++++++++++
- nvidia-drm/nvidia-drm-crtc.c    | 12 ++---
- nvidia-drm/nvidia-drm-helper.c  |  9 ++--
- nvidia-drm/nvidia-drm-helper.h  | 86 +++++++++++++++++++++++++++++++++
- nvidia-drm/nvidia-drm-modeset.c | 26 +++++-----
- nvidia-drm/nvidia-drm-modeset.h | 13 ++---
- nvidia-drm/nvidia-drm.Kbuild    |  1 +
- 7 files changed, 145 insertions(+), 28 deletions(-)
+ conftest.sh                       | 26 ++++++++++
+ nvidia-drm/nvidia-drm-crtc.c      | 12 ++---
+ nvidia-drm/nvidia-drm-helper.c    | 11 +++--
+ nvidia-drm/nvidia-drm-helper.h    | 86 +++++++++++++++++++++++++++++++++
+ nvidia-drm/nvidia-drm-modeset.c   | 26 +++++-----
+ nvidia-drm/nvidia-drm-modeset.h   | 13 ++---
+ nvidia-drm/nvidia-drm.Kbuild      |  1 +
+ 7 files changed, 146 insertions(+), 29 deletions(-)
 
 diff --git a/conftest.sh b/conftest.sh
 index 868f7984..0908560a 100755
@@ -114,9 +114,18 @@ index 60031495..71e51685 100644
          drm_atomic_get_new_crtc_state(state, crtc);
  #endif
 diff --git a/nvidia-drm/nvidia-drm-helper.c b/nvidia-drm/nvidia-drm-helper.c
-index 47291c3a..4035d44a 100644
+index 47291c3a..d8f5f86f 100644
 --- a/nvidia-drm/nvidia-drm-helper.c
 +++ b/nvidia-drm/nvidia-drm-helper.c
+@@ -73,7 +73,7 @@ static void __nv_drm_framebuffer_put(struct drm_framebuffer *fb)
+  * nv_drm_for_each_crtc instead of drm_for_each_crtc to loop over all crtcs,
+  * use nv_drm_for_each_new_*_in_state instead of for_each_connector_in_state to loop
+  * over all modeset object states, and use drm_atomic_state_free() if
+- * drm_atomic_state_put() is not available.
++ * nv_drm_atomic_state_base_put() is not available.
+  *
+  * drm_atomic_helper_disable_all() is copied from
+  *     linux/drivers/gpu/drm/drm_atomic_helper.c @
 @@ -108,7 +108,7 @@ static void __nv_drm_framebuffer_put(struct drm_framebuffer *fb)
  int nv_drm_atomic_helper_disable_all(struct drm_device *dev,
                                       struct drm_modeset_acquire_ctx *ctx)

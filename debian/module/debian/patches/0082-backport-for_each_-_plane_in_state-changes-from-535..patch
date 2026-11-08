@@ -4,8 +4,8 @@ Date: Sat, 12 Sep 2026 03:31:36 +0200
 Subject: [PATCH] backport for_each_*_plane_in_state changes from 535.309.01
 
 ---
- nvidia-drm/nvidia-drm-helper.c |  2 +-
- nvidia-drm/nvidia-drm-helper.h | 16 ++++++++++++++++
+ nvidia-drm/nvidia-drm-helper.c  |  2 +-
+ nvidia-drm/nvidia-drm-helper.h  | 16 ++++++++++++++++
  2 files changed, 17 insertions(+), 1 deletion(-)
 
 diff --git a/nvidia-drm/nvidia-drm-helper.c b/nvidia-drm/nvidia-drm-helper.c
