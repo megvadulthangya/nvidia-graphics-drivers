@@ -68,6 +68,8 @@ buildfix_kernel_5.2.patch
 0077-backport-vma_flags_set_word-changes-from-580.126.09.patch
 #HAS_UVM#0078-backport-vma_flags_set_word-changes-from-580.126.09-.patch
 0084-backport-is_vma_write_locked_has_mm_lock_seq_arg-cha.patch
+0085-backport-acpi-changes-from-430.09.patch
+0086-backport-acpi-changes-from-510.85.02.patch
 0090-backport-MODULE_DESCRIPTION-changes-from-580.159.03.patch
 #HAS_UVM#0091-backport-MODULE_DESCRIPTION-changes-from-580.159.03-.patch
 
