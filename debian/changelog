@@ -1,3 +1,10 @@
+nvidia-graphics-drivers-legacy-340xx (340.108-29) unstable; urgency=medium
+
+  * Backport acpi changes from 430.09 and 510.85.02 to fix kernel module build
+    for Linux 7.3.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 09 Nov 2026 23:38:39 +0100
+
 nvidia-graphics-drivers-legacy-340xx (340.108-28) unstable; urgency=medium
 
   * Backport is_vma_write_locked_has_mm_lock_seq_arg changes from 580.142 and
