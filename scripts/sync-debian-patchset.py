@@ -41,10 +41,31 @@ def run_git(repo: Path, *args: str, check: bool = True) -> subprocess.CompletedP
         stderr=subprocess.PIPE,
     )
     if check and result.returncode != 0:
+        # Some Git diagnostics (notably `git diff --check`) are written to
+        # stdout rather than stderr. Preserve both streams so failures remain
+        # diagnosable in GitHub Actions logs.
+        details = "\n".join(
+            stream.strip()
+            for stream in (result.stdout, result.stderr)
+            if stream and stream.strip()
+        )
+        suffix = f":\n{details}" if details else " (no diagnostic output)"
         raise RuntimeError(
-            f"git {' '.join(args)} failed ({result.returncode}):\n{result.stderr.strip()}"
+            f"git {' '.join(args)} failed ({result.returncode}){suffix}"
         )
     return result
+
+
+def check_staged_metadata(repo: Path) -> None:
+    """Reject whitespace errors in generated metadata, not mirrored patches.
+
+    Debian patch files are copied byte-for-byte. Their contents can include
+    trailing whitespace inherited from upstream, which is not ours to rewrite.
+    """
+    run_git(
+        repo,
+        "diff", "--cached", "--check", "--", "PKGBUILD", PATCH_SERIES_TARGET,
+    )
 
 
 def git_bytes(repo: Path, *args: str) -> bytes:
@@ -287,7 +308,8 @@ def sync_pair(repo: Path, source_branch: str, target_branch: str, dry_run: bool)
                 return
 
             run_git(worktree, "add", "--all")
-            run_git(worktree, "diff", "--cached", "--check")
+            # Check generated metadata only; preserve Debian patch payloads verbatim.
+            check_staged_metadata(worktree)
             run_git(
                 worktree,
                 "-c", "user.name=github-actions[bot]",

@@ -35,7 +35,7 @@ From a full clone with access to all four production branches:
 python3 scripts/sync-debian-patchset.py --dry-run
 ```
 
-Run the regression tests for the checksum-array behavior:
+Run the regression tests for checksum-array generation and staged whitespace validation:
 
 ```bash
 python3 -m unittest discover -s tests -v
