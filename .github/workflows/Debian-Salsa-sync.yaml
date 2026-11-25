@@ -48,7 +48,7 @@ jobs:
           else
             git checkout -B 340xx/main salsa/340xx/main
           fi
-          git merge salsa/340xx/main --no-edit || true
+          git merge salsa/340xx/main --no-edit
           git push origin 340xx/main
 
       - name: Sync 390xx/main branch (create if missing)
@@ -58,5 +58,5 @@ jobs:
           else
             git checkout -B 390xx/main salsa/390xx/main
           fi
-          git merge salsa/390xx/main --no-edit || true
+          git merge salsa/390xx/main --no-edit
           git push origin 390xx/main
