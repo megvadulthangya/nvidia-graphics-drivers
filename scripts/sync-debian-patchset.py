@@ -136,8 +136,8 @@ def update_pkgbuild(pkgbuild_text: str, patches: list[str]) -> str:
     patch_array = f"_debian_patches=(\n{patch_lines}\n)"
     updated = replace_array_block(pkgbuild_text, "_debian_patches", patch_array)
 
-    # PKGBUILD source order is authoritative for checksum indexing. The patch
-    # array is expanded once at the end of source=(...).
+    # The PKGBUILD source array defines the number of checksum entries. The
+    # Debian patch array is expanded exactly once within source=(...).
     _source_match, source_body = get_array_body(updated, "source")
     source_items = shell_array_tokens(source_body, "source array")
     expansion = "${_debian_patches[@]}"
@@ -146,34 +146,33 @@ def update_pkgbuild(pkgbuild_text: str, patches: list[str]) -> str:
             "PKGBUILD source array must contain exactly one "
             '"${_debian_patches[@]}" expansion'
         )
-    expansion_index = source_items.index(expansion)
-    static_sources = source_items[:expansion_index]
-    series_indices = [i for i, item in enumerate(static_sources) if item == PATCH_SERIES_TARGET]
-    if len(series_indices) != 1:
+    # Count every literal source entry, regardless of where the patch-array
+    # expansion appears. The expansion itself contributes len(patches) URLs.
+    static_sources = [item for item in source_items if item != expansion]
+    if static_sources.count(PATCH_SERIES_TARGET) != 1:
         raise RuntimeError(
             f"PKGBUILD source array must contain {PATCH_SERIES_TARGET!r} exactly once"
         )
 
-    _sums_match, sums_body = get_array_body(updated, "sha256sums")
-    sums = shell_array_tokens(sums_body, "sha256sums array")
     expected_count = len(static_sources) + len(patches)
-    if len(sums) != expected_count:
-        raise RuntimeError(
-            "PKGBUILD source/checksum count mismatch: "
-            f"{len(static_sources)} static sources + {len(patches)} patches "
-            f"= {expected_count} sources, but sha256sums contains {len(sums)} entries"
-        )
 
-    # The generated series file and Debian-managed patch payloads change as
-    # Debian changes. Keep checksums for all configuration/helper files intact.
-    sums[series_indices[0]] = "SKIP"
-    for index in range(len(static_sources), expected_count):
-        sums[index] = "SKIP"
-
+    # This package intentionally opts out of checksum validation for EVERY
+    # source. Rebuild the array from scratch instead of editing/validating the
+    # old array: it may contain stale hashes and even the wrong number of
+    # entries after Debian adds, removes, or reorders patches.
     sums_block = "sha256sums=(\n" + "\n".join(
-        f"            '{value}'" for value in sums
-    ) + ")"
+        "            'SKIP'" for _ in range(expected_count)
+    ) + "\n)"
     updated = replace_array_block(updated, "sha256sums", sums_block)
+
+    # Verify the generated PKGBUILD invariant before allowing any branch update.
+    _generated_match, generated_body = get_array_body(updated, "sha256sums")
+    generated_sums = shell_array_tokens(generated_body, "regenerated sha256sums array")
+    if generated_sums != ["SKIP"] * expected_count:
+        raise RuntimeError(
+            "Internal error: regenerated sha256sums must contain exactly "
+            f"{expected_count} SKIP entries; got {len(generated_sums)} entries"
+        )
 
     # Keep the explanatory count current if the existing header has one.
     updated = re.sub(
@@ -184,7 +183,7 @@ def update_pkgbuild(pkgbuild_text: str, patches: list[str]) -> str:
     )
     updated = re.sub(
         r"(?m)^# Hash-ek:.*$",
-        "# A series.resolved és a Debian patch-ek checksumja SKIP; a többi forrás hash-e változatlan.",
+        "# Minden source elem checksumja SKIP; az elemszám automatikusan a source tömbhöz igazodik.",
         updated,
         count=1,
     )
