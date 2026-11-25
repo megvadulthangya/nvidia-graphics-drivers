@@ -1,0 +1,49 @@
+name: Sync Debian patchsets into Manjaro branches
+
+on:
+  workflow_run:
+    workflows:
+      - Sync 340xx/main and 390xx/main from Salsa Debian
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Show planned changes without committing or pushing
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync-patchsets:
+    if: >-
+      ${{
+        github.event_name == 'workflow_dispatch' ||
+        github.event.workflow_run.conclusion == 'success'
+      }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: 340xx/main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Synchronize Debian patchsets
+        env:
+          MANUAL_DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
+        run: |
+          if [[ "$MANUAL_DRY_RUN" == "true" ]]; then
+            python3 scripts/sync-debian-patchset.py --dry-run
+          else
+            python3 scripts/sync-debian-patchset.py
+          fi
